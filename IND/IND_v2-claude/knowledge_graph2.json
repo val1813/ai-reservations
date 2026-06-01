@@ -1,0 +1,141 @@
+{
+  "version": "v1-Lorentz-invariant-discreteness",
+  "closed_edges": [
+    {
+      "id": "E1",
+      "from": "Lorentz scalar simple pole",
+      "to": "MDR-type positive-power time-of-flight",
+      "status": "blocked",
+      "basis": "K17R,K18R"
+    },
+    {
+      "id": "E2",
+      "from": "causal set scalar branch discontinuity",
+      "to": "positive spectral tail probability",
+      "status": "blocked",
+      "basis": "K21R,K28"
+    },
+    {
+      "id": "E3",
+      "from": "DHS link-propagator single-event fluctuations",
+      "to": "observable loss of distant-source coherence",
+      "status": "blocked in DHS model",
+      "basis": "K25,K27"
+    },
+    {
+      "id": "E4",
+      "from": "DHS two-output covariance",
+      "to": "observable second-order common-sprinkling noise",
+      "status": "bounded small in DHS model",
+      "basis": "K27",
+      "note": "|Cov(F_i,F_j)|/(|E F_i E F_j|) <= sqrt(B_i B_j); AGN-scale example gives <= 1e-24 when single-event relative fluctuation is 1e-12."
+    }
+  ],
+  "open_edges": [
+    {
+      "id": "O1",
+      "from": "specific branch residual with source/detector functional",
+      "to": "model-dependent observable signal",
+      "status": "open",
+      "basis": "K28"
+    },
+    {
+      "id": "O2",
+      "from": "finite observation family",
+      "to": "local identifiability of causal-set-specific parameters",
+      "status": "cross-version-hanging",
+      "basis": "C8R"
+    },
+    {
+      "id": "O3",
+      "from": "complete causal set dynamics / shared micro map Phi",
+      "to": "cross-messenger structural locking",
+      "status": "cross-version-hanging",
+      "basis": "C11R"
+    },
+    {
+      "id": "O4",
+      "from": "DHS multi-event high cumulants",
+      "to": "nonGaussian overlap signature",
+      "status": "technical supplement",
+      "basis": "K27"
+    },
+    {
+      "id": "O5",
+      "from": "local causal set d'Alembertian",
+      "to": "observable propagation residual outside BBL/ASS nonlocal kernel",
+      "status": "external-dynamic candidate",
+      "basis": "external:E1"
+    },
+    {
+      "id": "O6",
+      "from": "causal set in-in correlators / scattering amplitudes",
+      "to": "interaction or correlation observable beyond free propagation",
+      "status": "external-dynamic candidate",
+      "basis": "external:E3"
+    },
+    {
+      "id": "O7",
+      "from": "emerging continuum / coarse graining dynamics",
+      "to": "fixed mesoscopic scale or response kernel",
+      "status": "external-dynamic candidate",
+      "basis": "external:E4"
+    }
+  ],
+  "orphans": [
+    "curvature/gravity-sector observables",
+    "interactions beyond free scalar/particle propagation",
+    "full causal set dynamics and measure",
+    "non-propagation observables"
+  ],
+  "inter_project_candidates": [
+    {
+      "id": "I1",
+      "topic": "identifiability of stochastic kernels and hidden Markov models",
+      "reason": "C8R needs model-family identifiability rather than broad no-go"
+    },
+    {
+      "id": "I2",
+      "topic": "nonlocal EFT branch cuts and detector response",
+      "reason": "K28 leaves model-dependent branch residuals open"
+    },
+    {
+      "id": "I3",
+      "topic": "multi-messenger correlated noise statistics",
+      "reason": "DHS high cumulants remain a technical supplement"
+    },
+    {
+      "id": "I4",
+      "topic": "causal set continuum emergence and coarse graining",
+      "reason": "K26 identifies missing mesoscopic averaging / response-kernel input"
+    },
+    {
+      "id": "I5",
+      "topic": "causal set in-in correlators and scattering observables",
+      "reason": "K26 does not cover interaction/correlation observables beyond free propagation"
+    }
+  ],
+  "version_status": {
+    "closeout_allowed_by_auditor": true,
+    "closeout_mode": "limited_positioning_with_cross_version_hanging_questions",
+    "not_a_global_no_go": true,
+    "main_positioning": "In the explored free-propagation channels, Lorentz-invariant discreteness / Poisson sprinkling / Lorentz-scalar kernels do not by themselves yield a model-independent low-energy observable fingerprint; residual predictions require additional spectral weights, response kernels, coarse graining, or source/detector modeling.",
+    "audit_repairs": [
+      {
+        "phase": "Phase 21",
+        "result": "DHS two-output covariance bounded by single-output variances.",
+        "basis": "K27"
+      },
+      {
+        "phase": "Phase 22",
+        "result": "BBL/ASS branch results bounded to positive-spectral-tail and no-model prediction claims; arrival-statistic residuals remain model-dependent candidates.",
+        "basis": "K28"
+      },
+      {
+        "phase": "Phase 23",
+        "result": "C8R and C11R moved to cross-version hanging questions, not falsely closed.",
+        "basis": "synthesis/F-v1-1,F-v1-2"
+      }
+    ]
+  }
+}

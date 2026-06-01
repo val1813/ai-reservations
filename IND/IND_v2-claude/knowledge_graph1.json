@@ -1,0 +1,643 @@
+{
+  "project": "SCHWARZ",
+  "generated": "2026-05-29",
+  "nodes": [
+    {
+      "id": "SCHWARZ-v1-K1",
+      "project": "SCHWARZ",
+      "version": "v1",
+      "local_id": "K1",
+      "label": "Schwarz条件产生唯一J",
+      "status": "confirmed",
+      "level": "L1",
+      "observable": "O4",
+      "phase": 1,
+      "tags": [
+        "Schwarz",
+        "uniqueness",
+        "complex-structure",
+        "Segal"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v1-K7",
+      "project": "SCHWARZ",
+      "version": "v1",
+      "local_id": "K7",
+      "label": "Schwarz条件唯一性定理：H²(S)上[Θ,T(t)]=0的conjugation产生同一J=A|A|⁻¹",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 3,
+      "tags": [
+        "Schwarz",
+        "uniqueness",
+        "Ferreira",
+        "conjugation",
+        "Hardy-space"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v1-K11",
+      "project": "SCHWARZ",
+      "version": "v1",
+      "local_id": "K11",
+      "label": "完整唯一性定理：J唯一+Fock唯一+物理等价+Killing视界有效",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 5,
+      "tags": [
+        "Schwarz",
+        "Fock",
+        "uniqueness",
+        "Killing-horizon"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v1-K14",
+      "project": "SCHWARZ",
+      "version": "v1",
+      "local_id": "K14",
+      "label": "Thm4无穷维推广：J=i·sgn(B)，0∉σ(A)⟺谱隙",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 7,
+      "tags": [
+        "functional-calculus",
+        "spectral-gap",
+        "infinite-dim"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v1-K17",
+      "project": "SCHWARZ",
+      "version": "v1",
+      "local_id": "K17",
+      "label": "eikonal vs κ_eff：τ₁/τ₀差4.3%，ET可区分",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O2",
+      "phase": 9,
+      "tags": [
+        "QNM",
+        "eikonal",
+        "ET",
+        "observational"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v2-K7",
+      "project": "SCHWARZ",
+      "version": "v2",
+      "local_id": "K7",
+      "label": "Hilbert空间依赖κ但J=乘子i·sgn(ω)在所有fiber上一致",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 3,
+      "tags": [
+        "Hilbert-space",
+        "fiber",
+        "Paley-Wiener",
+        "area-discrete"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v2-K8",
+      "project": "SCHWARZ",
+      "version": "v2",
+      "local_id": "K8",
+      "label": "模式密度修正δT/T=α₂/N，0.746≤α₂≤2.24",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O3",
+      "phase": 3,
+      "tags": [
+        "mode-density",
+        "Hawking-temperature",
+        "LQG",
+        "area-quantization"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v2-K10",
+      "project": "SCHWARZ",
+      "version": "v2",
+      "local_id": "K10",
+      "label": "Polymer vs 面积量子化区分：polymer破坏CCR→KMS失效；面积量子化保持CCR→模式密度修正",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 3,
+      "tags": [
+        "polymer",
+        "CCR",
+        "KMS",
+        "area-quantization"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v3-K1",
+      "project": "SCHWARZ",
+      "version": "v3",
+      "local_id": "K1",
+      "label": "N-T定理：Weyl代数上Bogoliubov型*-自同构群quasi-free KMS态存在唯一",
+      "status": "confirmed",
+      "level": "L1",
+      "observable": "O4",
+      "phase": 1,
+      "tags": [
+        "Narnhofer-Thirring",
+        "KMS",
+        "Weyl-algebra",
+        "Bogoliubov"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v3-K3",
+      "project": "SCHWARZ",
+      "version": "v3",
+      "local_id": "K3",
+      "label": "Direct integral上KMS态数学存在，物理混合态不是KMS",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 3,
+      "tags": [
+        "direct-integral",
+        "KMS",
+        "mixed-state"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v3-K4",
+      "project": "SCHWARZ",
+      "version": "v3",
+      "local_id": "K4",
+      "label": "ε-KMS距离公式：|ω^{mix}-ω_{β̄}|≤C(f)·(Δβ/β̄)²，ε~O(1/N)",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O3",
+      "phase": 2,
+      "tags": [
+        "epsilon-KMS",
+        "distance",
+        "Weyl",
+        "area-fluctuation",
+        "1/N"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v4-K1",
+      "project": "SCHWARZ",
+      "version": "v4",
+      "local_id": "K1",
+      "label": "有限维混合Gibbs态迹距离以(Δβ/β̄)²收敛，α=2",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "finite-dim",
+        "Gibbs",
+        "trace-distance",
+        "alpha-2"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v4-K2",
+      "project": "SCHWARZ",
+      "version": "v4",
+      "local_id": "K2",
+      "label": "α=2源于Jensen效应，与代数维数/KMS无关",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "Jensen",
+        "universality",
+        "convex-combination"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v4-K3",
+      "project": "SCHWARZ",
+      "version": "v4",
+      "local_id": "K3",
+      "label": "2×2显式系数ε₀²|n(1-n)(1-2n)|",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "qubit",
+        "explicit-coefficient",
+        "Fermi"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v5-K1",
+      "project": "SCHWARZ",
+      "version": "v5",
+      "local_id": "K1",
+      "label": "α=2在任何有限尺寸系统中不崩溃（整函数→Jensen）",
+      "status": "confirmed",
+      "level": "L1",
+      "observable": "O5",
+      "phase": 1,
+      "tags": [
+        "finite-size",
+        "analytic",
+        "Jensen",
+        "no-collapse"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v5-K2",
+      "project": "SCHWARZ",
+      "version": "v5",
+      "local_id": "K2",
+      "label": "系数C(β_c,L)~L^{2/ν}——临界物理在系数中",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "critical",
+        "finite-size-scaling",
+        "coefficient",
+        "2/nu"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v5-K3",
+      "project": "SCHWARZ",
+      "version": "v5",
+      "local_id": "K3",
+      "label": "C~L^{2/ν}与保真度易感性χ_F一致（独立导出相同标度）",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "fidelity-susceptibility",
+        "Zanardi",
+        "mutual-confirmation"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v5-K5",
+      "project": "SCHWARZ",
+      "version": "v5",
+      "local_id": "K5",
+      "label": "Δ_c=1/ν（标度窗口，从Jensen独立导出）",
+      "status": "confirmed",
+      "level": "L1",
+      "observable": "O3",
+      "phase": 1,
+      "tags": [
+        "scaling-window",
+        "correlation-length",
+        "Fisher-1971"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v6-K1",
+      "project": "SCHWARZ",
+      "version": "v6",
+      "local_id": "K1",
+      "label": "一般参数方向Jensen系数C_λ=β²/4·⟨|[O_λ-⟨O_λ⟩]²-Var(O_λ)|⟩",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "Jensen",
+        "conjugate-operator",
+        "general-parameter",
+        "trace-distance"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v6-K2",
+      "project": "SCHWARZ",
+      "version": "v6",
+      "local_id": "K2",
+      "label": "C_λ~L^{2/ν_λ}在各向异性临界点成立",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "anisotropic",
+        "critical",
+        "finite-size-scaling",
+        "direction-dependent"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v6-K3",
+      "project": "SCHWARZ",
+      "version": "v6",
+      "local_id": "K3",
+      "label": "C/χ_F=⟨|Y-1|⟩/4≈0.200+O(L^{-a})",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "ratio",
+        "fidelity-susceptibility",
+        "Gaussian",
+        "universal-constant"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v6-K4",
+      "project": "SCHWARZ",
+      "version": "v6",
+      "local_id": "K4",
+      "label": "CLT在有限尺寸临界点仍成立，κ₄~L^{-a}→0",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O3",
+      "phase": 1,
+      "tags": [
+        "CLT",
+        "kurtosis",
+        "critical",
+        "finite-size"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v7-K1",
+      "project": "SCHWARZ",
+      "version": "v7",
+      "local_id": "K1",
+      "label": "d>d_c: C_h~L^{d/2} (Q-FSS)",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "Q-FSS",
+        "upper-critical",
+        "zero-mode"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v7-K2",
+      "project": "SCHWARZ",
+      "version": "v7",
+      "local_id": "K2",
+      "label": "C_h/chi_F=0.2117 (quartic, N=1)",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 1,
+      "tags": [
+        "universal-ratio",
+        "quartic",
+        "Ising"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v7-K5",
+      "project": "SCHWARZ",
+      "version": "v7",
+      "local_id": "K5",
+      "label": "d=4 ratio=0.2117 same as d>4",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 2,
+      "tags": [
+        "marginal",
+        "d=4",
+        "running-coupling"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v7-K7",
+      "project": "SCHWARZ",
+      "version": "v7",
+      "local_id": "K7",
+      "label": "U4=0.2705 (d>=4,N=1)",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O1",
+      "phase": 2,
+      "tags": [
+        "Binder",
+        "quartic"
+      ]
+    },
+    {
+      "id": "SCHWARZ-v7-K8",
+      "project": "SCHWARZ",
+      "version": "v7",
+      "local_id": "K8",
+      "label": "r-direction C_r/chi_F also universal constant",
+      "status": "confirmed",
+      "level": "L2",
+      "observable": "O3",
+      "phase": 3,
+      "tags": [
+        "temperature-direction",
+        "zero-mode-dominance"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "SCHWARZ-v1-K7",
+      "to": "SCHWARZ-v1-K1",
+      "type": "extends"
+    },
+    {
+      "from": "SCHWARZ-v1-K11",
+      "to": "SCHWARZ-v1-K7",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v1-K14",
+      "to": "SCHWARZ-v1-K7",
+      "type": "extends"
+    },
+    {
+      "from": "SCHWARZ-v2-K7",
+      "to": "SCHWARZ-v1-K14",
+      "type": "extends"
+    },
+    {
+      "from": "SCHWARZ-v2-K8",
+      "to": "SCHWARZ-v2-K7",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v3-K3",
+      "to": "SCHWARZ-v3-K1",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v3-K4",
+      "to": "SCHWARZ-v3-K3",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v3-K4",
+      "to": "SCHWARZ-v2-K8",
+      "type": "supports",
+      "note": "mutual confirmation: 两种独立方法给出1/N"
+    },
+    {
+      "from": "SCHWARZ-v4-K1",
+      "to": "SCHWARZ-v3-K4",
+      "type": "extends",
+      "note": "有限维验证无穷维结论"
+    },
+    {
+      "from": "SCHWARZ-v4-K2",
+      "to": "SCHWARZ-v4-K1",
+      "type": "supports",
+      "note": "识别Jensen为根本原因"
+    },
+    {
+      "from": "SCHWARZ-v5-K1",
+      "to": "SCHWARZ-v4-K2",
+      "type": "extends",
+      "note": "有限尺寸→整函数→Jensen永远成立"
+    },
+    {
+      "from": "SCHWARZ-v5-K2",
+      "to": "SCHWARZ-v5-K1",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v5-K3",
+      "to": "SCHWARZ-v5-K2",
+      "type": "supports",
+      "note": "与Zanardi(2006)χ_F标度一致"
+    },
+    {
+      "from": "SCHWARZ-v5-K5",
+      "to": "SCHWARZ-v5-K2",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v6-K1",
+      "to": "SCHWARZ-v5-K2",
+      "type": "extends",
+      "note": "从β方向推广到一般λ方向"
+    },
+    {
+      "from": "SCHWARZ-v6-K2",
+      "to": "SCHWARZ-v6-K1",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v6-K2",
+      "to": "SCHWARZ-v5-K2",
+      "type": "extends",
+      "note": "各向同性→各向异性"
+    },
+    {
+      "from": "SCHWARZ-v6-K3",
+      "to": "SCHWARZ-v6-K1",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v6-K3",
+      "to": "SCHWARZ-v5-K3",
+      "type": "extends",
+      "note": "一致性从各向同性推广到各向异性+给出比值公式"
+    },
+    {
+      "from": "SCHWARZ-v6-K4",
+      "to": "SCHWARZ-v6-K3",
+      "type": "supports",
+      "note": "CLT成立保证0.200预测有效"
+    },
+    {
+      "from": "SCHWARZ-v7-K1",
+      "to": "SCHWARZ-v6-K2",
+      "type": "extends",
+      "note": "d<d_c L^{2/nu} -> d>d_c L^{d/2}"
+    },
+    {
+      "from": "SCHWARZ-v7-K2",
+      "to": "SCHWARZ-v7-K1",
+      "type": "depends"
+    },
+    {
+      "from": "SCHWARZ-v7-K5",
+      "to": "SCHWARZ-v7-K2",
+      "type": "extends",
+      "note": "d=4 boundary verification"
+    },
+    {
+      "from": "SCHWARZ-v7-K7",
+      "to": "SCHWARZ-v7-K2",
+      "type": "supports"
+    },
+    {
+      "from": "SCHWARZ-v7-K8",
+      "to": "SCHWARZ-v7-K1",
+      "type": "extends",
+      "note": "h->r direction"
+    }
+  ],
+  "orphans": [
+    "SCHWARZ-v1-K17",
+    "SCHWARZ-v2-K10"
+  ],
+  "hubs": [
+    "SCHWARZ-v1-K7",
+    "SCHWARZ-v3-K4",
+    "SCHWARZ-v4-K2",
+    "SCHWARZ-v5-K2",
+    "SCHWARZ-v7-K2"
+  ],
+  "open_edges": [
+    {
+      "from": "SCHWARZ-v6-K2",
+      "missing": "numerical-verification",
+      "note": "C_λ~L^{2/ν_λ}待精确对角化数值确认"
+    },
+    {
+      "from": "SCHWARZ-v6-K3",
+      "missing": "non-Gaussian-regime",
+      "note": "多临界点处O_λ非Gaussian时⟨|Y-1|⟩偏离√(2/π)的精确量化"
+    },
+    {
+      "from": "SCHWARZ-v7-K2",
+      "missing": "O(N>1)",
+      "note": "N=1 only, O(N) values needed"
+    },
+    {
+      "from": "SCHWARZ-v7-K2",
+      "missing": "d<4-WF-value",
+      "note": "v8北极星：d<4 WF不动点处f(ε,N)的精确值，Phase 1初步结论c₁=0"
+    }
+  ],
+  "inter_project_candidates": [],
+  "v8_progress": {
+    "version": "v8-WF-ratio",
+    "phase": 1,
+    "status": "in_progress",
+    "north_star": "d<4 Wilson-Fisher不动点处 C_h/χ_F 精确值 f(ε,N)",
+    "preliminary_results": [
+      {
+        "id": "SCHWARZ-v8-K1-draft",
+        "label": "f(ε,N)的O(ε)项为零（rescaling invariance of Y distribution）",
+        "status": "pending_verification",
+        "level": "L2",
+        "phase": 1,
+        "tags": ["epsilon-expansion", "rescaling-invariance", "quartic-distribution", "WF-fixed-point"]
+      }
+    ]
+  }
+}

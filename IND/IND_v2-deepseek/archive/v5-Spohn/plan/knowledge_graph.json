@@ -1,0 +1,120 @@
+{
+  "project": "Jensen-thermo",
+  "version": "v4-deepseek",
+  "generated": "2026-05-29",
+  "nodes": [
+    {
+      "id": "JENSEN-v4-K1",
+      "project": "Jensen-thermo",
+      "version": "v4",
+      "local_id": "K1",
+      "label": "tr(ρ̇_S δH) degeneracy theorem: H*∝I → tr(ρ̇_S δH)=d⟨H_S⟩/dt ≠ dQ_S/dt(=0)",
+      "status": "verified",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 1,
+      "tags": ["entropy-production", "gauge-artifact", "Class-I", "HMF"]
+    },
+    {
+      "id": "JENSEN-v4-K2",
+      "project": "Jensen-thermo",
+      "version": "v4",
+      "local_id": "K2",
+      "label": "Rivas Intrinsic HMF triviality in Class I: H†∝I when H*∝I",
+      "status": "verified",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 1,
+      "tags": ["Rivas-2025", "HMF", "Class-I", "gauge-fixing"]
+    },
+    {
+      "id": "JENSEN-v4-K3",
+      "project": "Jensen-thermo",
+      "version": "v4",
+      "local_id": "K3",
+      "label": "Three-layer gauge independence: (a)HMF shift / (b)generator decomp / (c)entropy interpretation — logically independent",
+      "status": "verified",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 1,
+      "tags": ["gauge-classification", "HMF", "Colla-Breuer", "entropy-production"]
+    },
+    {
+      "id": "JENSEN-v4-K4",
+      "project": "Jensen-thermo",
+      "version": "v4",
+      "local_id": "K4",
+      "label": "tr(ρ̇_S δH) downgrade: has numerical value but no thermodynamic content in Class I → gauge artifact",
+      "status": "argument",
+      "level": "L2",
+      "observable": "O5",
+      "phase": 1,
+      "tags": ["gauge-artifact", "entropy-production", "downgrade", "Class-I"]
+    },
+    {
+      "id": "JENSEN-v4-K5",
+      "project": "Jensen-thermo",
+      "version": "v4",
+      "local_id": "K5",
+      "label": "Σ_S^{(gauge)} = dS/dt − β·Tr[ρ̇_S H*] = −d/dt S(ρ_S||ρ_S^eq) — gauge-invariant entropy production",
+      "status": "verified",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 2,
+      "tags": ["entropy-production", "gauge-invariant", "Spohn-1978", "relative-entropy", "Class-I"]
+    },
+    {
+      "id": "JENSEN-v4-K6",
+      "project": "Jensen-thermo",
+      "version": "v4",
+      "local_id": "K6",
+      "label": "Class II/III generalization: Σ_rel formula valid for general H* — [H*,H_S]≠0 produces non-trivial frequency renormalization",
+      "status": "argument",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 5,
+      "tags": ["Class-II", "Class-III", "transmon", "HMF", "generalization"]
+    }
+  ],
+  "edges": [
+    {"from": "JENSEN-v4-K1", "to": "JENSEN-v3-K10", "type": "depends"},
+    {"from": "JENSEN-v4-K1", "to": "JENSEN-v3-K12", "type": "depends"},
+    {"from": "JENSEN-v4-K2", "to": "JENSEN-v4-K1", "type": "depends"},
+    {"from": "JENSEN-v4-K3", "to": "JENSEN-v4-K1", "type": "depends"},
+    {"from": "JENSEN-v4-K3", "to": "JENSEN-v4-K2", "type": "depends"},
+    {"from": "JENSEN-v4-K4", "to": "JENSEN-v4-K1", "type": "depends"},
+    {"from": "JENSEN-v4-K5", "to": "JENSEN-v4-K1", "type": "supports"},
+    {"from": "JENSEN-v4-K5", "to": "JENSEN-v4-K4", "type": "supports"},
+    {"from": "JENSEN-v4-K6", "to": "JENSEN-v4-K5", "type": "extends"},
+    {"from": "JENSEN-v4-K6", "to": "JENSEN-v3-K14", "type": "depends"},
+    {"from": "JENSEN-v3-K10", "to": "JENSEN-v1-K13", "type": "conflicts"},
+    {"from": "JENSEN-v3-K11", "to": "JENSEN-v1-K13", "type": "conflicts"},
+    {"from": "JENSEN-v3-K12", "to": "JENSEN-v1-K24", "type": "supports"},
+    {"from": "JENSEN-v3-K13", "to": "JENSEN-v1-K24", "type": "extends"},
+    {"from": "JENSEN-v3-K14", "to": "JENSEN-v3-K10", "type": "extends"},
+    {"from": "JENSEN-v2-K7", "to": "JENSEN-v3-K12", "type": "supports"}
+  ],
+  "orphans": [],
+  "hubs": ["JENSEN-v4-K5", "JENSEN-v4-K1", "JENSEN-v3-K10"],
+  "open_edges": [
+    {
+      "node": "JENSEN-v4-K5",
+      "issue": "F3(v4): assumes initial system-bath factorization ρ(0)=ρ_S⊗ρ_B. Strong coupling → initial correlations may violate dS/dt = dS_total/dt, undermining Σ_rel foundation."
+    },
+    {
+      "node": "JENSEN-v4-K6",
+      "issue": "Class II/III Σ_rel numerical validation pending. Transmon estimate ||[H*,H_S]||/ω₀ ~ 0.01-0.03 at α=0.3 needs ED or exact diagonalization confirmation."
+    },
+    {
+      "node": "JENSEN-v4-K4",
+      "issue": "Downgrade claim is normative ('should not be interpreted as...'). Conceptual argument, not mathematical theorem. v4-K5 indirectly supports via replacement."
+    }
+  ],
+  "inter_project_candidates": [
+    {
+      "pair": ["JENSEN-v4-K5", "BATH-v2-K5"],
+      "overlap_tags": ["entropy-production", "bath-coupling"],
+      "rationale": "N_c≈15 crossover in v2 vs Σ_rel validity domain in v4 — does bath size affect gauge-invariance?"
+    }
+  ]
+}

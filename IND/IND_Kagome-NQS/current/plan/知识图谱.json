@@ -1,0 +1,31 @@
+{
+  "project": "Kagome-NQS",
+  "version": "v1",
+  "date": "2026-05-30",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: Transformer NQS判定Kagome无能隙vs有能隙", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: Dirac QSL无能隙", "type": "claim", "supports": ["Ran_Wen_2007", "Iqbal_2013", "Ferrari_2024"]},
+    {"id": "prop_B", "label": "命题B: Z2/手性QSL有能隙", "type": "claim", "supports": ["Yan_2011", "Depenbrock_2012", "Sun_2024"]},
+    {"id": "method_transformer", "label": "空间注意力Transformer NQS", "type": "method", "source": "arXiv:2602.02665"},
+    {"id": "method_vmc", "label": "VMC+Gutzwiller投影", "type": "method", "bias": "偏向无能隙"},
+    {"id": "method_dmrg", "label": "圆柱DMRG", "type": "method", "bias": "偏向有能隙"},
+    {"id": "risk_bias", "label": "卡点K1.1: Transformer谱偏差", "type": "risk"},
+    {"id": "risk_blind", "label": "卡点K1.2: 拓扑盲区", "type": "risk"},
+    {"id": "phase1", "label": "Phase 1: J1-J2验证", "type": "step", "status": "pending"}
+  ],
+  "edges": [
+    {"from": "prop_A", "to": "prop_B", "relation": "contradicts"},
+    {"from": "method_transformer", "to": "north_star", "relation": "enables"},
+    {"from": "method_vmc", "to": "prop_A", "relation": "biased_toward"},
+    {"from": "method_dmrg", "to": "prop_B", "relation": "biased_toward"},
+    {"from": "risk_bias", "to": "method_transformer", "relation": "threatens"},
+    {"from": "risk_blind", "to": "method_transformer", "relation": "threatens"},
+    {"from": "phase1", "to": "risk_bias", "relation": "mitigates"},
+    {"from": "phase1", "to": "risk_blind", "relation": "mitigates"}
+  ],
+  "math_objects": [
+    {"id": "mo1", "name": "Δ_s(L)", "description": "有限尺寸自旋能隙，标度外推判据", "domain": "cond-mat"},
+    {"id": "mo2", "name": "S_vN(L_A)", "description": "von Neumann纠缠熵，面积律vs对数修正", "domain": "quant-info"},
+    {"id": "mo3", "name": "S(q)", "description": "自旋结构因子，pinch-point诊断", "domain": "cond-mat"}
+  ]
+}

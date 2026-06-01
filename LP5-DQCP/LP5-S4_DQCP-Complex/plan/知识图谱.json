@@ -1,0 +1,74 @@
+{
+  "课题": "DQCP-Complex",
+  "版本": "v1",
+  "创建日期": "2026-06-01",
+  "北极星来源": "LP5-S4",
+  "所属长命题": "LP-5 (DQCP)",
+  "K条目": {
+    "K1.1": {
+      "级别": "✅L2",
+      "内容": "SU(2) J-Q模型DQCP是弱一阶的",
+      "math_object": "running exponent drift + anomalous EE log-correction",
+      "来源": "Song 2025, Hawashin 2025, D'Emidio-Sandvik 2024",
+      "连接": ["K1.2", "K1.4", "K1.5"]
+    },
+    "K1.2": {
+      "级别": "✅L2",
+      "内容": "SU(N≥8) DQCP是真正连续的，N_c≈7-8",
+      "math_object": "N_c ~ 7-8, SO(5) CFT scaling dims",
+      "来源": "Song et al. 2025, Li 2022",
+      "连接": ["K1.1"]
+    },
+    "K1.3": {
+      "级别": "✅L2",
+      "内容": "复CFT框架统一弱一阶相变：固定点湮灭→复共轭固定点→行走RG",
+      "math_object": "complex CFT, fixed-point annihilation, Miransky scaling",
+      "来源": "Gorbenko-Rychkov-Zan 2018",
+      "连接": ["K1.5", "K1.6"]
+    },
+    "K1.4": {
+      "级别": "✅L2",
+      "内容": "倾斜切割后EE异常对数修正消失，与SO(5) CFT一致",
+      "math_object": "EE tilt-cut, corner log-coefficient",
+      "来源": "D'Emidio-Sandvik 2024",
+      "连接": ["K1.1"]
+    },
+    "K1.5": {
+      "级别": "✅L2",
+      "内容": "Nordic walking机制解释DQCP赝临界行为",
+      "math_object": "Nordic walking, pseudo-critical RG flow",
+      "来源": "Hawashin et al. 2025",
+      "连接": ["K1.1", "K1.3"]
+    },
+    "K1.6": {
+      "级别": "⚠️L1",
+      "内容": "非厄米易平面J-Q模型中增大γ压制一阶特征",
+      "math_object": "non-Hermitian easy-plane J-Q, γ-tuned",
+      "来源": "Zou et al. 2025",
+      "连接": ["K1.3"]
+    },
+    "K1.7": {
+      "级别": "⚠️L1",
+      "content": "非厄米性不解决符号问题，是调谐参数",
+      "math_object": "non-Hermiticity as tuning parameter",
+      "来源": "AB_DQCP.md A博士分析",
+      "连接": ["K1.6"]
+    },
+    "K1.8": {
+      "级别": "⚠️L1",
+      "content": "弱一阶与连续在有限分辨率下不可区分",
+      "math_object": "operational indistinguishability at finite resolution",
+      "来源": "AB_DQCP.md A博士概念检查",
+      "连接": ["K1.1"]
+    }
+  },
+  "物理量": {
+    "P1": "非厄米性参数 γ",
+    "P2": "一阶特征强度 Δ(γ)",
+    "P3": "标度维数 Δ_O(γ)",
+    "P4": "关联长度指数 ν(γ)",
+    "P5": "复CFT固定点位置 g_*(γ)"
+  },
+  "卡点": [],
+  "失败记录": []
+}

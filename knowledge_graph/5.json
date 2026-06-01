@@ -1,0 +1,330 @@
+{
+  "project": "Quantum-Mimicry",
+  "version": "v1-quantum-mimicry-no-go",
+  "updated_phase": 77,
+  "nodes": [
+    {"id": "QM-v1-K0.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K0.1", "label": "PLD-CG与QG+DP在BMV可观测量上定理级不可区分", "status": "active", "level": "L1-inherited", "observable": "BMV entanglement witness", "phase": 0, "tags": ["BMV", "mimicry", "PLD-CG", "QG+DP", "indistinguishability"]},
+    {"id": "QM-v1-K0.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K0.2", "label": "引力是否量子在牛顿极限可能不是well-defined物理问题", "status": "active", "level": "L0-conceptual", "observable": null, "phase": 0, "tags": ["conceptual", "Newtonian-limit", "condition-dependent"]},
+    {"id": "QM-v1-K0.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K0.3", "label": "Oppenheim CQ dynamics给出decoherence-diffusion tradeoff", "status": "active", "level": "L1-citation", "observable": "decoherence-diffusion", "phase": 0, "tags": ["Oppenheim", "CQ-dynamics", "tradeoff"]},
+    {"id": "QM-v1-K0.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K0.4", "label": "Causal-set自由传播通道未给出模型无关低能指纹", "status": "active", "level": "L1-inherited", "observable": "free-propagation", "phase": 0, "tags": ["causal-set", "Lorentz-invariant", "spectral-weights"]},
+    {"id": "QM-v1-K0.5", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K0.5", "label": "Schwarz图谱固定代数+动力学+对称性下可有唯一性", "status": "active", "level": "L1-inherited", "observable": "uniqueness", "phase": 0, "tags": ["Schwarz", "uniqueness", "fixed-structure"]},
+    {"id": "QM-v1-K0.6", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K0.6", "label": "Fabiano 2026 non-quantized gravity minimal noise分类", "status": "active", "level": "L1-citation", "observable": "minimal-noise", "phase": 0, "tags": ["Fabiano", "non-quantized-gravity", "competitor"]},
+    {"id": "QM-v1-K0.7", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K0.7", "label": "Aziz&Howl 2025 classical gravity产生entanglement声称", "status": "active", "level": "L1-citation", "observable": "classical-entanglement", "phase": 0, "tags": ["Aziz-Howl", "classical-gravity", "external-dispute"]},
+    {"id": "QM-v1-K0.8", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K0.8", "label": "Bath决策树范式作为方法论参照", "status": "active", "level": "L0-methodology", "observable": null, "phase": 0, "tags": ["Bath", "decision-tree", "methodology"]},
+
+    {"id": "QM-v1-K1.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K1.1", "label": "BMV判决应写成O excludes M_C(A)", "status": "active", "level": "L1-framework", "observable": "BMV", "phase": 1, "tags": ["exclusion-semantics", "framework"]},
+    {"id": "QM-v1-K1.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K1.2", "label": "Classical baseline须拆分为LOCC/PLD-CG/CQ-mimic/minimal-noise等子类", "status": "active", "level": "L1-taxonomy", "observable": null, "phase": 1, "tags": ["baseline", "taxonomy"]},
+    {"id": "QM-v1-K1.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K1.3", "label": "Phase 2核心技术对象：四能级pure-dephasing rates的可实现性", "status": "active", "level": "L2-target", "observable": "dephasing-rates", "phase": 1, "tags": ["four-level", "pure-dephasing", "B-class"]},
+
+    {"id": "QM-v1-K2.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K2.1", "label": "Diagonal Gaussian Markov noise下Gamma_ij可实现当且仅当conditionally negative semidefinite", "status": "active", "level": "L2-application", "observable": "Gamma_ij", "phase": 2, "tags": ["M0", "Gaussian-Markov", "CNSD", "necessary-condition"]},
+    {"id": "QM-v1-K2.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K2.2", "label": "lambda_min(G)<0不是直接实验排除准则，需重建协议和统计检验", "status": "active", "level": "L2-constraint", "observable": "lambda_min", "phase": 2, "tags": ["statistical-test", "protocol-requirement"]},
+
+    {"id": "QM-v1-K3.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K3.1", "label": "拒绝M0的统计对象：Mahalanobis投影距离T", "status": "active", "level": "L2-application", "observable": "T-statistic", "phase": 3, "tags": ["Mahalanobis", "projection", "statistical-repair"]},
+    {"id": "QM-v1-K3.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K3.2", "label": "lambda_min(G)/sigma_lambda仅作为远离PSD边界的诊断量", "status": "active", "level": "L2-constraint", "observable": "lambda_min", "phase": 3, "tags": ["diagnostic", "boundary", "bootstrap"]},
+
+    {"id": "QM-v1-K4.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K4.1", "label": "Aziz&Howl不完全覆盖BMV/QGEM非相对论宏观质量设置", "status": "active", "level": "L1-reconciled", "observable": null, "phase": 4, "tags": ["Aziz-Howl", "scope-mismatch", "external-dispute"]},
+    {"id": "QM-v1-K4.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K4.2", "label": "不得使用无条件句classical gravity cannot entangle", "status": "active", "level": "L0-writing-rule", "observable": null, "phase": 4, "tags": ["writing-rule", "condition-dependence"]},
+
+    {"id": "QM-v1-K5.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K5.1", "label": "G>=0判据不重复LOCC no-go，约束decay-rate pattern", "status": "active", "level": "L2-positioning", "observable": "rate-pattern", "phase": 5, "tags": ["positioning", "narrow-scope"]},
+    {"id": "QM-v1-K5.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K5.2", "label": "主链应从diagonal noise转向spatial stochastic gravitational potential", "status": "active", "level": "L2-direction", "observable": "spatial-potential", "phase": 5, "tags": ["spatial-noise", "M1-direction"]},
+
+    {"id": "QM-v1-K6.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K6.1", "label": "Additive scalar Gaussian Markov field下精确rate等式约束", "status": "active", "level": "L2-application", "observable": "M1-equalities", "phase": 6, "tags": ["M1", "additive-scalar", "necessary-condition"]},
+    {"id": "QM-v1-K6.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K6.2", "label": "等式约束实验使用需线性残差统计量和协方差", "status": "active", "level": "L2-constraint", "observable": "linear-residual", "phase": 6, "tags": ["statistical-model", "protocol"]},
+
+    {"id": "QM-v1-K7.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K7.1", "label": "六Gamma_ij可由X_ij,Y_ij coherence quadrature多时间拟合独立估计", "status": "active", "level": "L2-protocol", "observable": "coherence-quadrature", "phase": 7, "tags": ["tomography", "parameter-estimation"]},
+    {"id": "QM-v1-K7.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K7.2", "label": "标准单一BMV witness不足以构造六rate判据", "status": "active", "level": "L2-constraint", "observable": "BMV-witness", "phase": 7, "tags": ["full-tomography", "minimum-input"]},
+
+    {"id": "QM-v1-K8.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K8.1", "label": "Distance-only pairwise Gaussian Markov noise下M2必要约束", "status": "active", "level": "L2-application", "observable": "M2-constraints", "phase": 8, "tags": ["M2", "distance-only", "necessary-condition"]},
+    {"id": "QM-v1-K8.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K8.2", "label": "Additive noise与distance-only interaction noise给出不同rate-pattern signature", "status": "active", "level": "L2-taxonomy", "observable": "rate-pattern", "phase": 8, "tags": ["M1-vs-M2", "discrimination"]},
+
+    {"id": "QM-v1-K9.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K9.1", "label": "Mimic类按额外输入强度分层M0-M3", "status": "active", "level": "L1-framework", "observable": null, "phase": 9, "tags": ["taxonomy", "M0-M3", "framework"]},
+    {"id": "QM-v1-K9.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K9.2", "label": "M0-M2只能排除窄噪声/几何子类，M3需要额外动力学", "status": "active", "level": "L2-scope", "observable": null, "phase": 9, "tags": ["scope", "M3-direction"]},
+    {"id": "QM-v1-K9.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K9.3", "label": "低能BMV不能无条件判定引力是否量子，只能排除声明A后的M_C(A)", "status": "active", "level": "L2-principle", "observable": null, "phase": 9, "tags": ["conditional-answer", "stage-conclusion"]},
+
+    {"id": "QM-v1-K10.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K10.1", "label": "K0.1适用域限定：PLD-CG与QG+DP不可区分仅指reduced BMV observables", "status": "active", "level": "L1-scope-fix", "observable": null, "phase": 10, "tags": ["scope-fix", "supersedes-K0.1"]},
+    {"id": "QM-v1-K10.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K10.2", "label": "Baseline判决树B0-B4分层", "status": "active", "level": "L1-framework", "observable": null, "phase": 10, "tags": ["baseline-tree", "B0-B4"]},
+    {"id": "QM-v1-K10.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K10.3", "label": "所有rate-pattern统计判据的输入条件", "status": "active", "level": "L2-gate", "observable": "rate-pattern-input", "phase": 10, "tags": ["input-condition", "tomography-requirement"]},
+    {"id": "QM-v1-K10.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K10.4", "label": "Oppenheim与Fabiano/Carney是不同的non-quantized gravity边界", "status": "active", "level": "L1-scope", "observable": null, "phase": 10, "tags": ["CQ-vs-minimal-noise", "M3-split"]},
+
+    {"id": "QM-v1-K11.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K11.1", "label": "M3拆为M3a Oppenheim CQ与M3b Fabiano minimal-noise", "status": "active", "level": "L1-taxonomy", "observable": null, "phase": 11, "tags": ["M3a", "M3b", "taxonomy"]},
+    {"id": "QM-v1-K11.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K11.2", "label": "Phase 12必须优先核查Fabiano 2603.26075中BMV相关minimal-noise公式", "status": "closed", "level": "L0-task", "observable": null, "phase": 11, "tags": ["literature-check", "prerequisite"]},
+
+    {"id": "QM-v1-K12.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K12.1", "label": "Fabiano Eq.(36)结构形式定位但benchmark与SI复算不一致", "status": "active", "level": "L2-flagged", "observable": "Fabiano-benchmark", "phase": 12, "tags": ["Fabiano", "SI-audit", "C8-precursor"]},
+    {"id": "QM-v1-K12.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K12.2", "label": "C8处理前只能保留M3b结构结论，不得声称已复现数值bound", "status": "active", "level": "L1-constraint", "observable": null, "phase": 12, "tags": ["C8", "quarantine"]},
+
+    {"id": "QM-v1-K13.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K13.1", "label": "TeX source确认Fabiano two-state masses段落文本存在", "status": "active", "level": "L1-verified", "observable": "TeX-source", "phase": 13, "tags": ["Fabiano", "source-confirmation"]},
+    {"id": "QM-v1-K13.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K13.2", "label": "Fabiano公式需除以hbar才是rate，TeX未显式给出SI转换", "status": "active", "level": "L2-flagged", "observable": "rate-conversion", "phase": 13, "tags": ["hbar", "SI", "C8"]},
+    {"id": "QM-v1-K13.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K13.3", "label": "1 fg=1e-18 kg, 10 fg代入得6.33e-10 s^-1，不是6 Hz", "status": "active", "level": "L2-numeric", "observable": "C8-discrepancy", "phase": 13, "tags": ["C8", "numeric-audit"]},
+    {"id": "QM-v1-K13.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K13.4", "label": "要得6 Hz需m≈0.97 ng，不能判定是typo还是隐藏convention", "status": "active", "level": "L2-flagged", "observable": null, "phase": 13, "tags": ["C8", "open-question"]},
+
+    {"id": "QM-v1-K14.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K14.1", "label": "Fabiano benchmark在v1和v2均存在，不是v2新增", "status": "active", "level": "L1-verified", "observable": null, "phase": 14, "tags": ["Fabiano", "version-tracking"]},
+    {"id": "QM-v1-K14.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K14.2", "label": "Fabiano v1 2026-03-27, v2 2026-05-13，未见v3", "status": "active", "level": "L1-tracking", "observable": null, "phase": 14, "tags": ["version-tracking"]},
+    {"id": "QM-v1-K14.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K14.3", "label": "未找到公开erratum解释10 fg->6 Hz", "status": "active", "level": "L1-search", "observable": null, "phase": 14, "tags": ["C8", "external-search"]},
+    {"id": "QM-v1-K14.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K14.4", "label": "h/hbar仅给2pi因子，不能解释~1e10差异", "status": "active", "level": "L2-numeric", "observable": null, "phase": 14, "tags": ["C8", "convention-insufficient"]},
+
+    {"id": "QM-v1-K15.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K15.1", "label": "Oppenheim-type CQ branch最小参数{D0,D2,ell}满足D0D2>=1", "status": "active", "level": "L2-template", "observable": "CQ-parameters", "phase": 15, "tags": ["M3a", "Oppenheim", "scalar-reduction"]},
+    {"id": "QM-v1-K15.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K15.2", "label": "CQ force-noise floor为S_FF,e >= 8 sqrt(5) G_N m^2/(15 pi ell^3)", "status": "active", "level": "L2-derived", "observable": "force-noise-floor", "phase": 15, "tags": ["M3a-ex", "lower-bound", "AM-GM"]},
+    {"id": "QM-v1-K15.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K15.3", "label": "CQ noise floor高于mechanical threshold需d/ell>2.19", "status": "active", "level": "L2-condition", "observable": "d-over-ell", "phase": 15, "tags": ["M3a-ex", "geometry-condition"]},
+    {"id": "QM-v1-K15.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K15.4", "label": "M3a判决形式O excludes M_C(A_M3a-ex)", "status": "active", "level": "L2-template", "observable": null, "phase": 15, "tags": ["M3a-ex", "exclusion-semantics"]},
+
+    {"id": "QM-v1-K16.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K16.1", "label": "Oppenheim原文CQ tradeoff是矩阵形式，不是单标量D0D2>=1", "status": "active", "level": "L1-correction", "observable": null, "phase": 16, "tags": ["Oppenheim", "matrix-tradeoff", "correction"]},
+    {"id": "QM-v1-K16.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K16.2", "label": "D0D2>=1是单Lindblad/单classical自由度特殊约化", "status": "active", "level": "L1-scope", "observable": null, "phase": 16, "tags": ["scalar-reduction", "scope"]},
+    {"id": "QM-v1-K16.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K16.3", "label": "Oppenheim引力场tradeoff：d sigma^2/dt >= |<m>|^2/(8 lambda)", "status": "active", "level": "L1-citation", "observable": "gravitational-tradeoff", "phase": 16, "tags": ["Oppenheim", "gravitational-field"]},
+    {"id": "QM-v1-K16.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K16.4", "label": "Phase 15的S_FF,e bound是Fabiano CQ example，不是Oppenheim通用theorem", "status": "active", "level": "L1-scope", "observable": null, "phase": 16, "tags": ["scope", "Fabiano-vs-Oppenheim"]},
+
+    {"id": "QM-v1-K17.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K17.1", "label": "M3拆为三支：M3b Fabiano symbolic, M3a-general Oppenheim kernel, M3a-example Fabiano CQ force-noise", "status": "active", "level": "L1-taxonomy", "observable": null, "phase": 17, "tags": ["M3-split", "taxonomy"]},
+    {"id": "QM-v1-K17.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K17.2", "label": "Oppenheim主链最小判决结构是squeeze：D2_lower<=D2_upper", "status": "active", "level": "L2-template", "observable": "D2-squeeze", "phase": 17, "tags": ["M3a-general", "squeeze"]},
+    {"id": "QM-v1-K17.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K17.3", "label": "后续主张必须写成O excludes M_C(A_Markovian-CQ)", "status": "active", "level": "L0-writing-rule", "observable": null, "phase": 17, "tags": ["writing-rule", "exclusion-semantics"]},
+
+    {"id": "QM-v1-K18.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K18.1", "label": "Continuous local CQ kernel D2(x,y)=D2 delta(x,y)下squeeze bound", "status": "active", "level": "L2-derived", "observable": "D2-squeeze", "phase": 18, "tags": ["M3a", "continuous-local", "squeeze"]},
+    {"id": "QM-v1-K18.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K18.2", "label": "Oppenheim benchmark: D2_upper~1e-41, D2_lower~1e-24, gap~1e17, kernel excluded", "status": "superseded", "level": "L2-derived", "observable": "D2-interval", "phase": 18, "tags": ["continuous-local", "exclusion", "superseded-by-K20.3"]},
+    {"id": "QM-v1-K18.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K18.3", "label": "K18.1-18.2只排除声明A_cont-local的模型类", "status": "active", "level": "L2-scope", "observable": null, "phase": 18, "tags": ["scope", "conditional-exclusion"]},
+
+    {"id": "QM-v1-K20.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K20.1", "label": "Continuous local branch squeeze是一维D2区间判据，需固定A_cont-local^bench", "status": "active", "level": "L2-template", "observable": "D2-interval", "phase": 20, "tags": ["continuous-local", "benchmark-fixed"]},
+    {"id": "QM-v1-K20.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K20.2", "label": "修复后合法排除式：O_bench excludes M_C(A_cont-local^bench)", "status": "active", "level": "L2-repaired", "observable": null, "phase": 20, "tags": ["continuous-local", "repaired-statement"]},
+    {"id": "QM-v1-K20.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K20.3", "label": "原Phase 18排除应降级，不得解读为参数全局排除", "status": "active", "level": "L1-correction", "observable": null, "phase": 20, "tags": ["downgrade", "supersedes-K18.2"]},
+
+    {"id": "QM-v1-K22.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K22.1", "label": "Oppenheim source lines 1227-1261给出continuous local branch的single-D2 squeeze benchmark", "status": "active", "level": "L1-literature", "observable": null, "phase": 22, "tags": ["Oppenheim", "source-verified"]},
+    {"id": "QM-v1-K22.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K22.2", "label": "本项目不得声称证明了continuous local CQ kernel被排除", "status": "active", "level": "L0-writing-rule", "observable": null, "phase": 22, "tags": ["writing-rule", "L1-only"]},
+    {"id": "QM-v1-K22.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K22.3", "label": "M3a-general未关闭，要形成L2需选择可审查模型类并证明squeeze", "status": "active", "level": "L2-open", "observable": null, "phase": 22, "tags": ["M3a-general", "open"]},
+    {"id": "QM-v1-K22.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K22.4", "label": "废弃强表述K18.2，替换为K22.1-K22.2 L1文献定位", "status": "active", "level": "L1-correction", "observable": null, "phase": 22, "tags": ["supersedes-K18.2"]},
+
+    {"id": "QM-v1-K23.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K23.1", "label": "最优下一主链是six-rate tomography and covariance reconstruction", "status": "active", "level": "L2-direction", "observable": "six-rate", "phase": 23, "tags": ["main-chain", "tomography"]},
+    {"id": "QM-v1-K23.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K23.2", "label": "M3a/M3b不关闭但短期不作为下一主链", "status": "active", "level": "L2-priority", "observable": null, "phase": 23, "tags": ["M3", "deferred"]},
+
+    {"id": "QM-v1-K24.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K24.1", "label": "Six-rate判据最小观测输入是full four-branch coherence tomography", "status": "active", "level": "L2-protocol", "observable": "four-branch-tomography", "phase": 24, "tags": ["tomography", "minimum-input"]},
+    {"id": "QM-v1-K24.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K24.2", "label": "WLS给出hat gamma和协方差P_Gamma", "status": "active", "level": "L2-method", "observable": "hat-gamma", "phase": 24, "tags": ["WLS", "estimation"]},
+    {"id": "QM-v1-K24.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K24.3", "label": "Non-Markovian curvature/revival会使constant-rate判据不适用", "status": "active", "level": "L2-constraint", "observable": null, "phase": 24, "tags": ["non-Markovian", "G_PD"]},
+
+    {"id": "QM-v1-K25.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K25.1", "label": "Ideal additive scalar field线性残差矩阵L_add (rank 4)", "status": "active", "level": "L2-derived", "observable": "L_add", "phase": 25, "tags": ["M1", "linear-residual", "rank"]},
+    {"id": "QM-v1-K25.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K25.2", "label": "T_add = r^T Sigma_add^-1 r ~ chi^2_4 under additive null", "status": "active", "level": "L2-statistic", "observable": "T_add", "phase": 25, "tags": ["M1", "chi-square", "statistic"]},
+    {"id": "QM-v1-K25.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K25.3", "label": "几何误差必须进入Sigma_r,total，否则violation可能只是非理想几何", "status": "active", "level": "L2-constraint", "observable": null, "phase": 25, "tags": ["geometry-covariance", "error-propagation"]},
+
+    {"id": "QM-v1-K26.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K26.1", "label": "M2 feasible set K_M2定义（含三角不等式）", "status": "active", "level": "L2-derived", "observable": "K_M2", "phase": 26, "tags": ["M2", "feasible-set", "triangle-inequality"]},
+    {"id": "QM-v1-K26.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K26.2", "label": "T_M2 = min projection distance with bootstrap calibration", "status": "active", "level": "L2-statistic", "observable": "T_M2", "phase": 26, "tags": ["M2", "constrained-minimization", "bootstrap"]},
+    {"id": "QM-v1-K26.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K26.3", "label": "Gamma_14=0是物理边界，sqrt(Gamma)在零附近导数奇异", "status": "active", "level": "L2-constraint", "observable": null, "phase": 26, "tags": ["boundary", "bootstrap-required"]},
+
+    {"id": "QM-v1-K27.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K27.1", "label": "M0-M2判决树必须先通过G_obs gate", "status": "active", "level": "L2-gate", "observable": "G_obs", "phase": 27, "tags": ["gate", "G_obs"]},
+    {"id": "QM-v1-K27.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K27.2", "label": "合法输出是逐类O_gamma excludes M_C(A_Mi)，不推出gravity is quantum", "status": "active", "level": "L2-writing-rule", "observable": null, "phase": 27, "tags": ["exclusion-semantics", "per-class"]},
+    {"id": "QM-v1-K27.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K27.3", "label": "M1与M2是不同物理子类/参数化，不得混成单一classical mimic判据", "status": "active", "level": "L2-taxonomy", "observable": null, "phase": 27, "tags": ["M1-vs-M2", "distinction"]},
+
+    {"id": "QM-v1-K29.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K29.1", "label": "Phase 24-27正确级别是protocol-level，不排除任何模型类", "status": "active", "level": "L2-scope", "observable": null, "phase": 29, "tags": ["protocol-level", "scope"]},
+    {"id": "QM-v1-K29.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K29.2", "label": "Protocol gates全部完成后才允许写对应O excludes M_C", "status": "active", "level": "L2-gate", "observable": null, "phase": 29, "tags": ["gate-chain"]},
+    {"id": "QM-v1-K29.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K29.3", "label": "若无实际/simulated hat gamma和Sigma_gamma，不得称为experimental exclusion", "status": "active", "level": "L2-constraint", "observable": null, "phase": 29, "tags": ["input-requirement"]},
+
+    {"id": "QM-v1-K30.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K30.1", "label": "Synthetic null-like example: T_add=0.2222, p=0.9943", "status": "active", "level": "L2-numeric", "observable": "T_add", "phase": 30, "tags": ["synthetic", "verification", "M1-compatible"]},
+    {"id": "QM-v1-K30.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K30.2", "label": "Synthetic violating example: T_add=208.33, p=6.1e-44", "status": "active", "level": "L2-numeric", "observable": "T_add", "phase": 30, "tags": ["synthetic", "verification", "M1-incompatible"]},
+    {"id": "QM-v1-K30.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K30.3", "label": "Phase 30仅synthetic protocol verification，不排除物理模型", "status": "active", "level": "L2-scope", "observable": null, "phase": 30, "tags": ["synthetic", "scope"]},
+
+    {"id": "QM-v1-K31.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K31.1", "label": "Phase 24-30形成protocol-level chain: rho(t)->hat gamma->M0/M1/M2 statistics", "status": "active", "level": "L2-summary", "observable": null, "phase": 31, "tags": ["protocol-chain", "summary"]},
+    {"id": "QM-v1-K31.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K31.2", "label": "仍缺真实实验排除：measurement settings, shot-noise covariance, phase/leakage model", "status": "active", "level": "L2-gap", "observable": null, "phase": 31, "tags": ["gap", "platform-realistic"]},
+    {"id": "QM-v1-K31.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K31.3", "label": "下一主链应转向platform-realistic tomography requirements", "status": "active", "level": "L2-direction", "observable": null, "phase": 31, "tags": ["direction", "platform"]},
+
+    {"id": "QM-v1-K32.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K32.1", "label": "Four-branch coherences通过X_ij,Y_ij quadrature恢复", "status": "active", "level": "L2-method", "observable": "quadrature", "phase": 32, "tags": ["tomography", "quadrature"]},
+    {"id": "QM-v1-K32.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K32.2", "label": "最小抽象six-coherence tomography需12 pair-quadrature settings", "status": "active", "level": "L2-protocol", "observable": "12-settings", "phase": 32, "tags": ["tomography", "minimum-settings"]},
+    {"id": "QM-v1-K32.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K32.3", "label": "Shot-noise covariance scales like 1/N_shots, small coherences invalidate estimation", "status": "active", "level": "L2-constraint", "observable": "shot-noise", "phase": 32, "tags": ["noise", "coherence-loss"]},
+
+    {"id": "QM-v1-K33.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K33.1", "label": "Constant log-amplitude noise下sigma_Gamma scaling", "status": "active", "level": "L2-derived", "observable": "sigma_Gamma", "phase": 33, "tags": ["error-scaling", "shot-noise"]},
+    {"id": "QM-v1-K33.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K33.2", "label": "Nq ~ 3/(K|rho|^2 Tspan^2 sigma_Gamma^2) for shot-noise baseline", "status": "active", "level": "L2-derived", "observable": "Nq", "phase": 33, "tags": ["shot-noise", "requirement"]},
+    {"id": "QM-v1-K33.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K33.3", "label": "Scaling仅为shot-noise baseline，系统效应可主导", "status": "active", "level": "L2-constraint", "observable": null, "phase": 33, "tags": ["shot-noise", "limitation"]},
+
+    {"id": "QM-v1-K35.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K35.1", "label": "D_platform输出(hat gamma, Sigma_gamma, G_PD)", "status": "active", "level": "L2-data-product", "observable": "D_platform", "phase": 35, "tags": ["data-product", "platform"]},
+    {"id": "QM-v1-K35.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K35.2", "label": "系统误差预算至少包含shot, phase, leakage, cross-talk, geometry contributions", "status": "active", "level": "L2-protocol", "observable": "error-budget", "phase": 35, "tags": ["error-budget", "covariance"]},
+    {"id": "QM-v1-K35.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K35.3", "label": "Phase 35不排除任何真实模型类，只关闭平台数据包规格缺口", "status": "active", "level": "L2-scope", "observable": null, "phase": 35, "tags": ["scope", "synthetic"]},
+
+    {"id": "QM-v1-K36.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K36.1", "label": "Platform-level synthetic generator with xtalk, phase, leakage, noise", "status": "active", "level": "L2-method", "observable": "synthetic-generator", "phase": 36, "tags": ["synthetic", "generator"]},
+    {"id": "QM-v1-K36.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K36.2", "label": "Non-Markovian curvature switch causes G_PD=fail, blocking M0-M2 statistics", "status": "active", "level": "L2-gate-failure", "observable": "G_PD-fail", "phase": 36, "tags": ["non-Markovian", "G_PD", "blocking"]},
+    {"id": "QM-v1-K36.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K36.3", "label": "Phase 36仅synthetic protocol validation，不证明真实平台可行性", "status": "active", "level": "L2-scope", "observable": null, "phase": 36, "tags": ["synthetic", "scope"]},
+
+    {"id": "QM-v1-K37.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K37.1", "label": "Synthetic pass vector是M1-compatible with T_add~0.3125", "status": "active", "level": "L2-numeric", "observable": "T_add", "phase": 37, "tags": ["synthetic", "M1-compatible"]},
+    {"id": "QM-v1-K37.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K37.2", "label": "Same synthetic pass vector是M2-incompatible with boundary term>=12500", "status": "active", "level": "L2-numeric", "observable": "T_M2", "phase": 37, "tags": ["synthetic", "M2-incompatible"]},
+    {"id": "QM-v1-K37.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K37.3", "label": "G_PD=fail时M1/M2 statistic输出必须为blocked", "status": "active", "level": "L2-gate", "observable": "G_PD", "phase": 37, "tags": ["G_PD", "blocking-rule"]},
+    {"id": "QM-v1-K37.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K37.4", "label": "Phase 37仍是synthetic decision-tree validation", "status": "active", "level": "L2-scope", "observable": null, "phase": 37, "tags": ["synthetic", "scope"]},
+
+    {"id": "QM-v1-K38.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K38.1", "label": "M0-M2 synthetic pipeline internally executable: D_platform -> (hat gamma, Sigma_gamma, G_PD)", "status": "active", "level": "L2-summary", "observable": "pipeline", "phase": 38, "tags": ["synthetic-pipeline", "closure"]},
+    {"id": "QM-v1-K38.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K38.2", "label": "Synthetic closure不关闭real-platform Rate-input", "status": "active", "level": "L2-gap", "observable": null, "phase": 38, "tags": ["gap", "platform"]},
+    {"id": "QM-v1-K38.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K38.3", "label": "F6/M3 remains open: rate-pattern protocol不回答Oppenheim/Fabiano dynamics", "status": "active", "level": "L2-gap", "observable": null, "phase": 38, "tags": ["F6", "M3", "open"]},
+
+    {"id": "QM-v1-K39.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K39.1", "label": "A_M3a-ex force-noise floor S_FF,e >= 8 sqrt(5) G_N m^2/(15 pi ell^3)", "status": "active", "level": "L2-derived", "observable": "force-noise-floor", "phase": 39, "tags": ["M3a-ex", "scalar-cutoff"]},
+    {"id": "QM-v1-K39.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K39.2", "label": "S_CQ,min/S_thresh = (2 sqrt(5)/(15 pi))(d/ell)^3, exceeds iff d/ell>2.19", "status": "active", "level": "L2-condition", "observable": "d-over-ell", "phase": 39, "tags": ["M3a-ex", "geometry-condition"]},
+    {"id": "QM-v1-K39.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K39.3", "label": "仅scalar/cutoff Fabiano CQ example，不解决M3a-general或M3b", "status": "active", "level": "L2-scope", "observable": null, "phase": 39, "tags": ["M3a-ex", "scope"]},
+
+    {"id": "QM-v1-K40.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K40.1", "label": "M3a-general用矩阵/核CQ对象D0,D2,D1^br和约束D1^br D0^{-1} D1^{br dagger} <= 2D2", "status": "active", "level": "L2-template", "observable": null, "phase": 40, "tags": ["M3a-general", "matrix-form"]},
+    {"id": "QM-v1-K40.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K40.2", "label": "d/ell>2.19仅适用于A_M3a-ex，不是通用exclusion", "status": "active", "level": "L2-scope", "observable": null, "phase": 40, "tags": ["M3a-ex", "scope"]},
+    {"id": "QM-v1-K40.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K40.3", "label": "升级M3a-ex到实验排除需measured S_FF,e, ell prescription, geometry d, frequency band", "status": "active", "level": "L2-requirement", "observable": null, "phase": 40, "tags": ["M3a-ex", "upgrade-path"]},
+
+    {"id": "QM-v1-K41.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K41.1", "label": "M3a-ex observable gate G_M3a-ex定义", "status": "active", "level": "L2-gate", "observable": "G_M3a-ex", "phase": 41, "tags": ["M3a-ex", "gate"]},
+    {"id": "QM-v1-K41.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K41.2", "label": "Exclusion-style statistic: S_obs+z_alpha sigma_S - floor, 仅负值支持exclusion", "status": "active", "level": "L2-statistic", "observable": "exclusion-statistic", "phase": 41, "tags": ["M3a-ex", "statistic"]},
+    {"id": "QM-v1-K41.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K41.3", "label": "d/ell>2.19仅为充分geometry条件，不是observation或exclusion", "status": "active", "level": "L2-scope", "observable": null, "phase": 41, "tags": ["M3a-ex", "sufficient-condition"]},
+
+    {"id": "QM-v1-K42.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K42.1", "label": "M3a-example conditionally closed as a tool", "status": "active", "level": "L2-closure", "observable": null, "phase": 42, "tags": ["M3a-ex", "conditional-closure"]},
+    {"id": "QM-v1-K42.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K42.2", "label": "F6 remains open: M3a-general kernel optimization, M3b/C8, real force-noise platform", "status": "active", "level": "L2-gap", "observable": null, "phase": 42, "tags": ["F6", "open"]},
+    {"id": "QM-v1-K42.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K42.3", "label": "Further deepening of M3a-ex likely diminishing returns", "status": "active", "level": "L2-assessment", "observable": null, "phase": 42, "tags": ["M3a-ex", "diminishing-returns"]},
+
+    {"id": "QM-v1-K43.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K43.1", "label": "Abstract kernel form: B D0^+ B^* <= 2D2, N_w = <w, D2 w>", "status": "active", "level": "L2-derived", "observable": "abstract-kernel", "phase": 43, "tags": ["M3a-general", "abstract-form"]},
+    {"id": "QM-v1-K43.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K43.2", "label": "Finite-dim counterexample: no positive general lower bound without additional kernel-domain assumption", "status": "active", "level": "L2-counterexample", "observable": "counterexample", "phase": 43, "tags": ["M3a-general", "counterexample"]},
+    {"id": "QM-v1-K43.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K43.3", "label": "M3a-general exclusion requires additional kernel-domain assumption", "status": "active", "level": "L2-requirement", "observable": null, "phase": 43, "tags": ["M3a-general", "kernel-domain"]},
+
+    {"id": "QM-v1-K44.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K44.1", "label": "Finite-mode projection is minimal next target for kernel domain", "status": "active", "level": "L2-direction", "observable": null, "phase": 44, "tags": ["finite-mode", "direction"]},
+    {"id": "QM-v1-K44.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K44.2", "label": "M_C(A_finite-mode) includes mode basis, projected backreaction, spectral band, overlap bound", "status": "active", "level": "L2-template", "observable": null, "phase": 44, "tags": ["finite-mode", "model-class"]},
+    {"id": "QM-v1-K44.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K44.3", "label": "Finite-mode is added assumption, not consequence of general CQ dynamics", "status": "active", "level": "L2-scope", "observable": null, "phase": 44, "tags": ["finite-mode", "added-assumption"]},
+
+    {"id": "QM-v1-K45.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K45.1", "label": "Finite mode minimization N_W(D0) = 1/2 Tr(W^T B D0^+ B^T W)", "status": "active", "level": "L2-derived", "observable": "N_W", "phase": 45, "tags": ["finite-mode", "minimization"]},
+    {"id": "QM-v1-K45.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K45.2", "label": "Sufficient condition: P_U D0 P_U <= Lambda_U I_U gives N_W >= ||B^T W||_F^2/(2 Lambda_U)", "status": "superseded", "level": "L2-derived", "observable": "lower-bound", "phase": 45, "tags": ["finite-mode", "lower-bound", "superseded-by-K51.1"]},
+    {"id": "QM-v1-K45.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K45.3", "label": "Mode overlap alone is insufficient in higher dimension", "status": "active", "level": "L2-constraint", "observable": null, "phase": 45, "tags": ["finite-mode", "dimensionality"]},
+
+    {"id": "QM-v1-K46.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K46.1", "label": "A_finite-mode+ consists of mode space, apparatus modes, projected B, operator bound", "status": "active", "level": "L2-template", "observable": null, "phase": 46, "tags": ["finite-mode+", "model-class"]},
+    {"id": "QM-v1-K46.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K46.2", "label": "N_min = ||B^T W||_F^2/(2 Lambda_U), exclusion statistic Z_fm", "status": "active", "level": "L2-statistic", "observable": "Z_fm", "phase": 46, "tags": ["finite-mode+", "statistic"]},
+    {"id": "QM-v1-K46.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K46.3", "label": "Single decoherence visibility insufficient; must bound D0 over full apparatus-coupled subspace U", "status": "active", "level": "L2-constraint", "observable": null, "phase": 46, "tags": ["finite-mode+", "requirement"]},
+
+    {"id": "QM-v1-K47.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K47.1", "label": "Two M3a conditional force-noise gates: scalar cutoff and finite-mode+", "status": "active", "level": "L2-summary", "observable": null, "phase": 47, "tags": ["M3a", "summary"]},
+    {"id": "QM-v1-K47.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K47.2", "label": "These are O excludes M_C(A) templates only, no real exclusion without inputs", "status": "active", "level": "L2-scope", "observable": null, "phase": 47, "tags": ["conditional-template", "scope"]},
+    {"id": "QM-v1-K47.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K47.3", "label": "F6 open mainly through M3b/C8 and real platform inputs", "status": "active", "level": "L2-gap", "observable": null, "phase": 47, "tags": ["F6", "open"]},
+
+    {"id": "QM-v1-K48.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K48.1", "label": "SI+hbar evaluation: 10 fg, 100 um, 1 mm -> 6.33e-10 s^-1, not 6 Hz", "status": "active", "level": "L2-numeric", "observable": "C8-discrepancy", "phase": 48, "tags": ["C8", "SI-audit"]},
+    {"id": "QM-v1-K48.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K48.2", "label": "Matching 6 Hz requires m≈0.974 ng or d≈0.473 um; h/hbar/2pi cannot explain", "status": "active", "level": "L2-numeric", "observable": "C8-repair", "phase": 48, "tags": ["C8", "irreparable"]},
+    {"id": "QM-v1-K48.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K48.3", "label": "Retain only symbolic structure for M3b, quarantine printed 6 Hz benchmark", "status": "active", "level": "L2-rule", "observable": null, "phase": 48, "tags": ["M3b", "quarantine"]},
+
+    {"id": "QM-v1-K49.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K49.1", "label": "M3b numeric route stopped unless external erratum resolves 6 Hz discrepancy", "status": "active", "level": "L2-blocked", "observable": null, "phase": 49, "tags": ["M3b", "blocked-numeric"]},
+    {"id": "QM-v1-K49.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K49.2", "label": "Symbolic M3b route may continue with unverified C_model/convention", "status": "active", "level": "L2-rule", "observable": null, "phase": 49, "tags": ["M3b", "symbolic-only"]},
+    {"id": "QM-v1-K49.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K49.3", "label": "No paper-facing claim may use 6 Hz @ 10 fg until C8 resolved", "status": "active", "level": "L0-writing-rule", "observable": null, "phase": 49, "tags": ["C8", "publication-rule"]},
+
+    {"id": "QM-v1-K51.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K51.1", "label": "K45.2/K46.2 strong reading invalid without range/full-rank conditions", "status": "active", "level": "L2-correction", "observable": null, "phase": 51, "tags": ["finite-mode", "correction", "supersedes-K45.2"]},
+    {"id": "QM-v1-K51.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K51.2", "label": "Correct finite-mode sufficient condition: U subset Range(D0) and 0<lambda_- I_U <= D0|_U", "status": "active", "level": "L2-derived", "observable": "range-condition", "phase": 51, "tags": ["finite-mode++", "correction"]},
+    {"id": "QM-v1-K51.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K51.3", "label": "Renamed to A_finite-mode++; absent range certificate, blocked", "status": "active", "level": "L2-gate", "observable": null, "phase": 51, "tags": ["finite-mode++", "blocking"]},
+
+    {"id": "QM-v1-K52.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K52.1", "label": "G_PD typed: {pass, physics_fail, numerical_invalid, covariance_repairable}", "status": "active", "level": "L2-gate", "observable": "G_PD-types", "phase": 52, "tags": ["G_PD", "gate-types"]},
+    {"id": "QM-v1-K52.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K52.2", "label": "KTM/Kafri-Taylor/Tilloy-Diosi must be cited as prior art", "status": "active", "level": "L1-citation", "observable": null, "phase": 52, "tags": ["prior-art", "citations"]},
+    {"id": "QM-v1-K52.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K52.3", "label": "A_M3a-ex constants are cutoff/spectral-convention dependent", "status": "active", "level": "L2-constraint", "observable": null, "phase": 52, "tags": ["M3a-ex", "convention-dependence"]},
+
+    {"id": "QM-v1-K54.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K54.1", "label": "G_PD=covariance_repairable仅在eta<1且稳定性不等式满足时允许继续", "status": "active", "level": "L2-gate", "observable": "covariance-repair", "phase": 54, "tags": ["G_PD", "covariance-repair"]},
+    {"id": "QM-v1-K54.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K54.2", "label": "Linear residual statistic: T0/(1+eta_r) <= T1 <= T0/(1-eta_r)", "status": "active", "level": "L2-derived", "observable": "repair-inequality", "phase": 54, "tags": ["covariance-repair", "bound"]},
+    {"id": "QM-v1-K54.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K54.3", "label": "finite-mode++的U subset Range(D0)和谱隙不是general CQ的自然推出", "status": "active", "level": "L2-constraint", "observable": null, "phase": 54, "tags": ["finite-mode++", "certificate-required"]},
+    {"id": "QM-v1-K54.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K54.4", "label": "A_M3a-ex常数是scalar cutoff model artifact，不得表述为general theorem", "status": "active", "level": "L2-scope", "observable": null, "phase": 54, "tags": ["M3a-ex", "scope"]},
+    {"id": "QM-v1-K54.5", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K54.5", "label": "C8升级为全SI/谱约定审计卡点", "status": "active", "level": "L2-gate", "observable": null, "phase": 54, "tags": ["C8", "full-audit"]},
+
+    {"id": "QM-v1-K55.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K55.1", "label": "C8 audit gate G_C8={mass, distance, displacement, rate conversion, PSD convention, cutoff, C_model}", "status": "active", "level": "L2-gate", "observable": "G_C8", "phase": 55, "tags": ["C8", "audit-gate"]},
+    {"id": "QM-v1-K55.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K55.2", "label": "Standard SI: 10 fg gives 6.33e-10 s^-1 or 1.01e-10 Hz, gap ~9.5e9 from 6 Hz", "status": "active", "level": "L2-numeric", "observable": "C8-gap", "phase": 55, "tags": ["C8", "SI-audit"]},
+    {"id": "QM-v1-K55.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K55.3", "label": "h/hbar, Hz/rad/s, PSD conventions cannot repair C8", "status": "active", "level": "L2-numeric", "observable": null, "phase": 55, "tags": ["C8", "irreparable"]},
+    {"id": "QM-v1-K55.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K55.4", "label": "C8 audit只阻塞printed benchmark，不refute Fabiano general framework", "status": "active", "level": "L2-scope", "observable": null, "phase": 55, "tags": ["C8", "scope"]},
+
+    {"id": "QM-v1-K56.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K56.1", "label": "M3b合法公式：Gamma_e < C_model G_N m_1 m_2 delta_x^2/(hbar d^3)", "status": "active", "level": "L2-template", "observable": null, "phase": 56, "tags": ["M3b", "symbolic-formula"]},
+    {"id": "QM-v1-K56.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K56.2", "label": "G_M3b-symbolic={source, units, G_C8, scope, prior}; g_C8=fail, numeric gate blocked", "status": "active", "level": "L2-gate", "observable": "G_M3b-symbolic", "phase": 56, "tags": ["M3b", "symbolic-allowed"]},
+    {"id": "QM-v1-K56.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K56.3", "label": "Allowed: Fabiano general framework is prior-art boundary. Forbidden: refutes Fabiano, derives theorem, O2 numeric M3b gate", "status": "active", "level": "L0-writing-rule", "observable": null, "phase": 56, "tags": ["M3b", "allowed-claims"]},
+    {"id": "QM-v1-K56.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K56.4", "label": "F6 narrowed to F6R: conditional symbolic tools exist, no audited numeric M3 gate", "status": "active", "level": "L2-gap", "observable": null, "phase": 56, "tags": ["F6R", "gap"]},
+
+    {"id": "QM-v1-K57.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K57.1", "label": "Conditional claim list insufficient as strong physics paper conclusion", "status": "active", "level": "L2-reviewer-attack", "observable": null, "phase": 57, "tags": ["reviewer", "compliance-only"]},
+    {"id": "QM-v1-K57.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K57.2", "label": "Must demonstrate at least one nonempty non-artificial falsifiable model-class gate", "status": "active", "level": "L2-requirement", "observable": null, "phase": 57, "tags": ["falsifiability", "requirement"]},
+    {"id": "QM-v1-K57.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K57.3", "label": "finite-mode++下界需证明基变换/粗粒化/cutoff/embedding不变性或标注为坐标依赖", "status": "active", "level": "L2-requirement", "observable": null, "phase": 57, "tags": ["finite-mode++", "invariance"]},
+
+    {"id": "QM-v1-K58.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K58.1", "label": "M1 additive scalar Gaussian Markov field is nonempty (e.g. translation-invariant kernel)", "status": "active", "level": "L2-demonstration", "observable": "M1-nonempty", "phase": 58, "tags": ["M1", "nonempty", "falsifiability-repair"]},
+    {"id": "QM-v1-K58.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K58.2", "label": "M1 gate is falsifiable: violating pattern gives T_add=208.33, p=6.1e-44", "status": "active", "level": "L2-demonstration", "observable": "M1-falsifiable", "phase": 58, "tags": ["M1", "falsifiability-repair"]},
+    {"id": "QM-v1-K58.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K58.3", "label": "Repairs vacuity attack for at least one declared subclass only, not M3 or universal", "status": "active", "level": "L2-scope", "observable": null, "phase": 58, "tags": ["falsifiability", "scope"]},
+
+    {"id": "QM-v1-K59.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K59.1", "label": "finite-mode++ lower bound invariant under orthonormal basis changes in fixed Hilbert metric", "status": "active", "level": "L2-derived", "observable": null, "phase": 59, "tags": ["finite-mode++", "basis-invariance"]},
+    {"id": "QM-v1-K59.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K59.2", "label": "Frobenius expression coordinate-dependent without declared Hilbert metric", "status": "active", "level": "L2-constraint", "observable": null, "phase": 59, "tags": ["finite-mode++", "metric-dependence"]},
+    {"id": "QM-v1-K59.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K59.3", "label": "finite-mode++ not cutoff/coarse-graining/embedding invariant", "status": "active", "level": "L2-constraint", "observable": null, "phase": 59, "tags": ["finite-mode++", "non-invariance"]},
+
+    {"id": "QM-v1-K60.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K60.1", "label": "Reviewer requires first-principles derivation of M1 six-rate equalities", "status": "active", "level": "L2-reviewer-attack", "observable": null, "phase": 60, "tags": ["M1", "reviewer", "first-principles"]},
+    {"id": "QM-v1-K60.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K60.2", "label": "G_PD/covariance repair must be pre-registered, not post-hoc", "status": "active", "level": "L2-reviewer-attack", "observable": null, "phase": 60, "tags": ["G_PD", "pre-registration"]},
+    {"id": "QM-v1-K60.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K60.3", "label": "finite-mode++ must be platform-specific gate with fixed metric/embedding/cutoff", "status": "active", "level": "L2-rule", "observable": null, "phase": 60, "tags": ["finite-mode++", "platform-specific"]},
+
+    {"id": "QM-v1-K61.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K61.1", "label": "Pairwise coherence decay satisfies Gamma_ij=(m^2/2)Var[(Phi_A^i-Phi_A^j)+(Phi_B^i-Phi_B^j)]", "status": "active", "level": "L2-derived", "observable": "Gamma_ij", "phase": 61, "tags": ["M1", "first-principles"]},
+    {"id": "QM-v1-K61.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K61.2", "label": "Equal-mass 1D mirror-symmetric: g12=g13=g24=g34 and g14+g23=4g12", "status": "active", "level": "L2-derived", "observable": "M1-equalities", "phase": 61, "tags": ["M1", "symmetric-constraints"]},
+    {"id": "QM-v1-K61.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K61.3", "label": "M1 equalities are necessary conditions for narrow subclass only", "status": "active", "level": "L2-scope", "observable": null, "phase": 61, "tags": ["M1", "scope"]},
+
+    {"id": "QM-v1-K62.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K62.1", "label": "Publication-facing G_PD with pre-registered states: pass_stable, physics_fail, repair_stable_reject/nonreject, repair_indeterminate_blocked, numerical_invalid_blocked", "status": "active", "level": "L2-gate", "observable": "G_PD-publication", "phase": 62, "tags": ["G_PD", "pre-registration"]},
+    {"id": "QM-v1-K62.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K62.2", "label": "Covariance repair must lock algorithm, eta_max, alpha threshold, bootstrap plan before inspection", "status": "active", "level": "L2-protocol", "observable": "repair-protocol", "phase": 62, "tags": ["covariance-repair", "pre-registration"]},
+    {"id": "QM-v1-K62.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K62.3", "label": "T0 in instability band [c/(1+eta), c/(1-eta)] -> blocked, not evidence", "status": "active", "level": "L2-gate", "observable": "instability-band", "phase": 62, "tags": ["blocking", "instability"]},
+
+    {"id": "QM-v1-K63.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K63.1", "label": "Reviewer: M1 derivation is still point-support/ideal mirror-symmetric version", "status": "active", "level": "L2-reviewer-attack", "observable": null, "phase": 63, "tags": ["M1", "reviewer", "point-support"]},
+    {"id": "QM-v1-K63.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K63.2", "label": "Finite wavepacket width, asymmetry, anisotropic PSD break or modify M1 equalities", "status": "active", "level": "L2-reviewer-attack", "observable": null, "phase": 63, "tags": ["M1", "finite-geometry"]},
+    {"id": "QM-v1-K63.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K63.3", "label": "G_PD preregistration still needs size/power/coverage and eta_max sensitivity analysis", "status": "active", "level": "L2-reviewer-attack", "observable": null, "phase": 63, "tags": ["G_PD", "statistical-validity"]},
+
+    {"id": "QM-v1-K64.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K64.1", "label": "Generator-level M1: Gamma_st=1/2 <rho_s-rho_t, rho_s-rho_t>_K with Lindblad generator", "status": "active", "level": "L2-derived", "observable": "Gamma_st", "phase": 64, "tags": ["M1", "generator-level"]},
+    {"id": "QM-v1-K64.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K64.2", "label": "Robust additive constraints: g13=g24, g12=g34, g14+g23=2(g12+g13)", "status": "active", "level": "L2-derived", "observable": "robust-constraints", "phase": 64, "tags": ["M1", "robust-equalities"]},
+    {"id": "QM-v1-K64.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K64.3", "label": "Stronger symmetric constraints need equal masses, mirror-symmetric wavepackets, reflection-symmetric kernel", "status": "active", "level": "L2-constraint", "observable": null, "phase": 64, "tags": ["M1-symmetric", "gated"]},
+    {"id": "QM-v1-K64.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K64.4", "label": "Finite-geometry corrections through d Gamma_st/dq_alpha and cross covariance", "status": "active", "level": "L2-derived", "observable": "geometry-correction", "phase": 64, "tags": ["M1", "finite-geometry"]},
+
+    {"id": "QM-v1-K65.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K65.1", "label": "Linear residual with repaired covariance: reject when T_rep > chi^2/(1-eta), size controlled by alpha", "status": "active", "level": "L2-derived", "observable": "T_rep", "phase": 65, "tags": ["covariance-repair", "size-control"]},
+    {"id": "QM-v1-K65.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K65.2", "label": "Conservative power: P[chi^2_k(lambda)>chi^2(1+eta)/(1-eta)], repair inflates effective threshold", "status": "active", "level": "L2-derived", "observable": "power", "phase": 65, "tags": ["covariance-repair", "power"]},
+    {"id": "QM-v1-K65.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K65.3", "label": "Instability-band blocking introduces no-decision probability, must be reported", "status": "active", "level": "L2-constraint", "observable": "P_block", "phase": 65, "tags": ["blocking", "reporting"]},
+    {"id": "QM-v1-K65.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K65.4", "label": "M2 boundary cases require bootstrap/profile calibration; naive chi-square forbidden", "status": "active", "level": "L2-rule", "observable": null, "phase": 65, "tags": ["M2", "bootstrap-required"]},
+
+    {"id": "QM-v1-K66.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K66.1", "label": "Reviewer rejected Phase 64/65 repair: M1 kernel positivity/domain/UV/Lindblad, literature positioning, finite-geometry, random covariance/blocking", "status": "active", "level": "L2-reviewer-attack", "observable": null, "phase": 66, "tags": ["reviewer", "rejection", "repair-package"]},
+    {"id": "QM-v1-K66.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K66.2", "label": "Phase 67-69 set as in-place repair sequence, not new branch", "status": "active", "level": "L2-direction", "observable": null, "phase": 66, "tags": ["repair-sequence", "direction"]},
+
+    {"id": "QM-v1-K67.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K67.1", "label": "Admissible M1 kernel: symmetric, positive on branch-density-difference domain, finite with UV limit or retained cutoff", "status": "active", "level": "L2-derived", "observable": null, "phase": 67, "tags": ["M1", "kernel-admissibility"]},
+    {"id": "QM-v1-K67.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K67.2", "label": "Translation-invariant kernel admissibility: S(k)>=0 with finite integrals", "status": "active", "level": "L2-derived", "observable": "S(k)", "phase": 67, "tags": ["M1", "translation-invariant"]},
+    {"id": "QM-v1-K67.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K67.3", "label": "UV cutoff + Gaussian white-noise stochastic Hamiltonian -> CP Lindblad", "status": "active", "level": "L2-derived", "observable": "Lindblad", "phase": 67, "tags": ["M1", "Lindblad-equivalence"]},
+    {"id": "QM-v1-K67.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K67.4", "label": "Nonpositive kernels outside A_M1; UV divergent kernels blocked unless cutoff retained", "status": "active", "level": "L2-rule", "observable": null, "phase": 67, "tags": ["M1", "kernel-rules"]},
+
+    {"id": "QM-v1-K68.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K68.1", "label": "Finite-geometry residual propagation requires cross covariance and Hessian bias", "status": "active", "level": "L2-derived", "observable": "cross-covariance", "phase": 68, "tags": ["finite-geometry", "cross-covariance"]},
+    {"id": "QM-v1-K68.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K68.2", "label": "Without joint rate-geometry covariance, M1/M2 outputs must be geometry_uncalibrated_blocked", "status": "active", "level": "L2-gate", "observable": null, "phase": 68, "tags": ["finite-geometry", "blocking"]},
+
+    {"id": "QM-v1-K69.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K69.1", "label": "Phase 69 theorem-level repair failed reviewer: assumptions not reduced to primitive verifiable conditions", "status": "active", "level": "L2-reviewer-failure", "observable": null, "phase": 69, "tags": ["repair-failure", "reviewer"]},
+    {"id": "QM-v1-K69.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K69.2", "label": "Phase 68-69 retained as conditional calibration protocol with blocking, not as publishable theorem", "status": "active", "level": "L2-downgraded", "observable": null, "phase": 69, "tags": ["conditional", "blocking"]},
+
+    {"id": "QM-v1-K70.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K70.1", "label": "Audited M3 numeric gate requires {A_model, B_min, O_obs, units/PSD, calibration, rejection inequality}", "status": "active", "level": "L2-requirement", "observable": "M3-tuple", "phase": 70, "tags": ["M3", "numeric-gate", "requirement"]},
+    {"id": "QM-v1-K70.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K70.2", "label": "Scalar cutoff route excludes only A_M3a-ex, not general M3 or non-quantized gravity", "status": "active", "level": "L2-scope", "observable": null, "phase": 70, "tags": ["M3a-ex", "scope"]},
+    {"id": "QM-v1-K70.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K70.3", "label": "finite-mode++ requires fixed metric/cutoff/embedding, range certificate, spectral bounds, matched N_obs", "status": "active", "level": "L2-requirement", "observable": null, "phase": 70, "tags": ["finite-mode++", "requirements"]},
+    {"id": "QM-v1-K70.4", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K70.4", "label": "Fabiano/M3b printed benchmark audit confirmed: SI gives 6.33e-10 s^-1, not 6 s^-1", "status": "active", "level": "L2-audited", "observable": "C8-confirmed", "phase": 70, "tags": ["M3b", "C8", "audited"]},
+    {"id": "QM-v1-K70.5", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K70.5", "label": "Fabiano 2603.26075 at v2 2026-05-13, no v3/erratum; blocks printed benchmark, not framework", "status": "active", "level": "L1-tracking", "observable": null, "phase": 70, "tags": ["Fabiano", "version-tracking"]},
+    {"id": "QM-v1-K70.6", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K70.6", "label": "F6R downgraded: finite tomography does not internally provide general non-quantized-gravity exclusion", "status": "active", "level": "L2-principle", "observable": null, "phase": 70, "tags": ["F6R-downgraded", "principle-limitation"]},
+
+    {"id": "QM-v1-K71.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K71.1", "label": "F6R split into strong/downgraded/open-new", "status": "active", "level": "L2-taxonomy", "observable": null, "phase": 71, "tags": ["F6R", "taxonomy"]},
+    {"id": "QM-v1-K71.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K71.2", "label": "F6R-strong closed as unattained from current inputs", "status": "closed", "level": "L2-closure", "observable": null, "phase": 71, "tags": ["F6R-strong", "closed"]},
+    {"id": "QM-v1-K71.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K71.3", "label": "F6R-open-new is cross-version input problem, blocks strong closeout", "status": "active", "level": "L2-open", "observable": null, "phase": 71, "tags": ["F6R-open-new", "cross-version"]},
+
+    {"id": "QM-v1-K72.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K72.1", "label": "Downgraded-stage report: every M3 route labeled as symbolic/conditional template/blocked numeric gate/audited exclusion", "status": "active", "level": "L2-summary", "observable": null, "phase": 72, "tags": ["stage-summary", "label-taxonomy"]},
+    {"id": "QM-v1-K72.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K72.2", "label": "M3 numeric tuple T_M3; all routes have missing tuple entries", "status": "active", "level": "L2-gap", "observable": null, "phase": 72, "tags": ["M3", "tuple-missing"]},
+    {"id": "QM-v1-K72.3", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K72.3", "label": "Stage-summary must be toolbox/limitation, not hidden no-go theorem", "status": "active", "level": "L0-writing-rule", "observable": null, "phase": 72, "tags": ["stage-summary", "writing-rule"]},
+
+    {"id": "QM-v1-K73.1", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K73.1", "label": "CHECKPOINT normalized: no ordinary internally closable technical active card remains", "status": "active", "level": "L2-summary", "observable": null, "phase": 73, "tags": ["CHECKPOINT", "registry-normalized"]},
+    {"id": "QM-v1-K73.2", "project": "Quantum-Mimicry", "version": "v1", "local_id": "K73.2", "label": "F6R-open-new remains cross-version open: no concrete platform/model identified for full M3 tuple", "status": "active", "level": "L2-open", "observable": null, "phase": 73, "tags": ["F6R-open-new", "cross-version"]}
+  ],
+  "edges": [
+    {"from": "QM-v1-K0.1", "to": "QM-v1-K1.1", "relation": "motivates"},
+    {"from": "QM-v1-K0.3", "to": "QM-v1-K10.4", "relation": "input-to-split"},
+    {"from": "QM-v1-K0.6", "to": "QM-v1-K11.1", "relation": "competitor-to-taxonomy"},
+    {"from": "QM-v1-K9.1", "to": "QM-v1-K9.2", "relation": "scopes"},
+    {"from": "QM-v1-K9.1", "to": "QM-v1-K27.3", "relation": "defines-boundaries"},
+    {"from": "QM-v1-K2.1", "to": "QM-v1-K3.1", "relation": "requires-statistic"},
+    {"from": "QM-v1-K5.2", "to": "QM-v1-K6.1", "relation": "derived-in"},
+    {"from": "QM-v1-K6.1", "to": "QM-v1-K25.1", "relation": "formalized-as"},
+    {"from": "QM-v1-K8.1", "to": "QM-v1-K26.1", "relation": "formalized-as"},
+    {"from": "QM-v1-K9.2", "to": "QM-v1-K11.1", "relation": "split-into"},
+    {"from": "QM-v1-K11.1", "to": "QM-v1-K17.1", "relation": "refined-into"},
+    {"from": "QM-v1-K15.1", "to": "QM-v1-K16.1", "relation": "corrected-by"},
+    {"from": "QM-v1-K16.4", "to": "QM-v1-K15.2", "relation": "scopes"},
+    {"from": "QM-v1-K18.2", "to": "QM-v1-K20.3", "relation": "superseded-by"},
+    {"from": "QM-v1-K23.1", "to": "QM-v1-K24.1", "relation": "initiates-chain"},
+    {"from": "QM-v1-K24.1", "to": "QM-v1-K27.1", "relation": "requires-gate"},
+    {"from": "QM-v1-K24.1", "to": "QM-v1-K35.1", "relation": "realized-in-platform"},
+    {"from": "QM-v1-K27.1", "to": "QM-v1-K29.2", "relation": "expanded-in"},
+    {"from": "QM-v1-K29.1", "to": "QM-v1-K38.1", "relation": "verified-synthetically"},
+    {"from": "QM-v1-K38.1", "to": "QM-v1-K38.3", "relation": "identifies-gap"},
+    {"from": "QM-v1-K39.1", "to": "QM-v1-K41.1", "relation": "gated"},
+    {"from": "QM-v1-K40.1", "to": "QM-v1-K43.1", "relation": "formalized"},
+    {"from": "QM-v1-K43.2", "to": "QM-v1-K44.1", "relation": "motivates"},
+    {"from": "QM-v1-K44.1", "to": "QM-v1-K46.1", "relation": "implemented-in"},
+    {"from": "QM-v1-K45.2", "to": "QM-v1-K51.1", "relation": "superseded-by"},
+    {"from": "QM-v1-K51.2", "to": "QM-v1-K54.3", "relation": "certificate-required"},
+    {"from": "QM-v1-K48.1", "to": "QM-v1-K49.1", "relation": "blocks"},
+    {"from": "QM-v1-K49.1", "to": "QM-v1-K56.2", "relation": "gated-symbolic"},
+    {"from": "QM-v1-K56.4", "to": "QM-v1-K70.6", "relation": "downgraded-to"},
+    {"from": "QM-v1-K57.1", "to": "QM-v1-K58.1", "relation": "repaired-by-demonstration"},
+    {"from": "QM-v1-K60.1", "to": "QM-v1-K61.2", "relation": "addressed-by"},
+    {"from": "QM-v1-K63.1", "to": "QM-v1-K64.1", "relation": "repaired-by-generator"},
+    {"from": "QM-v1-K66.1", "to": "QM-v1-K69.1", "relation": "resulted-in-failure"},
+    {"from": "QM-v1-K69.1", "to": "QM-v1-K70.6", "relation": "confirms-downgrade"},
+    {"from": "QM-v1-K70.1", "to": "QM-v1-K72.2", "relation": "applied-in-gap-analysis"},
+    {"from": "QM-v1-K71.1", "to": "QM-v1-K73.1", "relation": "registry-normalized-in"},
+    {"from": "QM-v1-K47.1", "to": "QM-v1-K70.2", "relation": "scoped-in-final-audit"},
+    {"from": "QM-v1-K58.1", "to": "QM-v1-K57.2", "relation": "repairs-falsifiability"},
+    {"from": "QM-v1-K18.3", "to": "QM-v1-K20.2", "relation": "repaired-statement"}
+  ],
+  "orphans": [],
+  "hubs": ["QM-v1-K24.1", "QM-v1-K35.1", "QM-v1-K9.1", "QM-v1-K70.6", "QM-v1-K11.1"],
+  "open_edges": ["QM-v1-K73.2", "QM-v1-K38.3", "QM-v1-K42.2", "QM-v1-K57.2", "QM-v1-K22.3"]
+}

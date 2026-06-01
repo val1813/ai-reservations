@@ -1,0 +1,42 @@
+{
+  "project": "Quantum-Mimicry",
+  "version": "v3-schneider-nc-audit",
+  "nodes": {
+    "QM-v3-K0.4": {"project":"QM","version":"v3","label":"Ω独立维度d≥3,单GIE实验最多1D投影","status":"✅","level":"L2","observable":"O3","phase":0,"tags":["dimension-space","GIE","classical-gravity"]},
+    "QM-v3-K0.5": {"project":"QM","version":"v3","label":"FS=no外七个框架零非定义性共识","status":"✅","level":"L2","observable":"O3","phase":0,"tags":["operational-definition","classical-gravity"]},
+    "QM-v3-K0.6": {"project":"QM","version":"v3","label":"ML=yes+SC=Stochastic逻辑矛盾(no-go)","status":"✅","level":"L2","observable":"O3","phase":0,"tags":["no-go","mediation-locality"]},
+    "QM-v3-K1.1": {"project":"QM","version":"v3","label":"Schneider NC核心逻辑链P0-P5","status":"⚠️","level":"L1","observable":"O4","phase":1,"tags":["Schneider","Newton-Cartan","premise-extraction"]},
+    "QM-v3-K1.2": {"project":"QM","version":"v3","label":"Schneider独立于LOCC但依赖geometric mediator","status":"⚠️","level":"L2","observable":"O4","phase":1,"tags":["Schneider","LOCC","independence-audit"]},
+    "QM-v3-K1.3": {"project":"QM","version":"v3","label":"Schneider不证伪v2 K4.1(仅SC=Mediator子空间)","status":"⚠️","level":"L2","observable":"O4","phase":1,"tags":["Schneider","v2-defense"]},
+    "QM-v3-K2.1": {"project":"QM","version":"v3","label":"Mediation四层定义M_0-M_3","status":"✅","level":"L2","observable":"O4","phase":2,"tags":["mediation","operational-definition"]},
+    "QM-v3-K2.2": {"project":"QM","version":"v3","label":"Schneider NC=M_2层,独立于M_3不独立于M_1","status":"✅","level":"L2","observable":"O4","phase":2,"tags":["Schneider","mediation-layers"]},
+    "QM-v3-K2.3": {"project":"QM","version":"v3","label":"DP为Schneider关键反例(M_0+M_1,非M_2)","status":"⚠️","level":"L2","observable":"O3","phase":2,"tags":["DP","counterexample","Schneider"]},
+    "QM-v3-K3.3": {"project":"QM","version":"v3","label":"v3核心判定:Schneider独立于LOCC但不普遍约束","status":"✅","level":"L2","observable":"O4","phase":3,"tags":["v3-core","Schneider","ruling"]},
+    "QM-v3-K4.1": {"project":"QM","version":"v3","label":"DP修正:非酉collapse→phase argument不适用","status":"✅","level":"L2","observable":"O4","phase":4,"tags":["DP","non-unitary","correction"]},
+    "QM-v3-K4.3": {"project":"QM","version":"v3","label":"v3最终判定(审稿后):Schneider限于unitary geometric","status":"✅","level":"L2","observable":"O4","phase":4,"tags":["v3-final","Schneider","DP"]},
+    "QM-v3-K5.1": {"project":"QM","version":"v3","label":"联合排除形式结构:∪Ω_i=Ω","status":"✅","level":"L2","observable":"O4","phase":5,"tags":["joint-exclusion","formal-structure"]},
+    "QM-v3-K5.2": {"project":"QM","version":"v3","label":"Ω结构:5/7框架被覆盖,2间隙","status":"✅","level":"L2","observable":"O4","phase":5,"tags":["coverage","gap-analysis"]},
+    "QM-v3-K5.3": {"project":"QM","version":"v3","label":"联合排除不完备(FS=no→no dynamical constraints)","status":"⚠️","level":"L2","observable":"O4","phase":5,"tags":["incompleteness","FS-no"]},
+    "QM-v3-K5.4": {"project":"QM","version":"v3","label":"累积论证链:FS=no→GIE=0结构上不可能","status":"✅","level":"L2","observable":"O4","phase":5,"tags":["cumulative-chain","core-insight"]}
+  },
+  "edges": [
+    {"from":"QM-v3-K1.1","to":"QM-v3-K1.2","type":"supports"},
+    {"from":"QM-v3-K1.2","to":"QM-v3-K1.3","type":"supports"},
+    {"from":"QM-v3-K1.3","to":"QM-v3-K0.5","type":"supports"},
+    {"from":"QM-v3-K2.1","to":"QM-v3-K2.2","type":"supports"},
+    {"from":"QM-v3-K2.2","to":"QM-v3-K3.3","type":"supports"},
+    {"from":"QM-v3-K2.3","to":"QM-v3-K4.1","type":"supports"},
+    {"from":"QM-v3-K4.1","to":"QM-v3-K4.3","type":"supports"},
+    {"from":"QM-v3-K3.3","to":"QM-v3-K4.3","type":"supports"},
+    {"from":"QM-v3-K4.3","to":"QM-v3-K0.5","type":"supports"},
+    {"from":"QM-v3-K5.1","to":"QM-v3-K5.2","type":"supports"},
+    {"from":"QM-v3-K5.2","to":"QM-v3-K5.3","type":"supports"},
+    {"from":"QM-v3-K5.3","to":"QM-v3-K5.4","type":"supports"},
+    {"from":"QM-v3-K5.4","to":"QM-v3-K0.4","type":"extends"},
+    {"from":"QM-v3-K4.3","to":"QM-v3-K5.1","type":"extends"}
+  ],
+  "orphans": [],
+  "hubs": ["QM-v3-K4.3","QM-v3-K5.4"],
+  "open_edges": ["QM-v3-K2.3(DP需实验验证)","QM-v3-K5.3(不完备性需形式化证明)"],
+  "inter_project_candidates": []
+}

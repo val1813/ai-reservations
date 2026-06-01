@@ -1,0 +1,29 @@
+{
+  "project": "Nu5o2-EdgeThermal",
+  "long_proposition": "LP-3",
+  "sub_proposition": "LP3-S1",
+  "north_star": "热输运非拓扑修正能否定量解释κ_xy=5/2κ₀与anti-Pfaffian的兼容性？",
+  "conclusion_type": "有边界",
+  "completion_date": "2026-05-31",
+  "versions": ["v1", "v2"],
+  "total_phases": 4,
+  "knowledge_entries": {
+    "K1.1": {"status": "✅", "content": "APf ν=5/2 5边缘模 c_D=3 c_U=1 c_M=1/2 ν_Q=3/2", "math_object": "5模手征CFT 中心荷{1,1,1,1,1/2}", "source": "P1-A"},
+    "K1.2": {"status": "✅", "content": "清洁极限κ_xy=(3/2)κ₀ 修正了1/2κ₀初始假设", "math_object": "热霍尔电导", "source": "P1-A"},
+    "K1.3": {"status": "✅", "content": "纯Γ+纯η在线性响应下不改变κ_xy L-B守恒律", "math_object": "Landauer-Büttiker守恒律", "source": "P1-A"},
+    "K1.4": {"status": "✅", "content": "APf→5/2κ₀参数窗口 α_DU>5+α_Mb<0.3+n_M>0.5μm⁻¹", "math_object": "三维参数空间", "source": "P1-A"},
+    "K1.5": {"status": "✅", "content": "热输运信道(L,T)简并区 测量算子M非单射", "math_object": "信道容量", "source": "P1-B"},
+    "K1.6": {"status": "✅", "content": "ψ_d·ψ_u隧穿Δ=1<2强relevant 手征对称性不保护λ₂=0", "math_object": "CFT算符标度维度", "source": "P1-B"},
+    "K1.7": {"status": "⚠️", "content": "反身性危机: κ_xy测量不可自我校准", "math_object": "认识论约束", "source": "P1-B"},
+    "K2.1": {"status": "✅", "content": "分数通道张力双参量δ_RG+ε分解", "math_object": "双参量分解", "source": "P2-B"},
+    "K2.2": {"status": "✅", "content": "ψ_d·ψ_u对角化→Δ_gap=2|λ₂| disorder→不完全gapping", "math_object": "随机双Majorana对角化", "source": "P2-B"},
+    "K2.3": {"status": "⚠️", "content": "Tradeoff定理: 压低κ_xy^frac→压低κ_xy^total 5-8%", "math_object": "不可能三角", "source": "P2-B"},
+    "K2.4": {"status": "✅", "content": "减法提取↔差分放大器CMRR同构", "math_object": "CMRR~20dB", "source": "P2-B"},
+    "K2.5": {"status": "⚠️", "content": "完全解决需bulk分流 但v2证伪了中性旁路", "math_object": "Bulk分流不可行", "source": "P2-B+v2"}
+  },
+  "cards": [
+    {"id": "C1", "desc": "分数通道41%偏差", "status": "部分解决", "resolution": "分解为δ_RG+ε双参量"},
+    {"id": "C5", "desc": "Bulk分流tradeoff", "status": "永久边界", "resolution": "v2证伪bulk中性旁路; tradeoff定理严格成立"}
+  ],
+  "impact_on_LP3": "S1完成→推进障碍'热输运非拓扑修正'。为S3提供完整约束：APf边缘效应是5/2κ₀可行但非唯一解释。区分需gate扫描实验。"
+}

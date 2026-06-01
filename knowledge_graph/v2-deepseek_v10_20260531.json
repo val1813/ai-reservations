@@ -1,0 +1,55 @@
+{
+  "project": "Jensen-thermo",
+  "version": "v6-Convergence",
+  "generated": "2026-05-29",
+  "inherits_from": "v5-Spohn",
+  "nodes": [
+    {
+      "id": "JENSEN-v5-K6",
+      "project": "Jensen-thermo",
+      "version": "v5",
+      "local_id": "K6",
+      "label": "Σ_S = d/dt I(S:B) + β·dC_coup/dt − Σ_B^{internal} exact identity (no factorization premise)",
+      "status": "verified",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 5,
+      "tags": ["entropy-production", "gauge-invariant", "exact-identity", "mutual-information", "bath-entropy"]
+    },
+    {
+      "id": "JENSEN-v3-K10",
+      "project": "Jensen-thermo",
+      "version": "v3",
+      "local_id": "K10",
+      "label": "H*∝I via linked-cluster theorem (Gaussian bath, non-perturbative)",
+      "status": "verified",
+      "level": "L2",
+      "observable": "O4",
+      "phase": 3,
+      "tags": ["HMF", "linked-cluster", "Class-I", "Gaussian-bath", "cumulant-expansion"]
+    }
+  ],
+  "edges": [
+    {"from": "JENSEN-v5-K6", "to": "JENSEN-v3-K10", "type": "depends"},
+    {"from": "JENSEN-v5-K6", "to": "JENSEN-v4-K5", "type": "generalizes"}
+  ],
+  "orphans": [],
+  "hubs": ["JENSEN-v5-K6", "JENSEN-v3-K10"],
+  "open_edges": [
+    {
+      "node": "JENSEN-v3-K10",
+      "issue": "v6: Is linked-cluster convergence radius finite in spin-boson Class I? Does it coincide with Nakagawa (2026) α≈1/2 backflow phase boundary? If yes → H*∝I needs convergence-domain qualifier."
+    },
+    {
+      "node": "JENSEN-v5-K6",
+      "issue": "v5-K6 depends on ∂_t H*=0 (via v3-K10). If v6 finds H*∝I converges only for α<α_c, v5-K6 inherits this domain restriction."
+    }
+  ],
+  "inter_project_candidates": [
+    {
+      "pair": ["JENSEN-v3-K10", "NAKAGAWA-2026"],
+      "overlap_tags": ["linked-cluster", "convergence-radius", "backflow-phase-boundary"],
+      "rationale": "Nakagawa's α≈1/2 backflow phase boundary may coincide with linked-cluster convergence radius — independent frameworks converging on same mathematical boundary"
+    }
+  ]
+}

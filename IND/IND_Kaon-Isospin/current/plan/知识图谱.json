@@ -1,0 +1,19 @@
+{
+  "project": "Kaon-Isospin",
+  "version": "v1",
+  "date": "2026-05-30",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: NA61/SHINE R_K异常→QCD对称性传递盲区", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: QCD同位旋→R_K≈1", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: 实验R_K=1.184, 4.7σ偏离", "type": "claim"},
+    {"id": "method_hadron", "label": "强子化模型(PYTHIA/EPOS)", "type": "method"},
+    {"id": "method_chpt", "label": "手征有效场论+大N_c", "type": "method"},
+    {"id": "risk_significance", "label": "卡点K1.1: 非高斯显著性可能退至3σ", "type": "risk"},
+    {"id": "risk_pud", "label": "卡点K1.2: P(u)/P(d)已知→异常可解释", "type": "risk"}
+  ],
+  "edges": [
+    {"from": "prop_A", "to": "prop_B", "relation": "contradicts"},
+    {"from": "risk_significance", "to": "prop_B", "relation": "threatens"},
+    {"from": "risk_pud", "to": "prop_A", "relation": "resolves_to_known"}
+  ]
+}
