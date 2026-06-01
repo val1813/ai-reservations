@@ -434,42 +434,62 @@ D:\Claude\ai-reservations\
     搁置命题.md
 
   knowledge_graph/                 ← 各课题知识图谱版本备份
-    LP1-MBL_v1_20260531.json
-    LP1-MBL_v2_20260601.json
+    LP1-MBL2D_v1_20260531.json
+    LP1-MBL2D_v2_20260601.json
     ...
 
-  LP1-MBL/                        ← 长命题一级目录（命名规则：LP编号-关键词）
-    LP1-S1-Avalanche/             ← 子命题目录（命名规则：LP编号-子编号-关键词）
+  LP1-MBL2D/                       ← 长命题一级目录（命名规则：LP编号-英文简称）
+    LP1-S1_MBL-Avalanche/          ← 子命题目录（命名规则：LP编号-S子编号_原课题名）
       README.md
       current/
         plan/  synthesis/
-    LP1-S2-Percolation/
+    LP1-S2_MBL-RareRegion/
       current/
         plan/  synthesis/
-    LP1-S3-Quasiperiodic/
+    LP1-S3_MBL-Quasiperiodic/
       current/
         plan/  synthesis/
-    LP1-synthesis/                ← 长命题综合推导目录
+    LP1-S4_MBL-Experiment/
+      current/
+        plan/  synthesis/
+    LP1-synthesis/                 ← 长命题综合推导目录（如已综合）
       长命题综合.md
 
   LP2-Planckian/
-    LP2-S1-MetaAnalysis/
-    LP2-S2-Mechanism/
+    LP2-S1_Planckian-alpha/
+    LP2-S2_Planckian-Framework/
     LP2-synthesis/
 
-  独立短命题/                      ← 不属于任何长命题的独立短命题（少数）
-    ShortP1-XXX/
-      current/  synthesis/
+  LP3-Nu5half/
+    LP3-S1_Nu5o2-EdgeThermal/
+    LP3-S2_Nu5o2-Mapping/
+
+  LP4-NHSE/
+    LP4-S1_NHSE-TopoUnify/
+
+  LP5-DQCP/
+    LP5-S1_DQCP-Entanglement/
+    LP5-S4_DQCP-Complex/
+
+  LP6-BlackHoleInfo/
+    LP6-S1_NESS-MerminWagner/
+    LP6-S3_Hawking-Encoding/
+
+  IND/                             ← 独立课题（不属于任何长命题）
+    IND_BMV/
+    IND_KD-Graphene/
+    ...
 ```
 
 目录命名规则：
-  长命题目录：LP[编号]-[2-4字关键词]  例：LP1-MBL, LP2-Planckian
-  子命题目录：LP[编号]-S[子编号]-[关键词]  例：LP1-S1-Avalanche
-  独立短命题：ShortP[编号]-[关键词]
+  长命题父目录：LP[编号]-[英文简称]  例：LP1-MBL2D, LP2-Planckian, LP3-Nu5half, LP4-NHSE, LP5-DQCP, LP6-BlackHoleInfo
+  子命题目录：LP[编号]-S[子编号]_[原课题名]  例：LP1-S1_MBL-Avalanche, LP3-S2_Nu5o2-Mapping
+  独立课题目录：IND_[原课题名]  例：IND_BMV, IND_KD-Graphene
+  注：所有独立课题统一收纳在 IND/ 目录下。
 
 冷启动时如何定位当前课题：
   读 shared/北极星候选池.md 找到当前认领的子命题编号
-  → 推断目录路径：LP1-S1 → LP1-MBL/LP1-S1-Avalanche/
+  → 推断目录路径：LP1-S1 → LP1-MBL2D/LP1-S1_MBL-Avalanche/
   → 进入该目录开始冷启动
 ```
 

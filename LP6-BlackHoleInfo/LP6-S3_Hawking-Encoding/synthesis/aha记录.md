@@ -42,12 +42,24 @@
 - 比北极星更有价值（标记当前 Phase 为过渡 Phase）：❌（仍是 LP6-S3 子命题主线）
 - 与北极星矛盾（开立卡点）：❌
 
-**决策**：下一 Phase（Phase 2）以 AHA-001 驱动矛盾为目标。
+**决策**：Phase 2 以 AHA-001 驱动矛盾为目标。
+
+### Phase 2 执行结果（2026-06-01）
+
+- A 博士：GKRR = THEOREM（有条件：perturbative+leading replica+SYK UV完备）。论证链 (G1)-(G4) 解构完成。ACMP 处理为 Option 2
+- B 博士：GKRR = CONJECTURE（canonical Type III₁ 中 P₀ ∉ algebra）。跨域同构（Reeh-Schlieder/split property/Connes embedding）。Phase 1 四处自攻修正
+- **PI 裁决**：GKRR = **setup-dependent**。Canonical Type III₁（标准设置）中不是 theorem。Microcanonical Type II∞ 中可能成立
+- **AHA-001 状态更新**：从 "GKRR 是 theorem 还是 conjecture？" 精化为 "GKRR completeness 的 ensemble 依赖性（canonical vs microcanonical）→ M.B no-go 在 canonical 标准设置中是否需要 GKRR 以外的独立论证？"
+
+### Phase 3 方向
+
+战略转向路径 B：Subfactor index [𝒜_full : 𝒜_bdy] 攻打 M.B no-go，绕过 GKRR completeness 的 ensemble 依赖。A 博士正面攻 index > 1，B 博士攻 canonical Type III₁ 独立论证 + microcanonical 压力测试。
 
 ### 📌 追问机制（每次收官时挑一个执行）
 
-- 📌 AHA-001 子追问：GKRR completeness 是否在 *non-perturbative* gravity 配置（off-shell saddle、UV completion）外成立？这是 B 博士承认的 "doubly non-perturbative 窗口"。
-- 📌 AHA-001 子追问：高维 holographic CFT（4d N=4 SYM 等）中 ACMP 是否同样塌缩？JT 半经典 R 恒定是关键，高维 R(x) 非平凡可能逃出 B 博士的 §4.2 论证。
+- 📌 AHA-001 子追问：GKRR completeness 是否在 *non-perturbative* gravity 配置（off-shell saddle、UV completion）外成立？（A 博士 K2.1 卡点，Phase 3 不主攻，待后续）
+- 📌 AHA-001 子追问：高维 holographic CFT（4d N=4 SYM 等）中 ACMP 是否同样塌缩？JT 半经典 R 恒定是关键，高维 R(x) 非平凡可能逃出 B 博士的 §4.2 论证（CP-007-Phase1，Phase 3 不主攻，待后续）
+- 📌 AHA-001 新追问（Phase 2 触发）：如果 [𝒜_full : 𝒜_bdy] = 1 在 canonical Type III₁ 中成立（即 𝒜_bdy = 𝒜_full），这是否意味着 GKRR completeness 在 canonical ensemble 中意外成立？还是意味着 Type III₁ algebra 比我们想的更"大"？
 
 ---
 

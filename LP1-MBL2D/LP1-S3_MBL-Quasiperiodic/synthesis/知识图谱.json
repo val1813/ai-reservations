@@ -1,0 +1,70 @@
+{
+  "project": "LP1-MBL2D",
+  "version": "v1",
+  "long_proposition": "LP-1",
+  "sub_propositions": ["LP1-S1", "LP1-S2", "LP1-S3", "LP1-S4"],
+  "north_star": "二维多体局域化(MBL)在热力学极限下是否作为真正的量子相存在？",
+  "conclusion_type": "已解决",
+  "rating": "A",
+  "completion_date": "2026-05-31",
+  "date": "2026-05-31",
+  "note": "由各子命题synthesis/总结.md与shared/知识库汇总.md回溯生成，补全A级结案课题缺失的结构化图谱(院长跨课题连通用)",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: 2D MBL在热力学极限下是否作为真正量子相存在", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: 2D MBL在强无序下作为稳定相存在", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: 2D MBL仅是有限尺寸瞬态，热力学极限被雪崩摧毁", "type": "claim"},
+
+    {"id": "S1-K1.1", "project": "MBL-Avalanche", "version": "v1", "local_id": "K1.1", "label": "ETH费米黄金规则→单格点热化率Γ_j~g²/W_j(L无关)", "type": "result", "status": "confirmed", "supports": ["north_star"], "math_object": "Fermi golden rule, ETH, bath size independence"},
+    {"id": "S1-K1.2", "project": "MBL-Avalanche", "version": "v1", "local_id": "K1.2", "label": "DRH不稳定性在均匀无序中成立 R~√(g²t/W)", "type": "result", "status": "confirmed", "supports": ["prop_B"], "math_object": "De Roeck-Huveneers, avalanche instability, diffusive growth"},
+    {"id": "S1-K2.1", "project": "MBL-Avalanche", "version": "v1", "local_id": "K2.1", "label": "Luitz边界局域化在2D失效(z_in>z_out维度压制)", "type": "result", "status": "confirmed", "supports": [], "math_object": "boundary localization, coordination number, dimensional suppression"},
+    {"id": "S1-K2.5", "project": "MBL-Avalanche", "version": "v1", "local_id": "K2.5", "label": "2D雪崩4区域相图(MBL稳定/临界/Griffiths/DRH扩散)由p_block vs p_c控制", "type": "result", "status": "confirmed", "supports": ["north_star"], "math_object": "site percolation phase diagram, p_c≈0.593, Fisher IRFP"},
+    {"id": "S1-K3.2", "project": "MBL-Avalanche", "version": "v1", "local_id": "K3.2", "label": "亚稳态寿命τ_MBL~exp(αL)·τ_0(α~5)>>τ_universe", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "metastable lifetime, exponential in system size"},
+    {"id": "S1-K3.4", "project": "MBL-Avalanche", "version": "v1", "local_id": "K3.4", "label": "2D MBL自限机制=多体热化渗流阻塞(非单粒子/非Fock路径/非边界局域化)", "type": "result", "status": "confirmed", "supports": ["north_star"], "math_object": "many-body thermalization percolation, self-limiting mechanism"},
+
+    {"id": "S2-K1.7", "project": "MBL-RareRegion", "version": "v1", "local_id": "K1.7", "label": "θ_eff(u=3,ξ=2)≈0.20，有限阈值GRF罕见热区比IID大~2.2倍", "type": "result", "status": "confirmed", "supports": [], "math_object": "extremal index, Gaussian random field, excursion set"},
+    {"id": "S2-K1.8", "project": "MBL-RareRegion", "version": "v1", "local_id": "K1.8", "label": "η_eff=η_IID/θ_eff≫1.128→罕见热区确定逾渗(W≤30t)", "type": "result", "status": "confirmed", "supports": ["S2-K2.3"], "math_object": "continuum percolation, η parameter, MBL rare region"},
+    {"id": "S2-K2.3", "project": "MBL-RareRegion", "version": "v1", "local_id": "K2.3", "label": "单粒子逾渗在实验MBL域(W≈5-20t)平凡成立→2D MBL稳定性必然来自多体效应", "type": "result", "status": "confirmed", "supports": ["S1-K3.4"], "math_object": "site percolation, Anderson localization threshold"},
+
+    {"id": "S3-K3.1", "project": "MBL-Quasiperiodic", "version": "v1", "local_id": "K3.1", "label": "L_max≤(M+2)/ε对badly approx β有限，黄金比例M=1", "type": "result", "status": "confirmed", "supports": ["S3-K3.3"], "math_object": "Diophantine approximation, continued fraction, sojourn time"},
+    {"id": "S3-K3.3", "project": "MBL-Quasiperiodic", "version": "v1", "local_id": "K3.3", "label": "L_max(≤9)<<ξ_perc(~30)→雪崩无法启动→准周期MBL严格稳定", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "quasiperiodic potential, avalanche suppression"},
+    {"id": "S3-K3.4", "project": "MBL-Quasiperiodic", "version": "v1", "local_id": "K3.4", "label": "MBL稳定性数论分类：badly approx→稳定，Liouville→不稳定", "type": "result", "status": "confirmed", "supports": ["north_star"], "math_object": "number theory classification, MBL stability"},
+
+    {"id": "S4-K4.1", "project": "MBL-Experiment", "version": "v1", "local_id": "K4.1", "label": "现有实验(576格点,10³τ_0)能决定性区分MBL与极慢热化，z>5.6", "type": "result", "status": "confirmed", "supports": ["north_star"], "math_object": "Bayesian model comparison, stretched exponential, Fisher information"},
+    {"id": "S4-K4.2", "project": "MBL-Experiment", "version": "v1", "local_id": "K4.2", "label": "两独立通道：函数形式(β±0.01-0.05)+有限尺寸标度(交叉点漂移z>17)", "type": "result", "status": "confirmed", "supports": [], "math_object": "finite-size scaling, model-independent discrimination"},
+    {"id": "S4-K4.3", "project": "MBL-Experiment", "version": "v1", "local_id": "K4.3", "label": "实验确认：准周期=真MBL(无漂移)，随机=慢热化/临界(有漂移)，与S1-S3理论一致", "type": "result", "status": "confirmed", "supports": ["S3-K3.3", "S1-K3.4"], "math_object": "experimental confirmation, quasiperiodic vs random disorder"},
+
+    {"id": "LP1-syn-conclusion", "project": "LP1-MBL2D", "version": "synthesis", "local_id": "综合-结论", "label": "2D MBL相变是渗流相变(p_block=p_c)，准周期严格稳定，随机操作性稳定(τ>>τ_universe)", "type": "result", "status": "confirmed", "supports": ["north_star"], "math_object": "percolation phase transition, 2D MBL complete phase diagram"},
+    {"id": "LP1-syn-phasediagram", "project": "LP1-MBL2D", "version": "synthesis", "local_id": "综合-相图", "label": "4区域相图：准周期严格稳定/随机操作性稳定/临界亚扩散/DRH热化", "type": "result", "status": "confirmed", "supports": ["LP1-syn-conclusion"], "math_object": "phase diagram, Fisher IRFP, Diophantine protection"},
+    {"id": "LP1-syn-method", "project": "LP1-MBL2D", "version": "synthesis", "local_id": "综合-方法论", "label": "三层框架：微观(ETH-FGR)+介观(渗流+Diophantine)+宏观(IRFP动力学)", "type": "method", "status": "confirmed", "supports": ["LP1-syn-conclusion"], "math_object": "multi-scale framework, ETH, percolation, IRFP"}
+  ],
+  "edges": [
+    {"from": "prop_A", "to": "prop_B", "relation": "contradicts"},
+    {"from": "S1-K3.4", "to": "north_star", "relation": "answers"},
+    {"from": "S2-K2.3", "to": "S1-K3.4", "relation": "motivates"},
+    {"from": "S2-K1.8", "to": "S2-K2.3", "relation": "supports"},
+    {"from": "S1-K1.1", "to": "S1-K3.4", "relation": "supports"},
+    {"from": "S1-K2.1", "to": "S1-K3.4", "relation": "rules_out_alternative"},
+    {"from": "S1-K1.2", "to": "prop_B", "relation": "supports"},
+    {"from": "S1-K3.2", "to": "prop_A", "relation": "supports"},
+    {"from": "S3-K3.1", "to": "S3-K3.3", "relation": "supports"},
+    {"from": "S3-K3.3", "to": "prop_A", "relation": "supports"},
+    {"from": "S3-K3.4", "to": "north_star", "relation": "answers"},
+    {"from": "S4-K4.3", "to": "S3-K3.3", "relation": "confirms"},
+    {"from": "S4-K4.3", "to": "S1-K3.4", "relation": "confirms"},
+    {"from": "S4-K4.1", "to": "north_star", "relation": "enables"},
+    {"from": "LP1-syn-conclusion", "to": "north_star", "relation": "resolves"},
+    {"from": "S1-K3.4", "to": "LP1-syn-conclusion", "relation": "feeds"},
+    {"from": "S2-K2.3", "to": "LP1-syn-conclusion", "relation": "feeds"},
+    {"from": "S3-K3.3", "to": "LP1-syn-conclusion", "relation": "feeds"},
+    {"from": "LP1-syn-phasediagram", "to": "LP1-syn-conclusion", "relation": "elaborates"},
+    {"from": "LP1-syn-method", "to": "LP1-syn-conclusion", "relation": "underlies"}
+  ],
+  "math_objects": [
+    {"id": "mo1", "name": "p_block / p_c", "description": "多体热化阻塞密度 vs 2D site percolation阈值(p_c≈0.593)，决定MBL稳定性的核心序参量", "domain": "cond-mat / percolation"},
+    {"id": "mo2", "name": "Γ_j = g²/W_j", "description": "ETH费米黄金规则单格点热化率，微观输入(L无关)", "domain": "quantum thermalization"},
+    {"id": "mo3", "name": "L_max ≤ (M+2)/ε", "description": "Diophantine约束下准周期势的有限sojourn尺寸上界(badly approximable β)", "domain": "number theory / dynamics"},
+    {"id": "mo4", "name": "τ_MBL ~ exp(αL)·τ_0", "description": "随机MBL亚稳态寿命(α~5 WKB+渗流标度估计)，操作性稳定判据", "domain": "cond-mat"},
+    {"id": "mo5", "name": "ξ_perc ~ |p-p_c|^{-4/3}", "description": "渗流关联长度，2D site percolation普适类(ν=4/3, d_f=91/48)", "domain": "percolation"},
+    {"id": "mo6", "name": "Fisher IRFP: R ~ (ln t)^{1/ψ}, ψ≈1/2", "description": "强无序极限活化动力学(infinite randomness fixed point)", "domain": "cond-mat"}
+  ]
+}
