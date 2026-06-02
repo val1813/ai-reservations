@@ -1,0 +1,37 @@
+{
+  "project": "quantum-relativity-unification",
+  "version": "v8-sorkin-johnston-uniqueness",
+  "phases_completed": 4,
+  "nodes": [
+    {"id": "QRU-v8-K32", "label": "K_dA = (B+m2I)^(-1) preserves causality (lower triangular inverse)", "status": "confirmed", "level": "L1", "observable": "O5", "tags": ["causality", "linear-algebra", "K_dA"]},
+    {"id": "QRU-v8-K33", "label": "Delta_dA is a valid Pauli-Jordan commutator candidate", "status": "confirmed", "level": "L2", "observable": "O5", "tags": ["Pauli-Jordan", "SJ-validity", "Delta_dA"]},
+    {"id": "QRU-v8-K34", "label": "SJ uniqueness claim only covers Delta->W mapping, not G_ret construction", "status": "confirmed", "level": "L1", "observable": "O5", "tags": ["SJ-formalism", "uniqueness", "literature"]},
+    {"id": "QRU-v8-K35", "label": "pos(.) operator is 1-Lipschitz: ||pos(A)-pos(B)|| <= ||A-B||", "status": "confirmed", "level": "L1", "observable": "O5", "tags": ["matrix-analysis", "Bhatia-theorem", "SJ-pipeline"]},
+    {"id": "QRU-v8-K36", "label": "||W_path - W_dA|| <= ||Delta_path - Delta_dA|| ~ O(1/rho)", "status": "confirmed", "level": "L2", "observable": "O5", "tags": ["quantum-difference", "scaling", "1/rho"]},
+    {"id": "QRU-v8-K37", "label": "One near-zero eigenvalue crosses zero between path and dA (O(10^-20))", "status": "warn", "level": "L3", "observable": "O5", "tags": ["zero-crossing", "near-zero-modes", "numerical"]},
+    {"id": "QRU-v8-K38", "label": "Pi_perp^Q != 0: quantum Wightman functions do NOT share detector response core", "status": "confirmed", "level": "L2", "observable": "O5", "tags": ["core-result", "quantum-non-uniqueness", "v8-conclusion"]},
+    {"id": "QRU-v8-K39", "label": "Detector family robustness: 10/10 random D,J pairs show DeltaR_Q != 0", "status": "confirmed", "level": "L2", "observable": "O5", "tags": ["detector-scan", "robustness", "numerical"]},
+    {"id": "QRU-v8-K40", "label": "Lipschitz ratio 0.93-0.998 numerically verified (N=50,100)", "status": "confirmed", "level": "L2", "observable": "O5", "tags": ["numerical-verification", "lipschitz"]}
+  ],
+  "edges": [
+    {"from": "QRU-v8-K38", "to": "QRU-v7-K31", "type": "extends"},
+    {"from": "QRU-v8-K38", "to": "QRU-v8-K35", "type": "depends"},
+    {"from": "QRU-v8-K38", "to": "QRU-v8-K36", "type": "depends"},
+    {"from": "QRU-v8-K36", "to": "QRU-v8-K35", "type": "depends"},
+    {"from": "QRU-v8-K33", "to": "QRU-v8-K32", "type": "depends"},
+    {"from": "QRU-v8-K33", "to": "QRU-v7-K24", "type": "uses"},
+    {"from": "QRU-v8-K34", "to": "QRU-v8-K38", "type": "supports"},
+    {"from": "QRU-v8-K40", "to": "QRU-v8-K35", "type": "validates"},
+    {"from": "QRU-v8-K39", "to": "QRU-v8-K38", "type": "validates"},
+    {"from": "QRU-v8-K37", "to": "QRU-v8-K36", "type": "refines"},
+    {"from": "QRU-v8-K32", "to": "QRU-v7-K15", "type": "uses"},
+    {"from": "QRU-v8-K35", "to": "QRU-v7-K21", "type": "uses"}
+  ],
+  "open_edges": [
+    {"id": "v8-OE1", "description": "M_Q precise quantification (O(1/rho) accuracy)", "status": "待后续"},
+    {"id": "v8-OE2", "description": "Larger detector family scan (>>10 D,J)", "status": "待后续"},
+    {"id": "v8-OE3", "description": "C7(v7): Detector family complete classification", "status": "悬留"},
+    {"id": "v8-OE4", "description": "C8(v7): 2D to 4D generalization", "status": "悬留"}
+  ],
+  "hubs": ["QRU-v8-K38", "QRU-v8-K35", "QRU-v8-K34"]
+}

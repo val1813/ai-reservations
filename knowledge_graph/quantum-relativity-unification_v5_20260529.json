@@ -1,0 +1,28 @@
+{
+  "project": "quantum-relativity-unification",
+  "updated": "2026-05-29",
+  "versions": {
+    "v5": {
+      "status": "principle-limitation",
+      "core_result": "A2/global continuum-response-image lemma is not proved. It reduces to construction-specific detector-norm residual projection theorems.",
+      "recommended_next": "Compare continuum-equivalent causal-set propagator/interacting constructions for a prescription-independent detector response core."
+    }
+  },
+  "cross_version_open_edges": [
+    {
+      "id": "CV1",
+      "question": "Can a prescription-independent detector response core exist across continuum-equivalent causal-set constructions?",
+      "source": "v3/v5 comparison-map obstruction plus navigator"
+    },
+    {
+      "id": "CV2",
+      "question": "Does local d'Alembertian convergence imply detector-level observable stability?",
+      "source": "v5 log/corner/null-branch obstruction plus 2025 local d'Alembertian work"
+    },
+    {
+      "id": "CV3",
+      "question": "Do interacting joint detector cumulants contain an overlap structure not removable by response-class freedom?",
+      "source": "v1/v4 unanswered cumulant questions plus 2023-2024 interacting causal-set QFT"
+    }
+  ]
+}

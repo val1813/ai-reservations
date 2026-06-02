@@ -117,7 +117,7 @@ def velocity(H, states, L, psi, dt=1e-3):
 
 def run():
     rows = []
-    for L in [4, 6, 8]:
+    for L in [4, 6, 8, 10]:
         for N in range(1, L):
             if math.comb(L, N) > 260:
                 continue

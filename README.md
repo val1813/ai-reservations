@@ -21,6 +21,7 @@ ai-reservations/
 ├── LP4-NHSE/           长命题4：非厄米多体趋肤效应
 ├── LP5-DQCP/           长命题5：DQCP真正连续还是弱一阶
 ├── LP6-BlackHoleInfo/  长命题6：黑洞信息悖论
+├── LP7-QMGRUnification/ 长命题7：量子力学-广义相对论冲突到统一公式
 │
 └── IND/        独立课题（已结案/已转向）
 ```
@@ -96,6 +97,20 @@ S1+S4均有边界结案，S2/S3需重新表述。
 
 ---
 
+## LP7-QMGRUnification：量子力学-广义相对论冲突到统一公式 ✅结构性收官
+
+用户手动布置长命题，已完成 S1-S10。
+
+核心结论：未确认终极统一动力学方程；已确认六通道候选准入图谱：
+
+`Theory T -> I[T] -> J_unify[I[T]]`
+
+其中 `I[T]=(Phi_source,Phi_mediator,Phi_noise,Phi_entropy,Phi_obs,Phi_frame)`。
+
+后续只做具体候选理论 `T` 的六通道代入测试，不继续抽象扩块。
+
+---
+
 ## IND：独立课题（已结案/转向）
 
 非长命题的历史课题，按结案状态保留。
@@ -108,7 +123,7 @@ S1+S4均有边界结案，S2/S3需重新表述。
 | `IND_v2-claude/` | （早期课题） | — | ✅结案 |
 | `IND_bath-coupling/` | 浴耦合图拓扑（4版本） | B | ✅结案 |
 | `IND_Schwarz-only/` | Schwarz条件唯一性（8版本） | C+ | ✅结案 |
-| `IND_quantum-relativity-unification/` | 因果集QFT（13版本） | B | 🔄v13未完成 |
+| `IND_quantum-relativity-unification/` | 因果集QFT（13版本） | B | ✅v13 Phase1提前关闭 |
 | `IND_KD-Graphene/` | 石墨烯ν=0热输运 | B+ | ✅结案 |
 | `IND_Kaon-Isospin/` | K介子同位旋异常 | C | ✅结案（证伪） |
 | `IND_Kagome-NQS/` | Kagome NQS | C | ✅转向否定性路线 |

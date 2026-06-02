@@ -98,3 +98,69 @@ Phase 2A-2 / 2B-2：扩大到 `L=10` 并定位翻符点。
 
 ## 下一步
 Phase 2A-3 / 2B-3：定位翻符填充率区间与受限成立条件。
+
+## Phase 2A-3
+完成：翻符区间定位，高填充率 `rho≈0.8/0.9` 最明显。
+
+## Phase 2B-3
+完成：高填充翻符更像占据数效应和边界堵塞，不支持不变量成立。
+
+## 下一步
+Phase 2A-4 / 2B-4：检查翻符是否对 freeze 规则稳健。
+
+## Phase 2A-4
+完成：受限条件提炼，得到低填充正、高填充负、`rho≈0.75` 过渡带的分段图景。
+
+## Phase 2B-4
+完成：受限条件反证，指出这意味着原始“不变量”命题失败，新对象需单独命名。
+
+## 下一步
+Phase 2A-5 / 2B-5：整理失败链并命名新对象。
+
+## Phase 2A-5
+完成：失败链整理，并命名新对象 `density-resolved directionality diagnostic (DRDD)`。
+
+## Phase 2B-5
+完成：失败确认，原始不变量命题失败，保留新对象继续推进。
+
+## 下一步
+Phase 3：新对象 DRDD 的独立验证或收官整理。
+
+## Phase 3A-1
+完成：原始 QLIF 定义对照，明确当前数值脚本不是原始 QLIF。
+
+## Phase 3B-1
+完成：代理量偷换反例，明确 Phase 2 结论只能归类为 DRDD/DR-NHDD，而非原始 QLIF 最终裁决。
+
+## Phase 3A-2
+完成：术语边界，建议将 DRDD 改名为 `density-resolved non-Hermitian directionality diagnostic (DR-NHDD)`。
+
+## Phase 3B-2
+完成：禁止把 DR-NHDD 混称为 QLIF 或 invariant。
+
+## 下一步
+Phase 3A-3 / 3B-3：Phase 2 结果重归类。
+
+## Phase 3A-3
+完成：Phase 2 结果全部重归类为 DR-NHDD 结论。
+
+## Phase 3B-3
+完成：确认原始 QLIF 仍未裁决。
+
+## Phase 3A-4
+完成：原始 QLIF 必须另开新任务，不能复用 DR-NHDD。
+
+## Phase 3B-4
+完成：列出不得偷换的表述边界。
+
+## 下一步
+Phase 3A-5 / 3B-5：收官前置检查。
+
+## Phase 3A-5
+完成：收官前置检查，原始 QLIF 失败、DR-NHDD 成立、原始 QLIF 必须另开任务。
+
+## Phase 3B-5
+完成：收官前置检查，确认当前项目不应再沿用“原始不变量”表述。
+
+## 下一步
+执行收官写回：同步当前状态、总结、审计记录与候选池。

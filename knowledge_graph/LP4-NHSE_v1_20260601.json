@@ -1,0 +1,34 @@
+﻿{
+  "project": "LP4-NHSE",
+  "version": "v1",
+  "long_proposition": "LP-4",
+  "sub_propositions": ["LP4-S1", "LP4-S2", "LP4-S3"],
+  "north_star": "非厄米多体系统中趋肤效应的sector-resolved相图",
+  "conclusion_type": "有边界",
+  "completion_date": "2026-06-01",
+  "date": "2026-06-01",
+  "note": "由LP4-S1母框架、LP4-S2 DR-NHDD与LP4-S3多层级相图共同生成。LP4-S2原始QLIF不构成sector-independent拓扑不变量；LP4-S3将相图分为结构层、诊断层与边界层。",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: sector-resolved NHSE相图是否可统一为单一拓扑不变量", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: 存在统一分类结构层", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: 需要多层级边界图而非单一不变量图", "type": "claim"},
+    {"id": "LP4-S1-K2.2", "project": "NHSE-TopoUnify", "version": "v2", "local_id": "K2.2", "label": "非局域L_j产生方向反转: gamma_c=1-(t_L-t_R)/G", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "direction reversal mechanism, nonlocal jump operator"},
+    {"id": "LP4-S1-K2.3v2", "project": "NHSE-TopoUnify", "version": "v2", "local_id": "K2.3v2", "label": "N>1母空间方向反转确认: gamma_c≈0.9875", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "mother-space OBC direction reversal"},
+    {"id": "LP4-S2-K1.1", "project": "NHSE-InfoInvariant", "version": "v1", "local_id": "K1.1", "label": "原始QLIF不是sector-independent拓扑不变量", "type": "result", "status": "confirmed", "supports": ["prop_B"], "math_object": "non-Hermitian information flow, sector dependence"},
+    {"id": "LP4-S2-K1.2", "project": "NHSE-InfoInvariant", "version": "v1", "local_id": "K1.2", "label": "DR-NHDD表现为填充率分段方向性", "type": "result", "status": "confirmed", "supports": ["prop_B"], "math_object": "density-resolved diagnostic, piecewise directionality"},
+    {"id": "LP4-S3-K2.1", "project": "NHSE-PhaseDiagram", "version": "v1", "local_id": "K2.1", "label": "NHSE相图应分为结构层、诊断层、边界层三层", "type": "result", "status": "confirmed", "supports": ["prop_B"], "math_object": "multi-layer map, layered classification"},
+    {"id": "LP4-S3-K2.2", "project": "NHSE-PhaseDiagram", "version": "v1", "local_id": "K2.2", "label": "结构层由LP4-S1控制，诊断层由LP4-S2控制", "type": "result", "status": "confirmed", "supports": ["prop_A", "prop_B"], "math_object": "structural-diagnostic separation"},
+    {"id": "LP4-S3-K2.3", "project": "NHSE-PhaseDiagram", "version": "v1", "local_id": "K2.3", "label": "有限尺寸/OBC/实现约束必须显式标为caveat", "type": "result", "status": "confirmed", "supports": ["prop_B"], "math_object": "boundary caveat, finite-size effects"}
+  ],
+  "edges": [
+    {"from": "prop_A", "to": "prop_B", "relation": "tension"},
+    {"from": "LP4-S1-K2.2", "to": "prop_A", "relation": "supports"},
+    {"from": "LP4-S1-K2.3v2", "to": "prop_A", "relation": "supports"},
+    {"from": "LP4-S2-K1.1", "to": "prop_B", "relation": "supports"},
+    {"from": "LP4-S2-K1.2", "to": "prop_B", "relation": "supports"},
+    {"from": "LP4-S3-K2.1", "to": "prop_B", "relation": "supports"},
+    {"from": "LP4-S3-K2.2", "to": "prop_A", "relation": "supports"},
+    {"from": "LP4-S3-K2.2", "to": "prop_B", "relation": "supports"},
+    {"from": "LP4-S3-K2.3", "to": "prop_B", "relation": "supports"}
+  ]
+}

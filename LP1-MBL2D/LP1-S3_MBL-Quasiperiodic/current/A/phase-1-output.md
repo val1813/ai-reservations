@@ -32,6 +32,12 @@ $$L_{max} \leq \frac{3\pi}{2\arcsin(W_c/V_0)}$$
 - V_0=1, W_c=0.3: ε≈0.097, L_max ≤ 31
 - V_0=2, W_c=0.5: ε≈0.081, L_max ≤ 37
 
+**⚠️ ε公式修正（2026-06-01）：** 上述数值使用 W_c/(2V₀) 计算（2D充分条件分解的保守估计）。**正确1D精确公式为 ε = (2/π)arcsin(W_c/V₀)**：
+- V_0=1, W_c=0.5: ε = 1/3 ≈ 0.333, L_max ≤ 9（非19）
+- V_0=1, W_c=0.3: ε ≈ 0.194, L_max ≤ 16（非31）
+- V_0=2, W_c=0.5: ε ≈ 0.161, L_max ≤ 19（非37）
+**差异来源：** W_c/(2V₀) 分母中的因子2来自 |V_x+V_y| < W_c 的充分条件分解 |V_x| < W_c/2 且 |V_y| < W_c/2，给出的是保守的2D上界而非1D精确公式。原文数值保留作为"2D充分条件保守估计"的记录。
+
 ### 2D结果
 
 对可分离势V(x,y)=V_0[cos(2πβ_x·x)+cos(2πβ_y·y)]，L×L低无序区域要求x和y方向同时满足条件。
@@ -72,3 +78,5 @@ $$L_{max}^{(2D)} \leq \min(L_{max}^{(x)}, L_{max}^{(y)})$$
 **卡点A3：** Liouville数β使L_max无界——实验中β的选择是否总是badly approximable？
 - 冷原子实验中β通常选为黄金比例或其他二次无理数→badly approximable
 - 但原则上可以选择well approximable的β→MBL不稳定
+
+<!-- ε-FIX applied 2026-06-01: unified to ε=(2/π)arcsin(W_c/V₀); 2D sufficient-condition decomposition uses W_c/(2V₀) as conservative bound -->

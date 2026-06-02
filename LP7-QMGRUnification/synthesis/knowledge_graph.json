@@ -1,0 +1,50 @@
+{
+  "project": "LP7-QMGRUnification",
+  "updated": "2026-06-01",
+  "status": "bounded-structural-closure",
+  "core_result": "No confirmed QM-GR unified dynamics was found. LP7 confirms an operational interface layer I[T] and an admission functional J_unify[I[T]].",
+  "nodes": [
+    {
+      "id": "LP7-K96",
+      "label": "J_unify is an admission functional over I[T], not a fundamental equation",
+      "type": "result",
+      "supports": ["LP7-K97", "LP7-K101"],
+      "math_object": "J_unify[I[T]]"
+    },
+    {
+      "id": "LP7-K97",
+      "label": "The shared operational interface is I[T]=(Phi_source,Phi_mediator,Phi_noise,Phi_entropy,Phi_obs,Phi_frame)",
+      "type": "result",
+      "supports": ["LP7-K96", "LP7-K101"],
+      "math_object": "I[T]"
+    },
+    {
+      "id": "LP7-K98",
+      "label": "Within LP7 enumerated candidate classes, no single class closes all six channels",
+      "type": "result",
+      "supports": ["LP7-K99"],
+      "math_object": "I[T]"
+    },
+    {
+      "id": "LP7-K99",
+      "label": "T* is a layered interface architecture, not a confirmed unification theory",
+      "type": "result",
+      "supports": ["LP7-K100"],
+      "math_object": "T*"
+    },
+    {
+      "id": "LP7-K100",
+      "label": "T* cannot be upgraded to the unified theory body because it lacks dynamical closure",
+      "type": "result",
+      "supports": ["LP7-K101"],
+      "math_object": "T*"
+    },
+    {
+      "id": "LP7-K101",
+      "label": "LP7 closes at interface plus screening layer, not at confirmed unified dynamics",
+      "type": "result",
+      "supports": [],
+      "math_object": "J_unify[I[T]]"
+    }
+  ]
+}

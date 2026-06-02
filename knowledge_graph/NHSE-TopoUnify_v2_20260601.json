@@ -1,7 +1,22 @@
 {
   "project": "NHSE-TopoUnify",
-  "version": "v1",
-  "date": "2026-05-31",
-  "nodes": [],
-  "edges": []
+  "version": "v2",
+  "long_proposition": "LP-4",
+  "sub_proposition": "LP4-S1",
+  "date": "2026-06-01",
+  "north_star": "非厄米趋肤效应的sector-resolved拓扑统一 (v2: γ_c标度分析)",
+  "conclusion_type": "有边界",
+  "parent_kg": "LP4-NHSE_v1_20260601.json",
+  "note": "v2新增γ_c标度分析: N维bulk γ_c=0.333 vs 母空间N=30时γ_c≈0.9875位于crossover η*(N)=G/N两侧，不矛盾。本文件为LP4-S1子命题KG，完整跨子命题图谱见LP4-NHSE父KG。",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: sector-resolved NHSE相图统一 (v2)", "type": "goal"},
+    {"id": "K_gamma_c_bulk", "local_id": "K_gamma_c", "label": "N维bulk γ_c=0.333是热力学极限有效值(N无关)", "type": "result", "status": "confirmed", "level": "L2", "math_object": "bulk γ_c, thermodynamic limit"},
+    {"id": "K_gamma_c_OBC", "local_id": "K_OBC", "label": "母空间N=30 γ_c≈0.9875是OBC边界主导(N→∞时γ_c→1)", "type": "result", "status": "confirmed", "level": "L1", "math_object": "OBC boundary-dominated γ_c, finite-N effect"},
+    {"id": "K_crossover", "local_id": "K_crossover", "label": "标度分析: 两值位于crossover η*(N)=G/N两侧，不矛盾", "type": "result", "status": "confirmed", "level": "L2", "math_object": "crossover scaling, η*(N)"}
+  ],
+  "edges": [
+    {"from": "K_gamma_c_bulk", "to": "K_gamma_c_OBC", "relation": "complementary"},
+    {"from": "K_crossover", "to": "K_gamma_c_bulk", "relation": "explains"},
+    {"from": "K_crossover", "to": "K_gamma_c_OBC", "relation": "explains"}
+  ]
 }

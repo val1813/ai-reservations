@@ -1,0 +1,27 @@
+{
+  "course": "Hawking-Encoding",
+  "version": "v1",
+  "long_proposition": "LP-6",
+  "subproposition": "LP6-S3",
+  "created": "2026-06-01",
+  "north_star": "黑洞信息编码进Hawking辐射的动力学微观机制是什么？",
+  "conclusion_type": "有边界",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: 信息编码的微观动力学机制", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: 岛屿公式+复制虫洞+Hayden-Preskill构成unitary编码描述", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: 岛屿公式只告诉你熵下降, 不告诉你信息如何unitary搬运", "type": "claim"},
+    {"id": "K1.6_Petz", "local_id": "K1.6", "label": "Petz单调性: post-Page SYK/JT code subspace中M.B的O(1)相对熵gap是边界代数定义依赖", "type": "result", "status": "confirmed", "level": "L2", "supports": ["prop_B"], "math_object": "Petz monotonicity, relative entropy gap"},
+    {"id": "K2.1_TypeIII", "local_id": "K2.1", "label": "Type III₁不含P₀ (Connes 1976); GKRR completeness = ensemble-dependent", "type": "result", "status": "confirmed", "level": "L2", "supports": ["prop_B"], "math_object": "Type III₁ von Neumann algebra, Connes classification"},
+    {"id": "K2.2_CrossedProduct", "local_id": "K2.2", "label": "Type III₁ → Type II∞ via crossed product (CPW 2022)", "type": "result", "status": "confirmed", "level": "L2", "supports": ["prop_A"], "math_object": "crossed product, Takesaki duality"},
+    {"id": "K_boundary_algebra", "local_id": "K_boundary", "label": "窄边界代数(仅SYK single-trace)存在O(1) gap; 宽边界代数(SYK∪bath) gap≤f(ε(N)), 无独立O(1) gap", "type": "result", "status": "confirmed", "level": "L1", "supports": ["prop_B"], "math_object": "boundary algebra separation,窄/宽代数定义依赖"},
+    {"id": "K_no_go_theorem", "local_id": "K1.10", "label": "no-go: 岛屿公式在宽代数中构成algebraic recovery/bookkeeping, 不等于新Lorentzian unitary transport mechanism", "type": "result", "status": "confirmed", "level": "L1", "supports": ["prop_B"], "math_object": "algebraic recovery vs transport mechanism distinction"}
+  ],
+  "edges": [
+    {"from": "prop_A", "to": "prop_B", "relation": "tension"},
+    {"from": "K1.6_Petz", "to": "prop_B", "relation": "supports"},
+    {"from": "K2.1_TypeIII", "to": "prop_B", "relation": "supports"},
+    {"from": "K2.2_CrossedProduct", "to": "prop_A", "relation": "supports"},
+    {"from": "K_boundary_algebra", "to": "prop_B", "relation": "supports"},
+    {"from": "K_no_go_theorem", "to": "prop_B", "relation": "supports"}
+  ]
+}

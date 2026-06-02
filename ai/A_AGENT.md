@@ -12,31 +12,69 @@
 
 ---
 
-### §-1 实验异常类查重前置（仅当北极星属"实验异常"类时强制执行，在任何推导之前）
+### §-1 先发文献检索（所有课题类型强制，在任何推导之前）
 
-⚠️ 触发条件：北极星驱动矛盾形如"实验观测X vs 理论预测Y"（候选池标注S1实验异常类）。
-⚠️ 搜索工具优先级（必须遵守）：
-  1. paper-search-mcp → 所有学术文献查重（arXiv优先）
-  2. web_search → paper-search-mcp无结果时降级使用
-  3. 无任何工具 → 在作业开头写"无联网，查重待PI补"
+⚠️ 触发条件：**所有课题**，不只是实验异常类。这是GATE 0的执行入口。
+⚠️ 搜索工具优先级（必须严格遵守，不得跳级）：
+  1. paper-search-mcp → 主搜索引擎，所有查重必须先用此工具（arXiv优先）
+  2. web_search → 仅当paper-search-mcp明确返回空结果或工具不可用时才降级使用
+  3. 无任何工具 → 在作业开头写"无联网，查重待PI补"，PI补做后才能继续
+  ⚠️ 禁止在paper-search-mcp有结果时跳过它直接用web_search
 
-实验异常类课题最大的陷阱是：这个"异常"很可能已被主流文献用已知物理解释，
-你辛苦推导半天，结论只是重新发现别人发表过的东西（重复造轮子），
-或者你的假说方向本身就和文献结论相反。所以推导前必须先查：
+所有课题都面临这个陷阱：核心结论可能已被发表，或方向与已有文献正好相反。
+LP-2的教训：7个子命题后才发现Taupin & Paschen (2022)已先发。
+LP-10/S7的教训：A/B用方法层关键词搜索，漏掉了用不同框架描述同一问题的Zhou 2604.04719
+（搜"quantum geometry Tc predictor"，漏掉了"Allen-Dynes no-go"框架下的同一结论）。
+GATE 0的目的是把这个发现前移到Phase 1。
 
-  paper-search-mcp: "<材料/体系> <观测量> <异常关键词> arXiv"
-  paper-search-mcp: "<异常> explanation mechanism"
-  paper-search-mcp: "<材料> <观测量> review"
-  （paper-search-mcp无结果时用web_search重试相同查询）
+**必须执行以下四组搜索（搜索4是新增，不可省略）：**
 
-判定并写入作业开头：
-  发现异常已被定量解释 → 报告"⛔ 该异常已被[论文名+年份/arXiv号]解释为[机制]"，
-    并检查：本课题假说方向与该文献一致还是相反？相反则本课题假说高风险。
-    把此发现交PI——可能改判"已被文献解决"而非继续推导。
-  未发现 → 写"查重通过，未发现已发表解释，继续推导"。
+  搜索1（方法层查重）：
+    paper-search-mcp: "[北极星核心声张关键词]"
+    paper-search-mcp: "[北极星关键词] 2022 2023 2024 2025 2026"
+    ↓ 无结果 → web_search: "[同关键词] arXiv site:arxiv.org"
 
-⚠️ 此步骤不可因"我对这个领域有把握"而跳过。本系统已发生过一次因跳过查重
-   而把已被Science解决的真问题误判为"自毁"的事故。
+  搜索2（综述与开放问题背景）：
+    paper-search-mcp: "[领域关键词] review open problem"
+    paper-search-mcp: "[领域关键词] unsolved outstanding 2024 2025 2026"
+    ↓ 无结果 → web_search: "[同关键词] review 2024 2025"
+
+  搜索3（直接竞争者与否定证据）：
+    paper-search-mcp: "[驱动矛盾关键词] resolution mechanism"
+    paper-search-mcp: "[驱动矛盾关键词] counterexample challenge disproof"
+    ↓ 无结果 → web_search: "[同关键词] counterexample"
+
+  搜索4（结论层翻译搜索 — 框架盲区，防止LP-10/S7式漏掉）：
+    ⚠️ 这组搜索用的词必须与搜索1-3完全不同，必须翻译到普通物理学家的语言：
+    方法：把本课题的核心声张翻译成"不依赖本课题框架"的普通描述，再搜索。
+    例：本课题用"量子度量作Tc预测器" → 翻译 → "superconducting Tc prediction materials universal"
+    例：本课题用"拓扑下界存活" → 翻译 → "superfluid weight disorder robust materials"
+    例：本课题用"MBL渗流相变" → 翻译 → "many-body localization stability phase diagram"
+
+    paper-search-mcp: "[翻译后的普通描述]"
+    paper-search-mcp: "[翻译后的普通描述] no-go failure limit 2024 2025 2026"
+    ↓ 无结果 → web_search: "[翻译后描述] failure no-go site:arxiv.org"
+
+    如果翻译困难（想不出普通语言描述）→ 这本身是警告信号：命题可能定义不清，在作业开头标注⚠️。
+
+判定并写入 current/plan/文献库.md 的"先发检索"栏，同时写入作业开头：
+
+  ⛔ 直接先发冲突（结论与本课题高度重合）：
+    写"⛔ 先发冲突：[论文名+arXiv号]，重合点：[X]，本课题可能增量：[Y]，
+         发现于搜索[组号]，关键词：[具体搜索词]"
+    停止推导，交PI决策。PI判断增量不够 → 换题；增量够 → 继续，重新定位。
+
+  ⚠️ 部分先发（方向相关但不完全重合）：
+    写"⚠️ 部分先发：[论文]，差异点：[X]，本课题增量：[Y]"
+    继续推导，但§0的声张强度声明里必须标注与先发文献的差异化定位。
+
+  ✅ 查重通过（四组搜索均未发现直接竞争者）：
+    写"查重通过，四组搜索完成，未发现直接竞争者，继续推导"
+    ⚠️ 必须写明四组都执行了，不允许只写"查重通过"。
+
+⚠️ 此步骤不可因"我对这个领域有把握"而跳过。
+   本系统已发生过三次因查重不充分导致大量无效推导的事故：
+   1D-CuO-RIXS（漏掉已发表解释）、LP-2（漏掉先发方法论文献）、LP-10/S7（框架盲区漏掉同结论的no-go论文）。
 
 ---
 

@@ -1,9 +1,30 @@
 {
   "课题": "DQCP-Entanglement",
-  "版本": "v1",
+  "版本": "v2",
   "长命题": "LP-5",
   "子命题": "LP5-S1",
-  "节点": [],
-  "边": [],
-  "最后更新": "2026-06-01"
+  "北极星": "纠缠熵异常对数修正能否鲁棒区分真正连续DQCP与弱一阶赝临界？",
+  "结论类型": "有边界",
+  "完成日期": "2026-06-01",
+  "最后更新": "2026-06-01",
+  "节点": [
+    {"id": "north_star", "label": "北极星: EE对数修正能否鲁棒区分连续vs弱一阶DQCP", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: EE对数修正支持连续DQCP (Song 2025)", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: 弱一阶也可产生伪对数 (D'Emidio-Sandvik 2024)", "type": "claim"},
+    {"id": "K_v1_classification", "local_id": "K_v1", "label": "8情形EE对数修正分类学: CFT尖角/Goldstone SSB/有限ξ弱一阶/伪临界无SSB/复CFT行走/拟合伪迹/规范场边缘模/近边缘log²", "type": "result", "status": "confirmed", "level": "L2", "supports": ["prop_B"], "math_object": "EE log-correction taxonomy, 8-fold classification"},
+    {"id": "K_Lmax_condition", "local_id": "K_Lmax", "label": "区分连续vs弱一阶需L_max ≥ ξ/3; DQCP的ξ~10²-10³需L≈150-500, 当前QMC(L≈48-96)差3-5倍", "type": "result", "status": "confirmed", "level": "L2", "supports": ["prop_B"], "math_object": "L_max/ξ ratio, finite-size diagnostic power"},
+    {"id": "K_blind_test", "local_id": "K_blind", "label": "合成数据盲测: D2(ξ=80)正确分类; D5(伪临界)产生假阳性(d/L共线性r=-0.964)", "type": "result", "status": "confirmed", "level": "L1", "supports": ["prop_B"], "math_object": "synthetic blind test, d/L covariance"},
+    {"id": "K_geometry_contradiction", "local_id": "K_geo", "label": "EE文献内部矛盾: Deng b≈2(Goldstone) vs D'Emidio-Sandvik a≈0(无log)——切割几何敏感性是新物理非方法论噪声", "type": "result", "status": "confirmed", "level": "L1", "supports": ["prop_B"], "math_object": "cut geometry sensitivity, entanglement boundary condition"},
+    {"id": "K_Takahashi_independent", "local_id": "K_Tak", "label": "Takahashi et al. 2024用关联函数在L=1024上确认一阶→EE不是回答DQCP问题的必须工具", "type": "result", "status": "confirmed", "level": "L1", "supports": ["prop_B"], "math_object": "correlation function, independent first-order verification"},
+    {"id": "K_decision_protocol", "local_id": "K_protocol", "label": "三级判决标准(等级A/B/C)+盲测协议+圆柱几何框架+Rényi扫描分离+证伪测试套件", "type": "method", "status": "confirmed", "level": "L1", "math_object": "three-tier decision protocol, cylindrical geometry, Rényi scan"}
+  ],
+  "边": [
+    {"from": "prop_A", "to": "prop_B", "relation": "tension"},
+    {"from": "K_v1_classification", "to": "prop_B", "relation": "supports"},
+    {"from": "K_Lmax_condition", "to": "prop_B", "relation": "supports"},
+    {"from": "K_blind_test", "to": "prop_B", "relation": "supports"},
+    {"from": "K_geometry_contradiction", "to": "prop_B", "relation": "supports"},
+    {"from": "K_Takahashi_independent", "to": "prop_B", "relation": "supports"},
+    {"from": "K_decision_protocol", "to": "prop_B", "relation": "supports"}
+  ]
 }

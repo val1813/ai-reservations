@@ -1,0 +1,25 @@
+{
+  "project": "LP1-补7_NonSeparable",
+  "version": "v1",
+  "long_proposition": "LP-1",
+  "sub_proposition": "补7",
+  "north_star": "2D MBL中非可分离准周期势的数论保护能否推广？",
+  "conclusion_type": "有边界",
+  "completion_date": "2026-06-01",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: 非可分离准周期势中数论保护是否成立", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: 数论保护可推广到非可分离势", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: 非可分离势引入真2D低无序区域，数论保护崩溃", "type": "claim"},
+    {"id": "K1.1", "local_id": "K1.1", "label": "非可分离势WPL宽度由r=β_x/β_y的Diophantine类型控制; 物理β(二次无理数)下L_max有限", "type": "result", "status": "confirmed", "level": "L1", "supports": ["prop_A"], "math_object": "Diophantine approximation, WPL width control"},
+    {"id": "K1.2", "local_id": "K1.2", "label": "Štrkalj et al. '非可分离'模型=旋转可分离势 → 不覆盖LP-1真正非可分离情形", "type": "result", "status": "confirmed", "level": "L1", "supports": ["prop_A"], "math_object": "coordinate rotation, separable potential identification"},
+    {"id": "K_NonSepLmax", "local_id": "K_NonSepLmax", "label": "非可分离L_max推广仅对rank-2安全; rank>2可能出现真2D低无序区, 不能沿用同一数论保护链", "type": "result", "status": "confirmed", "level": "L2", "supports": ["prop_B"], "math_object": "rank classification, 1D inclusion vs 2D disorder"},
+    {"id": "K_caveat_Diophantine", "local_id": "K_caveat", "label": "数论保护要求β是Diophantine数; Liouville β→保护崩溃(实验中不使用)", "type": "caveat", "status": "confirmed", "math_object": "Diophantine condition, Liouville numbers"}
+  ],
+  "edges": [
+    {"from": "prop_A", "to": "prop_B", "relation": "tension"},
+    {"from": "K1.1", "to": "prop_A", "relation": "supports"},
+    {"from": "K1.2", "to": "prop_A", "relation": "supports"},
+    {"from": "K_NonSepLmax", "to": "prop_B", "relation": "supports"},
+    {"from": "K_caveat_Diophantine", "to": "prop_A", "relation": "constrains"}
+  ]
+}

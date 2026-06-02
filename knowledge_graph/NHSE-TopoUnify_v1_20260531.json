@@ -1,7 +1,23 @@
 {
   "project": "NHSE-TopoUnify",
   "version": "v1",
+  "long_proposition": "LP-4",
+  "sub_proposition": "LP4-S1",
   "date": "2026-05-31",
-  "nodes": [],
-  "edges": []
+  "north_star": "非厄米趋肤效应的sector-resolved拓扑统一",
+  "conclusion_type": "有边界",
+  "parent_kg": "LP4-NHSE_v1_20260601.json",
+  "note": "本文件为LP4-S1子命题KG。完整跨子命题图谱见LP4-NHSE父KG。",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: sector-resolved NHSE相图统一", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: 存在统一分类结构层", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: 需要多层级边界图而非单一不变量图", "type": "claim"},
+    {"id": "K2.2", "local_id": "K2.2", "label": "非局域L_j产生方向反转: gamma_c=1-(t_L-t_R)/G", "type": "result", "status": "confirmed", "level": "L2", "supports": ["prop_A"], "math_object": "direction reversal mechanism, nonlocal jump operator"},
+    {"id": "K2.3v2", "local_id": "K2.3v2", "label": "N>1母空间方向反转确认: gamma_c≈0.9875", "type": "result", "status": "confirmed", "level": "L1", "supports": ["prop_A"], "math_object": "mother-space OBC direction reversal"}
+  ],
+  "edges": [
+    {"from": "prop_A", "to": "prop_B", "relation": "tension"},
+    {"from": "K2.2", "to": "prop_A", "relation": "supports"},
+    {"from": "K2.3v2", "to": "prop_A", "relation": "supports"}
+  ]
 }
