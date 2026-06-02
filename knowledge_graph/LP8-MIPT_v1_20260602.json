@@ -1,0 +1,24 @@
+{
+  "project": "LP8-MIPT",
+  "version": "v1",
+  "long_proposition": "LP-8",
+  "sub_propositions": ["LP8-S1", "LP8-S2", "LP8-S3", "LP8-S4", "LP8-S5", "LP8-S6"],
+  "north_star": "测量诱导相变(MIPT)的无后选择可及性——MIPT在实验噪声下是真实可观测相变(命题A)还是有限尺寸赝象(命题B)？",
+  "conclusion_type": "有边界（核心二值已被密集文献解决，净原创增量≈0）",
+  "rating": "C+",
+  "completion_date": "2026-06-02",
+  "note": "MIPT 2020-2025极密集发表领域，候选池SELECTOR提的驱动矛盾多已被文献解决。LP-8主要价值在元结论：MIPT领域原创增量空间已系统性收窄。",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: MIPT无后选择可及性与实验真实性", "type": "goal"},
+    {"id": "S1-K1.1", "project": "MIPT-NoPostselect", "version": "v1", "local_id": "K1.1", "label": "无对称下 learnability=entanglement p_c重合(文献已证,非原创); 命题A(无后选择判据无条件忠实)被证伪", "type": "result", "status": "repeat", "supports": [], "math_object": "learnability transition, purification=ent, Gullans-Huse"},
+    {"id": "S1-K1.4", "project": "MIPT-NoPostselect", "version": "v1", "local_id": "K1.4", "label": "弛豫判据=淬火型(非退火): Wang 2502.13408半链纠缠熵S_{L/2}(t) z=1淬火动力学", "type": "result", "status": "confirmed", "supports": [], "math_object": "quench vs anneal, Clifford simulability, half-chain EE"},
+    {"id": "S2-K2.1", "project": "MIPT-NoiseUniversality", "version": "v1", "local_id": "K2.1", "label": "1D噪声下MIPT死亡(p_noise^c=0)已被2401.16631等先发; 2D被动监测p_c^{coh}=0(Bravyi-Terhal no-go)", "type": "result", "status": "repeat", "supports": [], "math_object": "noise-induced MIPT death, Bravyi-Terhal no-go, recordability dichotomy"},
+    {"id": "S2-K2.2", "project": "MIPT-NoiseUniversality", "version": "v1", "local_id": "K2.2", "label": "命题A(有限维噪声鲁棒MIPT)被证伪; 树=expander/无限维mean-field人为特例", "type": "result", "status": "confirmed", "supports": [], "math_object": "tree circuit, expander graph, mean-field artifact"},
+    {"id": "S3-K3.1", "project": "MIPT-InteractingFermion", "version": "v1", "local_id": "K3.1", "label": "相互作用费米子MIPT relevance对称类依赖(命题A全称证伪); 端点DIII=irrelevant(Foster 2510.23706)+AIII=relevant(Poboiko-Mirlin 2410.07334)均已发表", "type": "result", "status": "confirmed", "supports": [], "math_object": "AZ symmetry class, dangerously irrelevant, interacting fermion MIPT"},
+    {"id": "S4-K4.1", "project": "MIPT-2D", "version": "v1", "local_id": "K4.1", "label": "2D随机Clifford MIPT存在(p_c^{2D}>0)已被Turkeshi 2007.02970等2020-21结案; 普适类ν冲突未决(0.67 vs 0.88 vs 0.90谱)", "type": "result", "status": "repeat", "supports": [], "math_object": "2D MIPT existence, 3D percolation, ν universality conflict"},
+    {"id": "S4-K4.2", "project": "MIPT-2D", "version": "v1", "local_id": "K4.2", "label": "无噪声2D三序参量共享同一p_c(A/B独立确认,但2308.13384已先发); 分离=噪声专属(Li-Fisher 2105.13352+2505.22720先发)", "type": "result", "status": "confirmed", "supports": [], "math_object": "order parameter sharing, coding vs entanglement transition, Nishimori"},
+    {"id": "S5-K5.1", "project": "MIPT-Multipartite", "version": "v1", "local_id": "K5.1", "label": "MIPT volume-law侧存在长程k-party GME(度量无关0-1拓扑事实,近乎恒真); 外壳普适性=开放问题(非已实锤)", "type": "result", "status": "confirmed", "supports": [], "math_object": "k-party GME, SLOCC invariant, CFT operator spectrum"},
+    {"id": "S6-K6.1", "project": "MIPT-QEC", "version": "v1", "local_id": "K6.1", "label": "MIPT-QEC精确同构(共享不动点/ν)被证伪: MIPT ν≈0.67-0.88 ≠ RBIM ν≈1.5; p_c共享成立(结构对应)但非原创", "type": "result", "status": "confirmed", "supports": [], "math_object": "MIPT-QEC mapping, RBIM, Nishimori, ν irreconcilability"},
+    {"id": "S6-K6.2", "project": "MIPT-QEC", "version": "v1", "local_id": "K6.2", "label": "f_c(p)~|p_c-p|^{-2ν}·[log(1/ε)]² 为唯一薄增量(每步均已知,显式组合未先发但ν自由参数致不可证伪)", "type": "result", "status": "confirmed", "supports": [], "math_object": "engineering resource threshold, Dennis-Kitaev domain-wall, Fowler 2012"}
+  ]
+}

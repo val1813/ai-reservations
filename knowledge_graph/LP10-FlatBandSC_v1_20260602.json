@@ -1,0 +1,53 @@
+{
+  "project": "LP10-FlatBandSC",
+  "version": "v1",
+  "long_proposition": "LP-10",
+  "sub_propositions": ["LP10-S1", "LP10-S2", "LP10-S3", "LP10-S4", "LP10-S5", "LP10-S6", "LP10-S7"],
+  "north_star": "平带超导中量子几何是否提供超流权重的普适规范不变下界，进而主宰Tc？→ 收窄为：几何提供超流权重（相位刚度通道）的规范不变下界，不可外推至Tc",
+  "conclusion_type": "有边界",
+  "rating": "B+",
+  "completion_date": "2026-06-02",
+  "publishable_kernel": "S1+S2 下界定理 + AHA#2 规范不变区分",
+  "core_claim_narrowed": "几何提供超流权重（相位刚度通道）的规范不变下界 √det D_s ≥ c·Z·min_k w·Δ·π|C|（C≠0+均匀配对+U_P对角），不可外推至Tc",
+  "hard_locks": [
+    "几何主宰/决定Tc",
+    "几何主宰/决定T_BKT",
+    "拓扑保护提供差分无序鲁棒性",
+    "存在干净实验判别探针",
+    "下界普适到准晶/非晶系统",
+    "均匀配对在真实材料泛性成立"
+  ],
+  "nodes": [
+    {"id": "north_star", "label": "北极星(收窄): 几何提供超流权重规范不变下界", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: 量子几何普适决定超流权重", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: 几何贡献非普适，依赖轨道嵌入", "type": "claim"},
+
+    {"id": "S1-K1.1", "project": "FlatBand-TopoBound", "version": "v1", "local_id": "K1.1", "label": "C≠0孤立平带+均匀配对下 √det D_s≥cΔπ|C|成立，嵌入无关性活在积分层", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "√det D_s≥cΔπ|C|, Kähler校准"},
+    {"id": "S1-K1.5", "project": "FlatBand-TopoBound", "version": "v1", "local_id": "K1.5", "label": "C=0 obstructed扇区迹型RSI→行列式型√det桥接缺失", "type": "result", "status": "open", "supports": [], "math_object": "RSI→√det bridge, obstructed atomic limit"},
+    {"id": "S1-AHA1", "project": "FlatBand-TopoBound", "version": "v1", "local_id": "AHA#1", "label": "Kähler校准结构是拓扑下界存在的充要几何条件(三路径独立收敛)", "type": "aha", "status": "confirmed", "supports": ["S1-K1.1"], "math_object": "Kähler calibration, det g≥(Ω/2)²"},
+
+    {"id": "S2-K2.1", "project": "FlatBand-DMFT", "version": "v1", "local_id": "K2.1", "label": "宇称-轨道判据: 几何顶点修正=0 ⟺ U_P轨道对角(轨道居反演中心)", "type": "result", "status": "confirmed", "supports": ["S1-K1.1"], "math_object": "U_P diagonal, parity-orbital criterion, Khurana generalization"},
+    {"id": "S2-K2.6", "project": "FlatBand-DMFT", "version": "v1", "local_id": "K2.6", "label": "c'=c·Z·min_k w在强关联(Z≈0.3)趋零→下界形式存活非物理有效", "type": "result", "status": "confirmed", "supports": [], "math_object": "quasiparticle weight Z, Wyckoff degeneracy min_k w"},
+
+    {"id": "S3-K3.1", "project": "FlatBand-Disorder", "version": "v1", "local_id": "K3.1", "label": "两阈值分离: W_c^(AG)~√(Δ_sc·max(W_flat,Δ_sc)) ≪ W_c^(struct)~Δ_gap", "type": "result", "status": "confirmed", "supports": [], "math_object": "disorder threshold, pair-breaking vs band-merging"},
+    {"id": "S3-K3.2", "project": "FlatBand-Disorder", "version": "v1", "local_id": "K3.2", "label": "扩散子脱钩∝τ⁰: 带间电流顶点与diffuson正交→几何权重不获τ增强/压低", "type": "result", "status": "confirmed", "supports": ["S3-K3.1"], "math_object": "diffuson decoupling, ∝τ⁰ scaling, SCBA"},
+    {"id": "S3-K3.4", "project": "FlatBand-Disorder", "version": "v1", "local_id": "K3.4", "label": "临界区W→W_c自平均破缺(多重分形Δ_2未定)—唯一真空白", "type": "result", "status": "open", "supports": [], "math_object": "multifractal Δ_2, self-averaging breakdown, Anderson transition"},
+
+    {"id": "S4-K4.1", "project": "FlatBand-ExptProbe", "version": "v1", "local_id": "K4.1", "label": "无干净探针; 差谱Δσ^inter=σ_n−σ_s为least-contaminated候选(双框架收敛✅L2)", "type": "result", "status": "confirmed", "supports": [], "math_object": "optical spectral weight transfer, FGT sum rule, (Δ/E_F)² suppression"},
+
+    {"id": "S5-K5.1", "project": "FlatBand-NonIsolated", "version": "v1", "local_id": "K5.1", "label": "数学地板√det D_s≥cΔπ|C|对(Δ/Δ_gap)²精确免疫(ASS定理, C整数锁定)", "type": "result", "status": "confirmed", "supports": ["S1-K1.1"], "math_object": "Avron-Seiler-Simon theorem, topological protection of C"},
+    {"id": "S5-K5.2", "project": "FlatBand-NonIsolated", "version": "v1", "local_id": "K5.2", "label": "物理T_BKT与数学地板脱钩: k*≠k_0时T_BKT可塌缩, 触发是几何条件非混合强度", "type": "result", "status": "confirmed", "supports": [], "math_object": "k*≠k_0 decoupling, T_BKT collapse, local vs global quantum metric"},
+
+    {"id": "S6-K6.1", "project": "FlatBand-Quasicrystal", "version": "v1", "local_id": "K6.1", "label": "准晶物理D_s无flux-space拓扑下界(三重失效), 反向印证AHA#1(Kähler校准必要)", "type": "result", "status": "confirmed", "supports": ["S1-AHA1"], "math_object": "flux-space quantum metric, quasicrystal, non-commutative geometry"},
+    {"id": "S6-K6.2", "project": "FlatBand-Quasicrystal", "version": "v1", "local_id": "K6.2", "label": "A(flux-space无界) vs B(gap-label ν下界)看不同对象非矛盾: 物理D_s vs 单粒子Ω", "type": "result", "status": "confirmed", "supports": [], "math_object": "gap-labeling, Bellissard, ν=IDS∈ℤ+αℤ"},
+
+    {"id": "S7-K7.1", "project": "FlatBand-TcPredictor", "version": "v1", "local_id": "K7.1", "label": "几何量不可作跨家族Tc普适预测器(三闸门:标尺不可比+映射家族依赖+统计惰性+C=0退化)", "type": "result", "status": "guard", "supports": ["prop_B"], "math_object": "Spearman ρ_s, hierarchical Bayes τ², ill-posed"},
+    {"id": "S7-AHA2rev", "project": "FlatBand-TcPredictor", "version": "v1", "local_id": "AHA#2_revised", "label": "量子化锚分层认证: π|C|认证被锚量(D_s下界)规范不变→真胜LP-2; 不认证下游函数(Tc)普适; 锚退化域(C=0)退回∫g_min", "type": "aha", "status": "confirmed", "supports": ["S1-AHA1"], "math_object": "quantum anchor, prescription dependence, Chern vs m*"},
+
+    {"id": "synth-AHA2", "project": "LP10合成", "version": "v1", "local_id": "AHA#2_final", "label": "元判据: 有锚≠锚可预测。锚认证被锚量规范不变(真胜LP-2)，外推需附加条件(bound→目标映射家族不变+锚非退化)", "type": "aha", "status": "confirmed", "supports": ["S7-AHA2rev"], "math_object": "anchor certification, extrapolation boundary, LP-2 vs LP-10"}
+  ],
+  "cross_lp_connections": [
+    {"from": "LP10-AHA#2", "to": "LP2-Planckian", "relation": "真胜: Chern锚使D_s下界规范不变 vs LP-2 m*无量子化锚→不可判定"},
+    {"from": "LP10-S6-K6.1", "to": "LP10-S1-AHA1", "relation": "反向印证: 准晶Kähler校准破坏→无拓扑下界→校准充要条件成立"}
+  ]
+}

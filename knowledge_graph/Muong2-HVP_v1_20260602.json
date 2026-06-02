@@ -1,0 +1,51 @@
+{
+  "project": "LP11-Muong2-HVP",
+  "version": "v1",
+  "long_proposition": "LP-11",
+  "sub_propositions": ["LP11-S1", "LP11-S2", "LP11-S3", "LP11-S4", "LP11-S5", "LP11-S6", "LP11-S7"],
+  "north_star": "Muon g-2 HVP色散关系vs格点QCD张力: BSM信号还是系统性误差？→ 有边界: 旧e+e-数据更可靠但BSM存在性无独立证据",
+  "conclusion_type": "有边界",
+  "rating": "B+",
+  "completion_date": "2026-06-02",
+  "publishable_kernel": "S3中间窗口精确定位+S1 CMD-3 BMA审计+S7模型无关边缘排除+S4格点共享假设溢价",
+  "core_claim_narrowed": "HVP张力=π+π-道ρ峰区(√s≈0.6-0.9GeV)的e+e-截面数据差异; CMD-3~80%概率有系统误差; 模型无关95%CL区间[685,706]边缘排除CMD-3/格点(~714); WP25'0.6σ无张力'前提脆弱",
+  "hard_locks": [
+    "格点QCD有全局系统误差",
+    "IB修正差异可完全解释HVP张力",
+    "模型无关约束不能区分阵营(CMD-3被边缘排除@95%CL)",
+    "MUonE短期内(<5年)可解决HVP张力",
+    "CMD-3和格点一致→两者都正确(CMD-3~80%概率有系统误差+格点共享假设溢价)"
+  ],
+  "nodes": [
+    {"id": "north_star", "label": "北极星: 色散vs格点HVP张力来源→有边界(旧e+e-可靠但BSM未证)", "type": "goal"},
+    {"id": "prop_A", "label": "命题A: 旧e+e-数据可靠/BSM信号可能(证据权重:强)", "type": "claim"},
+    {"id": "prop_B", "label": "命题B: CMD-3/格点正确/无BSM(证据权重:中弱)", "type": "claim"},
+
+    {"id": "S1-K1.1", "project": "Muong2-HVP", "version": "v1", "local_id": "K1.1", "label": "BMA加权a_μ^ππ=507.3±4.8; CMD-3后验权重~4%; ~80%概率有未识别系统误差", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "BMA over e+e- datasets, posterior weight decomposition"},
+    {"id": "S1-REVIEWER-FIX", "project": "Muong2-HVP", "version": "v1", "local_id": "REVIEWER-FIX", "label": "⚠️REVIEWER修正: CMD-3 fiducial volume=0.1%(非0.5%),与BABAR相当→具体归因削弱但BMA框架存活", "type": "result", "status": "corrected", "supports": [], "math_object": "CMD-3 systematic budget (Ignatov 2024)"},
+
+    {"id": "S2-K1.5", "project": "Muong2-HVP", "version": "v1", "local_id": "K1.5", "label": "IB差异解释HVP张力15-35%; 10/11项一致; finite-volume QED唯一框架不对称", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "IB audit table (11 items), ChPT O(p4) constraints"},
+    {"id": "S2-AB-divergence", "project": "Muong2-HVP", "version": "v1", "local_id": "K-AB-S2", "label": "⚠️A/B真矛盾: A(ChPT)→格点偏高3-8; B(Symanzik EFT)→色散偏低5-12(Biloshytskyi虚辐射干涉+标量QED FSR+标度设定IB)", "type": "tension", "status": "open", "supports": [], "math_object": "IB bias direction, QED_L vs QED_C scheme"},
+
+    {"id": "S3-K1.8", "project": "Muong2-HVP", "version": "v1", "local_id": "K1.8", "label": "中间窗口格点共识236.3(1.3)(5合作组); 张力=ππ道ρ峰区(0.6-0.9GeV); 短距一致(0.5σ)→排除格点全局系统误差", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "a_μ^W window observable, RBC/UKQCD smearing Θ^W(t)"},
+    {"id": "S3-Maltman", "project": "Muong2-HVP", "version": "v1", "local_id": "K3-lit", "label": "Maltman et al.(2025): 色散-格点差异=light-quark-connected, 使用CMD-3后消失", "type": "result", "status": "confirmed", "supports": ["prop_B"], "math_object": "light-quark-connected decomposition, ρ-peak weighting"},
+
+    {"id": "S4-K1.10", "project": "Muong2-HVP", "version": "v1", "local_id": "K1.10", "label": "格点合作组共享6方法论假设→集体误差低估~3倍(1.3→4.5); 张力仍~3σ显著", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "shared assumption audit: chiral extrapolation, FV QED, RM123 truncation, taste-breaking"},
+
+    {"id": "S5-K1.13", "project": "Muong2-HVP", "version": "v1", "local_id": "K1.13", "label": "τ基HVP≈698-703(介于旧色散693和CMD-3/格点714之间); 不足以裁决; Belle-II 2028-2030", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "CVC hypothesis, IB-corrected τ→ππν spectral function"},
+
+    {"id": "S6-K1.16", "project": "Muong2-HVP", "version": "v1", "local_id": "K1.16", "label": "MUonE 2025测试成功; 全精度裁决>2030(CERN LS3后); 唯一完全独立测量", "type": "result", "status": "confirmed", "supports": [], "math_object": "μ-e elastic scattering, Δα_had(t) space-like extraction"},
+
+    {"id": "S7-K1.19", "project": "Muong2-HVP", "version": "v1", "local_id": "K1.19", "label": "EW+Roy+幺正性联合: a_μ^HVP∈[685,706](95%CL); CMD-3/格点(~714)在~95%CL边缘排除", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "profile likelihood + Roy equations + Omnes F_π + unitarity bounds"},
+    {"id": "S7-K1.20", "project": "Muong2-HVP", "version": "v1", "local_id": "K1.20", "label": "Roy方程单独倾向旧色散(2.1-2.3σ vs CMD-3/格点); 纯分析性+幺正性约束", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "Roy equations, GKPY 2011, CHS 2019, Omnès representation"},
+
+    {"id": "synth-K2.0", "project": "Muong2-HVP-synthesis", "version": "v1", "local_id": "K2.0", "label": "HVP张力=ππ道ρ峰区e+e-截面差异(非格点全局系统误差)→精确定位✅L2", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "window decomposition by flavor/channel, ρ-peak localization"},
+    {"id": "synth-K2.2", "project": "Muong2-HVP-synthesis", "version": "v1", "local_id": "K2.2", "label": "WP25'0.6σ无张力'前提脆弱: 依赖CMD-3/格点巧合性一致+格点共享假设误差被低估", "type": "result", "status": "confirmed", "supports": ["prop_A"], "math_object": "WP25 critique: systematic fragility of lattice-only approach"},
+    {"id": "synth-AUDITOR", "project": "Muong2-HVP-synthesis", "version": "v1", "local_id": "AUDITOR-FIX", "label": "AUDITOR修正: 命题A语义分离(旧数据可靠≠BSM存在); 概率去伪精确化→定性权重排序", "type": "audit", "status": "corrected", "supports": [], "math_object": "narrative retreat detection, proposition semantics"}
+  ],
+  "cross_lp_connections": [
+    {"from": "LP11-S7-AHA1", "to": "LP2-Planckian", "relation": "结构同构: S7模型无关约束(m*处方独立)与LP2-S3 KW比(处方不变)共享'避开α/m*处方污染'方法论"},
+    {"from": "LP11-S4-shared-assumptions", "to": "LP8-MIPT", "relation": "结构同构: 格点共享假设溢价↔MIPT有限尺寸穿越→双方都涉及'共识是否被共享方法论偏差污染'"},
+    {"from": "LP11-全体", "to": "IND-BetaTa-ShotNoise", "relation": "方法论同构: 系统排除已知机制→缩小解释空间→指出剩余可能性(非直接解决)的'排除法'模式"}
+  ]
+}

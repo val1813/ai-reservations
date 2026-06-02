@@ -1,0 +1,36 @@
+{
+  "project": "LP9-DTC",
+  "version": "v1",
+  "long_proposition": "LP-9",
+  "sub_propositions": ["LP9-S1", "LP9-S2", "LP9-S3", "LP9-S4"],
+  "north_star": "时间晶体(DTC/CTC)在热力学极限下是否是真正的非平衡量子相(命题A)还是Floquet微调赝象/有限尺寸预热(命题B)？→ 命题B方向:真相系统性需要非generic条件",
+  "conclusion_type": "有边界（命题B方向，有条件）",
+  "rating": "B",
+  "completion_date": "2026-06-02",
+  "core_theme": "时间晶体的'真相'系统性需要非generic条件——fine-tuning(无序/准周期/HSF精确约束)、开放驱动耗散、或T=0严格局域化。无一在'平衡+generic+局域'三者同时满足下鲁棒存在。",
+  "cross_lp": "AHA候选:时间晶体比空间晶体'娇贵'是深层物理必然——no-go+Floquet加热+参量伪装+精确简并共振四重封锁",
+  "nodes": [
+    {"id": "north_star", "label": "北极星: 时间晶体=真相还是Floquet赝象？", "type": "goal"},
+
+    {"id": "S1-K1.1", "project": "HSF-DTC", "version": "v1", "local_id": "K1.1", "label": "HSF-DTC非热力学极限下鲁棒真非平衡相(命题B胜出): commutant坍缩+Fock空间渗流p_c~1/L→0", "type": "result", "status": "confirmed", "supports": [], "math_object": "commutant Z(C)⋊Z₂, Fock-space percolation p_c~1/L"},
+    {"id": "S1-K1.2", "project": "HSF-DTC", "version": "v1", "local_id": "K1.2", "label": "HSF比MBL脆弱根源: disorder-free→精确简并→无能量分母→配位数z_leak~O(L)→渗流阈值→0", "type": "result", "status": "confirmed", "supports": [], "math_object": "degenerate perturbation theory, Fock-space network, resonance"},
+    {"id": "S1-K1.3", "project": "HSF-DTC", "version": "v1", "local_id": "K1.3", "label": "A(τ~1/λ² FGR)+B(τ~(V/J)^(L/2)碎裂)寿命标度自洽调和: 真实寿命取最短", "type": "result", "status": "confirmed", "supports": [], "math_object": "FGR rate, collective fragmentation, crossover"},
+
+    {"id": "S2-K2.1", "project": "CTC-NoGo", "version": "v1", "local_id": "K2.1", "label": "破坏基态前提(开放NESS)是CTC必要条件,充分性悬留; 平衡封闭局域CTC被no-go严格禁止", "type": "result", "status": "confirmed", "supports": [], "math_object": "Lindblad NESS, Watanabe-Oshikawa no-go, necessary/sufficient distinction"},
+    {"id": "S2-K2.5", "project": "CTC-NoGo", "version": "v1", "local_id": "K2.5", "label": "全对全/平均场BTC在N→∞是真CTC相(2510.03028 γ=3κ/2N→0); B-C2原误读已纠正", "type": "result", "status": "confirmed", "supports": [], "math_object": "boundary time crystal, mean-field, all-to-all, γ→0"},
+
+    {"id": "S3-K3.1", "project": "Prethermal-Lifetime", "version": "v1", "local_id": "K3.1", "label": "τ~exp(ω/J)是预热签名(命题B); 三类天花板(MBL/prethermal/HSF)无一generic真∞", "type": "result", "status": "repeat", "supports": [], "math_object": "exp(ω/J) scaling, Floquet-Magnus, Stirling saddle point"},
+    {"id": "S3-K3.2", "project": "Prethermal-Lifetime", "version": "v1", "local_id": "K3.2", "label": "A/B非独立互证: A算符范数鞍点k*=ω/(εe) ≡ B大偏差共振鞍点n*=ω/(eJ)(同一Stirling鞍点)", "type": "result", "status": "methodology", "supports": [], "math_object": "Stirling saddle point, non-independent cross-validation"},
+
+    {"id": "S4-K4.1", "project": "Photonic-TC", "version": "v1", "local_id": "K4.1", "label": "线性PTC'时间晶体序'=术语混淆(Mathieu参量共振非SSB); 真序需Kerr非线性且已被2404.16809先发", "type": "result", "status": "confirmed", "supports": [], "math_object": "Mathieu instability tongue, SU(1,1) parametric resonance, SSB三判据"},
+    {"id": "S4-K4.2", "project": "Photonic-TC", "version": "v1", "local_id": "K4.2", "label": "三层分类学: 参量种子(Mathieu)→非线性SSB(经典真序,Pan组)→多体局域DTC(量子真相)", "type": "result", "status": "confirmed", "supports": [], "math_object": "parametric→SSB→MBL-DTC hierarchy, Γ=αω₀/4"},
+
+    {"id": "synth-LP9", "project": "LP9合成", "version": "v1", "local_id": "SYNTH", "label": "四命题一致:时间晶体真相系统性需非generic条件(MBL无序/开放耗散/HSF精确约束/非线性SSB),无一平衡+generic+局域鲁棒", "type": "synthesis", "status": "confirmed", "supports": [], "math_object": "non-generic necessity, four-fold blockade, DTC truth conditions"},
+    {"id": "synth-AHA1", "project": "LP9合成", "version": "v1", "local_id": "AHA#1", "label": "时间晶体比空间晶体'娇贵'是深层物理必然: no-go+Floquet加热+参量伪装+精确简并共振四重封锁", "type": "aha", "status": "confirmed", "supports": [], "math_object": "four-fold blockade, time vs space crystal fragility"},
+    {"id": "synth-AHA2", "project": "LP9合成", "version": "v1", "local_id": "AHA#2", "label": "A/B双路径独立性系统性失败: S3同一Stirling鞍点+S4同一Mathieu/Floquet→独立性判据:不同数学对象才构成独立", "type": "aha", "status": "confirmed", "supports": [], "math_object": "non-independent cross-validation,鞍点同源, framework independence criterion"}
+  ],
+  "cross_lp_connections": [
+    {"from": "LP9-S1-HSF", "to": "LP1-MBL2D", "relation": "HSF比MBL脆弱: disorder-free精确简并无分母保护 vs LP-1准周期Diophantine稳定"},
+    {"from": "LP9-S4-PTC", "to": "LP10-AHA1", "relation": "PTC Kähler-like结构: 参量共振SU(1,1) vs LP-10 Kähler校准——几何结构是'相'存在的充要条件?"}
+  ]
+}
