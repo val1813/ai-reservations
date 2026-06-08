@@ -1,0 +1,207 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,graphicx,booktabs,hyperref,natbib}
+\usepackage[margin=2.5cm]{geometry}
+
+\title{\bf Supplementary Information:\\
+Dark energy as an information capacity deficit}
+
+\date{June 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{The DGF framework: axioms and telegraph equation}
+
+\subsection{Axioms}
+
+The Discrete Graph Framework begins from two axioms.
+
+\vspace{4pt}
+\noindent\fbox{\begin{minipage}{0.95\textwidth}
+{\bf A1---Causal existence.} There exist asymmetric influence relations. That $A$ affects $B$ is not equivalent to $B$ affecting $A$. This is the minimal operational definition of existence: to exist is to be distinguishable, and distinguishability demands directional influence.\\
+{\bf A2---Bounded capacity.} Each minimal causal unit (graph node) carries at most 1 bit of distinguishable information. The maximum propagation speed of causal influence is $c$. The global state space on $N$ nodes is $(\mathbb{C}^2)^{\otimes N}\simeq\mathbb{C}^{2^N}$.
+\end{minipage}}
+
+\vspace{4pt}
+\noindent Three structural consequences follow.
+
+First, the state space is finite-dimensional but exponentially large. No continuum limit is assumed; continuity emerges from the limit of many small permutation steps.
+
+Second, dynamics within a finite state space that preserve distinguishability (A1) are permutations of basis elements. Continuous time evolution arises from coarse-graining over many permutation operations.
+
+Third, the order parameter $q\equiv N_0/N$ is the fraction of nodes in state $|0\rangle$ (``unoccupied''---no information content beyond vacuum zero-point fluctuations). The complement $\Delta\equiv 1-q$ is the information deficit. A fully occupied node ($|1\rangle$) cannot absorb further causal influence without violating A2; it must transmit to an unoccupied neighbor. The permutation of $|0\rangle$ nodes is a symmetry of the causal directed acyclic graph.
+
+\subsection{Theorem A3: Causal horizon}
+
+Originally posited as a third axiom, the causal horizon is derivable from A1 and A2 plus graph connectivity. The proof uses the Ford-Fulkerson min-cut theorem on the causal graph: the number of distinguishable configurations external to a region is bounded by the number of edges crossing its boundary. Fully occupied nodes can only transmit, not receive, causal influence. The identity of which specific $|0\rangle$ node receives a given transmission is lost in the causal history. This informational indistinguishability of unoccupied nodes is the causal horizon---a theorem, not an axiom.
+
+\subsection{From permutations to the telegraph equation}
+
+Consider $N$ causal graph nodes in states $|0\rangle$ or $|1\rangle$. The dynamics are a sequence of local permutations. In the large-$N$ limit, the coarse-grained evolution of $q$ obeys a Fokker-Planck equation whose drift term captures the mean $|0\rangle\to|1\rangle$ transition rate (driven by structure formation) and whose diffusion term captures occupation fluctuations. The resulting partial differential equation for $q(x^\mu)$ is
+
+\begin{equation}\label{sm:telegraph}
+\partial_t^2 q + \gamma_0(1-q)^n\partial_t q = c^2\nabla^2(\ln q) - \kappa\int_0^t[1-q(t')]dt' + \eta\,\dot{\rho}_*(t),
+\end{equation}
+
+where we have generalized the damping term to $\gamma_0(1-q)^n\partial_t q$ with damping nonlinearity index $n$. The physical interpretation of each term:
+
+\begin{itemize}
+\item $\partial_t^2 q$: Inertial term. The $q$-field has effective inertia from the finite speed of causal propagation. In cosmology, this term is subdominant (see slow-roll below).
+\item $\gamma_0(1-q)^n\partial_t q$: Nonlinear damping. For $n=1$, damping strength is proportional to the information deficit $\Delta$. Pure vacuum ($q=1$) has zero damping; a fully occupied universe has maximal damping.
+\item $c^2\nabla^2(\ln q)$: Spatial stiffness from the Laplacian of Shannon self-information $-\ln q$. In the static limit ($\partial_t q=0$), $\nabla^2(\ln q)=0$, whose spherically symmetric solution $q(r)=e^{-GM/rc^2}$ recovers Newtonian gravity.
+\item $-\kappa\int_0^t[1-q(t')]dt'$: Nonlocal memory. The accumulated history of mode occupation acts as a restoring force.
+\item $+\eta\,\dot{\rho}_*(t)$: Driving by structure formation. $\dot{\rho}_*(t)={\rm SFR}(t)$ is the cosmic star formation rate density.
+\end{itemize}
+
+\subsection{Slow-roll approximation}
+
+On cosmological timescales the inertial term is subdominant. The slow-roll condition $|\partial_t^2 q|\ll|\gamma_0\Delta^n\partial_t q|,|\kappa\int\Delta dt'|,|\eta\dot{\rho}_*|$ is satisfied when $t_{\rm SFR}\gg\gamma_0^{-1}$, where $t_{\rm SFR}\sim$\,Gyr is the characteristic star formation timescale and $\gamma_0^{-1}\sim H_0^{-1}\sim14$\,Gyr. On homogeneous scales, $\nabla^2(\ln q)\approx0$, yielding
+
+\begin{equation}\label{sm:slowroll}
+\boxed{\gamma_0\Delta^n\frac{d\Delta}{dt} + \kappa\int_0^t\Delta\,dt' = \eta\,\dot{\rho}_*(t)}.
+\end{equation}
+
+\section{Derivation of $w(z)$ shape function}
+
+\subsection{Driving-dominated regime}
+
+The memory-drive ratio $\mathcal{R}(t)\equiv\kappa\int_0^t\Delta dt'/(\eta\dot{\rho}_*(t))$ quantifies the relative importance of the two source terms. At $z=0$, using parameters calibrated from $w_0$, $\mathcal{R}_0\approx0.3$; at $z=1$, $\mathcal{R}\approx0.1$. For $z\gtrsim0.5$, the driving term dominates, and (\ref{sm:slowroll}) becomes
+
+\begin{equation}
+\gamma_0\Delta^n\frac{d\Delta}{dt} = \eta\,\dot{\rho}_*(t).
+\end{equation}
+
+Multiplying by $\Delta^n$ and integrating:
+
+\begin{equation}
+\frac{\gamma_0}{n+1}\frac{d}{dt}(\Delta^{n+1}) = \eta\,\dot{\rho}_* \quad\Rightarrow\quad \Delta^{n+1}(t) = \frac{(n+1)\eta}{\gamma_0}\rho_*(t),
+\end{equation}
+
+where $\rho_*(t)=\int_0^t{\rm SFR}(t')dt'$ is the cumulative stellar mass density. Hence
+
+\begin{equation}\label{sm:delta}
+\boxed{\Delta(t) = \left[\frac{(n+1)\eta}{\gamma_0}\right]^{1/(n+1)}\rho_*(t)^{1/(n+1)}}.
+\end{equation}
+
+\subsection{Equation of state}
+
+The dark energy density is $\rho_{\rm DE}(t)=\rho_\Lambda q(t)=\rho_\Lambda(1-\Delta(t))$. Energy conservation $\dot{\rho}_{\rm DE}+3H(\rho_{\rm DE}+P_{\rm DE})=0$ gives
+
+\begin{equation}
+w = \frac{P_{\rm DE}}{\rho_{\rm DE}} = -1 - \frac{\dot{\rho}_{\rm DE}}{3H\rho_{\rm DE}} = -1 + \frac{\dot{\Delta}}{3H(1-\Delta)}.
+\end{equation}
+
+From (\ref{sm:slowroll}) in the driving-dominated limit, $\dot{\Delta}=\eta\dot{\rho}_*/(\gamma_0\Delta^n)$. Substituting the expression for $\Delta$ from (\ref{sm:delta}):
+
+\begin{equation}
+\boxed{w(z)+1 = \frac{1}{3}\sqrt{\frac{\eta}{2\gamma_0}}\;\cdot\;\frac{{\rm SFR}(z)}{H(z)\,\rho_*(z)^{n/(n+1)}}\;\cdot\;\frac{1}{1-\Delta(z)}}.
+\end{equation}
+
+The factor $(1-\Delta)^{-1}$ is $\approx1$ for $\Delta\ll1$ and deviates by $<30\%$ for the calibrated $\Delta_0\approx0.5$. The full expression is used in the numerical code; the simplified form $w(z)+1\propto{\rm SFR}(z)/[H(z)\rho_*(z)^{n/(n+1)}]$ captures the leading behavior.
+
+\subsection{Normalized shape}
+
+Defining $C\equiv\frac{1}{3}\sqrt{\eta/(2\gamma_0)}$, the normalized shape is
+
+\begin{equation}
+\boxed{S(z)\equiv\frac{w(z)+1}{w(0)+1} = \frac{{\rm SFR}(z)/[H(z)\rho_*(z)^{n/(n+1)}]}{{\rm SFR}(0)/[H_0\rho_{*,0}^{n/(n+1)}]}}.
+\end{equation}
+
+$S(z)$ depends only on known astrophysical quantities and the single physical parameter $n$. The coupling constant $C$ cancels in the ratio.
+
+\section{Cross-framework consistency}
+
+The DGF framework yields several results beyond cosmology. We summarize those that establish the framework's internal consistency.
+
+\subsection{S1: Quantum mechanics from permutation dynamics}
+
+DGF derives the full mathematical structure of quantum mechanics from A1, A2, and the indistinguishability of unoccupied graph nodes (see project LP32-S1). The key result used here is the S1 theorem bounding information reflux: $P_{\rm reflux}\leq q_S/q_E$, where $q_S$ and $q_E$ are the free capacities of system and environment. In the cosmological context this becomes $\dot{\Delta}_{\rm recovery}\leq q\Delta/(1-q)\cdot H_0$, an upper bound satisfied by all our numerical solutions.
+
+\subsection{S3: Einstein equations from $q$-field action}
+
+The $q$-field effective action $S_q=\int\sqrt{-g}\,d^4x[(2\kappa)^{-1}(\partial q)^2/q^2+V(q)+\xi(q)R]$ is varied with respect to $g^{\mu\nu}$ to obtain $G_{\mu\nu}=8\pi G_{\rm eff}(q)[T_{\mu\nu}^{\rm(matter)}+T_{\mu\nu}^{(q)}]$, with $G_{\rm eff}(q)=G/[1+16\pi G\xi(q)]$. Standard general relativity is recovered as $q\to1$. The non-minimal $f(q)R$ coupling circumvents the Li-Pang no-go theorem by using volume rather than boundary variation (project LP32-S3).
+
+\subsection{S4: Black hole entropy area law}
+
+The bound $S\leq N_{\partial\Omega}\propto A$ is proven using the Ford-Fulkerson min-cut theorem on the causal graph. The number of externally distinguishable black hole configurations cannot exceed the number of edges crossing its boundary. The proof uses only A1 and A2---no quantum field theory in curved spacetime is required (project LP32-S4).
+
+\section{Error budget}
+
+Table~\ref{sm:errors} presents the theory error budget for $w_0+1$ in the $n=1$ benchmark.
+
+\begin{table}[htbp]
+\centering
+\caption{Error budget for $w_0+1$ (DGF $n=1$).}
+\label{sm:errors}
+\begin{tabular}{lccc}
+\toprule
+Source & Uncertainty & $\sigma_{w_0+1}$ contribution & Fraction \\
+\midrule
+SFR$_0$ normalization & $\pm27\%$~\cite{madau2014,driver2018} & $\pm0.054$ & 73\% \\
+$\rho_{*,0}$ normalization & $\pm11\%$~\cite{driver2018} & $\pm0.006$ & 8\% \\
+$n$ (damping index) & $[0.7,1.3]$ & $\pm0.020$ & 14\% \\
+$H_0$ & $\pm0.7\%$~\cite{planck2018} & $\pm0.001$ & 5\% \\
+\midrule
+Total theory & & $\pm0.058$ & 100\% \\
+DESI measurement & & $\pm0.047$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The theory uncertainty is dominated by the local SFR normalization. With multi-band SFR constraints the uncertainty could be reduced to $\pm0.024$, below the DESI measurement error.
+
+\section{Competitor comparison}
+
+Table~\ref{sm:competitors} compares DGF against the main dark energy models.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of dark energy models.}
+\label{sm:competitors}
+\begin{tabular}{lccccc}
+\toprule
+Model & $N_{\rm par}$ & Phys.\ mechanism? & Non-cosmology tests? & Non-monotonic $w(z)$? & $\chi^2$ (DESI) \\
+\midrule
+$\Lambda$CDM & 0 & No & No & No & 57.5 \\
+CPL & 2 & No & No & No & 0.0 \\
+$w_0w_a$CDM & 2 & No & No & No & 0.0 \\
+Quintessence ($V\propto\phi^{-\alpha}$) & 2--3 & Yes (scalar field) & No & No & $\sim$0--2 \\
+Emergent DE~\cite{li2024} & 2--3 & Partial & No & Possible & $\sim$0--2 \\
+QMM~\cite{neukart2025} & 2 & Yes (quantum memory) & In principle & No & $>100$ (excluded) \\
+Holographic DE & 1--2 & Horizon entropy & No & No & $\sim$5--10 \\
+{\bf DGF (this work)} & {\bf 2} & {\bf Yes (information)} & {\bf Yes (S1,S4,S5)} & {\bf Yes} & {\bf 0.65} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Laboratory test: quantum Darwinism}
+
+The DGF prediction $R_\delta(q)=R_\delta(1)\cdot q$ connects the cosmological $q$-field to a quantity measurable in the laboratory. $R_\delta$ is the quantum Darwinism redundancy: the number of independent environment fragments that each contain nearly complete information about a system~\cite{zurek2009}. In DGF, the available redundancy is proportional to the fraction of unoccupied environment modes.
+
+The experimental protocol has five steps: (1) Prepare $N=20$ environment qubits in a superconducting circuit. (2) Initialize a fraction $1-q$ of them to $|1\rangle$, simulating structure-formation occupation. (3) Prepare a system qubit in $|+\rangle$ and entangle with all environment qubits via CNOT. (4) Measure mutual information $I(S:F_k)$ between the system and environment fragments $F_k$ of size $k$. (5) Determine $R_\delta(q)$ as the smallest $k$ such that $I(S:F_k)\approx H(S)=1$ bit.
+
+The critical test that distinguishes DGF from standard decoherence is the dependence on coupling strength. In standard quantum mechanics, varying the CNOT gate time changes the slope of $R_\delta(q)$. In DGF, the slope is fixed at $R_\delta(1)$, independent of coupling. Zhu et al.\ (2025) have demonstrated quantum Darwinism measurements in 10-qubit systems; the 20-qubit measurement with $\sim5\%$ precision needed for this test is feasible within 2--3 years.
+
+\section{Numerical methods}
+
+\subsection{Self-consistent solver}
+
+We solve the coupled system of equations (\ref{sm:slowroll}) and the Friedmann equation $H^2(a)=H_0^2[\Omega_m a^{-3}+\Omega_r a^{-4}+\Omega_\Lambda q(a)]$ using Picard iteration. Starting from the $\Lambda$CDM $H(z)$ as the initial guess, we integrate the telegraph equation using 4th-order Runge-Kutta with 500 logarithmically spaced steps in $a\in[a_{\rm min},1]$, where $a_{\rm min}=1/(1+z_{\rm max})$ with $z_{\rm max}=10$. The coupling $\eta/\gamma_0$ is calibrated to produce the target $w_0$. The Friedmann equation is then updated with the new $q(a)$, and the process repeats until $\max|H^{(k)}-H^{(k-1)}|/H^{(k-1)}<10^{-6}$. Convergence typically occurs within 3--5 iterations.
+
+\subsection{CPL projection}
+
+The CPL parameters are obtained by weighted least-squares minimization of $\int[w_{\rm DGF}(a)-(w_0+w_a(1-a))]^2\mathcal{W}(a)da$ over $a\in[0.3,1]$, where the weight function $\mathcal{W}(a)\propto(1+z)^2/H(z)$ approximates the DESI baryon acoustic oscillation sensitivity as a function of redshift. The $\chi^2$ is computed as $[w_0-w_0^{\rm DESI},w_a-w_a^{\rm DESI}]\,\Sigma^{-1}\,[w_0-w_0^{\rm DESI},w_a-w_a^{\rm DESI}]^T$ using the full DESI+CMB+DESY5 covariance matrix.
+
+\begin{thebibliography}{99}
+\bibitem{madau2014} Madau, P.\ \& Dickinson, M.\ Cosmic star-formation history. {\it Annu.\ Rev.\ Astron.\ Astrophys.} {\bf 52}, 415--486 (2014).
+\bibitem{driver2018} Driver, S.P.\ et al.\ GAMA/G10-COSMOS/3D-HST. {\it Mon.\ Not.\ R.\ Astron.\ Soc.} {\bf 475}, 2891--2935 (2018).
+\bibitem{planck2018} Planck Collaboration.\ Planck 2018 results. VI. {\it Astron.\ Astrophys.} {\bf 641}, A6 (2020).
+\bibitem{zurek2009} Zurek, W.H.\ Quantum Darwinism. {\it Nature Phys.} {\bf 5}, 181--188 (2009).
+\bibitem{li2024} Li, X.\ et al.\ Emergent dark energy. {\it Phys.\ Rev.\ D} {\bf 109}, 043510 (2024).
+\bibitem{neukart2025} Neukart, F.\ et al.\ QMM model for dark energy. {\it Astronomy} {\bf 4}, 16 (2025).
+\end{thebibliography}
+
+\end{document}

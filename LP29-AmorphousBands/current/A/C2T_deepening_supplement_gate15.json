@@ -1,0 +1,55 @@
+{
+  "project": "LP29-AmorphousBands",
+  "subtopic": "LP29-C2T Round 4",
+  "agent": "A",
+  "gate": "GATE 1.5",
+  "artifact_type": "deepening_supplement",
+  "date": "2026-06-04",
+  "source_files_read": [
+    "D:/Claude/ai-reservations/LP29-AmorphousBands/current/A/C2T_round4.json",
+    "D:/Claude/ai-reservations/LP29-AmorphousBands/synthesis/PI_C2T_round4.md",
+    "D:/Claude/ai-reservations/LP29-AmorphousBands/synthesis/inspector_A_C2T_round4.md"
+  ],
+  "forbidden_source_boundary": {
+    "B_outputs_read": false,
+    "note": "This supplement does not use current/B or inspector_B outputs."
+  },
+  "claim_boundary": {
+    "material_validation_allowed": false,
+    "material_validation_performed": false,
+    "Srivastava_reproduced": false,
+    "graph_beats_overlap_claim_allowed": false,
+    "same_sample_closure_claim_allowed": false,
+    "current_candidate_decision": "BLOCK"
+  },
+  "deepening_1": {
+    "title": "Next Consequence Of OI/Srivastava Witness Requirements",
+    "layer_1": {
+      "claim": "The A-side witness table does more than list missing Srivastava/OI fields: it changes the object of evaluation from a reported OI-like number to a provenance-linked computational witness.",
+      "consequence": "A future row cannot be judged by the presence of OI_norm alone. It must first prove same-source and same-structure identity, then expose OI_raw_sum, OI_normalization_formula_id, pair_cutoff_A or equivalent pair rule, and the declared OI_comparison_mode.",
+      "why_it_matters": "This turns Srivastava reproduction into a gate predicate rather than a narrative comparison. Missing raw-sum or normalization provenance is not a weak warning; it means the baseline is still reported context and cannot be used as a reproduced reference.",
+      "current_status": "All current candidates remain BLOCK because the populated evidence is still incomplete or partial."
+    },
+    "layer_2": {
+      "claim": "The next consequence is that OI_comparison_mode becomes a precondition for any later graph or material claim, not a cosmetic metadata field.",
+      "consequence": "Fixed-density, fixed-pair, Srivastava-reproduction, and no-claim modes imply different denominators and therefore different residual questions. In fixed_density mode, pair_density and volume provenance must be bound to the same row. In fixed_pair mode, OI_pair_mean, N_pair, and N_pair_provenance_id must share the same counted-pair denominator. In no_claim mode, the row is context only and cannot support material validation.",
+      "why_it_matters": "Without this mode lock, a later executor could accidentally compare graph features against a moving OI target: density-normalized in one place, pair-normalized in another, and merely reported context in a third. The deeper consequence is that a valid C2T row must carry not just values but denominator discipline.",
+      "gate15_implication": "GATE 1.5 should treat the A-side Round 4 artifact as a reproducible blocker contract, not as reproduced Srivastava evidence."
+    }
+  },
+  "deepening_2": {
+    "title": "Most Likely Wrong Premise",
+    "layer_1": {
+      "premise": "The most likely wrong premise is that a complete enough witness schema will make Srivastava/OI reproduction mainly a parsing problem.",
+      "why_it_may_be_wrong": "Round 4 defines the fields a future executor must parse, but the hardest missing object may not be syntactic availability. The real blocker may be that source_row_id, structure_id, OI_raw_sum, OI_norm, normalization formula, pair cutoff, and denominator provenance do not exist in a mutually linkable form for the same sample.",
+      "consequence_if_wrong": "If the original source material cannot support this same-row linkage, then no amount of schema enforcement will recover Srivastava reproduction. The result would be a correct audit contract whose main output is permanent BLOCK for current candidates.",
+      "current_status": "This is consistent with the present boundary: Srivastava baseline is not reproduced and no material validation is performed."
+    },
+    "layer_2": {
+      "premise": "The deeper possibly wrong premise is that the Srivastava/OI baseline can be cleanly separated from graph-derived structure evidence once witnesses are populated.",
+      "why_it_may_be_wrong": "Pair density, pair selection, cutoff choice, cell volume, coordination-like counts, and overlap raw sums are not neutral bookkeeping. They may absorb much of what a graph metric would later claim as independent structural signal.",
+      "consequence_if_wrong": "Even after a future payload passes A-side Srivastava/OI gates, C2T may still fail at the next scientific layer because the graph signal is a reparameterization of the OI accounting variables rather than an independent residual predictor.",
+      "gate15_implication": "A future PASS on A-side witness completeness should only unlock the next audit stage. It must not be treated as material validation, graph-beats-OI evidence, or same-sample closure."
+    }
+  }
+}

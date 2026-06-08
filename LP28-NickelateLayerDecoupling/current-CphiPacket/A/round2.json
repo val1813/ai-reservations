@@ -1,0 +1,510 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "packet": "LP28-CphiPacket",
+  "round": 2,
+  "agent": "A",
+  "framework": {
+    "verdict": "PACKET_FEASIBLE_NEAR_FUTURE_WITH_HARD_SCHEMA",
+    "purpose": "Convert the Round 1 near-future campaign into an executable, leakage-clean row packet that can later kill or preserve the bounded R_oe protocol without claiming R_oe exists.",
+    "core_move": "Treat each row as a pre-registered specimen bundle with frozen normal-state odd/even susceptibility, independently measured B_min covariates, frozen U_miss, calibration ledger, and embargoed superconducting-output labels.",
+    "non_claims": [
+      "This does not claim an existing public packet exists.",
+      "This does not claim C_phi is independent.",
+      "This does not claim R_oe survives.",
+      "This does not allow retrospective montage from papers with incompatible sample histories or known superconducting outputs."
+    ]
+  },
+  "canonical_definition": {
+    "P_oe": {
+      "canonical_formula": "P_oe = (chi_odd - chi_even) / (chi_odd + chi_even)",
+      "domain": "normal-state, calibrated odd/even bilayer susceptibility on the frozen q, omega, qz, polarization, temperature, and pressure grid",
+      "units": "dimensionless after chi_odd and chi_even are converted to the same susceptibility units",
+      "denominator_rule": {
+        "denominator": "D_oe = chi_odd + chi_even",
+        "epsilon_D": "pre-frozen susceptibility-denominator floor derived only from susceptibility-channel noise, channel-mixing covariance, blank/standard residuals, and calibration uncertainty in D_oe units",
+        "censoring": "If abs(D_oe) <= epsilon_D, the row-cell is censored for canonical P_oe. It is not rescued by replacing the denominator.",
+        "sign_rule": "The sign of D_oe is retained when abs(D_oe) > epsilon_D; no absolute-value denominator is allowed for canonical P_oe."
+      },
+      "forbidden_drift": [
+        "Do not redefine P_oe as (chi_odd - chi_even) / max(abs(chi_odd) + abs(chi_even), epsilon_floor).",
+        "Do not tune epsilon_D using structural, Raman, oxygen, pressure-path, superconducting-output, or residual-collapse behavior.",
+        "Do not compare canonical P_oe numerically with L1-stabilized diagnostics without a declared mapping."
+      ],
+      "allowed_diagnostic": {
+        "name": "P_oe_L1_diagnostic",
+        "formula": "P_oe_L1_diagnostic = (chi_odd - chi_even) / max(abs(chi_odd) + abs(chi_even), epsilon_L1)",
+        "use": "robustness and sign-check diagnostic only",
+        "firewall": "P_oe_L1_diagnostic cannot replace canonical P_oe in the primary residual call and cannot be used to choose rows, thresholds, or denominator floors after output reveal."
+      }
+    },
+    "B_min": {
+      "definition": "The minimum pre-output baseline covariate block needed to absorb ordinary oxygen, structure, orbital, disorder, pressure-path, c-axis, and sample-quality explanations before testing whether P_oe has residual explanatory content.",
+      "required_axes": [
+        "oxygen_stoichiometry_and_layer_asymmetry",
+        "structure_strain_and_lattice_geometry",
+        "orbital_valence_ligand_hole_self_doping",
+        "disorder_phase_fraction_and_dephasing",
+        "pressure_and_thermal_path",
+        "ordinary_c_axis_coherence",
+        "sample_quality_and_damage"
+      ],
+      "non_tautology_rule": "No B_min field may be trained on, selected by, or numerically calibrated against Tc, zero resistance, Meissner/diamagnetism, superconducting gap, critical current, superconducting spin resonance, or human labels derived from those outputs."
+    }
+  },
+  "row_schema": {
+    "row_identity": {
+      "row_id": "opaque stable ID assigned before measurement",
+      "batch_id": "growth boule or synthesis batch",
+      "sibling_set_id": "same-boule adjacent-specimen bundle ID",
+      "specimen_ids": {
+        "primary_spectroscopy_specimen": "same-sample preferred for P_oe",
+        "baseline_specimen": "same sample when nondestructive; sibling if destructive",
+        "pressure_structural_specimen": "same sample preferred; pressure-matched sibling allowed",
+        "embargoed_output_specimen": "same sample or designated sibling whose superconducting-output labels are sealed"
+      },
+      "genealogy_fields": [
+        "growth_date",
+        "precursor_lot",
+        "anneal_schedule",
+        "orientation",
+        "dimensions",
+        "mass",
+        "cut_order",
+        "storage_history",
+        "beam_exposure_history"
+      ]
+    },
+    "grid_lock": {
+      "q_points": "frozen before acquisition",
+      "omega_windows": "frozen before acquisition",
+      "qz_values": "must include odd/even contrast-sensitive values or justified equivalents",
+      "polarizations": "frozen incident and outgoing polarization settings where available",
+      "temperature_grid": "normal-state only; excludes temperatures near suspected superconducting transition windows",
+      "pressure_grid": "frozen pressure landmarks or continuous ledger bins",
+      "censoring_rules_hash": "hash of locked censoring code and thresholds"
+    },
+    "P_oe_block": {
+      "raw_spectra_uri": "immutable raw S_channel archive pointer",
+      "instrument_config": "beamline, edge, analyzer, resolution, geometry, polarization, pressure-cell configuration",
+      "calibration_files": [
+        "elastic_line",
+        "fluorescence_normalization",
+        "standard_sample",
+        "blank_or_dark",
+        "self_absorption_or_geometry_correction"
+      ],
+      "chi_odd": "calibrated odd-channel susceptibility with uncertainty",
+      "chi_even": "calibrated even-channel susceptibility with uncertainty",
+      "channel_mixing_covariance": "locked covariance from qz/polarization/form-factor decomposition",
+      "D_oe": "chi_odd + chi_even",
+      "epsilon_D": "denominator floor in D_oe units",
+      "P_oe": "canonical value or null if censored",
+      "P_oe_censor_flag": "valid, denominator_censored, calibration_failed, beam_damage_excluded, grid_missing",
+      "P_oe_extractor_id": "team/script ID with no access to B_min fit choices or output labels"
+    },
+    "B_min_block": {
+      "oxygen_stoichiometry_and_layer_asymmetry": [
+        "STEM_EELS_vacancy_density_or_sibling_map",
+        "O_K_edge_preedge",
+        "bulk_oxygen_estimate_when_available",
+        "layer_asymmetry_proxy"
+      ],
+      "structure_strain_and_lattice_geometry": [
+        "XRD_lattice_constants",
+        "Raman_phonon_markers",
+        "octahedral_tilt_or_bond_angle_proxy",
+        "phase_fraction"
+      ],
+      "orbital_valence_ligand_hole_self_doping": [
+        "Ni_edge_XAS_or_XES",
+        "O_K_ligand_hole_proxy",
+        "La_or_rare_earth_5d_proxy",
+        "dz2_occupancy_proxy"
+      ],
+      "disorder_phase_fraction_and_dephasing": [
+        "rocking_curve_width",
+        "mosaicity",
+        "Raman_linewidth",
+        "defect_density",
+        "normal_state_RRR_or_quality_metric"
+      ],
+      "pressure_and_thermal_path": [
+        "pressure_medium",
+        "pressure_marker_series",
+        "gradient_estimate",
+        "load_unload_curve",
+        "thermal_cycle_count",
+        "dwell_time",
+        "gasket_culet_geometry"
+      ],
+      "ordinary_c_axis_coherence": [
+        "normal_state_optical_anisotropy",
+        "normal_state_Drude_or_reflectivity_proxy",
+        "non_output_band_splitting_proxy_if_available"
+      ],
+      "sample_quality_and_damage": [
+        "pre_post_probe_Raman_or_XRD_change",
+        "beam_dose",
+        "surface_degradation_flag",
+        "crack_or_texture_flag"
+      ],
+      "B_min_extractor_id": "team/script ID with no access to P_oe residuals, odd/even fit nuisance parameters, or output labels",
+      "B_min_freeze_hash": "hash of locked covariate extraction and imputation code"
+    },
+    "U_miss_block": {
+      "pre_registered_buckets": [
+        "unmeasured_oxygen_microtexture",
+        "sibling_mismatch",
+        "pressure_gradient_unresolved",
+        "matrix_element_residual",
+        "beam_damage_uncertainty",
+        "phase_fraction_uncertainty",
+        "ordinary_c_axis_proxy_gap"
+      ],
+      "imputation_policy": "frozen before output reveal; sensitivity analysis ranges cannot be changed after residual behavior is seen"
+    },
+    "embargo_block": {
+      "output_label_custodian": "independent holder of superconducting-output data",
+      "embargoed_outputs": [
+        "Tc",
+        "zero_resistance",
+        "Meissner_signal",
+        "diamagnetic_onset",
+        "superconducting_gap",
+        "critical_current",
+        "superconducting_spin_resonance",
+        "human_or_model_label_trained_on_any_embargoed_output"
+      ],
+      "normal_state_allowed": "transport, optical, Raman, XRD, XAS, and spectroscopy only outside frozen output-risk windows and only if not selected using superconducting knowledge",
+      "unlock_condition": "P_oe, B_min, U_miss, censoring flags, row inclusion, and calibration logs are frozen and timestamped"
+    }
+  },
+  "thresholds": {
+    "minimum_N": {
+      "pilot_executability_floor": {
+        "N_total_rows": 12,
+        "status": "enough only to test whether the packet machinery is executable, not enough for a strong R_oe claim"
+      },
+      "primary_protocol_floor": {
+        "N_total_rows": 24,
+        "valid_uncensored_P_oe_rows_after_censoring": 18,
+        "valid_rows_per_pressure_landmark": 6,
+        "status": "minimum for a serious cross-fitted residual-collapse attempt"
+      },
+      "hard_fail": [
+        "N_total_rows < 12",
+        "valid_uncensored_P_oe_rows_after_censoring < 10",
+        "more than 35 percent denominator-censored rows in the primary grid",
+        "any pressure landmark represented by fewer than 3 valid rows"
+      ]
+    },
+    "batches_and_independence": {
+      "minimum_growth_batches": 2,
+      "preferred_growth_batches": 3,
+      "minimum_independent_pressure_loads": 2,
+      "minimum_probe_days_or_runs": 2,
+      "blind_duplicate_rows": 2,
+      "deliberate_controls": [
+        "at least one oxygen-shifted control per batch",
+        "at least one pressure-path-shifted control across the packet",
+        "at least one calibration-standard repeat per P_oe acquisition run"
+      ],
+      "hard_fail": [
+        "only one growth batch for a primary claim",
+        "all P_oe rows acquired in one unreplicated run with no standard repeat",
+        "no blind duplicate rows",
+        "matched-specimen rows lack genealogy strong enough to distinguish sibling mismatch from P_oe residual"
+      ]
+    },
+    "required_axes": {
+      "minimum_axes_present_per_row": 7,
+      "axis_failure_rule": "A row missing oxygen, pressure-path, or P_oe calibration is excluded from primary analysis; a row missing one non-core B_min axis may remain only with pre-registered U_miss inflation.",
+      "core_axes_that_cannot_be_missing": [
+        "P_oe_calibration",
+        "oxygen_stoichiometry_and_layer_asymmetry",
+        "pressure_and_thermal_path",
+        "output_embargo"
+      ]
+    },
+    "same_sample_vs_sibling": {
+      "same_sample_required_when": [
+        "probe is nondestructive and compatible with the pressure/temperature state",
+        "pressure path is itself the tested variable",
+        "sibling mismatch exceeds pre-registered U_miss tolerance"
+      ],
+      "sibling_allowed_when": [
+        "measurement is destructive",
+        "same-sample probe environment is physically unavailable",
+        "sibling genealogy, oxygen/phase mapping, pressure ledger, and U_miss bounds are frozen before output reveal"
+      ],
+      "sibling_hard_fail": "If sibling oxygen microtexture or phase-fraction uncertainty is comparable to or larger than the observed P_oe residual scale, the row cannot support an R_oe claim."
+    },
+    "calibration_and_censoring": {
+      "epsilon_D_source": "susceptibility calibration only",
+      "epsilon_D_freeze_time": "before output reveal and before residual-collapse model fitting",
+      "minimum_signal_to_floor": "abs(D_oe) / epsilon_D > 1 for validity; preferred > 3 for primary quantitative use",
+      "channel_mixing_limit": "rows whose odd/even channel-mixing uncertainty changes P_oe sign are sensitivity-only unless sign instability is pre-registered as acceptable",
+      "raw_archive_requirement": "raw spectra, calibration standards, and fit code must be retained; missing raw archive is a protocol failure for primary claims"
+    },
+    "decision_thresholds": {
+      "PACKET_FEASIBLE_NEAR_FUTURE": "All schema fields have plausible acquisition routes and no firewall contradiction is intrinsic, but the packet is not yet measured.",
+      "PACKET_EXECUTABLE_WHEN_MEASURED": "N >= 24, at least 18 valid P_oe rows, at least 2 batches, all core axes present, output embargo intact, raw calibration archive complete, and B_min/P_oe firewall passes audit.",
+      "PACKET_NONIDENTIFIABLE": "B_min requires forbidden P_oe nuisance information, pressure/qz/c-axis corrections cannot be separated, or sibling mismatch dominates residual scale even with U_miss.",
+      "PACKET_NOT_FOUND": "Existing data remain component-only and cannot be converted into rows under this schema."
+    }
+  },
+  "probe_order": {
+    "principle": "Acquire maximum non-output and low-damage information before high-risk spectroscopy or superconducting-output reveal; freeze extraction rules before opening labels.",
+    "ordered_steps": [
+      {
+        "step": 0,
+        "name": "pre_registration",
+        "actions": [
+          "assign row IDs and sibling-set IDs",
+          "freeze grid, row schema, censoring rules, epsilon_D derivation, U_miss buckets, output embargo list, and inclusion rules",
+          "appoint separate P_oe extractor, B_min extractor, and output custodian"
+        ],
+        "output_access": "no superconducting-output access"
+      },
+      {
+        "step": 1,
+        "name": "batch_genealogy_and_room_condition_baselines",
+        "actions": [
+          "record growth/anneal/cut/storage history",
+          "measure nondestructive XRD, Raman, surface/quality checks, and orientation",
+          "log dimensions, mass, and visible damage"
+        ],
+        "output_access": "no superconducting-output access"
+      },
+      {
+        "step": 2,
+        "name": "normal_state_B_min_covariates",
+        "actions": [
+          "measure oxygen, ligand-hole, orbital/valence, structure, disorder, and ordinary c-axis proxies",
+          "perform destructive oxygen or microscopy only on pre-assigned sibling pieces",
+          "freeze B_min extraction code and missingness policy"
+        ],
+        "output_access": "no superconducting-output access"
+      },
+      {
+        "step": 3,
+        "name": "pressure_path_and_structural_state",
+        "actions": [
+          "load pressure cells using frozen medium and geometry",
+          "record pressure markers, gradient, load/unload path, dwell time, and thermal cycles",
+          "measure pressure Raman/XRD/XAS structural markers where available"
+        ],
+        "output_access": "no superconducting-output access; transport only in frozen normal-state windows if used"
+      },
+      {
+        "step": 4,
+        "name": "P_oe_spectroscopy",
+        "actions": [
+          "acquire qz/polarization/form-factor resolved normal-state RIXS or neutron/RIXS hybrid maps",
+          "acquire calibration standards and blind duplicate spectra",
+          "fit chi_odd and chi_even with locked model and archive raw spectra"
+        ],
+        "output_access": "no superconducting-output access"
+      },
+      {
+        "step": 5,
+        "name": "lock_packet",
+        "actions": [
+          "freeze P_oe, P_oe_L1_diagnostic, B_min, U_miss, censoring flags, calibration logs, row inclusion, and analysis hashes",
+          "run firewall audit before reveal"
+        ],
+        "output_access": "no superconducting-output access"
+      },
+      {
+        "step": 6,
+        "name": "output_reveal_for_later_residual_protocol",
+        "actions": [
+          "output custodian reveals superconducting-output labels only after packet lock",
+          "residual-collapse test is run in a separate phase"
+        ],
+        "output_access": "allowed only after lock; not part of A Round 2 evidence"
+      }
+    ]
+  },
+  "independence_firewall": {
+    "A_B_independence": {
+      "status": "maintained for this file",
+      "rule": "A Round 2 did not read current-CphiPacket/B or B output files; PI synthesis was used only because it was explicitly allowed by the task."
+    },
+    "output_embargo": {
+      "before_packet_lock_forbidden": [
+        "Tc",
+        "zero resistance",
+        "Meissner or diamagnetic onset",
+        "superconducting gap",
+        "critical current",
+        "superconducting spin resonance",
+        "pressure or sample selection based on known superconducting success",
+        "human labels, file names, specimen names, or model embeddings encoding superconducting success"
+      ],
+      "embargo_violation_result": "row excluded if local; full packet failure if selection, thresholds, model choices, or inclusion rules were affected"
+    },
+    "B_min_P_oe_firewall": {
+      "forbidden_crossovers": [
+        "B_min cannot use odd/even decomposition residuals",
+        "B_min cannot use qz/polarization/form-factor channel-mixing nuisance parameters from the P_oe fit",
+        "B_min cannot use RIXS background parameters that were optimized to improve odd/even separation",
+        "B_min cannot use P_oe residual behavior, row leverage, or sign stability to select covariates",
+        "P_oe denominator floor cannot use B_min structural/Raman/oxygen/pressure fields",
+        "P_oe row inclusion cannot be decided using B_min fit quality after residual behavior is known"
+      ],
+      "allowed_interfaces": [
+        "shared opaque row_id",
+        "pre-registered pressure and temperature grid labels",
+        "instrument-independent metadata such as timestamp, pressure marker ledger, and specimen genealogy",
+        "raw B_min covariates acquired independently before output reveal",
+        "raw P_oe spectra and calibration files held separately until both extraction hashes are locked"
+      ],
+      "same_instrument_exception": "If a B_min covariate and P_oe are both derived from the same broad instrument session, the B_min covariate must be extracted from independently defined spectral regions or standards that are not fit residuals or nuisance terms of the odd/even model; otherwise it is sensitivity-only or excluded.",
+      "audit_test": [
+        "Can the B_min table be reproduced with P_oe spectra, odd/even fit parameters, and output labels hidden?",
+        "Can the P_oe table be reproduced with B_min covariates and output labels hidden?",
+        "Are denominator floors reproducible from susceptibility calibration artifacts alone?",
+        "Do row inclusion logs predate output reveal and residual analysis?",
+        "Do blind duplicates preserve row identity without letting extractors infer superconducting labels?"
+      ]
+    },
+    "B_min_proxy_priority": [
+      "Use direct oxygen, XRD/Raman structure, XAS/XES valence, microscopy, pressure ledger, and normal-state optical proxies first.",
+      "Use same-session RIXS-derived non-P_oe proxies only as sensitivity covariates after firewall audit.",
+      "Never use superconducting output or output-adjacent transition features as B_min."
+    ]
+  },
+  "feasibility_decision": {
+    "decision": "PACKET_FEASIBLE_NEAR_FUTURE",
+    "why": "A sealed packet is experimentally hard but not internally contradictory if it is designed prospectively with row identity, at least two batches, frozen grids, susceptibility-only denominator floors, independent B_min extraction, raw calibration archives, and output embargo.",
+    "current_literature_status": "PACKET_NOT_FOUND for existing retrospective data: current sources supply component evidence and metrology languages, not executable rows.",
+    "executable_claim_boundary": "The packet becomes executable only after the threshold table is satisfied. Until then, the allowed claim remains feasibility of a bounded protocol, not evidence for R_oe.",
+    "most_fragile_assumption": "Matched siblings preserve oxygen microtexture, phase fraction, pressure path, and ordinary c-axis state tightly enough that U_miss remains smaller than the tested P_oe residual scale.",
+    "killer_test": "If the B_min table cannot be produced without P_oe qz/matrix-element nuisance information, or if same-sample/matched-sibling mismatch dominates the residual scale, the packet is non-identifiable and R_oe cannot be decided by this route."
+  },
+  "failure_modes": [
+    {
+      "id": "F1_P_OE_DEFINITION_DRIFT",
+      "mode": "Canonical P_oe is silently replaced by an L1-stabilized diagnostic.",
+      "severity": "protocol_failure",
+      "detection": "formula audit finds abs(chi_odd)+abs(chi_even) or max denominator in primary P_oe field",
+      "remedy": "rename as P_oe_L1_diagnostic and rerun primary analysis with canonical P_oe plus denominator censoring"
+    },
+    {
+      "id": "F2_DENOMINATOR_TUNING",
+      "mode": "epsilon_D is selected using structural/Raman/pressure covariates, B_min fit quality, or residual behavior.",
+      "severity": "protocol_failure",
+      "detection": "epsilon_D provenance includes non-susceptibility units or post-residual timestamps",
+      "remedy": "derive epsilon_D only from susceptibility calibration/noise/channel-mixing/blank residuals before reveal"
+    },
+    {
+      "id": "F3_BMIN_POE_LEAKAGE",
+      "mode": "B_min imports qz/c-axis/matrix-element nuisance terms from the P_oe extraction pipeline.",
+      "severity": "protocol_failure_for_primary_claim",
+      "detection": "B_min reproduction requires P_oe fit residuals, channel-mixing parameters, or RIXS background choices optimized for odd/even separation",
+      "remedy": "exclude contaminated covariates from primary B_min or demote them to sensitivity-only"
+    },
+    {
+      "id": "F4_OUTPUT_LEAKAGE",
+      "mode": "Superconducting-output labels influence row selection, thresholds, covariates, pressure landmarks, or human labels before packet lock.",
+      "severity": "protocol_failure",
+      "detection": "timestamps, file names, lab notes, or selection logs reveal output-aware decisions",
+      "remedy": "exclude affected rows if isolated; restart packet if design-level choices were contaminated"
+    },
+    {
+      "id": "F5_SMALL_N_OR_SINGLE_BATCH",
+      "mode": "Rows are too few or all from one batch/load/probe run.",
+      "severity": "engineering_gap_for_pilot_protocol_failure_for_claim",
+      "detection": "N, batch, pressure-load, or blind-duplicate thresholds fail",
+      "remedy": "treat as packet rehearsal only; do not run claim-bearing residual protocol"
+    },
+    {
+      "id": "F6_MATCHED_SPECIMEN_MONTAGE",
+      "mode": "Sibling specimens differ in oxygen microtexture, phase fraction, damage, or pressure path enough to break row identity.",
+      "severity": "protocol_failure_if_uncertainty_matches_residual_scale",
+      "detection": "U_miss sibling mismatch interval overlaps or exceeds observed P_oe residual scale",
+      "remedy": "require same-sample rows for affected pressure states or demote to non-identifiable"
+    },
+    {
+      "id": "F7_PRESSURE_NONREPEATABILITY",
+      "mode": "Pressure path cannot be reproduced or ledgered across probes.",
+      "severity": "protocol_failure_for_pressure_rows",
+      "detection": "missing marker series, gradient estimate, load/unload curve, medium, geometry, or thermal-cycle ledger",
+      "remedy": "exclude pressure row or redesign as same-sample pressure path"
+    },
+    {
+      "id": "F8_RAW_ARCHIVE_MISSING",
+      "mode": "Raw spectra or calibration standards are missing, preventing independent refit.",
+      "severity": "protocol_failure_for_primary_claim",
+      "detection": "raw_spectra_uri or calibration_files unavailable at audit",
+      "remedy": "sensitivity-only use; reacquire for primary packet"
+    },
+    {
+      "id": "F9_AXIS_UNDERCOVERAGE",
+      "mode": "A required B_min axis is absent or proxy-only without pre-registered U_miss.",
+      "severity": "row_exclusion_or_protocol_failure",
+      "detection": "row lacks oxygen, pressure-path, P_oe calibration, or output-embargo metadata; or multiple non-core axes missing",
+      "remedy": "exclude row from primary analysis or pre-register expanded U_miss before reveal"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A Round 2 executable schema can be defined without changing the core scientific claim: it remains a near-future packet design, not a validation of R_oe.",
+      "confidence": 0.86,
+      "basis": "Round 1 A and PI synthesis agree existing literature is component-only and that the next step is row-level sealed packet design."
+    },
+    {
+      "id": "C2",
+      "statement": "The canonical P_oe should remain (chi_odd - chi_even)/(chi_odd + chi_even), with denominator-floor censoring rather than denominator replacement.",
+      "confidence": 0.9,
+      "basis": "Inspector warning explicitly identifies L1 stabilization as definition drift and requires standardization before comparison across rounds."
+    },
+    {
+      "id": "C3",
+      "statement": "A serious primary packet requires at least 24 total rows, at least 18 valid uncensored P_oe rows after censoring, at least 2 growth batches, pressure/load replication, blind duplicates, and all core axes present.",
+      "confidence": 0.72,
+      "basis": "This threshold is conservative enough to avoid the vague 'several rows' problem while acknowledging high-pressure nickelate metrology constraints."
+    },
+    {
+      "id": "C4",
+      "statement": "The B_min/P_oe firewall is the decisive feasibility condition: separate scripts are insufficient unless forbidden qz, c-axis, matrix-element, and odd/even fit information cannot cross into B_min.",
+      "confidence": 0.84,
+      "basis": "Inspector and PI synthesis both identify qz/c-axis/matrix-element leakage as the main unresolved identifiability risk."
+    },
+    {
+      "id": "C5",
+      "statement": "The strongest feasible route is still prospective same-sample where possible and matched-sibling where necessary, with sibling mismatch explicitly represented in U_miss.",
+      "confidence": 0.76,
+      "basis": "Round 1 A route is retained but sharpened by row identity, axis coverage, pressure ledger, and hard failure thresholds."
+    },
+    {
+      "id": "C6",
+      "statement": "If the schema thresholds cannot be met, the correct conclusion is not a weaker R_oe test but PACKET_NONIDENTIFIABLE or PACKET_NOT_FOUND depending on whether the failure is structural or merely absent data.",
+      "confidence": 0.82,
+      "basis": "The project's allowed claim is bounded protocol feasibility; claim-bearing residual inference requires the packet."
+    }
+  ],
+  "inspector_check": {
+    "self_audit_status": "READY_FOR_INSPECTOR_WITH_WARNINGS",
+    "P_oe_definition_fixed": true,
+    "P_oe_L1_renamed": true,
+    "row_schema_present": true,
+    "minimum_N_quantified": true,
+    "minimum_batches_quantified": true,
+    "required_axes_quantified": true,
+    "probe_order_present": true,
+    "output_embargo_present": true,
+    "B_min_P_oe_firewall_present": true,
+    "same_sample_vs_sibling_rules_present": true,
+    "remaining_warnings": [
+      "The N=24 and valid-row thresholds are protocol judgments, not literature-proven statistical optima.",
+      "Same-sample high-pressure P_oe spectroscopy may be physically unavailable at some facilities; matched-sibling validity then becomes the load-bearing assumption.",
+      "Ordinary c-axis coherence is intrinsically close to P_oe qz physics and may need demotion to sensitivity-only if independently acquired proxies are weak.",
+      "This file does not verify citation anchors; it intentionally focuses on schema and thresholds required by Round 2."
+    ],
+    "independence_statement": "This A Round 2 file was generated from the explicitly allowed plan, A Round 1, Inspector A Round 1, and PI synthesis inputs. It did not read current-CphiPacket/B or any B output path.",
+    "allowed_claim_after_round2": "LP28-CphiPacket now has an executable prospective row schema and falsifier thresholds for packet feasibility. It still has no measured packet and no R_oe validation."
+  }
+}

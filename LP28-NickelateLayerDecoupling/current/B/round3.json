@@ -1,0 +1,281 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "round": 3,
+  "agent": "B",
+  "role": "野路子",
+  "task_focus": "把 phase bus / Q_phi 从解释性概念压缩成工程反馈回路；目标不是写论文，而是找真实理论突破和科技进步杠杆。",
+  "inputs_read": [
+    "current/synthesis/pi_round2_synthesis.md",
+    "current/plan/知识库.md",
+    "current/B/round2.json",
+    "current/synthesis/inspector_B_round2.md",
+    "synthesis/aha记录.md"
+  ],
+  "inputs_not_read": [
+    "current/A/round3 output"
+  ],
+  "polaris": "RP 镍酸盐 bulk SC 的关键工程变量不是简单消灭 DW，而是在保留局域 pairing fluctuation 的同时，把 Ni dz2/apical-O/dz2 通道恢复成足够低退相干的层间相位总线。",
+  "framework": {
+    "cross_domain_source": "distributed consensus plus control feedback",
+    "borrowed_structure": "局域节点已经能形成短程配对，但全局态只有在链路容量超过噪声和分区损耗时才通过 quorum；工程上不需要证明每个节点完美，只需要把可测输入推过可复现的 quorum 阈值。",
+    "physics_translation": "NiO2 层/局域配对区是节点，dz2-pz-dz2 层间谱权重是链路容量，static DW/domain 是分区损耗，Gamma_phi 是相位消息退相干，bulk shielding/THz/Josephson 是全局共识成功信号。"
+  },
+  "predictor": {
+    "name": "I_phi",
+    "formula": "I_phi = E_z2 * C_phi / max(k_B*T + hbar*Gamma_phi, E_floor)",
+    "unit_protocol": {
+      "E_z2": "energy scale in meV or eV derived from dz2/pz c-axis coherent spectral weight; if the raw observable is a dimensionless normalized weight W_z2, use E_z2 = E0 * W_z2 with E0 declared before fitting",
+      "C_phi": "dimensionless 0 to 1 connectivity factor from domain fraction, structural correlation length, layer registry, or kz/orbital coherence; it must not contain shielding, THz phase stiffness, or Josephson output",
+      "Gamma_phi": "angular-frequency dephasing rate in s^-1; hbar*Gamma_phi is an energy",
+      "E_floor": "larger of instrumental energy resolution, residual disorder floor, and the minimum fitted dephasing floor; prevents T,Gamma_phi -> 0 divergence"
+    },
+    "engineering_rule": "Use I_phi only as a design score and feedback coordinate. Q_c/I_c is calibrated after the fact by independent bulk outputs, not inserted into the predictor."
+  },
+  "compressed_technology_routes": [
+    {
+      "id": "T1",
+      "name": "pressure or c-axis strain phase-bus feedback loop",
+      "compresses_round2_routes": [
+        "R1 hydrostatic pressure plus c-axis optical/THz",
+        "R2 uniaxial strain and orbital-resolved control"
+      ],
+      "why_high_value": "This is the cleanest route from mechanism to technology: continuously tune dz2-pz-dz2 overlap and immediately observe whether the phase bus turns on before bulk SC. It tests causality and gives an actuator for optimization.",
+      "actuator": [
+        "hydrostatic pressure P as fast mapping axis",
+        "then c-axis uniaxial compression epsilon_c = -(c-c0)/c0 as the cleaner actuator once the pressure window is known"
+      ],
+      "input_measurements_for_feedback": [
+        "E_z2 from normal-state or just-above-onset c-axis optical Drude/spectral weight, polarization-resolved O K-edge pz weight, Ni L-edge dz2 redistribution, or ARPES kz dispersion",
+        "C_phi from single-domain fraction, x-ray/neutron structural correlation length, trilayer registry, and static-DW/domain imaging",
+        "Gamma_phi from RIXS linewidth, ultrafast dephasing, or low-frequency optical/THz linewidth measured in the normal/onset-preceding window",
+        "controls: ab-plane Drude weight or bandwidth proxy, Hall number, residual resistivity/disorder proxy, pressure structural phase fraction"
+      ],
+      "output_measurements_not_used_in_predictor": [
+        "bulk diamagnetic shielding fraction",
+        "Meissner response",
+        "c-axis Josephson plasma edge or independent THz phase-stiffness onset",
+        "vertical Josephson-like tunneling response if device geometry allows"
+      ],
+      "go_thresholds": {
+        "input_threshold": "Across the same sample or tightly matched series, I_phi must increase by at least 2x or by >=3 sigma relative to the low-pressure/low-strain baseline before or at the first bulk-SC output.",
+        "spectral_threshold": "E_z2 or its declared proxy must recover by >=15% and >=3 sigma while the ab-plane Drude/bandwidth proxy changes by less than half that normalized effect or is explicitly included as a nuisance covariate.",
+        "connectivity_threshold": "C_phi must be >=0.70 or, if lower, must be measured point-by-point and still leave I_phi predictive after domain correction.",
+        "dephasing_threshold": "hbar*Gamma_phi must not increase enough to erase the E_z2 gain; operationally I_phi, not E_z2 alone, must pass the >=2x or >=3 sigma rule.",
+        "bulk_success_threshold": "Count bulk SC only if shielding volume fraction is >=10% with reproducible Meissner/vortex evidence, or if zero resistance is accompanied by an independent THz/Josephson phase-stiffness signal.",
+        "sequence_threshold": "A valid phase-bus result requires input-side I_phi recovery to precede or coincide with shielding/THz/Josephson onset within experimental temperature/pressure resolution; DW weakening alone is not sufficient."
+      },
+      "failure_conditions": [
+        "I_phi doubles or rises by >=3 sigma across the tuning path but shielding remains <1% and no independent THz/Josephson phase-stiffness signal appears.",
+        "bulk shielding >=10% appears while E_z2, C_phi, and Gamma_phi remain flat within error, and the transition is instead predicted by ab-plane Drude/bandwidth or structural phase fraction.",
+        "The apparent E_z2 gain disappears after separating Drude weight from scattering rate, contact geometry, cracks, and domain reorientation.",
+        "The same sample cannot reproduce the I_phi-output sequence on pressure/strain cycling within stated hysteresis error."
+      ],
+      "engineering_feedback_loop": [
+        "measure input variables at a non-superconducting or onset-preceding point",
+        "compute I_phi with a predeclared E0/E_floor convention",
+        "adjust P or epsilon_c toward larger I_phi while holding Hall number, ab bandwidth, and domains as controls",
+        "only after input update, measure shielding/THz/Josephson output",
+        "iterate the actuator; stop if failure conditions fire"
+      ]
+    },
+    {
+      "id": "T2",
+      "name": "orthogonal-material-axis phase-bus selector",
+      "compresses_round2_routes": [
+        "R3 chemical-pressure and oxygen-stoichiometry split tuning",
+        "R4 non-equilibrium apical-oxygen/dz2 pump"
+      ],
+      "why_high_value": "This route separates the hidden variables that pressure entangles. It can decide whether the lever is really dz2 phase-bus capacity or merely carrier density, disorder, heating, or generic bandwidth.",
+      "actuator": [
+        "isovalent chemical pressure / rare-earth radius / epitaxial constraint to change dz2-pz-dz2 overlap",
+        "oxygen stoichiometry as an explicitly separate carrier/disorder axis",
+        "optional mid-IR apical-oxygen pump as a transient actuator only after the static selector identifies a viable E_z2 direction"
+      ],
+      "input_measurements_for_feedback": [
+        "E_z2 from O K-edge pz/pxy ratio, Ni L-edge dz2 weight, normal-state c-axis optical spectral weight, or layer-resolved DFT/DMFT hopping calibrated to spectroscopy",
+        "C_phi from phase fraction, domain fraction, trilayer structural coherence, and static-DW partition geometry",
+        "Gamma_phi from RIXS/ultrafast linewidth or pump-probe dephasing",
+        "controls: Hall number, oxygen stoichiometry, residual resistivity, structural phase fraction, ab-plane Drude/bandwidth"
+      ],
+      "output_measurements_not_used_in_predictor": [
+        "absolute shielding fraction from magnetometry or mutual inductance",
+        "THz phase stiffness/Josephson-like plasma response in a separate spectral window from E_z2 extraction",
+        "vertical Josephson/tunneling critical response when available"
+      ],
+      "go_thresholds": {
+        "matched_series_threshold": "At least two pairs of samples or states must have Hall number matched within 5%, residual-resistivity/disorder proxy within 10%, and oxygen stoichiometry uncertainty <=0.01 oxygen per formula unit or an equivalent stated metrology floor.",
+        "orthogonal_leverage_threshold": "Within those matched pairs, the high-I_phi member must show >=20% or >=3 sigma larger E_z2/C_phi-corrected phase-bus score than the low-I_phi member.",
+        "output_threshold": "The high-I_phi member must show >=5x larger shielding fraction, or cross from <1% shielding to >=10% shielding, or show an independent THz/Josephson onset absent in the matched low-I_phi member.",
+        "pump_threshold": "For pump tests, the claimed transient phase-bus response must appear within the coherent phonon/electronic window and before the lattice-temperature proxy reaches the equilibrium-heating control; pump-induced reflectivity alone is not enough.",
+        "retention_threshold": "DW fluctuations/local gap evidence may remain, but static DW partition/domain signatures must be reduced or bypassed enough that C_phi improves by >=3 sigma."
+      },
+      "failure_conditions": [
+        "All superconducting improvement collapses onto Hall number, oxygen stoichiometry, residual disorder, or structural phase fraction after matched-pair correction.",
+        "Chemical pressure increases ab bandwidth but E_z2/C_phi does not improve and no robust shielding/THz/Josephson output follows.",
+        "Pump response is reproduced by off-resonant heating, normal conductivity enhancement, or DW melting with no independent phase-stiffness-specific signal.",
+        "The best-I_phi sample still gives only zero resistance without >=10% shielding or independent phase stiffness, indicating filamentary or two-dimensional superconductivity."
+      ],
+      "engineering_feedback_loop": [
+        "build a small orthogonal matrix: chemical-pressure axis crossed with oxygen/carrier axis",
+        "preselect states by high I_phi at matched Hall/disorder",
+        "test only the preselected states for bulk outputs",
+        "use pump as a reversible perturbation to confirm whether apical-O/dz2 motion can transiently move I_phi without changing stoichiometry",
+        "promote only actuators that improve output through I_phi rather than through common third variables"
+      ]
+    }
+  ],
+  "minimal_exclusion_conditions": {
+    "bandwidth_only": {
+      "claim_to_exclude": "pressure/strain/chemistry works only by broadening in-plane bands or changing generic correlation strength.",
+      "minimum_conditions": [
+        "Measure an ab-plane bandwidth proxy, preferably ab Drude weight or a band-structure/ARPES proxy, on the same tuning path.",
+        "Find at least one matched comparison where the ab bandwidth proxy is equal within 10% or statistically covaried out, but I_phi differs by >=3 sigma.",
+        "Show the bulk output follows I_phi rather than ab bandwidth: either shielding/THz/Josephson turns on only in the high-I_phi state, or a two-variable fit has a statistically necessary I_phi coefficient while bandwidth-only fit fails within error.",
+        "If bandwidth and I_phi are locked together for all accessible states, bandwidth-only is not excluded; the route remains suggestive, not decisive."
+      ]
+    },
+    "scattering_domain_only": {
+      "claim_to_exclude": "rho_c/rho_ab, optical changes, or apparent phase-bus recovery are caused by scattering anisotropy, cracks, contacts, or domain reorientation rather than coherent dz2-pz-dz2 capacity.",
+      "minimum_conditions": [
+        "Do not use rho_c/rho_ab as the primary input; use optical sum-rule spectral weight, polarization-resolved orbital weight, kz dispersion, or declared E_z2 proxy.",
+        "Separate Drude spectral weight from linewidth/scattering rate; an apparent conductivity gain caused only by narrower Gamma is not enough unless I_phi still rises after the dephasing penalty.",
+        "Image or otherwise quantify domains/phase fraction; require single-domain fraction >=80% or include measured domain fraction in C_phi.",
+        "Rule out cracks/contact geometry by reproducible cycling and at least one contact-independent probe such as optical/THz/XAS/ARPES/RIXS.",
+        "If domain fraction changes explain both E_z2 proxy and output without residual I_phi leverage, scattering/domain-only is not excluded."
+      ]
+    },
+    "common_third_variable_only": {
+      "claim_to_exclude": "oxygen stoichiometry, carrier density, disorder, structural phase fraction, or heating controls both phase-bus proxy and superconductivity.",
+      "minimum_conditions": [
+        "Measure Hall number or an equivalent carrier-density proxy and match it within 5% for at least one decisive comparison.",
+        "Measure oxygen stoichiometry with uncertainty <=0.01 per formula unit or use a stated sample-specific metrology limit; do not infer stoichiometry from Tc or transport.",
+        "Match residual-resistivity/disorder proxy within 10% or explicitly include it as a covariate.",
+        "Measure structural phase fraction; require the target phase fraction >=90% or include phase fraction in C_phi.",
+        "For pump tests, use off-resonant and fluence-matched heating controls; the phase-stiffness output must exceed the heating control by >=3 sigma in the same time window.",
+        "If no crossed trajectory exists with same carrier/disorder but different I_phi, common-third-variable-only remains open."
+      ]
+    }
+  },
+  "non_circular_validation_protocol": {
+    "fixed_rule": "Inputs and outputs are disjoint. A quantity used to construct I_phi cannot be reused as proof that I_phi caused superconductivity.",
+    "input_side": {
+      "spectral_weight": [
+        "normal-state or onset-preceding E_z2 from c-axis optical sum-rule spectral weight",
+        "polarization-resolved O K-edge pz weight",
+        "Ni L-edge dz2 orbital redistribution",
+        "ARPES kz dispersion or DFT/DMFT hopping only when calibrated to spectroscopy"
+      ],
+      "structure": [
+        "c-axis strain epsilon_c",
+        "apical oxygen distance or trilayer registry",
+        "domain fraction and structural correlation length",
+        "static-DW partition geometry as a penalty in C_phi"
+      ],
+      "orbital_and_dephasing": [
+        "dz2/pz orbital weight",
+        "RIXS or ultrafast dephasing linewidth Gamma_phi",
+        "normal-state low-frequency linewidth used only as dephasing penalty, not as output stiffness"
+      ],
+      "forbidden_inputs": [
+        "shielding fraction",
+        "Meissner fraction",
+        "THz phase stiffness used as the output",
+        "Josephson plasma edge used as the output",
+        "zero resistance",
+        "rho_c/rho_ab if it is later used as validation"
+      ]
+    },
+    "output_side": {
+      "allowed_outputs": [
+        "bulk shielding fraction from magnetometry or mutual inductance",
+        "Meissner/vortex evidence",
+        "THz phase stiffness or Josephson plasma onset measured in a predeclared output window distinct from the input spectral-weight extraction",
+        "vertical Josephson-like tunneling response",
+        "zero resistance only as secondary support, never as sole success"
+      ],
+      "minimum_bulk_call": "bulk SC requires shielding >=10% or independent phase-stiffness/Josephson evidence; zero resistance alone is labeled filamentary/transport-only."
+    },
+    "workflow": [
+      "Predeclare which observables define E_z2, C_phi, Gamma_phi, E_floor, and which observables define output.",
+      "Measure input variables at T above the bulk transition or before the actuator reaches the output-onset point.",
+      "Compute I_phi without using any output variable.",
+      "Predict go/no-go: high-I_phi states should be the only states that produce shielding/THz/Josephson output.",
+      "Measure outputs blind to the fitted I_phi threshold when possible.",
+      "Audit alternatives with bandwidth, scattering/domain, and common-third-variable minimum exclusion conditions.",
+      "A curve cannot serve twice: if c-axis THz spectral weight is used for E_z2, use shielding or Josephson tunneling as output; if THz phase stiffness is the output, use XAS/ARPES/normal-state optical weight as input."
+    ]
+  },
+  "single_experiment_recommendation": {
+    "recommendation": "If resources only allow one experiment, do pressure-tuned La4Ni3O10 on the same high-quality single crystal with input-side c-axis/orbital spectral tracking above/onset-preceding Tc and output-side bulk shielding plus independent THz/Josephson phase stiffness, while simultaneously measuring ab-plane Drude/Hall/domain controls.",
+    "minimal_version": "Map P and T through the reported DW-collapse/SC-emergence window. At each pressure, first measure normal-state E_z2/C_phi/Gamma_phi proxies; then measure shielding and a separate phase-stiffness/Josephson output. Do not count zero resistance alone.",
+    "why_this_one": "It tests the central causal order directly: phase-bus recovery -> bulk phase stiffness/shielding, rather than DW weakening or bandwidth alone -> SC. It also produces the first calibration of I_phi/Q_c, which every other route needs.",
+    "decisive_success": "Before or at bulk onset, I_phi rises by >=2x or >=3 sigma, shielding reaches >=10% or an independent THz/Josephson output appears, and ab bandwidth/Hall/domain controls cannot explain the transition alone.",
+    "decisive_failure": "Across the pressure path, bulk output tracks ab bandwidth, carrier density, structural phase fraction, or heating/domain changes while I_phi is flat or nonpredictive; or I_phi improves strongly with no bulk output."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The highest-value technology lever is a closed feedback loop on I_phi, not pressure, DW amplitude, or rho_c/rho_ab by themselves.",
+      "confidence": 0.78,
+      "new_insight": true,
+      "equations": [
+        "I_phi = E_z2*C_phi/max(k_B*T + hbar*Gamma_phi, E_floor)"
+      ],
+      "assumptions": [
+        "E_z2 can be extracted or bounded by orbital/c-axis spectroscopy.",
+        "C_phi can be measured well enough to penalize domains and static-DW partitions.",
+        "Bulk outputs can be measured independently from input spectral proxies."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The critical falsifier is not whether DW disappears, but whether high I_phi predicts shielding/THz/Josephson after bandwidth, scattering/domain, and third-variable controls are imposed.",
+      "confidence": 0.82,
+      "new_insight": true,
+      "equations": [
+        "success requires output(high I_phi | matched bandwidth, Hall, disorder, domains) > output(low I_phi | same controls)"
+      ],
+      "assumptions": [
+        "At least one crossed or matched trajectory can be produced.",
+        "Shielding fraction and phase stiffness are measured, not inferred from zero resistance."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "If no actuator can move I_phi independently of common third variables, LP28 remains an organizing interpretation but not yet a technology lever.",
+      "confidence": 0.74,
+      "new_insight": false,
+      "equations": [
+        "engineering leverage = partial derivative(output)/partial derivative(I_phi) at fixed Hall, disorder, bandwidth, and domain fraction"
+      ],
+      "assumptions": [
+        "Matched-pair or multiaxis tuning is experimentally feasible."
+      ]
+    }
+  ],
+  "strangest_prediction": "There should exist a window where static DW signatures are not fully gone and local pairing/fluctuation evidence survives, yet bulk shielding appears because I_phi crossed quorum. Conversely, a state with weaker DW but no E_z2/C_phi recovery should stay filamentary, metallic, or two-dimensional.",
+  "a_objection": "A 博士最可能反对：这些阈值是工程经验线，不是微观定理；压力仍然多变量纠缠。回应：Round 3 的目标正是把理论突破降落成可杀死的反馈协议。若在匹配 bandwidth/Hall/disorder/domain 后 I_phi 仍不能预测 shielding/THz/Josephson，就让 phase-bus 方案失败，而不是继续讲故事。",
+  "failed_jumps": [
+    "纯泵浦路线作为首选失败：时间分辨实验诱人，但 heating/domain/DW melting 替代解释太强，除非先由静态压力或应变确定可移动的 E_z2 方向。",
+    "只做化学系列失败：样品差异和氧 stoichiometry 会把 common-third-variable 风险放大；它适合做第二路线的正交排除，不适合作为唯一首实验。",
+    "rho_c/rho_ab 反馈失败：它容易把 scattering/contact/domain 当作 phase bus，最多作为下游症状或辅助控制。"
+  ],
+  "deepening": {
+    "level_1": "distributed consensus maps bulk SC to quorum rather than local pairing existence.",
+    "level_2": "control theory adds the key move: define a sensor vector (E_z2,C_phi,Gamma_phi), an actuator (P,epsilon_c,chemistry,pump), a forbidden feedback leak (shielding/THz/Josephson cannot enter the predictor), and a go/no-go output.",
+    "physics_payoff": "The breakthrough is not a new name for interlayer coherence; it is a non-circular actuator-sensor-output protocol that can optimize nickelate bulk superconductivity or kill the phase-bus hypothesis quickly."
+  },
+  "literature_needed": [
+    "La4Ni3O10 pressure c-axis optical conductivity Drude spectral weight",
+    "La4Ni3O10 pressure THz Josephson plasma phase stiffness shielding fraction",
+    "trilayer nickelate uniaxial strain O K-edge pz Ni L-edge dz2 XAS",
+    "RP nickelate oxygen stoichiometry Hall shielding matched series"
+  ],
+  "next_plan": "Hand this to INSPECTOR for unit/circularity/threshold audit. If it passes, PI should use T1 as the single decisive experimental recommendation and use T2 only to exclude third-variable explanations or design follow-up optimization.",
+  "inspector_check": {
+    "formula": "I_phi = E_z2*C_phi/max(k_B*T + hbar*Gamma_phi, E_floor), where E_z2 and E_floor are energies, C_phi is dimensionless, Gamma_phi is s^-1, and I_phi is dimensionless.",
+    "direction": "Increasing E_z2 or C_phi raises phase-bus score; increasing T, Gamma_phi, disorder floor, domain partition, or static-DW decoupling lowers it.",
+    "data": "Used only the requested Round 2 synthesis, knowledge base, B Round 2, B Round 2 inspector report, AHA record, and project SOP/state files; did not read A Round 3 output.",
+    "assumptions": "Thresholds are operational go/no-go rules for same-sample or matched-series experiments, not universal constants. They must be tightened after first calibration."
+  }
+}

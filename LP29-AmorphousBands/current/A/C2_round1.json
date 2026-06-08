@@ -1,0 +1,537 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 1,
+  "agent": "A",
+  "subtopic": "LP29-C2",
+  "polaris": "A: Srivastava-style orbital-overlap integral absorbs the main structural explanatory power for transport/effective mass; B: graph spectral features retain independent predictive power after controlling overlap, onsite variance, density, mobility-edge margin, batch and finite-size.",
+  "framework": "Amorphous oxide semiconductor electronic-structure baseline: metal-s orbital overlap integral -> effective-mass/transport proxy, followed by same-sample residual tests for graph spectra.",
+  "findings": "Round 1 supports a strict baseline-first protocol. Srivastava et al. 2019 already argue that electron transport in multicomponent amorphous ionic semiconductors can be explained by an orbital-overlap integral computed from structural information and directly correlated with carrier effective mass. Therefore LP29 graph metrics that are monotone summaries of pair overlap, cation distance, coordination, or weighted degree should be treated as reparameterizations unless they predict external residual labels after the overlap baseline and controls. The plausible non-absorbed metrics are normalized/bottleneck spectral quantities and perturbation responses, especially lambda_2 at fixed overlap distribution, spectral radius after degree/weight-preserving controls, and high-betweenness targeted damage relative to matched random damage.",
+  "weakest_link": "The exact Srivastava overlap normalization must be extracted from the full article/SI before numerical reproduction; MCP metadata and abstract establish the baseline claim but not every implementation constant. C2 is therefore a protocol-level result, not yet a numerical defeat or survival of graph metrics.",
+  "next_plan": "Fill the same-sample table for Srivastava a-IGZO/a-ZnON, Jankousky a-In2O3 structures/SI, and Furubayashi a-ITO transport where possible; then fit external residual labels against overlap baseline plus controls before testing graph spectral residual features.",
+  "literature_needed": "Srivastava 2019 orbital overlap integral full text/SI; Jankousky 2026 a-In2O3 structures and spectral-function data; Furubayashi 2019 Hall mobility/thickness/density tables; Jang 2025 amorphous-to-crystalline In2O3/IGZO mobility-trend SI.",
+  "prior_art_search": {
+    "group_1_core_claim": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "orbital overlap integral amorphous oxide semiconductor transport effective mass Srivastava 2019 graph metrics 2023 2024 2025",
+        "amorphous oxide semiconductor orbital overlap structural disorder transport effective mass review solved resolved"
+      ],
+      "hits": [
+        {
+          "label": "Srivastava et al. 2019",
+          "doi": "10.1063/1.5096042",
+          "result": "Direct prior baseline: orbital overlap integral from structure correlates with carrier effective mass and explains electron transport in amorphous oxide/oxynitride semiconductors."
+        },
+        {
+          "label": "Medvedeva/Buchholz review 2017",
+          "doi": "10.1002/aelm.201700082",
+          "result": "Review-level prior that AOS mobility/effective mass are tied to metal-s conduction networks and structural disorder."
+        }
+      ],
+      "prior_art_status": "Strong prior art for proposition A baseline; no hit found for the full C2 residual graph-spectral claim."
+    },
+    "group_2_blind_spot_translation": {
+      "tool": "paper-search-mcp",
+      "query": "Can structural disorder effects on carrier mobility in amorphous oxide semiconductors be reduced to local orbital-overlap/effective-mass descriptors rather than graph spectral connectivity?",
+      "hits": [
+        {
+          "label": "Robertson/Zhang 2022 book chapter",
+          "doi": "10.1002/9781119715641.ch3",
+          "result": "Electronic-structure framing of transparent amorphous oxide semiconductors; reinforces that s-like band-edge physics is a mature baseline."
+        },
+        {
+          "label": "Wager 2022 book chapter",
+          "doi": "10.1002/9781119715641.ch5",
+          "result": "Mobility physics/TFT modeling baseline; graph features must beat conventional mobility-edge and disorder models."
+        }
+      ],
+      "blank_space": "Residual graph spectral features after locked orbital-overlap controls appear under-specified in the literature search rather than solved."
+    },
+    "group_3_counterexample_negative": {
+      "tool": "paper-search-mcp",
+      "query": "amorphous oxide semiconductor graph spectral features mobility orbital overlap failure criticism counterexample",
+      "hits": [
+        {
+          "label": "Wager 2022",
+          "doi": "10.1002/9781119715641.ch5",
+          "result": "Conventional amorphous semiconductor mobility physics is a serious alternative explanation."
+        },
+        {
+          "label": "Ide/Nomura/Hosono 2019 review",
+          "doi": "10.1002/pssa.201800372",
+          "result": "Defect/electronic-state explanations may absorb apparent graph signals through trap/band-tail variables."
+        }
+      ],
+      "counterexample_status": "No fatal counterexample found; serious non-fatal risk is that graph metrics proxy overlap, defects, density, or mobility-edge margin."
+    },
+    "group_4_data_availability": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "Hall mobility Drude Wannier spectral function amorphous In2O3 orbital overlap measurement experiment data",
+        "\"amorphous In2O3\" Hall mobility Drude effective mass data 2019 2020 2025"
+      ],
+      "hits": [
+        {
+          "label": "Jankousky et al. 2026",
+          "doi": "10.1038/s41567-025-03099-x",
+          "result": "Effective bands and band-like transport in a-In2O3; source for spectral/effective-mass labels if structures/SI are available."
+        },
+        {
+          "label": "Furubayashi et al. 2019",
+          "doi": "10.1186/s11671-019-2948-4",
+          "result": "Open PDF downloaded by MCP; provides Hall mobility and thin a-ITO transport data."
+        },
+        {
+          "label": "Bhattacharjee/Waghmare 2010",
+          "doi": "10.1039/b918890h",
+          "result": "Wannier orbital overlap population formalism; useful for an external overlap-label family, not necessarily the Srivastava AOS metric."
+        },
+        {
+          "label": "Feneberg et al. 2016",
+          "doi": "10.1103/PhysRevB.93.045203",
+          "result": "Drude/Hall/effective mass data for crystalline In2O3 baseline comparison."
+        }
+      ],
+      "data_gap": "Same-sample rows with structure, orbital-overlap, graph spectra, Hall/Drude/Wannier/spectral labels are not available as a single ready-made dataset; a join/digitization layer is required."
+    },
+    "tool_self_check": {
+      "group_1": "paper-search-mcp",
+      "group_2": "paper-search-mcp",
+      "group_3": "paper-search-mcp",
+      "group_4": "paper-search-mcp",
+      "websearch_downgrade": false,
+      "download_notes": [
+        "MCP DOI fallback downloaded Furubayashi 2019 PDF to current/A/downloads.",
+        "MCP DOI fallback did not download Srivastava 2019 or Jankousky 2026 full text; metadata and DOI records were used."
+      ]
+    }
+  },
+  "orbital_overlap_baseline": {
+    "minimal_math": {
+      "sample": "s",
+      "pair_set": "E_s(r_c) = cation-cation pairs within cutoff r_c, usually metal-s conduction centers",
+      "pair_overlap": "S_ij = exp(-d_ij/rho_ij)",
+      "weighted_overlap": "W_ij = q_i*q_j*S_ij",
+      "total_normalized_overlap": "O_s = Sum(W_ij, (i,j) in E_s)/N_pair_s",
+      "onsite_variance": "V_s = Var(epsilon_i)",
+      "baseline_effective_mass": "log(m_eff_s/m0) = beta_0 + beta_1*log(1/(O_s + eps)) + beta_2*V_s + beta_3*x_density_s + beta_batch[b_s]",
+      "baseline_transport": "log(mu_s) = gamma_0 + gamma_1*log(O_s + eps) + gamma_2*log(n_s) + gamma_3*DeltaE_s + gamma_4*V_s + gamma_batch[b_s]",
+      "residual_label": "r_y_s = y_s - f_y(O_s, V_s, n_s, DeltaE_s, batch_s, size_s)",
+      "graph_residual_test": "r_y_s = alpha_0 + alpha_1*lambda2_resid_s + alpha_2*rho_resid_s + alpha_3*damage_resid_s + error_s"
+    },
+    "units_and_variables": {
+      "d_ij": "meter or angstrom; pair distance",
+      "rho_ij": "same length unit as d_ij; orbital decay length or fitted species-pair decay parameter",
+      "S_ij": "dimensionless overlap proxy",
+      "O_s": "dimensionless normalized overlap",
+      "V_s": "eV**2 onsite variance",
+      "n_s": "m**-3 carrier density",
+      "DeltaE_s": "eV mobility-edge margin E_F - E_c",
+      "mu_s": "m**2/(V*s)",
+      "m_eff_s": "kg or multiple of m0"
+    },
+    "inspector_check": {
+      "formula": "O_s = Sum(q_i*q_j*exp(-d_ij/rho_ij), (i,j) in E_s)/N_pair_s; residual labels r_y_s are defined after f_y(O_s,V_s,n_s,DeltaE_s,batch_s,size_s).",
+      "direction": "Graph metrics are admissible only as residual predictors after the overlap baseline, not as primary structural explanations.",
+      "data": "Srivastava 2019 DOI 10.1063/1.5096042; Jankousky 2026 DOI 10.1038/s41567-025-03099-x; Furubayashi 2019 DOI 10.1186/s11671-019-2948-4.",
+      "assumptions": [
+        "Metal-s dominated conduction centers define the pair graph.",
+        "The exponential pair-overlap proxy is acceptable until the exact Srivastava normalization is extracted.",
+        "External labels are same-sample or explicitly provenance-joined, not family-level averages."
+      ]
+    }
+  },
+  "same_sample_join_schema": {
+    "primary_key": [
+      "sample_id",
+      "structure_id",
+      "calculation_id",
+      "measurement_id"
+    ],
+    "tables": {
+      "sample": [
+        "sample_id",
+        "material_formula",
+        "composition_vector",
+        "phase_state",
+        "deposition_or_generation_method",
+        "anneal_temperature_K",
+        "batch_id",
+        "source_doi",
+        "provenance_note"
+      ],
+      "structure": [
+        "structure_id",
+        "sample_id",
+        "cell_volume_m3",
+        "num_atoms",
+        "density_kg_m3",
+        "cation_species",
+        "oxygen_defect_fraction",
+        "coordination_histogram",
+        "pair_distance_histogram",
+        "structure_file_path",
+        "structure_provenance"
+      ],
+      "overlap_baseline": [
+        "structure_id",
+        "cutoff_A",
+        "decay_length_A",
+        "pair_overlap_sum",
+        "pair_overlap_normalized",
+        "onsite_variance_eV2",
+        "overlap_method",
+        "overlap_reference_doi"
+      ],
+      "graph_features": [
+        "structure_id",
+        "graph_definition",
+        "edge_weight_definition",
+        "lambda_2",
+        "spectral_radius",
+        "weighted_degree_mean",
+        "weighted_degree_variance",
+        "giant_component_fraction",
+        "high_betweenness_damage",
+        "matched_random_damage",
+        "degree_preserving_rewire_residual",
+        "overlap_preserving_rewire_residual"
+      ],
+      "electronic_labels": [
+        "calculation_id",
+        "structure_id",
+        "method",
+        "m_eff_over_m0",
+        "DeltaE_eV",
+        "mobility_edge_eV",
+        "spectral_ridge_width_eV",
+        "IPR_near_EF",
+        "Wannier_spread_A2",
+        "Drude_weight",
+        "source_doi"
+      ],
+      "transport_labels": [
+        "measurement_id",
+        "sample_id",
+        "temperature_K",
+        "carrier_density_m3",
+        "hall_mobility_m2_Vs",
+        "conductivity_S_m",
+        "resistivity_ohm_m",
+        "film_thickness_m",
+        "measurement_geometry",
+        "source_doi"
+      ],
+      "residual_model": [
+        "row_id",
+        "label_name",
+        "baseline_formula_id",
+        "baseline_prediction",
+        "baseline_residual",
+        "controls_included",
+        "graph_feature_set",
+        "cross_validation_split",
+        "effect_size",
+        "uncertainty"
+      ]
+    },
+    "join_rules": [
+      "Use exact same sample_id when structure and transport are from the same film or calculation ensemble member.",
+      "Use family_join_flag=true only for literature-level comparison; family joins cannot support the decisive C2 residual claim.",
+      "Batch and finite-size controls are mandatory columns, not post-hoc notes.",
+      "Graph features must be recomputed on the same edge set used for overlap or on a declared alternative edge set with an overlap-preserving null model."
+    ]
+  },
+  "graph_metric_absorption_map": {
+    "absorbed_by_overlap_baseline": [
+      {
+        "metric": "weighted_degree_mean",
+        "reason": "It is approximately Sum(W_ij)/N and therefore a direct rewriting of normalized orbital overlap."
+      },
+      {
+        "metric": "mean cation-cation distance or short-bond fraction",
+        "reason": "For monotone overlap kernels S_ij=exp(-d_ij/rho_ij), distance summaries are low-order proxies for O_s."
+      },
+      {
+        "metric": "coordination number / local cation connectivity",
+        "reason": "If edges are thresholded by overlap/distance, coordination is the binary coarse-graining of the overlap integral."
+      },
+      {
+        "metric": "giant_component_fraction near a fixed threshold",
+        "reason": "Without threshold sweeps and overlap-preserving nulls, giant component mainly reports whether enough pair overlaps are above cutoff."
+      },
+      {
+        "metric": "O-O defect fraction when it only shifts carrier density or onsite variance",
+        "reason": "It must enter as density/onsite/mobility-edge control unless it creates a distinct graph bottleneck effect."
+      }
+    ],
+    "not_absorbed_if_controls_pass": [
+      {
+        "metric": "lambda_2_resid",
+        "condition": "Computed after fixing total overlap, weighted-degree sequence, density and size; detects global bottleneck/connectivity not reducible to pair-sum overlap."
+      },
+      {
+        "metric": "spectral_radius_resid",
+        "condition": "Only admissible after degree/weight-preserving rewiring; otherwise it is partly a weighted-degree proxy."
+      },
+      {
+        "metric": "high_betweenness_damage_minus_random_damage",
+        "condition": "Admissible as a perturbation-response observable if targeted edge weakening causes larger residual transport/spectral loss than matched random weakening at fixed overlap removed."
+      },
+      {
+        "metric": "community bottleneck or conductance residual",
+        "condition": "Can survive if two structures share O_s and V_s but differ in inter-community necks that control extended-state percolation."
+      },
+      {
+        "metric": "finite-size scaling exponent of spectral gap",
+        "condition": "Potentially independent if it tracks delocalization transition scaling rather than local pair strength."
+      }
+    ]
+  },
+  "deepening": {
+    "deepening_1_consequence_layers": [
+      "If overlap absorbs graph metrics, LP29 reduces from a graph-spectral mechanism to a known structure-to-effective-mass descriptor, and the graph vocabulary is only a visualization layer.",
+      "Second-layer consequence: the decisive experiment becomes accurate overlap/onsite/density measurement, not graph perturbation; new claims must move to better overlap descriptors or measurement protocol."
+    ],
+    "deepening_2_weakest_assumption_layers": [
+      "The most fragile premise is that a scalar normalized overlap O_s is sufficient for transport/effective mass across amorphous structures.",
+      "Second-layer risk: even if O_s predicts m_eff, transport may depend on spatial arrangement of strong overlaps, so a scalar effective-mass baseline can be true while bottleneck graph residuals still matter."
+    ],
+    "hard_boundary": "No numerical survival claim for graph residuals can be made until exact Srivastava normalization and same-sample rows are filled."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "Srivastava-style orbital-overlap integral is a mandatory baseline for LP29-C2 because it already links structural information to carrier effective mass in amorphous oxide/oxynitride semiconductors.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1_overlap_pair",
+          "expression": "exp(-d_ij/rho_ij)",
+          "description": "Minimal pair orbital-overlap proxy until exact Srivastava normalization is extracted.",
+          "variables": {
+            "d_ij": "distance between conduction-center atoms i and j",
+            "rho_ij": "species-pair orbital decay length"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "d_ij",
+              "to": "oo",
+              "expected": "0",
+              "desc": "Distant orbitals do not overlap."
+            },
+            {
+              "variable": "d_ij",
+              "to": "0",
+              "expected": "1",
+              "desc": "Maximal normalized proxy overlap."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "d_ij": 3.0,
+              "rho_ij": 1.0
+            },
+            "expected_range": [
+              0.04,
+              0.06
+            ]
+          }
+        },
+        {
+          "label": "F2_total_normalized_overlap",
+          "expression": "Sum(q_i*q_j*exp(-d_ij/rho_ij), (i,j))/N_pair",
+          "description": "Structure-derived total normalized overlap used as baseline scalar.",
+          "variables": {
+            "q_i": "conduction-orbital species weight on atom i",
+            "q_j": "conduction-orbital species weight on atom j",
+            "N_pair": "number of included cation-cation pairs"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "N_pair",
+              "to": "large",
+              "expected": "finite_average",
+              "desc": "Normalization prevents trivial system-size scaling."
+            }
+          ]
+        },
+        {
+          "label": "F3_effective_mass_baseline",
+          "expression": "beta_0 + beta_1*log(1/(O_s + eps)) + beta_2*V_s",
+          "description": "Minimal regression form for log(m_eff/m0); larger overlap should reduce effective mass when beta_1>0.",
+          "variables": {
+            "O_s": "total normalized overlap",
+            "eps": "small positive numerical stabilizer",
+            "V_s": "onsite energy variance",
+            "beta_0": "intercept",
+            "beta_1": "overlap coefficient",
+            "beta_2": "onsite-disorder coefficient"
+          },
+          "units": "dimensionless log effective mass",
+          "limits": [
+            {
+              "variable": "O_s",
+              "to": "large",
+              "expected": "smaller_log_m_eff",
+              "desc": "Strong orbital overlap yields lighter transport mass in the baseline hypothesis."
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "Conduction is dominated by metal-s orbital overlap.",
+        "A scalar normalized overlap is an adequate first baseline.",
+        "Exact normalization can be recovered from full text/SI before numerical fitting."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "LP29 graph metrics that are monotone functions of pair overlap, distance thresholding, or weighted degree should be treated as absorbed by the orbital-overlap baseline.",
+      "confidence": 0.76,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F4_absorption_test",
+          "expression": "R2(G_k ~ O_s + V_s + n_s + DeltaE_s + size_s)",
+          "description": "A graph metric is baseline-absorbed if its variance is explained by overlap and mandatory controls.",
+          "variables": {
+            "G_k": "candidate graph metric",
+            "O_s": "overlap baseline",
+            "V_s": "onsite variance",
+            "n_s": "carrier density",
+            "DeltaE_s": "mobility-edge margin",
+            "size_s": "finite-size descriptor"
+          },
+          "units": "dimensionless R2",
+          "limits": [
+            {
+              "variable": "R2",
+              "to": "1",
+              "expected": "absorbed",
+              "desc": "No independent graph content remains."
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        },
+        {
+          "doi": "10.1002/aelm.201700082",
+          "label": "Medvedeva/Buchholz 2017"
+        }
+      ],
+      "assumptions": [
+        "Graph edges are defined from the same local structure used by overlap.",
+        "Null models preserve sample size and species composition."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The only defensible LP29-C2 B-side opening is a residual test: lambda_2, spectral radius, or high-betweenness damage must predict external Hall/Drude/Wannier/spectral residual labels after overlap and all controls.",
+      "confidence": 0.68,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F5_residual_graph_test",
+          "expression": "r_y_s - (alpha_0 + alpha_1*lambda2_resid_s + alpha_2*rho_resid_s + alpha_3*damage_resid_s)",
+          "description": "Residual error after graph spectral features are added to the overlap-controlled label residual.",
+          "variables": {
+            "r_y_s": "external label residual after overlap baseline",
+            "lambda2_resid_s": "algebraic-connectivity residual after overlap-preserving controls",
+            "rho_resid_s": "spectral-radius residual after degree/weight-preserving controls",
+            "damage_resid_s": "high-betweenness targeted damage minus matched random damage",
+            "alpha_0": "intercept",
+            "alpha_1": "lambda2 effect",
+            "alpha_2": "spectral-radius effect",
+            "alpha_3": "damage effect"
+          },
+          "units": "same as residual label y",
+          "limits": [
+            {
+              "variable": "alpha_1,alpha_2,alpha_3",
+              "to": "0",
+              "expected": "no_independent_graph_signal",
+              "desc": "C2 proposition A wins if graph coefficients vanish out of sample."
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2026"
+        },
+        {
+          "doi": "10.1186/s11671-019-2948-4",
+          "label": "Furubayashi et al. 2019"
+        },
+        {
+          "doi": "10.1039/b918890h",
+          "label": "Bhattacharjee and Waghmare 2010"
+        }
+      ],
+      "assumptions": [
+        "External labels are not used to construct the graph features.",
+        "Same-sample or correctly nested cross-validation is enforced.",
+        "Synthetic benchmarks are marked as benchmarks, not physical verification."
+      ]
+    }
+  ],
+  "landing_calculation": {
+    "type": "B: half-product blueprint",
+    "why_not_full_numeric": "Exact Srivastava normalization/full SI and same-sample structures were not available through MCP download in this round.",
+    "furthest_formula": "r_y_s = y_s - f_y(O_s,V_s,n_s,DeltaE_s,batch_s,size_s); accept graph independence only if CV_score(r_y_s ~ lambda2_resid_s + rho_resid_s + damage_resid_s) improves over baseline with stable signed coefficients.",
+    "needed_tools_data_code": [
+      "Full Srivastava 2019 PDF/SI for exact O_s normalization.",
+      "Jankousky 2026 structure ensemble and spectral/effective-mass labels.",
+      "Digitized Furubayashi 2019 Hall mobility/density/thickness rows.",
+      "NetworkX/scipy sparse eigenvalue pipeline with degree/weight/overlap-preserving null models.",
+      "A tabular model script that exports same_sample_join_schema rows and residual-model diagnostics."
+    ]
+  },
+  "references": [
+    {
+      "doi": "10.1063/1.5096042",
+      "label": "Srivastava et al. 2019",
+      "role": "foundation"
+    },
+    {
+      "doi": "10.1038/s41567-025-03099-x",
+      "label": "Jankousky et al. 2026",
+      "role": "external spectral/effective-band labels"
+    },
+    {
+      "doi": "10.1186/s11671-019-2948-4",
+      "label": "Furubayashi et al. 2019",
+      "role": "transport data"
+    },
+    {
+      "doi": "10.1002/aelm.201700082",
+      "label": "Medvedeva/Buchholz 2017",
+      "role": "AOS review"
+    },
+    {
+      "doi": "10.1039/b918890h",
+      "label": "Bhattacharjee and Waghmare 2010",
+      "role": "Wannier overlap formalism"
+    },
+    {
+      "doi": "10.1002/9781119715641.ch5",
+      "label": "Wager 2022",
+      "role": "mobility physics alternative"
+    }
+  ]
+}

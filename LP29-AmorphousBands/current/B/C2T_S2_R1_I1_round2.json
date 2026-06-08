@@ -1,0 +1,138 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": "LP29-C2T-S2-R1-I1 / Round 2",
+  "agent": "B",
+  "role": "independent B doctor",
+  "task": "Resolve Round 1 B synchronization warning by declaring the CSV case matrix authoritative and publishing a complete 17-row case manifest.",
+  "framework": {
+    "name": "Proof-carrying observable firewall as an executable adversarial matrix",
+    "round2_position": "The B artifact is not an implemented validator. It is the authoritative executable test-case manifest that a future validator must satisfy.",
+    "core_object": "A typed no-silent-upgrade state machine for reported_context, candidate_exact_replay, admitted_exact, and diagnosed_mismatch.",
+    "source_inputs_read": [
+      "current/B/C2T_S2_R1_I1_round1.json",
+      "current/B/artifacts/I1_adversarial_test_matrix_round1.csv",
+      "synthesis/PI_C2T_S2_R1_I1_round1.md",
+      "synthesis/inspector_warnings_C2T_S2_R1_I1_round1.md",
+      "synthesis/inspector_B_C2T_S2_R1_I1_round1.md"
+    ],
+    "source_boundary": "No A output content is used as a B premise in this Round 2 repair."
+  },
+  "warning_resolution": {
+    "inspector_warning": "B Round 1 JSON listed 12 adversarial cases while the B CSV listed 17 cases.",
+    "resolution": "Resolved by declaring the CSV-derived Round 2 manifest authoritative for executable case inventory. JSON stores only framework, rules, summary counts, claims, and forbidden claims.",
+    "round2_manifest": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\I1_authoritative_case_manifest_round2.csv",
+    "coverage_check": "The Round 2 manifest has 17 data rows, all marked authoritative=true, and preserves every Round 1 CSV case_id.",
+    "pi_warning_boundary": "The separate PARTIAL_CONTEXT_ONLY compatibility decision remains a PI/A-scope implementation compatibility issue. B's matrix treats context-only evidence as CONDITIONAL_CONTEXT_PASS when F01-F03 pass and never as exact replay."
+  },
+  "authoritative_matrix_rule": {
+    "rule_id": "B-I1-R2-AUTH-CSV",
+    "statement": "For LP29-C2T-S2-R1-I1 B-side adversarial tests, the authoritative executable matrix is the CSV manifest, not the JSON adversarial_cases array.",
+    "json_policy": "JSON may summarize coverage and claims but must not be used as the row-level executable case list.",
+    "csv_policy": "The CSV manifest is row-level authoritative for case_id, source_matrix_row, expected_status, first_failed_predicate, and coverage_family.",
+    "conflict_policy": "If future JSON prose conflicts with the CSV manifest on case inventory or expected terminal status, the CSV manifest wins until an explicit later manifest supersedes it.",
+    "terminal_statuses_covered": [
+      "BLOCK",
+      "CONDITIONAL_CONTEXT_PASS",
+      "CANDIDATE_EXACT_REPLAY",
+      "ADMITTED_EXACT",
+      "DIAGNOSED_MISMATCH"
+    ]
+  },
+  "case_manifest_summary": {
+    "manifest_path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\I1_authoritative_case_manifest_round2.csv",
+    "source_matrix": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\I1_adversarial_test_matrix_round1.csv",
+    "source_rows_covered": 17,
+    "authoritative_rows": 17,
+    "families": {
+      "locator_context_gate": 3,
+      "context_to_exact_guard": 2,
+      "numeric_closeness_guard": 2,
+      "executor_provenance_guard": 2,
+      "replay_readiness_guard": 1,
+      "positive_exact_control": 1,
+      "mismatch_diagnosis": 4,
+      "current_srivastava_guard": 2
+    },
+    "case_ids": [
+      "I1_LOCATOR_ONLY_TO_CONTEXT",
+      "I1_SCALAR_ONLY_TO_CONTEXT",
+      "I1_DOI_PLUS_SCALAR_NO_LOCATOR",
+      "I1_CONTEXT_ONLY_TO_EXACT",
+      "I1_NUMERIC_CLOSENESS_CONTEXT_TO_EXACT",
+      "I1_NUMERIC_CLOSENESS_REPLAY_NO_TOLERANCE",
+      "I1_EXECUTOR_QUALITY_ONLY_TO_EXACT",
+      "I1_EXECUTOR_TRACE_UNBOUND_INPUTS",
+      "I1_REPLAY_READY_NO_RECOMPUTE",
+      "I1_FULL_EXACT_MATCH",
+      "I1_COMPLETE_FINAL_VALUE_MISMATCH",
+      "I1_STRUCTURE_MAPPING_MISMATCH_WITH_GOOD_TRACE",
+      "I1_PAIR_CARDINALITY_MISMATCH_NUMERIC_CLOSE",
+      "I1_RAW_SUM_MISMATCH_WITH_NORMALIZATION_PASS",
+      "I1_NORMALIZATION_CONSTANT_MISMATCH_WITH_GOOD_TRACE",
+      "I1_CURRENT_SRIVASTAVA_SUMMARY_BLOCK",
+      "I1_CURRENT_SRIVASTAVA_CONTEXT_ONLY_NOT_EXACT"
+    ]
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The B-side Round 1 inventory mismatch is repaired by a single authoritative CSV manifest covering all 17 original B CSV rows.",
+      "confidence": 0.98,
+      "new_insight": false,
+      "basis": [
+        "Inspector B synchronization warning",
+        "Round 2 authoritative manifest row count"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The manifest preserves no-silent-upgrade coverage across locator/scalar/context-only evidence, numeric closeness, executor provenance, replay readiness, exact positive control, mismatch diagnosis, and current Srivastava regression guards.",
+      "confidence": 0.94,
+      "new_insight": false,
+      "basis": [
+        "coverage_family column",
+        "expected_status column",
+        "first_failed_predicate column"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The CSV-as-authoritative rule prevents future implementers from accidentally dropping the five Round 1 CSV-only stress cases by reading the JSON summary as the executable matrix.",
+      "confidence": 0.93,
+      "new_insight": true,
+      "basis": [
+        "round1 JSON had 12 cases",
+        "round1 CSV had 17 cases",
+        "round2 manifest marks all 17 authoritative"
+      ]
+    }
+  ],
+  "deepening_1": {
+    "question": "What deeper structure is exposed by making CSV authoritative?",
+    "answer": "The adversarial matrix is a proof obligation ledger, not explanatory prose. A validator implementation consumes rows; therefore row identity and expected terminal status must live in a mechanically enumerable artifact.",
+    "layer_1": "The proof-lattice remains monotone: a case can move to a stronger terminal only by adding the exact missing predicate witness.",
+    "layer_2": "The manifest adds an audit invariant: every executable row has a stable source_matrix_row and an explicit first_failed_predicate, so no prose compression can delete a forbidden coercion test."
+  },
+  "deepening_2": {
+    "question": "Does this repair generalize beyond the immediate warning?",
+    "answer": "Yes. The validator should treat manifests as typed constructors for fixtures. JSON summaries are documentation; CSV manifests are executable contracts.",
+    "layer_1": "Each coverage_family corresponds to a forbidden coercion class in the typed state machine.",
+    "layer_2": "Future extensions should append new manifest rows or publish a superseding manifest, rather than silently changing expected statuses in narrative JSON."
+  },
+  "forbidden_claims": [
+    "validator implemented",
+    "validator has passed tests",
+    "exact Srivastava O_s reproduced",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "exact O_s impossible in principle",
+    "numeric closeness is sufficient for exact admission",
+    "executor quality is sufficient for exact admission",
+    "context-only evidence is exact O_s evidence"
+  ],
+  "output_artifacts": [
+    "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\C2T_S2_R1_I1_round2.json",
+    "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\I1_authoritative_case_manifest_round2.csv"
+  ]
+}

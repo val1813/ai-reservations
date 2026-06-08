@@ -1,0 +1,203 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 3,
+  "agent": "B",
+  "polaris": "LP29-C2T-S2 / executor-style separation between reported Srivastava context and reproduced exact O_s",
+  "framework": {
+    "name": "finite-state reproduction executor contract",
+    "discipline_source": "computer science: typed build states, negative test oracles, and proof-carrying execution",
+    "non_a_route": true,
+    "round3_shift": "Round 2 listed failure modes; Round 3 compiles every conditional executor status into fixed enums or explicit mode branches.",
+    "fixed_status_enums": [
+      "NOT_APPLICABLE",
+      "CONTEXT_ONLY",
+      "WARN_PARTIAL_CONTEXT",
+      "PASS_REPRODUCTION_CONTRACT",
+      "BLOCK_MODE_PROMOTION",
+      "BLOCK_MISSING_WITNESS",
+      "BLOCK_MISSING_SOURCE_ROW",
+      "BLOCK_MISSING_STRUCTURE",
+      "BLOCK_MISSING_OVERLAP_KERNEL",
+      "BLOCK_MISSING_PAIR_RULE",
+      "BLOCK_MISSING_RAW_SUM",
+      "BLOCK_MISSING_NORMALIZATION",
+      "BLOCK_MISSING_SAME_STRUCTURE_MAPPING",
+      "BLOCK_FREE_TEXT_ONLY",
+      "BLOCK_MISSING_EXECUTOR_TRACE",
+      "BLOCK_IDENTITY_CONTRADICTION",
+      "BLOCK_MATERIAL_VALIDATION",
+      "BLOCK_CURRENT_PAYLOAD_ONLY"
+    ],
+    "mode_branches": [
+      "not_applicable",
+      "reported_context_only",
+      "fixed_density_attempt",
+      "fixed_pair_attempt",
+      "exact_reproduction_attempt",
+      "material_validation_request",
+      "current_payload"
+    ],
+    "scope_limit": "This is an executor admissibility contract for C2T-S2. It is not a material-validation result and not a claim that Srivastava exact O_s is impossible to reproduce in principle."
+  },
+  "math_object": {
+    "object_name": "mode-indexed reproduction status automaton",
+    "definition": "A finite map E: (mode, witness vector, identity consistency, validation claim) -> status_enum, where exact reproduction can pass only through the exact_reproduction_attempt branch.",
+    "witness_vector": [
+      "source_row_id",
+      "structure_id",
+      "exact_overlap_formula_or_code_ref",
+      "pair_selection_rule",
+      "OI_raw_sum",
+      "normalization_rule_ref",
+      "same_structure_mapping_ref",
+      "machine_reviewable_witnesses",
+      "executor_trace"
+    ],
+    "transition_rule": "reported_context_only, fixed_density_attempt, and fixed_pair_attempt never transition to PASS_REPRODUCTION_CONTRACT; they must be re-entered as exact_reproduction_attempt with all required witnesses.",
+    "minimal_replay_equation": "O_s = N(S, P, theta_norm)[ sum_{(i,j) in P(S, theta_pair)} omega(i,j; theta_formula) ]"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "finding": "Conditional Round 2 statuses have been eliminated as final outputs. Each branch now emits a fixed status enum, with mode-dependent alternatives represented as separate rows in the executor CSV.",
+      "artifact": "current/B/artifacts/S2_reproduction_executor_modes.csv",
+      "status": "implemented"
+    },
+    {
+      "id": "F2",
+      "finding": "The executor contract makes mode promotion explicit: reported_context_only can store literature context, but using that context as exact residual baseline emits BLOCK_MODE_PROMOTION.",
+      "status": "mode_separation_enforced"
+    },
+    {
+      "id": "F3",
+      "finding": "The current B payload remains BLOCK_CURRENT_PAYLOAD_ONLY for exact reproduction because the replay chain still lacks executable formula/code, raw sum, normalization, same-structure mapping, and executor trace.",
+      "status": "current_payload_not_reproduced"
+    },
+    {
+      "id": "F4",
+      "finding": "Material validation is represented as a separate request branch and is blocked at S2 unless a prior exact reproduction branch reaches PASS_REPRODUCTION_CONTRACT.",
+      "status": "no_material_validation_overclaim"
+    }
+  ],
+  "strangest_prediction": {
+    "prediction": "A successful future Srivastava exact O_s reproduction will not look like a better citation; it will look like a deterministic build artifact whose row identity, structure hash, pair list, raw overlap sum, normalization, and trace all point to the same source row.",
+    "observable": "Changing mode from reported_context_only to exact_reproduction_attempt without adding every required witness should not change the terminal status to PASS_REPRODUCTION_CONTRACT.",
+    "falsifier": "If the executor can emit PASS_REPRODUCTION_CONTRACT while exact_overlap_formula_or_code_ref, normalization_rule_ref, same_structure_mapping_ref, or executor_trace is missing, then the Round 3 contract is internally inconsistent."
+  },
+  "a_objection": {
+    "likely_objection": "A conservative reviewer may object that reported_context_only should be enough for qualitative comparison and that a fixed enum executor is too strict.",
+    "b_reply": "The objection is accepted for qualitative context and rejected for exact reproduction. The enum contract only blocks promotion into an executable O_s baseline or material validation; it does not erase the reported literature context."
+  },
+  "failed_jumps": [
+    {
+      "id": "J1",
+      "attempt": "Keep conditional labels such as BLOCK_OR_WARN_BY_MODE as executor statuses.",
+      "why_failed": "A production executor needs deterministic terminal symbols; conditional logic belongs in mode branches and predicates, not status names."
+    },
+    {
+      "id": "J2",
+      "attempt": "Let fixed_density_attempt or fixed_pair_attempt pass as partial reproduction.",
+      "why_failed": "Those branches may be useful context, but exact O_s reproduction requires formula/code, raw sum, normalization, same-structure mapping, and trace."
+    },
+    {
+      "id": "J3",
+      "attempt": "Treat material validation as a warning after reproduction blockers.",
+      "why_failed": "At S2 it must be a distinct blocked branch, because material validation is downstream of exact reproduction rather than a weak form of it."
+    }
+  ],
+  "next_plan": {
+    "immediate": "Use S2_reproduction_executor_modes.csv as the executor-style contract for C2T-S2 Srivastava comparison rows.",
+    "executor_rule": "Compute status_enum from mode, required-field presence, machine-reviewability, identity consistency, and validation claim; ignore manual row_decision labels if they conflict with fields.",
+    "next_round_request": "Instantiate a minimal null witness payload against this table and show that each current Srivastava-context row deterministically lands in CONTEXT_ONLY or BLOCK_CURRENT_PAYLOAD_ONLY rather than PASS_REPRODUCTION_CONTRACT."
+  },
+  "literature_needed": [
+    "Srivastava orbital overlap index exact formula supplementary information",
+    "Srivastava OI_norm raw overlap sum normalization pair cutoff structure file",
+    "amorphous semiconductor orbital overlap index code repository",
+    "Srivastava 2019 effective mass OI_norm source row SI table"
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A C2T-S2 executor should expose fixed terminal status enums and push all conditional behavior into explicit mode branches.",
+      "confidence": 0.93,
+      "new_insight": true,
+      "equations": [
+        "status_enum = E(mode, witnesses_present, machine_reviewable, identities_consistent, validation_claimed)"
+      ],
+      "references": [
+        "current/B/C2T_S2_round2.json",
+        "current/B/artifacts/S2_Os_reproduction_payload_failure_modes.csv",
+        "synthesis/inspector_B_C2T_S2_round2.md",
+        "synthesis/PI_C2T_S2_round2.md",
+        "current/B/artifacts/S2_reproduction_executor_modes.csv"
+      ],
+      "assumptions": [
+        "Executor output must be deterministic.",
+        "Mode branches are part of the payload contract rather than external prose."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "reported_context_only, fixed_density_attempt, and fixed_pair_attempt are non-passing branches for exact Srivastava O_s reproduction even when they are scientifically useful context.",
+      "confidence": 0.9,
+      "new_insight": true,
+      "equations": [
+        "mode != exact_reproduction_attempt => status_enum != PASS_REPRODUCTION_CONTRACT"
+      ],
+      "references": [
+        "current/B/artifacts/S2_reproduction_executor_modes.csv",
+        "synthesis/inspector_B_C2T_S2_round2.md"
+      ],
+      "assumptions": [
+        "Exact reproduction and contextual comparison are separate C2T-S2 claims.",
+        "The executor must prevent context-to-baseline leakage."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The current Srivastava exact O_s reproduction payload remains blocked only as a current-payload admissibility result, not as a principle irreproducibility claim.",
+      "confidence": 0.92,
+      "new_insight": false,
+      "equations": [
+        "missing_required_exact_witnesses => BLOCK_CURRENT_PAYLOAD_ONLY"
+      ],
+      "references": [
+        "current/B/C2T_S2_round2.json",
+        "current/B/artifacts/S2_reproduction_executor_modes.csv"
+      ],
+      "assumptions": [
+        "Future executable witnesses may still be found or reconstructed.",
+        "No material validation claim is made at this stage."
+      ]
+    }
+  ],
+  "executor_modes_path": "current/B/artifacts/S2_reproduction_executor_modes.csv",
+  "resolved_previous_warnings": {
+    "conditional_statuses_normalized": "Resolved. Round 2 conditional terminal strings are replaced by fixed status_enum values.",
+    "explicit_mode_branches": "Resolved. The CSV separates not_applicable, reported_context_only, fixed_density_attempt, fixed_pair_attempt, exact_reproduction_attempt, material_validation_request, and current_payload.",
+    "mode_dependent_warn_vs_block": "Resolved. Fixed-density and fixed-pair context use WARN_PARTIAL_CONTEXT only when no exact reproduction or material validation is claimed; exact reproduction uses specific BLOCK_* enums.",
+    "no_principle_irreproducibility_claim": "Preserved. The current terminal result is BLOCK_CURRENT_PAYLOAD_ONLY.",
+    "no_material_validation_overclaim": "Preserved. material_validation_request emits BLOCK_MATERIAL_VALIDATION unless exact reproduction has already passed."
+  },
+  "deepening_1": {
+    "layer_1": {
+      "isomorphism": "A compiler separates syntax, type checking, linking, and execution; the C2T-S2 row likewise separates context syntax from typed executable reproduction.",
+      "mapping": "reported_context_only is parseable syntax; witness presence and machine-reviewability are type checks; identity consistency is linking; executor_trace is execution."
+    },
+    "layer_2": {
+      "deeper_structure": "The contract is a small deterministic automaton with absorbing block states. Ambiguous conditional labels are removed because they are non-deterministic terminal states.",
+      "consequence": "The only non-blocking path to exact reproduction is a complete typed path through exact_reproduction_attempt; all partial-context paths terminate before material validation."
+    }
+  },
+  "deepening_2": {
+    "layer_1": {
+      "source_domain_extension": "Supply-chain attestation adds provenance and artifact hashing on top of a build result.",
+      "mapping": "source_row_id, structure_id, formula/code reference, pair rule, raw sum, normalization, and executor_trace act like provenance attestations for the O_s build."
+    },
+    "layer_2": {
+      "deeper_structure": "A valid attestation must bind artifacts to one identity chain. Multiple individually plausible witnesses are insufficient if their identities do not cohere.",
+      "consequence": "BLOCK_IDENTITY_CONTRADICTION is not a secondary hygiene warning; it is an executor-level absorbing state equal in force to BLOCK_MISSING_OVERLAP_KERNEL or missing normalization."
+    }
+  }
+}

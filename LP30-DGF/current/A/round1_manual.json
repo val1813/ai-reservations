@@ -1,0 +1,70 @@
+{
+  "project": "LP30-DGF",
+  "round": 1,
+  "agent": "A-manual-after-timeout",
+  "polaris": "DGF-N4: independent interference coordinate q controls m(q)=(2*m_p/pi)*sin(pi*q/2) and should also drive GUP decoherence fluctuations",
+  "framework": "standard literature audit: macroscopic quantum coherence, objective collapse, GUP Lindblad decoherence",
+  "findings": "Direct prior art for the exact 2*m_p/pi ~= 14 microgram coherence boundary was not found in paper-search-mcp results. However, the GUP fluctuating minimal length/deformation-parameter to Lindblad decoherence chain is substantially covered by Petruzziello and Illuminati 2021. DGF-N4 remains viable only if q is independently defined and experimentally observable, not merely inferred from m.",
+  "weakest_link": "q currently lacks an independent physical measurement. If q is only q=(2/pi)*asin(pi*m/(2*m_p)), DGF-N4 is a reparameterization of mass and fails.",
+  "next_plan": "Force Round 2 to define q operationally and derive beta(q,t) without free normalization. Search whether Fisher-Rao/Fubini-Study angle can be connected to actual optomechanical readout statistics.",
+  "literature_needed": "Petruzziello Illuminati 2021 Nature Communications; Fadel 2023 16 microgram Schrodinger cat; levitated optomechanics collapse bounds; Fisher information in interferometry",
+  "search_self_check": {
+    "group1_core_claim": "paper-search-mcp used: '2m_p/pi mass bound quantum coherence 14 microgram 2023 2024 2025' and 'Planck mass quantum coherence upper bound 22 microgram review solved resolved'. No direct 2/pi Planck-mass coherence bound found.",
+    "group2_plain_translation": "paper-search-mcp used: 'mass dependent quantum decoherence microgram superposition 14 microgram 22 microgram'. Returned microgram-scale quantum/coherence items, no direct 14 vs 22 boundary.",
+    "group3_counterexamples": "paper-search-mcp used earlier: 'generalized uncertainty principle fluctuating minimal length Lindblad decoherence Petruzziello Illuminati 2021'. Strong prior art found: DOI 10.1038/s41467-021-24711-7.",
+    "group4_data": "paper-search-mcp used: 'microgram Schrodinger cat objective collapse experimental data measurement'. Found Fadel 2023 16 microgram Schrodinger cat state arXiv:2305.04780."
+  },
+  "prior_art_matrix": [
+    {
+      "work": "Petruzziello and Illuminati 2021, Nat Commun, DOI:10.1038/s41467-021-24711-7",
+      "overlap": "fluctuating minimal length/deformation parameter leading to Lindblad master equation and energy-space localization/decoherence",
+      "difference_needed": "DGF must derive the deformation fluctuation from q and connect q to m(q); otherwise no meaningful novelty in K(t)."
+    },
+    {
+      "work": "Fadel 2023, Probing gravity-related decoherence with a 16 microgram Schrodinger cat state, arXiv:2305.04780",
+      "overlap": "microgram-scale mechanical cat data directly near the proposed 14 microgram boundary",
+      "difference_needed": "DGF predicts hard q-domain obstruction above 13.85 microgram, whereas DP/standard decoherence predict model-specific continuous rates."
+    }
+  ],
+  "claims": [
+    {
+      "id": "A-C1",
+      "statement": "The exact 2*m_p/pi mass boundary is not obviously preempted by the searched literature, but the GUP-Lindblad chain is preempted unless q supplies a new physical driver.",
+      "confidence": 0.65,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "A-F1",
+          "expression": "2*m_p/pi",
+          "variables": {"m_p": "Planck_mass"},
+          "units": "kg",
+          "limits": [{"variable": "m_p", "to": "0", "expected": "0", "desc": "no Planck scale no boundary"}],
+          "numerical_test": {"substitutions": {"m_p": 2.176e-8}, "expected_range": [1.38e-8, 1.39e-8]}
+        }
+      ],
+      "references": [
+        {"doi": "10.1038/s41467-021-24711-7", "label": "Petruzziello and Illuminati 2021"},
+        {"doi": "arXiv:2305.04780", "label": "Fadel 2023"}
+      ],
+      "assumptions": ["paper-search-mcp search coverage is incomplete", "14 microgram boundary should be checked again with exact title/abstract searches"]
+    },
+    {
+      "id": "A-C2",
+      "statement": "A concrete data path is to reanalyze 16 microgram mechanical cat decoherence data against a hard 13.85 microgram q-domain boundary and compare to continuous DP/CSL/environmental baselines.",
+      "confidence": 0.6,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "A-F2",
+          "expression": "2*asin(pi*m/(2*m_p))/pi",
+          "variables": {"m": "test_mass", "m_p": "Planck_mass"},
+          "units": "dimensionless",
+          "limits": [{"variable": "m", "to": "2*m_p/pi", "expected": "1", "desc": "q reaches upper endpoint"}],
+          "numerical_test": {"substitutions": {"m": 1.6e-8, "m_p": 2.176e-8}, "expected_range": [1.0, 2.0]}
+        }
+      ],
+      "references": [{"doi": "arXiv:2305.04780", "label": "Fadel 2023"}],
+      "assumptions": ["arcsin becomes non-real above the DGF boundary", "experimental observable should be phrased as failure of real q fit, not just low visibility"]
+    }
+  ]
+}

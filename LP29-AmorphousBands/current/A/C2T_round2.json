@@ -1,0 +1,499 @@
+{
+  "role": "A",
+  "round": 2,
+  "task": "Draft a row-level audit template for the Srivastava/OI baseline side, incorporating A Round 1 and INSPECTOR A warnings.",
+  "independence_boundary": {
+    "did_not_read": [
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\C2T_round*.json",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\inspector_B_C2T_round1.md"
+    ],
+    "no_PI_synthesis": true,
+    "no_material_validation": true
+  },
+  "inputs_used": [
+    {
+      "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\C2T_round1.json",
+      "role": "A Round 1 blocker/extractability basis"
+    },
+    {
+      "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\inspector_A_C2T_round1.md",
+      "role": "INSPECTOR A warnings to carry forward"
+    },
+    {
+      "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\plan\\C2T_joined_table_schema.csv",
+      "role": "active joined-table field and provenance schema"
+    },
+    {
+      "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\plan\\C2T_field_blockers.csv",
+      "role": "field-level blocker conditions and required actions"
+    },
+    {
+      "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\C2_forbidden_controls_rules.csv",
+      "role": "A-side forbidden-control rule source"
+    }
+  ],
+  "audit_template_scope": {
+    "source_family": "Srivastava_2019_orbital_overlap_baseline",
+    "baseline_side": "OI / O_s / effective-mass context",
+    "template_status": "draft_row_level_gate_template",
+    "row_unit": "one Srivastava sample or digitized Srivastava row with explicit label and structure/SI provenance",
+    "allowed_use_now": [
+      "baseline context accounting",
+      "provenance gap audit",
+      "forbidden-control preflight"
+    ],
+    "disallowed_use_now": [
+      "material validation",
+      "graph-beats-Srivastava-baseline claim",
+      "fixed-density versus fixed-pair OI conclusion",
+      "reproduced Srivastava O_s claim"
+    ]
+  },
+  "audit_template_fields": [
+    {
+      "field": "row_audit_id",
+      "type": "string",
+      "required": true,
+      "source": "audit_template",
+      "pass_condition": "stable unique audit id assigned before target-dependent modeling",
+      "fail_condition": "missing or reused id"
+    },
+    {
+      "field": "sample_id",
+      "type": "string",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "stable same-sample key shared by structure/SI, OI baseline, controls, and labels; does not encode the target value",
+      "fail_condition": "missing, cross-sample, generated after label inspection, or target-encoding"
+    },
+    {
+      "field": "label_provenance_id",
+      "type": "string",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv plus INSPECTOR A warning 1",
+      "round2_status_for_existing_A_rows": "partial",
+      "pass_condition": "DOI plus explicit table, figure, SI, path, or digitization source and row or point id are all present",
+      "fail_condition": "only DOI plus local source_row_id, or no row-level label trace"
+    },
+    {
+      "field": "structure_or_SI_source",
+      "type": "string",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "auditable structure file, SI row, figure, model source, or stable structure_id mapped to sample_id",
+      "fail_condition": "no structure/SI trace matching the sample row"
+    },
+    {
+      "field": "structure_id",
+      "type": "string",
+      "required": true,
+      "source": "Srivastava/OI baseline audit addition",
+      "pass_condition": "stable identifier for the exact structure or snapshot used for OI/graph computation",
+      "fail_condition": "missing or not row-mapped"
+    },
+    {
+      "field": "num_atoms_or_snapshot_size",
+      "type": "integer_or_string",
+      "required": true,
+      "source": "B0_finite_size blocker expansion",
+      "pass_condition": "atom count, cell size, snapshot window, or explicit model-size descriptor recorded",
+      "fail_condition": "missing finite-size descriptor"
+    },
+    {
+      "field": "cell_volume_m3",
+      "type": "float",
+      "required": true,
+      "source": "Srivastava baseline row context",
+      "pass_condition": "value has units and provenance and belongs to the mapped structure row",
+      "fail_condition": "missing units/provenance or not same-row"
+    },
+    {
+      "field": "O_s_or_exact_overlap_baseline",
+      "type": "float_or_string",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "round2_status_for_existing_A_rows": "reported_context_candidate",
+      "pass_condition": "exact Srivastava O_s is reproduced from locked formula/source, or a surrogate is explicitly declared with formula source and no graph-beats-baseline claim",
+      "fail_condition": "reported OI_norm only, missing exact normalization, or undeclared surrogate status"
+    },
+    {
+      "field": "OI_raw_sum",
+      "type": "float",
+      "required": true,
+      "source": "INSPECTOR A warning 5",
+      "pass_condition": "raw overlap sum exists with formula/source and row mapping",
+      "fail_condition": "missing; blocks fixed-pair versus fixed-density audit"
+    },
+    {
+      "field": "OI_norm",
+      "type": "float",
+      "required": true,
+      "source": "Srivastava reported baseline context",
+      "pass_condition": "reported or reproduced value has provenance; if only reported, status remains context_candidate",
+      "fail_condition": "missing or claimed as reproduced without exact normalization"
+    },
+    {
+      "field": "OI_normalization_formula_id",
+      "type": "string",
+      "required": true,
+      "source": "Srivastava exact-normalization audit addition",
+      "pass_condition": "points to exact text/SI/path implementing normalization, including pair cutoff and weighting conventions",
+      "fail_condition": "normalization described only qualitatively"
+    },
+    {
+      "field": "pair_cutoff_A",
+      "type": "float",
+      "required": true,
+      "source": "Srivastava/OI baseline rows",
+      "pass_condition": "cutoff value fixed before label-dependent analysis",
+      "fail_condition": "missing or tuned after labels"
+    },
+    {
+      "field": "pair_density",
+      "type": "float",
+      "required": true,
+      "source": "forbidden-control OI fixed-density rule",
+      "pass_condition": "computed from same structure row and used only as declared OI density-control audit variable",
+      "fail_condition": "used as independent graph evidence without bin/match residual controls"
+    },
+    {
+      "field": "OI_pair_mean",
+      "type": "float_or_null",
+      "required": true,
+      "source": "split fixed-pair audit rule",
+      "pass_condition": "present when fixed-N_pair comparison is claimed; null allowed only when no fixed-pair claim is made",
+      "fail_condition": "missing while claiming fixed-pair effects"
+    },
+    {
+      "field": "external_Hall_Drude_Wannier_spectral_label",
+      "type": "float_or_json",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "external label value, unit, method, direction/class, and row-level source are present and not graph-generated",
+      "fail_condition": "synthetic, graph-generated, missing provenance, or same quantity as forbidden OI/Wannier target"
+    },
+    {
+      "field": "m_eff_over_m0",
+      "type": "float",
+      "required": true,
+      "source": "Srivastava baseline context label",
+      "pass_condition": "effective mass value has DOI/table/figure/SI/path plus row or point id; usable only as baseline-context label unless all gates pass",
+      "fail_condition": "used as a control/feature for effective_mass_target or treated as validation without full provenance"
+    },
+    {
+      "field": "B0_onsite_variance",
+      "type": "float_or_missing_declaration",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "independent source exists or declared missingness is recorded; not computed from target Wannier Hamiltonian",
+      "fail_condition": "missing without declaration or computed from target Wannier elements"
+    },
+    {
+      "field": "B0_carrier_density",
+      "type": "float_or_missing_declaration",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv plus INSPECTOR A warning 4",
+      "round2_requirement": "must carry row-level independence status",
+      "pass_condition": "independent value with unit and method, and not used in same-measurement sigma/(n*e) inversion for a Hall mobility target",
+      "fail_condition": "same-measurement inversion risk unresolved"
+    },
+    {
+      "field": "B0_carrier_density_independence_status",
+      "type": "enum",
+      "required": true,
+      "allowed_values": [
+        "independent",
+        "same_measurement_inversion_forbidden",
+        "missing_declared",
+        "unknown_blocked"
+      ],
+      "source": "INSPECTOR A warning 4",
+      "pass_condition": "independent or missing_declared with material_validation_allowed=false unless other gates support validation",
+      "fail_condition": "unknown_blocked or same_measurement_inversion_forbidden for Hall-mobility target modeling"
+    },
+    {
+      "field": "B0_mobility_edge_margin",
+      "type": "float_or_missing_declaration",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "independent electronic calculation exists or declared missingness; not same spectral fit as target",
+      "fail_condition": "same spectral fit leakage or absent declaration"
+    },
+    {
+      "field": "B0_finite_size",
+      "type": "string_or_float",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "atom count/cell/snapshot descriptor populated",
+      "fail_condition": "missing size descriptor"
+    },
+    {
+      "field": "B0_batch_or_family",
+      "type": "string",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "batch, structure family, or literature family key recorded before held-out/family audit",
+      "fail_condition": "missing family key"
+    },
+    {
+      "field": "G1_lambda2_Lsym",
+      "type": "float_or_missing_declaration",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "graph convention provenance fixed before labels are read; L_sym metric present for same structure row",
+      "fail_condition": "missing graph metric or convention chosen after labels"
+    },
+    {
+      "field": "G1_rho_A_budget_norm",
+      "type": "float_or_missing_declaration",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "budget-normalized weighted adjacency spectral radius with graph-convention id",
+      "fail_condition": "raw unnormalized rho only or missing graph metric"
+    },
+    {
+      "field": "G1_attack_gap_lambda2",
+      "type": "float_or_missing_declaration",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv",
+      "pass_condition": "targeted attack has matched-random control, removed budget, and seed policy",
+      "fail_condition": "no matched random attack or removed-budget control"
+    },
+    {
+      "field": "forbidden_control_audit",
+      "type": "json",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv and C2_forbidden_controls_rules.csv",
+      "pass_condition": "all applicable executable forbidden rules return pass or not_applicable with reason",
+      "fail_condition": "audit not run, parser error, unknown multi-namespace semantics, or any failed rule"
+    },
+    {
+      "field": "synthetic_label_flag",
+      "type": "boolean",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv plus INSPECTOR A warning 2",
+      "pass_condition": "false for material-validation candidate rows",
+      "fail_condition": "missing or true; true rows are diagnostic only"
+    },
+    {
+      "field": "material_validation_allowed",
+      "type": "boolean",
+      "required": true,
+      "source": "C2T_joined_table_schema.csv plus INSPECTOR A warning 2",
+      "pass_condition": "derived false unless every required provenance gate passes, synthetic_label_flag=false, and forbidden_control_audit passes",
+      "fail_condition": "missing, manually asserted, or true despite any blocker"
+    },
+    {
+      "field": "row_decision",
+      "type": "enum",
+      "required": true,
+      "allowed_values": [
+        "pass_for_material_validation",
+        "blocked_context_only",
+        "failed_forbidden_control",
+        "diagnostic_only_synthetic"
+      ],
+      "source": "audit_template",
+      "pass_condition": "computed from row_pass_fail_logic",
+      "fail_condition": "free-text decision without gate trace"
+    }
+  ],
+  "downgrade_corrections_from_inspector_A": [
+    {
+      "inspector_warning": 1,
+      "round1_field": "label_provenance_id",
+      "round1_status": "present for Srivastava rows",
+      "round2_corrected_status": "partial",
+      "correction": "DOI plus source_row_id is insufficient for full joined-table provenance. Require DOI/table/figure/SI/path plus row or digitized point id before status can become present."
+    },
+    {
+      "inspector_warning": 2,
+      "round1_gap": "synthetic_label_flag and material_validation_allowed were not explicit in required_fields_status",
+      "round2_corrected_status": "explicit_required_template_fields",
+      "correction": "Both fields are now row-level gates; missing synthetic_label_flag or material_validation_allowed blocks the row."
+    },
+    {
+      "inspector_warning": 3,
+      "round1_gap": "forbidden_namespace=oi;graph was semantically useful but not mechanically clean",
+      "round2_corrected_status": "split_or_parser_defined_required",
+      "correction": "The multi-namespace rule is split into separate executable OI and graph rule changes below; a parser must not treat semicolon-delimited namespaces as a single opaque namespace."
+    },
+    {
+      "inspector_warning": 4,
+      "round1_field": "B0_carrier_density",
+      "round1_status": "candidate",
+      "round2_corrected_status": "candidate_only_if_row_independence_status_is_present",
+      "correction": "Carrier density must be audited at row level for same-measurement sigma/(n*e) inversion before use with Hall mobility targets."
+    },
+    {
+      "inspector_warning": 5,
+      "round1_field": "O_s_or_exact_overlap_baseline",
+      "round1_status": "reported/contextual OI_norm candidate",
+      "round2_corrected_status": "reported_context_candidate_not_reproduced",
+      "correction": "No Srivastava reproduction, fixed-density/fixed-pair comparison, or graph-beats-baseline statement is allowed until OI_raw_sum, exact normalization, and row-to-structure mapping are present."
+    }
+  ],
+  "executable_forbidden_rule_changes": [
+    {
+      "change_id": "A_R2_RULE_SPLIT_001",
+      "source_round1_rule": {
+        "target_type": "graph_independent_claim",
+        "forbidden_namespace": "oi;graph",
+        "forbidden_columns_pattern": "^(OI_raw_sum|OI_norm|pair_density|cell_volume_m3)$"
+      },
+      "action": "replace_multi_namespace_rule_with_split_rules",
+      "new_rules": [
+        {
+          "target_type": "graph_independent_claim",
+          "forbidden_namespace": "oi",
+          "forbidden_columns_pattern": "^(OI_raw_sum|OI_norm)$",
+          "audit_condition": "forbidden as independent graph-claim predictors unless used only inside predeclared OI residualization/baseline computation"
+        },
+        {
+          "target_type": "graph_independent_claim",
+          "forbidden_namespace": "graph",
+          "forbidden_columns_pattern": "^(pair_density|cell_volume_m3)$",
+          "audit_condition": "forbidden as independent graph evidence unless pair-density/cell-volume matching or held-out residual binning is explicitly recorded"
+        }
+      ],
+      "parser_requirement": "Audit parser must evaluate each split namespace row independently and emit pass, fail, or not_applicable with a reason."
+    },
+    {
+      "change_id": "A_R2_RULE_ADD_002",
+      "action": "add_fixed_pair_vs_fixed_density_mode_gate",
+      "new_rule": {
+        "target_type": "graph_independent_claim",
+        "forbidden_namespace": "oi",
+        "forbidden_columns_pattern": "^(OI_raw_sum|OI_norm|OI_pair_mean|pair_density|cell_volume_m3)$",
+        "audit_condition": "row must declare OI_comparison_mode in {fixed_density, fixed_pair, no_claim}; fixed_density requires OI_norm plus pair_density control, fixed_pair requires OI_pair_mean and fixed N_pair provenance, and no_claim keeps the row context-only."
+      }
+    },
+    {
+      "change_id": "A_R2_RULE_ADD_003",
+      "action": "add_hall_carrier_density_independence_gate",
+      "new_rule": {
+        "target_type": "hall_mobility_target",
+        "forbidden_namespace": "controls",
+        "forbidden_columns_pattern": "^B0_carrier_density$|^carrier_density_m3$",
+        "audit_condition": "fail if B0_carrier_density_independence_status is same_measurement_inversion_forbidden or unknown_blocked; pass only if independent or not_applicable with declared non-Hall target."
+      }
+    },
+    {
+      "change_id": "A_R2_RULE_ADD_004",
+      "action": "add_effective_mass_label_self_leakage_gate",
+      "new_rule": {
+        "target_type": "effective_mass_target",
+        "forbidden_namespace": "label",
+        "forbidden_columns_pattern": "^m_eff_over_m0$|^external_Hall_Drude_Wannier_spectral_label$",
+        "audit_condition": "fail if the effective-mass target value or an algebraic copy is present as a model control or graph feature; allow only as the held-out label."
+      }
+    }
+  ],
+  "row_pass_fail_logic": {
+    "decision_order": [
+      {
+        "step": 1,
+        "gate": "schema_completeness",
+        "logic": "If any required template field is missing, row_decision=blocked_context_only and material_validation_allowed=false."
+      },
+      {
+        "step": 2,
+        "gate": "label_provenance",
+        "logic": "If label_provenance_id lacks DOI/table/figure/SI/path plus row or point id, row_decision=blocked_context_only and material_validation_allowed=false."
+      },
+      {
+        "step": 3,
+        "gate": "structure_mapping",
+        "logic": "If structure_or_SI_source, structure_id, or num_atoms_or_snapshot_size is missing or not same-sample, row_decision=blocked_context_only and material_validation_allowed=false."
+      },
+      {
+        "step": 4,
+        "gate": "Srivastava_OI_baseline",
+        "logic": "If O_s_or_exact_overlap_baseline is only reported OI_norm, allow context-only status. If a reproduced O_s or fixed-density/fixed-pair claim is attempted without OI_raw_sum, OI_normalization_formula_id, pair_density, and required mode fields, row_decision=blocked_context_only."
+      },
+      {
+        "step": 5,
+        "gate": "B0_control_independence",
+        "logic": "If any B0 field is missing without declared missingness, derived from the target, same-measurement inverted, or lacks row-level independence status where required, material_validation_allowed=false."
+      },
+      {
+        "step": 6,
+        "gate": "G1_graph_provenance",
+        "logic": "If any G1 metric is missing without declaration, computed under conventions chosen after labels, or lacks budget/matched-random controls, material_validation_allowed=false."
+      },
+      {
+        "step": 7,
+        "gate": "synthetic_label",
+        "logic": "If synthetic_label_flag is missing or true, row_decision=diagnostic_only_synthetic and material_validation_allowed=false."
+      },
+      {
+        "step": 8,
+        "gate": "forbidden_control_audit",
+        "logic": "Run all applicable forbidden rules after parser expansion. If any rule fails or parser semantics are unknown, row_decision=failed_forbidden_control and material_validation_allowed=false."
+      },
+      {
+        "step": 9,
+        "gate": "final_derivation",
+        "logic": "Only if steps 1-8 pass may row_decision=pass_for_material_validation and material_validation_allowed=true; this Round 2 template expects existing Srivastava A rows to remain blocked_context_only until provenance is upgraded."
+      }
+    ],
+    "default_for_current_A_round1_Srivastava_rows": {
+      "row_decision": "blocked_context_only",
+      "material_validation_allowed": false,
+      "reason": "label_provenance_id is partial, structure/SI mapping is absent, OI_raw_sum and exact normalization are absent, and no executable forbidden-control audit can pass on incomplete rows."
+    }
+  },
+  "remaining_blockers": [
+    {
+      "blocker": "Srivastava label provenance is partial",
+      "needed_before_unblock": "DOI/table/figure/SI/path plus row or digitized point id for each label value."
+    },
+    {
+      "blocker": "No row-to-structure mapping",
+      "needed_before_unblock": "structure_or_SI_source, structure_id, num_atoms_or_snapshot_size, and same-sample key for each Srivastava row."
+    },
+    {
+      "blocker": "Exact Srivastava O_s normalization is not executable",
+      "needed_before_unblock": "formula/source path, raw overlap sum, pair cutoff, weighting rule, volume or N_pair denominator, and reproduced OI_norm check."
+    },
+    {
+      "blocker": "Fixed-density versus fixed-pair mode cannot be audited",
+      "needed_before_unblock": "OI_comparison_mode, pair_density, cell_volume_m3, OI_pair_mean where applicable, and N_pair provenance."
+    },
+    {
+      "blocker": "B0 controls are not row-level independent",
+      "needed_before_unblock": "independent source or declared missingness for onsite variance, carrier density, mobility-edge margin, finite size, and batch/family; carrier density needs explicit inversion-leakage status."
+    },
+    {
+      "blocker": "G1 graph metrics have no provenance-complete real structure row",
+      "needed_before_unblock": "L_sym lambda2, budget-normalized rho_A, and matched attack gap computed from a fixed convention before labels are read."
+    },
+    {
+      "blocker": "Forbidden-control audit is not executable on incomplete rows",
+      "needed_before_unblock": "split namespace rules, row-level target type, namespaces, candidate feature/control columns, and pass/fail/not_applicable output for every rule."
+    },
+    {
+      "blocker": "synthetic_label_flag and material_validation_allowed must be explicit row fields",
+      "needed_before_unblock": "populate both fields for every row and derive material_validation_allowed rather than manually asserting it."
+    }
+  ],
+  "claim_boundary": {
+    "material_validation_allowed": false,
+    "graph_beats_baseline_allowed": false,
+    "Srivastava_reproduction_allowed": false,
+    "fixed_density_fixed_pair_OI_claim_allowed": false,
+    "allowed_claims": [
+      "This artifact is an A-side row-level audit template draft for Srivastava/OI baseline rows.",
+      "Existing A Round 1 Srivastava rows are baseline context candidates, not reproduced Srivastava O_s rows.",
+      "Existing A Round 1 Srivastava rows should be treated as blocked_context_only until row-level provenance and executable audits are complete.",
+      "Forbidden-control rules require split namespace handling or explicit parser semantics before pass/fail automation."
+    ],
+    "forbidden_claims": [
+      "Do not claim material validation from this Round 2 template.",
+      "Do not claim graph metrics beat Srivastava/OI baseline.",
+      "Do not claim exact Srivastava O_s reproduction before OI_raw_sum, exact normalization, and row-to-structure mapping are present.",
+      "Do not claim fixed-density or fixed-pair OI effects from reported OI_norm alone.",
+      "Do not treat carrier density as an allowed Hall-mobility control without row-level independence audit."
+    ]
+  }
+}

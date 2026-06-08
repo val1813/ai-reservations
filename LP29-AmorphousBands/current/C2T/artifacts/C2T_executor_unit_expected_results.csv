@@ -1,0 +1,3 @@
+row_id,candidate_source,expected_row_decision,expected_material_validation_allowed
+C2T-AUDIT-9001,executor synthetic pass unit,PASS,true
+C2T-AUDIT-9002,executor synthetic warn unit,WARN,false

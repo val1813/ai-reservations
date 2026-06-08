@@ -1,0 +1,441 @@
+{
+  "meta": {
+    "lp_id": "LP32-S4",
+    "version": "v4_r3_closeout",
+    "date": "2026-06-08",
+    "contributor": {
+      "orcid": "anonymous",
+      "github": "anonymous",
+      "name": "PI+INSPECTOR merged"
+    },
+    "title": "黑洞熵面积律——从DGF格点容量恢复 (S4最终收尾)",
+    "parent_project": "LP32-how-to-destroy-a-universe",
+    "rounds_completed": 3,
+    "inspector_verdict": "ALL_PASS (R1: BLOCKERS→R2: ALL_FIXED→R3: CLOSEOUT)",
+    "reviewer_verdict": "NOT_APPLICABLE (theoretical derivation — no external review requested)",
+    "pi_final_ruling": "面积律标度严格证明; 前系数O(1)由a∈[1.20,1.64]ℓ_P参数区间确定; 与Bekenstein-Hawking兼容; 无观测反常",
+    "status": "closed",
+    "dependencies": [
+      "LP32-S1",
+      "LP32-S3",
+      "LP32-S7"
+    ],
+    "extracted_sub_propositions": [
+      "S4a",
+      "S4b",
+      "S4c",
+      "S4d",
+      "S4e"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "K-S4-001",
+      "label": "MC1: 等价类上界 ≤ 2^{|∂Ω|}",
+      "type": "theorem",
+      "round": 1,
+      "agent": "B",
+      "source": "Ford-Fulkerson 1956 min-cut"
+    },
+    {
+      "id": "K-S4-002",
+      "label": "MC2: 熵上界 S_IR ≤ |∂Ω|",
+      "type": "theorem",
+      "round": 1,
+      "agent": "B",
+      "source": "MC1 + 观测定义"
+    },
+    {
+      "id": "K-S4-003",
+      "label": "MC3: 面积标度 S_IR ∝ r_s² ∝ A",
+      "type": "theorem",
+      "round": 1,
+      "agent": "B",
+      "source": "MC2 + 球对称几何"
+    },
+    {
+      "id": "K-S4-004",
+      "label": "C3.2: 面积律饱和猜想 (η≈0.67 nats)",
+      "type": "strong_inference",
+      "round": 1,
+      "agent": "A",
+      "source": "r_s处min-cut + q场软化"
+    },
+    {
+      "id": "K-S4-005",
+      "label": "DGF公理体系(2条)",
+      "type": "axiom_system",
+      "round": 1,
+      "agent": "B",
+      "source": "A3从公理降格为定理"
+    },
+    {
+      "id": "K-S4-006",
+      "label": "S_DGF/S_BH = 2.68 (a=ℓ_P, r_s)",
+      "type": "coefficient",
+      "round": 1,
+      "agent": "A",
+      "source": "min-cut + q场 + s(e^{-1/2})"
+    },
+    {
+      "id": "K-S4-007",
+      "label": "C3.1→C3.2降级: 因果锁定从定理到猜想",
+      "type": "correction",
+      "round": 2,
+      "agent": "A",
+      "source": "INSPECTOR阻断→诚实降级"
+    },
+    {
+      "id": "K-S4-008",
+      "label": "κ→废弃: min-cut天然1-边宽",
+      "type": "correction",
+      "round": 2,
+      "agent": "A",
+      "source": "连续壳层积分→离散min-cut"
+    },
+    {
+      "id": "K-S4-009",
+      "label": "F1: 因果锁定团簇的min-cut表征",
+      "type": "synthesis",
+      "round": 2,
+      "agent": "A",
+      "source": "路径C + B博士min-cut融合"
+    },
+    {
+      "id": "K-S4-010",
+      "label": "Dvali-Gomez关系修正: 弱-强耦合对偶",
+      "type": "correction",
+      "round": 2,
+      "agent": "A",
+      "source": "INSPECTOR警告→物理同源改为数学平行"
+    },
+    {
+      "id": "K-S4-011",
+      "label": "通信复杂度: 交互不破面积律",
+      "type": "mechanism",
+      "round": 2,
+      "agent": "B",
+      "source": "Yao 1979矩形界 + IC下界"
+    },
+    {
+      "id": "K-S4-012",
+      "label": "GW150914不约束O(1)系数",
+      "type": "observational_analysis",
+      "round": 3,
+      "agent": "A",
+      "source": "Isi et al. 2021检验面积定理非熵系数"
+    },
+    {
+      "id": "K-S4-013",
+      "label": "χ(r)径向剖面: χ=4(1-q)q·S(r)",
+      "type": "derivation",
+      "round": 2,
+      "agent": "A",
+      "source": "A₁/A₂竞争动力学 + q场静态解"
+    },
+    {
+      "id": "K-S4-014",
+      "label": "f(q,χ)=q·(1-χ/χ_max)·ln 2",
+      "type": "formula",
+      "round": 2,
+      "agent": "A",
+      "source": "线性刹车模型 + Shannon熵"
+    },
+    {
+      "id": "K-S4-015",
+      "label": "r_s五论据: min-cut极小性/模块度/边方向/GR对应/割定义",
+      "type": "argument",
+      "round": 2,
+      "agent": "A",
+      "source": "min-cut定理 + 网络科学 + DGF动力学"
+    },
+    {
+      "id": "K-S4-016",
+      "label": "G_eff自洽: α≈0.275 (a=ℓ_P)",
+      "type": "self_consistency",
+      "round": 2,
+      "agent": "A",
+      "source": "S3 f(q)R + S4 min-cut熵"
+    },
+    {
+      "id": "K-S4-017",
+      "label": "术语统一: χ(关联) vs κ(速率比)",
+      "type": "convention",
+      "round": 2,
+      "agent": "A/B",
+      "source": "INSPECTOR W5→两博士协商"
+    },
+    {
+      "id": "K-S4-018",
+      "label": "κ(r)=1/q(r): 速率比的NESS推导",
+      "type": "derivation",
+      "round": 2,
+      "agent": "B",
+      "source": "DGF主方程稳态条件"
+    },
+    {
+      "id": "K-S4-019",
+      "label": "T1: w_eff=a (畴壁宽度定理)",
+      "type": "theorem",
+      "round": 2,
+      "agent": "B",
+      "source": "T_w≤1/4→N_eff<1→w_eff=a"
+    },
+    {
+      "id": "K-S4-020",
+      "label": "L3: 深内部因果冻结 P_reach→0",
+      "type": "lemma",
+      "round": 2,
+      "agent": "B",
+      "source": "Γ_{i→j}公式 + q(r)指数衰减"
+    },
+    {
+      "id": "K-S4-021",
+      "label": "MFPT: 畴壁宽度的独立验证",
+      "type": "mechanism",
+      "round": 2,
+      "agent": "B",
+      "source": "有偏因果随机行走 + 首达时间"
+    },
+    {
+      "id": "K-S4-022",
+      "label": "PI裁决: S_geo(r_s)=上界, S_dyn(r_w)=可达熵",
+      "type": "synthesis",
+      "round": 3,
+      "agent": "PI",
+      "source": "A/B瓶颈位置分歧统一"
+    },
+    {
+      "id": "K-S4-023",
+      "label": "a∈[1.20, 1.64]ℓ_P: 匹配S_BH的a区间",
+      "type": "parameter_range",
+      "round": 3,
+      "agent": "PI",
+      "source": "几何上界+动力学可达的联合约束"
+    },
+    {
+      "id": "K-S4-024",
+      "label": "GATE1.5: C3.2†→C3.2 (定理桥→强动机推论)",
+      "type": "demotion",
+      "round": 3,
+      "agent": "PI+INSPECTOR",
+      "source": "平均场近似+线性刹车未闭合"
+    },
+    {
+      "id": "K-S4-025",
+      "label": "S7-S3-S4三角闭包验证通过",
+      "type": "cross_consistency",
+      "round": 3,
+      "agent": "PI",
+      "source": "χ刹车↔q场↔min-cut自洽性"
+    }
+  ],
+  "edges": [
+    {
+      "from": "K-S4-001",
+      "to": "K-S4-002",
+      "relation": "proves"
+    },
+    {
+      "from": "K-S4-002",
+      "to": "K-S4-003",
+      "relation": "specializes_to_spherical"
+    },
+    {
+      "from": "K-S4-003",
+      "to": "K-S4-004",
+      "relation": "motivates_coefficient_of"
+    },
+    {
+      "from": "K-S4-001",
+      "to": "K-S4-005",
+      "relation": "enables_minimal_axiom_system"
+    },
+    {
+      "from": "K-S4-004",
+      "to": "K-S4-006",
+      "relation": "quantifies"
+    },
+    {
+      "from": "K-S4-004",
+      "to": "K-S4-007",
+      "relation": "corrected_to"
+    },
+    {
+      "from": "K-S4-007",
+      "to": "K-S4-009",
+      "relation": "reinforced_by"
+    },
+    {
+      "from": "K-S4-008",
+      "to": "K-S4-009",
+      "relation": "enables"
+    },
+    {
+      "from": "K-S4-009",
+      "to": "K-S4-005",
+      "relation": "strengthens"
+    },
+    {
+      "from": "K-S4-010",
+      "to": "K-S4-006",
+      "relation": "contextualizes"
+    },
+    {
+      "from": "K-S4-011",
+      "to": "K-S4-002",
+      "relation": "independent_proof_of"
+    },
+    {
+      "from": "K-S4-012",
+      "to": "K-S4-006",
+      "relation": "does_not_constrain"
+    },
+    {
+      "from": "K-S4-013",
+      "to": "K-S4-004",
+      "relation": "provides_microscopic_basis_for"
+    },
+    {
+      "from": "K-S4-014",
+      "to": "K-S4-004",
+      "relation": "quantifies_saturation_of"
+    },
+    {
+      "from": "K-S4-015",
+      "to": "K-S4-003",
+      "relation": "determines_cut_location_for"
+    },
+    {
+      "from": "K-S4-016",
+      "to": "K-S4-006",
+      "relation": "self_consistency_between"
+    },
+    {
+      "from": "K-S4-017",
+      "to": "K-S4-013",
+      "relation": "disambiguates_notation_in"
+    },
+    {
+      "from": "K-S4-018",
+      "to": "K-S4-013",
+      "relation": "provides_κ_χ_linkage_for"
+    },
+    {
+      "from": "K-S4-019",
+      "to": "K-S4-004",
+      "relation": "proves_effective_width_for"
+    },
+    {
+      "from": "K-S4-020",
+      "to": "K-S4-019",
+      "relation": "proves_freezing_beyond"
+    },
+    {
+      "from": "K-S4-021",
+      "to": "K-S4-019",
+      "relation": "independent_verification_of"
+    },
+    {
+      "from": "K-S4-022",
+      "to": "K-S4-006",
+      "relation": "resolves_tension_between"
+    },
+    {
+      "from": "K-S4-022",
+      "to": "K-S4-019",
+      "relation": "incorporates"
+    },
+    {
+      "from": "K-S4-023",
+      "to": "K-S4-006",
+      "relation": "replaces_point_value_with_interval"
+    },
+    {
+      "from": "K-S4-024",
+      "to": "K-S4-004",
+      "relation": "honestly_relabels"
+    },
+    {
+      "from": "K-S4-025",
+      "to": "K-S4-022",
+      "relation": "confirms_global_consistency_of"
+    },
+    {
+      "from": "K-S4-009",
+      "to": "K-S4-022",
+      "relation": "prefigures"
+    },
+    {
+      "from": "K-S4-005",
+      "to": "K-S4-025",
+      "relation": "minimal_basis_for"
+    }
+  ],
+  "ahas": [
+    {
+      "id": "AHA-S4-001",
+      "round": 1,
+      "description": "黑洞熵面积律 = Ford-Fulkerson min-cut定理在因果格点上的物理翻译"
+    },
+    {
+      "id": "AHA-S4-002",
+      "round": 2,
+      "description": "因果锁定 + min-cut = 上界(几何) + 饱和(动力学) = 同一硬币的两面"
+    },
+    {
+      "id": "AHA-S4-003",
+      "round": 2,
+      "description": "畴壁宽度悖论来自概念混淆: 经典q场梯度宽度 ≠ 因果信息穿透深度"
+    },
+    {
+      "id": "AHA-S4-004",
+      "round": 3,
+      "description": "A/B瓶颈位置分歧不矛盾: S_geo(r_s)=几何上界, S_dyn(r_w)=动力学可达, 统一于区间"
+    },
+    {
+      "id": "AHA-S4-005",
+      "round": 3,
+      "description": "三维宇宙的信息图是非扩张图(h∝1/R)——这是全息原理的信息论基础, 也是'观测者能存在'的前提"
+    }
+  ],
+  "open_problems": [
+    "χ(r)在r<r_χ涨落主导区的非微扰解 (S4a→Trotter-Kato极限或MC模拟)",
+    "畴壁格点间χ_{ij}的超越最近邻关联网络对η的修正 (S4b→二阶BBGKY闭合)",
+    "f(q,χ)的非线性修正——线性刹车模型在χ→χ_max时的偏差 (S4b)",
+    "Kerr推广: 轴对称q场解+旋转黑洞的因果视界 (S4c)",
+    "a参数的独立约束: 从G_eff空间变化→可检验QNM频率偏移 (S4e→需下一代GW探测器)",
+    "Page曲线在min-cut+因果锁定框架的推导 (S4d→需min-cut时间演化)"
+  ],
+  "cross_references": {
+    "from_S7": [
+      "χ刹车机制(Γ_{i→j}公式)",
+      "Fréchet边界",
+      "L₂创生项"
+    ],
+    "from_S3": [
+      "q(r)静态解",
+      "G_eff(q)跑动",
+      "f(q)R理论非最小耦合α"
+    ],
+    "from_S1": [
+      "因果带宽界(H1-H2)",
+      "d=3特异性",
+      "Cheeger常数h(G_R)∝1/R"
+    ],
+    "to_S7": [
+      "η(κ)函数(κ与χ_{ij}精确映射)",
+      "χ_{ij}在畴壁处的精确值"
+    ],
+    "to_S3": [
+      "α参数值(从G_eff自洽性约束)",
+      "G_eff空间不均匀性的天体物理约束"
+    ],
+    "to_S2": [
+      "无直接依赖——S4面积律不依赖宇宙学q场演化"
+    ],
+    "to_S5": [
+      "min-cut框架可为量子Darwinism中的客观性涌现提供信息论基础"
+    ]
+  }
+}

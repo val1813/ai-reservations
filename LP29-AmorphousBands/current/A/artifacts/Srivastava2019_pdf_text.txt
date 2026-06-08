@@ -1,0 +1,517 @@
+                                                                                                www.nature.com/scientificreports
+
+
+
+
+              OPEN             Localized Tail States and Electron
+                               Mobility in Amorphous ZnON Thin
+                               Film Transistors
+    received: 11 March 2015
+      accepted: 28 July 2015   Sungsik Lee1, Arokia Nathan1, Yan Ye2, Yuzheng Guo1 & John Robertson1
+   Published: 25 August 2015
+                               The density of localized tail states in amorphous ZnON (a-ZnON) thin film transistors (TFTs) is
+                               deduced from the measured current-voltage characteristics. The extracted values of tail state density
+                               at the conduction band minima (Ntc) and its characteristic energy (kTt) are about 2 × 1020 cm−3eV−1
+                               and 29 meV, respectively, suggesting trap-limited conduction prevails at room temperature. Based on
+                               trap-limited conduction theory where these tail state parameters are considered, electron mobility is
+                               accurately retrieved using a self-consistent extraction method along with the scaling factor ‘1/(α + 1)’
+                               associated with trapping events at the localized tail states. Additionally, it is found that defects, e.g.
+                               oxygen and/or nitrogen vacancies, can be ionized under illumination with hv  Eg, leading to very
+                               mild persistent photoconductivity (PPC) in a-ZnON TFTs.
+
+
+                               Oxide semiconductors shows great promise as a high mobility channel layer in thin film transistors
+                               (TFT) fabricated at low or even room temperatures1,2. A classical oxide material is ZnO, which has
+                               mostly a poly-crystalline (pc) structure, i.e. pc-ZnO, suggesting the presence of potential barriers at the
+                               grain boundaries, which lowers the mobility (see Fig. 1a)3,4. To suppress these potential barriers, metal
+                               cations, such as Ga and In, were incorporated into the binary system, thereby stabilizing the amorphous
+                               phase over the crystalline phase. But the addition of Ga and In introduces compositional disorder, and
+                               these cation states create potential fluctuations in the conduction band minima (EC)5,6. Although this
+                               tends to reduce the overall electron mobility as shown in Fig. 1b, the approach has been successful due
+                               to the low temperature processability and high mobility in the amorphous phase1,7.
+                                   As another approach for high mobility and optical stability in oxide semiconductors, anions, instead
+                               of cations, can be added8. For example, flourine (F) can be used for n-type doping of SnO2. However,
+                               F does not affect electron mobility as it is an anion, which puts disorder into the valence band not the
+                               conduction band9. As another example, when nitrogen (N) is incorporated into ZnO, this does not cause
+                               p-type doping but it forms an amorphous alloy, where the anion site disorder stabilizes the amorphous
+                               phase, making amorphous ZnON (a-ZnON). Again, this does not lower the electron mobility because
+                               the disorder is in valence band states, and not the conduction band states. Another important effect is
+                               that the N 2p orbital lies higher than the O 2p orbital, so that the new N 2p states raise the valence band
+                               maxima (VBM) above its energy in ZnO9. It is known that the photo-induced instabilities of ZnO and
+                               IGZO are related to states due to O vacancies and interstitials that lie in the lower band gap region. These
+                               states are now covered up by the higher VBM states, so they can no longer give rise to such instabilities
+                               and persistent photoconductivity (PPC)10,11, which is a strong benefit for the N containing materials.
+                                   According to the recent literature11, the electron effective mass of a-ZnON (~0.19 m0) can be larger
+                               than that of crystalline ZnN (i.e. c-ZnN) and smaller compared to ZnO films. This may be explained
+                               with a disorder of a-ZnON, especially in amorphous phase. Indeed, the conduction band minima (CBM)
+                               of a-ZnON is also composed of both Zn 4 s and N 2p, similar to c-ZnN12,13. Here, N 2p is sensitive to
+                               bonding angle tilt in amorphous phase, thus high disorder in a-ZnON, although Zn 4 s is spherical and
+
+                               1
+                                Department of Engineering, University of Cambridge, Cambridge CB2 1PZ, United Kingdom. 2Display and SunFab
+                               Solar Business Group, Applied Materials, Santa Clara, California 95054, USA. Correspondence and requests for
+                               materials should be addressed to A.N. (email: an299@cam.ac.uk) or J.R. (email: jr214@cam.ac.uk) or Y.Y. (email:
+                               yanye7@gmail.com)
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                       1
+www.nature.com/scientificreports/
+
+
+
+
+                               Figure 1. Schematic profiles of the conduction band minima (EC) in (a) poly-crystalline ZnO, (b)
+                               amorphous InGaZnO, and (c) amorphous ZnON, respectively. Here, ‘e’ denotes a free electron released
+                               into conduction band. In (a), ϕB is the potential barrier height at the grain boundary in poly-crystalline
+                               ZnO. In (b), ϕB is the potential barrier height due to compositional disorder in amorphous InGaZnO. (d)
+                               Schematic diagram to describe trap-limited conduction associated with the localized tail states. Here, nfree
+                               and ntrap denote free and trapped carrier densities at band tail states, respectively.
+
+
+
+                               less sensitive to bonding angle disorder. This can yield a high density of localized tail states near the
+                               CBM in a-ZnON (see Fig. 1c). For a TFT with a-ZnON channel, the field-effect mobility is strongly
+                               affected by the presence of the localized tail states. This can be explained with trap-limited conduction
+                               theory (i.e. multiple trapping and thermal release events) (see Fig. 1c,d)5,14. One of the ways to reduce
+                               the localized tail state density is by thermal annealing, resulting in higher mobility (up to 110 cm2/V-s)
+                               reported in Ref. 8.
+                                   In this paper, we extract the density of localized tail states in a-ZnON TFTs, using current-voltage
+                               characteristics of the device. The extracted values of tail state density at the CBM (Ntc) and charac-
+                               teristic energy (kTt) are about 2 ×  1020 cm−3eV−1 and 29 meV, respectively, thus kTt >  kT (i.e. thermal
+                               energy) at T =  300K. This implies that trap-limited conduction is dominant at room temperature.
+                               In addition, it is found that the extracted field-effect mobility and its gate voltage-dependence are
+                               strongly dependent on the pre-factor 1/(α  +  1), where α  =  2(kTt/kT-1) for kTt >  kT. Here, we derived
+                               a more accurate field-effect mobility expression, using the proposed self-consistent extraction method.
+                               Also, a weak persistent photoconductivity in a-ZnON TFTs with Mo electrode is observed under
+                               visible light illumination, suggesting ionization of defects, such as oxygen and/or nitrogen vacancies,
+                               located near the VBM. To check the effect of electrode on leakage current and PPC, we replaced the
+                               Mo with Cr for electrodes. It is found that the leakage current slightly increases, but the effect of
+                               illumination is maintained, suggesting the PPC is arising from a change in the intrinsic property of
+                               the channel layer.
+
+                               Results and Discussion
+                               Localized Tail States. Since the current-voltage (I-V) characteristics of the TFT are largely deter-
+                               mined by the density of localized states, e.g. tail states in the channel layer, the density of localized states
+                               can be retrieved from the measured terminal characteristics15–17. As a first step, the free carrier density
+                               (nfree) is extracted from the measured I-V characteristics. Note that linear characteristics of the drain
+                               current vs. gate voltage (IDS-VGS) are required rather than saturation regime characteristics16,17,
+                                                                                                        2
+                                                                             1          L ⋅ IDS      
+                                                                                                        .
+                                                                  n free =                            
+                                                                           εS kT  µ band ⋅ W ⋅ VDS                                       ( 1)
+                               Here, μ band is the band mobility of the ZnON layer (note that this is a constant and the main unknown),
+                               ε S the permittivity of a-ZnON (which is about 11ε 0, where ε 0 is vacuum permittivity), kT the thermal
+                               energy, W the channel width, L the channel length, and VDS the drain voltage. Also, the carrier density
+
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                           2
+www.nature.com/scientificreports/
+
+
+
+
+                               Figure 2. (a) Linear IDS-VGS characteristics measured at a small VDS (0.01 V and 0.1 V). Inset: Schematic
+                               3-D view of the fabricated a-ZnON TFTs along with this micro-photo. Here, the gate insulator is Si3N4,
+                               stacked layer of SiO2 and Si3N4 is used as Passivation, and Mo and Cr are used for source, drain, and gate
+                               terminals in two different devices, respectively. (b) Measured output characteristics, i.e. IDS-VDS, of the
+                               examined TFTs for different VGS.
+
+
+
+                               of the free carriers (nfree) and trapped carriers (ntrap) at tail states can be derived with Poisson’s Equation
+                               along with Gauss’s law as follows,
+
+                                                                         d 2ϕ          q
+                                                                              2
+                                                                                   =      (n free + n trap ),
+                                                                         dx            εS                                                    (2)
+
+                                                                                              dϕ
+                                                                                     E=−         ,
+                                                                                              dx                                             (3)
+                               where x is the distance from the front channel interface along the channel depth, and ϕ the channel
+                               potential along x. Based on Equations (2) & (3), the carrier densities can be connected to gate voltage
+                               using a charge balance Equation: E(x =  0) =  Cox(VGS −  VTe). Here, Cox is the gate-insulator capacitance
+                               and VTe is an effective threshold voltage which can be represented as [1/VGS +  1/VT]−1 for VGS >  0 and
+                               VT >  0, where VT is a threshold voltage to be extracted with a linear extrapolation at a linear regime.
+                               This yields the following,
+
+                                                                    2q        ϕS                                Cox (VGS − VTe )
+                                                   E (x = 0 ) =
+                                                                    εS   ∫0 (n free + ntrap ) dϕ ≈                     εS
+                                                                                                                                 .
+                                                                                                                                             (4 )
+                                   Squaring Equation (4) and taking its first derivative with respect to the surface potential ϕ (x =  0) =  ϕ S,
+                               ntrap can be obtained as,
+
+                                                                                   εS dE 2 (x = 0)
+                                                                    ntrap =                        − n free .
+                                                                                   2q      dϕS                                               (5)
+                                   Based on Equations (1), (4), and (5), the density of tail states (Ntail(E)) can be given as the first deriv-
+                               ative of Equation (5),
+
+                                                                                         dntrap
+                                                                           Ntail =                         .
+                                                                                          dϕS
+                                                                                                  E F →E                                     (6)
+                               Here, qϕ S =  EF −  EF0 where EF0 is the Fermi level at flat band (see the Supplementary Information for
+                               more detailed derivation procedure).
+                                  Based on the above extraction method, the density of localized tail states was retrieved using a-ZnON
+                               TFTs with W =  50 μ m and L =  10 μ m. Here, the linear IDS −  VGS characteristics were measured at a small
+                               VDS (e.g. 0.01 V and 0.1 V), as seen in Fig. 2(a,b) shows output characteristics for different VGS (see also
+                               Figure S2 in the Supplementary Information). The basic parameter to be extracted from each I-V curve
+                               is VT. The VT values of these two cases (VDS =  0.01 V and 0.1 V) are 4.4 V and 4.3 V, respectively. The
+                               other unknown parameters, μ band and Cox are 110 cm2/V-s and 19 nF/cm2, respectively8. Here, μ band can
+                               be the maximum achievable mobility and the Cox value was calculated using a thickness of 300 nm and
+                               measured permittivity of ~6.5ε 0 for the gate insulator Si3N4. Using these parameters and Equations (1–6),
+                               the carrier densities (nfree and ntrap) and density of tail states (Ntail(E)) were extracted as seen in Fig. 3a,b,
+
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                          3
+www.nature.com/scientificreports/
+
+
+
+
+                               Figure 3. (a) Extracted carrier densities (nfree and ntrap) and (b) density of tail states denoted as Ntail(E).
+                               The extracted Ntail(E) for different VDS is similar to each other, suggesting that the extraction method is
+                               almost independent on VDS when VDS is small enough. This also implies that contact resistance effects are
+                               negligible at small VDS, e.g. 0.1 V and 0.01 V.
+
+
+
+                               respectively. As indicated in Fig. 3b, the tail states (i.e. gap states near the EC) can be approximated as
+                               an exponential distribution14–16,
+
+                                                                                              E − EC 
+                                                                       Ntail (E ) = Ntc exp           .
+                                                                                              kT t                                     (7)
+                               Here, Ntc is the tail state density at E =  EC (i.e. conduction band minima), and kTt is the characteristic
+                               energy of the tail state. Applying Equation (7) into the plot shown in Fig. 3b, Ntc and kTt values were
+                               extracted as 2 ×  1020 cm−3eV−1 and 29 meV, respectively.
+
+                               Electron Mobility.    To incorporate the effect of tail states into the field effect mobility (μ FE), the
+                               trap-limited conduction theory is employed,
+
+                                                                                              n free       
+                                                                                                            
+                                                                        µ FE ≡ µ band                      .
+                                                                                          n
+                                                                                         free +    n trap                               (8)
+                               Here, nfree (with Boltzmann’s approximation for |EF −  EC| >  kT) and ntrap (for kTt >  kT) are represented
+                               analytically as a function of Fermi level (EF)16,17, respectively, as follows,
+
+                                                                                           E − EC 
+                                                                         n free = NC exp  F      ,
+                                                                                           kT                                          (9)
+
+                                                                                             E − EC 
+                                                                      n trap = Ntc kTt exp  F       ,
+                                                                                             kTt                                      (10)
+                               where NC is an effective free carrier density [cm−3]. Note that the NC value of ZnON is about 2 ×  1018 cm−3,
+                               which is calculated with an electron effective mass ~0.2 m010,11, where m0 is the electronic rest mass. With
+                               Equations (9) & (10), Equation (8) can be rewritten as a function of EF, assuming nfree <  ntrap,
+
+                                                                        NC                                       
+                                                        µ FE ≈ µ band               exp  (E − E )  1 − 1   .
+                                                                                                     C 
+                                                                                                             kT t  
+                                                                                                F
+                                                                        N tc kT t                  kT                              (11)
+                               Here, EF −  EC (= EF0 +  qϕ S −  EC) can be given as a solution of Equation (4), replacing VTe by VT just for
+                               the above-threshold regime,
+
+                                                                                     C 2 (VGS − VT ) 2 
+                                                                E F − E C = kTt ln  ox                 .
+                                                                                     2ε N (kT ) 2                                    (12)
+                                                                                          S tc   t
+
+                                 Using Equations (11) & (12), Equation (11) can be represented as a function of VGS, following a
+                               power law,
+
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                            4
+www.nature.com/scientificreports/
+
+
+                                                                              VDS
+                                Parameters                       0.01 V                0.1 V
+                                Ntc [cm−3eV−1]                 2.15 ×  1020         2.17 ×  1020
+                                kTt [meV]                          29.1                29.2
+                                1/(α  +  1)                        0.79                0.78
+                                ψ                                  0.21                0.22
+                                μ gm [cm2/V-s] (peak)              38.4                38.6
+                                μ FE [cm2/V-s] (peak)              30.2                30.1
+
+
+                               Table 1. Summary of Extracted Parameters for a different VDS.
+
+
+
+
+                                                                               µ FE = ξ (VGS − VT )α ,                                  (13)
+
+                                                                                                                  α/ 2
+                                                                                N                Cox 2        
+                                                                                                                 
+                                                                   ξ ≡ µ band  C                                  ,
+                                                                                Ntc kTt   2εS Ntc (kTt ) 
+                                                                                                             2
+                                                                                                                                        (14)
+                               where α  =  2(kTt/kT −  1). Note that ξ is a prefactor independent on VGS. As seen in Equation (13), the
+                               field-effect mobility (μ FE) is a function of VGS, and linked with localized tail states in terms of the expo-
+                               nent (α ) and constant (ξ ) in the power law. Along with Equation (13), the current-voltage relation can
+                               be derived based on a drift transport equation, and approximated with the condition, VGS −  VT   VDS
+                               (i.e. linear approximation), as follows,
+
+                                                                                     W 
+                                                                      IDS ≈ µFE Cox   (VGS − VT ) VDS .
+                                                                                      L                                              (15)
+                                  Due to the presence of the exponent (α ) and gate-voltage dependence in the μ FE expression seen in
+                               Equation (13), the first derivative of Equation (15) with respect to VGS (i.e. transconductance (gm)) is
+                               given as follows,
+
+                                                        ∂IDS   ∂µFE      W                             W 
+                                                             =      Cox   VDS (VGS − VT ) + µFE Cox   VDS .
+                                                        ∂VGS   ∂VGS         
+                                                                         L                              L                          (16)
+                                  Note that the first term of Equation (16) cannot be zero since μ FE is a function of VGS. So, the con-
+                               ventional way to get μ FE seems to be insufficient and inconsistent. In Equation (16), the first derivative
+                               of μ FE is shown and can be expanded with Equation (13), as follows,
+                                                                          ∂µ FE
+                                                                                    = αµFE (VGS − VT )−1 ,
+                                                                          ∂VGS                                                          (17)
+                                    With Equation (17), Equation (16) can be rewritten as follows,
+                                                              ∂IDS             W                 W 
+                                                                   = αµFE Cox   VDS + µFE Cox   VDS .
+                                                              ∂VGS              L                L                                (18)
+                                    From Equation (18), μ FE is now given as follows,
+
+                                                                      1  ∂IDS           1             1
+                                                           µFE =                                    ≡      µ .
+                                                                    α + 1  ∂VGS  Cox (W / L) VDS   α + 1 gm                        (19)
+                                  As can be seen in Equation (19), due to the presence of α associated with localized tail states, the
+                               mobility can be reduced by the ratio of 1/(α  +  1). Here, we defined the parameter ‘1/(α  +  1)’ as the
+                               mobility scaling factor due to trapping events in the localized tail states. So, the conventional way yields
+                               an over-estimated value and hence an inconsistency. So, we believe that Equation (19) provides a more
+                               accurate μ FE(VGS) while capturing the effects of localized tail states with the parameter α . Using Equation
+                               (19), μ FE(VGS) was extracted using the retrieved value of kTt seen in Table 1. In addition, the following
+                               equation can also be defined to explain the portion of trapping (ψ ) as,
+                                                                                                α
+                                                                                      ψ=           .
+                                                                                               1+α                                      (20)
+
+
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                      5
+www.nature.com/scientificreports/
+
+
+
+
+                               Figure 4. (a) Field effect mobility (i.e. gate voltage dependent mobility) as a function of VGS for different
+                               VDS: 0.1 V, 0.01 V. Here, μ FE is shown from using Equation (19) in comparison with μ gm calculated by the
+                               conventional way with transconductance (gm). (b) IDS-VGS characteristics measured after applying 20 V stress
+                               for each stress period (tS). Here, the gate voltage applied (VStress) is 20 V (Inset: retrieved ∆VT vs. tS).
+
+
+
+                                   This can be used as a measure of how trapping significantly affects the electron mobility. As shown in
+                               Fig. 4(a), μ FE (at VGS =  9 V) is about 30.2 cm2/V-s for VDS =  0.01 V which is reduced by 21% (i.e. ψ  =  0.21)
+                               compared to the conventional extraction route where μ FE is considered as a constant (38.4 cm2/V-s
+                               without considering α ), i.e. μ gm. Note that we also tested the proposed mobility extraction method for
+                               VDS =  0.1 V. It is found that there is a discrepancy less than 1% compared to the case of VDS =  0.01 V, as
+                               summarized in Table 1. Here, we believe that the case of VDS =  0.01 V provides higher accuracy com-
+                               pared to VDS =  0.1 V since a smaller VDS is always better to satisfy the assumption that VGS −  VT   VDS,
+                               relating to Equation (15).
+                                   The band tail states not only affect the electron mobility but also affect bias instability. Indeed, it is
+                               known that the density of band tail states determines the rate of instability creation, e.g. threshold voltage
+                               shift (Δ VT). The Δ VT as a function of time (t) is defined by the following relation18,
+
+                                                                    ΔVT = (VStress − VT 0 )(t / t 0)β .                                    (21)
+                               Here, VStress is the bias stress, VT0 the pre-stress threshold voltage (~4.3 V), and t0 the characteristic time
+                               constant. In particular, β is a power-law exponent, which is proportional to the tail state density (Ntc,
+                               cm−3eV−1), So the following relation can be deduced,
+                                                                               β = ζ N tc ,                                                (22)
+                               where ξ is a constant in the dimension of cm3eV. To extract the values of β and t0, the I-V characteristics
+                               were measured after applying 20 V bias stress for each stress period, as seen in Fig. 4b. Based on this, the
+                               Δ VT as a function of time is retrieved, as seen in the inset of Fig. 4b, yielding β  ~ 0.34 and t0 ~ 108 sec.
+                               Here, it is found that the value of β is smaller compared to a-Si TFTs ~ 0.418. As can be seen in Equation
+                               (22), this can be explained with a smaller Ntc of a-ZnON TFTs ~ 2 ×  1020 cm−3/eV compared to a-Si
+                               TFTs ~ 1022 cm−3/eV19.
+
+                               Persistent Photoconductivity.            Additionally, we performed computations of the density of states
+                               (DOS) in a-ZnON. Figure 5 shows the computed total DOS and projected DOS (PDOS) onto Zn, O,
+                               and N atoms for a-ZnON. Note that the fabricated a-ZnON film composition has been measured with
+                               the Rutherford backscattering spectrometry (RBS) (see the Supplementary Information). As shown in
+                               Fig. 5a, it is clear that the N forms the VBM, and is located from − 1.8 eV to 0 eV. This implies that
+                               oxygen defects (e.g. vacancies and interstitials), viewed as the origin of the PPC, are filled with N. Also,
+                               the band-gap is about 0.75 eV, as indicated in Fig. 5, suggesting that photon energies in the range from
+                               0.75 eV ~ 2.55 eV may not give rise to the PPC in a-ZnON. To check this, we measured the drain cur-
+                               rent as a function of time (i.e. IDS-time plot) when VGS =  0 V and VDS =  0.01 V under illumination with
+                               550 nm wavelength light (equivalent to 2.25 eV photon energy, hv), as seen in Fig. 6a. Here, the maxi-
+                               mum optical power P0 is ~0.1 mW/cm2. As shown in Fig. 6b, the drain current (~2.3 ×  10−10 A) under
+                               P0 is increased by 2 times more than that (~1.2 ×  10−10 A) under 0.5P0. This suggests that the drain
+                               current under illumination is associated with excess carrier generation, which is linearly proportional to
+                               incident optical power, rather than electron trapping into gate insulator. After removal of illumination
+                               (after t =  80 s), the drain current is almost recovered, thus the examined a-ZnON is optically very stable.
+                               However, we find a small difference (i.e. IPPC ~ 3.4 ×  10−11 A) between the initial (IDS ~ 9.1 ×  10−11 A) and
+                               final (IDS ~ 1.25 ×  10−10 A) stages. Thus, persistent photoconductivity (PPC) still exists, albeit mild as seen
+                               in Fig. 6b, implying that some of the excess electrons are generated from optically irreversible states.
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                         6
+www.nature.com/scientificreports/
+
+
+
+
+                               Figure 5. (a) Computed total electronic density of states (DOS) and projected DOS (PDOS) for the Zn,
+                               O, and N atoms in a-ZnON. The VBM energy level is set to 0 eV, and retrieved band-gap energy (Eg) is
+                               about 0.75 eV as indicated. (b) The model unit cell of a-ZnON obtained from the melt-quench simulations.
+
+
+
+
+                               Figure 6. (a) Schematic 3-D view of the transistor examined with the light illumination and DC bias
+                               on VDS. (b) Measured drain current (IDS) of the examined device with Mo electrode as a function of time.
+                               Here, light pulse is applied as described in the inset. (c) Possible density of states picture with respect to
+                               optical carrier generation mechanisms and PPC. Here, the generated electrons are denoted as ‘e’, EF and
+                               E’F denote Fermi levels before and after illumination, respectively, and EV is the valence band maxima. (d)
+                               Schematic 3-D band diagram along the channel depth. Here, we show the effect of the positive gate bias on
+                               the recombination of ionized deficiency defects with induced electrons.
+
+
+
+                               So, the PPC may be associated with some of the unfilled oxygen defects (OD). Besides oxygen-related
+                               defects, we also consider nitrogen-related defects (ND), such as nitrogen vacancies (NV), which exist
+                               especially at the vicinity of the valence band maxima20–22. Under illumination, they can also be ionized
+                               as NV0 →  NVn+ + ne–, where n is an integer, e.g. 1 ~ 320,22. Since these constitute negative U-defects, the
+                               ionization process is irreversible even after removal of light, thus giving rise to the mild PPC22. These
+                               defects, collectively denoted as D0, can be ionized under illumination (D0 →  Dn+ +  ne−), relocating to
+                               the vicinity of the EC10,11,20–25. This maintains the increased Fermi level (EF) even after illumination, as
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                           7
+www.nature.com/scientificreports/
+
+
+
+
+                               Figure 7. (a) Measured IDS vs. time for two devices with different metal electrodes, e.g. Mo and Cr,
+                               respectively. Also, the current difference is shown on y-axis on the right hand side. Horizontal band
+                               diagrams for the cases of (b) Mo and (c) Cr electrodes, respectively.
+
+
+
+                               described in Fig. 6c. Since we have a very mild PPC (see Fig. 6b), we should assume that the density of
+                               defects, including oxygen and nitrogen vacancies, is small, implying that the photocurrent under illu-
+                               mination mostly consists of electrons generated from the N 2p states in the valence band. In order to
+                               estimate the number of the ionized deficiency defects (Nidd, cm−2), we may use the following relation,
+                                                                                     W
+                                                                       IPPC ≈ µ FE     qNidd VDS .
+                                                                                     L                                                     (23)
+                                   Using the values of the parameters extracted in the previous sections (e.g. IPPC =  3.4 ×  10−11 A,
+                               μ FE =  30.2 cm2/V-s, W/L =  5, VDS =  0.01 V), the Nidd is retrieved as 1.43 ×  108 cm−2. To electrically remove
+                               these ionized defects, we employed a positive gate-pulse scheme25, as seen in Fig. 6b. This yields a fully
+                               recovered current level (IDS ~ 9.2 ×  10−11 A) which is similar to the current level before illumination.
+                               Hence, it is suggested that these ionized defects (Dn+) were eliminated with the forced recombination
+                               with the electrons (ne−) induced during the positive gate-pulse width (+  10 V), i.e. Dn++ ne− →  D0, as
+                               described in Fig. 6d. Here, the number of induced electrons (i.e. Ne ≈  Cox ×  (10 −  VT)/q ≈  6.7 ×  1011 cm−
+                               2
+                                ) are much more than the Nidd ~ 1.43 ×  108 cm−2, thus it is enough for a full recombination.
+                                   In addition, we replaced Mo with Cr for electrodes to check effects of metal on leakage current and
+                               PPC. Figure 7a shows the measured IDS vs. time for two devices with different metal electrodes, e.g. Mo
+                               and Cr, respectively. It is found that there is a small current difference before and after illumination for
+                               each case. And the difference (i.e. IPPC) is almost the same as 0.034 nA. This implies that the choice of
+                               electrode metal doesn’t affect the PPC. And the current difference between the Mo and Cr cases (Δ IDS)
+                               is shown on the right-hand-side y-axis. It is found that this current difference is always approximately
+                               0.1 nA, suggesting that the leakage current is changed globally regardless of illumination and PPC. This
+                               can be explained with the reduced barrier height at source side (qφ b) due to a smaller work-function of
+                               Cr (~4.5 eV) compared to Mo (~4.6 eV), as shown in Fig. 7b,c. These results indicate that the choice of
+                               metal for electrodes does not affect the PPC.
+
+                               Conclusions
+                               In conclusion, the density of localized tail states in ZnON thin film transistors (TFTs) has been
+                               extracted using current-voltage characteristics of the TFTs. The extracted values of Ntc and kTt are about
+                               2 ×  1020 cm−3eV−1 and 29 meV, respectively. Considering trap-limited conduction theory, the field-effect
+                               mobility expression has been derived and shown to be represented in terms of tail state parameters. In
+                               particular, the exponent (α ) has been strongly connected to the mobility through kTt which is a key
+                               measure of the degree of the disorder of the channel layer. This suggests that a reduction of kTt is needed
+                               to achieve higher mobility. Additionally, it has been revealed that the examined ZnON is optically very
+                               stable showing only weak PPC which is thought to be arising from ionization of defects, such as oxygen
+                               and/or nitrogen vacancies, located in vicinity of the valence band maxima. This happens equivalently
+                               in both ZnON TFTs with Mo and Cu electrodes, suggesting the PPC is associated with a change of the
+                               intrinsic property of the channel.
+
+
+
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                         8
+www.nature.com/scientificreports/
+
+
+                               References
+                                1. Nomura, K. et al. Room-temperature fabrication of transparent flexible thin-film transistors using amorphous oxide
+                                   semiconductors. Nature 432, 488–492 (2004).
+                                2. Wager, J. F., Keszler, D. A. & Presley, R. E. Transparent Electronics 1st edn (Springer, 2008).
+                                3. Hoffman, R. L., Norris, B. J. & Wager, J. F. ZnO-based transparent thin-film transistors. Appl. Phys. Lett. 82, 733 (2003).
+                                4. Fortunato, E. et al. High field-effect mobility zinc oxide thin film transistors produced at room temperature. J. Non-Cryst. Solids
+                                   338, 806–809 (2004).
+                                5. Lee, S. et al. Trap-limited and percolation conduction mechanisms in amorphous oxide semiconductor thin film transistors. App.
+                                   Phys. Lett. 98, 203508 (2011).
+                                6. Kamiya, T., Nomura, K. & Hosono, H. Electronic Structures Above Mobility Edges in Crystalline and Amorphous In-Ga-Zn-O:
+                                   Percolation Conduction Examined by Analytical Model. J. Display Technol. 5, 462–467 (2009).
+                                7. Kamiya, T. & Hosono, H. Material characteristics and applications of transparent amorphous oxide semiconductors. NPG Asia
+                                   Materials 2, 15–22 (2010).
+                                8. Ye, Y., Lim, R. & White, J. M. High mobility amorphous zinc oxynitride semiconductor material for thin film transistors. J. Appl.
+                                   Phys. 106, 074512 (2009).
+                                9. Gordon, R. G. Criteria for Choosing Transparent Conductors, MRS Bulletin 25, 52–57 (2000).
+                               10. Kim, H.-S. et al. Anion control as a strategy to achieve high-mobility and high-stability oxide thin-film transistors. Sci. Rep. 3,
+                                   1459 (2013).
+                               11. Ryu, M. et al. High mobility zinc oxynitride-TFT with operation stability under light-illuminated bias-stress conditions for large
+                                   area and high resolution display applications. Technical Digest of IEEE Int. Elec. Dev. Meeting (IEDM) 2012, 5.6.1–5.6.3 (2012).
+                               12. Long, R. et al. Structural, Electronic, and Optical Properties of Oxygen Defects in Zn3N2. ACS J. Phys. Chem. B 111, 3379–3383
+                                   (2007).
+                               13. Magnuson, M. et al. Electronic structure of GaN and Ga investigated by soft x-ray spectroscopy and first-principles methods.
+                                   Phys. Rev. B 81, 085125 (2010).
+                               14. Street, R. A. Hydrogenated Amorphous Silicon 1st edn (Cambridge University Press, 2005).
+                               15. Madan, A., Le Comber, P. G. & Spear, W. E. Investigation of the density of localized states in a-Si using the field effect technique.
+                                   J. Non-Cryst. Solids 20, 239–257 (1976).
+                               16. Lee, S., Ahnood, A., Sambandan, S. & Nathan, A. Analytical Field-Effect Method for Extraction of Subgap States in Thin-Film
+                                   Transistors. IEEE Elec. Devi. Lett. 33, 1006–1008 (2012).
+                               17. Lee, S. & Nathan, A. Localized tail state distribution in amorphous oxide transistors deduced from low temperature measurements,
+                                   Appl. Phys. Lett. 101, 113502 (2012).
+                               18. Powell, M. J. et al. Time and temperature dependence of instability mechanisms in amorphous silicon thin‐film transistors, Appl.
+                                   Phys. Lett. 54 (14), 3 (1989).
+                               19. Shur, M. et al. A new analytic model for amorphous silicon thin‐film transistors. J. Appl. Phys. 66, 3371 (1989).
+                               20. Vail, J. M. et al. The nitrogen vacancy in aluminium nitride. J. Phys.: Condense Matter 18, 2125 (2006).
+                               21. Liu, L. et al. p-Type conductivity in n-doped ZnO: the role of the NZn− VO complex, Phys. Rev. Lett. 108, 215501 (2012).
+                               22. Van de Walle, C. G. & Neugebauer, J. First-principles calculations for defects and impurities: Applications to III-nitrides. J. Appl.
+                                   Phys. 95, 3851 (2004).
+                               23. Takechi, K. et al. Comparison of Ultraviolet Photo-Field Effects between Hydrogenated Amorphous Silicon and Amorphous
+                                   InGaZnO4 Thin-Film Transistors. J. J. Appl. Phys. 48, 010203 (2009).
+                               24. Robertson, J. Disorder and instability processes in amorphous conducting oxides, Phys. Status Solidi B. 245, 1026 (2008).
+                               25. Jeon, S. et al. Gated three-terminal device architecture to eliminate persistent photoconductivity in oxide semiconductor
+                                   photosensor arrays. Nature Material 11, 301–305 (2012).
+
+                               Author Contributions
+                               S.L. and A.N. designed the experiments and also did analysis with the proposed theories and method.
+                               S.L. carried out the experiments. Y.Y. fabricated and characterized the samples. Y.G. and J.R. performed
+                               the computations for PDOS. All the authors contributed to discuss on the paper. S.L., A.N. and J.R.
+                               wrote the paper.
+
+                               Additional Information
+                               Supplementary information accompanies this paper at http://www.nature.com/srep
+                               Competing financial interests: The authors declare no competing financial interests.
+                               How to cite this article: Lee, S. et al. Localized Tail States and Electron Mobility in Amorphous ZnON
+                               Thin Film Transistors. Sci. Rep. 5, 13467; doi: 10.1038/srep13467 (2015).
+                                          This work is licensed under a Creative Commons Attribution 4.0 International License. The
+                                          images or other third party material in this article are included in the article’s Creative Com-
+                               mons license, unless indicated otherwise in the credit line; if the material is not included under the
+                               Creative Commons license, users will need to obtain permission from the license holder to reproduce
+                               the material. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+
+
+
+
+Scientific Reports | 5:13467 | DOI: 10.1038/srep13467                                                                                                                 9
+

@@ -1,0 +1,238 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": "LP29-C2T-S2-R1 / Round 3",
+  "agent": "B",
+  "polaris": "executable transition oracle: P0-P8 predicates must return expected statuses for null/current/context-only/exact-complete/mismatch/mode-promotion payloads.",
+  "input_boundary": {
+    "used": [
+      "C:\\Users\\15488\\AGENTS.md",
+      "D:\\Claude\\ai-reservations\\AGENTS.md",
+      "D:\\Claude\\ai-reservations\\ai\\CLAUDE.md",
+      "D:\\Claude\\ai-reservations\\ai\\B_AGENT.md",
+      "current\\B\\C2T_S2_R1_round2.json",
+      "current\\B\\artifacts\\S2_R1_executor_predicates_round2.csv",
+      "synthesis\\PI_C2T_S2_R1_round2.md",
+      "synthesis\\inspector_B_C2T_S2_R1_round2.md"
+    ],
+    "not_used": [
+      "A outputs",
+      "Phase checklist modification",
+      "new academic literature search",
+      "material validation",
+      "graph-vs-overlap residual regression",
+      "graph beats overlap",
+      "exact impossible in principle"
+    ],
+    "phase_file_modified": false,
+    "academic_search": "No paper search was needed; this round is a mechanical oracle over existing P0-P8 predicates."
+  },
+  "framework": {
+    "name": "validator-facing transition oracle for proof-carrying O_s admission",
+    "cross_domain_jump": "runtime admission tests plus typed proof propositions",
+    "artifact": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\S2_R1_transition_oracle_round3.csv",
+    "predicate_source": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\S2_R1_executor_predicates_round2.csv",
+    "core_rule": "expected_status(case) is determined by the first target-mode predicate in P0-P8 that is missing, false, or mismatched; only exact-complete payloads with all P0-P6 checks true may reach ADMITTED_EXACT.",
+    "status_vocabulary": [
+      "BLOCK",
+      "WARN_UNRESOLVED_SCALAR",
+      "CONDITIONAL_CONTEXT_PASS",
+      "ADMITTED_EXACT",
+      "DIAGNOSED_MISMATCH"
+    ],
+    "current_exact_rule": "The current exact O_s claim remains BLOCK because the consumed inputs do not supply the exact-mode proof object set required by P6.",
+    "reported_context_rule": "reported_context can PASS only when source_bibliographic_id and stable_source_locator are present and the claim scope is limited to source-reported context; it cannot upgrade to exact O_s."
+  },
+  "changes_from_round2": [
+    {
+      "id": "CH1",
+      "change": "Converted the Round 2 predicate table into a transition oracle with explicit case_id, current_mode, target_mode, proof_objects_present, expected_status, first_failed_predicate, and why_no_silent_upgrade columns."
+    },
+    {
+      "id": "CH2",
+      "change": "Separated null, scalar-only, current, context-only, exact-complete, diagnosed-mismatch, and forbidden mode-promotion cases so a future validator can compare actual executor output against expected results."
+    },
+    {
+      "id": "CH3",
+      "change": "Made the current state executable: current-to-context is BLOCK without stable_source_locator, and current-to-exact is BLOCK because P1-P6 exact proof objects are not supplied."
+    },
+    {
+      "id": "CH4",
+      "change": "Preserved Round 2's key repair: locator-gated context PASS is allowed only for reported_context and never implies exact O_s."
+    }
+  ],
+  "transition_oracle_summary": {
+    "null_cases": "No proof objects return BLOCK at P0 because neither bibliographic identity nor stable locator exists.",
+    "current_cases": "Current evidence is treated as scalar/bibliography without stable locator in the consumed inputs; it is BLOCK for context PASS and BLOCK for exact O_s.",
+    "context_only_cases": "A stable locator can yield CONDITIONAL_CONTEXT_PASS for reported_context only; exact target mode fails first at missing structure-bound predicates.",
+    "exact_complete_cases": "A payload with locator, structure identity, same-structure mapping, pair policy, pair enumerator/list, N_pair, raw sum, normalization, constants, tolerance, executor trace, digests, and verifier version returns ADMITTED_EXACT.",
+    "mismatch_cases": "If any target predicate is false, the oracle returns DIAGNOSED_MISMATCH at the first failed predicate even when later fields are present.",
+    "mode_promotion_cases": "P8 blocks promotion by numeric closeness, narrative provenance, bibliographic familiarity, generic provenance hygiene, or executor quality unless target-mode proof predicates are satisfied."
+  },
+  "expected_results": [
+    {
+      "case_family": "null",
+      "case_ids": [
+        "NULL_TO_CONTEXT"
+      ],
+      "expected": "BLOCK",
+      "first_failed_predicate": "P0_LOCATOR_REPORTED_CONTEXT"
+    },
+    {
+      "case_family": "scalar_only",
+      "case_ids": [
+        "SCALAR_ONLY_TO_CONTEXT"
+      ],
+      "expected": "WARN_UNRESOLVED_SCALAR",
+      "first_failed_predicate": "P0_LOCATOR_REPORTED_CONTEXT"
+    },
+    {
+      "case_family": "current",
+      "case_ids": [
+        "CURRENT_TO_CONTEXT"
+      ],
+      "expected": "BLOCK for context PASS because stable_source_locator is absent; exact O_s also remains BLOCK under P6."
+    },
+    {
+      "case_family": "context_only",
+      "case_ids": [
+        "CONTEXT_ONLY_TO_CONTEXT",
+        "CONTEXT_ONLY_TO_EXACT"
+      ],
+      "expected": "CONDITIONAL_CONTEXT_PASS for reported_context only; BLOCK for exact_certified_observable."
+    },
+    {
+      "case_family": "partial_progression",
+      "case_ids": [
+        "STRUCTURE_ONLY_TO_EXACT",
+        "PAIR_POLICY_ONLY_TO_EXACT",
+        "SUM_ONLY_TO_EXACT",
+        "NORMALIZED_NO_TRACE_TO_EXACT"
+      ],
+      "expected": "BLOCK at the first missing target-mode predicate."
+    },
+    {
+      "case_family": "exact_complete",
+      "case_ids": [
+        "EXACT_COMPLETE_TO_EXACT"
+      ],
+      "expected": "ADMITTED_EXACT only when P0-P6 all pass and P8 authorizes the target transition."
+    },
+    {
+      "case_family": "mismatch",
+      "case_ids": [
+        "MISMATCH_STRUCTURE_TO_EXACT",
+        "MISMATCH_CARDINALITY_TO_EXACT",
+        "MISMATCH_SUM_TO_EXACT",
+        "MISMATCH_NORMALIZATION_TO_EXACT"
+      ],
+      "expected": "DIAGNOSED_MISMATCH at the first failed predicate; later evidence cannot mask the failure."
+    },
+    {
+      "case_family": "mode_promotion",
+      "case_ids": [
+        "MODE_PROMOTION_NUMERIC_CLOSENESS",
+        "MODE_PROMOTION_NARRATIVE_PROVENANCE",
+        "MODE_PROMOTION_EXECUTOR_QUALITY"
+      ],
+      "expected": "BLOCK by P8_MODE_TRANSITION_GUARD."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "P0-P8 can be executed as a transition oracle by mapping payload families to expected statuses and first failed predicates.",
+      "confidence": 0.9,
+      "new_insight": true,
+      "equations": [
+        "expected_status := PASS_target if all target predicates pass else status(first_failed_predicate)",
+        "first_failed_predicate := min_ordered(P0..P8 where required object missing or check false)"
+      ],
+      "references": [
+        "B Round 2 predicate table P0-P8",
+        "PI Round 2 request for null/current/future-complete expected statuses",
+        "Inspector B Round 2 warning boundary"
+      ],
+      "assumptions": [
+        "A future validator preserves P0-P8 order for first-failure reporting.",
+        "The oracle tests admission status, not material truth."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The current exact O_s state is BLOCK; the only possible PASS in this oracle below exact mode is locator-gated reported_context.",
+      "confidence": 0.94,
+      "new_insight": false,
+      "equations": [
+        "current_exact_O_s = BLOCK",
+        "reported_context_PASS => stable_source_locator and claim_scope = source_reported_context",
+        "reported_context_PASS does not imply exact_certified_observable_PASS"
+      ],
+      "references": [
+        "PI_C2T_S2_R1_round2.md",
+        "inspector_B_C2T_S2_R1_round2.md"
+      ],
+      "assumptions": [
+        "The consumed current inputs do not include a stable row/page/table locator plus full exact proof objects."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "Silent upgrades are mechanically rejectable: numeric closeness, narrative provenance, bibliographic familiarity, generic provenance hygiene, or executor quality are not transition witnesses unless target predicates pass.",
+      "confidence": 0.88,
+      "new_insight": true,
+      "equations": [
+        "upgrade_allowed(current_mode,target_mode) := required_fields(target_mode) subset payload and all_checks(target_mode) = true",
+        "numeric_closeness_only or narrative_provenance_only or executor_quality_only => P8_BLOCK"
+      ],
+      "references": [
+        "P8_MODE_TRANSITION_GUARD"
+      ],
+      "assumptions": [
+        "The validator distinguishes extra narrative fields from proof objects required by the target mode."
+      ]
+    }
+  ],
+  "deepening_1": {
+    "question": "What deeper structure appears when P0-P8 are converted from predicates into expected transition results?",
+    "layer_1": {
+      "structure": "short-circuit evaluator over an ordered predicate chain",
+      "mapping": "The oracle records the first predicate that prevents target admission. This turns a narrative failure into a deterministic diagnostic state.",
+      "consequence": "BLOCK is not vague: it is located at P0, P1, P2, P3, P4, P5, P6, or P8."
+    },
+    "layer_2": {
+      "structure": "typed proposition boundary",
+      "mapping": "Each mode proves a different proposition: reported_context proves source reporting; exact_certified_observable proves a full computed observable identity.",
+      "consequence": "A proof object for one proposition cannot be silently reused as a proof object for another."
+    }
+  },
+  "deepening_2": {
+    "question": "What next-layer extension from runtime admission control maps back to O_s?",
+    "layer_1": {
+      "source_extension": "negative test fixtures are part of the certificate system",
+      "mapping": "Null, current, mismatch, and mode-promotion cases are as important as exact-complete cases because they prove the gate rejects invalid transitions.",
+      "consequence": "The oracle can catch regressions where a validator accidentally treats provenance as exactness."
+    },
+    "layer_2": {
+      "source_extension": "counterexample-guided admission",
+      "mapping": "Each DIAGNOSED_MISMATCH case is a counterexample to exact O_s with a named failed predicate, not a general claim that exact O_s is impossible.",
+      "consequence": "Future work can repair the failed proof object without weakening the terminal exactness rule."
+    }
+  },
+  "forbidden_claims": [
+    "Current exact O_s is PASS.",
+    "Current exact O_s is conditionally PASS.",
+    "reported_context is unconditional PASS.",
+    "reported_context can pass without stable_source_locator.",
+    "A locator-gated context PASS upgrades to exact O_s.",
+    "Numeric closeness certifies exact observable identity.",
+    "Narrative provenance certifies exact observable identity.",
+    "Executor quality alone certifies exact observable identity.",
+    "Generic provenance hygiene is sufficient for exact O_s certification.",
+    "Srivastava 2019 validates exact O_s.",
+    "Srivastava 2019 refutes exact O_s.",
+    "This round performs material validation.",
+    "This round performs graph-vs-overlap residual regression.",
+    "Graph descriptors beat overlap provenance.",
+    "Exact O_s is impossible in principle."
+  ]
+}

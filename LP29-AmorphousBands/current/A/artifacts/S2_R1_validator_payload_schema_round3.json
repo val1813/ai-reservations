@@ -1,0 +1,293 @@
+{
+  "schema_name": "LP29_C2T_S2_R1_A_validator_payload_schema_round3",
+  "schema_version": "A.round3.validator_payload.v1",
+  "purpose": "Validator-facing payload contract for admitting, blocking, or diagnosing an O_s witness bundle.",
+  "terminal_statuses": [
+    "BLOCK",
+    "PARTIAL_CONTEXT_ONLY",
+    "CONDITIONAL_CONTEXT_PASS",
+    "CANDIDATE_EXACT_REPLAY",
+    "DIAGNOSED_MISMATCH",
+    "ADMITTED_EXACT"
+  ],
+  "status_order": [
+    "BLOCK",
+    "PARTIAL_CONTEXT_ONLY",
+    "CONDITIONAL_CONTEXT_PASS",
+    "CANDIDATE_EXACT_REPLAY",
+    "DIAGNOSED_MISMATCH",
+    "ADMITTED_EXACT"
+  ],
+  "top_level_required": [
+    "payload_id",
+    "target_mode",
+    "witness"
+  ],
+  "target_modes": {
+    "reported_context": {
+      "required_fields": ["F01", "F02", "F03"],
+      "success_status": "CONDITIONAL_CONTEXT_PASS",
+      "success_meaning": "A source-localized reported scalar exists. This is not exact O_s admission.",
+      "failure_status": "BLOCK",
+      "failure_rule": "Any missing or false F01-F03 predicate blocks reported_context."
+    },
+    "candidate_exact_replay": {
+      "required_fields": [
+        "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10",
+        "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20"
+      ],
+      "success_status": "CANDIDATE_EXACT_REPLAY",
+      "success_meaning": "The source, structure, pair population, arithmetic, normalization, and execution provenance are complete enough to run recomputation.",
+      "failure_status": "BLOCK",
+      "failure_rule": "Any missing or false F01-F20 predicate blocks candidate replay."
+    },
+    "diagnosed_mismatch": {
+      "required_fields": [
+        "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10",
+        "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20",
+        "F21", "F22"
+      ],
+      "success_status": "DIAGNOSED_MISMATCH",
+      "success_meaning": "A complete replay bundle exists, but recomputed_value fails the predeclared comparison against the reported scalar.",
+      "failure_status": "BLOCK",
+      "failure_rule": "Without F21 and F22, mismatch cannot be diagnosed; with a passing comparison, use ADMITTED_EXACT instead."
+    },
+    "admitted_exact": {
+      "required_fields": [
+        "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10",
+        "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20",
+        "F21", "F22"
+      ],
+      "success_status": "ADMITTED_EXACT",
+      "success_meaning": "All F01-F22 predicates pass and recomputed_value agrees with reported_scalar under the predeclared tolerance.",
+      "failure_status": "BLOCK",
+      "failure_rule": "No scalar-only or context-only payload can be upgraded to admitted exactness."
+    }
+  },
+  "field_contract": [
+    {
+      "field_id": "F01",
+      "json_pointer": "/witness/source/paper_id",
+      "field_name": "source_paper_doi_or_arxiv",
+      "type": "string",
+      "validation_predicate": "is_stable_identifier(value) and (starts_with(value,'10.') or starts_with(value,'arXiv:') or starts_with(value,'doi:'))",
+      "required_for_modes": ["reported_context", "candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "No citable source anchor for the reported scalar."
+    },
+    {
+      "field_id": "F02",
+      "json_pointer": "/witness/source/exact_locator",
+      "field_name": "source_page_table_figure_row",
+      "type": "string",
+      "validation_predicate": "has_stable_source_locator(value) and references_exact_page_or_table_or_figure_or_row(value)",
+      "required_for_modes": ["reported_context", "candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Unconditional reported_context PASS is forbidden; a stable locator to the exact source position is required."
+    },
+    {
+      "field_id": "F03",
+      "json_pointer": "/witness/source/reported_scalar",
+      "field_name": "reported_scalar_value_and_units_or_dimensionless_status",
+      "type": "object",
+      "required_keys": ["scalar"],
+      "validation_predicate": "is_numeric(value.scalar) and (value.units != null or value.dimensionless == true) and preserves_source_notation(value)",
+      "required_for_modes": ["reported_context", "candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "The reported value cannot be parsed or compared."
+    },
+    {
+      "field_id": "F04",
+      "json_pointer": "/witness/structure/identifier",
+      "field_name": "structure_identifier",
+      "type": "string",
+      "validation_predicate": "nonempty(value) and identifies_single_amorphous_configuration(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Cannot bind O_s to one amorphous configuration."
+    },
+    {
+      "field_id": "F05",
+      "json_pointer": "/witness/structure/canonical_representation",
+      "field_name": "structure_file_or_canonical_representation",
+      "type": "object",
+      "validation_predicate": "has_coordinates_cell_species(value) and is_canonicalizable(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Input structure cannot be replayed."
+    },
+    {
+      "field_id": "F06",
+      "json_pointer": "/witness/structure/hash",
+      "field_name": "structure_hash_algorithm_and_hash",
+      "type": "object",
+      "required_keys": ["algorithm", "hash"],
+      "validation_predicate": "value.algorithm in ['sha256','sha512','blake2b'] and matches_hex_digest(value.hash,value.algorithm)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Same-structure identity cannot be tested."
+    },
+    {
+      "field_id": "F07",
+      "json_pointer": "/witness/structure/same_structure_mapping_rule",
+      "field_name": "same_structure_mapping_rule",
+      "type": "object",
+      "validation_predicate": "defines_atom_ordering_or_permutation(value) and defines_coordinate_tolerance(value) and defines_species_mapping(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Reported and reproduced structures cannot be aligned."
+    },
+    {
+      "field_id": "F08",
+      "json_pointer": "/witness/pairs/channel_definition",
+      "field_name": "species_or_orbital_channel_definition",
+      "type": "object",
+      "validation_predicate": "nonempty(value.channels) and every_channel_has_species_and_orbital_label(value.channels)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Orbital semantic scope is undefined."
+    },
+    {
+      "field_id": "F09",
+      "json_pointer": "/witness/pairs/cutoff_rule",
+      "field_name": "pair_cutoff_rule",
+      "type": "object",
+      "validation_predicate": "defines_neighbor_rule(value) and has_numeric_cutoff_or_algorithm(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Pair population cannot be regenerated."
+    },
+    {
+      "field_id": "F10",
+      "json_pointer": "/witness/pairs/convention",
+      "field_name": "ordered_pair_or_unordered_pair_convention",
+      "type": "string",
+      "allowed_values": ["ordered", "unordered", "directed_weighted"],
+      "validation_predicate": "value in ['ordered','unordered','directed_weighted'] and counting_convention_declared(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Aggregation denominator is ambiguous."
+    },
+    {
+      "field_id": "F11",
+      "json_pointer": "/witness/pairs/pair_list_or_hash",
+      "field_name": "complete_pair_list_or_pair_list_hash",
+      "type": "object",
+      "validation_predicate": "has_complete_pair_list(value) or has_stable_pair_list_hash(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Cannot verify the exact pair population."
+    },
+    {
+      "field_id": "F12",
+      "json_pointer": "/witness/pairs/N_pair",
+      "field_name": "N_pair",
+      "type": "integer",
+      "validation_predicate": "is_integer(value) and value > 0 and equals_count(F11,value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "No denominator or pair-list sanity check."
+    },
+    {
+      "field_id": "F13",
+      "json_pointer": "/witness/arithmetic/raw_overlap_sum",
+      "field_name": "raw_overlap_sum",
+      "type": "number",
+      "validation_predicate": "is_finite_number(value) and was_computed_before_normalization(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Cannot diagnose arithmetic versus upstream provenance mismatch."
+    },
+    {
+      "field_id": "F14",
+      "json_pointer": "/witness/arithmetic/normalization_formula",
+      "field_name": "normalization_formula",
+      "type": "string",
+      "validation_predicate": "is_sympy_compatible(value) and references_available_fields(value,['raw_overlap_sum','N_pair'])",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "O_s scalar definition is unknown."
+    },
+    {
+      "field_id": "F15",
+      "json_pointer": "/witness/arithmetic/normalization_code_or_commit",
+      "field_name": "normalization_code_or_commit",
+      "type": "string",
+      "validation_predicate": "is_code_pointer_or_commit(value) and implementation_matches_formula(F14,value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Formula implementation cannot be audited."
+    },
+    {
+      "field_id": "F16",
+      "json_pointer": "/witness/execution/basis_set_or_orbital_source",
+      "field_name": "basis_set_or_orbital_source",
+      "type": "object",
+      "validation_predicate": "identifies_basis_or_orbital_source(value) and includes_method_settings(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Overlap matrix provenance is missing."
+    },
+    {
+      "field_id": "F17",
+      "json_pointer": "/witness/execution/software",
+      "field_name": "software_name_version",
+      "type": "object",
+      "required_keys": ["name", "version"],
+      "validation_predicate": "nonempty(value.name) and nonempty(value.version)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Execution toolchain cannot be replayed."
+    },
+    {
+      "field_id": "F18",
+      "json_pointer": "/witness/execution/runtime_environment",
+      "field_name": "runtime_environment",
+      "type": "object",
+      "validation_predicate": "has_container_digest(value) or has_environment_lockfile(value) or has_os_compiler_library_manifest(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Dependency state is not reproducible."
+    },
+    {
+      "field_id": "F19",
+      "json_pointer": "/witness/execution/executor_trace_or_workflow_graph",
+      "field_name": "executor_trace_or_workflow_graph",
+      "type": "object",
+      "validation_predicate": "is_dag_or_command_trace(value) and binds_inputs_outputs_and_code(value)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "No process provenance for the calculation."
+    },
+    {
+      "field_id": "F20",
+      "json_pointer": "/witness/execution/floating_point_precision_and_tolerance",
+      "field_name": "floating_point_precision_and_tolerance",
+      "type": "object",
+      "validation_predicate": "value.precision in ['float32','float64','extended','decimal'] and (value.abs_tol >= 0 or value.rel_tol >= 0)",
+      "required_for_modes": ["candidate_exact_replay", "diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Numeric comparison policy is undeclared."
+    },
+    {
+      "field_id": "F21",
+      "json_pointer": "/witness/verification/recomputed_value",
+      "field_name": "recomputed_value",
+      "type": "number",
+      "validation_predicate": "is_finite_number(value) and generated_from_fields(['F04','F05','F08','F09','F11','F13','F14','F17','F18','F19'])",
+      "required_for_modes": ["diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "No replay result exists."
+    },
+    {
+      "field_id": "F22",
+      "json_pointer": "/witness/verification/acceptance_tolerance",
+      "field_name": "acceptance_tolerance",
+      "type": "object",
+      "validation_predicate": "defines_abs_or_rel_tolerance(value) and verdict_rule_is_predeclared(value)",
+      "required_for_modes": ["diagnosed_mismatch", "admitted_exact"],
+      "blocker_if_missing": "Final PASS/DIAGNOSED_MISMATCH cannot be decided."
+    }
+  ],
+  "transition_guards": [
+    {
+      "guard_id": "G01_no_scalar_only_exactness",
+      "rule": "F03 alone never yields CONDITIONAL_CONTEXT_PASS, CANDIDATE_EXACT_REPLAY, DIAGNOSED_MISMATCH, or ADMITTED_EXACT."
+    },
+    {
+      "guard_id": "G02_no_doi_only_context_pass",
+      "rule": "F01 without F02 and F03 remains BLOCK for reported_context."
+    },
+    {
+      "guard_id": "G03_context_is_not_exact",
+      "rule": "CONDITIONAL_CONTEXT_PASS cannot be upgraded to ADMITTED_EXACT without all F04-F22 predicates."
+    },
+    {
+      "guard_id": "G04_current_srivastava_exact_block",
+      "rule": "The current Srivastava exact O_s payload class is BLOCK until the complete proof-carrying witness tuple is supplied."
+    },
+    {
+      "guard_id": "G05_mismatch_requires_complete_replay",
+      "rule": "DIAGNOSED_MISMATCH requires all F01-F22 fields and a failed predeclared comparison; missing replay fields are BLOCK, not mismatch."
+    }
+  ]
+}

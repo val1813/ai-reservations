@@ -1,0 +1,18 @@
+field,type,required,provenance_requirement,material_validation_blocker,notes
+sample_id,string,true,Stable same-sample key shared by structure graph controls and labels,missing_or_cross_sample_key,Must not encode target value
+label_provenance_id,string,true,DOI/table/figure/SI/path plus row or digitized point id,missing_label_trace,Every label needs an auditable source id
+structure_or_SI_source,string,true,Structure file SI table figure or model source with stable structure_id,missing_structure_trace,Must identify the structure used for graph/OI computation
+O_s_or_exact_overlap_baseline,float_or_string,true,Srivastava exact O_s or explicitly declared surrogate baseline with formula source,missing_exact_or_surrogate_status,No graph-beats-baseline claim without exact or locked surrogate baseline
+B0_onsite_variance,float,true,Independent Hamiltonian/electronic-structure source or declared missingness,missing_or_target_leakage,Forbidden if computed from the target Wannier label
+B0_carrier_density,float,true,Independent Hall/Drude/source value with unit and method,missing_or_same_measurement_inversion,Forbidden for Hall mobility if algebraically used to compute target
+B0_mobility_edge_margin,float,true,Independent electronic calculation or declared missingness,missing_or_same_spectral_fit,Forbidden for spectral target if extracted from same fitted feature
+B0_finite_size,string_or_float,true,Atom count cell size snapshot window or model-size descriptor,missing_size_descriptor,Needed to prevent finite-size graph artifacts
+B0_batch_or_family,string,true,Synthesis batch structure family or literature family key,missing_family_key,Required for family/batch blocking
+G1_lambda2_Lsym,float,true,Graph convention provenance fixed before labels are read,missing_graph_metric_or_late_convention,Primary Laplacian convention must be L_sym
+G1_rho_A_budget_norm,float,true,Budget-normalized weighted adjacency spectral radius with graph-convention id,missing_graph_metric_or_budget_norm,Raw spectral radius alone is not sufficient
+G1_attack_gap_lambda2,float,true,Targeted-vs-matched-random attack protocol with removed budget and seed policy,missing_matched_attack_control,Must include matched random weakening
+external_Hall_Drude_Wannier_spectral_label,float_or_json,true,External label value unit method direction class and source,missing_external_label_or_graph_generated_label,Synthetic/graph-generated labels cannot validate material claims
+forbidden_control_audit,string,true,Audit result against C2_forbidden_controls_rules.csv,missing_audit,Any failed forbidden-control audit sets material_validation_allowed=false
+synthetic_label_flag,boolean,true,Row-level source flag,missing_flag,true rows are diagnostic only
+material_validation_allowed,boolean,true,Derived from provenance completeness and synthetic flag,missing_flag,May be true only after all required provenance gates pass
+

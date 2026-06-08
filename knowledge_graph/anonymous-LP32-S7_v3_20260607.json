@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "lp_id": "LP32-S7",
+    "version": "v3",
+    "date": "2026-06-07",
+    "contributor": {
+      "orcid": "anonymous",
+      "github": "anonymous",
+      "name": "anonymous"
+    },
+    "title": "因果创造项 — DGF框架热寂矛盾的解决",
+    "parent_project": "LP32-how-to-destroy-a-universe",
+    "rounds_completed": 3,
+    "inspector_verdict": "ALL_PASS (R1:FAIL→R2:CONDITIONAL→R3:CONDITIONAL)",
+    "reviewer_verdict": "REVISE_AND_RESUBMIT (3 FATAL downgraded to MAJOR by PI independent verification)",
+    "status": "closed"
+  },
+  "nodes": [
+    {"id": "K-S7-001", "label": "有向图连通性与NESS唯一性", "type": "theorem_application", "round": 1, "agent": "A"},
+    {"id": "K-S7-002", "label": "均值场粗粒化不唯一性", "type": "insight", "round": 1, "agent": "B"},
+    {"id": "K-S7-003", "label": "χ刹车机制", "type": "mechanism", "round": 1, "agent": "B"},
+    {"id": "K-S7-004", "label": "三位一统图景", "type": "synthesis", "round": 1, "agent": "PI"},
+    {"id": "K-S7-005", "label": "Cattaneo双一阶量纲修正", "type": "derivation", "round": 2, "agent": "A"},
+    {"id": "K-S7-006", "label": "单边χ单调性定理", "type": "theorem", "round": 2, "agent": "B"},
+    {"id": "K-S7-007", "label": "Fréchet-Pareto等价定理", "type": "theorem", "round": 2, "agent": "B"},
+    {"id": "K-S7-008", "label": "L₂-χ统一公式", "type": "synthesis", "round": 2, "agent": "A"},
+    {"id": "K-S7-009", "label": "Lyapunov因果函数", "type": "mechanism", "round": 2, "agent": "B"},
+    {"id": "K-S7-010", "label": "KMC伪证χ刹车(有限系统)", "type": "experimental", "round": 3, "agent": "B"},
+    {"id": "K-S7-011", "label": "N4宇宙学张力解决", "type": "resolution", "round": 3, "agent": "A"},
+    {"id": "K-S7-012", "label": "L₂必然性三路径验证", "type": "synthesis", "round": 3, "agent": "PI"}
+  ],
+  "edges": [
+    {"from": "K-S7-001", "to": "K-S7-003", "relation": "equivalent_description"},
+    {"from": "K-S7-003", "to": "K-S7-006", "relation": "formalized_by"},
+    {"from": "K-S7-003", "to": "K-S7-007", "relation": "generalized_by"},
+    {"from": "K-S7-001", "to": "K-S7-008", "relation": "unified_by"},
+    {"from": "K-S7-007", "to": "K-S7-009", "relation": "stabilized_by"},
+    {"from": "K-S7-003", "to": "K-S7-010", "relation": "falsified_in_finite_systems_by"},
+    {"from": "K-S7-010", "to": "K-S7-012", "relation": "motivates"},
+    {"from": "K-S7-008", "to": "K-S7-011", "relation": "resolves_cosmological_tension"},
+    {"from": "K-S7-005", "to": "K-S7-008", "relation": "provides_dimensional_basis_for"},
+    {"from": "K-S7-004", "to": "K-S7-007", "relation": "prefigures"}
+  ],
+  "ahas": [
+    {"id": "AHA-S7-001", "round": 1, "description": "有向图连通性↔χ矩阵↔Pareto前沿 三位一体"},
+    {"id": "AHA-S7-002", "round": 2, "description": "Fréchet边界↔Pareto前沿↔Lyapunov不变集 三角等价"},
+    {"id": "AHA-S7-003", "round": 3, "description": "KMC伪证→理论精炼→L₂必然性 三路径独立验证"}
+  ],
+  "open_problems": [
+    "ℓ_DGF 30阶量级错误→CMB预言需替换",
+    "场景4 KMC χ依赖速率代码bug→需修复重做",
+    "χ_max ~ 1/√N标度律需多L值验证",
+    "L₂从A1+A2+因果局域性的第一原理推导不完整"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-06-08 00:29:07",
+  "config": {
+    "N_qubits": 200,
+    "D_space": 4,
+    "p_spont": 0.001,
+    "coupling_strength": 0.3,
+    "max_steps": 5000,
+    "n_trials": 10,
+    "seed": 42
+  },
+  "runtime_s": 4.791102647781372
+}

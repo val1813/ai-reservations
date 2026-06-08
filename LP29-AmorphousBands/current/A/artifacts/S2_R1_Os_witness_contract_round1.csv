@@ -1,0 +1,23 @@
+witness_field,needed_for,current_status,admission_rule,unblock_action
+source_paper_doi_or_arxiv,citable scalar identity,partial_context_only,Must identify the exact paper or preprint source for the reported O_s value,Bind O_s claim to DOI/arXiv and source artifact
+source_page_table_figure_row,semantic provenance,BLOCK,Must point to exact page/table/figure/row where O_s is reported,Recover source row/page from paper or supplementary information
+reported_scalar_value_and_units_or_dimensionless_status,value parsing,BLOCK,Must record the exact reported scalar and whether it is dimensionless,Extract value exactly from source row with notation preserved
+structure_identifier,structure provenance,BLOCK,Must name the amorphous configuration used for O_s,Recover structure label from source or data deposit
+structure_file_or_canonical_representation,input replay,BLOCK,Must provide the coordinates/cell/species representation used for calculation,Obtain CIF/POSCAR/XYZ or canonical JSON representation
+structure_hash_algorithm_and_hash,input identity,BLOCK,Must include hash algorithm and digest of canonical structure,Canonicalize structure and compute hash
+same_structure_mapping_rule,cross-source alignment,BLOCK,Must specify how reported structure maps to any reproduced structure,Define atom ordering/tolerance/symmetry and composition mapping
+species_or_orbital_channel_definition,orbital semantic scope,BLOCK,Must specify which atomic/orbital channels enter O_s,Recover channel definition from method text or code
+pair_cutoff_rule,pair population definition,BLOCK,Must specify cutoff radius or neighbor rule,Recover cutoff/list generation rule from source/code
+ordered_pair_or_unordered_pair_convention,aggregation semantics,BLOCK,Must state whether pairs are ordered counted twice or unordered counted once,Inspect formula or code loop convention
+complete_pair_list_or_pair_list_hash,pair provenance,BLOCK,Must provide complete pair list or stable hash of it,Generate pair list from canonical structure and cutoff
+N_pair,denominator and sanity check,BLOCK,Must report number of admitted pairs,Count pairs from witness pair list
+raw_overlap_sum,arithmetic audit,BLOCK,Must report pre-normalization overlap sum,Recover from original calculation or rerun instrumented code
+normalization_formula,scalar definition,BLOCK,Must specify exact formula converting raw sum to O_s,Recover equation/method/code expression
+normalization_code_or_commit,formula implementation,BLOCK,Must provide code or commit implementing normalization,Archive script/notebook commit or workflow node
+basis_set_or_orbital_source,overlap matrix provenance,BLOCK,Must identify basis/orbital source used for overlaps,Recover DFT/tight-binding/basis configuration
+software_name_version,execution replay,BLOCK,Must specify software and version for overlap calculation,Record package/executable version
+runtime_environment,dependency replay,BLOCK,Must include OS/compiler/libraries/container or conda environment,Capture environment file or container digest
+executor_trace_or_workflow_graph,process provenance,BLOCK,Must include command log/workflow DAG with inputs and outputs,Capture AiiDA/CWLProv/DataLad-like trace or equivalent
+floating_point_precision_and_tolerance,numeric acceptance,BLOCK,Must declare precision and allowed absolute/relative tolerance,Define tolerance before comparison
+recomputed_value,contract verification,BLOCK,Must provide value recomputed from witness bundle,Rerun calculation from canonical witness
+acceptance_tolerance,final verdict,BLOCK,Must define PASS criterion for reported vs recomputed O_s,Set admission threshold and evaluate

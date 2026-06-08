@@ -1,0 +1,2 @@
+sample_id,t_nm,rho_ohm_cm,n_H_cm3,mu_H_cm2_Vs,density_g_cm3,roughness_nm,l_reported_nm,TCR_or_activation_flag,optical_tau_fs,linewidth_convention,structural_proxy_notes,r_H,n_true_cm3,mu_D_cm2_Vs,k_F_nm_minus1,tau_fs,l_Drude_nm,kF_l,E_F_eV,target_independence_status
+F2019_TODO,,,,,,,,not_reported,,,,1,,,,,,,,pending_digitization

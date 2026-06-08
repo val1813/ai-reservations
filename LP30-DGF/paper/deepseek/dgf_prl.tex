@@ -1,0 +1,214 @@
+\documentclass[aps,prl,twocolumn,superscriptaddress,nofootinbib,floatfix]{revtex4-2}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue]{hyperref}
+
+\begin{document}
+
+\title{Macrocosmic Decoherence as Directed Spatial-Information Overflow}
+
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+\email{valhuang@kaiwucl.com}
+
+\date{June 5, 2026}
+
+\begin{abstract}
+We formulate Decoherence Geometry Framework (DGF) as a directed overflow theory of macrocosmic decoherence. The central variable is no longer an empty coherence label: $q\in[0,1]$ is defined as the fraction of Planck-scale spatial cells inside a system's support whose interference information is inaccessible to the system's own Lorentzian branch. Thus $q=0$ is full spatial-interference access and $q=1$ is complete overflow. The directed flow of $q$ is governed by a Fokker-Planck equation with entropy-gradient drift toward larger overflow and diffusion fixed by Planck-cell fluctuations. The Euclidean-to-Lorentzian angle follows from the geodesic distance between the accessible and overflow sectors of a two-sector information sphere, giving $\theta(q)=\pi q$. The Euler residual then yields $m(q)=2m_p\sin(\pi q/2)/\pi$, so high mass is high overflow. Coupling the same overflow variable to low-mass receiver modes gives a Lindblad kernel weighted by a receiver spectral density, whose Markovian local limit reduces to the $p^4/3m$ GUP kernel.
+\end{abstract}
+
+\maketitle
+
+The physical image is that a macroscopic body loses quantum coherence because its spatial interference information overflows into lower-mass, lower-information-density degrees of freedom. The process is directed and effectively irreversible. Macroscopicity is the accumulated amount of that overflow.
+
+Let $V_S$ be the spatial support of a system $S$, coarse-grained into Planck cells $c$ of volume $l_p^3$. Let $\mathcal C_S$ be the set of occupied cells and $N_S=|\mathcal C_S|$. Each cell carries a local interference-access weight $a_c\in[0,1]$, defined operationally as the normalized visibility retained under a branch-recombination test localized to that cell. The accessible spatial-interference fraction is
+\begin{equation}
+A_S=\frac{1}{N_S}\sum_{c\in\mathcal C_S}a_c .
+\end{equation}
+DGF defines the overflow filling
+\begin{equation}
+\boxed{q_S=1-A_S
+=1-\frac{1}{N_S}\sum_{c\in\mathcal C_S}a_c.}
+\end{equation}
+Thus $q_S$ is not a reparameterized mass. It is a microscopic information-density ratio: the fraction of occupied Planck cells whose spatial interference information is no longer accessible to the system's own Lorentzian branch. Each Planck cell is characterized by two independent properties: its information occupancy $f_c$ (how much information it holds) and its interference accessibility $a_c$. High-mass systems have high mean occupancy $\bar{f}$, which drives strong local interactions $\gamma_c\propto\bar{f}^2$ and suppresses accessibility via $a_c^{\rm(ss)}=1/(1+\gamma_c\tau_c)$. The capacity gradient---from high-occupancy/low-capacity to low-occupancy/high-capacity---is the statistical driver of directed overflow (see Supplemental Material S3).
+
+This definition immediately separates mass from $q$. Mass enters only after the overflow geometry is evaluated.
+
+The overflow is not a zero-mean white-noise coordinate. Its probability density $P(q,t)$ obeys
+\begin{equation}
+\boxed{
+\frac{\partial P}{\partial t}
+=-\frac{\partial}{\partial q}\!\left[v(q)P\right]
++\frac{\partial^2}{\partial q^2}\!\left[D(q)P\right].
+}
+\end{equation}
+The drift is fixed by an entropy gradient,
+\begin{equation}
+v(q)=\Gamma(q)\,\partial_q S_{\rm recv}(q),
+\qquad
+\Gamma(q)\ge0 .
+\end{equation}
+Here $S_{\rm recv}(q)$ is the entropy of receiver modes available to carry the overflow information. For low-mass radiationlike receivers the number of available states increases as overflow grows, so $\partial_qS_{\rm recv}>0$ and $v(q)>0$. Diffusion broadens the distribution; the entropy-gradient drift gives the direction.
+
+The angle is not assigned by Wick rotation. It is the geodesic distance between two information sectors. For each occupied Planck cell write
+\begin{equation}
+|\chi\rangle
+=\sqrt{1-q}\,|L\rangle+\sqrt{q}\,|O\rangle,
+\end{equation}
+where $|L\rangle$ is accessible Lorentzian spatial information and $|O\rangle$ is overflow information. If $q$ is the normalized arc measure of inaccessible spatial interference on the two-sector information half-circle, the accumulated projection angle is---in the thermodynamic ($N\to\infty$) limit of incoherent overflow on $\mathbb{CP}^{N-1}$---
+\begin{equation}
+\boxed{\theta(q)=\pi q.}
+\end{equation}
+For macroscopic systems with $N\sim V_S/l_p^3$, corrections are $O(10^{-198})$ and the linear form is exact (Supplemental Material S5).
+
+With $\theta(q)=\pi q$, define the residual between the accessible and overflow endpoints as
+\begin{equation}
+R(q)=1-e^{i\theta(q)}.
+\end{equation}
+The sign is chosen so that no overflow gives no residual, $R(0)=0$. Then
+\begin{equation}
+|R(q)|^2
+=2-2\cos(\pi q)
+=4\sin^2\left(\frac{\pi q}{2}\right),
+\end{equation}
+and Planck closure gives
+\begin{equation}
+\boxed{
+m(q)=\frac{m_p}{\pi}|R(q)|
+=\frac{2m_p}{\pi}\sin\left(\frac{\pi q}{2}\right).
+}
+\end{equation}
+High mass therefore corresponds to high overflow. The endpoint is
+\begin{equation}
+\boxed{
+m_{\max}=\frac{2m_p}{\pi}\simeq1.385\times10^{-8}{\rm kg}.
+}
+\end{equation}
+This is no longer circular: $q$ is defined from Planck-cell access weights, evolves by directed overflow dynamics, and only then maps to mass.
+
+\begin{figure}[t]
+\includegraphics[width=\linewidth]{figures/fig1_mass_map.png}
+\caption{Mass follows the overflow filling $q$. High $q$ means more inaccessible spatial information and a larger residual mass.}
+\label{fig:massmap}
+\end{figure}
+
+The receiver sector enters the kernel explicitly. Let $b_\lambda$ denote low-mass receiver modes, including radiationlike or gravitational modes, with spectral density $J_{\rm recv}(\omega)$. The overflow coupling is
+\begin{equation}
+H_{\rm int}
+=\Lambda(q)\,V_S\otimes
+\sum_\lambda g_\lambda(b_\lambda+b_\lambda^\dagger),
+\end{equation}
+where $V_S$ is the system operator carrying the overflow imprint. In DGF,
+\begin{equation}
+V_S=\frac{p^4}{3m_S}
+\end{equation}
+is the local GUP imprint of Planck-cell spatial access. The receiver does not use $p^4/3m_\lambda$; the denominator belongs to the emitting system. This removes the apparent $m_\lambda\to0$ divergence.
+
+Tracing over receiver modes gives a decoherence rate controlled by
+\begin{equation}
+\gamma_{ab}
+\propto
+\frac{(\Delta V_{ab})^2}{\hbar^2}
+\int_0^\infty d\omega\,J_{\rm recv}(\omega)
+\left|\Delta\Lambda\right|^2 .
+\end{equation}
+In the Markovian Planck-cell limit, $J_{\rm recv}\to2D_\beta$, $\Lambda(q)\to q$, and the kernel reduces to
+\begin{equation}
+\boxed{
+K_{ab}(t)=
+\exp\left[
+-\frac{2t_p l_p^4}{\hbar^6}
+\left(\Delta\left\langle\frac{p^4}{3m_S}\right\rangle\right)^2t
+\right].
+}
+\end{equation}
+The $p^4/3m$ kernel is therefore not an independent postulate. It is the local Markovian limit of receiver-mediated overflow.
+
+\begin{figure}[t]
+\includegraphics[width=\linewidth]{figures/fig2_dephasing_scale.png}
+\caption{Local Markovian limit of receiver-mediated overflow. The plotted kernel uses the system operator $p^4/3m_S$, while receiver physics is hidden in the Markovian spectral density.}
+\label{fig:dephase}
+\end{figure}
+
+For a rigid translation $|b\rangle=T(d)|a\rangle$,
+\begin{equation}
+\psi_b(p)=e^{-ipd/\hbar}\psi_a(p).
+\end{equation}
+Since $V_S=f(p)=p^4/3m_S$,
+\begin{equation}
+\langle b|V_S|b\rangle
+=\int dp\,|\psi_a(p)|^2f(p)
+=\langle a|V_S|a\rangle.
+\end{equation}
+Thus $\Delta V_{ab}=0$ and the local DGF channel gives $K_{ab}=1$. A rigid translation can still be macrocosmically classical through large $q$; it simply does not create a new $p^4/m_S$ contrast.
+
+\begin{figure}[t]
+\includegraphics[width=\linewidth]{figures/fig4_cosmic_decoherence_order.png}
+\caption{Overflow filling $q$ increases mass residual and decreases accessible coherence $1-q$. This is the repaired directionality.}
+\label{fig:order}
+\end{figure}
+
+DGF strong form can be rejected by any of the following: a direct microscopic readout of cell access weights $a_c$ shows no monotone relation between overflow and macroscopicity; the entropy-gradient drift $v(q)>0$ is absent in controlled receiver-mode coupling; the two-sector information geometry does not produce $\theta(q)=\pi q$; the receiver spectral density does not reduce to the GUP-Lindblad kernel in the local Markovian limit; or a single coherent branch above $2m_p/\pi$ maintains full spatial interference access.
+
+\begin{figure}[t]
+\includegraphics[width=\linewidth]{figures/fig3_experimental_gap.png}
+\caption{Present experimental mass scales compared with the coherent-branch endpoint.}
+\label{fig:gap}
+\end{figure}
+
+The repaired DGF chain is
+\begin{align}
+&\text{cell access weights }a_c
+\rightarrow q
+\rightarrow \partial_tP(q,t)
+\rightarrow \theta(q) \nonumber\\
+&\hspace{0.15in}\rightarrow R(q)
+\rightarrow m(q)
+\rightarrow J_{\rm recv}
+\rightarrow K_{ab}.
+\end{align}
+This closes the four logical gaps. $q$ has a microscopic definition; directed overflow has a Fokker-Planck drift rooted in the capacity-gradient argument (low-mass = low-occupancy = high receiver capacity, driving $v(q)>0$); $\theta(q)=\pi q$ follows from information geometry as the thermodynamic limit of incoherent overflow on $\mathbb{CP}^{N-1}$; and the low-mass receiver sector enters the decoherence kernel through $J_{\rm recv}$.
+
+A crucial distinction underlies the framework: total information splits into \textbf{locked} (archived, contributing to rest mass) and \textbf{flowable} (accessible for quantum interference) components. Decoherence transfers information from flowable to locked without changing total mass---resolving the apparent paradox that macroscopic objects decohere without losing mass. This gives a two-layer structure: $q$ is quasi-static, set by the system's density and composition (Layer~1, described by DGF), while specific decoherence rates are set by environmental interactions (Layer~2, standard open quantum systems).
+
+An open conjecture extends this picture: when a system reaches $q=1$ (complete information saturation), the Planck-density bound triggers local decompression, releasing locked information back into flowable quantum form. The decompression rate is exponentially suppressed, $\kappa\sim t_p^{-1}\exp(-S_{\rm BH}/k_B)$, making the cycle invisible for macroscopic objects but potentially observable at the endpoint of black hole evaporation where $S_{\rm BH}/k_B\sim O(1)$ (Supplemental Material S11). The main results of this paper do not depend on this conjecture.
+
+The macrocosmic claim is unchanged: classicality is the irreversible overflow of spatial interference information into lower-mass receiver degrees of freedom.
+
+\begin{acknowledgments}
+The author reports no external funding and no competing interests. Figures and numerical tables were generated with \texttt{scripts/generate\_dgf\_figures.py}; the corresponding CSV files are included in \texttt{data/}.
+\end{acknowledgments}
+
+\begin{thebibliography}{99}
+
+\bibitem{petruzziello2021}
+L. Petruzziello and F. Illuminati,
+Quantum gravitational decoherence from fluctuating minimal length and deformation parameter at the Planck scale,
+Nat. Commun. \textbf{12}, 4449 (2021),
+doi:10.1038/s41467-021-24711-7.
+
+\bibitem{alnasrallah2023}
+E. Al-Nasrallah, S. Das, F. Illuminati, L. Petruzziello, and E. C. Vagenas,
+Discriminating quantum gravity models by gravitational decoherence,
+Nucl. Phys. B \textbf{992}, 116246 (2023),
+doi:10.1016/j.nuclphysb.2023.116246.
+
+\bibitem{arzano2023}
+M. Arzano, V. D'Esposito, and G. Gubitosi,
+Fundamental decoherence from quantum spacetime,
+Commun. Phys. \textbf{6}, 242 (2023).
+
+\bibitem{penrose1996}
+R. Penrose,
+On gravity's role in quantum state reduction,
+Gen. Rel. Grav. \textbf{28}, 581 (1996).
+
+\bibitem{diosi1989}
+L. Diosi,
+Models for universal reduction of macroscopic quantum fluctuations,
+Phys. Rev. A \textbf{40}, 1165 (1989).
+
+\end{thebibliography}
+
+\end{document}

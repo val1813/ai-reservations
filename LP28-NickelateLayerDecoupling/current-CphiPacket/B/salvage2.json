@@ -1,0 +1,112 @@
+{
+  "framework": {
+    "role": "B_doctor_forced_salvage_round2",
+    "round": "LP28-CphiPacket Forced Salvage Round 2",
+    "target_question": "If there is no real PILOT-001 source or row, is a dossier template enough to continue?",
+    "scope_guard": "This judgment concerns the present LP28-CphiPacket salvage state only. It is not a universal no-go for future nickelate experiments, future facilities, or future packet designs.",
+    "basis": [
+      "Round 3 REVIEWER rejected the current state because there is no audited real pilot row.",
+      "B salvage1 allowed only conditional bounded progress if one real audited row exists.",
+      "PI salvage1 synthesis states that no passing PILOT-001 row is currently present in the workspace.",
+      "A template can specify acquisition and audit rules, but it cannot demonstrate executable packet feasibility without a real source or row."
+    ]
+  },
+  "final_salvage_standard": {
+    "minimum_object": "PILOT-001 must be a real same-sample or formally sistered row/source with auditable lineage, not merely a template, mock row, literature montage, or planned schema.",
+    "must_show_before_output_reveal": [
+      "Immutable raw archive or explicitly named acquisition source with custody path and hash/checksum plan.",
+      "Row identity: specimen lineage, sistering rule if applicable, measurement context, calibration lineage, and mismatch tolerances.",
+      "Independent extraction path for canonical P_oe and B_min, with no shared fitted qz/c-axis/orbital state that makes B_min tautological with P_oe.",
+      "Frozen canonical P_oe definition, censoring, denominator floor, and U_miss.",
+      "Sealed superconducting-output labels under a custodian or equivalent blind mechanism.",
+      "Pre-reveal green/yellow/red firewall classification."
+    ],
+    "passing_status": "Only a green real PILOT-001 row/source converts the current state from rejected protocol packaging to bounded technical progress.",
+    "nonpassing_status": "Yellow remains rehearsal/design only. Red fails. Template-only remains protocol packaging."
+  },
+  "template_vs_real_row_judgment": {
+    "answer": "No. If there is no real PILOT-001 source or row, a template alone is not sufficient to continue the current north star as salvaged.",
+    "template_can_do": [
+      "Define the exact dossier fields needed for a future acquisition.",
+      "Make the next experimental ask concrete.",
+      "Serve as a closing artifact or handoff specification.",
+      "Prevent future rows from being rescued by post-hoc rule changes."
+    ],
+    "template_cannot_do": [
+      "Demonstrate that P_oe and B_min can be separated in a real nickelate row.",
+      "Demonstrate immutable custody or output blinding.",
+      "Answer the REVIEWER objection that the packet is still claim-free protocol packaging.",
+      "Justify PACKET_FEASIBLE_NEAR_FUTURE as more than speculative."
+    ],
+    "real_row_threshold": "A real row/source may be incomplete only if its incompleteness is classified before reveal under frozen yellow/red rules; it cannot be upgraded by template language."
+  },
+  "keep_condition": {
+    "verdict_if_met": "KEEP_AS_BOUNDED_TECHNICAL_PROGRESS",
+    "condition": "Keep LP28-CphiPacket only if a concrete PILOT-001 source/row is named and auditable now, or if there is an explicitly named facility/data route with enough pre-output custody, lineage, blinding, and extraction-separation detail to schedule acquisition without changing the firewall.",
+    "minimum_evidence": [
+      "Named source, dataset, facility run, or specimen lineage rather than generic future measurements.",
+      "Pre-output custody and raw archive plan that can produce hashes or equivalent immutable records.",
+      "Specified P_oe and B_min raw inputs and scripts/extraction responsibilities.",
+      "Declared firewall result path: green can count as salvage; yellow only rehearses; red closes.",
+      "No dependence on superconducting-output reveal to decide row inclusion, censoring, U_miss, denominator floor, or sistering."
+    ],
+    "allowed_continuation": "If this condition is met, continue only to build or audit the PILOT-001 dossier. Do not claim R_oe, C_phi independence, decision-grade feasibility, or N-scale packet success."
+  },
+  "close_condition": {
+    "verdict_if_met": "CLOSE_AS_REJECTED_PROTOCOL_PACKAGING",
+    "condition": "Close LP28-CphiPacket if the only available artifact is a dossier template with no real PILOT-001 source/row and no explicitly named acquisition route satisfying the minimum evidence above.",
+    "close_reason": "The REVIEWER fatal objection remains undefeated: the project has a disciplined protocol but no audited real row demonstrating that the packet can exist.",
+    "what_closure_does_not_mean": [
+      "It does not prove R_oe false.",
+      "It does not prove C_phi impossible.",
+      "It does not prove that future nickelate experiments cannot create such a packet.",
+      "It does not forbid reopening if a real PILOT-001 source/row later appears."
+    ],
+    "permitted_closing_artifact": "A PILOT-001 dossier template may be preserved as the reopening checklist, but not as evidence of salvage success."
+  },
+  "verdict": "KILL_UNLESS_REAL_PILOT001_SOURCE_OR_ROW_IS_NAMED",
+  "claims": [
+    {
+      "claim": "Template-only is not enough to continue LP28-CphiPacket as salvaged.",
+      "status": "supported",
+      "strength": "strong",
+      "reason": "The accepted REVIEWER objection is absence of an audited real pilot row, and a template does not supply row-level custody, blinding, or extraction separation."
+    },
+    {
+      "claim": "A template remains useful as a handoff or reopening specification.",
+      "status": "supported",
+      "strength": "moderate",
+      "reason": "It can freeze dossier fields and prevent post-hoc rescue, but it is not evidence."
+    },
+    {
+      "claim": "A single real green PILOT-001 row/source is enough for bounded technical progress.",
+      "status": "conditional",
+      "strength": "strong",
+      "reason": "It would demonstrate that the packet workflow is executable at least once, while still not proving R_oe or decision-grade feasibility."
+    },
+    {
+      "claim": "Closure under template-only evidence is not a universal no-go.",
+      "status": "scope_guard",
+      "strength": "mandatory",
+      "reason": "The close condition applies only to the current evidence state and permits reopening when a real auditable source or row exists."
+    }
+  ],
+  "inspector_check": {
+    "json_valid": true,
+    "required_fields_present": [
+      "framework",
+      "final_salvage_standard",
+      "template_vs_real_row_judgment",
+      "keep_condition",
+      "close_condition",
+      "verdict",
+      "claims",
+      "inspector_check"
+    ],
+    "A_output_not_read": true,
+    "universal_no_go_avoided": true,
+    "template_not_counted_as_evidence": true,
+    "real_pilot_row_required": true,
+    "final_decision_rule": "Keep only with a concrete auditable PILOT-001 source/row or acquisition route; otherwise close as rejected protocol packaging."
+  }
+}

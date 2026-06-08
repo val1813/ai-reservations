@@ -1,0 +1,275 @@
+{
+  "project": "LP29-AmorphousBands",
+  "subtopic": "LP29-C2",
+  "round": 3,
+  "agent": "A",
+  "date": "2026-06-04",
+  "polaris": "LP29-C2 graph metrics 是否只是 Srivastava orbital-overlap metric 的重参数化。",
+  "framework": "Baseline-first amorphous oxide/oxynitride electronic-structure audit: Srivastava normalized orbital overlap and controls must precede any graph residual test.",
+  "input_scope": {
+    "required_files_read": [
+      "D:/Claude/ai-reservations/ai/A_AGENT.md",
+      "D:/Claude/ai-reservations/LP29-AmorphousBands/synthesis/PI_C2_round2.md",
+      "D:/Claude/ai-reservations/LP29-AmorphousBands/synthesis/inspector_A_C2_round2.md",
+      "D:/Claude/ai-reservations/LP29-AmorphousBands/current/A/C2_round2.json",
+      "D:/Claude/ai-reservations/LP29-AmorphousBands/current/A/artifacts/C2_join_schema.csv"
+    ],
+    "additional_A_side_sources_read": [
+      "D:/Claude/ai-reservations/LP29-AmorphousBands/current/A/downloads/1812.11333.pdf",
+      "D:/Claude/ai-reservations/LP29-AmorphousBands/current/A/artifacts/A1_Furubayashi2019_digitized_transport_schema.csv",
+      "D:/Claude/ai-reservations/LP29-AmorphousBands/current/plan/知识库.md"
+    ],
+    "explicitly_not_used_as_evidence": [
+      "current/B content",
+      "B Round 3 outputs"
+    ]
+  },
+  "findings": "Round 3 converts the C2 A-side scaffold into executable baseline/provenance artifacts. Four Srivastava rows are now filled from Table II and the Fig. 4 text: a-IGZO-1114, a-IGZO-2217, a-ZnON-21, and a-ZnON-11. These rows establish an orbital-overlap/effective-mass baseline table, not a graph-residual validation. The forbidden-control prose is normalized into CSV rules, including an executable fixed-pair versus fixed-density OI rule. Jankousky and Furubayashi remain blocked for same-sample external residual tests until their labels, structures, and provenance are joined.",
+  "weakest_link": "The Srivastava rows are reported-table baseline rows, not recomputed structure rows. Graph metrics, same-sample residuals, and external residual labels remain missing, so no claim that graph residual power survives OI_norm + controls is allowed.",
+  "next_plan": "Use these rows as the locked OI/m_eff baseline. Next, acquire schema-compatible Jankousky/Furubayashi external-label rows with exact sample joins or preserve blocked provenance; only then run train-fold residualization and held-out graph residual tests.",
+  "literature_needed": "Jankousky 2026 same-sample a-In2O3 structures/labels/SI; Furubayashi 2019 Hall/transport digitized rows with thickness, carrier density, mobility, and density provenance; Srivastava SI-III if recomputation rather than reported-table use is required.",
+  "artifacts_written": [
+    "current/A/artifacts/C2_Srivastava_baseline_rows.csv",
+    "current/A/artifacts/C2_forbidden_controls_rules.csv"
+  ],
+  "srivastava_baseline_rows": {
+    "source": {
+      "label": "Srivastava et al. 2019",
+      "doi": "10.1063/1.5096042",
+      "local_pdf": "current/A/downloads/1812.11333.pdf",
+      "table": "Table II",
+      "effective_mass_text_anchor": "Fig. 4 discussion paragraph"
+    },
+    "normalization": "Table II reports total normalized orbital overlap integral as Number of Pairs * OI / volume, summed over all listed metal-cation pairs for a-IGZO and single Zn-Zn pair class for a-ZnON.",
+    "rows": [
+      {
+        "sample_id": "a-IGZO-1114",
+        "cell_volume_m3": 1.14819645e-27,
+        "OI_norm": 0.02966,
+        "m_eff_over_m0": 0.21,
+        "join_level": "reported_table_and_text",
+        "blocked": [
+          "structure_id",
+          "num_atoms",
+          "graph metrics",
+          "external_residual"
+        ]
+      },
+      {
+        "sample_id": "a-IGZO-2217",
+        "cell_volume_m3": 1.15270734e-27,
+        "OI_norm": 0.02669,
+        "m_eff_over_m0": 0.22,
+        "join_level": "reported_table_and_text",
+        "blocked": [
+          "structure_id",
+          "num_atoms",
+          "graph metrics",
+          "external_residual"
+        ]
+      },
+      {
+        "sample_id": "a-ZnON-21",
+        "cell_volume_m3": 1.0817498e-27,
+        "OI_norm": 0.06231,
+        "m_eff_over_m0": 0.16,
+        "join_level": "reported_table_and_text",
+        "blocked": [
+          "structure_id",
+          "graph metrics",
+          "external_residual"
+        ]
+      },
+      {
+        "sample_id": "a-ZnON-11",
+        "cell_volume_m3": 1.5069619e-27,
+        "OI_norm": 0.06693,
+        "m_eff_over_m0": 0.17,
+        "join_level": "reported_table_and_text",
+        "blocked": [
+          "structure_id",
+          "graph metrics",
+          "external_residual"
+        ]
+      }
+    ],
+    "claim_status": "baseline rows only; not graph validation"
+  },
+  "forbidden_control_rules": {
+    "artifact": "current/A/artifacts/C2_forbidden_controls_rules.csv",
+    "schema": [
+      "target_type",
+      "forbidden_namespace",
+      "forbidden_columns_pattern",
+      "rationale"
+    ],
+    "execution_semantics": "For a requested target_type, downstream code should reject any feature column whose namespace and column name match a rule row unless the rationale states an explicit allowed residualization condition and that condition is present in the model registry.",
+    "major_blocks": [
+      "target-as-feature leakage",
+      "same-measurement algebraic transforms",
+      "Wannier/OI self-target leakage",
+      "graph construction metadata leakage",
+      "raw-label baseline prediction leakage",
+      "graph independent claims before OI and null residualization"
+    ]
+  },
+  "oi_fixed_pair_vs_fixed_density_rule": {
+    "artifact_row": "C2_forbidden_controls_rules.csv rows with target_type=graph_independent_claim",
+    "fixed_pair_rule": "If the compared samples have the same declared N_pair and pair set class, use OI_pair_mean = sum(Pairs_ab * OI_ab) / N_pair and do not interpret OI_raw_sum as a density effect.",
+    "fixed_density_rule": "If N_pair changes with volume, composition, or cutoff, use OI_norm = sum(Pairs_ab * OI_ab) / volume and include pair_density as a control or matching variable before testing graph metrics.",
+    "matching_tolerance_default": "abs(log(pair_density_a/pair_density_b)) <= 0.05 plus predeclared OI_norm tolerance",
+    "failure_action": "If neither fixed-pair nor fixed-density condition is satisfied, graph metrics may be computed as diagnostics but cannot be used for an independent residual-power claim."
+  },
+  "external_label_provenance_status": [
+    {
+      "source_family": "Jankousky",
+      "candidate_label_status": "blocked_provenance",
+      "current_known_items": [
+        "Round 2 recorded a literature-candidate a-In2O3 row with approximate m_eff_over_m0 around 0.2 and mobility-edge margin around 0.25 eV from project plan notes."
+      ],
+      "missing_for_same_sample_residual": [
+        "exact structure_id",
+        "same-sample OI_norm or exact overlap computation",
+        "graph metrics on the same structure",
+        "external label table with sample-level provenance",
+        "train/test residual split"
+      ],
+      "allowed_use_now": "blocked provenance row only",
+      "forbidden_use_now": "no graph residual validation and no comparison against Srivastava baseline"
+    },
+    {
+      "source_family": "Furubayashi",
+      "candidate_label_status": "blocked_pending_digitization",
+      "current_known_items": [
+        "A-side artifact A1_Furubayashi2019_digitized_transport_schema.csv contains only F2019_TODO with target_independence_status=pending_digitization.",
+        "Project knowledge records the current blocker as incomplete real digitization."
+      ],
+      "missing_for_same_sample_residual": [
+        "digitized transport rows",
+        "sample-level thickness/resistivity/carrier density/mobility provenance",
+        "same-sample structure or accepted structural proxy",
+        "OI_norm baseline",
+        "graph metrics",
+        "external residual"
+      ],
+      "allowed_use_now": "schema placeholder and blocked provenance",
+      "forbidden_use_now": "no material validation and no graph residual claim"
+    }
+  ],
+  "residual_protocol_status": {
+    "baseline_model": "y_s = f_y(OI_norm_s, onsite_variance_s, carrier_density_s, mobility_edge_margin_s, batch_s, finite_size_s) + error_s",
+    "external_residual": "r_y_s = y_s - f_y(OI_norm_s, controls_s)",
+    "graph_residual_test": "r_y_s = alpha_0 + alpha_1*lambda2_resid_s + alpha_2*spectral_radius_resid_s + alpha_3*attack_resid_s + error_s",
+    "acceptance_condition": "held-out residual improvement with stable signs and exact/same-sample provenance after OI_norm + controls",
+    "current_status": "not met"
+  },
+  "claims": [
+    {
+      "id": "C2R3-C1",
+      "statement": "Srivastava Table II provides a concrete OI_norm baseline for the four required amorphous oxide/oxynitride samples.",
+      "confidence": 0.92,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "sum(N_ab*S_ab)/V",
+          "variables": {
+            "N_ab": "number of metal-cation pairs of type ab within cutoff",
+            "S_ab": "orbital overlap integral for pair type ab at average distance",
+            "V": "cell volume in angstrom**3 in Table II"
+          },
+          "units": "angstrom**-3 as reported numerical normalization",
+          "limits": [
+            {
+              "variable": "V",
+              "to": "larger_at_fixed_pair_sum",
+              "expected": "decrease",
+              "desc": "Volume normalization penalizes lower pair density."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "a_IGZO_1114_OI_norm": 0.02966,
+              "a_IGZO_2217_OI_norm": 0.02669,
+              "a_ZnON_21_OI_norm": 0.06231,
+              "a_ZnON_11_OI_norm": 0.06693
+            },
+            "expected_range": [
+              0.02,
+              0.07
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "Reported Table II values are used directly rather than recomputed from structures.",
+        "Fig. 4 text effective masses are sample-family labels, not external residual labels."
+      ]
+    },
+    {
+      "id": "C2R3-C2",
+      "statement": "Forbidden-control logic is now executable as namespace plus regex matching, including OI fixed-pair/fixed-density safeguards.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "OI_pair_mean - OI_raw_sum/N_pair",
+          "variables": {
+            "OI_pair_mean": "fixed-pair mean overlap",
+            "OI_raw_sum": "sum of pair overlap contributions",
+            "N_pair": "number of declared pairs"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "N_pair",
+              "to": "fixed",
+              "expected": "0",
+              "desc": "At fixed N_pair, OI_pair_mean is the proper raw-sum normalization."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "N_pair": 10,
+              "OI_raw_sum": 2.5,
+              "OI_pair_mean": 0.25
+            },
+            "expected_range": [
+              -1e-12,
+              1e-12
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "Downstream code honors target_type and namespace matching.",
+        "Pair-density matching tolerance is predeclared before model fitting."
+      ]
+    }
+  ],
+  "negative_boundaries": [
+    "No graph residual power has been verified.",
+    "No same-sample material validation has been completed.",
+    "Synthetic results from Round 2 remain pipeline diagnostics only.",
+    "Srivastava Table II rows are baseline/provenance rows, not evidence that graph metrics win."
+  ],
+  "search_tool_self_check": {
+    "group1_tool": "not rerun in Round 3; prior Round 1/2 already established Srivastava baseline and this round used local Srivastava PDF",
+    "group2_tool": "not rerun in Round 3; task constrained to table filling and executable rules",
+    "group3_tool": "not rerun in Round 3; no new prior-art claim made",
+    "group4_tool": "local PDF and A-side provenance artifacts used for data availability audit"
+  }
+}

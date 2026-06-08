@@ -1,0 +1,437 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "window": "current-S1",
+  "round": 3,
+  "agent": "A",
+  "role": "lab-facing final protocol",
+  "status": "final go/no-go preregistration protocol from A side; no validation claimed",
+  "polaris": "Can I_phi be computed from input-side spectroscopy, structure, and dephasing before bulk superconducting outputs are inspected?",
+  "framework": "A leakage-controlled, same-sample input encoder for layered nickelates. The protocol tests whether the encoder can be frozen before bulk-output reveal; it does not claim mechanism, validation, or superconductivity prediction.",
+  "final_A_decision": "GO only as a preregistered experiment protocol if every input-side gate below is satisfied before opening Tc, zero resistance, shielding, Meissner fraction, critical current, Josephson plasma, superfluid density, condensate spectral weight, or bulk phase-stiffness files. NO-GO if any primary input, temperature, C_phi, coefficient, threshold, or sample inclusion rule is changed after output reveal.",
+  "findings": "The lab-facing Round 3 resolution is to keep the primary I_phi simple and auditable: evaluate all primary inputs at fixed 120 K only after confirming that the 120 K spectrum is normal-state by input-side optical criteria; define primary C_phi as a bounded normal-state c-axis Drude spectral-weight fraction; use any multi-channel observability/SVD packet only as an audit covariate, not as the primary C_phi; freeze baseline-collapse metrics, coefficient sensitivity tests, and exact failure conditions before output reveal. This preserves S1 as a protocol-level anti-circularity test, not as a validated index.",
+  "weakest_link": "C_phi remains the weakest link because a normal-state c-axis Drude fraction may reduce to generic interlayer coherence. The protocol therefore treats baseline collapse to C_phi-only or total c-axis spectral weight as a real failure, not as a secondary caveat.",
+  "next_plan": "Run only if a real same-sample or predeclared matched-sample input packet can satisfy the frozen gates. Otherwise terminate S1 as not experimentally executable.",
+  "claims_level": "protocol only",
+  "hard_prohibitions": [
+    "No Tc, zero resistance, shielding, Meissner fraction, critical current, Josephson plasma, superfluid density, condensate spectral weight, bulk phase stiffness, transition width, or phase-diagram boundary may enter I_phi construction, thresholds, sample inclusion, pressure inclusion, temperature selection, coefficient selection, or baseline metric selection.",
+    "No spectral window, fit component, pressure point, missing-data rule, coefficient range, or collapse threshold may be modified after any bulk superconducting output is opened.",
+    "Density-wave disappearance and prior superconducting dome knowledge may be logged as context but cannot define I_phi, C_phi, sample inclusion, or output thresholds."
+  ],
+  "constants": {
+    "kB_meV_per_K": 0.08617333262,
+    "hbar_meV_ps": 0.6582119569,
+    "cm_minus_1_to_ps_inv": 0.188365,
+    "Gamma_cm_minus_1_divisor_to_ps_inv": 5.308837
+  },
+  "resolved_temperature_rule": {
+    "primary_index_temperature_K": 120,
+    "rule": "The primary I_phi is evaluated at 120 K for every sample/pressure point. 120 K is chosen by input-side laboratory feasibility: it is cold enough for c-axis coherent spectral weight to be measurable in the normal state and high enough to avoid a superconducting-output-defined temperature choice. The value is frozen here and is not optimized against output.",
+    "normal_state_gate_at_120K": [
+      "The optical model used for C_phi at 120 K must fit without superconducting delta function, Josephson plasma oscillator, condensate missing-area term, or bulk phase-stiffness component.",
+      "The measured low-frequency sigma1_c(omega) at 120 K must not require a zero-frequency delta component within the frozen transfer-matrix residual rule.",
+      "If the laboratory has independent reason before output reveal that a sample/pressure point is already superconducting or output-contaminated at 120 K, that point is marked not_computable rather than moved to 80 K, 150 K, or another temperature.",
+      "Higher-temperature spectra at 150 K, 200 K, and 300 K are QC anchors for continuity and background, not alternate index temperatures."
+    ],
+    "no_substitution_rule": "If 120 K input spectra are unavailable, output-contaminated, or fail QC, the row is not_computable. Temperature substitution is forbidden.",
+    "failure_condition": "S1 NO-GO for any evaluation set in which fewer than 3 predeclared rows have computable 120 K primary I_phi after input-side QC, because rank/baseline tests become underdetermined."
+  },
+  "primary_index": {
+    "label": "I_phi_A_round3_primary",
+    "expression": "E_z2_meV*C_phi_primary/(kB_meV_per_K*T_K + hbarGamma_phi_meV + E_floor_meV)",
+    "T_K": 120,
+    "units": "dimensionless",
+    "bounds": {
+      "E_z2_meV": "[0, 120]",
+      "C_phi_primary": "[0, 1]",
+      "Gamma_phi_ps_inv": ">= 0",
+      "E_floor_meV": ">= 3",
+      "denominator_meV": ">= 13.3407999144"
+    },
+    "divergence_controls": [
+      "T_K is fixed at 120 K, so kB*T = 10.3407999144 meV.",
+      "E_floor_meV is bounded below by 3 meV.",
+      "C_phi_primary is clipped to [0, 1].",
+      "E_z2_meV is capped at 120 meV.",
+      "Nonfinite values produce formula_error and are not repaired after output reveal."
+    ]
+  },
+  "resolved_primary_C_phi_definition": {
+    "choice": "primary C_phi is the simple normal-state c-axis optical Drude fraction; any SVD or multi-channel observability score is audit-only",
+    "primary_formula": "C_phi_primary = max(0, min(1, W_c_Drude/(W_c_Drude + W_c_incoh + epsilon_W)))",
+    "rationale": "For real laboratory execution, the Drude fraction has direct units, a fixed optical fit, transparent failure modes, and fewer arbitrary cross-channel weights. A multi-channel SVD score may be useful for leakage auditing but is too weight- and preprocessing-dependent to be the primary lab-facing C_phi in this S1 protocol.",
+    "fixed_windows_cm_minus_1": {
+      "W_c_Drude": [0, 600],
+      "W_c_incoh": [600, 5000],
+      "background": [5000, 8000],
+      "Gamma_phi_fit": [0, 600]
+    },
+    "units": {
+      "sigma1_c": "ohm^-1 cm^-1",
+      "W_c_Drude": "ohm^-1 cm^-2",
+      "W_c_incoh": "ohm^-1 cm^-2",
+      "epsilon_W": "ohm^-1 cm^-2",
+      "C_phi_primary": "dimensionless"
+    },
+    "fixed_coefficients": {
+      "epsilon_W_ohm_inv_cm_minus_2": 50.0
+    },
+    "transfer_matrix_acceptance": {
+      "minimum_SNR_in_0_to_600_cm_minus_1": 5.0,
+      "maximum_reduced_chi2": 2.0,
+      "maximum_low_frequency_fractional_RMS_residual": 0.05,
+      "maximum_KK_consistency_fractional_RMS_residual": 0.05,
+      "maximum_negative_spectral_weight_fraction": 0.0,
+      "minimum_integrated_signal_over_noise_for_W_c_Drude": 3.0,
+      "fit_status_rule": "If any acceptance criterion fails, C_phi_status is fit_failure and primary I_phi is not computed."
+    },
+    "audit_only_observability_score": {
+      "allowed": true,
+      "name": "C_phi_audit_observability",
+      "rule": "May be reported in a sealed audit table if computed from input-side variables only, with preprocessing and matrix columns frozen before output reveal. It cannot replace C_phi_primary, tune the threshold, or rescue a failed primary I_phi.",
+      "failure_relevance": "If the audit score disagrees with C_phi_primary, this is reported descriptively. The primary go/no-go decision still follows C_phi_primary and baseline-collapse rules."
+    }
+  },
+  "input_variable_definitions": {
+    "E_z2": {
+      "formula": "E_z2_meV = min(alpha_z2_meV*S_z2_norm, E_z2_cap_meV)",
+      "fixed_coefficients": {
+        "alpha_z2_meV": 100.0,
+        "E_z2_cap_meV": 120.0
+      },
+      "QC_failures": [
+        "S_z2_norm missing without a predeclared fallback proxy",
+        "S_z2_norm < 0 or S_z2_norm > 1.2",
+        "orbital projection basis changed after output reveal"
+      ]
+    },
+    "Gamma_phi": {
+      "primary_formula": "Gamma_phi_ps_inv = Gamma_Drude_cm_minus_1/5.308837",
+      "energy_formula": "hbarGamma_phi_meV = hbar_meV_ps*Gamma_phi_ps_inv",
+      "QC_failures": [
+        "Gamma_Drude_cm_minus_1 is negative or nonfinite",
+        "Gamma is inferred from superconducting transition width or fluctuation fitting",
+        "fallback dephasing conversion was not declared before output reveal"
+      ]
+    },
+    "E_floor": {
+      "formula": "E_floor_meV = max(E_floor_min_meV, lambda_vac_meV_per_pct*sigma_vac_pct + lambda_strain_meV_per_mrad*sigma_strain_mrad + lambda_res*hbarGamma_res_meV)",
+      "fixed_coefficients": {
+        "E_floor_min_meV": 3.0,
+        "lambda_vac_meV_per_pct": 2.0,
+        "lambda_strain_meV_per_mrad": 1.0,
+        "lambda_res": 0.25
+      },
+      "QC_failures": [
+        "oxygen vacancy/disorder proxy missing",
+        "strain or structural linewidth metric missing",
+        "residual scattering term inferred from output-side transport",
+        "disorder metric changed after output reveal"
+      ]
+    }
+  },
+  "resolved_baseline_collapse_protocol": {
+    "purpose": "After output reveal, decide whether I_phi adds protocol-level information beyond simpler input-side alternatives. This is a collapse test, not validation.",
+    "primary_output_endpoint_for_evaluation": "binary withheld bulk-output label declared before reveal: bulk_superconducting_confirmed = true only if the experimental team's predeclared output criteria are satisfied outside the I_phi construction pipeline",
+    "secondary_output_endpoint": "ranked or continuous output severity may be archived but cannot replace the primary binary endpoint unless declared before reveal",
+    "minimum_rows_for_primary_metric": 5,
+    "primary_metric": "AUROC for binary output labels, computed with midrank tie handling",
+    "secondary_metric": "Kendall_tau_b rank correlation, computed only as a tie/ordering diagnostic",
+    "uncertainty_rule": "Use paired bootstrap over sample/pressure rows with 10000 resamples and fixed random_seed=280301. Report median and 95 percent percentile interval for AUROC(I_phi)-AUROC(baseline).",
+    "tie_rule": "Exact equal scores receive midranks. If more than 40 percent of computable rows are tied under I_phi, declare ranking_degenerate and NO-GO.",
+    "collapse_threshold": "I_phi fails by baseline collapse if any baseline has AUROC greater than or equal to AUROC(I_phi)-0.03, or if the 95 percent paired-bootstrap interval for AUROC(I_phi)-AUROC(baseline) includes 0.",
+    "small_N_rule": "If computable rows are 3 or 4, do not compute AUROC as decisive evidence. Use only the pre-output decision table and mark baseline_collapse_status = underpowered. The protocol may proceed as a pilot but cannot claim survival.",
+    "baselines": [
+      {
+        "id": "B0_C_only",
+        "formula": "C_phi_primary",
+        "failure_meaning": "I_phi collapses to generic normal-state c-axis coherence."
+      },
+      {
+        "id": "B1_E_z2_only",
+        "formula": "E_z2_meV/120",
+        "failure_meaning": "I_phi collapses to orbital spectral weight alone."
+      },
+      {
+        "id": "B2_disorder_only",
+        "formula": "1/(1 + E_floor_meV/10)",
+        "failure_meaning": "I_phi collapses to sample cleanliness/disorder."
+      },
+      {
+        "id": "B3_denominator_only",
+        "formula": "1/(kB_meV_per_K*T_K + hbarGamma_phi_meV + E_floor_meV)",
+        "failure_meaning": "I_phi collapses to low dephasing/disorder denominator."
+      },
+      {
+        "id": "B4_total_c_axis_weight",
+        "formula": "(W_c_Drude + W_c_incoh)/(W_c_Drude + W_c_incoh + epsilon_W)",
+        "failure_meaning": "I_phi collapses to total c-axis optical spectral weight without coherent/incoherent distinction."
+      }
+    ]
+  },
+  "resolved_coefficient_sensitivity_tests": {
+    "rule": "All sensitivity variants are computed before output reveal and sealed with the primary table. Sensitivity results cannot change the primary coefficients or primary C_phi.",
+    "one_at_a_time_variants": {
+      "alpha_z2_meV": [50.0, 75.0, 100.0, 125.0, 150.0],
+      "epsilon_W_ohm_inv_cm_minus_2": [10.0, 25.0, 50.0, 100.0, 200.0],
+      "lambda_vac_meV_per_pct": [1.0, 2.0, 4.0],
+      "lambda_strain_meV_per_mrad": [0.5, 1.0, 2.0],
+      "lambda_res": [0.1, 0.25, 0.5],
+      "E_floor_min_meV": [1.0, 3.0, 5.0]
+    },
+    "combined_stress_variants": [
+      {
+        "id": "low_penalty_high_orbital",
+        "alpha_z2_meV": 150.0,
+        "epsilon_W_ohm_inv_cm_minus_2": 10.0,
+        "lambda_vac_meV_per_pct": 1.0,
+        "lambda_strain_meV_per_mrad": 0.5,
+        "lambda_res": 0.1,
+        "E_floor_min_meV": 1.0
+      },
+      {
+        "id": "high_penalty_low_orbital",
+        "alpha_z2_meV": 50.0,
+        "epsilon_W_ohm_inv_cm_minus_2": 200.0,
+        "lambda_vac_meV_per_pct": 4.0,
+        "lambda_strain_meV_per_mrad": 2.0,
+        "lambda_res": 0.5,
+        "E_floor_min_meV": 5.0
+      }
+    ],
+    "sensitivity_metric": "Spearman rank correlation between each variant's I_phi ranking and the primary I_phi ranking, computed before output reveal.",
+    "sensitivity_pass_threshold": "PASS if every one-at-a-time variant has Spearman_rho >= 0.80 versus primary ranking and both combined stress variants have Spearman_rho >= 0.60. Otherwise mark coefficient_fragile.",
+    "failure_consequence": "coefficient_fragile is NO-GO for strong protocol survival. The experiment may still be archived as exploratory input screening but S1 cannot claim a stable preregistered encoder."
+  },
+  "serialization_and_blinding_rules": {
+    "primary_input_table_name": "I_phi_input_table_round3.csv",
+    "required_column_order": [
+      "project",
+      "sample_id",
+      "pressure_GPa",
+      "T_K",
+      "S_z2_norm",
+      "E_z2_meV",
+      "W_c_Drude_ohm_inv_cm_minus_2",
+      "W_c_incoh_ohm_inv_cm_minus_2",
+      "C_phi_primary",
+      "Gamma_Drude_cm_minus_1",
+      "Gamma_phi_ps_inv",
+      "hbarGamma_phi_meV",
+      "sigma_vac_pct",
+      "sigma_strain_mrad",
+      "Gamma_res_ps_inv",
+      "hbarGamma_res_meV",
+      "E_floor_meV",
+      "denominator_meV",
+      "I_phi",
+      "row_status",
+      "QC_flags"
+    ],
+    "csv_dialect": "RFC4180 comma-separated UTF-8 without BOM; header required; CRLF or LF accepted if hash manifest records exact bytes",
+    "numeric_precision": "Decimal text with at least 6 significant digits for inputs and computed fields; no locale commas; NaN and Infinity forbidden",
+    "null_handling": "Missing primary values are empty fields only when row_status is not_computable or QC_fail; otherwise empty primary fields are fatal serialization_error",
+    "hash_rule": "Compute SHA-256 over exact file bytes for input table, fit scripts, coefficient manifest, QC logs, and sensitivity table before output reveal.",
+    "timestamp_rule": "Use filesystem timestamp plus independent lab notebook or electronic lab notebook timestamp. The output directory must remain sealed until manifest_hash is recorded.",
+    "auditor_recomputation": "An independent auditor recomputes E_z2, C_phi_primary, Gamma_phi, E_floor, denominator, I_phi, baselines, and sensitivity rankings from raw input fields. Any mismatch exceeding relative tolerance 1e-6 or absolute tolerance 1e-9 is formula_mismatch and NO-GO until corrected before output reveal."
+  },
+  "exact_failure_conditions": {
+    "pre_output_NO_GO": [
+      "Required AGENT/project blinding cannot be enforced.",
+      "Sample list or pressure grid is not frozen before output reveal.",
+      "Fewer than 3 rows have computable primary I_phi at 120 K after input-side QC.",
+      "Any primary C_phi fit requires Josephson plasma, condensate, superconducting delta function, superfluid density, or bulk phase-stiffness component.",
+      "Any primary fit violates SNR, reduced_chi2, residual, KK consistency, or nonnegative spectral-weight acceptance criteria.",
+      "Any required coefficient or spectral window is chosen using superconducting-output knowledge.",
+      "Auditor recomputation fails and is not corrected before output reveal.",
+      "Coefficient sensitivity produces coefficient_fragile before output reveal."
+    ],
+    "post_output_NO_GO": [
+      "Baseline collapse occurs against C_phi-only, E_z2-only, disorder-only, denominator-only, or total-c-axis-weight baseline under the frozen AUROC rule.",
+      "The output endpoint was changed after reveal.",
+      "Rows were excluded after reveal for reasons not present in the sealed input QC ledger.",
+      "I_phi is interpreted as validated despite underpowered or baseline-collapsed evaluation.",
+      "The only surviving association is density-wave disappearance or prior-art generic interlayer coherence."
+    ],
+    "nonfatal_statuses": [
+      "not_computable rows remain in the ledger and reduce power but are not fatal unless fewer than 3 computable rows remain.",
+      "audit_only_observability disagreement is descriptive and not fatal unless it exposes output leakage or preprocessing changes.",
+      "underpowered baseline status for 3 or 4 computable rows permits pilot archiving but not protocol survival."
+    ]
+  },
+  "final_decision_table_for_real_experiments": [
+    {
+      "stage": "1. Before input analysis",
+      "condition": "Sample list, pressure grid, 120 K rule, windows, coefficients, output endpoint, and file manifest are frozen.",
+      "decision": "GO to input computation",
+      "else_decision": "NO-GO: preregistration failed"
+    },
+    {
+      "stage": "2. 120 K normal-state gate",
+      "condition": "120 K spectra fit with allowed normal-state components only and pass residual/SNR/KK/nonnegative-weight gates.",
+      "decision": "GO for computable rows",
+      "else_decision": "Mark row not_computable or fit_failure; NO-GO if fewer than 3 computable rows remain"
+    },
+    {
+      "stage": "3. Primary I_phi computation",
+      "condition": "Auditor recomputes all fields from sealed inputs within tolerance and all values are finite.",
+      "decision": "GO to sensitivity sealing",
+      "else_decision": "NO-GO until corrected before output reveal"
+    },
+    {
+      "stage": "4. Coefficient sensitivity",
+      "condition": "All one-at-a-time variants have Spearman_rho >= 0.80 and both combined stress variants have Spearman_rho >= 0.60 versus primary ranking.",
+      "decision": "GO to output reveal",
+      "else_decision": "NO-GO for stable S1 encoder; archive only as exploratory"
+    },
+    {
+      "stage": "5. Output reveal",
+      "condition": "Output endpoint and row ledger match the sealed preregistration.",
+      "decision": "GO to baseline-collapse evaluation",
+      "else_decision": "NO-GO: output leakage or endpoint drift"
+    },
+    {
+      "stage": "6. Baseline collapse",
+      "condition": "I_phi AUROC exceeds every baseline by more than 0.03 and paired-bootstrap 95 percent interval for AUROC difference excludes 0.",
+      "decision": "GO: protocol survives as non-circular encoder candidate only",
+      "else_decision": "NO-GO: I_phi collapses to simpler input-side baseline"
+    },
+    {
+      "stage": "7. Claim boundary",
+      "condition": "Report states protocol survival only, with no claim of validation, mechanism, or superconductivity evidence from I_phi alone.",
+      "decision": "GO for S1 write-up",
+      "else_decision": "NO-GO: claim inflation"
+    }
+  ],
+  "literature_needed": [
+    "same-sample La3Ni2O7 c-axis optical conductivity under pressure with raw 120 K spectra",
+    "same-sample or predeclared matched-sample dz2-resolved ARPES/XAS/RIXS/DFT-constrained spectral-weight proxy",
+    "normal-state optical or NMR dephasing measurement at the frozen sample/pressure grid",
+    "oxygen vacancy, strain, and residual-scattering input metrics with output labels withheld"
+  ],
+  "claims": [
+    {
+      "id": "R3A_C1",
+      "statement": "A lab-facing S1 protocol should use fixed 120 K primary I_phi evaluation with a normal-state optical gate, not a temperature selected from output performance.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "I_phi_A_round3_primary",
+          "expression": "E_z2_meV*C_phi_primary/(kB_meV_per_K*T_K + hbarGamma_phi_meV + E_floor_meV)",
+          "variables": {
+            "T_K": "fixed at 120 before output reveal",
+            "E_z2_meV": "input-side dz2 energy proxy",
+            "C_phi_primary": "normal-state c-axis Drude fraction",
+            "hbarGamma_phi_meV": "normal-state dephasing energy",
+            "E_floor_meV": "input-side disorder/structure energy floor"
+          },
+          "units": "dimensionless",
+          "numerical_test": {
+            "substitutions": {
+              "E_z2_meV": 62.0,
+              "C_phi_primary": 0.5806451613,
+              "kB_meV_per_K": 0.08617333262,
+              "T_K": 120.0,
+              "hbarGamma_phi_meV": 9.919,
+              "E_floor_meV": 3.616
+            },
+            "expected_value": 1.5078,
+            "expected_range": [1.50, 1.52]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/PhysRevB.109.205156",
+          "label": "Sui et al. 2024"
+        },
+        {
+          "doi": "10.1038/s42005-025-02266-z",
+          "label": "Lu et al. 2025"
+        }
+      ],
+      "assumptions": [
+        "120 K input spectra are not output-contaminated under the predeclared normal-state gate.",
+        "No bulk superconducting output is used to select or alter the temperature."
+      ]
+    },
+    {
+      "id": "R3A_C2",
+      "statement": "The primary lab-facing C_phi should be the bounded normal-state c-axis Drude fraction; multi-channel observability scores are audit-only in S1.",
+      "confidence": 0.78,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "C_phi_primary_A_round3",
+          "expression": "max(0, min(1, W_c_Drude/(W_c_Drude + W_c_incoh + epsilon_W)))",
+          "variables": {
+            "W_c_Drude": "0-600 cm^-1 fitted normal-state narrow Drude spectral weight",
+            "W_c_incoh": "600-5000 cm^-1 fitted normal-state incoherent spectral weight",
+            "epsilon_W": "50 ohm^-1 cm^-2 stabilizer"
+          },
+          "units": "dimensionless"
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/PHYSREVB.53.14558",
+          "label": "Uchida et al. 1996"
+        },
+        {
+          "doi": "arXiv:2512.03806",
+          "label": "Liu et al. 2025 La4Ni3O10 optical spectroscopy"
+        }
+      ],
+      "assumptions": [
+        "The optical decomposition can be performed with frozen normal-state components only.",
+        "C_phi_primary is not calibrated against output labels."
+      ]
+    },
+    {
+      "id": "R3A_C3",
+      "statement": "S1 survives only if the sealed primary I_phi is coefficient-stable before output reveal and does not collapse after output reveal to simpler input-side baselines.",
+      "confidence": 0.84,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "baseline_delta_AUROC",
+          "expression": "AUROC_I_phi - AUROC_baseline",
+          "variables": {
+            "AUROC_I_phi": "AUROC of sealed primary I_phi against withheld binary output",
+            "AUROC_baseline": "AUROC of a predeclared simpler input-side baseline"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "baseline_delta_AUROC",
+              "to": "0",
+              "expected": "baseline_collapse",
+              "desc": "I_phi does not outperform the simpler baseline under the frozen rule"
+            }
+          ]
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "The output endpoint is frozen before reveal.",
+        "Bootstrap and tie rules are executed exactly as preregistered."
+      ]
+    }
+  ],
+  "deepening": {
+    "deepening_1": {
+      "next_consequence": "If the protocol passes pre-output gates but fails baseline collapse, the correct conclusion is not that I_phi is almost useful; it is that the proposed index was a relabeling of a simpler input-side quantity.",
+      "second_consequence": "The next research step would then be to abandon S1 or redefine a new non-circular encoder on an external dataset, not to retune coefficients on the revealed outputs."
+    },
+    "deepening_2": {
+      "most_fragile_assumption": "That 120 K normal-state c-axis Drude weight is an input-side phase-bus readiness proxy rather than prior-art generic interlayer coherence.",
+      "second_consequence": "The C_phi-only and total-c-axis-weight baselines are therefore decisive failure tests, not optional robustness checks."
+    }
+  },
+  "inspector_check": {
+    "formula": "I_phi = E_z2_meV*C_phi_primary/(kB_meV_per_K*120 + hbarGamma_phi_meV + E_floor_meV), dimensionless; C_phi_primary = W_c_Drude/(W_c_Drude + W_c_incoh + epsilon_W), clipped to [0,1].",
+    "direction": "Increasing E_z2 or C_phi_primary increases I_phi; increasing Gamma_phi or E_floor decreases I_phi; divergence is bounded by fixed 120 K and E_floor>=3 meV.",
+    "data": "Protocol definitions only; no bulk superconducting output used or claimed.",
+    "assumptions": "120 K primary inputs pass normal-state optical QC; all files, coefficients, windows, baselines, and sensitivity variants are sealed before output reveal."
+  }
+}

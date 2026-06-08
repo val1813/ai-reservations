@@ -1,0 +1,264 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 1,
+  "agent": "B",
+  "polaris": "For amorphous In2O3 and related transparent conducting oxides without long-range periodicity, is band-like transport sufficiently diagnosed by Anderson/Mott mobility-edge filling, or by a medium-range metal-s-orbital connectivity network plus O-O/coordination-defect thresholds?",
+  "framework": "Network science / weighted percolation. Treat a-In2O3 as a 3D effective In-s hopping graph, not as a blurred crystal band that automatically survives disorder.",
+  "findings": "The nonstandard criterion is graph percolation of the In-s conduction network. Proposition B becomes sharp if giant component fraction, effective degree, edge/corner-sharing connectivity, and O-O defect edge-killing predict spectral ridge collapse, IPR growth, level-statistics drift, Drude-weight loss, and Hall mobility loss better than EF-Ec at matched carrier density.",
+  "math_object": "Weighted graph G=(V,E,w). V are In sites. E are In-In pairs capable of effective In-s hopping. w_ij = exp(-(r_ij-r0)/lambda) * S_ij * D_ij, where S_ij encodes corner/edge sharing and D_ij penalizes O-O or coordination defects. The deeper object is the spectrum of the weighted adjacency/Laplacian and the Anderson Hamiltonian defined on this graph.",
+  "graph_abstraction": {
+    "nodes": "One node per In atom. Node attributes: In-O coordination, local polyhedral distortion, distance to nearest O-O defect.",
+    "edges": "Connect In_i and In_j when r_ij < r_cut and an O bridge or spatial overlap supports effective In-s hopping. Edge attributes: r_ij, corner-sharing flag, edge-sharing flag, shared-O count, local O-O defect penalty.",
+    "weights": "t_ij = t0 * exp(-(r_ij-r0)/lambda) * (1 + alpha_edge*I_edge + alpha_corner*I_corner) * exp(-beta*f_OO_local). Fit from Wannier/QSGW if available; otherwise use this as a geometry proxy.",
+    "transport_mapping": "Build H_ij = epsilon_i*delta_ij + t_ij; compute IPR, adjacent-gap ratio, spectral-ridge proxy, and Drude/Kubo proxy; compare with Hall mobility at fixed carrier-density bins."
+  },
+  "one_to_two_week_metrics": [
+    {
+      "metric": "giant_component_fraction",
+      "definition": "S_GC = N_largest_connected_component / N_In, computed for both unweighted and t_ij > t_min thresholded weighted graphs.",
+      "expected_use": "B predicts nonlinear mobility/ridge/Drude collapse when S_GC crosses a sample-family threshold."
+    },
+    {
+      "metric": "average_degree",
+      "definition": "z_bar = 2*E/N_In and z_eff = mean_i(sum_j(t_ij/t0)).",
+      "expected_use": "Use as a percolation control variable. The threshold should be calibrated from the structural ensemble rather than assumed universal."
+    },
+    {
+      "metric": "In_In_distance_distribution",
+      "definition": "P(r_In-In), medium-range peak areas, and edge density inside r_cut.",
+      "expected_use": "Separates samples with similar carrier density but different In-s overlap topology."
+    },
+    {
+      "metric": "O_O_defect_fraction",
+      "definition": "f_OO = N(O-O distances below defect cutoff or peroxo-like motifs) / N_O; also compute local f_OO around each edge.",
+      "expected_use": "Models O-O defects as edge deletion or edge weakening, not merely onsite disorder."
+    },
+    {
+      "metric": "edge_corner_sharing_ratio",
+      "definition": "R_edge = N_edge-sharing/(N_edge-sharing+N_corner-sharing); R_corner analogously; also record per-node sharing-type degree.",
+      "expected_use": "Distinguishes a merely dense graph from a truly 3D In-O-In connected hopping backbone."
+    }
+  ],
+  "falsifiable_predictions": [
+    {
+      "id": "P1",
+      "statement": "At matched carrier density, S_GC or z_eff crossing a threshold predicts Hall mobility and Drude-weight collapse better than EF-Ec.",
+      "observable": "mu_H, Drude weight D, S_GC, z_eff, f_OO",
+      "test": "Across melt-quench, annealing, or oxygen-defect ensembles, compare cross-validated models mu_H ~ S_GC+z_eff+f_OO versus mu_H ~ EF-Ec after binning by carrier density.",
+      "expected_direction": "mu_H and D fall nonlinearly when S_GC<S_c or z_eff<z_c; similar EF-Ec does not rescue high mobility if network connectivity is below threshold."
+    },
+    {
+      "id": "P2",
+      "statement": "Spectral ridge broadening, IPR increase, and level-statistics Poissonization synchronize with the network threshold.",
+      "observable": "A(k,E) ridge linewidth Gamma_k, IPR(EF), adjacent gap ratio r_bar",
+      "test": "In a graph Hamiltonian or DFT/Wannier supercell, progressively delete or weaken low-quality defect edges and track S_GC, Gamma_k, IPR, and r_bar.",
+      "expected_direction": "Near the same network window, Gamma_k rises, IPR(EF) rises, and r_bar shifts from Wigner-Dyson-like toward Poisson-like statistics."
+    },
+    {
+      "id": "P3",
+      "statement": "O-O defects behave as network edge killers; equal-amplitude onsite disorder that does not damage In-s connectivity should be less destructive.",
+      "observable": "f_OO, removed_edge_fraction, IPR(EF), mobility proxy",
+      "test": "Compare two perturbations: onsite-only disorder versus O-O-position-guided edge weakening/deletion at matched energy variance.",
+      "expected_direction": "Edge-killing disorder destroys ridge coherence and extended states faster than onsite-only disorder."
+    }
+  ],
+  "strangest_prediction": "A sample can have EF nominally above a fitted mobility edge and carrier density comparable to a good conductor, yet lose effective band ridge, Drude-like response, and Hall mobility together if its In-s graph falls below the weighted percolation threshold.",
+  "deepening_1": {
+    "question": "Does the isomorphism have a deeper mathematical layer?",
+    "answer": "Yes. Ordinary percolation asks only whether a giant component exists. The deeper layer is a graph-spectral transition: weighted-adjacency spectral radius rho(A_w), Laplacian algebraic connectivity lambda_2, and the Anderson-Hamiltonian mobility edge may be three projections of the same connectivity transition. In this view, mobility edge is not denied; it is reinterpreted as the spectral shadow of the In-s weighted graph."
+  },
+  "deepening_2": {
+    "question": "Does the borrowed network idea have a next-level extension in its home field?",
+    "answer": "Yes. Ecological and traffic networks analyze robustness under targeted attack, betweenness bottlenecks, and multiplex layers. Mapping back: O-O/coordination defects may preferentially kill high-betweenness bridge edges rather than random edges; edge-sharing and corner-sharing are two multiplex hopping layers. A graph with many total edges but damaged bridge edges should collapse earlier than a randomly diluted graph."
+  },
+  "a_objection": "A will object that network metrics are just renamed disorder strength and can be absorbed into Ec. B's answer: if matched-n and matched-EF-Ec samples differ strongly in S_GC/z_eff/f_OO and spectral/transport collapse follows the network threshold, then A becomes a post-hoc fit rather than a sufficient criterion.",
+  "failed_jumps": [
+    "Traffic shortest-path congestion was rejected as the main framework because electron states are coherent quantum states rather than classical packets.",
+    "Ecological trophic cascade was kept only as a robustness analogy because trophic hierarchy has no clean mapping to In-s hopping energy hierarchy."
+  ],
+  "next_plan": "Round 2 should implement a minimal structure-to-graph script: input amorphous In2O3 coordinates, output S_GC, z_bar, z_eff, P(r_In-In), f_OO, and edge/corner ratio; then build a tight-binding graph Hamiltonian and scan t_min or f_OO to compute IPR, r_bar, spectral proxy, and Drude proxy.",
+  "literature_needed": [
+    "amorphous In2O3 QSGW local environment ensemble effective bands Nature Physics 2026",
+    "transparent conducting oxide amorphous In2O3 In s orbital connectivity edge sharing corner sharing",
+    "continuum percolation random geometric graph weighted percolation spectral dimension",
+    "Anderson model on percolation cluster inverse participation ratio level spacing statistics"
+  ],
+  "inspector_check": [
+    {
+      "formula": "S_GC = N_GC/N_In; z_bar = 2*E/N_In; z_eff = mean_i(sum_j(t_ij/t0))",
+      "direction": "Lower S_GC or z_eff should lower mu_H, Drude weight, and spectral-ridge coherence.",
+      "data": "No A output used. Inputs are the user-provided LP29 polar question, project state, and the B-agent role instructions.",
+      "assumptions": "In-s hopping can be approximated monotonically from In-In distance, sharing topology, and local defect penalties; carrier density can be controlled or binned."
+    },
+    {
+      "formula": "H_ij = epsilon_i*delta_ij + t_ij; IPR_n = sum_i(abs(psi_n_i)**4); r_bar = mean(min(delta_n,delta_n1)/max(delta_n,delta_n1))",
+      "direction": "Near the low-connectivity threshold, IPR rises, r_bar shifts toward Poisson-like behavior, and A(k,E) linewidth increases.",
+      "data": "Can be generated from DFT/Wannier supercells or from a geometry-proxy tight-binding ensemble within 1-2 weeks.",
+      "assumptions": "Finite supercells are large enough to show the trend; spectral proxy can start with unfolding or velocity-weighted DOS."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "High-mobility band-like transport in a-In2O3 can be restated as weighted In-s hopping graph percolation; the mobility edge is a posterior spectral projection of that graph.",
+      "confidence": 0.66,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "S_GC - S_c",
+          "description": "Connectivity control parameter relative to percolation threshold.",
+          "variables": {
+            "S_GC": "largest connected component fraction",
+            "S_c": "sample-family-specific percolation threshold"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "S_GC",
+              "to": "0",
+              "expected": "localized_or_fragmented_network",
+              "desc": "No stable band ridge expected without a percolating network."
+            },
+            {
+              "variable": "S_GC",
+              "to": "1",
+              "expected": "extended_network_possible",
+              "desc": "Network connectivity no longer limits transport."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "S_GC": 0.55,
+              "S_c": 0.45
+            },
+            "expected_range": [
+              0.0,
+              1.0
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2026",
+          "role": "project foundation"
+        }
+      ],
+      "assumptions": [
+        "In-s orbital overlap dominates conduction-band-edge transport in a-In2O3",
+        "local structural motifs can be mapped to monotonic hopping weights",
+        "carrier density can be controlled or statistically conditioned"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "O-O and coordination defects are more dangerous when they remove high-betweenness hopping edges than when they only add onsite disorder.",
+      "confidence": 0.58,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "t0*exp(-(r_ij-r0)/lambda)*exp(-beta*f_OO)",
+          "description": "Minimal edge-weight proxy for defect-penalized In-s hopping.",
+          "variables": {
+            "t0": "reference hopping amplitude",
+            "r_ij": "In-In distance",
+            "r0": "reference In-In distance",
+            "lambda": "orbital decay length",
+            "beta": "defect penalty coefficient",
+            "f_OO": "local O-O defect fraction"
+          },
+          "units": "electron_volt",
+          "limits": [
+            {
+              "variable": "f_OO",
+              "to": "0",
+              "expected": "distance_controlled_hopping",
+              "desc": "Without O-O defects, edge weight is mostly distance/topology controlled."
+            },
+            {
+              "variable": "f_OO",
+              "to": "oo",
+              "expected": "0",
+              "desc": "Strong defect limit deletes the edge."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "t0": 1.0,
+              "r_ij": 3.4,
+              "r0": 3.3,
+              "lambda": 0.5,
+              "beta": 2.0,
+              "f_OO": 0.1
+            },
+            "expected_range": [
+              0.4,
+              1.0
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2026",
+          "role": "structural mechanism clue"
+        }
+      ],
+      "assumptions": [
+        "O-O defects locally interrupt In-O-In mediated connectivity",
+        "edge/corner-sharing motifs can be classified from atomistic coordinates"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The strong falsifiable version is synchronized threshold behavior across spectral ridge width, IPR, level statistics, Drude weight, and Hall mobility.",
+      "confidence": 0.62,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3",
+          "expression": "mean(min(delta_n,delta_n1)/max(delta_n,delta_n1))",
+          "description": "Adjacent-gap ratio for tracking Wigner-Dyson-like to Poisson-like statistics.",
+          "variables": {
+            "delta_n": "E_{n+1}-E_n",
+            "delta_n1": "E_{n+2}-E_{n+1}"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "network_connectivity",
+              "to": "high",
+              "expected": "Wigner_Dyson_side",
+              "desc": "Extended states and level repulsion increase."
+            },
+            {
+              "variable": "network_connectivity",
+              "to": "low",
+              "expected": "Poisson_side",
+              "desc": "Localization and independent levels increase."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "delta_n": 0.08,
+              "delta_n1": 0.12
+            },
+            "expected_range": [
+              0.0,
+              1.0
+            ]
+          }
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "finite-size graph ensembles can resolve level-statistics trends",
+        "spectral ridge coherence can be quantified by linewidth or unfolded spectral weight"
+      ]
+    }
+  ]
+}

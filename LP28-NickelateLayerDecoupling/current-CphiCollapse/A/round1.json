@@ -1,0 +1,419 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "north_star": "LP28-CphiCollapse",
+  "round": 1,
+  "agent": "A",
+  "polaris": "Does an independent input-side C_phi exist for nickelate phase-bus readiness, or does every measurable C_phi collapse to ordinary c-axis coherence and sample quality?",
+  "framework": "Layered-superconductor interlayer response: separate normal single-particle c-axis conductivity from bilayer phase-transfer susceptibility and even/odd interlayer channel structure.",
+  "findings": "A defensible independent C_phi is not total c-axis conductivity, not Drude fraction, and not dz2 weight. The surviving object is a residual input-side phase-transfer invariant: the part of low-energy interlayer response that is locked to bilayer odd/even phase structure after conditioning on total c-axis spectral weight, Drude fraction/scattering, oxygen-vacancy/disorder/strain proxies, and dz2 spectral weight. The discriminator is rank discordance: two samples or pressure points with matched W_c, f_D, gamma, vacancy/strain proxies, and dz2 weight but different odd/even interlayer phase-transfer index P_oe should be ordered differently by C_phi than by every simpler baseline. This is experimentally meaningful because La3Ni2O7 already has independent evidence for pressure superconductivity, oxygen-vacancy sensitivity, density-wave evolution, orbital/dz2 involvement, and bilayer/odd-channel theory; therefore a C_phi claim must live only in the residual bilayer phase channel.",
+  "weakest_link": "The invariant is not yet directly measured in pressurized La3Ni2O7 normal-state optics; it requires combining c-axis/THz optical response or reflectivity-derived spectral functions with structural/orbital/disorder controls and, ideally, an odd/even interlayer channel proxy from Raman/RIXS/neutron or pressure-dependent bilayer modeling.",
+  "next_plan": "Round 2 should stress-test whether P_oe can be operationally extracted without superconducting output: define minimal observables, identify existing figures/data for reanalysis, and test whether the residual can be annihilated by oxygen/strain/dephasing covariance.",
+  "literature_needed": "La3Ni2O7 pressure optical conductivity; c-axis infrared/THz under pressure; bilayer nickelate odd even spin susceptibility; Raman density wave La3Ni2O7; XANES dz2 pz orbital La3Ni2O7; oxygen vacancies La3Ni2O7 Nature 2024; interlayer Josephson tunneling c-axis optical sum rule",
+  "core_discriminator": {
+    "name": "Residual odd-even phase-transfer rank discordance",
+    "definition": "C_phi_ind = residual(P_oe | W_c, f_D, gamma, V_O, epsilon_strain, Z_dz2)",
+    "rank_test": "If samples i and j satisfy abs(W_c_i-W_c_j), abs(f_D_i-f_D_j), abs(gamma_i-gamma_j), abs(V_O_i-V_O_j), abs(epsilon_i-epsilon_j), and abs(Z_dz2_i-Z_dz2_j) within experimental tolerance, but P_oe_i > P_oe_j, then independent C_phi predicts i ranks above j. Baseline collapse predicts no stable rank difference once the conditioning variables are matched.",
+    "opposite_predictions": {
+      "independent_C_phi": "Residual P_oe remains significant and gives a reproducible pre-output rank ordering across matched samples or pressure points.",
+      "baseline_collapse": "Residual P_oe is statistically zero or unstable after conditioning; any apparent rank is absorbed by W_c, f_D, gamma, oxygen/disorder/strain, or dz2 spectral weight."
+    },
+    "why_it_avoids_requested_baselines": [
+      "Total c-axis spectral weight W_c is conditioned out.",
+      "Drude fraction f_D and scattering gamma are conditioned out separately, so C_phi is not Drude coherence alone.",
+      "Oxygen vacancies, disorder, and strain enter as explicit nuisance controls V_O and epsilon_strain.",
+      "Dephasing/scattering is represented by gamma or 1/tau and cannot by itself generate a nonzero conditioned residual.",
+      "dz2 spectral weight Z_dz2 is conditioned out, leaving only the bilayer phase-transfer geometry of the dz2/pz channel."
+    ]
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The phrase C_phi or phase-bus readiness does not appear to have a direct prior-art equivalent in the nickelate searches; the nearest prior art is c-axis phase coherence, interlayer Josephson/tunneling response, optical spectral weight, and bilayer odd/even channel physics.",
+      "confidence": 0.68,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1007/0-306-48063-8_9",
+          "label": "Leggett 2002 c-axis phase coherence in cuprates"
+        },
+        {
+          "doi": "10.1103/physrevb.58.14203",
+          "label": "Klemm et al. 1998 coherent versus incoherent c-axis Josephson tunneling"
+        },
+        {
+          "doi": "10.1103/physrevb.62.661",
+          "label": "Arnold and Klemm 2000 coherent c-axis Josephson tunneling"
+        }
+      ],
+      "assumptions": [
+        "paper-search-mcp coverage is sufficient for Round 1 prior-art triage",
+        "absence of direct C_phi terminology does not prove absence of equivalent physics"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "A scalar built only from normal-state c-axis Drude weight or total c-axis spectral weight collapses to prior-art c-axis coherence and cannot carry independent C_phi content.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "f_D = W_D / W_c",
+          "variables": {
+            "f_D": "Drude fraction of c-axis optical spectral weight",
+            "W_D": "integral of c-axis Drude component over omega",
+            "W_c": "low-energy c-axis optical spectral weight integral"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "W_D",
+              "to": "0",
+              "expected": "0",
+              "desc": "no coherent Drude channel"
+            },
+            {
+              "variable": "W_D",
+              "to": "W_c",
+              "expected": "1",
+              "desc": "all low-energy c-axis weight is Drude-like"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "W_D": 0.18,
+              "W_c": 0.60
+            },
+            "expected_range": [
+              0.29,
+              0.31
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/physrevlett.68.2830",
+          "label": "Scalapino White Zhang 1992 Drude weight and superfluid density"
+        },
+        {
+          "doi": "10.1103/physrevb.67.020501",
+          "label": "Munzar Holden Bernhard 2003 c-axis kinetic-energy sum rule"
+        },
+        {
+          "doi": "10.1038/nature02673",
+          "label": "Homes et al. 2004 universal optical scaling"
+        }
+      ],
+      "assumptions": [
+        "W_c and W_D can be extracted from a consistent optical fit",
+        "normal-state fits are not contaminated by superconducting output"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The minimal non-collapsing object is the residual odd/even interlayer phase-transfer index P_oe after conditioning on simpler baselines.",
+      "confidence": 0.72,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "P_oe = (chi_odd - chi_even) / (chi_odd + chi_even)",
+          "variables": {
+            "P_oe": "odd-even bilayer phase-transfer imbalance",
+            "chi_odd": "normal-state interlayer odd-channel phase or spin/orbital transfer susceptibility",
+            "chi_even": "normal-state interlayer even-channel phase or spin/orbital transfer susceptibility"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "chi_odd",
+              "to": "chi_even",
+              "expected": "0",
+              "desc": "no odd-even phase-channel preference"
+            },
+            {
+              "variable": "chi_even",
+              "to": "0",
+              "expected": "1",
+              "desc": "pure odd-channel interlayer transfer"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "chi_odd": 1.4,
+              "chi_even": 0.8
+            },
+            "expected_range": [
+              0.27,
+              0.28
+            ]
+          }
+        },
+        {
+          "label": "F3",
+          "expression": "C_phi_ind = P_oe - (a0 + a1*W_c + a2*f_D + a3*gamma + a4*V_O + a5*epsilon_strain + a6*Z_dz2)",
+          "variables": {
+            "C_phi_ind": "independent residual phase-bus readiness component",
+            "P_oe": "odd-even interlayer phase-transfer imbalance",
+            "W_c": "total c-axis low-energy spectral weight",
+            "f_D": "c-axis Drude fraction",
+            "gamma": "transport or optical scattering rate",
+            "V_O": "oxygen-vacancy/disorder proxy",
+            "epsilon_strain": "strain or pressure-structure proxy",
+            "Z_dz2": "dz2 spectral weight proxy",
+            "a0": "intercept",
+            "a1": "linear nuisance coefficient",
+            "a2": "linear nuisance coefficient",
+            "a3": "linear nuisance coefficient",
+            "a4": "linear nuisance coefficient",
+            "a5": "linear nuisance coefficient",
+            "a6": "linear nuisance coefficient"
+          },
+          "units": "dimensionless after z-scoring covariates",
+          "limits": [
+            {
+              "variable": "P_oe",
+              "to": "a0 + a1*W_c + a2*f_D + a3*gamma + a4*V_O + a5*epsilon_strain + a6*Z_dz2",
+              "expected": "0",
+              "desc": "complete baseline collapse"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "P_oe": 0.28,
+              "a0": 0.02,
+              "a1": 0.05,
+              "W_c": 0.3,
+              "a2": 0.10,
+              "f_D": 0.3,
+              "a3": -0.04,
+              "gamma": 0.5,
+              "a4": -0.03,
+              "V_O": 0.2,
+              "a5": 0.01,
+              "epsilon_strain": 0.4,
+              "a6": 0.08,
+              "Z_dz2": 0.7
+            },
+            "expected_range": [
+              0.17,
+              0.19
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/physrevb.109.l180502",
+          "label": "Botzel Lechermann Gondolf Eremin 2024 bilayer nickelate even/odd spin response"
+        },
+        {
+          "doi": "10.48550/arxiv.2307.05662",
+          "label": "Wu Luo Yao Wang 2023 dz2/pz charge-transfer and spin-singlet bands"
+        },
+        {
+          "doi": "10.1088/0256-307x/41/1/017402",
+          "label": "Jiang Wang Zhang 2024 symmetry-sector pairing in La3Ni2O7"
+        }
+      ],
+      "assumptions": [
+        "chi_odd and chi_even have normal-state proxies before superconducting output is opened",
+        "linear residualization is a first-pass discriminator, not a final microscopic model",
+        "pressure points or samples provide enough variation to separate covariates"
+      ]
+    },
+    {
+      "id": "C4",
+      "statement": "La3Ni2O7 has enough independent nuisance controls to make the residual test meaningful rather than rhetorical: pressure superconductivity, oxygen vacancies, density-wave order, and dz2/orbital physics are separately documented.",
+      "confidence": 0.80,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1038/s41586-023-06408-7",
+          "label": "Sun et al. 2023 pressure superconductivity near 80 K"
+        },
+        {
+          "doi": "10.1038/s41567-024-02515-y",
+          "label": "Zhang et al. 2024 zero resistance and strange metal behavior"
+        },
+        {
+          "doi": "10.1038/s41586-024-07482-1",
+          "label": "Dong et al. 2024 oxygen vacancies and ligand holes"
+        },
+        {
+          "doi": "10.1038/s41467-024-54518-1",
+          "label": "Meng et al. 2024 density-wave-like gap under pressure"
+        },
+        {
+          "doi": "10.1088/0256-307x/41/8/087402",
+          "label": "Li et al. 2024 ARPES dz2 flat band and pseudogap-like behavior"
+        },
+        {
+          "doi": "10.7566/JPSJ.93.053702",
+          "label": "Kakoi et al. 2024 NMR density-wave gap in multilayer nickelates"
+        }
+      ],
+      "assumptions": [
+        "published nuisance observables can be harmonized across samples or pressure points",
+        "normal-state density-wave signatures are not themselves treated as superconducting output"
+      ]
+    },
+    {
+      "id": "C5",
+      "statement": "A decisive falsifier for independent C_phi is residual annihilation: if P_oe is fully predicted by W_c, f_D, gamma, oxygen/disorder/strain, and Z_dz2 across matched pre-output data, C_phi has no independent content.",
+      "confidence": 0.84,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F4",
+          "expression": "Delta_rank = r_P - r_B",
+          "variables": {
+            "Delta_rank": "rank discordance between residual phase-transfer and baseline score",
+            "P_oe": "odd-even interlayer phase-transfer imbalance",
+            "B_base": "baseline-only score from W_c, f_D, gamma, V_O, epsilon_strain, and Z_dz2",
+            "r_P": "rank position assigned by P_oe",
+            "r_B": "rank position assigned by B_base"
+          },
+          "units": "rank positions",
+          "limits": [
+            {
+              "variable": "r_P",
+              "to": "r_B",
+              "expected": "0",
+              "desc": "baseline collapse"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "r_P": 1,
+              "r_B": 3
+            },
+            "expected_range": [
+              -2.1,
+              -1.9
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1016/j.physc.2024.1354504",
+          "label": "Jiao et al. 2024 oxygen annealing and enhanced conductivity"
+        },
+        {
+          "doi": "10.1038/s41586-024-07482-1",
+          "label": "Dong et al. 2024 oxygen-vacancy baseline"
+        },
+        {
+          "doi": "10.1103/physrevb.108.165141",
+          "label": "Zhang Lin Moreo Maier Dagotto 2023 pressure/rare-earth structural trends"
+        }
+      ],
+      "assumptions": [
+        "rank comparisons use only pre-output observables",
+        "B_base is fitted without using Tc, zero resistance, Meissner fraction, or gap measurements"
+      ]
+    }
+  ],
+  "discriminator_matrix": [
+    {
+      "baseline": "total c-axis spectral weight",
+      "collapse_prediction": "C_phi rank is monotonic in W_c.",
+      "independent_prediction": "At fixed W_c, P_oe residual still changes rank.",
+      "required_observable": "c-axis optical spectral-weight integral plus odd/even bilayer response proxy"
+    },
+    {
+      "baseline": "Drude fraction alone",
+      "collapse_prediction": "C_phi rank is monotonic in f_D or 1/gamma.",
+      "independent_prediction": "Samples with matched f_D and gamma split by P_oe.",
+      "required_observable": "Drude-Lorentz fit of c-axis response and independent channel-sensitive spectroscopy"
+    },
+    {
+      "baseline": "disorder/oxygen/strain",
+      "collapse_prediction": "C_phi rank follows vacancy concentration, structural phase, pressure history, or strain.",
+      "independent_prediction": "After matching V_O and epsilon_strain, P_oe retains stable rank discordance.",
+      "required_observable": "STEM/EELS or XANES oxygen proxy, lattice/pressure proxy, and P_oe proxy"
+    },
+    {
+      "baseline": "dephasing/scattering",
+      "collapse_prediction": "C_phi is just longer tau or narrower Drude peak.",
+      "independent_prediction": "C_phi residual survives at matched gamma or tau.",
+      "required_observable": "optical or transport scattering rate and P_oe"
+    },
+    {
+      "baseline": "dz2 spectral weight",
+      "collapse_prediction": "C_phi follows Z_dz2 because dz2/pz orbital occupation controls interlayer hopping.",
+      "independent_prediction": "At fixed Z_dz2, odd/even phase-transfer geometry changes P_oe and rank.",
+      "required_observable": "ARPES/XANES/RIXS orbital proxy and bilayer odd/even phase-transfer proxy"
+    }
+  ],
+  "landing_calculation": {
+    "type": "Landing B: half-finished formula plus next-step blueprint",
+    "current_formula": "C_phi_ind = P_oe - (a0 + a1*W_c + a2*f_D + a3*gamma + a4*V_O + a5*epsilon_strain + a6*Z_dz2), with P_oe = (chi_odd - chi_even)/(chi_odd + chi_even)",
+    "why_not_full_numerical_prediction": "Published Round 1 searches did not reveal a directly tabulated normal-state pressurized La3Ni2O7 dataset containing c-axis optical spectral weight, odd/even channel susceptibility, oxygen/strain controls, and dz2 spectral weight for identical samples.",
+    "blueprint": [
+      "Extract W_c, W_D, and gamma from pressure-dependent c-axis infrared/THz or optical-conductivity data if available; otherwise define the needed experiment.",
+      "Extract V_O from STEM/EELS or oxygen-vacancy reported proxies and epsilon_strain from pressure/structural refinements.",
+      "Extract Z_dz2 from ARPES/XANES/RIXS orbital-sensitive data or DFT+DMFT-constrained fits.",
+      "Use Raman/RIXS/neutron/theory-constrained bilayer response to estimate chi_odd and chi_even in the normal state.",
+      "Fit B_base without superconducting output labels and test whether C_phi_ind differs from zero and changes rank."
+    ],
+    "hard_boundary": "No claim of predictor validation is made; this is only an input-side existence discriminator."
+  },
+  "deepening": {
+    "deepening_1_next_consequence": "If residual P_oe exists, then phase-bus readiness is a geometry/channel-selective property of bilayer transfer, not a scalar conductivity strength. The next consequence is that pressure can improve C_phi by rotating spectral weight into the odd interlayer phase channel even when total W_c or Drude fraction does not improve.",
+    "deepening_1_second_consequence": "The further consequence is an experimentally sharp rank inversion: a cleaner or more metallic sample can rank lower than a sample with less total c-axis weight if its odd/even bilayer transfer is phase-frustrated.",
+    "deepening_2_weak_premise": "The weakest premise is that chi_odd and chi_even can be inferred before superconducting output without smuggling in gap, Meissner, or zero-resistance information.",
+    "deepening_2_second_consequence": "If this premise fails, the independent C_phi proposal collapses operationally even if the microscopic concept is real, because no zero-leakage input-side observable remains."
+  },
+  "prior_art_status": {
+    "direct_same_claim_found": false,
+    "near_prior_art": [
+      "c-axis phase coherence and interlayer Josephson tunneling in cuprates",
+      "c-axis optical sum rules and Drude/superfluid-density relations",
+      "pressure-induced superconductivity and density-wave evolution in La3Ni2O7",
+      "oxygen-vacancy and dz2/orbital effects in La3Ni2O7",
+      "bilayer nickelate even/odd magnetic or pairing-channel theory"
+    ],
+    "differentiation": "The proposed novelty is not any component observable. It is the residual rank-discordance test after all component observables are treated as baselines."
+  },
+  "search_tool_self_check": {
+    "group_1_core_claim_dedup": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "nickelate C_phi phase-bus readiness c-axis coherence Drude fraction 2023 2024 2025",
+        "nickelate C_phi phase-bus readiness c-axis coherence Drude fraction review solved resolved"
+      ],
+      "result": "No direct C_phi or phase-bus readiness prior-art hit; nearest hit was generic c-axis phase coherence."
+    },
+    "group_2_framework_blind_spot": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "layered nickelate c-axis optical conductivity interlayer coherence superconductivity pressure 2022 2023 2024 2025",
+        "interlayer tunneling pair tunneling Josephson coupling c-axis optical sum rule layered superconductors"
+      ],
+      "result": "Strong prior art exists for c-axis optical/Josephson/interlayer coherence; independent C_phi must be a residual channel variable, not raw coherence."
+    },
+    "group_3_counterexample_negative": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "nickelate c-axis coherence Drude fraction disorder oxygen stoichiometry criticism counterexample failure problem",
+        "La3Ni2O7 oxygen deficiency stoichiometry pressure superconductivity"
+      ],
+      "result": "Oxygen stoichiometry, sample quality, and pressure history are serious baseline-collapse threats; no direct no-go theorem found in this pass."
+    },
+    "group_4_data_availability": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "La3Ni2O7 c-axis optical conductivity Drude spectral weight dz2 oxygen stoichiometry pressure measurement experiment data",
+        "La3Ni2O7 pressure superconductivity density wave 120 K 130 K normal state",
+        "La3Ni2O7 optical conductivity pressure infrared spectroscopy Drude spectral weight"
+      ],
+      "result": "Data exist for pressure superconductivity, oxygen vacancies, density-wave evolution, NMR/NQR/Raman/XANES/ARPES orbital information, and some nickelate optical spectroscopy; a complete same-sample input-side dataset was not found."
+    },
+    "websearch_downgrade": false
+  }
+}

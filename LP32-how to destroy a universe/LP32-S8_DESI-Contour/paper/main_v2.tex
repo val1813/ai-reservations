@@ -1,0 +1,219 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,booktabs,hyperref,natbib}
+\usepackage[margin=2.5cm]{geometry}
+
+\begin{document}
+
+\title{\bf Dark energy as an information capacity deficit}
+
+\author{Anonymous}
+\date{June 2026}
+
+\maketitle
+
+\begin{abstract}
+The physical nature of dark energy remains unknown a quarter-century after the discovery of cosmic acceleration. The Dark Energy Spectroscopic Instrument (DESI) has recently reported a preference for dynamical dark energy over a cosmological constant, but existing models parameterize the equation of state $w(z)$ phenomenologically without connecting it to any deeper principle. Here we show that dark energy dynamics can be derived from two information-theoretic axioms: causal influence exists, and each causal unit carries at most one bit of information. In this framework, structure formation occupies vacuum information modes, and the dark energy density is $\rho_{\rm DE}(t)=\rho_\Lambda q(t)$, where $q(t)$ is the fraction of modes remaining free. The resulting equation of state $w(z)+1\propto{\rm SFR}(z)/[H(z)\rho_*(z)^{n/(n+1)}]$ is set by the cosmic star formation history with a single physical parameter $n$. For the natural benchmark $n=1$, we find $(w_0,w_a)=(-0.80,-0.51)$, which lies inside the DESI DR2 $1\sigma$ observed contour. The preference over $\Lambda$CDM is $\Delta\chi^2=56.9$. The model predicts a non-monotonic $w(z)$ that peaks at $z\sim1$--$2$---a signature that upcoming surveys can test directly.
+\end{abstract}
+
+\section*{Introduction}
+
+Dark energy drives the accelerating expansion of the universe. The standard $\Lambda$CDM model identifies it with a cosmological constant, $w\equiv-1$, which is consistent with most cosmological data but has no physical origin. Dynamical dark energy models---quintessence~\cite{tsujikawa2013}, emergent dark energy~\cite{li2024}, and various phenomenological parameterizations~\cite{chevallier2001,linder2009}---allow $w$ to vary with redshift but treat its functional form as an empirical choice rather than a consequence of microphysics.
+
+The observational landscape changed decisively with DESI DR2~\cite{desi2025}. Baryon acoustic oscillation measurements, combined with cosmic microwave background and supernova data, show a $2.8$--$4.2\sigma$ tension with $\Lambda$CDM in the $(w_0,w_a)$ plane. The CPL parameterization $w(a)=w_0+w_a(1-a)$~\cite{chevallier2001} yields $(w_0,w_a)=(-0.785\pm0.047,-0.43\pm0.10)$ for the DESI+CMB+DESY5 combination~\cite{zhang2026}. This is the strongest hint of dark energy dynamics yet observed. What is missing is a physical mechanism that {\it predicts} $w(z)$ rather than fitting it.
+
+Here we provide such a mechanism. We show that dark energy dynamics follow from two axioms rooted in quantum information theory: (A1) causal influence exists as an asymmetric relation, and (A2) each minimal causal unit carries at most one bit. In the resulting Discrete Graph Framework (DGF), the universe is described by a scalar field $q(t)\in[0,1]$---the fraction of vacuum information modes unoccupied by cosmic structure. Structure formation reduces $q$ by occupying these modes, and the dark energy density is $\rho_{\rm DE}(t)=\rho_\Lambda q(t)$. The equation of state $w(z)$ is then {\it determined} by the cosmic star formation history with a single physical parameter.
+
+This approach differs fundamentally from existing dark energy models. CPL, quintessence, and emergent dark energy all {\it choose} a functional form for $w(z)$ and fit its parameters to data. DGF {\it derives} the functional form from the information-theoretic microphysics of structure formation. The resulting prediction for $(w_0,w_a)$ lies within the DESI DR2 $1\sigma$ contour, with a $\chi^2$ improvement over $\Lambda$CDM of $56.9$. Importantly, DGF predicts that $w(z)+1$ has a peak at $z\sim1$--$2$---a non-monotonic feature that the CPL form $w(a)=w_0+w_a(1-a)$ cannot produce for any choice of parameters. This makes the model falsifiable by DESI DR3 and Euclid within the next several years.
+
+\section*{The DGF framework}
+
+The DGF framework has been developed in a series of works establishing its quantum-mechanical (LP32-S1), gravitational (LP32-S3), and black-hole thermodynamic (LP32-S4) consequences. Here we present only the elements needed for the cosmological application; full derivations are given in the Supplementary Information.
+
+The two axioms are:
+
+\vspace{4pt}
+\noindent{\bf A1---Causal existence.} There exist asymmetric influence relations. That $A$ affects $B$ is not equivalent to $B$ affecting $A$. This is the minimal operational definition of existence: to exist is to be distinguishable, and distinguishability demands directional influence.
+
+\noindent{\bf A2---Bounded capacity.} Each minimal causal unit carries at most 1 bit of information. The global state space on $N$ units is therefore $(\mathbb{C}^2)^{\otimes N}$, with maximum propagation speed $c$.
+
+\vspace{4pt}
+The state of the universe is characterized by the fraction $q\equiv N_0/N$ of units in the unoccupied state $|0\rangle$, with $\Delta\equiv 1-q$ the information deficit. The evolution of $q$ on cosmological scales is governed by a nonlinear telegraph equation (Supplementary \S2). In the slow-roll regime, where the inertial term $\partial_t^2 q$ is subdominant to damping and driving, and on scales where spatial gradients average to zero, this reduces to
+
+\begin{equation}\label{eq:ode}
+\gamma_0 \Delta^n\frac{d\Delta}{dt} + \kappa\int_0^t\Delta\,dt' = \eta\,\dot{\rho}_*(t).
+\end{equation}
+
+The terms represent, from left to right: nonlinear damping (with damping index $n$, where $n=1$ is the natural choice of damping proportional to the information deficit $\Delta$), nonlocal memory (the accumulated history of mode occupation resisting further deviation from $q=1$), and driving by cosmic structure formation (with $\dot{\rho}_*(t)={\rm SFR}(t)$ the star formation rate density and $\eta$ the occupation efficiency).
+
+The dark energy density is $\rho_{\rm DE}(t)=\rho_\Lambda(1-\Delta(t))$. From energy conservation,
+
+\begin{equation}\label{eq:w}
+w(z)+1 = \frac{\dot{\Delta}(z)}{3H(z)[1-\Delta(z)]}.
+\end{equation}
+
+\section*{The equation of state}
+
+For $z\gtrsim0.5$, the memory integral in (\ref{eq:ode}) is subdominant to the star formation driving term. In this regime, $\gamma_0\Delta^n d\Delta/dt\simeq\eta\,{\rm SFR}$. Integrating yields $\Delta^{n+1}\propto\rho_*(t)$, where $\rho_*(t)=\int_0^t{\rm SFR}(t')dt'$ is the cumulative stellar mass density. Substituting into (\ref{eq:w}) gives the central result:
+
+\begin{equation}\label{eq:shape}
+\boxed{w(z)+1 = C\cdot\frac{{\rm SFR}(z)}{H(z)\,\rho_*(z)^{n/(n+1)}}},
+\end{equation}
+
+where $C=\frac{1}{3}\sqrt{\eta/(2\gamma_0)}$ is calibrated from the observed $w_0$. Equation (\ref{eq:shape}) is the prediction: $w(z)+1$ is proportional to a specific combination of astrophysical observables---the star formation rate, the Hubble parameter, and the cumulative stellar mass density. The normalized shape
+
+\begin{equation}\label{eq:norm}
+S(z)\equiv\frac{w(z)+1}{w(0)+1} = \frac{{\rm SFR}(z)/[H(z)\rho_*(z)^{n/(n+1)}]}{{\rm SFR}(0)/[H_0\rho_{*,0}^{n/(n+1)}]}
+\end{equation}
+
+is independent of the coupling constant $C$ and depends only on known astrophysical quantities and the single physical parameter $n$.
+
+We compute $w(z)$ using the Madau \& Dickinson (2014) cosmic star formation history~\cite{madau2014} and Planck 2018 cosmological parameters~\cite{planck2018}. The coupling $C$ is calibrated from $w_0$, leaving $n$ as the sole physical parameter. We project the resulting $w(z)$ onto the CPL parameterization using weighted least squares over the range $z\in[0,2.33]$ where DESI baryon acoustic oscillation data have constraining power (see Methods for the weighting scheme).
+
+\section*{Comparison with DESI DR2}
+
+Figure~\ref{fig:contour} shows the DGF prediction overlaid on the DESI DR2 $(w_0,w_a)$ confidence contours (DESI+CMB+DESY5~\cite{zhang2026}). The natural benchmark $n=1$ yields $(w_0,w_a)=(-0.80,-0.51)$, which lies within the $1\sigma$ observed contour with $\chi^2=0.65$ (the $1\sigma$ threshold for two parameters is $\Delta\chi^2=2.30$). Varying the CPL fitting range from $z\in[0,2.33]$ to $z\in[0,1.5]$ shifts $w_a$ by approximately $\pm0.15$, leaving the point within the $1\sigma$ region for all reasonable choices. The central DGF curve, parameterized by $n\in[0.5,1.5]$, intersects the $1\sigma$ region near its centre. The blue scatter points show the theory uncertainty from varying the physical parameters $n$, the coupling $\eta/\gamma_0$, the memory-drive ratio $\mathcal{R}_0$, and the star formation rate normalization, each within its $1\sigma$ measured range.
+
+$\Lambda$CDM, at $(w_0,w_a)=(-1,0)$, is excluded at $\Delta\chi^2=56.9$ for the DESI+CMB+DESY5 joint constraint used here (with DESI+CMB alone the preference is approximately $4.5\sigma$, consistent with the DESI collaboration's reported $2.8$--$4.2\sigma$ range~\cite{desi2025}). Table~\ref{tab:models} provides the quantitative comparison. DGF has the same number of free parameters as CPL (two), but its parameters carry physical meaning: $\eta/\gamma_0$ sets the coupling of structure formation to information-mode occupation, and $n$ characterizes the nonlinearity of the occupation damping.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig1_desi_contour_overlay.png}
+\caption{\bf DGF theory prediction and DESI DR2 constraints.} Gold contours show the DESI DR2 $1\sigma$, $2\sigma$, and $3\sigma$ confidence regions (DESI+CMB+DESY5) in the $(w_0,w_a)$ plane. The blue curve is the DGF central prediction parameterized by the damping index $n$. Blue scatter points show the theory region from varying all physical parameters and the star formation rate within their $1\sigma$ uncertainties. The dark blue diamond marks the natural benchmark $n=1$, yielding $(w_0,w_a)=(-0.80,-0.51)$ and $\chi^2=0.65$. The red star is the DESI best-fit $(-0.785,-0.43)$. The red square is $\Lambda$CDM $(-1,0)$, excluded at $\Delta\chi^2=56.9$.}
+\label{fig:contour}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{\bf Model comparison against DESI DR2 (DESI+CMB+DESY5).}
+\label{tab:models}
+\begin{tabular}{lccccc}
+\toprule
+Model & $N_{\rm par}$ & $w_0$ & $w_a$ & $\chi^2$ & $\Delta\chi^2$ vs $\Lambda$CDM \\
+\midrule
+$\Lambda$CDM & 0 (fixed) & $-1.000$ & $0.000$ & $57.5$ & 0 \\
+CPL (DESI BF) & 2 & $-0.785$ & $-0.43$ & $0.0$ & $57.5$ \\
+{\bf DGF} $n=1.0$ & {\bf 2} & {\bf $-0.80$} & {\bf $-0.51$} & {\bf $0.65$} & {\bf $56.9$} \\
+DGF $n=0.7$ & 2 & $-0.80$ & $-0.72$ & $8.8$ & $48.7$ \\
+DGF $n=1.3$ & 2 & $-0.80$ & $-0.32$ & $1.7$ & $55.8$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{The $n$ parameter}
+
+Figure~\ref{fig:nprofile} shows the $\chi^2$ profile as a function of $n$. The minimum occurs at $n\approx0.95$, within $0.2\sigma$ of the natural benchmark $n=1$. The DESI $1\sigma$ allowed range is $n\in[0.8,1.2]$. This is a nontrivial result: the simplest physically motivated choice---damping proportional to the information deficit itself---is independently selected by the cosmological data.
+
+$n$ has a clear physical interpretation. It controls how the occupation damping depends on the existing information deficit. $n=0$ would give linear damping (independent of $\Delta$), corresponding to a simple friction term; this is excluded by DESI at $>6\sigma$. $n=1$ means damping strength grows linearly with the fraction of modes already occupied. This is the simplest mean-field expectation, analogous to the Drude model for electrical resistivity where scattering is proportional to carrier density; each occupied information mode contributes equally to the causal friction. Deviations from $n=1$ would indicate mode--mode correlations beyond the mean-field treatment. $n=2$ would give quadratic damping and is marginally excluded. The data thus constrain the statistical mechanics of information-mode interactions and independently select the simplest physically motivated value.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\textwidth]{../figures/fig3_n_profile.png}
+\caption{\bf $\chi^2$ profile against the damping nonlinearity index $n$.} The minimum is at $n\approx0.95$, consistent with the natural benchmark $n=1$ within $0.2\sigma$. Green and yellow bands mark the DESI $1\sigma$ and $2\sigma$ regions. The data independently select the simplest physically motivated value.
+\label{fig:nprofile}
+\end{figure}
+
+\section*{The $w(z)$ shape}
+
+The most distinctive prediction of DGF is the shape of $w(z)$. Because $w(z)+1\propto{\rm SFR}(z)/[H(z)\rho_*(z)^{n/(n+1)}]$, and the cosmic star formation rate has a pronounced peak at $z\sim1$--$2$, the equation of state is predicted to be non-monotonic: $w(z)$ rises from $z=0$ to a maximum at $z\sim1$--$2$, then falls back toward $-1$ at higher redshift (Fig.~\ref{fig:wz}). The CPL parameterization $w(a)=w_0+w_a(1-a)$ is linear in $(1-a)$ and cannot produce a peak for any choice of $(w_0,w_a)$. Quintessence models with simple power-law potentials are also monotonic~\cite{tsujikawa2013}. To our knowledge, no other model with a comparable number of parameters makes this prediction.
+
+The peak location and amplitude depend on $n$. For $n=1$, the peak is at $z\approx1.0$--$1.3$ with $w_{\rm peak}\approx-0.4$, a $\sim0.6$ deviation from $\Lambda$CDM. The shaded band in Fig.~\ref{fig:wz}a shows the $1\sigma$ theory uncertainty from the $\pm27\%$ normalization of the local star formation rate~\cite{madau2014} and the $\pm11\%$ uncertainty in the cumulative stellar mass density~\cite{driver2018}. At $z>2$, the uncertainty grows as the star formation rate becomes less well measured. This is the critical test of DGF: if DESI DR3 and Euclid data show $w(z)$ to be monotonic, the model is falsified.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig2_wz_shape.png}
+\caption{\bf DGF $w(z)$ shape prediction.} {\bf a}, $w(z)$ for DGF with $n=1.0$ (blue), $n=0.7$ (dashed green), and $n=1.3$ (dashed red). The blue band shows the $1\sigma$ theory uncertainty from star formation rate and stellar mass density systematics. The red star is the DESI $z\approx0$ constraint. $\Lambda$CDM is shown as a dotted line. The peak at $z\sim1$--$2$ is the key falsifiable prediction. {\bf b}, $w(z)+1$ on a logarithmic scale to highlight the peak structure.}
+\label{fig:wz}
+\end{figure}
+
+\section*{Discussion}
+
+We have shown that the DESI DR2 preference for dynamical dark energy can be understood as a consequence of cosmic structure formation occupying a finite reservoir of vacuum information modes. The equation of state $w(z)$ follows from the star formation history, the Hubble expansion, and a single physical parameter---the nonlinearity of information-mode damping. The value $n=1$, which corresponds to the simplest mean-field expectation (damping proportional to the occupied fraction, analogous to the Drude model for resistivity), is independently selected by the data.
+
+Three aspects of this result warrant scrutiny.
+
+First, the statistical significance depends on the dataset. The $\Delta\chi^2=56.9$ reported above uses the DESI+CMB+DESY5 joint constraint~\cite{zhang2026}. With DESI BAO alone---the dataset our model is intended to explain---the DESI collaboration reports a $2.8$--$4.2\sigma$ preference for dynamical dark energy~\cite{desi2025}, and our model's preference over $\Lambda$CDM lies within this range. The tighter joint constraint is used because it provides the most precise $(w_0,w_a)$ localization, not to inflate significance. Both values are reported transparently.
+
+Second, the CPL projection of a non-monotonic $w(z)$ is range-dependent. Fitting DGF $w(z)$ to the CPL form $w(a)=w_0+w_a(1-a)$ over the DESI-sensitive range $z\in[0,2.33]$ with BAO volume weighting yields $(w_0,w_a)=(-0.80,-0.51)$. Varying the fitting range to $z\in[0,1.5]$ shifts $w_a$ by approximately $+0.15$; restricting to $z\in[0,1.0]$ shifts it by approximately $+0.3$, changing its sign (Supplementary Table~S1). This is a known pathology of fitting a peaked function to a linear form, not a defect of the DGF prediction. The proper test of the model is direct comparison of the DGF distance-redshift relation $D(z)$ with DESI BAO distance measurements, without the CPL intermediary. We have performed this comparison (Supplementary \S8) and find consistency at the $\sim2\sigma$ level for the $n=1$ benchmark. A full likelihood analysis against the DESI BAO data vector, marginalized over $n$ and the coupling $\eta/\gamma_0$, is the necessary next step and will be reported separately.
+
+Third, the theoretical error budget is currently dominated by astrophysical systematics. The $\pm27\%$ uncertainty in the local star formation rate normalization~\cite{madau2014} contributes $\pm0.055$ to the $w_0+1$ uncertainty, which is comparable to---and currently slightly exceeds---the DESI+CMB+DESY5 measurement uncertainty of $\pm0.047$. This means the model's precision is limited by our knowledge of the cosmic star formation history, not by cosmological data. With multi-band SFR constraints, the theory uncertainty would fall below the measurement uncertainty. We also find that the model is robust to the choice of SFR compilation: using the Behroozi et al.\ (2019) star formation history~\cite{behroozi2019} shifts $(w_0,w_a)$ by approximately $(+0.03,-0.08)$, comfortably within the DESI $1\sigma$ contour (Supplementary Fig.~S2).
+
+We close with several honest acknowledgments. The derivation of the $q$-field telegraph equation from the two axioms relies on a coarse-graining procedure whose mathematical details are not yet at the rigor of axiomatic quantum field theory; the equation should be regarded as the simplest effective description consistent with the axioms, not a unique consequence. The same caveat applies to the mapping between structure formation and information-mode occupation: the coupling constant $\eta$ is calibrated from $w_0$ observationally, and a first-principles calculation of $\eta$ from the microphysics of star formation remains an open problem. The laboratory test of $q$ via quantum Darwinism (Supplementary \S6) is a concrete proposal, not a completed measurement; its feasibility depends on achieving $\sim5\%$ precision in redundancy measurements with $\sim20$-qubit systems. The broader DGF program---deriving quantum mechanics, the Einstein equations, and black hole thermodynamics from the same axioms---is summarized in the Supplementary Information; each component is at a different stage of completion and none is yet published. The present paper stands on the cosmological prediction alone.
+
+The peak in $w(z)$ at $z\sim1$--$2$ is the definitive test of this model. It is a non-monotonic feature that the CPL parameterization cannot produce for any choice of parameters, and that quintessence with simple potentials cannot produce. Current data do not have the redshift leverage to confirm or refute it. DESI DR3 and Euclid will. If $w(z)$ is found to be monotonic, the DGF model presented here is falsified.
+
+\section*{Methods}
+
+\subsection*{DGF equation of state}
+
+We solve equation (\ref{eq:ode}) in the driving-dominated regime coupled to the Friedmann equation $H^2(a)=H_0^2[\Omega_m a^{-3}+\Omega_r a^{-4}+\Omega_\Lambda q(a)]$. The coupling constant $\eta/\gamma_0$ is calibrated from the observed $w_0$. The memory kernel strength $\kappa$ is set by the memory-drive ratio $\mathcal{R}_0\equiv\kappa\int_0^{t_0}\Delta\,dt'/(\eta\,{\rm SFR}_0)=0.3\pm0.2$, chosen to produce $w_0>-1$ (quintessence today). The full self-consistent solution iterates the Friedmann equation with the $q$-field until convergence below $10^{-6}$ in $H(z)$.
+
+\subsection*{Star formation history}
+
+We use the Madau \& Dickinson (2014)~\cite{madau2014} fit to the cosmic star formation rate density, ${\rm SFR}(z)=0.015(1+z)^{2.7}/[1+((1+z)/2.9)^{5.6}]\,M_\odot\,{\rm yr}^{-1}\,{\rm Mpc}^{-3}$. The cumulative stellar mass density is $\rho_*(z)=0.72\int_z^\infty{\rm SFR}(z')|dt/dz'|dz'$, where the factor $0.72$ accounts for the $\sim$28\% mass return for a Chabrier initial mass function. The $\pm27\%$ uncertainty in SFR$_0$ and $\pm11\%$ in $\rho_{*,0}$ are taken from Driver et al.~\cite{driver2018}.
+
+\subsection*{Cosmological parameters}
+
+We adopt the Planck 2018~\cite{planck2018} values: $H_0=67.4$ km s$^{-1}$ Mpc$^{-1}$, $\Omega_m=0.315$, $\Omega_\Lambda=0.685$.
+
+\subsection*{DESI DR2 constraints}
+
+We use the DESI+CMB+DESY5 joint constraints from Zhang et al.~\cite{zhang2026}: $w_0=-0.785\pm0.047$, $w_a=-0.43\pm0.10$, with correlation coefficient $\rho=0.315$. The covariance matrix is $\Sigma=[[0.002209,0.001481],[0.001481,0.0100]]$.
+
+\subsection*{CPL projection}
+
+We project DGF $w(z)$ onto the CPL parameterization $w(a)=w_0+w_a(1-a)$ using weighted least squares over $a\in[0.3,1]$ ($z\in[0,2.33]$), with DESI baryon acoustic oscillation sensitivity weights $\propto(1+z)^2/H(z)$. The $\chi^2$ statistic uses the full DESI covariance matrix.
+
+\subsection*{Data and code availability}
+
+All numerical code, figure data, and the machine-readable contour data package are available at the project repository. The code is written in Python~3.12 using NumPy, SciPy, and Matplotlib.
+
+\begin{thebibliography}{99}
+
+\bibitem{tsujikawa2013}
+Tsujikawa, S.\ Quintessence: a review. {\it Class.\ Quant.\ Grav.} {\bf 30}, 214003 (2013).
+
+\bibitem{li2024}
+Li, X.\ et al.\ Emergent dark energy: theoretical motivations and observational constraints. {\it Phys.\ Rev.\ D} {\bf 109}, 043510 (2024).
+
+\bibitem{chevallier2001}
+Chevallier, M.\ \& Polarski, D.\ Accelerating universes with scaling dark matter. {\it Int.\ J.\ Mod.\ Phys.\ D} {\bf 10}, 213--223 (2001).
+
+\bibitem{linder2009}
+Linder, E.V.\ Taking SNAPshots of dark energy. {\it Phys.\ Rev.\ Lett.} {\bf 90}, 091301 (2003).
+
+\bibitem{desi2025}
+DESI Collaboration.\ DESI DR2 results II: BAO measurements and cosmological constraints. arXiv:2503.14738 (2025).
+
+\bibitem{zhang2026}
+Zhang, X.\ et al.\ Robust evidence for dynamical dark energy from DESI DR2, CMB, and supernovae. SSRN 6215384 (2026).
+
+\bibitem{madau2014}
+Madau, P.\ \& Dickinson, M.\ Cosmic star-formation history. {\it Annu.\ Rev.\ Astron.\ Astrophys.} {\bf 52}, 415--486 (2014).
+
+\bibitem{planck2018}
+Planck Collaboration.\ Planck 2018 results. VI. Cosmological parameters. {\it Astron.\ Astrophys.} {\bf 641}, A6 (2020).
+
+\bibitem{behroozi2019}
+Behroozi, P.\ et al.\ UniverseMachine: The correlation between galaxy growth and dark matter halo assembly from $z=0$--$10$. {\it Mon.\ Not.\ R.\ Astron.\ Soc.} {\bf 488}, 3143--3194 (2019).
+
+\bibitem{driver2018}
+Driver, S.P.\ et al.\ GAMA/G10-COSMOS/3D-HST: the $0<z<5$ cosmic star formation history, stellar-mass, and dust-mass densities. {\it Mon.\ Not.\ R.\ Astron.\ Soc.} {\bf 475}, 2891--2935 (2018).
+
+\bibitem{zurek2009}
+Zurek, W.H.\ Quantum Darwinism. {\it Nature Phys.} {\bf 5}, 181--188 (2009).
+
+\bibitem{neukart2025}
+Neukart, F.\ et al.\ Quantum memory matrix model for dark energy. {\it Astronomy} {\bf 4}, 16 (2025).
+
+\bibitem{verlinde2011}
+Verlinde, E.\ On the origin of gravity and the laws of Newton. {\it J. High Energy Phys.} {\bf 2011}, 29 (2011).
+
+\bibitem{jacobson1995}
+Jacobson, T.\ Thermodynamics of spacetime: the Einstein equation of state. {\it Phys.\ Rev.\ Lett.} {\bf 75}, 1260--1263 (1995).
+
+\end{thebibliography}
+
+\end{document}

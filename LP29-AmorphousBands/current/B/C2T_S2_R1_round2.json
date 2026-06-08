@@ -1,0 +1,235 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": "LP29-C2T-S2-R1 / Round 2",
+  "agent": "B",
+  "polaris": "proof-carrying O_s must be admitted by executable predicate table, not by narrative provenance language.",
+  "input_boundary": {
+    "used": [
+      "D:\\Claude\\ai-reservations\\AGENTS.md",
+      "D:\\Claude\\ai-reservations\\ai\\CLAUDE.md",
+      "D:\\Claude\\ai-reservations\\ai\\B_AGENT.md",
+      "current\\B\\C2T_S2_R1_round1.json",
+      "current\\B\\artifacts\\S2_R1_proof_carrying_observable_modes.csv",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_R1_round1.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\inspector_warnings_C2T_S2_R1_round1.md"
+    ],
+    "not_used": [
+      "A Round 1 output",
+      "A Round 2 output",
+      "Phase清单.md modification",
+      "material validation",
+      "graph-vs-overlap residual regression",
+      "graph beats overlap",
+      "exact impossible in principle"
+    ],
+    "phase_file_modified": false,
+    "academic_search": "No new paper search was needed; Round 2 is a formal consolidation of Round 1 MCP-backed records and inspector warnings."
+  },
+  "framework": {
+    "name": "executable predicate table for proof-carrying observable identity",
+    "cross_domain_jump": "proof-carrying execution + runtime admission control + typed provenance contracts",
+    "core_translation": "An O_s claim enters a finite executor as a record. The executor evaluates mode-specific predicates over required fields. A mode PASS is returned only when every required field exists and every check for that mode succeeds.",
+    "observable_identity": "O_s := (reported_scalar_value, source_bibliographic_id, stable_source_locator, canonical_structure_id, structure_hash, same_structure_mapping, pair_cutoff_policy, pair_enumerator_hash_or_pair_list, N_pair, raw_overlap_sum, normalization_formula_or_code_hash, declared_constants, tolerance_rule, executor_trace, input_digest, intermediate_digest, output_digest, verifier_version, terminal_status)",
+    "artifact": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\S2_R1_executor_predicates_round2.csv"
+  },
+  "changes_from_round1": [
+    {
+      "id": "CH1",
+      "change": "Converted the finite-state calculus from mode descriptions into an executable predicate table with predicate_id, required_fields, pass_condition, warn_condition, block_condition, and terminal_status."
+    },
+    {
+      "id": "CH2",
+      "change": "Repaired the reported_context ambiguity: context PASS now requires a stable source locator; without that locator the terminal status is BLOCK or unresolved scalar, never unconditional PASS."
+    },
+    {
+      "id": "CH3",
+      "change": "Added a transition guard predicate so no claim can silently upgrade modes by numeric closeness, executor quality, narrative plausibility, or generic provenance hygiene."
+    },
+    {
+      "id": "CH4",
+      "change": "Answered Q6.4 explicitly: the framework is not merely generic provenance hygiene, but it does carry a residual risk of being over-broad unless tied to observable-specific proof fields and terminal predicates."
+    }
+  ],
+  "predicate_calculus": {
+    "field_universe": [
+      "reported_scalar_value",
+      "source_bibliographic_id",
+      "stable_source_locator",
+      "canonical_structure_id",
+      "structure_hash",
+      "same_structure_mapping",
+      "pair_cutoff_policy",
+      "pair_enumerator_hash_or_pair_list",
+      "N_pair",
+      "raw_overlap_sum",
+      "normalization_formula_or_code_hash",
+      "declared_constants",
+      "tolerance_rule",
+      "executor_trace",
+      "input_digest",
+      "intermediate_digest",
+      "output_digest",
+      "verifier_version"
+    ],
+    "primitive_checks": {
+      "locator_check": "stable_source_locator resolves to a durable source object at page/table/row/figure/repository granularity and supports only the claimed source-reported context.",
+      "identity_check": "canonical_structure_id and structure_hash identify the structure under declared canonicalization.",
+      "mapping_check": "same_structure_mapping binds source structure and reproduced structure as the same object under the declared canonicalization.",
+      "pair_check": "pair_cutoff_policy and pair_enumerator_hash_or_pair_list deterministically define the admitted pair set.",
+      "cardinality_check": "N_pair equals the enumerated pair-set cardinality.",
+      "sum_check": "raw_overlap_sum is recomputed over exactly the admitted pair set.",
+      "normalization_check": "reported_scalar_value follows from raw_overlap_sum through normalization_formula_or_code_hash with declared_constants and tolerance_rule.",
+      "trace_check": "executor_trace binds software, parameters, environment, input_digest, intermediate_digest, output_digest, and reproduced value.",
+      "verifier_version_check": "the predicate executor version is recorded so later audits know which checks were applied."
+    },
+    "mode_order": [
+      "inadmissible_scalar_only",
+      "reported_context",
+      "structure_bound_context",
+      "pair_policy_bound_attempt",
+      "sum_bound_attempt",
+      "normalization_bound_attempt",
+      "executor_trace_bound_attempt",
+      "exact_certified_observable"
+    ],
+    "transition_rule": "A transition from mode i to mode j is legal only when all required_fields for target mode j are present and all target primitive checks pass. Numeric closeness, code quality, bibliographic familiarity, or better narrative provenance is not a transition witness.",
+    "reported_context_rule": "reported_context PASS is conditional on source_bibliographic_id plus stable_source_locator. If the locator is absent, the executor returns BLOCK for context PASS and may retain only an unresolved scalar note.",
+    "current_terminal_status": {
+      "reported_context": "CONTEXT_PASS_IF_LOCATOR_ELSE_BLOCK",
+      "exact_certified_observable": "EXACT_PASS_ELSE_BLOCK",
+      "current_claim_under_PI_summary": "BLOCK for exact O_s; reported context remains conditional because the stable locator has not been supplied in the consumed inputs."
+    }
+  },
+  "q64_alternative_explanation": {
+    "question": "Is this just generic provenance hygiene?",
+    "answer": "No as a Round 2 result: the executable table is narrower than generic provenance hygiene because it binds exact O_s to observable-specific proof predicates. Yes only as a failure mode: if future work strips away those predicates and keeps only source attribution language, the claim degenerates into generic provenance hygiene.",
+    "why_not_generic": [
+      "Generic provenance hygiene says record where data came from. This calculus gates exact O_s on field-specific physics/computation witnesses: structure hash, same-structure mapping, pair cutoff policy, pair enumerator or pair list, N_pair, raw overlap sum, normalization executable or formula, constants, tolerance, and executor trace.",
+      "The table creates mode-separating terminal statuses. A stable locator can pass only reported_context; it cannot pass pair policy, raw sum, normalization, trace, or exact certification.",
+      "The transition guard blocks the usual provenance-hygiene failure mode: a better narrative or cleaner citation cannot upgrade a scalar into exact observable identity."
+    ],
+    "domain_specific_obligations": [
+      "O_s certification must identify the structure, not just the paper: canonical_structure_id, structure_hash, and same_structure_mapping are mandatory for exact mode.",
+      "O_s certification must identify the pair population: pair_cutoff_policy, pair_enumerator_hash_or_pair_list, and N_pair are mandatory because the scalar depends on which pairs were summed.",
+      "O_s certification must bind computation: raw_overlap_sum, normalization_formula_or_code_hash, declared_constants, tolerance_rule, executor_trace, and digests are mandatory because the final scalar is a derived observable, not a freestanding datum.",
+      "Context citation and exact reproduction are different propositions. A stable locator can prove only reported_context unless the remaining exact-mode predicates also pass."
+    ],
+    "risk_admitted": [
+      "If future users collapse the table into a generic checklist, the claim becomes ordinary reproducibility hygiene and loses the B-route novelty.",
+      "If stable locator requirements are weakened, reported_context can again be misread as unconditional PASS.",
+      "If pair enumeration and normalization are not executable, exact O_s remains blocked even when bibliographic provenance is excellent."
+    ],
+    "risk_control": "Keep the executor predicates as the authority. The claim is only the narrow contract: exact O_s certification requires all exact-mode proof objects and checks; anything less is a lower terminal mode."
+  },
+  "inspector_warning_resolution": {
+    "warning_1_no_validation_py": {
+      "status": "acknowledged_not_fixed_by_B",
+      "resolution": "No project validation/validate.py was created because the task asked for B Round 2 outputs, not project validation infrastructure. The CSV is structured so a future validator can implement the predicates mechanically."
+    },
+    "warning_2_reported_context_conditional": {
+      "status": "fixed",
+      "resolution": "P0_LOCATOR_REPORTED_CONTEXT requires source_bibliographic_id and stable_source_locator. PASS is allowed only when the locator resolves. Missing locator is BLOCK for context PASS. Exact certification remains BLOCK regardless of context PASS."
+    },
+    "warning_3_q64": {
+      "status": "fixed",
+      "resolution": "This JSON explicitly answers whether the result is generic provenance hygiene, states why the executable observable-specific predicates make it narrower, and admits the residual risk if the table is weakened."
+    },
+    "search_log_warning": {
+      "status": "preserved",
+      "resolution": "No new citation verification is claimed. Round 2 relies on Round 1 MCP-backed source records only as framework provenance, not as REVIEWER-level truth validation."
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The Round 1 finite-state proof-carrying observable calculus can be made executable as a predicate table with mode-specific required fields, PASS/WARN/BLOCK conditions, and terminal statuses.",
+      "confidence": 0.88,
+      "new_insight": true,
+      "equations": [
+        "pass(mode, record) := required_fields(mode) subset fields(record) and all_checks(mode, record) = true",
+        "terminal_status(mode, record) in {PASS, WARN, BLOCK, REJECT}"
+      ],
+      "references": [
+        "B Round 1 source records: proof-carrying code, proof-carrying hardware, PROV, workflow provenance"
+      ],
+      "assumptions": [
+        "The observable can be represented as a finite record.",
+        "The verifier can evaluate deterministic field-presence and equality/hash/cardinality/normalization checks."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "reported_context is not an unconditional PASS mode; it passes only when a stable source locator exists and only for context-level reporting.",
+      "confidence": 0.93,
+      "new_insight": false,
+      "equations": [
+        "reported_context_PASS := locator_check(stable_source_locator) and claim_scope = source_reported_context",
+        "reported_context_PASS does not imply exact_certified_observable_PASS"
+      ],
+      "references": [
+        "inspector_B_C2T_S2_R1_round1.md",
+        "inspector_warnings_C2T_S2_R1_round1.md"
+      ],
+      "assumptions": [
+        "Stable locator means durable page/table/row/figure/repository granularity rather than generic bibliographic identity."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The framework is narrower than generic provenance hygiene because exact O_s certification requires executable pair-population, raw-sum, normalization, mapping, and trace checks, not merely source attribution.",
+      "confidence": 0.81,
+      "new_insight": true,
+      "equations": [
+        "generic_provenance subset {source_bibliographic_id, stable_source_locator}",
+        "required(exact_certified_observable) strictly contains generic_provenance plus observable-specific computational witnesses"
+      ],
+      "references": [
+        "Round 2 predicate table P0-P8"
+      ],
+      "assumptions": [
+        "Future PI/inspector work preserves predicate-level terminal statuses."
+      ]
+    }
+  ],
+  "deepening_1": {
+    "question": "Does the executable predicate table expose a deeper mathematical structure than the Round 1 finite-state labels?",
+    "layer_1": {
+      "structure": "partial function from records to terminal statuses",
+      "mapping": "Each mode is a partial evaluator over a record schema. Undefined or missing required fields do not default to PASS; they map to BLOCK or WARN according to the predicate.",
+      "consequence": "The reported_context bug is a type error: a missing locator cannot inhabit the PASS branch."
+    },
+    "layer_2": {
+      "structure": "monotone proof lattice with non-monotone terminal claims",
+      "mapping": "Adding fields can move a record upward in auditability, but terminal claims are not monotone in scalar agreement. Exact PASS requires all target predicates, while a failed check can demote or block despite more data.",
+      "consequence": "The calculus prevents silent upgrades: a richer narrative is not equivalent to a proof object."
+    }
+  },
+  "deepening_2": {
+    "question": "Does proof-carrying execution have a next-layer extension that maps back to O_s?",
+    "layer_1": {
+      "source_extension": "runtime admission control separates loadable artifacts from executable artifacts by checking certificates before execution.",
+      "mapping": "O_s claims should be separated into archived scalar, context report, bounded attempt, trace-bound attempt, and exact-certified observable before any scientific conclusion consumes them.",
+      "consequence": "The executor table is not documentation; it is an admission barrier."
+    },
+    "layer_2": {
+      "source_extension": "typed proof systems distinguish evidence for proposition A from evidence for proposition B even when the same document is cited.",
+      "mapping": "A stable source locator proves only 'the source reported this context'; it does not prove 'the exact observable identity was reproduced'. Pair/sum/normalization/trace predicates prove different propositions.",
+      "consequence": "The repaired reported_context condition is logically necessary, not cosmetic wording."
+    }
+  },
+  "forbidden_claims": [
+    "Srivastava 2019 validates exact O_s.",
+    "Srivastava 2019 refutes exact O_s.",
+    "reported_context is unconditional PASS.",
+    "A generic bibliography entry is enough for context PASS.",
+    "A stable locator for context upgrades a claim to exact O_s.",
+    "Numeric closeness certifies observable identity.",
+    "Executor quality alone certifies observable identity.",
+    "Generic provenance hygiene is sufficient for exact O_s certification.",
+    "Exact O_s is impossible in principle.",
+    "A graph descriptor can replace overlap provenance for exact O_s.",
+    "Graph-vs-overlap residual regression is relevant to this round's claim.",
+    "This round performs material validation."
+  ],
+  "artifact": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\S2_R1_executor_predicates_round2.csv"
+}

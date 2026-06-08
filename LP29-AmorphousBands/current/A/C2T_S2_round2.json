@@ -1,0 +1,157 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 2,
+  "agent": "A",
+  "polaris": "LP29-C2T-S2 / context baseline vs reproduced Srivastava exact O_s baseline",
+  "framework": "Literature-first reproducibility audit converted into a field-level blocker table. The criterion is deliberately stricter than reported-value transcription: a Srivastava exact O_s reproduction baseline requires source-row provenance, exact structure identity, pair selection, executable orbital-overlap kernel, raw overlap sum, executable normalization formula, and a same-structure mapping before any residual or material validation claim is allowed.",
+  "findings": {
+    "verdict": "BLOCK_REPRODUCED_EXACT_O_S_BASELINE",
+    "artifact_created": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_blocker_table.csv",
+    "summary": "Round 2 builds the requested Srivastava exact O_s reproduction blocker table. The four local Srivastava rows are usable only as reported context: they contain DOI, sample ids, composition context, cell volumes, reported OI_norm values, pair_cutoff_A=4, method labels, and m_eff_over_m0 context labels. They do not contain structure_id, num_atoms, OI_raw_sum, executable OI_normalization_formula_id, pair-list provenance, N_pair, same-structure mapping, or residual fields. Therefore the exact Srivastava O_s baseline remains blocked, and all validation claims remain frozen.",
+    "paper_search_round2_check": {
+      "tool": "paper-search-mcp",
+      "date": "2026-06-04",
+      "crossref": "DOI 10.1063/1.5096042 confirmed Srivastava et al. 2019, Journal of Applied Physics 126, 125702, with official AIP PDF URL.",
+      "arxiv": "Exact title search returned no arXiv record for Srivastava 2019.",
+      "unpaywall": "DOI lookup returned no open OA record.",
+      "semantic": "Aggregate query returned no Semantic Scholar payload in the selected source set.",
+      "effect_on_conclusion": "No Round 2 search result supplies structures, code, raw O_s sums, normalization witnesses, or downloadable SI sufficient to unblock reproduction."
+    },
+    "blocker_table_scope": "The table is field-level rather than per-row repeated: it states what each field is needed for, what is available now across the four reported Srivastava rows, the evidence source, current status, and the minimum action required to unblock exact reproduction.",
+    "allowed_use_now": [
+      "Use Srivastava 2019 as reported literature context for orbital-overlap/effective-mass correlation.",
+      "Use C2_Srivastava_baseline_rows.csv as reported_table_and_text rows.",
+      "Use OI_norm only as reported_context_only."
+    ],
+    "forbidden_use_now": [
+      "Do not call reported OI_norm a reproduced exact O_s baseline.",
+      "Do not use the local rows for graph-vs-overlap residual validation.",
+      "Do not claim graph metrics beat orbital-overlap baseline.",
+      "Do not use core_38590358.pdf or DOI 10.1038/srep13467 as Srivastava evidence."
+    ],
+    "minimum_unblock_package": [
+      "Official row/page provenance for each Srivastava sample.",
+      "Exact structure_id with coordinates or file hash and num_atoms.",
+      "Pair rule or pair_cutoff_A provenance plus generated pair list, N_pair, and N_pair_provenance_id.",
+      "Executable Mulliken/STO overlap kernel and q_i_q_j weighting table or formula.",
+      "OI_raw_sum for each row.",
+      "Versioned OI_normalization_formula_id that reproduces reported OI_norm from OI_raw_sum and volume/pair fields.",
+      "Same-structure mapping tying OI, effective mass, and any future graph metric to the same atomistic structure."
+    ]
+  },
+  "weakest_link": "The weakest link remains the missing row-level executable witness: reported OI_norm values exist, but no available A-side evidence ties them to OI_raw_sum, exact pair selection, executable normalization, and the exact atomistic structure used for the same Srivastava sample.",
+  "next_plan": {
+    "immediate": "Treat the blocker table as the Round 2 A artifact and feed it to INSPECTOR. Do not advance to material validation.",
+    "unblock_path": "Use library/manual AIP access, supplementary material, author repository, or author request to recover structures, SI formulas, orbital weights, and raw/pair-list data. If recovered, create a proof-carrying witness payload and rerun the C2T executor.",
+    "fallback_if_unblocked_payload_is_not_available": "Keep Srivastava rows in reported_context_only mode and define a separate fixed_density or fixed_pair baseline with its own formula/code/provenance rather than labeling it Srivastava reproduction."
+  },
+  "literature_needed": [
+    "Official AIP PDF and supplementary information for DOI 10.1063/1.5096042",
+    "Srivastava et al. 2019 Table II and Fig. 4 page-level provenance",
+    "SI section describing STO/Mulliken orbital weights and pair overlap calculation",
+    "Any author repository or dataset containing a-IGZO 1114, a-IGZO 2217, a-ZnON 21, and a-ZnON 11 structures",
+    "Code or pseudocode for pair generation, pair cutoff, raw overlap sum, and OI normalization"
+  ],
+  "claims": [
+    {
+      "id": "A-C2T-S2-R2-C1",
+      "statement": "The current Srivastava rows support only a reported-context orbital-overlap baseline, not reproduced exact O_s.",
+      "confidence": 0.94,
+      "new_insight": false,
+      "evidence": [
+        {
+          "type": "local_artifact",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\C2_Srivastava_baseline_rows.csv",
+          "relevance": "Rows contain reported OI_norm but leave structure_id, num_atoms, OI_raw_sum, and residual fields blank; decisive_claim_allowed=false."
+        },
+        {
+          "type": "inspector",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\inspector_A_C2T_S2_round1.md",
+          "relevance": "Inspector passed the context/reproduction separation and warned not to upgrade without row-level witness payload."
+        },
+        {
+          "type": "pi_synthesis",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_round1.md",
+          "relevance": "PI directed Round 2 to build a row-level reproduction blocker table and keep validation claims frozen."
+        }
+      ],
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "Reported OI_norm transcription can be used as context without proving exact reproduction.",
+        "Exact Srivastava reproduction requires a witness payload, not only article metadata or reported values."
+      ]
+    },
+    {
+      "id": "A-C2T-S2-R2-C2",
+      "statement": "The minimum blockers for reproduced exact O_s are structure identity, atom count, raw overlap sum, executable normalization, pair-rule provenance, pair-list provenance, and same-structure mapping.",
+      "confidence": 0.92,
+      "new_insight": false,
+      "evidence": [
+        {
+          "type": "new_artifact",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_blocker_table.csv",
+          "relevance": "Field-level table enumerates required fields, current availability, blocker status, and minimum unblock actions."
+        },
+        {
+          "type": "round1_json",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\C2T_S2_round1.json",
+          "relevance": "Reproduction fields status listed structure_id, OI_raw_sum, normalization formula id, pair density, and same-structure mapping as missing or blocking."
+        }
+      ],
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "The C2T witness standard is the governing standard for material/residual validation.",
+        "A future non-Srivastava fixed-density or fixed-pair baseline must be declared as a different comparison mode."
+      ]
+    },
+    {
+      "id": "A-C2T-S2-R2-C3",
+      "statement": "Round 2 paper-search-mcp checks did not find an open payload that unblocks exact Srivastava reproduction.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "evidence": [
+        {
+          "type": "paper_search_mcp",
+          "source": "Crossref DOI lookup",
+          "relevance": "Confirmed DOI metadata and official AIP PDF URL but did not provide structures/raw sums/code."
+        },
+        {
+          "type": "paper_search_mcp",
+          "source": "arXiv exact-title search and Unpaywall DOI lookup",
+          "relevance": "Returned no arXiv record and no OA record for DOI 10.1063/1.5096042."
+        }
+      ],
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "Absence of open payload in this search is not proof that reproduction is impossible in principle.",
+        "Manual/library access may still recover the necessary PDF/SI/structure witnesses."
+      ]
+    }
+  ],
+  "blocker_table_path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_blocker_table.csv",
+  "resolved_previous_warnings": {
+    "keep_OI_norm_reported_context_only": "resolved: blocker table labels OI_norm as REPORTED_CONTEXT_ONLY and JSON forbids reproduced exact O_s claims.",
+    "do_not_use_wrong_fallback_pdf": "resolved: blocker table marks wrong_fallback_pdf EXCLUDED and JSON forbids using core_38590358.pdf or DOI 10.1038/srep13467 as Srivastava evidence.",
+    "require_row_level_witness_fields": "resolved_as_blocker_table: required fields are enumerated with minimum unblock actions; missing fields continue to block reproduction.",
+    "maintain_decisive_claim_allowed_false": "resolved: no material validation or decisive LP29 claim is made; current rows remain false until exact witnesses exist.",
+    "do_not_convert_access_failure_to_impossibility": "resolved: JSON states that lack of open payload does not prove impossibility in principle and routes to manual/library/author recovery."
+  }
+}

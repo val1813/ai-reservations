@@ -1,0 +1,351 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "window": "current-S1",
+  "round": 1,
+  "agent": "A",
+  "role": "literature-driven",
+  "polaris": "Can I_phi be pre-registered from input-side spectroscopy, structure, and dephasing variables independently of bulk superconducting output, or is it a posterior relabeling of output?",
+  "framework": "Input-output separation in layered-superconductor spectroscopy: construct a dimensionless input-side readiness index only from normal-state or pre-declared structural/spectroscopic variables, then test it against withheld bulk superconducting outputs.",
+  "findings": "Round 1 finds strong prior-art overlap for every physical ingredient of I_phi: interlayer coherence, Ni dz2/apical-O/bilayer coupling, c-axis optical spectral weight, density-wave competition, oxygen-vacancy disorder, and pressure/structure tuning are all already active explanations in bilayer/Ruddlesden-Popper nickelates. I did not find a clearly identical prior protocol in which a single I_phi-like input-side index is fully specified before inspecting Tc, zero resistance, shielding, Meissner response, critical current, or bulk phase stiffness. Therefore the possible novelty is narrow and methodological: a leakage-controlled pre-registration protocol, not a new mechanism. The fatal risk is that C_phi and E_floor are easy to define only after seeing the superconducting phase boundary; if either is calibrated on bulk output, S1 fails.",
+  "core_answer": {
+    "non_circular_measurability": "Partially possible in principle, not validated. E_z2 can be pre-registered from ARPES/XAS/RIXS/DFT-informed dz2 spectral-weight proxies or c-axis optical sum-rule proxies; Gamma_phi can be estimated from normal-state optical Drude scattering, Raman/NMR dephasing, or linewidths; E_floor can be a pre-declared disorder/structure penalty from apical-O vacancy metrics, mosaic/strain width, or residual normal-state scattering. C_phi is the hardest variable because many natural definitions collapse into superconducting output, especially Josephson plasma, superfluid density, phase stiffness, Meissner screening, or zero-resistance coherence.",
+    "posterior_relabeling_risk": "High unless thresholds, weights, spectral windows, temperature/pressure points, and missing-data rules are frozen before any bulk superconducting output is inspected.",
+    "prior_art_overlap": "High on mechanism; moderate on input observables; no exact I_phi protocol found in MCP searches."
+  },
+  "candidate_equation": {
+    "label": "I_phi_working",
+    "expression": "E_z2*C_phi/(kB*T + hbar*Gamma_phi + E_floor)",
+    "variables": {
+      "E_z2": "input-side interlayer dz2 channel energy or spectral-weight energy proxy",
+      "C_phi": "dimensionless normal-state interlayer phase-bus connectivity factor, constrained to exclude bulk superconducting observables",
+      "kB": "Boltzmann constant",
+      "T": "measurement temperature fixed in the preregistered protocol",
+      "hbar": "reduced Planck constant",
+      "Gamma_phi": "input-side dephasing or scattering rate, measured without using superconducting output",
+      "E_floor": "pre-declared disorder/structural energy floor"
+    },
+    "units": "dimensionless if E_z2, kB*T, hbar*Gamma_phi, and E_floor are all energies and C_phi is dimensionless",
+    "limits": [
+      {
+        "variable": "Gamma_phi",
+        "to": "0",
+        "expected": "E_z2*C_phi/(kB*T + E_floor)",
+        "desc": "finite only if E_floor or T is nonzero; otherwise the index can diverge and become a tunable artifact"
+      },
+      {
+        "variable": "C_phi",
+        "to": "0",
+        "expected": "0",
+        "desc": "no recoverable input-side phase-bus connectivity"
+      },
+      {
+        "variable": "E_floor",
+        "to": "large",
+        "expected": "0",
+        "desc": "strong structural/disorder penalty suppresses readiness independent of dz2 weight"
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The physical ingredients of I_phi are not novel: interlayer dz2 coupling, bilayer electronic structure, structural/apical oxygen control, density-wave competition, and c-axis response are already central in nickelate literature.",
+      "confidence": 0.88,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1103/466c-8sl4",
+          "label": "Three-Dimensional Electronic Structures in Superconducting Bilayer Ruddlesden-Popper Nickelate Films, 2026"
+        },
+        {
+          "doi": "10.1038/s42254-025-00898-2",
+          "label": "Puphal et al., Nature Reviews Physics 2025"
+        },
+        {
+          "doi": "10.1038/s41535-024-00668-w",
+          "label": "Luo et al., npj Quantum Materials 2024"
+        },
+        {
+          "doi": "10.1038/s41467-024-52001-5",
+          "label": "Liu et al., Nature Communications 2024"
+        }
+      ],
+      "assumptions": [
+        "MCP metadata titles/abstracts correctly identify the mechanism overlap.",
+        "The seed PRL 136, 216501 (2026) remains within the same prior-art boundary described in the local literature library."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "A non-circular E_z2 is feasible only if its spectral window, orbital projection rule, background subtraction, and energy conversion are fixed before bulk output is examined.",
+      "confidence": 0.74,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "E_z2_proxy",
+          "expression": "alpha_z2*Integral(A_z2(omega), (omega, omega1, omega2))",
+          "variables": {
+            "alpha_z2": "pre-registered conversion from integrated dz2 spectral weight to an energy proxy",
+            "A_z2(omega)": "input-side orbital-resolved spectral function or experimental proxy",
+            "omega1": "lower bound of the pre-declared spectral window",
+            "omega2": "upper bound of the pre-declared spectral window"
+          },
+          "units": "energy if alpha_z2 is calibrated without superconducting output"
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.21203/rs.3.rs-3981184/v1",
+          "label": "Jiang et al., Electronic structure and superconductivity in bilayer La3Ni2O7, 2024"
+        },
+        {
+          "doi": "10.48550/arxiv.2312.01271",
+          "label": "Sui et al., oxygen vacancies and dz2 electronic structure, 2023"
+        },
+        {
+          "doi": "10.48550/arxiv.2309.15078",
+          "label": "Geisler et al., structural transitions and electronic properties, 2023"
+        }
+      ],
+      "assumptions": [
+        "ARPES/XAS/RIXS or c-axis optical measurements can be performed on the same sample or matched sample before bulk output is declared.",
+        "Orbital projection does not silently use a superconducting/non-superconducting label."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "C_phi is the main circularity bottleneck: definitions based on Josephson plasma, superfluid density, Meissner screening, zero resistance, critical current, or bulk phase stiffness are forbidden for S1.",
+      "confidence": 0.92,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "C_phi_allowed_example",
+          "expression": "W_c_Drude/(W_c_Drude + W_c_incoh + epsilon)",
+          "variables": {
+            "W_c_Drude": "normal-state c-axis coherent Drude spectral weight in a fixed window",
+            "W_c_incoh": "normal-state incoherent c-axis spectral weight in the same pre-declared protocol",
+            "epsilon": "small pre-declared numerical stabilizer"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "W_c_Drude",
+              "to": "0",
+              "expected": "0",
+              "desc": "incoherent c-axis transport"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1016/j.physc.2004.02.129",
+          "label": "Kuzmenko et al., c-axis spectral weight and sum rules in LSCO, 2004"
+        },
+        {
+          "doi": "10.1007/s10948-014-2901-9",
+          "label": "Dusza et al., optical Drude weight and scattering rate, 2014"
+        },
+        {
+          "doi": "10.1021/acsaelm.3c00506.s001",
+          "label": "Optical Properties of Superconducting Nd0.8Sr0.2NiO2 Nickelate, supporting information"
+        }
+      ],
+      "assumptions": [
+        "Normal-state c-axis optical data are available with enough quality in the relevant nickelate samples.",
+        "The analysis temperature is above any superconducting fluctuation regime or otherwise pre-specified independently."
+      ]
+    },
+    {
+      "id": "C4",
+      "statement": "Gamma_phi and E_floor can be input-side variables, but only with strict provenance: Gamma_phi must come from normal-state scattering/dephasing linewidths, and E_floor from structural/disorder metrics rather than fit residuals to the phase boundary.",
+      "confidence": 0.78,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "E_floor_example",
+          "expression": "lambda_vac*sigma_vac + lambda_strain*sigma_strain + lambda_res*hbar*Gamma_res",
+          "variables": {
+            "lambda_vac": "pre-registered energy coefficient for apical oxygen vacancy disorder",
+            "sigma_vac": "measured apical oxygen vacancy/disorder metric",
+            "lambda_strain": "pre-registered energy coefficient for strain or structural inhomogeneity",
+            "sigma_strain": "measured structural linewidth or strain spread",
+            "lambda_res": "dimensionless pre-registered coefficient",
+            "Gamma_res": "residual normal-state scattering rate"
+          },
+          "units": "energy"
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s42005-025-02266-z",
+          "label": "Lu et al., pressure and apical oxygen vacancies in La3Ni2O7, 2025"
+        },
+        {
+          "doi": "10.1016/j.scib.2025.02.019",
+          "label": "Zhao et al., pressure-enhanced SDW transition from NMR, 2025"
+        },
+        {
+          "doi": "10.1021/acs.inorgchem.3c04474",
+          "label": "Wang et al., hidden structural phase in La3Ni2O7, 2024"
+        }
+      ],
+      "assumptions": [
+        "Disorder metrics are measured before the superconducting output is revealed.",
+        "Coefficients are not optimized against Tc or shielding."
+      ]
+    },
+    {
+      "id": "C5",
+      "statement": "The minimal defensible S1 protocol is a preregistered holdout design: freeze all formulas and thresholds on input variables only, publish or timestamp them, then reveal bulk output only after I_phi has been computed sample-by-sample.",
+      "confidence": 0.81,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "leakage_rule",
+          "expression": "I_phi_train = f(X_input; theta_fixed)",
+          "variables": {
+            "X_input": "spectroscopy, structure, and dephasing variables only",
+            "theta_fixed": "pre-declared weights, windows, thresholds, and missing-data rules"
+          },
+          "units": "dimensionless output if f is I_phi",
+          "limits": [
+            {
+              "variable": "theta_fixed",
+              "to": "fit_to_output",
+              "expected": "invalid",
+              "desc": "any tuning on Tc, zero resistance, shielding, Meissner response, critical current, or bulk phase stiffness makes I_phi posterior"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.48550/arxiv.2406.04837",
+          "label": "Wang et al., Normal and superconducting properties of La3Ni2O7, 2024 review"
+        },
+        {
+          "doi": "10.15302/frontphys.2026.115301",
+          "label": "Qiu and Yao, ambient-pressure bilayer nickelate films progress, 2026"
+        }
+      ],
+      "assumptions": [
+        "A study can access enough samples before output labels are used.",
+        "Bulk superconducting observables are genuinely withheld from index construction."
+      ]
+    }
+  ],
+  "prior_art_overlap": [
+    {
+      "topic": "interlayer coherence and dz2-pz-dz2 or dz2-driven bilayer coupling",
+      "overlap_level": "high",
+      "implication": "Not a novelty claim for LP28-S1; only the non-circular protocol can be novel."
+    },
+    {
+      "topic": "c-axis optical spectral weight and Drude/scattering decomposition",
+      "overlap_level": "high in layered superconductors, partial in nickelates",
+      "implication": "Can supply input variables but not a unique I_phi validation."
+    },
+    {
+      "topic": "density-wave suppression versus superconductivity",
+      "overlap_level": "high",
+      "implication": "DW disappearance cannot be used as sufficient evidence for bulk superconductivity and should not be folded into I_phi as an output proxy."
+    },
+    {
+      "topic": "structure, pressure, apical oxygen vacancies, and oxygen stoichiometry",
+      "overlap_level": "high",
+      "implication": "Good candidates for E_floor, but also likely confounders that can mimic predictive success."
+    }
+  ],
+  "fatal_circularity_risks": [
+    "Choosing I_phi threshold after viewing Tc, zero resistance, shielding, Meissner signal, critical current, or phase stiffness.",
+    "Using Josephson plasma resonance, superfluid density, or condensate spectral weight as C_phi.",
+    "Defining Gamma_phi from superconducting fluctuation fits that already encode transition behavior.",
+    "Tuning E_floor to repair false positives/false negatives in the known phase diagram.",
+    "Selecting spectral windows or pressure/temperature points because they maximize correlation with superconducting output.",
+    "Training weights on samples labeled superconducting/non-superconducting and then calling the result input-side."
+  ],
+  "pre_registration_protocol_candidate": {
+    "status": "candidate only, not validation",
+    "steps": [
+      "Before measuring or revealing bulk output, declare sample set, pressure/strain/temperature grid, spectral windows, orbital-projection method, and missing-data rules.",
+      "Measure input-side structure: apical-O geometry, oxygen vacancy/disorder proxy, lattice/strain linewidths, phase purity, and stacking polymorph flags.",
+      "Measure input-side spectroscopy: ARPES/XAS/RIXS dz2 proxy where available and normal-state c-axis optical conductivity in a fixed frequency window.",
+      "Compute E_z2, C_phi, Gamma_phi, and E_floor using frozen formulas and coefficients not trained on superconducting output.",
+      "Timestamp each sample's I_phi before opening the bulk-output file.",
+      "Only then compare to pre-declared binary/continuous output endpoints such as Tc, zero resistance, shielding, or Meissner response; these endpoints are evaluation-only."
+    ],
+    "go_no_go_test": "S1 survives Round 1 only if at least one lab-feasible route can compute all four variables without using bulk output. It fails if C_phi or E_floor cannot be specified except by fitting known superconducting boundaries."
+  },
+  "weakest_link": "C_phi. A normal-state c-axis Drude/coherent fraction is the least circular candidate, but it may be experimentally hard in nickelates and may still be a generic interlayer-coherence relabel unless the exact window and decomposition are frozen before output labels are inspected.",
+  "next_plan": "Round 2 should narrow to one concrete measurement stack: same-sample structure plus normal-state c-axis optical/ARPES proxy under a fixed pressure or strain path. The main task is to decide whether C_phi can be derived from normal-state spectral decomposition with no Josephson/superfluid leakage, and whether E_floor coefficients can be externally fixed from disorder/structure rather than output fitting.",
+  "literature_needed": [
+    "full text and figures for PRL 136, 216501 (2026), especially c-axis conductivity and DW/layer-decoupling measurements",
+    "full text for DOI 10.1103/466c-8sl4 on 3D electronic structures in superconducting bilayer RP nickelate films",
+    "nickelate c-axis optical conductivity raw or supplemental data",
+    "ARPES/XAS/RIXS orbital-resolved dz2 spectral weight in La3Ni2O7 or ambient-pressure bilayer films",
+    "normal-state scattering/dephasing measurements under pressure that are not fit to superconducting transition endpoints",
+    "structural/apical oxygen vacancy quantification with sample-resolved output held out"
+  ],
+  "deepening": {
+    "deepening_1": {
+      "next_consequence": "If I_phi can be computed input-side, it becomes a leakage test for phase-bus readiness rather than a proof of superconductivity.",
+      "second_consequence": "False positives would be scientifically useful: they would separate interlayer phase-bus readiness from pairing amplitude, disorder percolation, or sample inhomogeneity."
+    },
+    "deepening_2": {
+      "most_fragile_assumption": "That normal-state c-axis coherence is a valid C_phi proxy rather than just another transport observable already entangled with the eventual bulk transition.",
+      "second_consequence": "If this assumption fails, I_phi reduces to known interlayer-coherence language and S1 has no independent methodological content."
+    }
+  },
+  "search_groups": [
+    {
+      "group": 1,
+      "purpose": "Core claim duplication search",
+      "queries": [
+        "nickelate input-side predictor interlayer coherence superconductivity dz2 pz dz2 hybridization 2023 2024 2025 2026",
+        "La3Ni2O7 dz2 pz dz2 hybridization superconductivity interlayer coupling high pressure"
+      ],
+      "result": "No exact I_phi-like preregistered input index found; strong overlap for dz2/interlayer-coherence mechanism."
+    },
+    {
+      "group": 2,
+      "purpose": "Framework blind-spot search in ordinary physics language",
+      "queries": [
+        "c-axis optical spectral weight interlayer coherence predictor superconducting phase boundary spectroscopy 2022 2023 2024 2025 nickelate cuprate",
+        "bilayer nickelate optical conductivity c-axis spectroscopy La3Ni2O7 superconductivity pressure"
+      ],
+      "result": "Layered-superconductor c-axis spectral weight and Drude/scattering analyses are established; nickelate-specific data appear partial and uneven."
+    },
+    {
+      "group": 3,
+      "purpose": "Counterexample and negative-literature search",
+      "queries": [
+        "nickelate interlayer coherence superconductivity failure criticism counterexample density wave c-axis conductivity",
+        "Ruddlesden Popper nickelate density wave c-axis conductivity layer decoupling superconductivity PRL 216501 2026"
+      ],
+      "result": "Density-wave and c-axis coherence are not sufficient for bulk superconductivity; pressure-enhanced SDW and structural/oxygen complications create serious confounders."
+    },
+    {
+      "group": 4,
+      "purpose": "Data availability and measurability search",
+      "queries": [
+        "nickelate dz2 orbital spectral weight c-axis optical conductivity dephasing scattering rate measurement experiment data pressure superconductivity",
+        "La3Ni2O7 ARPES dz2 gamma band bilayer nickelate superconductivity spectral weight"
+      ],
+      "result": "Measurable inputs exist in pieces: structure, ARPES/electronic correlations, NMR, optical conductivity analogs, and disorder/oxygen-vacancy theory/experiments. A complete same-sample dataset for all I_phi variables is not yet established from this search."
+    }
+  ],
+  "search_tool_self_check": {
+    "group_1_tool": "paper-search-mcp",
+    "group_2_tool": "paper-search-mcp",
+    "group_3_tool": "paper-search-mcp",
+    "group_4_tool": "paper-search-mcp",
+    "websearch_downgrade": "not used for A Round 1 conclusions; MCP was used first for all four groups",
+    "mcp_limitations": [
+      "Some searches returned noisy Crossref hits for the string dz2 outside condensed matter.",
+      "Some 2026 APS records have sparse metadata.",
+      "Full-text verification remains needed for the local PRL seed and APS 2026 PRX/PRL records."
+    ]
+  }
+}

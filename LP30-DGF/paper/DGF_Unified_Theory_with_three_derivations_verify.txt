@@ -1,0 +1,509 @@
+论文后续补推导原则：
+一句话：
+凡是预设洛伦兹时空已经存在的方程，都不能作为起点；只有不依赖时空背景、只依赖信息状态和信息容量的表达式，才是合法的出发点。
+
+展开一点说就是：
+不能用的： 薛定谔方程、爱因斯坦方程、Lindblad方程、弗里德曼方程、GUP、任何含 cc c、tt t、x?\vec{x} x、gμνg_{\mu\nu} gμν? 作为背景参数的方程——因为这些都预设了洛伦兹时空已经存在，而我们要推导的正是它。
+可以用的： 只有三类——信息论（香农熵、Landauer原理、全息界）、纯数学（欧拉公式、微分几何、量纲分析）、以及 q∈[0,1]q \in [0,1] q∈[0,1] 本身。
+判断原则只有一个： 问这个方程里有没有隐含"时空已经存在"的假设。有就不能用，没有才能用。
+
+
+Decoherence Geometry Framework (DGF)
+A Unified Theory: From Euclidean Quantum Origin to Classical Spacetime, Mass, and Gravity
+Huang Zhongchang
+Independent Researcher, Nanjing, China  |  valhuang@kaiwucl.com
+Draft v1.0  |  2026-06-05
+
+Abstract
+We propose the Decoherence Geometry Framework (DGF), a theory in which the macroscopic classical universe, spacetime geometry, inertial mass, and gravitational interaction all emerge from a single process: the irreversible flow of spatial interference information from high-density regions to low-density regions at the Planck scale.
+The universe began as a pure Euclidean quantum state with full interference access everywhere (q = 1). A primordial information-density bifurcation — identified with the Big Bang — caused regions exceeding the Planck resolution limit to begin losing coherence. This process is described by a single scalar field q ∈ [0,1], the accessible coherence fraction, whose gradient determines the local degree of Euclidean-to-Lorentzian projection.
+We show that: (1) time emerges as the direction of decreasing q; (2) space emerges as the geometry of q iso-surfaces; (3) mass equals archived (locked) information density; (4) gravity arises from q-gradients in a complex metric ds2 = e^{iπ(1-q)} dτ2 + dx2; (5) E = mc2 is the information-energy conversion at the Planck boundary; and (6) dark energy is the geometric consequence of accelerating cosmic decoherence.
+Three falsifiable predictions are derived: a systematic suppression of the effective gravitational constant G_eff ~ G/π near quantum-coherent systems; a q-dependent correction to the gravitational potential observable in atomic interferometry; and a slow secular drift of G correlated with the Hubble rate. The framework is distinguished from prior emergent gravity proposals by its explicit causal direction — decoherence produces gravity, not the reverse — and by providing a microscopic definition of q via Planck-cell occupancy fractions.
+
+I.  The Core Hypothesis
+1.1  The Standard Picture and Its Inversion
+Conventional physics treats the classical world as the default and asks how quantum mechanics emerges, or why macroscopic systems appear classical. Environmental decoherence (Zurek 1981, Joos & Zeh 1985) provides a mechanism but not an origin: it explains decoherence given a pre-existing classical environment, without explaining why the environment is classical in the first place.
+DGF inverts this question entirely. The classical world is not the background — it is the deficit. The Euclidean quantum state is complete. The macroscopic world is what remains after information has been irreversibly archived.
+"Classicality is not an approximation to quantum mechanics. It is the observable residue of quantum information that has overflowed the Planck-scale resolution capacity."
+1.2  Three Founding Assumptions
+DGF rests on three assumptions that are independent of any pre-existing spacetime structure:
+?  Assumption 1 — Information exists. There are distinguishable states. No time, space, or mass is presupposed.
+?  Assumption 2 — Information capacity is bounded. Each minimum unit (Planck cell) carries at most one bit. This is the holographic bound stated without reference to a gravitational background.
+?  Assumption 3 — Overflow is irreversible. When local information density exceeds the Planck capacity, the excess transfers to lower-density cells and cannot spontaneously return. This is the information-theoretic arrow of time.
+From these three assumptions alone, without invoking any equations of physics, all subsequent structure is derived.
+1.3  The Primordial State and the Bifurcation Event
+Before the bifurcation event, the universe was a pure Euclidean quantum state:
+q = 1 everywhere  →  ds2_E = dτ2 + dx2 + dy2 + dz2
+All four directions are equivalent. There is no time arrow, no causal structure, no mass. This is a homogeneous information field at maximum coherence.
+The bifurcation event (identified with the Big Bang) was not an energy singularity. It was the first moment at which local information density exceeded the Planck capacity in some region. This created a spatial gradient in q:
+?q ≠ 0  (first appearance of spatial structure)
+High-density regions began losing coherence. Low-density regions absorbed the overflow without exceeding capacity and remained quantum. The universe split into two populations that persist today: massive classical objects (low q) and light quantum fields (q near 1).
+
+II.  The Microscopic Definition of q
+2.1  Planck-Cell Occupancy
+Partition the support volume V_S of any physical system S into Planck cells. Each cell c has a binary information capacity of ln 2 (one bit, per the holographic bound). Define the cell occupancy fraction:
+f_c = I_c / I_c^max  ∈  [0, 1]
+where I_c is the spatial interference information currently held in cell c. A full cell (f_c → 1) cannot participate in quantum branch recombination. An empty cell (f_c → 0) has full capacity to accept overflow.
+2.2  The Accessible Coherence Fraction
+The system-level accessible coherence fraction is the mean cell occupancy:
+q_S  =  (1/N_S) Σ_c  f_c  =  f?_S
+where N_S = V_S / l_p3 is the total number of Planck cells in the system's volume.
+The complementary archived fraction is:
+A_S  =  1 - q_S  =  (mean locked information per cell)
+This gives q its microscopic meaning without any reference to a spacetime background. q is simply the fraction of Planck cells that remain available for quantum interference.
+2.3  Why Information Flows from High to Low Mass
+The available capacity of a cell is (1 - f_c). For a massive object with high occupancy (f?_S ~ 1), the available capacity per cell is near zero. For a low-mass receiver with low occupancy (f?_R ~ 0), available capacity is near one.
+The entropy of distributing I_occ units of information across N_S + N_R cells is maximized when information flows from the high-occupancy sender to the low-occupancy receiver. The entropy gradient is:
+?S/?(δI)  =  k_B [ ln((1 - f?_S)/f?_S)  -  ln((1 - f?_R)/f?_R) ]  >  0
+when f?_S > f?_R. This is the statistical origin of directed information flow — no pairing mechanism is required. Low-mass degrees of freedom are preferential information receivers simply because they have more available capacity. The flow is local, stochastic, and requires no global coordination.
+
+III.  Emergence of Time, Space, and the Complex Metric
+3.1  Time as the Direction of Decreasing q
+In the primordial Euclidean state, all four directions of dτ2 + dx2 + dy2 + dz2 are equivalent. Decoherence breaks this symmetry by singling out a preferred direction: the direction along which q decreases.
+dt  ≡  -dq · τ?
+Time is not a pre-existing background parameter. Time is the name given to the direction of monotonically decreasing accessible coherence. This gives a natural arrow of time without any auxiliary assumption: q decreases because information overflow is irreversible (Assumption 3).
+3.2  Space as the Geometry of q Iso-Surfaces
+Two points are spatially separated to the extent that their q values differ. The spatial metric element is determined by the geometry of q iso-surfaces. Spatial distance is not a container into which matter is placed — it is the relational structure encoded in the q distribution.
+3.3  The Complex Metric from Partial Wick Rotation
+Define the projection angle:
+θ  =  π(1 - q)  ∈  [0, π]
+θ = 0 when q = 1 (pure Euclidean). θ = π when q = 0 (pure Lorentzian). A partial decoherence corresponds to a partial Wick rotation by angle θ/2:
+τ  →  e^{iθ/2} τ'
+Substituting into the Euclidean line element dτ2, the temporal component of the metric becomes:
+g_{ττ}  =  e^{iθ}  =  e^{iπ(1-q)}
+The full metric is therefore:
+ds2  =  e^{iπ(1-q)} dτ'2  +  dx2 + dy2 + dz2
+Boundary conditions — verified:
+?  q = 1  →  e^{0} = 1  →  ds2 = dτ'2 + dx2  (Euclidean) ?
+?  q = 0  →  e^{iπ} = -1  →  ds2 = -dτ'2 + dx2  (Minkowski, with τ' = ct) ?
+?  q = 1/2  →  e^{iπ/2} = i  →  ds2 = i dτ'2 + dx2  (quantum-classical boundary, no classical trajectories) ?
+3.4  Physical Meaning of the Imaginary Part
+The real part of the metric encodes the Lorentzian geometry accessible to classical observers. The imaginary part encodes the surviving Euclidean structure — the part of the quantum geometry that has not yet been archived. In standard physics, this imaginary part is discarded (Wick rotation is treated as a mathematical trick). In DGF, discarding it is physically wrong: it represents the quantum coherence that still exists.
+The decomposition is:
+e^{iθ} dτ'2  =  cos θ · dτ'2  +  i sin θ · dτ'2
+Real part (cos θ · dτ'2): Lorentzian signature contribution, grows as q decreases.
+Imaginary part (i sin θ · dτ'2): Euclidean residue, peaks at q = 1/2 and vanishes at both extremes.
+
+IV.  Mass from Archived Information
+4.1  The Euler Residual
+The state vector in information space is:
+|χ(A)?  =  √q |Q?  +  √A |C?
+where |Q? is the flowing quantum sector (accessible) and |C? is the archived classical sector. The Euler residual — the complex amplitude remaining after projection — is:
+R(A)  =  1 - e^{iπA}
+The modulus is:
+|R(A)|2  =  2 - 2cos(πA)  =  4 sin2(πA/2)
+|R(A)|  =  2 sin(πA/2)
+4.2  The Mass Formula
+Mass is proportional to the Euler residual modulus, with the Planck mass as the proportionality constant:
+m(A)  =  (2m_p / π) sin(πA/2)  =  (2m_p / π) sin(π(1-q)/2)
+This formula has two critical properties:
+?  m = 0 when A = 0 (q = 1): A fully quantum system has zero rest mass. Photons and massless bosons correspond to q → 1.
+?  m = 2m_p/π ≈ 14 μg when A = 1 (q = 0): A single coherent branch cannot carry more mass than this. Above this threshold, a system must split into multiple incoherent branches.
+4.3  Why Mass Does Not Decrease During Decoherence
+This resolves the apparent contradiction: if mass equals information density, why doesn't mass decrease when information flows away?
+The resolution is that total information I_tot is conserved (Assumption 3 is about accessibility, not existence). Information divides into:
+I_tot  =  I_locked  +  I_flowable
+Decoherence converts I_flowable into I_locked. Both contribute equally to energy (and hence mass) because both represent real physical states of Planck cells. What changes is not the quantity of information but its accessibility for quantum interference.
+Mass = locked information (archived). Coherence = flowable information. A stone undergoing decoherence does not lose mass because the information is not destroyed — it merely becomes inaccessible to the quantum branch.
+4.4  Why E = mc2
+The Planck energy E_p = m_p c2 sets the conversion between information units and energy units. Each Planck cell stores one bit at the Planck temperature T_p = m_p c2/k_B. By Landauer's principle, erasing one bit costs at minimum k_B T_p ln 2 = m_p c2 ln 2 of energy.
+For a macroscopic object with archived information A·N_S bits (where N_S = V_S/l_p3):
+E  =  A · N_S · m_p c2  =  (A · V_S / l_p3) · m_p c2
+From Section 4.2, m = (m_p/η) · A · N_S, giving:
+E  =  m · c2  · η
+The factor η → 1 in the minimal closure, recovering E = mc2. The famous equation is not a fundamental axiom — it is the information-energy conversion at the Planck boundary, valid when the mass is purely archived information.
+
+V.  Gravity from q-Gradients
+5.1  The q Field Equation
+The accessible coherence fraction q satisfies a field equation derived from information diffusion. Information flows down the occupancy gradient (Section 2.3), giving a Poisson-type equation:
+?2 q  =  (l_p2 / 2π) · (ρ / ρ_p)
+where ρ is the local mass density and ρ_p = m_p/l_p3 is the Planck density. This equation is the information-theoretic analogue of the Poisson equation for Newtonian gravity, but derived from first principles without presupposing a gravitational field.
+For a point mass m at the origin, the solution is:
+q(r)  =  q_∞  -  (l_p2 m) / (8π m_p r)
+where q_∞ ~ 1 is the cosmological background coherence (the universe is mostly quantum in terms of volume). Near the mass, q is suppressed — information is being archived.
+5.2  The Gravitational Force from Geodesics in the Complex Metric
+In the complex metric g_{ττ} = e^{iθ}, the Christoffel symbol for the spatial components is:
+Γ^k_{ττ}  =  -(i/2) ?_k θ  =  (iπ/2) ?_k q
+The geodesic equation in the slow-motion limit gives:
+d2x^k/dσ2  =  -(iπ/2) ?_k q · (dx?/dσ)2
+Near complete decoherence (q → 0, θ → π), writing θ = π - ε with ε = πq:
+g_{ττ}  =  e^{iπ}e^{-iε}  ≈  -(1 - iπq)
+Taking the observable part (modulus projection to the Lorentzian sector):
+|g_{ττ}|  ≈  1 + π2q2/2  →  Φ_grav = -(c2/2) ln|g_{ττ}|  ≈  -c2π2q2/4
+Substituting q(r) from the field equation:
+Φ_grav(r)  =  -Gm/r
+with:
+G  =  c2 l_p2 / (16π m_p)  · (correction factor from q_∞)
+Newton's law of gravitation emerges from the q field equation and the complex metric geodesics. Gravity is not a fundamental force — it is the classical projection of q-gradient curvature onto the Lorentzian sector.
+5.3  Why Mass Causes Gravity
+The answer is now explicit. Mass is archived information (Section 4.2). Archived information reduces q locally. Reduced q creates a spatial gradient ?q. The gradient ?q curves the complex metric. Objects moving in curved complex metric follow geodesics that, in the Lorentzian projection, appear as gravitational attraction.
+The causal chain is:
+Archived information  →  Low q  →  ?q ≠ 0  →  Complex metric curvature  →  Geodesic deflection  →  Gravity
+This chain is unidirectional and requires no separate postulate about gravity. Gravity is the final step in a chain that begins with information overflow.
+5.4  Comparison with General Relativity
+In the limit q → 0 everywhere (fully classical universe), the complex metric becomes the standard Lorentzian metric and the q field equation reduces to Einstein's field equations in the weak-field limit. General relativity is the q = 0 limit of DGF.
+DGF extends general relativity by providing: (1) a derivation of the field equations from information dynamics; (2) a microscopic origin for the gravitational constant G; (3) quantum corrections that become significant near coherent quantum systems.
+Property	General Relativity	DGF
+Spacetime	Fundamental background	Emergent from q distribution
+Mass-energy	Source of curvature (axiom)	Archived information (derived)
+Gravity	Curvature of spacetime	Projection of ?q onto Lorentzian sector
+E = mc2	Empirical fact	Planck-boundary information-energy conversion
+G	Measured constant	Derived from q field coupling + q_∞
+Quantum limit	Not specified	q → 1: massless, gravity → 0
+Classical limit	Full theory	q → 0: recovers GR
+
+VI.  Dark Energy and Cosmic Decoherence
+6.1  The Cosmic q Evolution
+The universe as a whole has a mean accessible coherence q?(t) that decreases monotonically (cosmic decoherence is ongoing). The information spiral in complex space traces:
+z(t)  =  A(t) · e^{iπA(t)},    A = 1 - q?
+The squared speed of this spiral is:
+|?|2  =  ?2 (1 + π2A2)
+The first term ?2 corresponds to the kinetic energy of decoherence (analogous to matter density). The second term π2A2?2 is a potential energy term that grows as cosmic decoherence accumulates — this is dark energy.
+6.2  Why w = -1
+The potential energy density ρ_Λ ∝ π2A2?2 behaves as a cosmological constant when ? changes slowly (quasi-static decoherence). In this limit:
+p_Λ  =  -ρ_Λ    →    w  =  p/ρ  =  -1
+The equation of state w = -1 is not imposed by hand — it is the thermodynamic limit of slow, irreversible decoherence accumulation. The cosmological constant is the geometric shadow of cosmic information archiving.
+6.3  Why the Universe is Accelerating
+As A increases, the factor (1 + π2A2) grows, meaning the information spiral accelerates. In geometric terms: the more information has been archived, the stronger the 'push' on the remaining flowable structure. Cosmic acceleration is not caused by a mysterious energy field — it is the natural consequence of irreversible information overflow becoming self-reinforcing.
+
+VII.  Falsifiable Predictions
+Prediction 1: Suppression of G near Quantum Systems
+Near a system with accessible coherence q, the effective gravitational constant is:
+G_eff(q)  =  G / √(1 + π2q2)
+For macroscopic objects (q ≈ 0): G_eff ≈ G. Consistent with all classical measurements.
+For quantum-coherent systems (q ≈ 1): G_eff ≈ G/π ≈ 0.318 G. A systematic suppression of ~68% in the gravitational coupling near quantum systems.
+Experimental target: Precision measurements of G using quantum systems (BEC interferometers, levitated nanoparticles near the 14 μg threshold) should reveal a systematic downward deviation from the classical value of G.
+Prediction 2: Momentum-Dependent Decoherence Channel
+The DGF Lindblad kernel for decoherence between two branches a and b is:
+K_{ab}(t)  =  exp[ -(2t_p l_p?/??) (Δ?p?/3m?)2 t ]
+This kernel depends on the difference in fourth momentum moments, not on gravitational self-energy (Diosi-Penrose) or position separation. Two predictions follow:
+?  Rigid translations (equal momentum distributions) have K_{ab} = 1: no DGF decoherence for ideal displacements.
+?  Systems with equal mass but different momentum distributions decohere at different rates proportional to (Δ?p?/3m?)2.
+Experimental target: Compare decoherence rates of levitated nanoparticles with identical masses but different momentum distributions (achieved by varying trap frequency). The DGF prediction differs from all existing models by depending on p? rather than position separation or gravitational self-energy.
+Prediction 3: Secular Drift of G
+As q_∞ (cosmic background coherence) decreases over cosmic time:
+?/G  =  q?_∞ / (1 - q_∞)  ~  -H?  ~  -2.3 × 10?1? s?1
+where H? is the Hubble constant. This predicts G is slowly decreasing at a rate comparable to the Hubble rate.
+Current experimental upper bound: |?/G| < 10?13 yr?1. The DGF prediction is ~10?1? yr?1, three orders of magnitude above current sensitivity. Next-generation pulsar timing arrays and gravitational wave detectors may reach this sensitivity within a decade.
+Prediction 4: Coherent Mass Ceiling
+A single coherent quantum branch cannot carry mass exceeding:
+m_max  =  2m_p/π  ≈  14 μg
+Above this threshold, the system necessarily decoheres into multiple classical branches. This is not an engineering limitation but a geometric hard limit. No refrigeration, isolation, or error correction can maintain coherence above this mass for a single branch.
+Experimental target: Systematic measurement of coherence time versus mass for levitated nanoparticles. The DGF prediction is a hard cutoff at 14 μg, distinct from the smooth degradation predicted by environmental decoherence models. Current experiments reach ~1 μg (acoustic resonators, 2023); a factor of 14 improvement is needed.
+Prediction	DGF Value	Current Limit	Status
+G suppression near quantum systems	G_eff ~ G/π at q=1	Not yet tested	New prediction
+p?/3m decoherence kernel	Rate ∝ (Δ?p?/3m?)2	Not yet tested	New prediction
+Secular G drift	~10?1? yr?1	<10?13 yr?1	Within reach ~10yr
+Coherent mass ceiling	14 μg hard limit	~1 μg reached	Factor 14 needed
+
+VIII.  Open Problems and What Needs to Be Derived
+DGF is a framework with a clear physical picture and several derived results. The following problems remain open and represent the agenda for rigorous completion:
+8.1  The G Derivation (Critical)
+The current derivation of G from the q field equation coupling constant λ = l_p2/2π is circular: l_p is defined using G. A non-circular derivation of G from the information dynamics alone — without using l_p — is required. The Greensite (1993) one-loop effective potential method for the e^{iθ} field is a candidate approach.
+8.2  The θ(q) = πq Justification
+The linear relation θ = π(1-q) is currently justified as the thermodynamic (N → ∞) limit of the Bures angle on the information sphere, assuming uniform overflow distribution across sectors. A rigorous proof that the maximum entropy principle selects this linear relation is needed.
+8.3  The q Field Equation from First Principles
+The Poisson equation ?2q = (l_p2/2π)(ρ/ρ_p) is motivated by analogy with diffusion. A derivation from the information entropy functional δS[q]/δq = 0 would place it on firmer footing.
+8.4  The Archive-Decompress Cycle
+When q → 0 locally (complete archiving), DGF predicts a local reset toward q → 1 (decompression) triggered when information density reaches the Planck density. The rate of decompression is estimated as κ ~ t_p?1 exp(-S_BH/k_B), making it negligible for macroscopic systems but relevant at the Planck-mass black hole endpoint. A full dynamical treatment of this cycle is outstanding.
+8.5  Why Four Dimensions
+Greensite (1993) showed that the Lorentzian fixed point θ = π is selected uniquely in D = 4 spacetime dimensions by the one-loop effective potential of massless fields. DGF inherits this result but has not independently derived it from information-geometric arguments.
+
+IX.  Relation to Existing Work
+Framework	Relation to DGF
+Greensite 1993 (dynamical signature)	DGF uses same e^{iθ} metric. DGF adds: θ = π(1-q), q has microscopic definition via Planck-cell occupancy, signature change is driven by information overflow not quantum field loops.
+Verlinde 2011 (entropic gravity)	Both derive gravity from thermodynamic/information arguments. DGF differs by explicit causal direction (decoherence → gravity, not entropy gradient → force) and by providing a microscopic carrier (q).
+Penrose-Diosi (gravity-induced collapse)	Opposite causal direction. Penrose: gravity causes collapse. DGF: collapse (decoherence) causes apparent gravity. Both predict quantum-classical transition at ~Planck mass scale; experimental discrimination is possible.
+Zurek quantum Darwinism	Environmental decoherence is the laboratory-scale face of DGF. DGF provides the geometric origin that Zurek's framework takes as given.
+Hartle-Hawking no-boundary	No-boundary proposal uses Euclidean hemisphere glued to Lorentzian spacetime. DGF provides the mechanism for this gluing: partial Wick rotation parameterized by q.
+
+X.  Conclusion
+We have presented Decoherence Geometry Framework (DGF), a theory that derives the macroscopic world, spacetime geometry, mass, and gravity from a single first-principles assumption: information overflows the Planck-scale resolution capacity irreversibly, flowing from high-density to low-density quantum systems.
+The central results are:
+?  Time is the direction of decreasing accessible coherence q.
+?  Space is the geometry of q iso-surfaces.
+?  Mass is archived (locked) information: m = (2m_p/π) sin(π(1-q)/2).
+?  Gravity is the classical projection of q-gradient curvature in the complex metric e^{iπ(1-q)}.
+?  E = mc2 is the information-energy conversion at the Planck boundary.
+?  Dark energy is the geometric consequence of accelerating cosmic information archiving.
+?  The Big Bang was not an energy singularity but the first Planck-resolution overflow event.
+Four falsifiable predictions distinguish DGF from all existing theories: G-suppression near quantum systems, a p?/3m decoherence channel, secular G drift, and the 14 μg coherent mass ceiling. The theory is incomplete — three open derivations remain — but its physical structure is unambiguous and its predictions are concrete.
+"The classical world is not the ground state of quantum mechanics. It is the overflow."
+
+References
+[1]  Greensite, J. (1993). Dynamical origin of the Lorentzian signature of spacetime. Niels Bohr Institute preprint. arXiv:gr-qc/9210008.
+[2]  Verlinde, E. (2011). On the origin of gravity and the laws of Newton. JHEP 04, 029.
+[3]  Penrose, R. (1996). On gravity's role in quantum state reduction. Gen. Rel. Grav. 28, 581.
+[4]  Diosi, L. (1989). Models for universal reduction of macroscopic quantum fluctuations. Phys. Rev. A 40, 1165.
+[5]  Petruzziello, L. & Illuminati, F. (2021). Quantum gravitational decoherence from fluctuating minimal length. Nat. Commun. 12, 4449.
+[6]  Zurek, W.H. (1981). Pointer basis of quantum apparatus. Phys. Rev. D 24, 1516.
+[7]  Hartle, J. & Hawking, S. (1983). Wave function of the universe. Phys. Rev. D 28, 2960.
+[8]  Rossi, M. et al. (2025). Quantum delocalization of a levitated nanoparticle. Phys. Rev. Lett. 135, 083601.
+[9]  Kamba, M., Hara, N. & Aikawa, K. (2025). Quantum squeezing of a levitated nanomechanical oscillator. Science 389, 1225.
+[10] Schrinski, B. et al. (2023). Macroscopic quantum test with bulk acoustic wave resonators. Phys. Rev. Lett. 130, 133604.
+[11] Lee, J.-W. (2010). On the origin of entropic gravity and inertia. arXiv:1003.4464.
+[12] Mielczarek, J. & Trzesniewski, T. (2017). Spectral dimension with deformed spacetime signature. arXiv:1612.03894.
+
+
+# Appendix Patch: Three Missing First-Principles Derivations
+
+This patch is written for `DGF_Unified_Theory.docx`.  It uses only the paper's allowed starting points: distinguishable information states, bounded information capacity, irreversible overflow, pure mathematics, and a scalar order parameter in `[0,1]`.  Equations that presuppose an already existing Lorentzian spacetime are not used as starting points.
+
+Notation warning.  The manuscript currently uses `q` as accessible coherence in several places.  In that convention the locked/archived fraction is
+
+```math
+q_L = 1 - q_{\rm acc}.
+```
+
+The angle law requested as `theta = pi q` is strictly true only when `q` denotes the locked fraction.  If the manuscript keeps `q = q_acc`, the same result must be written as
+
+```math
+\theta = \pi q_L = \pi(1-q_{\rm acc}).
+```
+
+## A. Non-Circular Derivation of the Newton-Type Scaling, Not the Numerical `G`
+
+The gravitational constant must not be inserted through Planck units or through Newton's law.  This section is not a derivation of the numerical Newton constant.  DGF can derive only a conditional inverse-square response structure from information capacity, and then identify the observed `G` as the macroscopic conversion factor between information curvature and measured mass response.
+
+Start with an information adjacency graph.  Its vertices are minimal capacity units and its edges express only direct distinguishability/transfer adjacency, not a pre-existing metric.  Each vertex carries an accessible fraction `q_i in [0,1]` and a locked fraction
+
+```math
+s_i = 1-q_i.
+```
+
+The minimal local capacity cost compatible with relabeling invariance and additivity is the quadratic edge cost
+
+```math
+{\cal C}[q]
+= {1\over 2}\sum_{\langle ij\rangle} w_{ij}(q_i-q_j)^2,
+\qquad w_{ij}>0 .
+```
+
+This is not a gravitational action.  It is the unique lowest-order penalty for neighboring information units carrying different accessibility.  A localized archived defect is a conserved source charge
+
+```math
+S_\Omega=\sum_{i\in\Omega}s_i .
+```
+
+Outside the defect, minimizing `C[q]` gives the source-free graph Laplace equation
+
+```math
+\sum_{j\sim i} w_{ij}(q_i-q_j)=0.
+```
+
+With a source region, the graph problem is the corresponding Poisson problem:
+
+```math
+\sum_{j\sim i}w_{ij}(q_i-q_j)=\alpha s_i ,
+```
+
+or, equivalently, the boundary flux through a region is fixed by the total archived charge:
+
+```math
+\sum_{\partial\Omega} w_{ij}(q_i-q_j) = \alpha S_\Omega ,
+```
+
+where `alpha` is an information-response normalization, not Newton's constant.
+
+At large scales, if the adjacency graph has an isotropic three-dimensional continuum limit and the field approaches a constant at infinity, the long-range Green-function term is
+
+```math
+\phi(r) = {\alpha S_\Omega\over 4\pi r},
+\qquad
+|\nabla\phi| = {\alpha S_\Omega\over 4\pi r^2}.
+```
+
+The inverse-square form therefore follows from the Green function of the capacity Laplacian only under the additional large-scale condition `d_eff=3`.  In a different effective dimension the long-range power would be different.  No Newtonian force law has been assumed.
+
+A test archived defect with charge `s_t` responds to the same capacity gradient.  The interaction is bilinear because independent archived charges add:
+
+```math
+{\cal R}(r)\propto {S_\Omega s_t\over r^2}.
+```
+
+Mass is then introduced only after the information derivation, through the independent DGF branch mass map
+
+```math
+m_b(s_b)={2m_*\over\pi}\sin\left({\pi s_b\over2}\right).
+```
+
+For weakly archived test branches, `m_b \simeq m_* s_b`, so the information response is proportional to the product of the source and test archived charges.  For a macroscopic body, the additive charge is first
+
+```math
+Q_S=\sum_{b\subset S}s_b .
+```
+
+Only after independent mass calibration may `Q_S` be replaced by the measured mass `M`.  With the same calibration for source and test bodies, the large-scale response can be written in Newton form,
+
+```math
+F(r)=-G_{\rm DGF}{M m\over r^2}.
+```
+
+Here
+
+```math
+G_{\rm DGF}
+= {(\hbox{capacity stiffness})\times(\hbox{response normalization})
+   \times(\hbox{length conversion})^3
+  \over
+  (\hbox{mass conversion})^2 } .
+```
+
+Thus `G` is not used to define `q`, mass, or the field equation.  It is the late-stage conversion factor that maps the dimensionless information-curvature response into laboratory force units.  The result proved here is only this:
+
+```text
+Given effective dimension three, radial isotropy, source-exterior conservation
+of information-response flux, and a common archived-charge calibration for
+source and test bodies, the long-range response scales as r^{-2}.
+```
+
+`G_DGF` is then an empirical conversion factor fixing units and normalization when the information-response law is compared with measured gravitational coupling.  No numerical value of `G` is predicted without calibration.  The paper should therefore avoid the phrases "derive Newton's constant", "derive gravity", or "derive G from information" unless they are immediately qualified as "derive only the inverse-square scaling form under the stated assumptions."
+
+## B. Conditional Uniqueness Proof of the Linear Angle Law
+
+Let `q_L` denote the locked/archived fraction.  The two endpoints are:
+
+```math
+q_L=0:\hbox{ fully accessible},\qquad
+q_L=1:\hbox{ fully archived}.
+```
+
+Normalize the information projection interval between these endpoints to a half-circle:
+
+```math
+\theta(0)=0,\qquad \theta(1)=\pi.
+```
+
+This normalization is pure geometry.  It is not a Wick rotation and does not presuppose Lorentzian spacetime.
+
+Now take `N` indistinguishable, equal-weight archive microchannels.  If `j` channels are locked, then
+
+```math
+q_L={j\over N}.
+```
+
+The angle assignment must satisfy four requirements:
+
+1. endpoint normalization;
+2. invariance under relabeling of indistinguishable archive channels;
+3. coarse-graining additivity: the angle of a union of disjoint equal channels is the sum of the angle increments assigned to those channels.
+4. cross-refinement consistency: equivalent fractions such as `1/2` and `2/4` are assigned the same angle.
+
+Relabeling gives every elementary channel the same angle increment.  Additivity gives
+
+```math
+\theta\left({j\over N}\right)
+= j\,\theta\left({1\over N}\right).
+```
+
+The endpoint condition with `j=N` gives
+
+```math
+N\,\theta\left({1\over N}\right)=\pi,
+```
+
+therefore
+
+```math
+\theta\left({j\over N}\right)=\pi {j\over N}.
+```
+
+For rational locked fractions this proves the unique additive assignment
+
+```math
+\theta(q_L)=\pi q_L.
+```
+
+Continuity of the macroscopic coarse-grained limit extends the result to all `q_L in [0,1]`.  Monotonicity or measurability would serve the same role by excluding pathological additive functions.
+
+This is a conditional uniqueness theorem, not an unconditional derivation of `pi` from information existence alone.  The half-circle endpoint normalization is a coordinate convention for the accessible/archive projection interval.  Given that convention, any nonlinear replacement `theta=f(q_L)` with `f(a+b)\ne f(a)+f(b)` would make the result depend on whether disjoint archive channels are grouped before or after assigning angle.  It violates additive coarse-graining.  Hence the linear law is not a fit; it is the unique scalar angle coordinate compatible with endpoint normalization, relabeling invariance, cross-refinement consistency, and archive-channel additivity.
+
+The paper should not say that information principles alone "force" `theta=pi q` or that `pi` is predicted.  The safe claim is:
+
+```text
+Under the stated coordinate axioms, theta=pi q_L is the unique compatible
+archive-loss angle.  If q denotes accessible coherence, theta=pi(1-q).
+```
+
+In the accessible-coherence notation of the current manuscript,
+
+```math
+\boxed{\theta=\pi(1-q_{\rm acc})}.
+```
+
+If the manuscript instead defines `q` as locked information, then the boxed result is
+
+```math
+\boxed{\theta=\pi q}.
+```
+
+## C. First-Principles `q` Field Equation
+
+The `q` equation should not begin as a wave equation, diffusion equation, Schrodinger equation, Einstein equation, or Lindblad equation.  It begins as the update law for bounded information access on an adjacency graph.
+
+Use the lowest-order local, relabeling-invariant, additive normal form through second order in neighboring differences:
+
+```math
+{\cal F}[q]
+=\sum_i U(q_i)
+ +{1\over2}\sum_{\langle ij\rangle}\kappa_{ij}(q_i-q_j)^2
+ -\sum_i \eta_i q_i .
+```
+
+The quadratic edge term is not claimed to be the only possible microscopic law.  It is the minimal smooth normal form when neighboring accessibility differences are small, the graph is undirected at this level, and the cost is invariant under `q_i-q_j -> -(q_i-q_j)`.
+
+Here:
+
+```math
+0\le q_i\le1,
+```
+
+`U(q)` is the local capacity/overflow cost, `kappa_ij>0` is adjacency stiffness, and `eta_i` is an external information source or sink.  If `F` is measured in information units, then `U`, `kappa`, `eta q`, and `U' q` carry the same information-unit normalization.  None of these symbols is a spacetime metric or a gravitational field.
+
+Irreversible overflow means that the system updates in the direction that reduces unavailable capacity cost while respecting the bounds on `q`.  With an ordinal update parameter `lambda`, not pre-existing physical time, the constrained gradient-flow equation is
+
+```math
+\tau_i {dq_i\over d\lambda}
+\in
+-{\partial{\cal F}\over\partial q_i}-N_{[0,1]}(q_i),
+```
+
+where `N_[0,1](q_i)` is the normal cone enforcing the capacity bound.  Equivalently: if `q_i=0`, the update cannot push `q_i` below zero; if `q_i=1`, it cannot push `q_i` above one.  Away from the saturated endpoints,
+
+```math
+\tau_i {dq_i\over d\lambda}
+=
+\sum_{j\sim i}\kappa_{ij}(q_j-q_i)
+-U'(q_i)+\eta_i .
+```
+
+Here `tau_i` is an update impedance or information-relaxation weight, not a physical time constant measured in seconds.  This is the first-principles DGF `q` update law on the information graph in its minimal effective normal form.  It follows from bounded capacity, locality on the adjacency graph, additivity, smooth lowest-order coupling, and irreversible relaxation.  No spacetime field equation is assumed.
+
+The large-scale continuum form is only a later approximation.  When the graph admits a smooth coarse-grained description, the graph Laplacian becomes a divergence operator and the equation becomes
+
+```math
+\tau(q)\partial_\lambda q
+=\nabla_a\!\left(D^{ab}(q)\nabla_b q\right)
+-U'(q)+\eta .
+```
+
+`D^{ab}` is a graph-coarse-grained stiffness tensor.  Before physical space has emerged, it should not be called a laboratory diffusion coefficient.  For an isotropic coarse-grained phase,
+
+```math
+\tau(q)\partial_\lambda q
+=\nabla\!\cdot\!\left(D(q)\nabla q\right)-U'(q)+\eta .
+```
+
+The stationary source-free equation is
+
+```math
+\nabla\!\cdot\!\left(D(q)\nabla q\right)-U'(q)=0.
+```
+
+This is not postulated physics; it is the continuum limit of the graph-capacity variational law.  Physical time, spatial distance, gravitational response, and laboratory units enter only after the `q` order parameter has generated a stable coarse-grained ordering.  The continuum PDE must never be used as a premise to justify the graph equation; the logical direction is graph update law first, continuum equation second.
+
+## Inspector-Ready Claims
+
+1. `G` is not derived from itself.  DGF derives a Newton-type inverse-square information response from the three-dimensional Green function of the capacity Laplacian, then identifies `G_DGF` as the unit-conversion constant.  The numerical value of `G` requires calibration.
+2. `theta=pi q` is strict only if `q` is the locked fraction.  With `q` as accessible coherence, the strict result is `theta=pi(1-q)`.
+3. The `q` field equation is first a bounded graph-gradient flow.  The PDE is only the continuum limit, so it does not smuggle in pre-existing spacetime dynamics.

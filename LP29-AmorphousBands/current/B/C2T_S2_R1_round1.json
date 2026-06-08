@@ -1,0 +1,281 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": "LP29-C2T-S2-R1 / Round 1",
+  "agent": "B",
+  "polaris": "exact O_s is not a bare reported scalar but a provenance-conditioned observable; define a proof-carrying baseline contract.",
+  "input_boundary": {
+    "used": "PI summary only",
+    "not_used": [
+      "A outputs",
+      "material validation",
+      "graph-vs-overlap residual regression",
+      "graph beats overlap",
+      "exact impossible in principle"
+    ],
+    "phase_file_modified": false
+  },
+  "framework": {
+    "name": "proof-carrying observable identity",
+    "cross_domain_jump": "software supply-chain provenance + proof-carrying execution + finite-state runtime admission",
+    "core_translation": "Treat an O_s value like an executable artifact: it is admissible only when the value is accompanied by a minimal proof object binding source row/page, structure identity, pair enumeration, raw overlap sum, normalization rule, same-structure mapping, and executor trace.",
+    "baseline_contract": "A baseline may report context, attempt reproduction, or certify exact O_s only by selecting an admissible mode and satisfying that mode's proof obligations."
+  },
+  "cross_domain_sources": [
+    {
+      "id": "SRC-PCC-2003",
+      "title": "Proof-Carrying Code with Untrusted Proof Rules",
+      "authors": "George C. Necula; Robert R. Schneck",
+      "doi": "10.1007/3-540-36532-x_18",
+      "source_tool": "paper-search-mcp/crossref",
+      "role_in_framework": "A computed artifact can carry checkable evidence that the consumer verifies before trusting execution or output."
+    },
+    {
+      "id": "SRC-PCH-2009",
+      "title": "Proof-Carrying Hardware: Towards Runtime Verification of Reconfigurable Modules",
+      "authors": "Stephanie Drzevitzky; Uwe Kastens; Marco Platzner",
+      "doi": "10.1109/reconfig.2009.31",
+      "source_tool": "paper-search-mcp/crossref",
+      "role_in_framework": "Admission can be runtime-gated by formal proof obligations rather than by post hoc trust in a module."
+    },
+    {
+      "id": "SRC-PROV-2015",
+      "title": "The rationale of PROV",
+      "authors": "Luc Moreau; Paul Groth; James Cheney; Timothy Lebo; Simon Miles",
+      "doi": "10.1016/j.websem.2015.04.001",
+      "source_tool": "paper-search-mcp/openalex",
+      "role_in_framework": "Provenance entities, activities, and agents provide the natural schema for binding an observable value to its generating chain."
+    },
+    {
+      "id": "SRC-WF-2018",
+      "title": "Reproducibility of scientific workflows execution using cloud-aware provenance (ReCAP)",
+      "authors": "Khawar Hasham; Kamran Munir",
+      "doi": "10.1007/s00607-018-0617-6",
+      "source_tool": "paper-search-mcp/crossref",
+      "role_in_framework": "Reproducibility requires execution-environment provenance, not only data and code names."
+    },
+    {
+      "id": "SRC-ZKCOMP-2026",
+      "title": "Verifiable Provenance of Software Artifacts with Zero-Knowledge Compilation",
+      "authors": "Javier Ron; Martin Monperrus",
+      "doi": "10.48550/arXiv.2602.11887",
+      "source_tool": "paper-search-mcp/semantic",
+      "role_in_framework": "Artifact provenance can be formulated as a cryptographically checkable relation between declared input, executor, and output."
+    }
+  ],
+  "math_object": {
+    "observable_identity": "O_s := (value, provenance, contract, executor_trace, proof_status)",
+    "not_bare_scalar": "The scalar value is only one projection pi_value(O_s). Exactness is a predicate over the full tuple, not over pi_value alone.",
+    "proof_obligation_tuple": [
+      "source_locator",
+      "structure_identity_hash",
+      "pair_cutoff_policy",
+      "pair_list_or_pair_enumerator_hash",
+      "N_pair",
+      "raw_overlap_sum",
+      "normalization_formula_or_code_hash",
+      "same_structure_mapping",
+      "executor_trace"
+    ],
+    "admission_predicate": "admit(mode, O_s_claim) = true iff required(mode) subset proof_objects(O_s_claim) and every equality/checksum/cardinality/normalization check passes.",
+    "state_space": [
+      "S0_reported_context",
+      "S1_structurally_bound_attempt",
+      "S2_pair_enumeration_bound",
+      "S3_sum_and_normalization_bound",
+      "S4_executor_trace_bound",
+      "S5_exact_certified",
+      "SB_blocked"
+    ],
+    "transition_rule": "A claim can move from S_i to S_{i+1} only by adding the missing proof object for the next gate; numeric closeness alone is not a transition witness."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "finding": "The baseline contract should classify Srivastava-style overlap information as reported context unless it carries row/page and execution-proof objects.",
+      "status": "admissible_context_only"
+    },
+    {
+      "id": "F2",
+      "finding": "The current exact O_s reproduction is blocked by absent provenance objects, not by a demonstrated physical contradiction.",
+      "status": "BLOCK"
+    },
+    {
+      "id": "F3",
+      "finding": "The key observable is not O_s_value but O_s_identity. Two equal scalars with different structure hashes, pair lists, or normalizers are different observables.",
+      "status": "new_B_route"
+    },
+    {
+      "id": "F4",
+      "finding": "A proof-carrying baseline can be finite-state: each mode has explicit pass/block conditions, so future work cannot silently slide from context to exact reproduction.",
+      "status": "contract_ready"
+    }
+  ],
+  "executor_admission_calculus": {
+    "objects": {
+      "R": "source row/page locator for the reported O_s or its ingredients",
+      "H": "canonical structure identity/hash",
+      "P": "pair cutoff policy plus pair list or deterministic enumerator hash",
+      "n": "N_pair cardinality witness",
+      "S": "raw overlap sum before normalization",
+      "Z": "normalization formula or executable code hash",
+      "M": "same-structure mapping between source structure and reproduced structure",
+      "E": "executor trace including software, parameters, seeds if any, environment, and output digest"
+    },
+    "checks": [
+      "locator_check(R) verifies that the claimed source object exists at a stable row/page reference",
+      "identity_check(H, M) verifies the reproduced structure is the same object under the declared canonicalization",
+      "pair_check(P, n) verifies that N_pair equals the enumerated admissible pairs under the cutoff policy",
+      "sum_check(P, S) verifies the raw overlap sum is computed over exactly the admitted pair list",
+      "normalization_check(S, Z, value) verifies value = Z(S, n, declared constants)",
+      "trace_check(E) verifies that the executor produced the declared intermediate and final digests"
+    ],
+    "mode_admission": {
+      "reported_context": {
+        "required": [
+          "R"
+        ],
+        "allowed_claim": "This scalar or qualitative overlap/effective-mass statement was reported by the source.",
+        "forbidden_claim": "Exact O_s has been reproduced."
+      },
+      "bounded_reproduction_attempt": {
+        "required": [
+          "R",
+          "H",
+          "P",
+          "n",
+          "E"
+        ],
+        "allowed_claim": "A reproduction attempt was run under a declared structure and pair policy.",
+        "forbidden_claim": "The attempt establishes source exactness without S and Z."
+      },
+      "exact_certified": {
+        "required": [
+          "R",
+          "H",
+          "P",
+          "n",
+          "S",
+          "Z",
+          "M",
+          "E"
+        ],
+        "allowed_claim": "The exact O_s observable identity is certified under the declared contract.",
+        "forbidden_claim": "The certified value is independent of provenance."
+      }
+    },
+    "current_admission": {
+      "state": "SB_blocked",
+      "reason": "Missing source row/page, structure identity/hash, pair cutoff/list, N_pair, raw overlap sum, normalization formula/code, same-structure mapping, and executor trace.",
+      "positive_permission": "Srivastava 2019 may remain a reported orbital-overlap/effective-mass context source."
+    }
+  },
+  "testable_predictions": [
+    {
+      "id": "TP1",
+      "prediction": "When future candidates are reclassified by proof obligations, at least one previously stated exact-looking O_s claim will demote to reported_context because it lacks either pair list/N_pair or normalization code.",
+      "test": "Run the CSV modes as an admission checklist on each candidate claim."
+    },
+    {
+      "id": "TP2",
+      "prediction": "Two runs with the same scalar O_s but different pair cutoff policies will be treated as distinct observable identities and will fail equality at identity_check or pair_check.",
+      "test": "Hash canonical structure and pair policy separately, then compare full observable tuples rather than scalar values."
+    },
+    {
+      "id": "TP3",
+      "prediction": "Adding only a better electronic-structure code or a better material model will not change BLOCK status unless it also adds the missing proof objects.",
+      "test": "Attempt state transition using executor quality evidence alone; expected result is no transition to exact_certified."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "Exact O_s reproduction is an admissibility claim over a proof-carrying observable tuple, not a numerical comparison of a reported scalar.",
+      "confidence": 0.86,
+      "new_insight": true,
+      "equations": [
+        "O_s = (v, R, H, P, n, S, Z, M, E)",
+        "exact_certified(O_s) := locator_check(R) and identity_check(H,M) and pair_check(P,n) and sum_check(P,S) and normalization_check(S,Z,v) and trace_check(E)"
+      ],
+      "references": [
+        "SRC-PCC-2003",
+        "SRC-PROV-2015",
+        "SRC-WF-2018"
+      ],
+      "assumptions": [
+        "The target observable is intended to be reproducible under a declared finite computation.",
+        "The source claim can be represented by stable provenance locators or is otherwise blocked."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The current baseline must admit Srivastava 2019 only as reported orbital-overlap/effective-mass context, because the proof objects needed for exact O_s identity are absent.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "equations": [
+        "proof_objects_current subset {reported_context}; proof_objects_current not superset required(exact_certified)"
+      ],
+      "references": [
+        "PI-summary",
+        "SRC-PROV-2015"
+      ],
+      "assumptions": [
+        "No hidden row/page, structure hash, pair list, raw sum, normalizer, mapping, or trace has been supplied in the PI summary."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "A finite-state admission contract prevents category errors: context, attempted reproduction, and exact certification become separate machine states with non-overlapping pass conditions.",
+      "confidence": 0.78,
+      "new_insight": true,
+      "equations": [
+        "S_i -> S_j is legal only if missing(required(S_j)) = empty",
+        "numeric_closeness(v_1,v_2) does not imply identity(O_s1)=identity(O_s2)"
+      ],
+      "references": [
+        "SRC-PCH-2009",
+        "SRC-WF-2018",
+        "SRC-ZKCOMP-2026"
+      ],
+      "assumptions": [
+        "The project accepts proof obligations as contract gates rather than informal narrative gates."
+      ]
+    }
+  ],
+  "deepening_1": {
+    "question": "Does the cross-domain isomorphism have a deeper mathematical structure?",
+    "layer_1": {
+      "structure": "artifact identity is a dependent pair",
+      "mapping": "The scalar v depends on provenance p; an O_s claim has type Sigma(p:Provenance). Value(p). Erasing p changes the type of the claim.",
+      "consequence": "A bare scalar is a lossy projection and cannot carry exactness."
+    },
+    "layer_2": {
+      "structure": "admission is proof search over a finite contract automaton",
+      "mapping": "Each proof object eliminates one missing premise in the admissibility predicate. BLOCK is not failure of physics; it is failure to inhabit the certified state.",
+      "consequence": "The mathematically sharp object is the witness set required to inhabit exact_certified(O_s)."
+    }
+  },
+  "deepening_2": {
+    "question": "Does the borrowed structure have a next-layer extension in its original discipline?",
+    "layer_1": {
+      "source_extension": "reproducible builds distinguish bit-identical outputs from provenance-verifiable outputs",
+      "mapping": "O_s exactness should distinguish scalar-equal output from provenance-identical observable output.",
+      "consequence": "Even a matching number remains non-certified if the build/execution chain is not bound."
+    },
+    "layer_2": {
+      "source_extension": "zero-knowledge/proof-carrying compilation separates public artifact identity from checkable private execution details",
+      "mapping": "A future O_s baseline could expose digests and proof certificates without publishing every raw implementation detail, provided the verifier can check the declared relation.",
+      "consequence": "The project can demand proof-carrying observables without requiring premature material validation or impossible disclosure standards."
+    }
+  },
+  "forbidden_claims": [
+    "Srivastava 2019 validates exact O_s.",
+    "Srivastava 2019 refutes exact O_s.",
+    "Exact O_s is impossible in principle.",
+    "A graph descriptor can replace overlap provenance for exact O_s.",
+    "Graph-vs-overlap residual regression is relevant to this round's claim.",
+    "A material is validated by this proof-carrying contract.",
+    "Numeric closeness of a reproduced scalar certifies observable identity.",
+    "Executor quality alone can upgrade a claim to exact certification without source locator, structure hash, pair list, raw sum, normalization, mapping, and trace."
+  ],
+  "artifact": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\S2_R1_proof_carrying_observable_modes.csv"
+}

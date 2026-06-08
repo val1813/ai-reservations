@@ -1,0 +1,96 @@
+{
+  "framework": {
+    "role": "B_doctor_forced_salvage_round1",
+    "target_question": "Can one audited pilot row salvage REJECT into bounded technical progress, or is it still only protocol packaging?",
+    "scope_guard": "This is a salvage boundary for the CphiPacket evidence class only. It is not a universal no-go claim about all future nickelate work or all future packet designs.",
+    "answer": "One real audited pilot row is enough only if it is genuinely blind, lineage-audited, and extraction-separated. Without those properties, it is still protocol packaging.",
+    "salvage_standard": "The row must demonstrate that the packet can exist as an auditable workflow, not that R_oe is already decided."
+  },
+  "minimum_real_pilot_conditions": [
+    "The row is real data from one same-sample or formally sistered specimen lineage, not a literature montage or synthetic mock row.",
+    "An immutable raw archive exists before any superconducting-output reveal, with timestamped hashes or equivalent custody evidence.",
+    "P_oe and B_min are extracted from separate raw stores or hash-locked scripts, and B_min does not reuse the fitted qz/c-axis/orbital state that defines P_oe.",
+    "Canonical P_oe censoring, denominator floor, and U_miss are frozen before reveal and cannot be changed after inspection of output or B_min correlation.",
+    "Output labels are sealed, a blind custodian exists, and the green/yellow/red firewall is pre-registered before any row inclusion decision.",
+    "Row lineage, calibration, and mismatch tolerances are predeclared so the row can be audited without post-hoc rescue.",
+    "The row survives the primary firewall as green or, at minimum, declared yellow under the frozen rules before reveal."
+  ],
+  "instant_failure_conditions": [
+    "No immutable raw archive or custody hash exists.",
+    "P_oe and B_min share the same fitted extraction state, especially qz/c-axis/orbital state, or B_min is derived from P_oe outputs.",
+    "Output labels, row selection, censoring, denominator floor, or U_miss are changed after seeing output or B_min alignment.",
+    "The row is rescued, added, dropped, or sistered after output inspection.",
+    "The row is not same-sample or formally sistered, and lineage cannot be audited.",
+    "Red rows enter the primary residual test.",
+    "Blind custody is absent or broken."
+  ],
+  "what_one_row_can_and_cannot_prove": {
+    "can_prove": [
+      "A blinded, audited workflow is executable on at least one real row.",
+      "P_oe and B_min can be kept information-separated in practice for a pilot row.",
+      "The firewall, censoring, and custody rules are concrete enough to audit.",
+      "The packet is more than abstract protocol packaging if the row is real and passes the frozen audit."
+    ],
+    "cannot_prove": [
+      "It cannot prove R_oe.",
+      "It cannot establish statistical decision-grade support or refutation.",
+      "It cannot prove the whole campaign scales to N=48 or any other target.",
+      "It cannot justify a universal no-go for nickelate measurements.",
+      "It cannot validate the physical theory claim beyond bounded feasibility."
+    ]
+  },
+  "B_concession": {
+    "must_concede_salvage_success_if": [
+      "At least one audited real pilot row exists.",
+      "The row meets all minimum_real_pilot_conditions.",
+      "The audit shows the row passed the frozen firewall before reveal.",
+      "The audit shows independent extraction for P_oe and B_min without shared fitted state."
+    ],
+    "concession_type": "bounded_technical_progress_only",
+    "explicit_nonconcession": [
+      "No concession that R_oe is proven.",
+      "No concession that the packet is decision-grade.",
+      "No concession that future rows or full campaigns must succeed."
+    ]
+  },
+  "verdict": "CONDITIONAL_SALVAGE_SUCCESS_ONLY_IF_ONE_REAL_AUDITED_ROW_EXISTS",
+  "claims": [
+    {
+      "claim": "A single audited pilot row can convert REJECT into bounded technical progress if and only if it is real, blind, lineage-audited, and extraction-separated.",
+      "status": "supported_by_review_target",
+      "strength": "conditional"
+    },
+    {
+      "claim": "Without immutable custody, frozen censoring, and independent extraction, the same row remains protocol packaging.",
+      "status": "supported_by_review_target",
+      "strength": "strong"
+    },
+    {
+      "claim": "One audited row can demonstrate feasibility of the packet, but not R_oe itself.",
+      "status": "supported_by_review_target",
+      "strength": "strong"
+    },
+    {
+      "claim": "This salvage criterion does not imply any universal no-go for future nickelate experiments.",
+      "status": "scope_guard",
+      "strength": "mandatory"
+    }
+  ],
+  "inspector_check": {
+    "json_valid": true,
+    "required_fields_present": [
+      "framework",
+      "minimum_real_pilot_conditions",
+      "instant_failure_conditions",
+      "what_one_row_can_and_cannot_prove",
+      "B_concession",
+      "verdict",
+      "claims",
+      "inspector_check"
+    ],
+    "A_output_not_read": true,
+    "universal_no_go_avoided": true,
+    "salvage_boundary_is_narrow": true,
+    "primary_test": "one audited real pilot row is sufficient only for bounded technical progress, not for R_oe adjudication"
+  }
+}

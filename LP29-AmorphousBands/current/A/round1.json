@@ -1,0 +1,364 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 1,
+  "agent": "A",
+  "role": "A博士-学院派",
+  "polaris": "在 amorphous In2O3 这类无长程周期性的透明导电氧化物中，带状输运的充分判据究竟是传统 Anderson/Mott mobility-edge 填充，还是由金属 s 轨道中程连通网络和 O-O/配位缺陷阈值控制？",
+  "proposition_A": "高迁移率带状输运主要由 EF 位于 mobility edge 以上解释；局域结构/中程连通只是决定无序强度的从属变量。",
+  "framework": "Anderson/Mott mobility-edge + Drude free-electron estimate + Ioffe-Regel criterion k_F*l ~ 1",
+  "search_protocol_self_check": {
+    "must_use_paper_search_mcp_first": true,
+    "websearch_downgrade_used": false,
+    "groups": [
+      {
+        "group": "核心声明查重-2023/2024/2025",
+        "tool": "paper-search-mcp.search_papers",
+        "queries": [
+          "amorphous In2O3 band-like transport mobility edge In-s orbital connectivity 2023 2024 2025",
+          "amorphous transparent conducting oxide high mobility band transport Anderson Mott mobility edge review solved resolved"
+        ],
+        "result_summary": "命中 Jankousky et al. Nature Physics 2025/2026 的 effective bands 与 band-like transport，也命中 Lee et al. 2010 a-ZTO mobility edge 先例；未发现把 LP29 的 A/B 判据问题完全解决的综述或同结论论文。"
+      },
+      {
+        "group": "框架盲区搜索",
+        "tool": "paper-search-mcp.search_papers",
+        "queries": [
+          "disordered amorphous semiconductor extended states mean free path Ioffe-Regel mobility edge transparent conducting oxide 2022 2023 2024 2025"
+        ],
+        "result_summary": "普通物理语言下返回非晶半导体 extended states / mean-free-path / mobility-edge 相关结果较稀疏；对 a-In2O3 的直接命中主要仍回到核心论文、2019 a-ITO 限制因素和 2025 结构无序趋势。盲区：现有文献似乎没有把 k_F*l 边界与 In-s 连通图阈值作同一样品集的判据比较。"
+      },
+      {
+        "group": "反例/否定性搜索",
+        "tool": "paper-search-mcp.search_papers",
+        "queries": [
+          "amorphous In2O3 mobility edge failure problem criticism counterexample band-like transport"
+        ],
+        "result_summary": "未找到致命反例。返回 Stern 1971 mobility-edge band-tail 模型、Lee 2010 a-ZTO mobility edge、Furubayashi 2019 very thin a-ITO transport limitation、Jang 2025 structural disorder mobility trend。"
+      },
+      {
+        "group": "数据可用性评估",
+        "tool": "paper-search-mcp.search_papers + get_crossref_paper_by_doi",
+        "queries": [
+          "amorphous In2O3 Hall mobility effective mass mean free path O-O defects connectivity measurement experiment data",
+          "10.1038/s41567-025-03099-x amorphous In2O3 Nature Physics 2026",
+          "InGaZnO4 In2O3 mobility trend structural disorder amorphous crystalline states 10.1021 acsmaterialslett 5c00348"
+        ],
+        "result_summary": "关键可观测量存在：Hall mobility、carrier density、effective mass、mean free path、structural disorder/O-O bond 或缺陷、局域配位可从 Jankousky 2025/2026、Furubayashi 2019、Aliano 2011、Jang 2025 等论文提取。缺口是统一的 In-s connectivity graph 阈值数据集。"
+      }
+    ]
+  },
+  "parameter_table": {
+    "m_star": {
+      "value": 0.2,
+      "unit": "m0",
+      "source": "Jankousky et al. 2025/2026 project record"
+    },
+    "mu": {
+      "range": [10, 40],
+      "unit": "cm2/(V*s)"
+    },
+    "n": {
+      "range": [1e20, 1e21],
+      "unit": "cm^-3"
+    },
+    "DeltaE": {
+      "value": 0.25,
+      "unit": "eV"
+    },
+    "reported_l": {
+      "range": [1, 3],
+      "unit": "nm"
+    }
+  },
+  "formulas": [
+    {
+      "label": "F1",
+      "expression": "tau = mu*m_star/e",
+      "units": "s",
+      "variables": {
+        "mu": "mobility in m**2/(V*s)",
+        "m_star": "effective electron mass in kg",
+        "e": "elementary charge in C"
+      }
+    },
+    {
+      "label": "F2",
+      "expression": "k_F = (3*pi**2*n)**(1/3)",
+      "units": "m**-1",
+      "variables": {
+        "n": "electron density in m**-3"
+      }
+    },
+    {
+      "label": "F3",
+      "expression": "v_F = hbar*k_F/m_star",
+      "units": "m/s"
+    },
+    {
+      "label": "F4",
+      "expression": "l = v_F*tau",
+      "units": "m"
+    },
+    {
+      "label": "F5",
+      "expression": "k_F_l = k_F*l",
+      "units": "dimensionless",
+      "criterion": "Ioffe-Regel/mobility-edge boundary when k_F_l is of order 1"
+    },
+    {
+      "label": "F6",
+      "expression": "E_F = hbar**2*k_F**2/(2*m_star)",
+      "units": "J; divide by e for eV",
+      "assumption": "single isotropic parabolic conduction band"
+    }
+  ],
+  "numerical_results": [
+    {
+      "n_cm3": 1e20,
+      "mu_cm2_Vs": 10,
+      "tau_fs": 1.137,
+      "kF_nm_minus1": 1.436,
+      "vF_1e6_m_s": 0.831,
+      "l_nm": 0.945,
+      "kF_l": 1.36,
+      "EF_eV_parabolic": 0.393,
+      "boundary_class": "near Ioffe-Regel; mobility-edge interpretation is plausible but not deeply metallic"
+    },
+    {
+      "n_cm3": 1e20,
+      "mu_cm2_Vs": 20,
+      "tau_fs": 2.274,
+      "kF_nm_minus1": 1.436,
+      "vF_1e6_m_s": 0.831,
+      "l_nm": 1.890,
+      "kF_l": 2.71,
+      "EF_eV_parabolic": 0.393,
+      "boundary_class": "moderately above Ioffe-Regel"
+    },
+    {
+      "n_cm3": 1e20,
+      "mu_cm2_Vs": 40,
+      "tau_fs": 4.549,
+      "kF_nm_minus1": 1.436,
+      "vF_1e6_m_s": 0.831,
+      "l_nm": 3.781,
+      "kF_l": 5.43,
+      "EF_eV_parabolic": 0.393,
+      "boundary_class": "metallic side"
+    },
+    {
+      "n_cm3": 3e20,
+      "mu_cm2_Vs": 10,
+      "tau_fs": 1.137,
+      "kF_nm_minus1": 2.071,
+      "vF_1e6_m_s": 1.199,
+      "l_nm": 1.363,
+      "kF_l": 2.82,
+      "EF_eV_parabolic": 0.817,
+      "boundary_class": "above Ioffe-Regel"
+    },
+    {
+      "n_cm3": 3e20,
+      "mu_cm2_Vs": 20,
+      "tau_fs": 2.274,
+      "kF_nm_minus1": 2.071,
+      "vF_1e6_m_s": 1.199,
+      "l_nm": 2.726,
+      "kF_l": 5.65,
+      "EF_eV_parabolic": 0.817,
+      "boundary_class": "metallic side"
+    },
+    {
+      "n_cm3": 3e20,
+      "mu_cm2_Vs": 40,
+      "tau_fs": 4.549,
+      "kF_nm_minus1": 2.071,
+      "vF_1e6_m_s": 1.199,
+      "l_nm": 5.453,
+      "kF_l": 11.29,
+      "EF_eV_parabolic": 0.817,
+      "boundary_class": "well above Ioffe-Regel"
+    },
+    {
+      "n_cm3": 1e21,
+      "mu_cm2_Vs": 10,
+      "tau_fs": 1.137,
+      "kF_nm_minus1": 3.094,
+      "vF_1e6_m_s": 1.791,
+      "l_nm": 2.036,
+      "kF_l": 6.30,
+      "EF_eV_parabolic": 1.823,
+      "boundary_class": "metallic side"
+    },
+    {
+      "n_cm3": 1e21,
+      "mu_cm2_Vs": 20,
+      "tau_fs": 2.274,
+      "kF_nm_minus1": 3.094,
+      "vF_1e6_m_s": 1.791,
+      "l_nm": 4.073,
+      "kF_l": 12.60,
+      "EF_eV_parabolic": 1.823,
+      "boundary_class": "well above Ioffe-Regel"
+    },
+    {
+      "n_cm3": 1e21,
+      "mu_cm2_Vs": 40,
+      "tau_fs": 4.549,
+      "kF_nm_minus1": 3.094,
+      "vF_1e6_m_s": 1.791,
+      "l_nm": 8.145,
+      "kF_l": 25.20,
+      "EF_eV_parabolic": 1.823,
+      "boundary_class": "well above Ioffe-Regel"
+    }
+  ],
+  "DeltaE_0p25eV_crosscheck": {
+    "assumption": "Use DeltaE = E_F - E_c = 0.25 eV as parabolic-band kinetic energy instead of density-derived E_F.",
+    "k_nm_minus1": 1.146,
+    "v_1e6_m_s": 0.663,
+    "mu_sweep": [
+      {
+        "mu_cm2_Vs": 10,
+        "tau_fs": 1.137,
+        "l_nm": 0.754,
+        "kF_l": 0.864,
+        "class": "at or slightly below Ioffe-Regel boundary"
+      },
+      {
+        "mu_cm2_Vs": 20,
+        "tau_fs": 2.274,
+        "l_nm": 1.508,
+        "kF_l": 1.728,
+        "class": "near boundary"
+      },
+      {
+        "mu_cm2_Vs": 40,
+        "tau_fs": 4.549,
+        "l_nm": 3.016,
+        "kF_l": 3.455,
+        "class": "above boundary but not deeply clean"
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "在给定的 a-In2O3 参数范围内，A 命题不是空泛解释：低端 n=1e20 cm^-3, mu=10 cm2/Vs 给出 k_F*l≈1.36；若采用 DeltaE≈0.25 eV 的 parabolic cross-check，则 k_F*l≈0.86-3.46，确实落在 Ioffe-Regel/mobility-edge 边界附近。",
+      "confidence": 0.82,
+      "new_insight": false,
+      "equations": ["F1", "F2", "F3", "F4", "F5", "F6"],
+      "references": [
+        {
+          "label": "Jankousky et al. 2025/2026",
+          "doi": "10.1038/s41567-025-03099-x",
+          "role": "a-In2O3 effective bands, band-like transport, m* and mean-free-path scale"
+        },
+        {
+          "label": "Lee, Cobb, Dodabalapur 2010",
+          "doi": "10.1063/1.3517502",
+          "role": "a-ZTO band transport and mobility-edge precedent"
+        }
+      ],
+      "assumptions": [
+        "Single isotropic parabolic conduction band.",
+        "Hall mobility is used as Drude mobility.",
+        "Carrier density is 3D free-electron-like density.",
+        "m*=0.2m0 is treated constant over the density range."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "A 命题的最强可守版本是：mobility-edge/Ioffe-Regel 充当必要的第一判据；当 k_F*l>>1 时传统 band-like picture 足以解释电子态延展性，但当 k_F*l≈1 时，局域结构和中程连通不应被消去，只能作为决定 Ec、无序散射和 mobility edge 位置的变量进入。",
+      "confidence": 0.74,
+      "new_insight": false,
+      "equations": ["F5"],
+      "references": [
+        {
+          "label": "Stern 1971",
+          "doi": "10.1103/physrevb.3.2636",
+          "role": "amorphous-semiconductor mobility-edge/band-tail model precedent"
+        },
+        {
+          "label": "Aliano, Catellani, Cicero 2011",
+          "doi": "10.1063/1.3664224",
+          "role": "a-In2O3 structural disorder, localized states, O-O bond"
+        },
+        {
+          "label": "Furubayashi, Maehara, Yamamoto 2019",
+          "doi": "10.1186/s11671-019-2948-4",
+          "role": "amorphous Sn-doped In2O3 Hall mobility and carrier-transport limiting factors"
+        },
+        {
+          "label": "Jang et al. 2025",
+          "doi": "10.1021/acsmaterialslett.5c00348",
+          "role": "InGaZnO4 and In2O3 mobility trend; structural disorder from amorphous to crystalline states"
+        }
+      ],
+      "assumptions": [
+        "Ioffe-Regel k_F*l≈1 remains a useful boundary diagnostic in amorphous oxides.",
+        "Structure enters A as a subordinate disorder variable, not as an independent sufficient criterion."
+      ]
+    }
+  ],
+  "findings": "Round 1 的数量级检验支持 A 的弱版而不支持 A 的强版。用 m*=0.2m0、mu=10-40 cm2/Vs、n=1e20-1e21 cm^-3 计算，tau≈1.14-4.55 fs，k_F≈1.44-3.09 nm^-1，v_F≈0.83-1.79e6 m/s，l≈0.95-8.15 nm，k_F*l≈1.36-25.2。最低密度/最低迁移率处贴近 Ioffe-Regel 边界；高密度或高迁移率处已明显在金属侧。若改用 DeltaE≈0.25 eV 得到 k≈1.15 nm^-1，则 mu=10-40 cm2/Vs 对应 k*l≈0.86-3.46，更强调边界性。因此，mobility-edge 填充是必要且有解释力的第一判据，但在边界附近不足以排除结构连通阈值作为更细判据。",
+  "weakest_link": "把 Hall mobility 直接等同 Drude mobility、把 a-In2O3 当作单一各向同性抛物带，并用 nominal n 推出 k_F；若实际多带、非抛物性、有效质量随局域环境变化或 Hall factor 明显偏离 1，则 k_F*l 数值会系统偏移。",
+  "INSPECTOR_CHECK": {
+    "formula": "tau = mu*m_star/e; k_F = (3*pi**2*n)**(1/3); v_F = hbar*k_F/m_star; l = v_F*tau; k_F_l = k_F*l. SI units used.",
+    "direction": "a-In2O3 的参数低端位于 Ioffe-Regel/mobility-edge 边界附近；A 可作为第一判据，但无法单独压倒连通阈值判据。",
+    "data": "Jankousky et al. DOI 10.1038/s41567-025-03099-x; Lee et al. DOI 10.1063/1.3517502; Furubayashi et al. DOI 10.1186/s11671-019-2948-4; Aliano et al. DOI 10.1063/1.3664224; Jang et al. DOI 10.1021/acsmaterialslett.5c00348.",
+    "assumptions": "m*=0.2m0, mu=10-40 cm2/Vs, n=1e20-1e21 cm^-3, DeltaE=0.25 eV, single parabolic band, Hall factor≈1."
+  },
+  "deepening": {
+    "deepening_1_consequence_layer_1": "若 k_F*l≈1 是真实边界，则 mobility edge 的微小位移或 scattering-rate 变化会把样品从 Drude-like transport 推入 activated/VRH-like regime。",
+    "deepening_1_consequence_layer_2": "下一层后果是：同一 n 下，若结构变量只改变 disorder strength，它应主要表现为 Ec 位移、tail-state density 和 tau 改变；而不是出现独立于 n 的 sharp connectivity threshold。",
+    "deepening_2_weak_premise_layer_1": "最可能错误的前提是自由电子 k_F 估算：a-In2O3 的 effective band ridge 可能不是完整三维球形费米面。",
+    "deepening_2_weak_premise_layer_2": "若 ridge 的谱权重只在局部 k-space 或局域环境 ensemble 中有效，则 density-derived k_F 会高估真实相干传播通道数，使 k_F*l 看起来比实际更远离 Ioffe-Regel。"
+  },
+  "next_plan": "Round 2 A 应把 A 命题从 scalar k_F*l 推进到 mobility-edge 可观测判据：提取或拟合 E_F-E_c、activation energy vs carrier density、temperature coefficient of mobility、Hall factor，并检验这些量是否能在不显式引入 connectivity threshold 的情况下解释 Jankousky/Furubayashi/Jang 数据。若不能，应把结构变量作为 Ec 和 tau 的控制参数，而非继续宣称其只是从属变量。",
+  "literature_needed": [
+    "amorphous In2O3 Hall factor effective mass carrier density optical Drude",
+    "transparent amorphous oxide semiconductor mobility edge activation energy carrier concentration",
+    "a-ITO mean free path Hall mobility carrier transport limiting factors",
+    "amorphous oxide semiconductor temperature dependent Hall mobility bandlike transport",
+    "In2O3 structural disorder mobility trend amorphous crystalline"
+  ],
+  "references": [
+    {
+      "label": "Jankousky et al. 2025/2026",
+      "title": "Effective bands and band-like electron transport in amorphous solids",
+      "doi": "10.1038/s41567-025-03099-x",
+      "url": "https://doi.org/10.1038/s41567-025-03099-x"
+    },
+    {
+      "label": "Lee, Cobb, Dodabalapur 2010",
+      "title": "Band transport and mobility edge in amorphous solution-processed zinc tin oxide thin-film transistors",
+      "doi": "10.1063/1.3517502",
+      "url": "https://doi.org/10.1063/1.3517502"
+    },
+    {
+      "label": "Stern 1971",
+      "title": "Band-Tail Model for Optical Absorption and for the Mobility Edge in Amorphous Silicon",
+      "doi": "10.1103/physrevb.3.2636",
+      "url": "https://doi.org/10.1103/physrevb.3.2636"
+    },
+    {
+      "label": "Aliano, Catellani, Cicero 2011",
+      "title": "Characterization of amorphous In2O3: An ab initio molecular dynamics study",
+      "doi": "10.1063/1.3664224",
+      "url": "https://doi.org/10.1063/1.3664224"
+    },
+    {
+      "label": "Furubayashi, Maehara, Yamamoto 2019",
+      "title": "New Insights on Factors Limiting the Carrier Transport in Very Thin Amorphous Sn-Doped In2O3 Films with High Hall Mobility",
+      "doi": "10.1186/s11671-019-2948-4",
+      "url": "https://doi.org/10.1186/s11671-019-2948-4"
+    },
+    {
+      "label": "Jang et al. 2025",
+      "title": "InGaZnO4 and In2O3 Mobility Trend: The Role of Structural Disorder from Amorphous to Crystalline States",
+      "doi": "10.1021/acsmaterialslett.5c00348",
+      "url": "https://doi.org/10.1021/acsmaterialslett.5c00348"
+    }
+  ]
+}

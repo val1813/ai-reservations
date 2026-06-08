@@ -1,0 +1,87 @@
+{
+  "project": "LP23-HelicalWorldline-Reinit-20260603",
+  "version": "v1",
+  "date": "2026-06-03",
+  "conclusion_type": "有边界-原始声张证伪",
+  "nodes": [
+    {
+      "id": "LP23.K1",
+      "type": "negative_result",
+      "claim": "固定半径单位螺旋或相位平移族给圆柱, 非光锥",
+      "status": "confirmed"
+    },
+    {
+      "id": "LP23.K2",
+      "type": "constraint",
+      "claim": "e^{i theta} 的 Re/Im 无量纲, 不能直接当 Minkowski 坐标",
+      "status": "confirmed"
+    },
+    {
+      "id": "LP23.K5",
+      "type": "negative_result",
+      "claim": "theta 是 Lorentz 标量, alpha 是 observer celestial coordinate; theta=alpha 不协变",
+      "status": "confirmed"
+    },
+    {
+      "id": "LP23.K7",
+      "type": "constraint",
+      "claim": "整体 U(1) 相位不改变 spinor bilinear null direction",
+      "status": "confirmed"
+    },
+    {
+      "id": "LP23.K9",
+      "type": "negative_result",
+      "claim": "标准光锥母线族 optical twist 为零",
+      "status": "confirmed"
+    },
+    {
+      "id": "LP23.K11",
+      "type": "negative_result",
+      "claim": "非零 U(1) holonomy 不蕴含非零 optical twist",
+      "status": "confirmed"
+    },
+    {
+      "id": "LP23.R1",
+      "type": "new_candidate",
+      "claim": "带联络的 projective spinor/contact 主丛可能统一 phase holonomy, null projection, screen optical data",
+      "status": "registered_pending_AB"
+    },
+    {
+      "id": "LP23.REVIEWER1",
+      "type": "prior_art_pressure",
+      "claim": "contact structure of null geodesics, light-cone and spinor-null-vector structures have strong prior art",
+      "status": "verified_by_PI_websearch"
+    }
+  ],
+  "edges": [
+    {
+      "source": "LP23.K1",
+      "target": "LP23.R1",
+      "relation": "motivates_reescalation"
+    },
+    {
+      "source": "LP23.K5",
+      "target": "LP23.R1",
+      "relation": "requires_connection_not_identity"
+    },
+    {
+      "source": "LP23.K7",
+      "target": "LP23.R1",
+      "relation": "fiber_base_separation"
+    },
+    {
+      "source": "LP23.K11",
+      "target": "LP23.R1",
+      "relation": "requires_nontrivial_coupling"
+    },
+    {
+      "source": "LP23.REVIEWER1",
+      "target": "LP23.R1",
+      "relation": "prior_art_baseline"
+    }
+  ],
+  "next_steps": [
+    "If LP23-R1 is pursued, begin with prior-art-differentiated AB validation.",
+    "First calculation: test whether F_AB = chi * omega_AB can be made dimensionally consistent, Lorentz/screen-gauge covariant, and non-arbitrary."
+  ]
+}

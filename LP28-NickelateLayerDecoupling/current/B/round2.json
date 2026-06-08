@@ -1,0 +1,193 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "round": 2,
+  "agent": "B",
+  "role": "野路子",
+  "polaris": "把 La4Ni3O10 的 Ni dz2 层间通道从 DW 重构断路态，工程化切换成可承载 bulk superconductivity 的层间相位总线。",
+  "framework": "分布式共识 / quorum sensing / 容错总线。每个 NiO2 层或局域配对斑块不是自动形成三维超导，而是必须通过 dz2-pz-dz2 通道广播相位。bulk SC 对应相位投票达到 quorum；static DW 是 bus partition，DW fluctuations 可以仍是 local pairing noise/glue。",
+  "math_object": {
+    "borrowed_structure": "distributed consensus with lossy inter-node communication plus percolation threshold",
+    "physical_translation": "局域配对振幅对应节点内 order parameter；dz2-mediated interlayer spectral weight 对应跨层消息带宽；static DW reconstruction 对应丢包/分区；bulk Meissner fraction 和 c-axis Josephson-like response 对应全局共识达成。",
+    "control_variable": "Q_phi, the interlayer phase quorum score",
+    "definition": "Q_phi = W_z2(0,Omega_c) * C_phi / (k_B*T + hbar*Gamma_phi)",
+    "units": "W_z2(0,Omega_c) is an energy-integrated c-axis dz2/pz spectral-weight proxy normalized to eV; C_phi is dimensionless phase-connectivity factor from layer-resolved structural/orbital coherence; Gamma_phi is an angular-frequency dephasing rate in s^-1, so hbar*Gamma_phi is energy. Q_phi is dimensionless.",
+    "threshold_statement": "bulk superconductivity requires Q_phi > Q_c while local pairing only requires a finite in-plane gap/fluctuation scale. Q_c is material- and disorder-dependent and must be calibrated by Meissner/shielding fraction, not by rho_c/rho_ab."
+  },
+  "inspector_fixes": {
+    "t_perp_eff_units": {
+      "convention": "Use omega_perp_eff in s^-1 when writing rates, and E_perp_eff = hbar*omega_perp_eff in eV or meV when entering dimensionless ratios.",
+      "forbidden_shortcut": "Do not write hbar*t_perp_eff unless t_perp_eff is explicitly an angular frequency. If t_perp_eff is an energy from band fitting, use t_perp_eff/(k_B*T + hbar*Gamma)."
+    },
+    "epsilon_c_sign": {
+      "definition": "epsilon_c = -(c - c0)/c0, so c-axis compression is positive and c-axis expansion is negative.",
+      "implication": "A positive partial derivative dQ_phi/d epsilon_c means c-axis compression improves the phase bus, but this must be separated from pressure-driven bandwidth, carrier density, and disorder changes."
+    },
+    "avoid_lambda_circularity": {
+      "input_side": "Infer Q_phi/Lambda from c-axis optical Drude weight, polarization-resolved O K-edge/Ni L-edge dz2-pz spectral weight, ARPES kz dispersion, RIXS/ultrafast dephasing, or DFT/DMFT orbital-resolved hopping.",
+      "validation_side": "Use rho_c/rho_ab only as a secondary transport consequence, not as both definition and proof. Primary validation is onset of bulk diamagnetic shielding, c-axis Josephson plasma/THz response, pressure optical spectral-weight recovery, and phase stiffness."
+    },
+    "alternative_explanations": [
+      {
+        "name": "pressure bandwidth effect",
+        "risk": "Pressure can raise Tc by broadening bands or changing correlations without a dz2 phase-bus mechanism.",
+        "separation_test": "At fixed or comparable in-plane bandwidth proxy, test whether c-axis dz2 spectral weight or kz dispersion predicts shielding fraction/Tc better than ab-plane Drude weight."
+      },
+      {
+        "name": "scattering anisotropy and structural domains",
+        "risk": "rho_c/rho_ab can change because tau_c/tau_ab or domain populations change, not because coherent hopping is restored.",
+        "separation_test": "Compare optical sum-rule spectral weight and Hall/magnetoresistance scattering rates; require domain imaging or single-domain strain geometry."
+      },
+      {
+        "name": "common third variable",
+        "risk": "oxygen stoichiometry, carrier density, disorder, or structural phase fraction can tune both interlayer coherence and superconductivity.",
+        "separation_test": "Use two-axis tuning, e.g. chemical stoichiometry for carrier density plus uniaxial strain for dz2 overlap, and seek crossed trajectories with same carrier density but different Q_phi."
+      }
+    ]
+  },
+  "findings": "Round 2 的突破不是声称 interlayer coherence 首创，而是把 dz2-mediated interlayer coherence 从描述性组织参数改写为可工程化的相位总线变量 Q_phi。目标窗口是：保留 DW fluctuations/local pairing，削弱 static DW 对 dz2-pz-dz2 通道的分区效应，使 c-axis phase stiffness 先于或同步于 bulk shielding 恢复。La4Ni3O10 的新杠杆在 trilayer 内部：inner/outer Ni 层之间的 dz2 通道是否能被压力、单轴应变、氧/稀土化学压力或非平衡泵浦选择性重接。",
+  "strangest_prediction": "如果相位总线图像成立，会出现一种看似反直觉窗口：static DW peak 或 DW gap 不必完全消失，甚至局域 pairing/fluctuation 指标仍强，但只要 dz2-pz-dz2 c-axis spectral weight 和 phase stiffness 跨过 Q_c，就能出现 bulk shielding；反之，单纯削弱 DW 振幅但没有恢复 dz2 c-axis spectral weight，只会得到金属性改善或二维/丝状超导。",
+  "technology_routes": [
+    {
+      "id": "R1",
+      "route": "hydrostatic pressure plus in-situ c-axis optical/THz spectroscopy on La4Ni3O10 single crystals",
+      "control_knob": "Pressure P; treat P as multi-variable and track structural, bandwidth, and carrier proxies separately.",
+      "observables": [
+        "c-axis low-frequency Drude spectral weight Delta W_c(P,T)",
+        "THz Josephson-like plasma edge or phase-stiffness onset",
+        "bulk shielding fraction and resistive Tc under the same pressure path",
+        "DW gap amplitude from ultrafast/optical spectroscopy",
+        "ab-plane Drude weight as bandwidth control"
+      ],
+      "success_criterion": "Delta W_c or THz phase stiffness shows a precursor recovery before or at bulk shielding onset, while ab-plane Drude weight alone does not predict the transition. Static DW signatures may weaken but need not vanish.",
+      "failure_criterion": "Tc and shielding track only ab-plane bandwidth or structural transition, with no selective c-axis spectral-weight recovery beyond scattering-rate changes."
+    },
+    {
+      "id": "R2",
+      "route": "uniaxial strain device: independently tune epsilon_c and in-plane strain in thin lamella or film-like La4Ni3O10",
+      "control_knob": "epsilon_c = -(c-c0)/c0; compression is positive. Compare positive epsilon_c with matched in-plane strain states.",
+      "observables": [
+        "polarization-resolved O K-edge XAS pz pre-edge weight",
+        "Ni L-edge dz2 orbital redistribution",
+        "c-axis optical spectral weight or vertical tunneling conductance",
+        "DW peak intensity/domain population by x-ray scattering",
+        "Meissner or mutual-inductance shielding fraction"
+      ],
+      "success_criterion": "At comparable carrier density and disorder, positive epsilon_c increases dz2/pz spectral weight and shielding fraction more strongly than it changes in-plane transport. Domain-controlled samples collapse onto Q_phi rather than rho_c/rho_ab.",
+      "failure_criterion": "Effects are dominated by structural domain switching or cracks/contact geometry; Q_phi proxies do not correlate with shielding once domains are controlled."
+    },
+    {
+      "id": "R3",
+      "route": "chemical-pressure and oxygen-stoichiometry split tuning",
+      "control_knob": "Rare-earth substitution or isovalent chemical pressure to tune dz2 overlap, combined with oxygen control to tune carrier density/disorder separately.",
+      "observables": [
+        "oxygen stoichiometry by EELS or neutron refinement",
+        "O K-edge pz/pxy spectral-weight ratio",
+        "RIXS static SDW peak and damping of spin excitations",
+        "bulk shielding fraction rather than only zero resistance",
+        "Hall number as carrier-density control"
+      ],
+      "success_criterion": "Samples with similar Hall number but larger pz/dz2 coherent weight show larger shielding/Tc; both oxygen-vacancy localization and oxygen-interstitial overdoping are avoided.",
+      "failure_criterion": "All apparent improvements collapse onto carrier density, disorder, or phase fraction, with no independent dz2-channel leverage."
+    },
+    {
+      "id": "R4",
+      "route": "non-equilibrium mid-IR pump of apical oxygen / dz2-pz-dz2 coordinate",
+      "control_knob": "Pump fluence and frequency resonant with apical oxygen or c-axis polar mode, below damage threshold.",
+      "observables": [
+        "time-resolved c-axis reflectivity/THz conductivity",
+        "transient DW gap suppression",
+        "pump-induced Josephson-like plasma response",
+        "recovery times of dz2 spectral weight versus DW amplitude"
+      ],
+      "success_criterion": "A transient c-axis phase-stiffness signal appears in a time window where local pairing signatures survive and before thermal structural relaxation dominates.",
+      "failure_criterion": "Only heating-like DW melting or normal-state conductivity enhancement appears, with no phase-stiffness-specific response."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "dz2-mediated interlayer phase quorum can be treated as a tunable design variable rather than a passive diagnostic.",
+      "confidence": 0.72,
+      "new_insight": true,
+      "equations": [
+        "Q_phi = W_z2(0,Omega_c) * C_phi / (k_B*T + hbar*Gamma_phi)",
+        "epsilon_c = -(c-c0)/c0"
+      ],
+      "references": [
+        "arXiv:2605.18524",
+        "arXiv:2604.14701"
+      ],
+      "assumptions": [
+        "W_z2 can be isolated or bounded by c-axis optical/XAS/ARPES proxies.",
+        "Bulk shielding fraction is a valid external calibration of phase quorum.",
+        "Local pairing signatures can survive partial static DW suppression."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The most valuable La4Ni3O10 experiment is not pressure-Tc mapping alone, but pressure or strain mapping of the temporal order: dz2/c-axis spectral recovery versus bulk shielding onset versus DW weakening.",
+      "confidence": 0.78,
+      "new_insight": true,
+      "equations": [
+        "causal order test: recovery(W_z2 or rho_s,c) <= onset(bulk shielding) is required; disappearance(DW) is not required"
+      ],
+      "references": [
+        "arXiv:2605.18524",
+        "arXiv:2604.14701"
+      ],
+      "assumptions": [
+        "Pressure optical or THz data can be obtained with enough low-frequency resolution.",
+        "Shielding fraction is measured, not inferred from zero resistance alone."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "rho_c/rho_ab is useful only as a downstream symptom; using it to define and then verify Lambda is circular.",
+      "confidence": 0.9,
+      "new_insight": false,
+      "equations": [
+        "Lambda_input != f(rho_c/rho_ab) when rho_c/rho_ab is used as validation"
+      ],
+      "references": [
+        "INSPECTOR Round 1 warning",
+        "arXiv:2605.18524 six-terminal anisotropy caveat"
+      ],
+      "assumptions": [
+        "Scattering anisotropy and domain effects can be independently constrained."
+      ]
+    }
+  ],
+  "a_objection": "A 博士最可能反对：Q_phi 太工程化，W_z2/C_phi/Gamma_phi 的分解依赖代理量，且压力下多变量纠缠会让因果链过拟合。回应是：本轮不把 Q_phi 当精确微观哈密顿量参数，而当设计变量和实验分流器；只接受由光谱/THz/ARPES/RIXS输入、由 shielding/phase stiffness 输出的非循环判据。",
+  "failed_jumps": [
+    "经济学市场清算类比失败：能描述多变量均衡，但无法给出 dz2 通道的可观测量或单位约束。",
+    "音乐和声类比失败：相位锁定直观，但缺少可校准阈值和替代解释分离能力。"
+  ],
+  "deepening": {
+    "level_1": "distributed consensus: local nodes need enough interlayer messages to form a global phase decision.",
+    "level_2": "Byzantine/partition-tolerant consensus: static DW creates layer partitions or corrupted links; fluctuations are not necessarily fatal because dynamic noise can coexist with consensus if link capacity exceeds dephasing.",
+    "physics_payoff": "This maps directly to the design rule: increase dz2-pz-dz2 message capacity or reduce phase dephasing without necessarily eliminating all DW fluctuations."
+  },
+  "next_plan": "下一轮应要求 A/B 都围绕同一组非循环实验量收敛：W_z2/c-axis Drude or THz stiffness as input, shielding fraction as output, Hall/ab Drude/domain imaging as controls. B 的下一步可专攻器件化 strain/vertical tunneling geometry，把 Q_phi 从概念变成实验反馈回路。",
+  "literature_needed": [
+    "La4Ni3O10 pressure optical conductivity c-axis Drude weight",
+    "La4Ni3O10 ultrafast density wave pressure superconductivity",
+    "trilayer nickelate uniaxial strain dz2 orbital XAS",
+    "RP nickelate apical oxygen pump THz Josephson plasma"
+  ],
+  "inspectable_predictions": [
+    {
+      "prediction": "At fixed Hall density, Q_phi proxies predict shielding fraction better than DW peak amplitude.",
+      "observable_floor": "Need shielding fraction and a dz2/c-axis spectral proxy on the same sample series."
+    },
+    {
+      "prediction": "Positive epsilon_c should improve Q_phi only if it enhances dz2-pz-dz2 overlap; a pure bandwidth increase without c-axis spectral recovery should not yield robust bulk shielding.",
+      "observable_floor": "Need independent ab-plane bandwidth proxy and c-axis orbital/spectral proxy."
+    }
+  ],
+  "inspector_check": {
+    "formula": "Q_phi = W_z2(0,Omega_c) * C_phi / (k_B*T + hbar*Gamma_phi), with W_z2 in eV after normalization, Gamma_phi in s^-1, hbar*Gamma_phi in eV, C_phi dimensionless, Q_phi dimensionless. epsilon_c = -(c-c0)/c0, compression positive.",
+    "direction": "Increase Q_phi by restoring dz2-pz-dz2 c-axis spectral weight or reducing phase dephasing; validate by bulk phase stiffness/shielding, not by reusing rho_c/rho_ab.",
+    "data": "Inputs are pi_round1_synthesis.md, known inspector warnings, research plan, AHA record, arXiv:2605.18524, and arXiv:2604.14701.",
+    "assumptions": "Spectroscopic dz2/c-axis proxies can be measured under pressure/strain or transferred across controlled sample series; pressure effects can be decomposed by bandwidth, scattering/domain, and third-variable controls."
+  }
+}

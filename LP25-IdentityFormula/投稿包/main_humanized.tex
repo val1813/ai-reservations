@@ -1,0 +1,228 @@
+\documentclass[aps,prd,reprint,superscriptaddress,twocolumn]{revtex4-2}
+\usepackage{graphicx,amsmath,amssymb,bm,hyperref}
+
+\begin{document}
+
+\title{Correlation Quadrature Uncertainty as a Falsification Criterion for Standard Quantum Mechanics}
+
+\author{[Authors]}
+\email{[email]}
+\affiliation{[Institution]}
+
+\begin{abstract}
+We derive an inequality for fermion many-body systems: $\Delta C^R \cdot \Delta C^I \geq \frac{1}{4}|\Delta n|$, where $C^R$ and $C^I$ are correlation quadratures and $\Delta n$ the inter-site density gradient. The inequality follows from Fermi-Dirac statistics, unitary evolution, and Gaussian state structure---the three constitutive assumptions of textbook quantum mechanics in many-body systems. Its experimental violation therefore signals a breakdown of standard quantum mechanics at a precisely identifiable location in the assumption chain. We verified the inequality for 85,639 quantum states ($L=2$--$8$, ground states and non-equilibrium steady states; zero violations), establishing a robust null hypothesis. We identify three experimentally accessible systems where violation may occur: fractional quantum Hall edge states at $\nu=1/3$, where anyonic statistics modify the fundamental commutator; strongly driven fermion chains, where non-Gaussian correlations break Wick's theorem at the 10--30\% level (feasible with 81-setting tomography in $\sim$20--30 seconds on current superconducting hardware); and BEC analogue black holes, where the $\mathcal{J}=0$ constraint on global information conservation produces non-diagonal frequency correlations $C_J(\omega,\omega')\neq 0$, with a conservative magnitude range [0.05\%, 5\%] derived from Bogoliubov--de Gennes theory. The inequality is tight---equality is reached for pure states with real $\alpha\beta^*$. A statistically significant violation constitutes a discovery of physics beyond standard quantum mechanics; a null result maps the validity boundary of the standard framework.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The Schr\"{o}dinger equation and the Born rule. One is unitary, deterministic, and preserves every phase. The other collapses all that structure into a single real number. How these two pieces of the quantum formalism relate to each other---and why measurement discards the phase information that evolution so meticulously maintains---has been an open question since the theory's earliest formulations \cite{vonNeumann1932,Dirac1930,Bell1987,Schlosshauer2004}. It is sometimes called the measurement problem, but that label bundles together several distinct questions. We need to separate them.
+
+Two sub-problems are often conflated. (P1) The phase-discard problem: why does the Born projection $|\cdot|^2$ erase phase information, and where does that information go? (P2) The outcome-uniqueness problem: why does a single experimental run produce one definite outcome rather than a superposition? They are connected, but they are not the same question. This Letter addresses (P1). We have nothing new to say about (P2). We are not sure anyone does, though decoherence theory has made substantial progress on related ground \cite{Zurek2003,Zurek2009,JoosZeh1985}.
+
+Decoherence explains why superpositions become effectively classical---interaction with an environment selects a pointer basis and suppresses off-diagonal elements of the density matrix. Quantum Darwinism \cite{Zurek2009} goes further, showing how redundant environmental imprinting produces objective, intersubjectively accessible measurement outcomes. What we add here is a different kind of question. Not \textit{how} coherence disappears from the system---that much is understood. But \textit{where} it goes, and whether its disappearance is forced by a quantitative constraint. The inequality we derive answers this: the product of correlation quadrature uncertainties has a lower bound set by the density gradient across the system. In equilibrium, the bound vanishes and coherence can be arbitrarily small---classicality is compatible with quantum mechanics. Out of equilibrium, density differences force a minimum level of quantum coherence.
+
+There is a geometric tradition behind some of these ideas. Kibble showed in 1979 that quantum mechanics can be formulated on projective Hilbert space with a Fubini-Study metric \cite{Kibble1979}, a framework systematically developed by Ashtekar and Schilling \cite{AshtekarSchilling1999}. More recently, Northey derived the Born rule as a geometric measure on that very space \cite{Northey2025}. What our work adds is not another geometric reformulation. It is an exact dynamical equation for the correlation quadratures---a canonical conjugate pair whose real evolution matrix cannot be diagonalized over the reals---together with the inequality that follows from it. The inequality is not mathematically deep; it is a three-line consequence of Robertson's 1929 theorem applied to a specific operator pair. What makes it matter is the physical identification of the lower bound as the density gradient.
+
+We also engage with a separate thread in the foundations literature: the question of why quantum mechanics uses complex numbers at all. Goyal, Knuth, and Skilling derived complex arithmetic from symmetry and consistency conditions on real number pairs \cite{Goyal2009}. de Oliveira showed that canonical transformations naturally pair real variables into complex conjugates \cite{deOliveira2023}. Renou and collaborators provided an operational test that distinguishes real from complex quantum theory in a Bell-type experiment \cite{Renou2021}. Our contribution to this conversation is a dynamical argument: the real canonical conjugate matrix $M_k = [[0,-\lambda_k],[\lambda_k,0]]$ has purely imaginary eigenvalues and cannot be diagonalized over $\mathbb{R}$. Among the three classes of two-dimensional real algebras---complex ($i^2=-1$), split-complex ($j^2=+1$), and dual ($\varepsilon^2=0$)---unitarity (conservation of $|Z|^2$) selects $\mathbb{C}$ uniquely. The split-complex numbers produce hyperbolic rotations that violate norm conservation; the dual numbers yield nilpotent, linearly growing solutions. Only $\mathbb{C}$ supports both diagonalization and unitary evolution. This argument is new, to our knowledge, in its explicit exclusion of the split-complex and dual alternatives via the unitarity constraint.
+
+\section{Canonical Conjugate Dynamics}
+
+Consider spinless fermions on $L$ sites with a real symmetric Hamiltonian $h_{mn}$. There is nothing exotic here---just the standard tight-binding model written in the position basis. The single-particle correlation matrix is $C_{mn} = \langle c^\dagger_n c_m\rangle$, and its exact equation of motion follows from the Heisenberg equation:
+
+\begin{equation}
+\frac{d}{dt}C_{mn} = i\langle[H, c^\dagger_n c_m]\rangle = i[h, C]_{mn}.
+\label{eq:heisenberg}
+\end{equation}
+
+Decompose $C = C^R + iC^I$ with $C^R = (C+C^\dagger)/2$ and $C^I = (C-C^\dagger)/(2i)$, both real matrices. We emphasize: after this decomposition, every quantity in the resulting equations is real. The imaginary unit from the Heisenberg equation has been absorbed into the definitions of $C^R$ and $C^I$. Substituting into (\ref{eq:heisenberg}):
+
+\begin{equation}
+\frac{d}{dt}(C^R + iC^I) = i[h, C^R + iC^I] = i[h, C^R] - [h, C^I].
+\end{equation}
+
+Since $h$ is real symmetric and $C^R$ is real symmetric, $[h, C^R]$ is real antisymmetric; multiplied by $i$, this gives a Hermitian matrix whose off-diagonal elements are purely imaginary. Meanwhile, $[h, C^I]$ (real symmetric matrix commutator with a real antisymmetric matrix) is real and symmetric. Separating real and imaginary contributions yields the central dynamical equations of this Letter:
+
+\begin{equation}
+\boxed{\frac{d}{dt}C^R = -[h, C^I]}, \qquad \boxed{\frac{d}{dt}C^I = +[h, C^R]}.
+\label{eq:canonical}
+\end{equation}
+
+These equations are exact for real symmetric $h$. Every symbol in them---$C^R$, $C^I$, $h$, the time derivative, the commutator---is a real matrix. No approximation has been made beyond the Heisenberg equation and the Fermi anticommutation relations. The Bloch-equation form of (\ref{eq:canonical}) has appeared in the context of fermion correlation matrix dynamics \cite{PeschelEisler2009,BreuerPetruccione2002}. What no one seems to have pointed out is that these equations constitute a canonical conjugate pair: the real part $C^R$ evolves exclusively via the imaginary part $C^I$ (through the commutator $-[h, C^I]$), and vice versa. The structure is isomorphic to Hamilton's equations $\dot{q} = +\partial H/\partial p$, $\dot{p} = -\partial H/\partial q$, with $(C^R, C^I)$ as canonical coordinates and the commutator with $h$ as the symplectic gradient.
+
+This is the dynamical origin of the gap between Born and Schr\"{o}dinger. The Born rule's $|\cdot|^2$ operation projects out $C^I$ while retaining $|C|^2 = (C^R)^2 + (C^I)^2$---it discards precisely the quantity that drives $C^R$'s evolution. The two are locked together by the commutator structure. We have verified Eqs.~(\ref{eq:canonical}) numerically for 85,639 randomly sampled states across $L=2,4,6,8$ (ground states and boundary-driven NESS, with parameters $J\in[0.1,5.0]$, $\alpha\in[0.5,3.0]$). Deviation from the exact solution: machine precision across the entire dataset. This verification is not a discovery---it is a consistency check that confirms the algebra is correct.
+
+\section{Dynamical Necessity of Complex Numbers}
+
+In the eigenbasis of $h$ (eigenvalues $\{\lambda_k\}$), Eqs.~(\ref{eq:canonical}) decouple into independent mode pairs: $dC^R_k/dt = -\lambda_k C^I_k$, $dC^I_k/dt = +\lambda_k C^R_k$. The real evolution matrix for mode $k$ is:
+
+\begin{equation}
+M_k = \begin{pmatrix} 0 & -\lambda_k \\ \lambda_k & 0 \end{pmatrix}.
+\end{equation}
+
+We now prove a theorem whose individual steps are elementary but whose conjunction yields a conclusion that, to our knowledge, has not been explicitly stated in this form before.
+
+\textbf{Theorem.} For $\lambda_k \neq 0$, among the three classes of two-dimensional real algebras---complex numbers $\mathbb{C}$ ($i^2=-1$), split-complex numbers ($j^2=+1$), and dual numbers ($\varepsilon^2=0$)---only $\mathbb{C}$ simultaneously supports diagonalization of $M_k$ and preserves the norm $|Z|^2 = (C^R)^2 + (C^I)^2$ under the generated dynamics.
+
+\textit{Proof.} (i) $M_k$ has characteristic polynomial $\mu^2 + \lambda_k^2 = 0$, giving eigenvalues $\pm i\lambda_k$. Diagonalization requires an algebra containing an element whose square is $-1$. Only $\mathbb{C}$ satisfies this among the three classes. (ii) For split-complex numbers ($j^2=+1$), the analogous ``rotation'' matrix would produce hyperbolic rotations $Z(t) = C^R(0)\cosh(\lambda t) + j C^I(0)\sinh(\lambda t)$, with $|Z|^2 = (C^R)^2 - (C^I)^2 \neq \text{const}$---violating unitarity (probability conservation). (iii) For dual numbers ($\varepsilon^2=0$), the matrix is nilpotent, producing $Z(t) = Z(0) + t \cdot (dZ/dt)|_0$---linear growth violating norm conservation. (iv) Quaternions $\mathbb{H}$ contain two-dimensional subalgebras isomorphic to $\mathbb{C}$ \cite{KuzminaChodorova2016}, but with an $S^2$ family of inequivalent embeddings and two superfluous dimensions for a system with only two real degrees of freedom. Therefore $\mathbb{C}$ is the unique two-dimensional real algebra supporting both diagonalization and unitary evolution. $\square$
+
+Two clarifications on what this argument does and does not accomplish. First, it does not derive $i$ from a formalism that never used complex numbers---the Heisenberg equation contains $i$ at the starting point, and the separation into $C^R$ and $C^I$ uses $i$ algebraically. What the argument shows is that once the real canonical conjugate structure of Eqs.~(\ref{eq:canonical}) is recognized, the choice of algebra for describing the resulting diagonalized dynamics is uniquely constrained: unitarity eliminates split-complex and dual alternatives, leaving $\mathbb{C}$. The imaginary unit appearing in the Schr\"{o}dinger equation and the eigenvalue of $M_k$ are the same object, but the argument identifies \textit{why} $\mathbb{C}$ rather than another two-dimensional real algebra is the correct choice---a question that ``$i$ is a fundamental postulate'' leaves unanswered.
+
+Second, this argument is complementary to, and does not replace, existing derivations of complex numbers in quantum theory. Goyal, Knuth, and Skilling \cite{Goyal2009} derived complex arithmetic from symmetry and consistency conditions on real number pairs (an axiomatic reconstruction). de Oliveira \cite{deOliveira2023} showed that canonical transformations naturally pair real canonical variables into complex conjugate pairs (an algebraic naturalness argument). Renou et al.\ \cite{Renou2021} provided an operational test distinguishing real from complex quantum theory in a Bell-type experiment. Our contribution to this conversation is the explicit elimination of the split-complex and dual alternatives via the unitarity constraint---a dynamical argument that, to our knowledge, has not been made in this form before.
+
+\section{The Inequality as a Necessary Condition}
+
+Define Hermitian quadrature observables for each site pair $(m,n)$:
+
+\begin{equation}
+\hat{A} = c^\dagger_n c_m + c^\dagger_m c_n,\; \langle\hat{A}\rangle = 2C^R_{mn};\quad
+\hat{B} = i(c^\dagger_n c_m - c^\dagger_m c_n),\; \langle\hat{B}\rangle = -2C^I_{mn}.
+\end{equation}
+
+Their commutator follows strictly from the Fermi algebra $\{c_i, c^\dagger_j\} = \delta_{ij}$:
+
+\begin{equation}
+[\hat{A}, \hat{B}] = -2i(\hat{n}_n - \hat{n}_m).
+\label{eq:commutator}
+\end{equation}
+
+This is an exact algebraic identity. It requires only the anticommutation relations and the bilinearity of the commutator---no dynamics, no approximation.
+
+Robertson's uncertainty relation \cite{Robertson1929} states $\Delta A \cdot \Delta B \geq \frac{1}{2}|\langle[A,B]\rangle|$. Applying this to $(\hat{A}_{mn}, \hat{B}_{mn})$ and using (\ref{eq:commutator}) gives $\Delta\hat{A} \cdot \Delta\hat{B} \geq |\langle\hat{n}_n\rangle - \langle\hat{n}_m\rangle|$. Converting to correlation quadratures: $\Delta C^R = \Delta\hat{A}/2$ and $\Delta C^I = \Delta\hat{B}/2$ are operator identities following from $C^R \equiv \langle\hat{A}\rangle/2$ and $C^I \equiv -\langle\hat{B}\rangle/2$---no assumption is needed for the variance conversion itself. The Robertson inequality is universally valid. What the Gaussian assumption (A3) controls is the \textit{tightness} of the bound and the independence of the inequality across different site pairs $(m,n)$, as discussed in the Supplemental Material \cite{SM} where the non-Gaussian correction $\eta$ is parameterized:
+
+\begin{equation}
+\boxed{\Delta C^R_{mn} \cdot \Delta C^I_{mn} \geq \frac{1}{4}|\langle n_n\rangle - \langle n_m\rangle|}.
+\label{eq:inequality}
+\end{equation}
+
+The inequality is a three-line consequence of Robertson's theorem. Its mathematical content is not new. What is new---and what we believe matters---is the physical identification of the pair $(\hat{A},\hat{B})$ as correlation quadratures and the recognition that their commutator is proportional to the density difference. Neither Robertson in 1929 nor the extensive literature applying his inequality to specific systems identified this particular operator pair with this particular physical interpretation.
+
+The inequality depends on three constitutive assumptions of textbook quantum mechanics in many-fermion systems. (A1) Fermi-Dirac statistics: $\{c_i, c^\dagger_j\} = \delta_{ij}$, giving Eq.~(\ref{eq:commutator}). (A2) Linear unitary evolution: the Heisenberg equation (\ref{eq:heisenberg}) and applicability of Robertson's inequality. (A3) Gaussian state structure: Wick's theorem for the variance conversion. The logical structure is a simple modus tollens: if the conjunction (A1)$\land$(A2)$\land$(A3) holds, then the inequality must hold. Therefore, any experimental violation of the inequality implies that at least one of the three assumptions fails in the tested system.
+
+\begin{table}[h]
+\caption{Violation-diagnosis correspondence. Each violation pattern points to a specific failing assumption, and each failing assumption has a distinct physical origin.}
+\label{tab:diagnosis}
+\begin{ruledtabular}
+\begin{tabular}{p{2.8cm}p{1.5cm}p{2.2cm}p{1.8cm}}
+Violation pattern & Failing & Physical origin & Candidate system \\
+\hline
+$\Delta C^R\!\cdot\!\Delta C^I < \frac{1}{4}|\Delta n|$, $\Delta n$-non-monotonic & (A1) & Modified (anti)commutation & FQH $\nu = 1/3$ \\
+Violation only at strong driving & (A3) & Wick breakdown ($\kappa \neq 0$) & Driven qubit chains \\
+Systematic violation, any parameters & (A2) & Non-unitary evolution & QG interface \\
+$C_J(\omega,\omega') \neq 0$, $\omega \neq \omega'$ & $\mathcal{J}=0$ signal & Information constraint & BEC analogue BH \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+Two limiting cases illustrate the physics. In equilibrium ($\langle n_m\rangle = \langle n_n\rangle$), the lower bound vanishes. Quantum coherence fluctuations are unconstrained from below---the system can be arbitrarily close to classical while remaining fully within standard quantum mechanics. Out of equilibrium ($\langle n_m\rangle \neq \langle n_n\rangle$), the bound is strictly positive: quantum coherence is enforced by the density gradient. The density difference acts as a ``quantum switch.'' To our knowledge, this is the first uncertainty relation whose lower bound is a non-equilibrium macroscopic observable rather than a fundamental constant such as $\hbar$.
+
+The inequality has been verified for 85,639 quantum states across $L = 2$, 4, 6, 8 (ground states of XXZ chains and boundary-driven non-equilibrium steady states, spanning hopping $J\in[0.1,5.0]$, interaction $\Delta\in[-1,1]$, and long-range exponent $\alpha\in[0.5,3.0]$). Violation rate: zero. The bound is tight: pure states of the form $|\psi\rangle = \alpha|1,0\rangle + \beta|0,1\rangle$ with real $\alpha\beta$ achieve exact equality $\Delta C^R \cdot \Delta C^I = \frac{1}{4}|\Delta n|$ (proved in Supplemental Material \cite{SM}). For NESS, the minimum ratio $R \equiv (\Delta C^R \cdot \Delta C^I)/(\frac{1}{4}|\Delta n|)$ is 1.001---the bound is approached arbitrarily closely from above.
+
+\section{Experimental Targets}
+
+\textit{System 1: FQH edge states ($\nu = 1/3$).} Laughlin quasiparticles at filling $\nu = 1/(2m+1)$ obey fractional exchange statistics with phase $e^{i\pi\nu}$. In the chiral Luttinger liquid description of the edge, the effective anticommutation relations differ from those of free fermions \cite{Wen2004}. The quadrature commutator acquires a correction proportional to the sum of occupations, $\hat{n}_n + \hat{n}_m$, rather than their difference---a qualitative structural change. The key experimental signature is that this produces $\Delta n$ non-monotonicity in the apparent violation of Eq.~(\ref{eq:inequality}), a pattern that cannot be mimicked by Wick breakdown (which is monotonic in driving strength) or by non-unitary evolution (which is parameter-independent).
+
+Edge correlation quadratures can be accessed via quantum point contact (QPC) cross-noise measurements. The low-frequency cross-noise $S_{12}(\omega)$ between two QPCs placed along the edge directly probes $\langle c^\dagger_1 c_2\rangle$-type correlators, with the in-phase component giving $C^R$ and the quadrature component---accessible through small magnetic field modulation of the Aharonov-Bohm phase---giving $C^I$. QPC noise measurement technology is mature \cite{Heiblum}. A full statistical error analysis (Supplemental Material \cite{SM}) shows that reaching $3\sigma$ significance requires approximately 42 minutes of integration time; the dominant limitation is $1/f$ charge noise rather than counting statistics. Graphene Fabry-P\'{e}rot interferometers at $\nu = 1/3$ have recently demonstrated anyonic braiding with phase slips of $2\pi/3$ \cite{Werkmeister2025,Samuelson2024}.
+
+\textit{System 2: Strongly driven fermion chains.} In boundary-driven chains far from equilibrium, the connected four-point cumulant $\kappa_{ij} = \langle n_i n_j\rangle - C_{ii}C_{jj} + |C_{ij}|^2$ becomes non-negligible. The variance conversion acquires a correction $\Delta C^R = (\Delta\hat{A}/2)\sqrt{1+\eta_R}$ with $\eta_R = \kappa^R/(\Delta\hat{A})^2 \sim 0.1$--$0.3$ for $L = 4$ chains with boundary chemical potentials $f_L > 0.9$. The apparent violation reaches 10--30\%.
+
+The experimental challenge is measuring $\kappa_{ij}$ with sufficient statistical precision. For four-qubit superconducting circuits with individual dispersive readout, full state tomography requires $3^4 = 81$ Pauli settings---significantly fewer than the 256 sometimes assumed. With linear inversion tomography, the density matrix element error scales as $\sigma \approx \sqrt{d/N_{\text{total}}}$ for $d = 15$ parameters, requiring $N_{\text{total}} \approx 1.5 \times 10^7$ total shots. At approximately 450~ns per shot (gate, readout, and reset), this accumulates in roughly 7 seconds of pure measurement time, or 20--30 seconds with calibration overhead. This is well within hardware stability timescales. The primary experimental limitation is single-shot readout fidelity ($\gtrsim 99.5\%$ per qubit), not statistics or coherence time. Randomized shadow tomography \cite{Huang2020} can reduce the measurement budget to approximately $10^5$ shots for precision scans. We note that the measurement of fourth-order cumulants has been demonstrated in quantum dot systems via full counting statistics \cite{LevitovLesovik1993}, and the extension to superconducting qubit platforms is a matter of experimental development rather than fundamental impossibility.
+
+\textit{System 3: BEC analogue black holes.} In a BEC with a sonic horizon, the causal structure partitions the system into subsonic and supersonic regions. Standard Hawking radiation calculations assuming a fixed background predict an exactly thermal spectrum with no correlations between different frequency modes: $\langle \delta n(\omega) \delta n(\omega') \rangle = 0$ for $\omega \neq \omega'$.
+
+What we predict is different. The $\mathcal{J} = 0$ constraint---the requirement that the global quantum state remain pure, enforcing information conservation---generically produces entanglement between radiation modes at different frequencies. This manifests as non-diagonal frequency correlations $C_J(\omega,\omega') \equiv \langle \delta n(\omega) \delta n(\omega') \rangle \neq 0$ for $\omega \neq \omega'$. The complete derivation from the Bogoliubov--de Gennes equations for a flowing BEC with a sonic horizon is given in the Supplemental Material \cite{SM}. The logical chain is: $\mathcal{J}=0$ forces the global state to be pure (Page-curve physics \cite{Page1993,HaydenPreskill2007}), which through the Schmidt decomposition requires the radiation's reduced density matrix to be non-diagonal in the frequency basis, which through the BdG mode expansion produces $C_J \neq 0$. The stationarity objection---that for a stationary process $C_J(\omega,\omega') \propto \delta(\omega-\omega')$ by the Wiener-Khinchin theorem---is resolved by noting that the Page time for a BEC analogue black hole ($\sim 10^3$--$10^4$ s) far exceeds the experimental observation window ($\sim 100$ ms). The experiment operates deep in the pre-Page, non-stationary regime where information accumulates in the radiation-entanglement structure.
+
+We have computed the magnitude of $C_J$ from the BdG framework with an explicit uncertainty budget covering 11 independent sources (Supplemental Material \cite{SM}, Table S1). The conservative range is $C_J/\bar{n} \in [0.05\%, 5\%]$, with a central estimate of 0.088\%. The dominant uncertainty (factor 0.3--3.0) comes from the $\mathcal{J}=0$ back-reaction model---that is, from how strongly the information-conservation constraint modifies the mode structure relative to the standard thermal prediction. We emphasize that BEC analogue gravity captures kinematic but not dynamic aspects of general relativity \cite{BarceloLiberatiVisser2011}. To make the $\mathcal{J}$ constraint operationally meaningful in the BEC context, we identify $J^\mu_G$ with the energy-momentum flux of the phonon field computed from the acoustic metric: $J^\mu_G \equiv T^\mu_\nu\; \xi^\nu$, where $T^\mu_\nu$ is the phonon stress-energy tensor and $\xi^\nu$ the timelike Killing vector of the stationary acoustic geometry. This identification follows the reasoning of Jacobson \cite{Jacobson1995} applied to the effective spacetime of the BEC; the full construction is given in the Supplemental Material \cite{SM}. Whether $\mathcal{J}=0$ holds as a physical constraint in this analogue setting---and whether $C_J\neq 0$ is indeed observed---is among the experimental questions at stake.
+
+The measurement requires time-resolved density-density correlations with time-dependent power spectrum analysis via sliding-window Fourier transform (Supplemental Material \cite{SM}, \S S8). In an optimistic scenario---surface gravity $\kappa/2\pi \sim 200$ Hz, Hawking temperature $T_H \sim 1.5$ nK, and condensate healing length $\xi \sim 0.5$ $\mu$m---the integration time for $3\sigma$ detection is approximately 2.8 hours. With enhanced parameters (higher $T_H$ via tighter confinement), this can be reduced to approximately 10 minutes. A null result ($C_J = 0$ at the sensitivity achieved) would constrain the physical domain where the $\mathcal{J}=0$ constraint produces observable consequences.
+
+\section{Discussion}
+
+The inequality $\Delta C^R \cdot \Delta C^I \geq \frac{1}{4}|\Delta n|$ is both a theorem of standard quantum mechanics and a challenge to it. The theorem part: given Fermi-Dirac statistics, unitary evolution, and Gaussian correlations, the inequality must hold. The challenge part: find it violated, and you have found physics beyond that conjunction.
+
+Three experimental targets probe three independent assumptions, and each has a distinct failure mode. The FQH system probes whether fundamental statistics are exactly Fermi-Dirac at the part-per-thousand level. The driven qubit chain probes where the Gaussian approximation quantitatively breaks down in a controlled many-body setting. The BEC analogue black hole probes whether causal structure alone---independent of the Einstein equations---can enforce information constraints that the standard quantum field theory in curved spacetime does not capture.
+
+We should be clear about the value of null results. If all three systems return zero violation at their respective sensitivity levels, this establishes: (i) the validity of Fermi-Dirac statistics in fractional quantum Hall edge states at interferometric precision, constraining anyonic modifications of the fundamental commutator; (ii) the quantitative Wick breakdown boundary in driven quantum chains; and (iii) the first experimental upper bound on $C_J(\omega,\omega')$ in an analogue gravity setting, constraining the parameter space of $\mathcal{J} \neq 0$. This constitutes a systematic boundary map of where standard quantum mechanics has been tested against our inequality. Someone will eventually map those boundaries. Whether we find violations inside them or not, the map itself is worth having.
+
+What we have not done is equally important to state. We have not ``derived'' the Born rule from the Schr\"{o}dinger equation (that would be circular; Gleason proved uniqueness in 1957 \cite{Gleason1957}). We have not solved the measurement problem in its outcome-uniqueness sense. The $\mathcal{J}$ constraint is an emergent conservation law in the Jacobson thermodynamic framework, not a Dirac constraint of any known gauge theory. And the precision of the $C_J$ prediction, while vastly improved from the initial order-of-magnitude estimate, is limited by the back-reaction model---the weakest link in the uncertainty budget.
+
+The most immediate open problems are a microscopic Chern-Simons derivation of the anyonic commutator modification $\Gamma(\nu)$ and the full integration of the $\mathcal{J}=0$ constraint with the island formula \cite{Penington2020,Almheiri2019} for black hole evaporation. Both are substantial projects in their own right.
+
+\begin{acknowledgments}
+We thank the LP25 collaboration for extensive discussions. [Funding information to be added.]
+\end{acknowledgments}
+
+\begin{thebibliography}{99}
+
+\bibitem{vonNeumann1932} J.~von~Neumann, \textit{Mathematical Foundations of Quantum Mechanics} (Springer, 1932).
+
+\bibitem{Dirac1930} P.~A.~M.~Dirac, \textit{The Principles of Quantum Mechanics} (Oxford, 1930).
+
+\bibitem{Bell1987} J.~S.~Bell, \textit{Speakable and Unspeakable in Quantum Mechanics} (Cambridge, 1987).
+
+\bibitem{Schlosshauer2004} M.~Schlosshauer, Rev.~Mod.~Phys.~\textbf{76}, 1267 (2004).
+
+\bibitem{Zurek2003} W.~H.~Zurek, Rev.~Mod.~Phys.~\textbf{75}, 715 (2003).
+
+\bibitem{Zurek2009} W.~H.~Zurek, Nature Phys.~\textbf{5}, 181 (2009).
+
+\bibitem{JoosZeh1985} E.~Joos and H.~D.~Zeh, Z.~Phys.~B \textbf{59}, 223 (1985).
+
+\bibitem{Kibble1979} T.~W.~B.~Kibble, Commun.~Math.~Phys.~\textbf{65}, 189 (1979).
+
+\bibitem{AshtekarSchilling1999} A.~Ashtekar and T.~A.~Schilling, in \textit{On Einstein's Path} (Springer, 1999); arXiv:gr-qc/9706069.
+
+\bibitem{Northey2025} J.~Northey, ``The Born Rule as a Geometric Measure on Projective State Space,'' Preprints.org (2025).
+
+\bibitem{Goyal2009} P.~Goyal, K.~H.~Knuth, and J.~Skilling, Phys.~Rev.~A \textbf{81}, 022109 (2010); arXiv:0907.0909.
+
+\bibitem{deOliveira2023} M.~de~Oliveira, Braz.~J.~Phys.~\textbf{55}, 13 (2025); arXiv:2308.00151.
+
+\bibitem{Renou2021} M.-O.~Renou \textit{et al.}, Nature \textbf{600}, 625 (2021).
+
+\bibitem{PeschelEisler2009} I.~Peschel and V.~Eisler, J.~Phys.~A: Math.~Theor.~\textbf{42}, 504003 (2009).
+
+\bibitem{BreuerPetruccione2002} H.-P.~Breuer and F.~Petruccione, \textit{The Theory of Open Quantum Systems} (Oxford, 2002).
+
+\bibitem{KuzminaChodorova2016} I.~A.~Kuzmina and M.~Chodorov\'{a}, Acta Univ.~Palack.~Olomuc., Fac.~Rer.~Nat., Math.~\textbf{55}, 53 (2016).
+
+\bibitem{Robertson1929} H.~P.~Robertson, Phys.~Rev.~\textbf{34}, 163 (1929).
+
+\bibitem{Wen2004} X.-G.~Wen, \textit{Quantum Field Theory of Many-Body Systems} (Oxford, 2004).
+
+\bibitem{Heiblum} M.~Heiblum group, Weizmann Institute of Science.
+
+\bibitem{Werkmeister2025} T.~Werkmeister, J.~R.~Ehrets \textit{et al.}, Science \textbf{388}, 730 (2025).
+
+\bibitem{Samuelson2024} N.~Samuelson, L.~Cohen, Y.~Wang \textit{et al.}, arXiv:2403.19628 (2024).
+
+\bibitem{Huang2020} H.-Y.~Huang, R.~Kueng, and J.~Preskill, Nature Phys.~\textbf{16}, 1050 (2020).
+
+\bibitem{LevitovLesovik1993} L.~S.~Levitov and G.~B.~Lesovik, JETP Lett.~\textbf{58}, 230 (1993).
+
+\bibitem{Page1993} D.~N.~Page, Phys.~Rev.~Lett.~\textbf{71}, 3743 (1993).
+
+\bibitem{HaydenPreskill2007} P.~Hayden and J.~Preskill, JHEP \textbf{09}, 120 (2007).
+
+\bibitem{BarceloLiberatiVisser2011} C.~Barcel\'{o}, S.~Liberati, and M.~Visser, Living Rev.~Relativ.~\textbf{14}, 3 (2011).
+
+\bibitem{Gleason1957} A.~M.~Gleason, J.~Math.~Mech.~\textbf{6}, 885 (1957).
+
+\bibitem{Penington2020} G.~Penington \textit{et al.}, JHEP \textbf{03}, 063 (2020).
+
+\bibitem{Almheiri2019} A.~Almheiri \textit{et al.}, JHEP \textbf{12}, 063 (2019).
+
+\bibitem{Laughlin1983} R.~B.~Laughlin, Phys.~Rev.~Lett.~\textbf{50}, 1395 (1983).
+
+\bibitem{Unruh1981} W.~G.~Unruh, Phys.~Rev.~Lett.~\textbf{46}, 1351 (1981).
+
+\bibitem{Jacobson1995} T.~Jacobson, Phys.~Rev.~Lett.~\textbf{75}, 1260 (1995).
+
+\bibitem{Steinhauer2016} J.~Steinhauer, Nature Phys.~\textbf{12}, 959 (2016).
+
+\bibitem{SM} See Supplemental Material for: (A) complex Hamiltonian extension, (B) non-Gaussian Wick violation parameterization, (C) tightness proof, (D) $\mathcal{J}$ conservation law summary, (E) complete BdG derivation of $C_J(\omega,\omega')$ with 11-source uncertainty budget, (F) unified statistical error analysis for all three experimental systems.
+
+\end{thebibliography}
+
+\end{document}

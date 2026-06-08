@@ -1,0 +1,361 @@
+{
+  "project": "LP28",
+  "round": 1,
+  "agent": "A",
+  "polaris": "RP nickelates: is density-wave-driven layer decoupling a superconducting precursor or a superconductivity suppressor?",
+  "framework": "Anisotropic coherent-incoherent interlayer transport in multiorbital layered correlated metals; the organizing variable is Ni dz2-assisted interlayer electronic coherence, diagnosed by rho_perp/rho_parallel and effective current penetration depth.",
+  "findings": "Round 1 literature-driven conclusion: the published evidence supports a distinction between static DW order and DW fluctuations. Static DW order in La4Ni3O10 is not a superconducting precursor at the same mechanism level; it suppresses the Ni dz2-mediated interlayer channel, increases transport anisotropy, and therefore acts as a suppressor of the three-dimensional phase-coherent superconducting state. A weaker precursor statement remains possible only for precritical spin/charge fluctuations after the static layer-decoupling order is collapsed by pressure. The first quantitative discriminator is whether a tuning path reduces rho_perp/rho_parallel and restores coherent c-axis transport before or at superconducting onset.",
+  "weakest_link": "The inference compares ambient-pressure DW electrodynamics with pressure-induced superconductivity. Pressure changes lattice, orbital energies, spin correlations, and carrier coherence simultaneously, so layer coherence is a strongly supported organizing parameter but not yet a uniquely isolated causal variable.",
+  "next_plan": "Round 2 should separate static DW order from DW fluctuations by compiling pressure-dependent rho_perp/rho_parallel, optical Drude weight, and DW amplitude data. The decisive test is whether superconductivity appears only after the c-axis coherent channel recovers, even if DW fluctuations remain strong.",
+  "literature_needed": "La4Ni3O10 pressure anisotropic transport rho_c rho_ab; pressure optical conductivity La4Ni3O10 Drude weight; Ni dz2 interlayer hopping La3Ni2O7 La4Ni3O10; spin fluctuation pairing Ruddlesden-Popper nickelate; density wave collapse superconductivity La4Ni3O10 pressure",
+  "prior_art_search": {
+    "group_1_core_claim_dedup": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "Ruddlesden-Popper nickelate density-wave layer decoupling superconductivity precursor suppressor interlayer coherence 2023 2024 2025 2026",
+        "Ruddlesden-Popper nickelate density wave layer decoupling superconductivity precursor suppressor review solved resolved interlayer coherence"
+      ],
+      "result": "No identical solved/review conclusion was found. Closest hits are Guan et al. 2026 PRL on DW-driven electronic layer decoupling, Liu et al. 2026 arXiv on interlayer coherence as an organizing parameter, and Wang et al. 2026 Nat Commun on the unconventional DW state. Difference space: this Round 1 explicitly frames static DW order as a suppressor while reserving fluctuation glue as a separate non-static channel."
+    },
+    "group_2_framework_blind_spot": {
+      "tool": "paper-search-mcp",
+      "query": "density wave order suppresses c-axis conductivity interlayer hopping orbital redistribution superconductivity layered correlated metal 2022 2023 2024 2025 2026",
+      "result": "The generic-language search hit Liu et al. 2026, which formulates coherent-incoherent c-axis transport and a Tc-anisotropy anticorrelation in RP nickelates. This is not a blank area; the novelty must be narrowed to the precursor-versus-suppressor decision rule."
+    },
+    "group_3_counterexample_negative_search": {
+      "tool": "paper-search-mcp",
+      "query": "Ruddlesden-Popper nickelate density wave superconductivity failure problem criticism counterexample interlayer coherence",
+      "result": "No fatal counterexample was found. Relevant negative/qualifying evidence includes ambient-pressure tetragonal La4Ni3O10 with absence of both superconductivity and DW transition, showing DW is not by itself sufficient for superconductivity; this supports narrowing the claim to layer coherence rather than DW existence."
+    },
+    "group_4_data_availability": {
+      "tool": "paper-search-mcp",
+      "query": "La4Ni3O10 rho_c rho_ab anisotropy optical conductivity density wave measurement experiment data pressure superconductivity",
+      "result": "Data exist. PRL 136, 216501 (2026) provides optical/DC rho_ab, rho_c*, anisotropy and phonon anomalies; arXiv:2605.18524 provides six-terminal rho_parallel/rho_perp and gamma_rho across La4Ni3O10, Pr4Ni3O10, and La3Ni2O7; Nat Commun 2025 DOI 10.1038/s41467-025-62294-9 provides pressure collapse of DW and superconductivity emergence."
+    },
+    "degradation": "No WebSearch downgrade was used; all four groups used paper-search-mcp successfully."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "Static DW order in La4Ni3O10 is a layer-coherence suppressor: below T_DW it sharply increases rho_c/rho_ab and reduces the effective c-axis current penetration depth.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "rho_perp/rho_parallel",
+          "description": "Resistivity anisotropy used as the experimental proxy for loss of interlayer coherence.",
+          "variables": {
+            "gamma_rho": "transport anisotropy",
+            "rho_perp": "out_of_plane_resistivity",
+            "rho_parallel": "in_plane_resistivity"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "rho_perp",
+              "to": "rho_parallel",
+              "expected": "1",
+              "desc": "isotropic coherent metal"
+            },
+            {
+              "variable": "rho_perp/rho_parallel",
+              "to": "oo",
+              "expected": "oo",
+              "desc": "electronically decoupled-layer limit"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "rho_perp": 2600.0,
+              "rho_parallel": 1.0
+            },
+            "expected_range": [
+              2500.0,
+              2700.0
+            ]
+          }
+        },
+        {
+          "label": "F2",
+          "expression": "L/pi*sqrt(rho_parallel/rho_perp)",
+          "description": "Large-anisotropy current penetration depth from flux-transformer/six-terminal anisotropic transport analysis.",
+          "variables": {
+            "z_eff": "effective_current_penetration_depth",
+            "L": "sample_length",
+            "rho_parallel": "in_plane_resistivity",
+            "rho_perp": "out_of_plane_resistivity",
+            "pi": "pi"
+          },
+          "units": "meter",
+          "limits": [
+            {
+              "variable": "rho_perp/rho_parallel",
+              "to": "oo",
+              "expected": "0",
+              "desc": "current confined near the driven surface as layers decouple"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "L": 0.001,
+              "rho_parallel": 1.0,
+              "rho_perp": 2600.0,
+              "pi": 3.141592653589793
+            },
+            "expected_range": [
+              5.8e-6,
+              6.6e-6
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/qgl1-zh9f",
+          "label": "Guan et al. 2026 PRL"
+        },
+        {
+          "doi": "",
+          "label": "Liu et al. 2026 arXiv:2605.18524"
+        }
+      ],
+      "assumptions": [
+        "rho_c/rho_ab or rho_perp/rho_parallel is a valid proxy for interlayer electronic coherence.",
+        "The optically extrapolated DC anisotropy and direct DC anisotropy are comparable diagnostics of the same c-axis channel.",
+        "The relevant interlayer channel is dominated by Ni dz2-apical-oxygen hybridization."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "A DW-glue precursor scenario can coexist with the data only if it is assigned to fluctuations, not to the static ordered DW state that reconstructs dz2 occupancy and suppresses c-axis transport.",
+      "confidence": 0.74,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3",
+          "expression": "Delta_DW_static/(t_perp_eff + epsilon)",
+          "description": "Dimensionless suppressor index: static DW gap/reconstruction scale over effective interlayer coherence scale. Superconductivity-friendly regime requires S to decrease under tuning.",
+          "variables": {
+            "S": "static_DW_suppression_index",
+            "Delta_DW_static": "static_density_wave_gap_or_reconstruction_scale",
+            "t_perp_eff": "effective_interlayer_hopping_or_coherence_scale",
+            "epsilon": "small_positive_regularizer"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "Delta_DW_static",
+              "to": "0",
+              "expected": "0",
+              "desc": "collapsed static DW ceases to suppress layer coherence"
+            },
+            {
+              "variable": "t_perp_eff",
+              "to": "0",
+              "expected": "large",
+              "desc": "decoupled-layer limit is hostile to 3D phase coherence"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "Delta_DW_static": 0.112,
+              "t_perp_eff": 0.02,
+              "epsilon": 0.001
+            },
+            "expected_range": [
+              5.0,
+              5.5
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/qgl1-zh9f",
+          "label": "Guan et al. 2026 PRL"
+        },
+        {
+          "doi": "10.1038/s41467-025-62294-9",
+          "label": "Xu et al. 2025 Nat Commun"
+        },
+        {
+          "doi": "10.1038/s41467-026-73082-4",
+          "label": "Wang et al. 2026 Nat Commun"
+        }
+      ],
+      "assumptions": [
+        "The optical DW gap 2Delta_DW = 112 meV can be used as an order-of-magnitude static reconstruction scale.",
+        "Pressure-induced superconductivity requires at least partial recovery of interlayer phase stiffness.",
+        "Pairing glue and phase-coherence organizer are separable roles."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The first data-level decision rule is: if pressure raises Tc while decreasing gamma_rho or increasing c-axis Drude weight, DW layer decoupling is a suppressor; if Tc rises while gamma_rho remains high and c-axis coherence stays lost, the precursor scenario gains support.",
+      "confidence": 0.78,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F4",
+          "expression": "(gamma_ambient/gamma_tuned)*(Tc_tuned/(Tc_ambient + epsilon))",
+          "description": "Observable discriminator for pressure or strain tuning. D > 1 with decreasing gamma supports recovered interlayer coherence as superconductivity organizer.",
+          "variables": {
+            "D": "coherence_recovery_superconductivity_discriminator",
+            "gamma_ambient": "ambient_pressure_resistivity_anisotropy",
+            "gamma_tuned": "tuned_state_resistivity_anisotropy",
+            "Tc_tuned": "superconducting_transition_temperature_after_tuning",
+            "Tc_ambient": "ambient_pressure_superconducting_transition_temperature",
+            "epsilon": "small_temperature_regularizer"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "gamma_tuned",
+              "to": "gamma_ambient",
+              "expected": "Tc_tuned/(Tc_ambient + epsilon)",
+              "desc": "no coherence recovery; Tc change cannot be attributed to reduced anisotropy"
+            },
+            {
+              "variable": "gamma_tuned",
+              "to": "0",
+              "expected": "oo",
+              "desc": "unphysical but flags that the formula is valid only for positive measured anisotropy"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "gamma_ambient": 2600.0,
+              "gamma_tuned": 260.0,
+              "Tc_tuned": 30.0,
+              "Tc_ambient": 0.0,
+              "epsilon": 1.0
+            },
+            "expected_range": [
+              290.0,
+              310.0
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "",
+          "label": "Liu et al. 2026 arXiv:2605.18524"
+        },
+        {
+          "doi": "10.1038/s41467-025-62294-9",
+          "label": "Xu et al. 2025 Nat Commun"
+        }
+      ],
+      "assumptions": [
+        "A comparable gamma_rho can be measured under pressure or approximated from pressure-dependent optical Drude weights.",
+        "Ambient Tc is effectively zero for the bulk single-crystal state considered here.",
+        "The discriminator is empirical and does not replace microscopic pairing calculations."
+      ]
+    }
+  ],
+  "derivation_chain": [
+    {
+      "step": 1,
+      "literature_anchor": "Guan et al. 2026 PRL reports La4Ni3O10 optical/DC anisotropy changing from about 70 at room temperature to about 2600 at 4 K, with the strongest enhancement at T_DW.",
+      "derivation": "Define gamma_rho = rho_perp/rho_parallel. The observed gamma increase is 2600/70 = 37.14, so the DW state moves the system toward the electronically decoupled-layer limit.",
+      "inspector_check": {
+        "formula": "gamma_rho = rho_perp/rho_parallel, dimensionless",
+        "direction": "DW order increases gamma_rho and suppresses interlayer transport.",
+        "data": "PRL 136, 216501 (2026), Fig. 2(e,f)",
+        "assumptions": "Optically extrapolated DC rho values track the low-energy coherent transport channel."
+      }
+    },
+    {
+      "step": 2,
+      "literature_anchor": "Liu et al. 2026 arXiv gives the six-terminal anisotropic transport relation and the large-anisotropy penetration-depth approximation z_eff = L/pi*sqrt(rho_parallel/rho_perp).",
+      "derivation": "Using L = 1.0 mm and gamma = 2600 gives z_eff = 6.24 micrometer; using gamma = 70 gives z_eff = 38.0 micrometer. The DW state therefore confines current about six times closer to the driven surface, consistent with layer decoupling.",
+      "inspector_check": {
+        "formula": "z_eff = L/pi*sqrt(rho_parallel/rho_perp), SI unit meter",
+        "direction": "Larger gamma_rho reduces z_eff and operationally measures loss of c-axis coherence.",
+        "data": "arXiv:2605.18524 equations (1)-(2) and text after them; PRL 136, 216501 anisotropy values.",
+        "assumptions": "Sample length of 1 mm is within the reported 0.8-1.1 mm range."
+      }
+    },
+    {
+      "step": 3,
+      "literature_anchor": "Xu et al. 2025 Nat Commun reports collapse of DW and emergence of superconductivity in pressurized La4Ni3O10; Liu et al. 2026 reports an inverse correlation between ambient anisotropy and maximum pressure-induced Tc across RP nickelates.",
+      "derivation": "If superconductivity appears as the static DW collapses and if higher Tc correlates with lower anisotropy, the conservative inference is that static DW order is a suppressor of superconducting coherence, while fluctuations remain a separate possible pairing channel.",
+      "inspector_check": {
+        "formula": "D = (gamma_ambient/gamma_tuned)*(Tc_tuned/(Tc_ambient + epsilon)), dimensionless empirical discriminator",
+        "direction": "Tc enhancement accompanied by gamma reduction supports the suppressor interpretation.",
+        "data": "Nat Commun DOI 10.1038/s41467-025-62294-9; arXiv:2605.18524 Fig. 4(c)",
+        "assumptions": "Pressure does not create superconductivity solely through a variable independent of interlayer coherence."
+      }
+    }
+  ],
+  "landing_calculation": {
+    "type": "A: concrete numerical prediction from existing experimental system",
+    "system": "bulk single-crystal La4Ni3O10 measured in PRL 136, 216501 and six-terminal geometry scale reported in arXiv:2605.18524",
+    "prediction": "For a 1.0 mm long La4Ni3O10 bar, the DW-state anisotropy gamma_rho = 2600 implies z_eff = 6.24 micrometer; above-DW gamma_rho = 70 implies z_eff = 38.0 micrometer. Any pressure path that turns on bulk superconductivity while keeping z_eff below about 10 micrometer would contradict the layer-coherence suppressor hypothesis; recovery toward tens of micrometers supports it.",
+    "inputs": {
+      "L_m": 0.001,
+      "gamma_DW": 2600.0,
+      "gamma_highT": 70.0
+    },
+    "computed_values": {
+      "z_eff_DW_m": 6.24e-6,
+      "z_eff_highT_m": 3.8e-5,
+      "gamma_growth_factor": 37.14,
+      "penetration_depth_reduction_factor": 6.09
+    },
+    "new_experiment_needed": false,
+    "reanalysis_target": "PRL 136, 216501 Fig. 2(e,f) and Zenodo dataset DOI 10.5281/zenodo.20089847; extract temperature-dependent rho_ab and rho_c* to compute z_eff(T)."
+  },
+  "deepening": {
+    "deepening_1": {
+      "next_layer_consequence": "If static DW suppresses interlayer coherence, the immediate physical consequence is reduced c-axis phase stiffness and reduced Josephson-like locking between Ni-O layers.",
+      "second_layer_consequence": "Reduced c-axis phase stiffness can lower bulk Tc even if local pairing correlations or spin fluctuations grow; this naturally separates pairing amplitude from global phase coherence."
+    },
+    "deepening_2": {
+      "most_fragile_premise": "The most fragile premise is that pressure-induced superconductivity in RP nickelates needs substantial dz2-mediated interlayer coherence rather than only in-plane dx2-y2 pairing plus weak residual phase locking.",
+      "if_premise_fails": "If in-plane pairing alone can produce the observed high-pressure bulk superconductivity, then DW layer decoupling may be a competing normal-state reconstruction but not the central suppressor. The required check is pressure-axis-resolved c-axis Drude weight or rho_perp/rho_parallel across the superconducting dome."
+    }
+  },
+  "search_self_check": {
+    "group_1_tool": "paper-search-mcp",
+    "group_2_tool": "paper-search-mcp",
+    "group_3_tool": "paper-search-mcp",
+    "group_4_tool": "paper-search-mcp",
+    "websearch_downgrade": false,
+    "paper_search_mcp_failure_log": []
+  },
+  "references": [
+    {
+      "doi": "10.1103/qgl1-zh9f",
+      "label": "Guan et al. 2026, Physical Review Letters 136, 216501",
+      "role": "foundation"
+    },
+    {
+      "doi": "10.1038/s41467-025-62294-9",
+      "label": "Xu et al. 2025, Nature Communications",
+      "role": "support"
+    },
+    {
+      "doi": "10.1038/s41467-026-73082-4",
+      "label": "Wang et al. 2026, Nature Communications",
+      "role": "support"
+    },
+    {
+      "doi": "",
+      "label": "Liu et al. 2026, arXiv:2605.18524",
+      "role": "foundation"
+    },
+    {
+      "doi": "10.5281/zenodo.20089847",
+      "label": "Guan et al. 2026 Zenodo optical dataset",
+      "role": "data"
+    },
+    {
+      "doi": "10.1038/s41467-025-57264-0",
+      "label": "Shi et al. 2025, Nature Communications",
+      "role": "counterexample_qualifier"
+    }
+  ]
+}

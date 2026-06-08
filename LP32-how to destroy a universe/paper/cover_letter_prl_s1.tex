@@ -1,0 +1,53 @@
+\documentclass[12pt]{letter}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{hyperref}
+
+\address{Independent Researcher\\Nanjing, China}
+\signature{Huang Zhongchang}
+
+\begin{document}
+
+\begin{letter}{Editor\\Physical Review Letters}
+
+\opening{Dear Editor,}
+
+Please find enclosed ``An Information-Theoretic Bound on Non-Markovian Reflux,'' submitted as a Letter to Physical Review Letters.
+
+\section*{What we did}
+
+We prove a combinatorial upper bound on non-Markovian information backflow: $P_{\rm reflux} \leq q_S/q_E$, where $q_S$ and $q_E$ are the pre-transfer fractions of system and environment cells in the undetermined state $|0\rangle$. The proof follows from one physical postulate---causal influence is an asymmetric 1-bit event in the computational basis---together with the qubit structure of finite-capacity cells. The bound is a counting exercise with no free parameters.
+
+\section*{Why it matters}
+
+\begin{enumerate}
+    \item \textbf{Minimal assumptions.} Given the qubit structure of finite-capacity cells, a single causal postulate yields a quantitative bound. No physical constants enter.
+    \item \textbf{Connects foundations to non-Markovianity.} The bound complements the BLP measure~\cite{Breuer:2009} (which detects backflow) and Buscemi et al.'s~\cite{Buscemi:2025} causal/noncausal revival distinction (which classifies it). S1 constrains backflow amplitude from capacity principles.
+    \item \textbf{In-principle falsifiable.} A violation of the bound in the theorem's domain ($q_E<1$, irreversible transfer occurred) would exclude the causal postulate. The quantities $q_S$, $q_E$ are operationally defined as $\langle 0|\rho|0\rangle$ in the causal pointer basis.
+\end{enumerate}
+
+\section*{Relation to the field}
+
+The bound builds on Zilly's (2026) argument that finite-capacity cells are necessarily qubits, and on Zurek's (2003) pointer basis framework. It enters the active dialogue on non-Markovianity in open quantum systems and quantum foundations.
+
+\section*{Suggested referees}
+
+\begin{itemize}
+    \item Howard M. Wiseman (Griffith University) --- quantum measurement and control
+    \item Mauro Paternostro (Queen's University Belfast) --- open quantum systems
+    \item Fabio Costa (University of Vienna) --- quantum causality
+    \item Howard Barnum (University of New Mexico) --- quantum foundations
+\end{itemize}
+
+\section*{Non-overlap}
+
+A related manuscript developing the broader framework from the same foundations is under review at Physical Review D. The present Letter proves a single theorem; the two submissions are complementary.
+
+\closing{Sincerely,}
+
+\begin{thebibliography}{2}
+\bibitem{Breuer:2009} H.-P.~Breuer et al., Phys.\ Rev.\ Lett.\ \textbf{103}, 210401 (2009).
+\bibitem{Buscemi:2025} F.~Buscemi et al., PRX Quantum \textbf{6}, 020316 (2025).
+\end{thebibliography}
+
+\end{letter}
+\end{document}

@@ -1,0 +1,278 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": "LP29-C2T-S2-R1 / Round 1",
+  "agent": "A",
+  "role": "independent A scholar; literature- and provenance-contract route",
+  "polaris": "exact O_s is not a bare reported scalar; it is a provenance-conditioned observable whose admission requires a proof-carrying baseline contract.",
+  "framework": {
+    "name": "scientific workflow provenance + computational materials descriptor reproducibility",
+    "definition": "Treat O_s as O_s(P, S, E, M, X): a scalar orbital-overlap observable admitted only with provenance P, source structure S, execution environment E, method/normalization M, and executor trace X.",
+    "contract_principle": "A reported O_s value is evidence only if its witness bundle makes recomputation and identity checking possible. Without the bundle, it remains reported orbital-overlap context rather than an exact reproducible observable.",
+    "literature_anchor": [
+      {
+        "label": "Srivastava et al. 2019",
+        "doi": "10.1063/1.5096042",
+        "role": "context for orbital overlap integral correlated with effective mass in amorphous oxide/oxynitride semiconductors; not a sufficient exact O_s witness by itself"
+      },
+      {
+        "label": "Pizzi et al. 2016 / AiiDA",
+        "doi": "10.1016/J.COMMATSCI.2015.09.013",
+        "role": "computational materials provenance model based on directed acyclic graphs for calculations and data"
+      },
+      {
+        "label": "Huber et al. 2020 / AiiDA 1.0",
+        "doi": "10.1038/s41597-020-00638-4",
+        "role": "automated reproducible workflows and queryable data provenance"
+      },
+      {
+        "label": "Khan et al. 2019 / CWLProv",
+        "doi": "10.1093/gigascience/giz095",
+        "role": "workflow-centric research objects, W3C PROV, and retrospective provenance for re-executable analyses"
+      },
+      {
+        "label": "Halchenko et al. 2021 / DataLad",
+        "doi": "10.21105/joss.03262",
+        "role": "joint management of code, data, and precise versioned dependencies with process provenance"
+      },
+      {
+        "label": "Janssen et al. 2025 / Python Workflow Definition",
+        "doi": "10.1039/D5DD00231A",
+        "role": "FAIR workflow exchange with environment, Python functions, and JSON workflow graph"
+      }
+    ]
+  },
+  "paper_search_log": [
+    {
+      "group": "core_claim_deduplication",
+      "tool": "paper-search-mcp",
+      "query": "orbital overlap effective mass amorphous semiconductors provenance observable reproducibility 2023 2024 2025",
+      "sources": "semantic,crossref,openalex,arxiv",
+      "result_summary": "Sparse direct overlap. Results did not show an already-published claim that exact O_s must be treated as a provenance-conditioned observable. CrossRef returned mostly unrelated orbital-overlap review records and generic effective-mass context.",
+      "websearch_fallback": false
+    },
+    {
+      "group": "framework_blind_spot",
+      "tool": "paper-search-mcp",
+      "query": "proof carrying data provenance computational materials science reproducibility workflow structure hash 2022 2023 2024 2025",
+      "sources": "semantic,crossref,openalex,arxiv",
+      "result_summary": "Hit workflow provenance and reproducibility literature, including data hash verification, AiiDA-style provenance, DataLad, CWLProv, and FAIR workflow objects. This supports a witness contract framing.",
+      "websearch_fallback": false
+    },
+    {
+      "group": "counterexample_or_negative_search",
+      "tool": "paper-search-mcp",
+      "query": "orbital overlap descriptor effective mass amorphous materials failure criticism counterexample",
+      "sources": "semantic,crossref,openalex,arxiv",
+      "result_summary": "No fatal counterexample found against witness-contract framing. Returned mostly unrelated peer-review records around orbital-overlap language. No source found proving exact O_s reproduction from a naked scalar.",
+      "websearch_fallback": false
+    },
+    {
+      "group": "data_availability",
+      "tool": "paper-search-mcp",
+      "query": "amorphous semiconductor orbital overlap measurement experiment data effective mass structure data",
+      "sources": "semantic,crossref,openalex,arxiv",
+      "result_summary": "Data-specific search did not expose a complete O_s witness bundle. It found broad characterization and materials ML/reproducibility context, not the missing source row/page, pair list, raw sum, normalization, and executor trace.",
+      "websearch_fallback": false
+    },
+    {
+      "group": "Srivastava_2019_precision_check",
+      "tool": "paper-search-mcp",
+      "query": "\"orbital overlap\" \"effective mass\" \"amorphous\"",
+      "sources": "semantic,crossref,openalex,arxiv",
+      "result_summary": "Hit Srivastava et al. 2019, DOI 10.1063/1.5096042. Abstract states orbital overlap integral can be calculated from structural information and correlates with carrier effective mass. This supports context only; it does not close exact O_s reproduction blockers.",
+      "websearch_fallback": false
+    },
+    {
+      "group": "O_s_literal_check",
+      "tool": "paper-search-mcp",
+      "query": "\"O_s\" \"orbital overlap\" semiconductor",
+      "sources": "semantic,crossref,openalex,arxiv",
+      "result_summary": "No direct exact O_s provenance-conditioned-observable prior found. Hits included general orbital overlap, COOP, and Srivastava-adjacent context.",
+      "websearch_fallback": false
+    },
+    {
+      "group": "workflow_provenance_materials_check",
+      "tool": "paper-search-mcp",
+      "query": "materials science workflow provenance FAIR computational reproducibility hash input data code environment",
+      "sources": "semantic,crossref,openalex,arxiv",
+      "result_summary": "Strong provenance literature support: AiiDA, AiiDA 1.0, DataLad, CWLProv, and Python Workflow Definition all motivate contract fields for code, data, environment, graph, and trace.",
+      "websearch_fallback": false
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "statement": "The admissible object is not reported O_s but a tuple: value plus provenance witness. Therefore exact O_s reproduction remains BLOCK until the tuple fields are present.",
+      "basis": "Workflow provenance literature requires traceable inputs, code, environment, and execution graph; Srivastava 2019 supplies only orbital-overlap/effective-mass scientific context in the present PI summary."
+    },
+    {
+      "id": "F2",
+      "statement": "Srivastava et al. 2019 can be cited for an orbital-overlap integral/effective-mass relationship in amorphous oxide or oxynitride semiconductors, but not as proof of an exact O_s scalar unless source rows, structure identity, pair construction, normalization, and executor trace are available.",
+      "basis": "paper-search-mcp precision query found DOI 10.1063/1.5096042; abstract-level metadata supports the correlation claim but not exact reproduction."
+    },
+    {
+      "id": "F3",
+      "statement": "The proof-carrying baseline contract should be admission-oriented: it decides whether a scalar can enter the baseline table, not whether the material conclusion is true.",
+      "basis": "Avoids forbidden material validation and graph-vs-overlap performance claims."
+    },
+    {
+      "id": "F4",
+      "statement": "A minimal witness must include both semantic provenance (paper/table/row/page and method wording) and computational provenance (structure hash, pair list, raw sum, normalization, code/environment, and trace). Either side alone is insufficient.",
+      "basis": "Semantic source locates the claimed number; computational provenance makes the number recomputable."
+    }
+  ],
+  "minimum_witness_fields": [
+    "source_paper_doi_or_arxiv",
+    "source_page_table_figure_row",
+    "reported_scalar_value_and_units_or_dimensionless_status",
+    "structure_identifier",
+    "structure_file_or_canonical_representation",
+    "structure_hash_algorithm_and_hash",
+    "same_structure_mapping_rule",
+    "species_or_orbital_channel_definition",
+    "pair_cutoff_rule",
+    "ordered_pair_or_unordered_pair_convention",
+    "complete_pair_list_or_pair_list_hash",
+    "N_pair",
+    "raw_overlap_sum",
+    "normalization_formula",
+    "normalization_code_or_commit",
+    "basis_set_or_orbital_source",
+    "software_name_version",
+    "runtime_environment",
+    "executor_trace_or_workflow_graph",
+    "floating_point_precision_and_tolerance",
+    "recomputed_value",
+    "acceptance_tolerance"
+  ],
+  "current_blockers": [
+    {
+      "id": "B1",
+      "blocker": "Missing source row/page for the exact reported O_s value.",
+      "effect": "Cannot bind the scalar to a citable datum."
+    },
+    {
+      "id": "B2",
+      "blocker": "Missing structure identity/hash and same-structure mapping.",
+      "effect": "Cannot know whether recomputation uses the same amorphous configuration."
+    },
+    {
+      "id": "B3",
+      "blocker": "Missing pair cutoff/list and N_pair.",
+      "effect": "Cannot determine the population over which O_s was aggregated."
+    },
+    {
+      "id": "B4",
+      "blocker": "Missing raw overlap sum.",
+      "effect": "Cannot separate arithmetic/normalization mismatch from upstream pair or orbital mismatch."
+    },
+    {
+      "id": "B5",
+      "blocker": "Missing normalization formula or code.",
+      "effect": "Cannot infer whether O_s is sum, average, channel-weighted average, distance-weighted scalar, or rescaled descriptor."
+    },
+    {
+      "id": "B6",
+      "blocker": "Missing executor trace.",
+      "effect": "Cannot audit code path, software versions, precision, or environment."
+    }
+  ],
+  "testable_predictions": [
+    {
+      "id": "P1",
+      "prediction": "If the original witness is recovered, recomputation using identical structure hash, pair list, orbital channels, raw sum, and normalization will reproduce reported O_s within declared floating-point tolerance.",
+      "admission_test": "Run witness bundle end-to-end and compare recomputed_value against reported_scalar_value."
+    },
+    {
+      "id": "P2",
+      "prediction": "If only the structure is matched but pair cutoff/list differs, N_pair or pair_list_hash will diverge before the final scalar comparison.",
+      "admission_test": "Compute pair_list_hash and N_pair prior to raw overlap aggregation."
+    },
+    {
+      "id": "P3",
+      "prediction": "If only the final scalar is available, at least two non-equivalent provenance choices can map to the same or similar scalar, so the naked value cannot be admitted as exact evidence.",
+      "admission_test": "Construct alternative cutoff/normalization choices and show witness ambiguity, without using the result for material validation."
+    },
+    {
+      "id": "P4",
+      "prediction": "A provenance-complete baseline will convert current BLOCK into either PASS, if all hashes and recomputation match, or DIAGNOSED_MISMATCH, if the first divergent witness layer is identified.",
+      "admission_test": "Evaluate fields in ordered contract gates: source, structure, pair population, arithmetic, execution."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "O_s should be represented as a provenance-conditioned observable, not as a bare reported scalar.",
+      "confidence": 0.86,
+      "new_insight": true,
+      "references": [
+        {"doi": "10.1016/J.COMMATSCI.2015.09.013", "label": "Pizzi et al. 2016"},
+        {"doi": "10.1038/s41597-020-00638-4", "label": "Huber et al. 2020"},
+        {"doi": "10.1093/gigascience/giz095", "label": "Khan et al. 2019"},
+        {"doi": "10.21105/joss.03262", "label": "Halchenko et al. 2021"}
+      ],
+      "assumptions": [
+        "Exact reproduction is the admission target.",
+        "A scalar descriptor is only meaningful for exact reproduction when its source, input structure, aggregation population, normalization, and execution path are fixed."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "Srivastava et al. 2019 remains admissible as reported orbital-overlap/effective-mass context but does not by itself satisfy the exact O_s witness contract.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "references": [
+        {"doi": "10.1063/1.5096042", "label": "Srivastava et al. 2019"}
+      ],
+      "assumptions": [
+        "Current PI summary correctly reports that source row/page, structure identity/hash, pair cutoff/list, N_pair, raw sum, normalization, mapping, and executor trace are missing."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The immediate baseline deliverable should be a proof-carrying contract with ordered admission gates rather than a new physics regression or material-performance validation.",
+      "confidence": 0.79,
+      "new_insight": true,
+      "references": [
+        {"doi": "10.1039/D5DD00231A", "label": "Janssen et al. 2025"},
+        {"doi": "10.1093/gigascience/giz095", "label": "Khan et al. 2019"}
+      ],
+      "assumptions": [
+        "The current S2 task is scoped to provenance witness construction."
+      ]
+    }
+  ],
+  "deepening_1": {
+    "question": "What is the next-layer consequence of treating O_s as a provenance-conditioned observable?",
+    "layer_1": "The baseline table must split reported_value from admissible_observable. A row with reported O_s but missing witness remains BLOCK, even if the value is numerically plausible.",
+    "layer_2": "This changes downstream comparison logic: disagreements are first provenance failures, not physics failures. The first diagnostic target becomes the witness layer that diverges: source, structure, pair population, arithmetic, or execution."
+  },
+  "deepening_2": {
+    "question": "Which premise in this round is most likely wrong?",
+    "layer_1": "The weakest premise is that the missing witness bundle can be reconstructed from public artifacts. Srivastava 2019 may have used structural models or scripts that were not deposited in enough detail for exact replay.",
+    "layer_2": "If the original bundle cannot be recovered, the claim should not become 'exact impossible in principle'. It should become a bounded admission result: exact O_s reproduction is blocked for this source state, while a prospective O_s baseline can be defined for future structures under the proof-carrying contract."
+  },
+  "forbidden_claims": [
+    "Do not claim material validation from O_s.",
+    "Do not run or endorse graph-vs-overlap residual regression in this round.",
+    "Do not claim graph beats overlap.",
+    "Do not claim exact O_s reproduction is impossible in principle.",
+    "Do not infer the missing Srivastava 2019 row/page, pair cutoff/list, N_pair, raw overlap sum, or normalization formula from the final scalar.",
+    "Do not treat Srivastava 2019 as more than reported orbital-overlap/effective-mass context unless the witness fields are recovered."
+  ],
+  "admission_contract_summary": {
+    "gate_1_source": "A scalar must point to exact paper/table/figure/row/page and reported units or dimensionless status.",
+    "gate_2_structure": "The amorphous structure must be identified by canonical file/representation, hash, and same-structure mapping rule.",
+    "gate_3_pairs": "The pair cutoff rule, pair convention, full pair list or hash, and N_pair must be supplied.",
+    "gate_4_arithmetic": "Raw overlap sum and normalization formula/code must be supplied.",
+    "gate_5_execution": "Software version, environment, executor trace/workflow graph, precision, tolerance, and recomputed value must be supplied.",
+    "gate_6_verdict": "Only rows passing all gates can be labeled exact O_s; otherwise status is BLOCK or DIAGNOSED_MISMATCH."
+  },
+  "search_tool_self_check": {
+    "group_1_tool": "paper-search-mcp",
+    "group_2_tool": "paper-search-mcp",
+    "group_3_tool": "paper-search-mcp",
+    "group_4_tool": "paper-search-mcp",
+    "websearch_degradation_used": false
+  }
+}

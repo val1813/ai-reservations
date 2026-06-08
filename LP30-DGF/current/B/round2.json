@@ -1,0 +1,73 @@
+{
+  "project": "LP30-DGF",
+  "round": 2,
+  "agent": "B",
+  "framework": "catastrophe theory plus control observability",
+  "findings": "Treat q in [0,1] as a real control/noise coordinate. The boundary q=1 is a fold caustic of the model map f:q -> m=m_star*sin(pi*q/2). For m>m_star, non-real q_inv is not observable; it means data lie outside the real DGF model manifold. Observable signatures should be boundary pinning, one-sided residuals, nonanalytic profile likelihood, or observability-rank behavior.",
+  "math_object": {
+    "primary_object": "fold map f:q -> m=m_star*sin(pi*q/2), q in [0,1]",
+    "boundary": "q=1, m=m_star, dm/dq=0, d2m/dq2=-(pi**2/4)*m_star != 0",
+    "local_normal_form": "x=1-q >=0; m_star-m(q) ~= (pi**2*m_star/8)*x**2",
+    "observability_matrix": "O(q)=d(m_eff,Gamma,spectral_slope,auxiliary_q_readout)/dq"
+  },
+  "strangest_prediction": "14 microgram is near a caustic: q_hat near 1, one-sided uncertainty, boundary pinning. 22 microgram is outside: constrained DGF q in [0,1] cannot absorb mass increase, so visibility residual should stay fixed-sign rather than smoothly extrapolate.",
+  "a_objection": "This remains mathematical boundary play unless S_q or an auxiliary readout is independently calibrated. Need at least one extra control variable beyond mass and visibility.",
+  "failed_jumps": [
+    "calling imaginary q new physics failed; it is just inverse-domain failure",
+    "ordinary decoherence-vs-mass scaling failed because it does not prove q independence",
+    "Fisher-only metric failed because Round 1 lacked independent readout"
+  ],
+  "next_plan": [
+    "write minimal visibility model V=V0*exp(-Gamma(q,Omega,L)*T)",
+    "mass scan 12,14,22 microgram; test q_hat boundary pinning and fixed-sign residual",
+    "add control Omega or arm length L to build observability matrix",
+    "use one-sided profile likelihood: H0=DGF real q in [0,1]"
+  ],
+  "claims": [
+    {
+      "id": "B2-C1",
+      "statement": "DGF-N4 boundary m_star is a fold caustic, not simply a parameter limit.",
+      "confidence": 0.7,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "fold_map",
+          "expression": "m_star*sin(pi*q/2)",
+          "variables": {"m_star": "2*m_p/pi", "q": "interference_coordinate"},
+          "units": "kg",
+          "limits": [{"variable": "q", "to": "1", "expected": "m_star", "desc": "caustic endpoint"}]
+        },
+        {
+          "label": "fold_derivative",
+          "expression": "m_star*pi*cos(pi*q/2)/2",
+          "variables": {"m_star": "mass_boundary", "q": "interference_coordinate"},
+          "units": "kg"
+        }
+      ],
+      "references": [],
+      "assumptions": ["q is a real bounded coordinate", "model map has physical meaning beyond reparameterization"]
+    },
+    {
+      "id": "B2-C2",
+      "statement": "The physical translation of non-real q_inv is constrained-model manifold mismatch with q_hat pinned at q=1 and fixed-sign residuals.",
+      "confidence": 0.65,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "boundary_residual",
+          "expression": "(V_obs - V_DGF_q1)/sigma_V",
+          "variables": {"V_obs": "observed_visibility", "V_DGF_q1": "DGF_visibility_at_q_equals_1", "sigma_V": "visibility_uncertainty"},
+          "units": "dimensionless"
+        },
+        {
+          "label": "observability_rank_condition",
+          "expression": "rank(O)",
+          "variables": {"O": "observability_matrix_dy_dq"},
+          "units": "dimensionless"
+        }
+      ],
+      "references": [],
+      "assumptions": ["visibility model is specified", "observability matrix includes a non-mass q-sensitive channel"]
+    }
+  ]
+}

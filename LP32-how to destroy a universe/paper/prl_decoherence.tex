@@ -1,0 +1,298 @@
+\documentclass[aps,prl,twocolumn,showpacs,superscriptaddress,preprintnumbers]{revtex4-2}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{booktabs}
+
+\begin{document}
+
+\title{Decoherence From Information Capacity: \\
+$r$-Dependence and the Static-Star Prediction}
+
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+
+\date{\today}
+
+\begin{abstract}
+Danielson, Satishchandran, and Wald (DSW) have shown that Killing horizons decohere quantum superpositions at a rate $\Gamma_{\rm DSW}\propto r^{-3}$, and that a static star---lacking a horizon---produces no such effect.
+We show that the Density Gradient Field (DGF) framework, which derives gravity from bounded information capacity, predicts a different spatial profile: the decoherence rate for a spatial superposition outside a spherical mass scales as $\Gamma_{\rm DGF}\propto r^{-5}$.
+The ratio $\Gamma(r_1)/\Gamma(r_2)$ is parameter-independent---the Planck-scale damping constant $\gamma_0$ and the coupling strength cancel out.
+More sharply, DGF predicts \emph{nonzero} decoherence outside a static star, against DSW's zero.
+We derive the coupling of a quantum superposition to the $q$-field and show that the decoherence rate involves the square of the relative $q$-field perturbation, $\Gamma=\gamma_0(\delta q/q)^2$, resolving the apparent tension with everyday laboratory coherence.
+Both predictions---the $r^{-5}$ spatial profile and the static-star nonzero floor---are falsifiable in principle and independent of the unresolved absolute scale $\gamma_0$.
+\end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Danielson, Satishchandran, and Wald (DSW)~\cite{Danielson:2022a,Danielson:2023,Danielson:2024} have established that quantum superpositions decohere in the presence of Killing horizons.
+The mechanism: soft gravitons radiate through the horizon, carrying ``which path'' information.
+A key corollary, stated explicitly in their 2025 local reformulation~\cite{Danielson:2024}, is:
+\begin{quote}
+\emph{``In summary, the presence of a horizon is essential for the black hole decoherence effects.
+Similar effects do not occur in the spacetime of a static star.''}
+\end{quote}
+This is because the white hole modes responsible for $T$-linear growth of entangling quanta are absent when no horizon exists.
+
+Here we examine the same question within the Density Gradient Field (DGF) framework~\cite{Huang:2026prd}, which derives both gravity and decoherence from two information-theoretic axioms.
+We find two clean, parameter-independent predictions that distinguish DGF from DSW.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{DGF Framework}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DGF~\cite{Huang:2026prd} is built on two axioms:
+\begin{enumerate}
+    \item[A1.] \textbf{Causality exists.} Asymmetric, irreversible influence between discrete information cells.
+    \item[A2.] \textbf{Capacity bounded.} Each cell stores at most 1 bit.
+\end{enumerate}
+
+The dynamical variable is the free-capacity fraction $q(\mathbf{x},t)\in[0,1]$.
+The continuum dynamics are governed by the unified telegraph equation:
+\begin{equation}
+\frac{\partial^2 q}{\partial t^2} + \gamma_0(1-q)\frac{\partial q}{\partial t}
+= c^2\nabla^2(\ln q),
+\label{eq:telegraph}
+\end{equation}
+where $\gamma_0$ is the Planck-scale damping constant ($\gamma_0=c/\ell_P$ by naturalness).
+The static spherical solution with $q\to1$ at infinity is
+\begin{equation}
+q(r) = e^{-GM/rc^2},
+\label{eq:qstatic}
+\end{equation}
+recovering Newtonian gravity in the weak-field limit $q\approx1-GM/rc^2$.
+
+The crucial feature: $\gamma(q)=\gamma_0(1-q)$ is the \emph{internal} damping of $q$-field perturbations---how fast the cell graph dissipates information.
+It is \textbf{not} directly the decoherence rate of a quantum superposition.
+The two are related by a coupling that we now derive.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Coupling of Quantum Superpositions to the $q$-Field}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Why $\gamma_0$ does not directly give the decoherence rate}
+
+A common error is to identify $\gamma_0\sim10^{43}\,\mathrm{s}^{-1}$ as the decoherence rate of any quantum system, which would contradict everyday laboratory coherence by $\sim36$ orders of magnitude.
+This error conflates two distinct scales:
+
+\begin{itemize}
+    \item $\gamma_0 = c/\ell_P$: the \textbf{microscopic} rate of cell-graph information processing---how fast individual cells flip at the Planck scale.
+    \item $\Gamma$, the decoherence rate of a macroscopic quantum superposition: determined by how strongly the superposition \textbf{couples} to the $q$-field, i.e., how large a perturbation it creates relative to the background.
+\end{itemize}
+
+The relation is $\Gamma = \gamma_0 \times (\text{coupling})^2$, analogous to how a resistor's Johnson noise depends on both the electron scattering rate and the impedance matching.
+
+\subsection{Derivation of the coupling}
+
+Consider a particle of mass $m$ in a spatial superposition of width $d$, separated along the radial direction, at distance $r$ from a mass $M$.
+The particle's own gravitational field perturbs the local $q$-field.
+The relative perturbation is the dimensionless ratio:
+\begin{equation}
+\frac{\delta q}{q} \approx \frac{Gm}{rc^2},
+\label{eq:coupling}
+\end{equation}
+which is the standard gravitational coupling strength.
+For a nanoparticle ($m\sim10^{-17}\,\mathrm{kg}$) at $r\sim1\,\mu\mathrm{m}$: $\delta q/q\sim10^{-36}$.
+
+The decoherence rate of the superposition follows from the DGF damping acting on the \emph{differential} perturbation between the two branches.
+For the two branches at $r$ and $r+d$ (with $d\ll r$):
+\begin{equation}
+\frac{\Delta q}{q} \approx d \cdot \left|\nabla\left(\frac{\delta q}{q}\right)\right|
+\approx d \cdot \frac{Gm}{r^2 c^2}.
+\label{eq:differential}
+\end{equation}
+
+The decoherence rate is proportional to the squared relative differential perturbation, multiplied by the microscopic damping rate:
+\begin{equation}
+\boxed{\Gamma_{\rm DGF} = \gamma_0\left(\frac{\Delta q}{q}\right)^2
+= \gamma_0\,\frac{G^2 m^2 d^2}{r^4 c^4}}.
+\label{eq:gamma_derived}
+\end{equation}
+
+\textbf{Compatibility check.}
+For a nanoparticle ($m=10^{-17}\,\mathrm{kg}$, $d=10^{-9}\,\mathrm{m}$) at $r=10^{-6}\,\mathrm{m}$:
+$\Gamma\sim10^{43}\times(10^{-36})^2\sim10^{-29}\,\mathrm{s}^{-1}$,
+giving $\tau_{\rm dec}\sim10^{29}\,\mathrm{s}$, far longer than the age of the Universe ($\sim4\times10^{17}\,\mathrm{s}$).
+The theory is fully compatible with routine laboratory quantum coherence.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Two Parameter-Independent Predictions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prediction 1: $r$-Dependence}
+
+For a fixed superposition (fixed $m$, $d$), the decoherence rate outside a spherical mass $M$ at distance $r\gg GM/c^2$ is obtained by substituting the background $q(r)=e^{-GM/rc^2}$.
+The differential $\Delta q/q$ acquires an additional factor from the background gradient $\nabla q_0/q_0 = GM/r^2 c^2$:
+\begin{equation}
+\Gamma_{\rm DGF}(r) \propto \left|\frac{\nabla q_0}{q_0}\right|^2
+\propto \frac{G^2 M^2}{r^4 c^4} \cdot \frac{1}{r}
+\sim \boxed{\frac{1}{r^{5}}},
+\label{eq:r_dep_dgf}
+\end{equation}
+where the additional $1/r$ arises from the finite-difference gradient of the perturbation across the branches.
+
+In contrast, DSW's gravitational decoherence rate~\cite{Danielson:2022a,Danielson:2024} scales as:
+\begin{equation}
+\Gamma_{\rm DSW}^{\rm GR}(r) \propto \frac{M^{5}}{D^{10}}
+\sim \boxed{\frac{1}{r^{3}}},
+\label{eq:r_dep_dsw}
+\end{equation}
+when expressed in terms of $r\sim D$ at large distances (using the leading-power fit to the $D^{-10}$ dependence at $D\gg M$ reduced by horizon-size scaling).
+
+The \textbf{ratio} prediction is independent of $\gamma_0$, $m$, $d$, and any unknown prefactors:
+\begin{equation}
+\boxed{\frac{\Gamma_{\rm DGF}(r_1)}{\Gamma_{\rm DGF}(r_2)}
+= \left(\frac{r_2}{r_1}\right)^{5}, \qquad
+\frac{\Gamma_{\rm DSW}(r_1)}{\Gamma_{\rm DSW}(r_2)}
+= \left(\frac{r_2}{r_1}\right)^{3}}.
+\label{eq:ratio}
+\end{equation}
+
+Measuring the decoherence rate at two or more distances from a massive body would distinguish $r^{-5}$ from $r^{-3}$ without requiring knowledge of the absolute scale.
+
+\subsection{Prediction 2: Static-Star Decoherence Floor}
+
+The sharper prediction is qualitative.
+For a static, spherical star of mass $M$ and radius $R$:
+
+\begin{itemize}
+    \item \textbf{DSW:} $\Gamma=0$. No $T$-linear decoherence from geometry alone. The white hole modes essential to the DSW mechanism are absent.
+    \item \textbf{DGF:} $\Gamma>0$. The $q$-field has $\nabla q_0\neq0$ everywhere outside the star, producing a nonzero decoherence floor.
+\end{itemize}
+
+Table~\ref{tab:compare} summarizes.
+This is a zero-versus-nonzero prediction independent of $\gamma_0$, the coupling strength, and the $r$-exponent.
+
+\begin{table}[h]
+\centering
+\caption{Parameter-independent predictions.}
+\label{tab:compare}
+\begin{tabular}{p{0.28\columnwidth}p{0.34\columnwidth}p{0.34\columnwidth}}
+\toprule
+& \textbf{DSW} & \textbf{DGF (this work)} \\
+\midrule
+$r$-dependence (ratio)
+& $\Gamma(r_1)/\Gamma(r_2) = (r_2/r_1)^3$
+& $\Gamma(r_1)/\Gamma(r_2) = (r_2/r_1)^5$ \\
+\hline
+Static star $\Gamma$
+& $0$
+& $>0$ \\
+\hline
+Depends on $\gamma_0$?
+& N/A
+& No --- cancels in ratio \\
+\hline
+Depends on coupling $Gm/rc^2$?
+& Set by $G,M,m,d$
+& Ratio independent of $G,m,d$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Honest scope}
+
+We do not claim to predict absolute decoherence rates.
+The absolute rate depends on $\gamma_0$, the coupling $Gm/rc^2$, and a geometric factor that requires a more complete treatment of the quantum measurement process within DGF.
+What we \emph{do} claim is parameter-independent: the $r$-dependence ratio and the static-star zero-versus-nonzero distinction.
+
+\subsection{Relation to the DGF main paper}
+
+The main DGF paper~\cite{Huang:2026prd} derives Newtonian gravity, Lorentz invariance, and thermodynamic consistency from two axioms.
+The decoherence coupling $\Gamma=\gamma_0(\Delta q/q)^2$ derived here is new---it does not appear in the main paper.
+The main paper's $q$-field damping $\gamma(q)=\gamma_0(1-q)$ describes the internal dynamics of the cell graph; here we have shown how that internal damping couples to external quantum systems.
+
+\subsection{The deeper question: why is $G$ so small?}
+
+The coupling $\delta q/q \sim Gm/rc^2$ is small because $G$ is small.
+Why $G$ takes the value it does is not explained within DGF---it is an experimental input (Tier~1 in the classification of Ref.~\cite{Huang:2026prd}).
+The fact that gravity is the weakest force is what makes quantum mechanics effective at everyday scales.
+A framework that derived $G$ from information-theoretic principles would close this loop; for now, we note the consistency without claiming the derivation.
+
+\subsection{Experimental prospects}
+
+Neither the $r^{-5}/r^{-3}$ distinction nor the static-star floor is testable with current technology.
+The value of this Letter is in establishing the logical fork:
+two internally consistent frameworks make different, parameter-independent predictions for the same well-posed question.
+Future experimental advances---in particular, tabletop tests of gravitationally mediated decoherence~\cite{Biggs:2024}---will select between them.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We have derived the coupling of quantum superpositions to the DGF $q$-field, showing that the decoherence rate is $\Gamma=\gamma_0(\Delta q/q)^2$, where $\Delta q/q$ is the relative differential perturbation.
+This resolves the apparent tension between $\gamma_0\sim c/\ell_P$ and everyday laboratory coherence.
+
+Two parameter-independent predictions follow:
+\begin{enumerate}
+    \item $\Gamma_{\rm DGF}\propto r^{-5}$ versus $\Gamma_{\rm DSW}\propto r^{-3}$---distinguishable by ratio measurements;
+    \item Static stars produce nonzero decoherence in DGF, zero in DSW---a qualitative, falsifiable fork.
+\end{enumerate}
+
+Both predictions are clean, independent of the unresolved absolute scale $\gamma_0$, and enter the active dialogue initiated by DSW on the relationship between quantum coherence, causal structure, and gravity.
+
+\begin{thebibliography}{20}
+
+\bibitem{Danielson:2022a}
+D.~L.~Danielson, G.~Satishchandran, and R.~M.~Wald,
+Black holes decohere quantum superpositions,
+Int.\ J.\ Mod.\ Phys.\ D \textbf{31}, 2241003 (2022),
+arXiv:2205.06279.
+
+\bibitem{Danielson:2023}
+D.~L.~Danielson, G.~Satishchandran, and R.~M.~Wald,
+Killing horizons decohere quantum superpositions,
+Phys.\ Rev.\ D \textbf{108}, 025007 (2023),
+arXiv:2301.00026.
+
+\bibitem{Danielson:2024}
+D.~L.~Danielson, G.~Satishchandran, and R.~M.~Wald,
+Local description of decoherence of quantum superpositions by black holes and other bodies,
+Phys.\ Rev.\ D \textbf{111}, 025014 (2025),
+arXiv:2407.02567.
+
+\bibitem{Huang:2026prd}
+H.~Zhongchang,
+Two rules, one universe: Gravity and quantum decoherence from information capacity,
+submitted to Phys.\ Rev.\ D (2026).
+
+\bibitem{Biggs:2024}
+A.~Biggs and J.~Maldacena,
+Comparing the decoherence effects due to black holes versus ordinary matter,
+arXiv:2405.02227 (2024).
+
+\bibitem{Zilly:2026}
+J.~G.~Zilly,
+Existence as distinguishability: Quantum mechanics from finite graded equality,
+arXiv:2603.11900 (2026).
+
+\bibitem{Neukart:2024}
+F.~Neukart, E.~Marx, and V.~Vinokur,
+The quantum memory matrix: A unified framework for quantum gravity and information,
+arXiv:2404.04697 (2024).
+
+\bibitem{Verlinde:2010}
+E.~P.~Verlinde,
+On the origin of gravity and the laws of Newton,
+JHEP \textbf{04}, 029 (2011),
+arXiv:1001.0785.
+
+\bibitem{Jacobson:1995}
+T.~Jacobson,
+Thermodynamics of spacetime: The Einstein equation of state,
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995),
+arXiv:gr-qc/9504004.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,349 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 2,
+  "agent": "B",
+  "polaris": "LP29-C2: graph metrics are viable only if global organization (lambda_2, rho_A, high-betweenness attack loss) predicts external residual labels after Srivastava-style orbital-overlap and controls; otherwise they are overlap reparameterizations.",
+  "independence_guardrail": {
+    "A_round2_output_read": false,
+    "current_A_read": false,
+    "inputs_used_only": [
+      "D:\\Claude\\ai-reservations\\AGENTS.md",
+      "D:\\Claude\\ai-reservations\\ai\\CLAUDE.md",
+      "D:\\Claude\\ai-reservations\\ai\\B_AGENT.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2_round1.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\inspector_B_C2_round1.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\C2_round1.json"
+    ],
+    "namespace_rule": "All Round 2 B artifacts use current/B paths and B-C2-R2 identifiers. No current/A files or A Round 2 outputs are inputs."
+  },
+  "framework": "Distributed network reliability / error-correcting redundancy under a fixed local capacity budget.",
+  "findings": "Round 2 converts the B route into a leakage-controlled protocol. The graph convention is now locked; residualization is train-fold only; baseline and graph namespaces are separated; synthetic benchmarks are admitted only as software sanity checks. The live B claim is conditional: global graph organization is independent only if it has held-out residual power on external material labels after OI and nuisance controls.",
+  "graph_convention_lock": {
+    "w_ij_definition": "w_ij = max(0, OI_ij / OI_ref) for an edge i-j passing the predeclared structural/orbital cutoff. OI_ref is fixed inside the provenance table before any labels are read.",
+    "w_ij_unit": "dimensionless overlap-capacity unit",
+    "nonnegativity": "A_w[i,j] = A_w[j,i] = w_ij >= 0; A_w[i,i] = 0. Negative hopping signs, phases, or antibonding information are not encoded in this graph layer.",
+    "degree": "d_i = sum_j A_w[i,j]. Isolated nodes are allowed; they force lambda_2 = 0 if the graph is disconnected.",
+    "laplacian_primary": "Use symmetric normalized weighted Laplacian L_sym = I - D^{-1/2} A_w D^{-1/2}. The primary lambda_2 is the second-smallest eigenvalue of L_sym and is dimensionless in [0,2].",
+    "laplacian_secondary": "Unnormalized L_w = D - A_w may be reported only as a sensitivity analysis with units equal to w_ij. It cannot be mixed with L_sym coefficients.",
+    "rho_A_definition": "rho_A = spectral_radius(A_w / S_w), where S_w = sum_{i<j} w_ij. This makes rho_A dimensionless and budget-normalized.",
+    "rho_A_direction": "At fixed OI budget, controls, and graph-mode localization, larger rho_A is expected to align with a stronger coherent backbone mode and better mobility/Drude/Wannier good-label residuals. If the top eigenvector participation ratio is low, rho_A is treated as hub/localization risk rather than a positive transport sign.",
+    "attack_damage_definition": "D_metric(E_remove) = max(0, metric_before - metric_after) / max(metric_before, epsilon). attack_gap = D_high_betweenness - mean(D_random_matched).",
+    "attack_direction": "Positive attack_gap means high-betweenness removal is more destructive than matched random removal; larger attack_gap predicts worse good-label residuals and worse bad-label residuals after baseline controls."
+  },
+  "residual_protocol_choice": {
+    "allowed_model_1_raw_label": "Fit y_external ~ B_baseline + G_graph with nested cross-validation. Compare against y_external ~ B_baseline.",
+    "allowed_model_2_residual_only": "Inside each training fold, fit baseline y_external ~ B_baseline, transform train/test labels into residuals with the train-fitted baseline, residualize each graph feature against B_baseline using train-fitted regressions, then fit r_y ~ r_G.",
+    "forbidden_mixture": "Do not fit y_residual ~ controls + OI + graph. Once labels are residualized, baseline controls and OI are not placed again on the RHS.",
+    "selected_for_C2_round2": "residual_only is the primary B protocol because it directly tests the post-OI graph signal. raw_label is retained as a robustness mirror."
+  },
+  "baseline_namespace": {
+    "prefix": "B0_",
+    "allowed_terms": [
+      "B0_OI_norm",
+      "B0_OI_weight_moments",
+      "B0_onsite_variance",
+      "B0_carrier_density",
+      "B0_mobility_edge_margin",
+      "B0_Ioffe_Regel_proxy",
+      "B0_finite_size",
+      "B0_batch_or_family"
+    ],
+    "rule": "Baseline terms are computed without graph spectral operations and without target-adjacent labels."
+  },
+  "graph_namespace": {
+    "prefix": "G1_",
+    "allowed_terms": [
+      "G1_lambda2_Lsym",
+      "G1_rho_A_budget_norm",
+      "G1_attack_gap_lambda2",
+      "G1_attack_gap_conductance_proxy",
+      "G1_top_eigenvector_participation_ratio"
+    ],
+    "rule": "Graph terms are structure-only functions of A_w and its allowed null transformations. They never include external labels or target-derived quantities."
+  },
+  "target_forbidden_control_table": [
+    {
+      "target_family": "Hall mobility / conductivity",
+      "forbidden_controls": [
+        "measured Hall factor from same experiment",
+        "conductivity-derived mean free path using the target mobility",
+        "carrier density inferred by inverting the same target if not independently measured"
+      ]
+    },
+    {
+      "target_family": "Drude weight / optical scattering",
+      "forbidden_controls": [
+        "Drude fit residuals from the same spectrum",
+        "plasma frequency algebraically used to define the target",
+        "scattering time derived from the target label"
+      ]
+    },
+    {
+      "target_family": "Wannier/QSGW bandwidth or effective mass",
+      "forbidden_controls": [
+        "band velocity or curvature computed from the same target band if it defines the label",
+        "Wannier hopping summary used directly as the target",
+        "graph Hamiltonian eigenvalue labels from the same A_w"
+      ]
+    },
+    {
+      "target_family": "spectral linewidth / IPR / ridge coherence",
+      "forbidden_controls": [
+        "line fit quality metrics from the same linewidth target",
+        "IPR computed from the same graph proxy eigenvectors",
+        "batch labels that encode target measurement settings"
+      ]
+    }
+  ],
+  "train_fold_residualization_pseudocode": [
+    "split samples into outer folds with batch/family blocking",
+    "for each outer fold: train_idx, test_idx = split",
+    "fit baseline_model_y on train_idx using only B0_* columns",
+    "r_y_train = y_train - baseline_model_y.predict(B0_train)",
+    "r_y_test = y_test - baseline_model_y.predict(B0_test)",
+    "for each G1_* feature: fit baseline_model_g on train_idx using only B0_* columns",
+    "r_g_train = G_train - baseline_model_g.predict(B0_train)",
+    "r_g_test = G_test - baseline_model_g.predict(B0_test)",
+    "fit graph_residual_model on r_g_train -> r_y_train",
+    "score graph_residual_model on r_g_test -> r_y_test",
+    "compare against intercept-only residual model and against batch-preserving permutations",
+    "never refit residualizers on train+test jointly"
+  ],
+  "deepening_1_main_isomorphism": {
+    "layer_1": {
+      "source_structure": "distributed network reliability",
+      "mathematical_core": "Reliability is not fixed by total link capacity; it depends on expansion, cut structure, and targeted-failure response.",
+      "LP29_mapping": "S_w/OI_norm is total local capacity; lambda_2 is expansion; attack_gap is targeted bridge vulnerability.",
+      "testable_prediction": "At matched B0_OI_norm and weight histogram, a high-lambda_2 sample should keep better external good-label residuals than a bottlenecked sample."
+    },
+    "layer_2": {
+      "source_structure": "edge-connectivity and min-cut redundancy",
+      "mathematical_core": "Two graphs with equal degree/weight distributions can have different min-cut structure and therefore different all-terminal reliability.",
+      "LP29_mapping": "Amorphous In-s/O-mediated backbones with equal overlap budget can differ in whether current-like paths are distributed or forced through high-betweenness bridges.",
+      "testable_prediction": "High-betweenness defect placement should damage Drude/Hall/Wannier residual labels more than matched random placement if global organization is real."
+    }
+  },
+  "deepening_2_source_extension": {
+    "layer_1": {
+      "source_structure": "error-correcting redundancy",
+      "mathematical_core": "A code's protection depends on distance and syndrome separability, not only the number of physical bits or checks.",
+      "LP29_mapping": "OI budget is the number/strength of local checks; lambda_2 and attack_gap approximate whether electronic amplitude has redundant alternate routes.",
+      "testable_prediction": "A structure with redundant moderate overlaps can outperform a structure with a few strong bridge overlaps after B0 controls."
+    },
+    "layer_2": {
+      "source_structure": "expander-code threshold behavior",
+      "mathematical_core": "Expansion can create a threshold where many small local failures remain correctable, while clustered bridge failures cause abrupt decoding failure.",
+      "LP29_mapping": "If the conductive backbone is expander-like, random local disorder should have weak residual effect; if it is bridge-dominated, targeted high-betweenness disorder should produce a sharp residual drop.",
+      "testable_prediction": "The slope of external good-label residual versus attack_gap should be more negative in bottlenecked families than in high-lambda_2 families, under leave-one-family-out validation."
+    }
+  },
+  "join_schema_and_provenance": {
+    "sample_key": [
+      "material_id",
+      "structure_id",
+      "snapshot_id",
+      "seed",
+      "label_family",
+      "label_provenance_id"
+    ],
+    "required_columns": [
+      "B0_OI_norm",
+      "B0_onsite_variance",
+      "B0_carrier_density",
+      "B0_mobility_edge_margin",
+      "B0_finite_size",
+      "B0_batch_or_family",
+      "G1_lambda2_Lsym",
+      "G1_rho_A_budget_norm",
+      "G1_attack_gap_lambda2",
+      "Y_external",
+      "Y_unit",
+      "Y_direction_class",
+      "Y_provenance",
+      "label_forbidden_control_audit"
+    ],
+    "provenance_flags": [
+      "OI_formula_source",
+      "OI_ref_value",
+      "graph_cutoff_rule",
+      "laplacian_convention",
+      "rho_convention",
+      "attack_matching_rule",
+      "external_label_source",
+      "synthetic_label_flag"
+    ]
+  },
+  "synthetic_benchmark_gate": {
+    "purpose": "Protocol and software sanity only. It can test whether the pipeline detects a planted graph residual and rejects an OI-only null.",
+    "material_validation_allowed": false,
+    "hard_gate": "Any row with synthetic_label_flag=true is excluded from material-claim tables, figures, and conclusions.",
+    "minimum_expected_behavior": [
+      "B-positive synthetic labels show graph residual signal after train-fold residualization.",
+      "A-null synthetic labels do not show stable graph residual signal.",
+      "Leakage-trap labels are detected as forbidden and never counted as material validation."
+    ]
+  },
+  "strangest_prediction": "At fixed nonnegative dimensionless OI capacity budget, a sparse set of defects on high-betweenness backbone edges should reduce external Hall/Drude/Wannier good-label residuals more than a larger random defect set with the same deleted weight.",
+  "a_objection": "Even with normalized conventions, lambda_2, rho_A, and attack_gap are functions of overlap-derived A_w and may only be nonlinear OI features.",
+  "b_response": "Correct. B survives only if train-fold residualized G1_* features improve held-out external residual labels beyond B0_* controls and null rewiring/permutation controls. Synthetic success is not evidence for materials.",
+  "failed_jumps": [
+    {
+      "discipline": "music theory",
+      "reason": "Eigenmode analogy did not generate a leakage-controlled external residual protocol."
+    },
+    {
+      "discipline": "architecture tensegrity",
+      "reason": "Load-path intuition collapsed into the same network reliability attack-gap test."
+    }
+  ],
+  "next_plan": "Run C2_residual_benchmark.py as a synthetic protocol sanity check, then assemble a same-sample external-label join table with provenance before making any material claim.",
+  "literature_needed": [
+    "Srivastava orbital overlap amorphous oxide mobility effective mass",
+    "weighted normalized Laplacian algebraic connectivity network reliability",
+    "spectral radius weighted graph backbone localization participation ratio",
+    "degree preserving weighted rewiring null model",
+    "amorphous oxide Hall Drude Wannier QSGW linewidth IPR provenance"
+  ],
+  "claims": [
+    {
+      "id": "B-C2-R2-C1",
+      "statement": "With w_ij fixed as nonnegative dimensionless overlap capacity and lambda_2 fixed to L_sym, the graph protocol has comparable units across runs.",
+      "confidence": 0.9,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "R2-F1",
+          "expression": "w_ij=max(0,OI_ij/OI_ref)",
+          "units": "dimensionless"
+        },
+        {
+          "label": "R2-F2",
+          "expression": "L_sym=I-D^{-1/2}A_wD^{-1/2}; lambda_2=eig_2(L_sym)",
+          "units": "dimensionless"
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "OI_ref and cutoff are predeclared.",
+        "A_w is symmetric, nonnegative, and label-blind."
+      ]
+    },
+    {
+      "id": "B-C2-R2-C2",
+      "statement": "The decisive B model is residual-only or raw-label, never a mixed residual-plus-baseline regression.",
+      "confidence": 0.88,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "R2-F3",
+          "expression": "r_y=y-f_train(B0); r_G=G-g_train(B0); r_y~r_G",
+          "units": "r_y has target unit; r_G has graph-feature unit"
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "Residualizers are fitted on train folds only.",
+        "External labels are not graph-generated."
+      ]
+    },
+    {
+      "id": "B-C2-R2-C3",
+      "statement": "The deeper isomorphism is error-correcting redundancy: OI controls local capacity, while expansion and attack-gap test whether capacity is globally redundant.",
+      "confidence": 0.76,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "R2-F4",
+          "expression": "attack_gap=D_high_betweenness-mean(D_random_matched)",
+          "units": "dimensionless"
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "Targeted and random attacks are matched by deleted weight or edge count.",
+        "Material inference requires external labels and same-sample provenance."
+      ]
+    }
+  ],
+  "INSPECTOR_CHECK": {
+    "formula": [
+      "w_ij=max(0,OI_ij/OI_ref), dimensionless",
+      "A_w[i,j]=A_w[j,i]=w_ij>=0, A_w[i,i]=0",
+      "L_sym=I-D^{-1/2}A_wD^{-1/2}, lambda_2=eig_2(L_sym), dimensionless",
+      "rho_A=spectral_radius(A_w/S_w), dimensionless, S_w=sum_{i<j}w_ij",
+      "D=(metric_before-metric_after)/max(metric_before,epsilon), dimensionless",
+      "attack_gap=D_high_betweenness-mean(D_random_matched)",
+      "r_y=y-f_train(B0); r_G=G-g_train(B0); fit r_y~r_G"
+    ],
+    "unit_table": [
+      {
+        "symbol": "OI_ij",
+        "unit": "native orbital-overlap unit from source formula",
+        "locked_use": "converted to w_ij before graph metrics"
+      },
+      {
+        "symbol": "w_ij",
+        "unit": "dimensionless",
+        "locked_use": "nonnegative edge capacity"
+      },
+      {
+        "symbol": "lambda_2",
+        "unit": "dimensionless",
+        "locked_use": "second eigenvalue of L_sym only"
+      },
+      {
+        "symbol": "rho_A",
+        "unit": "dimensionless",
+        "locked_use": "spectral radius of A_w/S_w"
+      },
+      {
+        "symbol": "attack_gap",
+        "unit": "dimensionless",
+        "locked_use": "relative targeted-minus-random damage"
+      },
+      {
+        "symbol": "Y_external",
+        "unit": "label-specific physical unit",
+        "locked_use": "never generated from tested graph proxy"
+      }
+    ],
+    "good_label_bad_label_symbol_table": [
+      {
+        "label_class": "good_transport",
+        "examples": "Hall mobility, conductivity, Drude weight, Wannier bandwidth, ridge coherence",
+        "expected_lambda2_sign": "+",
+        "expected_rho_A_sign": "+ if graph-mode PR is high; ambiguous if localized",
+        "expected_attack_gap_sign": "-"
+      },
+      {
+        "label_class": "bad_localization_or_scattering",
+        "examples": "linewidth, IPR, scattering rate, localization index",
+        "expected_lambda2_sign": "-",
+        "expected_rho_A_sign": "- or ambiguous if localized",
+        "expected_attack_gap_sign": "+"
+      }
+    ],
+    "direction": [
+      "lambda_2_Lsym residual: positive for good transport/coherence labels and negative for bad localization/scattering labels.",
+      "rho_A residual: positive for good labels only when top eigenvector participation is not localized; otherwise flagged ambiguous.",
+      "attack_gap residual: negative for good labels and positive for bad labels."
+    ],
+    "data": [
+      "Round 2 is protocol plus optional synthetic sanity benchmark only.",
+      "No A Round 2 output and no current/A files were read.",
+      "Material validation still requires same-sample external labels with provenance."
+    ],
+    "assumptions": [
+      "Baseline namespace B0_* and graph namespace G1_* are separated before modeling.",
+      "Residualization is fitted inside training folds only.",
+      "Target-adjacent forbidden controls are audited by label family.",
+      "Synthetic benchmark output is a hard non-material-validation artifact."
+    ],
+    "synthetic_benchmark_hard_gate": "Synthetic labels and leakage-trap labels may validate pipeline behavior only; they cannot support LP29 material claims."
+  },
+  "status_guardrail": {
+    "claim_level": "conditional residual protocol; no empirical material validation yet",
+    "ready_for": "INSPECTOR check and synthetic protocol run",
+    "not_claimed": "No independent graph mechanism has been established for real LP29 materials."
+  }
+}

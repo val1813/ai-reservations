@@ -1,0 +1,282 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 1,
+  "agent": "B",
+  "polaris": "LP29-C2T / provenance-complete external joined table construction",
+  "framework": {
+    "name": "database normalization plus provenance semiring",
+    "non_A_path": "Treat C2T not as a literature extraction task but as a lossless-join certification problem: every row is valid only if the join key is a declared same-sample identity and every required attribute carries a nonzero provenance token.",
+    "translation": "A candidate joined row is a tuple r over required_join_fields. It is material-validation admissible only if pi_required(r) is complete, the join dependency among baseline, controls, graph features, and external labels is lossless on sample_id, and provenance multiplication across all required fields is nonzero."
+  },
+  "math_object": {
+    "object": "lossless join dependency with provenance semiring annotation",
+    "relations": {
+      "R_identity": [
+        "sample_id",
+        "structure_or_SI_source",
+        "B0_finite_size",
+        "B0_batch_or_family"
+      ],
+      "R_baseline": [
+        "sample_id",
+        "O_s_or_exact_overlap_baseline"
+      ],
+      "R_controls": [
+        "sample_id",
+        "B0_onsite_variance",
+        "B0_carrier_density",
+        "B0_mobility_edge_margin"
+      ],
+      "R_graph": [
+        "sample_id",
+        "G1_lambda2_Lsym",
+        "G1_rho_A_budget_norm",
+        "G1_attack_gap_lambda2"
+      ],
+      "R_label": [
+        "sample_id",
+        "label_provenance_id",
+        "external_Hall_Drude_Wannier_spectral_label",
+        "forbidden_control_audit"
+      ]
+    },
+    "admissibility_rule": "material_validation_allowed(r) = true only if every required field is present, every provenance token p_f != 0, and the join R_identity join R_baseline join R_controls join R_graph join R_label is lossless on same-sample sample_id.",
+    "blocked_null": "If any required field has provenance token 0 or the sample_id is a family/material proxy rather than same-sample key, the tuple remains a blocked provenance row, not a material validation row."
+  },
+  "findings": {
+    "core": "Current C2T artifacts define a schema and blockers but do not contain any provenance-complete same-sample joined row.",
+    "schema_landing": "C2T_joined_table_schema.csv marks all required fields as material_validation_allowed=false; several are only defined or partial, and graph features are missing.",
+    "blocker_landing": "C2T_field_blocker_table.csv blocks sample_id, label_provenance_id, structure_or_SI_source, all G1 graph fields, and forbidden_control_audit, which prevents a lossless same-sample join.",
+    "inventory_landing": "C2T_source_inventory.csv classifies available sources as baseline_context_only, candidate_source_only, seed_context_only, blocked_table_only, audit_template_only, or external_label_candidate_only; none is a joined validation table.",
+    "verdict": "blocked"
+  },
+  "strangest_prediction": {
+    "prediction": "A table can look empirically rich while still having zero admissible rows: adding more candidate labels or baseline rows will not increase validation capacity until the sample_id crosswalk and graph provenance are repaired.",
+    "test": "Run a row-level audit that computes an admissibility bit per row using required fields. Under the current artifacts, every candidate row must evaluate to material_validation_allowed=false.",
+    "observable": "The first unblock event should appear as a discontinuous change from 0 to at least 1 admissible row only when structure_id/sample_id, exact overlap normalization, G1 graph computation, and label provenance are co-present for the same specimen."
+  },
+  "a_objection": "A may argue that partial baseline rows plus candidate transport/spectral sources are enough to construct preliminary same-material rows. The database-frame objection is that same-material or same-family joins are lossy joins: they create tuples whose provenance polynomial contains a zero or proxy join factor, so they cannot certify material validation.",
+  "failed_jumps": [
+    {
+      "framework": "supply-chain traceability",
+      "reason": "Useful language for chain-of-custody, but weaker than database lossless join because it does not directly express cross-sample tuple fabrication."
+    },
+    {
+      "framework": "error-correcting codes",
+      "reason": "Erasure framing captures missing fields, but it incorrectly suggests recoverability from redundancy; here missing provenance is not statistically imputable."
+    }
+  ],
+  "next_plan": {
+    "round2_direction": "Build a row-level audit template with explicit boolean columns: has_same_sample_id, has_label_provenance, has_structure_source, has_exact_overlap_or_executable_formula, has_B0_controls, has_G1_graph_features, has_forbidden_control_audit, and material_validation_allowed.",
+    "minimum_unblock_sequence": [
+      "Lock sample_id semantics as same specimen/snapshot/window, not material family.",
+      "Attach DOI/table/figure/SI row provenance to each external label.",
+      "Acquire auditable raw structure or SI source with stable structure_id.",
+      "Compute G1 features from locked graph construction on that structure.",
+      "Attach exact Srivastava-style overlap baseline or executable normalization for the same row.",
+      "Run forbidden-control audit after complete rows exist."
+    ]
+  },
+  "literature_needed": [
+    "Srivastava 2019 exact orbital overlap normalization and SI/source structures",
+    "AOS or a-In2O3 datasets with same-sample raw structures plus Hall/Drude/Wannier/spectral labels",
+    "Jankousky 2025 supplementary material for row-level spectral/transport labels and structure crosswalk",
+    "Furubayashi transport source tables with sample identifiers, measurement conditions, and structure or synthesis batch mapping"
+  ],
+  "claims": [
+    {
+      "id": "B-C2T-R1-C1",
+      "statement": "Under a lossless-join interpretation, the current C2T artifacts contain zero material-validation-admissible rows because no row links baseline, controls, graph features, and external label through a same-sample sample_id.",
+      "confidence": 0.93,
+      "new_insight": true,
+      "references": [
+        "knowledge_graph/LP29-AmorphousBands_C2_v1_20260604.json: required_join_fields",
+        "LP29-AmorphousBands/current/C2T/artifacts/C2T_joined_table_schema.csv",
+        "LP29-AmorphousBands/current/C2T/artifacts/C2T_field_blocker_table.csv"
+      ],
+      "assumptions": [
+        "All listed required_join_fields are mandatory for material validation.",
+        "sample_id must mean same specimen/snapshot/window, not family-level material identity.",
+        "material_validation_allowed=false in schema/blocker artifacts is authoritative for this round."
+      ]
+    },
+    {
+      "id": "B-C2T-R1-C2",
+      "statement": "Graph-feature provenance is the present hard bottleneck: all three G1 required fields are missing because no auditable raw material structure graph has been computed under a locked graph rule.",
+      "confidence": 0.9,
+      "new_insight": true,
+      "references": [
+        "LP29-AmorphousBands/current/C2T/artifacts/C2T_joined_table_schema.csv:G1_lambda2_Lsym",
+        "LP29-AmorphousBands/current/C2T/artifacts/C2T_joined_table_schema.csv:G1_rho_A_budget_norm",
+        "LP29-AmorphousBands/current/C2T/artifacts/C2T_joined_table_schema.csv:G1_attack_gap_lambda2",
+        "LP29-AmorphousBands/current/C2T/artifacts/C2T_source_inventory.csv:C2_material_graph_rows_blocked"
+      ],
+      "assumptions": [
+        "Synthetic graph rows cannot substitute for material graph provenance.",
+        "A G1 value is admissible only when computed from an auditable atomistic graph with locked construction rules."
+      ]
+    },
+    {
+      "id": "B-C2T-R1-C3",
+      "statement": "Partial fields such as O_s_or_exact_overlap_baseline, B0_carrier_density, B0_finite_size, B0_batch_or_family, external labels, and forbidden_control_audit do not compose into an admissible row because provenance multiplication is annihilated by missing same-sample crosswalk and no-rows-to-audit blockers.",
+      "confidence": 0.86,
+      "new_insight": true,
+      "references": [
+        "LP29-AmorphousBands/current/C2T/artifacts/C2T_field_blocker_table.csv",
+        "LP29-AmorphousBands/current/C2T/artifacts/C2T_source_inventory.csv",
+        "LP29-AmorphousBands/current/plan/研究计划.md"
+      ],
+      "assumptions": [
+        "A partial field may support extraction planning but cannot support material validation.",
+        "Forbidden-control audit requires a candidate complete row; rules alone are not an audit result."
+      ]
+    }
+  ],
+  "required_fields_status": [
+    {
+      "field": "sample_id",
+      "status": "blocked",
+      "current_status": "defined",
+      "blocker": "no complete row yet; no stable same-sample crosswalk",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "label_provenance_id",
+      "status": "blocked",
+      "current_status": "defined",
+      "blocker": "no same-sample join to graph row",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "structure_or_SI_source",
+      "status": "blocked",
+      "current_status": "partial",
+      "blocker": "no raw structure bundle or stable structure_id",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "O_s_or_exact_overlap_baseline",
+      "status": "blocked",
+      "current_status": "partial",
+      "blocker": "exact normalization/SI and structure mapping incomplete",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "B0_onsite_variance",
+      "status": "blocked",
+      "current_status": "missing",
+      "blocker": "no same-sample Hamiltonian/Wannier provenance",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "B0_carrier_density",
+      "status": "blocked",
+      "current_status": "partial",
+      "blocker": "no same-sample structure-label crosswalk",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "B0_mobility_edge_margin",
+      "status": "blocked",
+      "current_status": "partial",
+      "blocker": "no row-level mapping to graph/baseline features",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "B0_finite_size",
+      "status": "blocked",
+      "current_status": "partial",
+      "blocker": "num_atoms/snapshot_id not complete",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "B0_batch_or_family",
+      "status": "blocked",
+      "current_status": "partial",
+      "blocker": "batch/family key not enough for same-sample validation",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "G1_lambda2_Lsym",
+      "status": "blocked",
+      "current_status": "missing",
+      "blocker": "no raw structure graph computation",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "G1_rho_A_budget_norm",
+      "status": "blocked",
+      "current_status": "missing",
+      "blocker": "no raw structure graph computation",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "G1_attack_gap_lambda2",
+      "status": "blocked",
+      "current_status": "missing",
+      "blocker": "no raw structure graph computation",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "external_Hall_Drude_Wannier_spectral_label",
+      "status": "blocked",
+      "current_status": "partial",
+      "blocker": "no same-sample graph/baseline row",
+      "material_validation_allowed": false
+    },
+    {
+      "field": "forbidden_control_audit",
+      "status": "blocked",
+      "current_status": "defined",
+      "blocker": "no complete candidate row to audit",
+      "material_validation_allowed": false
+    }
+  ],
+  "blockers": [
+    {
+      "id": "BLK-lossless-join",
+      "severity": "hard",
+      "description": "No same-sample key currently joins baseline, controls, graph features, and labels.",
+      "affected_fields": [
+        "sample_id",
+        "label_provenance_id",
+        "external_Hall_Drude_Wannier_spectral_label"
+      ],
+      "unblock_condition": "Create stable row ids after structure-label-baseline crosswalk exists.",
+      "blocks_material_validation": true
+    },
+    {
+      "id": "BLK-graph-provenance",
+      "severity": "hard",
+      "description": "All material G1 graph features are missing because raw structures and locked graph computation are unavailable.",
+      "affected_fields": [
+        "G1_lambda2_Lsym",
+        "G1_rho_A_budget_norm",
+        "G1_attack_gap_lambda2"
+      ],
+      "unblock_condition": "Compute G1 metrics from auditable structures with fixed adjacency, weight, and damage rules.",
+      "blocks_material_validation": true
+    },
+    {
+      "id": "BLK-baseline-normalization",
+      "severity": "hard",
+      "description": "Srivastava-style overlap baseline is partial but lacks exact executable normalization and same-structure mapping.",
+      "affected_fields": [
+        "O_s_or_exact_overlap_baseline",
+        "structure_or_SI_source"
+      ],
+      "unblock_condition": "Obtain SI/exact formula and map overlap values to the same structure rows used for graph computation.",
+      "blocks_material_validation": true
+    },
+    {
+      "id": "BLK-audit-vacuum",
+      "severity": "hard",
+      "description": "Forbidden-control rules exist, but no complete row exists on which to run the audit.",
+      "affected_fields": [
+        "forbidden_control_audit"
+      ],
+      "unblock_condition": "Run forbidden-control audit after a complete candidate row is assembled.",
+      "blocks_material_validation": true
+    }
+  ]
+}

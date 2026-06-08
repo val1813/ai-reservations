@@ -1,0 +1,50 @@
+{
+  "project": "LP15-SIT-QPT",
+  "version": "v1.0",
+  "long_proposition": "LP-15",
+  "sub_propositions": ["LP15-S1", "LP15-S2", "LP15-S3", "LP15-S4", "LP15-S5"],
+  "north_star": "超导-绝缘体量子相变是一阶还是二阶？→ a-InO中SIT是一阶的，由双序参量(SC+CPG)竞争+自洽屏蔽不对称性驱动",
+  "conclusion_type": "有边界",
+  "rating": "B+",
+  "completion_date": "2026-06-02",
+  "publishable_kernel": "S1+S2+S3五线收敛：r>1定理→配对存活判据→外推鲁棒(280σ)→标度假定→CPF-puddle部分排除",
+  "core_claim_narrowed": "双序参量竞争驱动一阶SIT——阶数由r≡γ/√(βλ)决定，物理上由配对存活(Δ_P>δ)和自洽屏蔽不对称性(A₁<A₂)控制。可测量诊断：η≡1-T_c/Θ(0)>0.6→一阶",
+  "hard_locks": [
+    "范式推翻——正确为范式细化",
+    "所有SIT都是一阶的——仅当Δ_P>δ时一阶",
+    "实验结论已被独立复现——仅Charpentier单组"
+  ],
+  "nodes": [
+    {"id": "north_star", "label": "北极星: a-InO中SIT是一阶的(双序参量竞争)", "type": "goal"},
+    {"id": "prop_A", "label": "命题A(教科书): QPT二阶,SIT是原型示例(Fisher dirty boson)", "type": "claim"},
+    {"id": "prop_B", "label": "命题B(实验): a-InO中SIT一阶(Charpentier 2025)", "type": "claim"},
+
+    {"id": "S1-K9", "project": "SIT-Landau", "version": "v1", "local_id": "K9", "label": "r≡γ/√(βλ)>1⟺一阶SIT; r<1⟺二阶; r=1⟺tricritical (A+B双路径)", "type": "result", "status": "confirmed", "supports": ["prop_B"], "math_object": "r≡γ/√(βλ), det(H)=16ρ²q²(βλ-γ²)"},
+    {"id": "S1-K10", "project": "SIT-Landau", "version": "v1", "local_id": "K10", "label": "Landau相图拓扑仅由r参数决定(弱竞争/强竞争/tricritical三区)", "type": "result", "status": "confirmed", "math_object": "phase diagram topology by r"},
+    {"id": "S1-K11", "project": "SIT-Landau", "version": "v1", "local_id": "K11", "label": "微观领头阶r₀=1(tricritical困境)→次领头阶(自洽屏蔽)决定r>1或<1", "type": "result", "status": "open", "math_object": "r²=1+δ, δ from subleading corrections"},
+
+    {"id": "S2-K12", "project": "SIT-Material", "version": "v1", "local_id": "K12", "label": "配对存活判据: Δ_P>δ→双序参量→r_eff>1→一阶; Δ_P<δ→dirty boson→二阶", "type": "result", "status": "confirmed", "supports": ["S1-K9"], "math_object": "pair_survival=Δ_P/δ, δ=1/(ν₀ξ_loc²)"},
+    {"id": "S2-K13", "project": "SIT-Material", "version": "v1", "local_id": "K13", "label": "η≡1-T_c/Θ(0)>0.6→一阶SIT; η<0.6→二阶(可测量诊断)", "type": "result", "status": "tentative", "math_object": "η_c≈0.6"},
+    {"id": "S2-K14", "project": "SIT-Material", "version": "v1", "local_id": "K14", "label": "自洽屏蔽不对称: r_eff²=1-2(A₁-A₂)·|α|/√(βλ), A₁<A₂→一阶", "type": "result", "status": "confirmed", "math_object": "r_eff²=1-2(A₁-A₂)·|α|/√(βλ)"},
+    {"id": "S2-K15", "project": "SIT-Material", "version": "v1", "local_id": "K15", "label": "Coulomb玻璃逾渗S形F(p)判据: Λ>2→一阶(与r同构, B独立确认)", "type": "result", "status": "confirmed", "math_object": "Λ≡(V_C/J̄)·h'(1/2)/h(1/2)"},
+    {"id": "S2-K16", "project": "SIT-Material", "version": "v1", "local_id": "K16", "label": "材料预测: TiN→二阶; 低氧a-InO_x→一阶→二阶连续过渡(最干净检验)", "type": "prediction", "status": "open", "math_object": "η prediction for TiN, NbN, low-O a-InO"},
+
+    {"id": "S3-K17", "project": "SIT-Extrapolation", "version": "v1", "local_id": "K17", "label": "T→0外推鲁棒: Θ(0)不确定性<1%, 跳变280σ, QPS线性排除(ΔAIC>40)", "type": "result", "status": "confirmed", "math_object": "|f(0)-Θ(0)|≤σ+Θ(0)·(T_max/T₀)^b"},
+
+    {"id": "S4-K19", "project": "SIT-Scaling", "version": "v1", "local_id": "K19", "label": "一阶热展宽产生zν_eff=1表观标度→与二阶zν≈1不可区分→历史R标度不区分一阶vs二阶", "type": "result", "status": "confirmed", "math_object": "R=R_CPG/[1+exp(-a₀V(x-x_c)/T)]"},
+
+    {"id": "S5-K20", "project": "SIT-CPFpuddle", "version": "v1", "local_id": "K20", "label": "CPF-puddle部分排除: b≈1.6恒定 vs b→1预测; BF≈300支持一阶; 需更密disorder采样", "type": "result", "status": "tentative", "math_object": "BF₁₂≈300, Θ∝(p_c-p)^{1.3}"},
+
+    {"id": "synth-K21", "project": "SIT-Synthesis", "version": "v1", "local_id": "K21", "label": "综合推导: 五线收敛于'a-InO中SIT是一阶的'。声张边界: 单实验组, 材料普适性待验证", "type": "synthesis", "status": "confirmed", "supports": ["S1-K9","S2-K12","S3-K17","S4-K19","S5-K20"]},
+
+    {"id": "K18", "project": "SIT-Uncertainty", "version": "v1", "local_id": "K18", "label": "不确定性排序: #1无独立复现, #2绝缘侧Θ=0, #3样品不均匀→T→0外推已排除", "type": "meta", "status": "confirmed"}
+  ],
+  "cross_lp_connections": [
+    {"from": "LP15-SIT-QPT", "to": "LP5-DQCP", "relation": "共享: QPT阶数的普适性——LP5问DQCP一阶vs二阶(SU(2)已确定弱一阶), LP15问SIT一阶vs二阶(配对存活决定)"},
+    {"from": "LP15-SIT-QPT", "to": "LP2-Planckian", "relation": "方法论共享: LP2的m*处方污染与LP15的η诊断——都涉及区分'真普适量'与'定义依赖量'"}
+  ],
+  "disconfirmed_claims": [
+    {"claim": "SIT标度分析支持二阶QPT→与一阶矛盾", "disconfirmed_by": "K19", "severity": "致命"},
+    {"claim": "CPF-puddle可完全替代一阶QPT解释", "disconfirmed_by": "K20", "severity": "严重"}
+  ]
+}

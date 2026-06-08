@@ -1,0 +1,67 @@
+{
+  "id": "anonymous-LP30",
+  "version": 1,
+  "date": "2026-06-05",
+  "project": {
+    "lp": "LP30",
+    "name": "DGF",
+    "title": "DGF-N4 falsification and DGF-N5 cross-representation invariant pivot",
+    "contributor": {
+      "orcid": "anonymous",
+      "github": "anonymous",
+      "name": "anonymous contributor"
+    }
+  },
+  "status": "falsified_downgraded_to_next_polaris",
+  "core_claim": "DGF-N4 is not established as a physical mass-boundary mechanism; it is downgraded to a constrained statistical ansatz, and the active north star becomes DGF-N5: a cross-representation invariant / identifiability principle.",
+  "not_claimed": [
+    "Macroscopic residual-world ontology has been strictly proven",
+    "Massive objects are proven to have lost spatial information after the Big Bang",
+    "13.85 microgram is a proven natural coherence mass ceiling",
+    "q_visibility equals q_DGF_mass without an independent bridge observable",
+    "LLR advantage of a pointwise q_i model is evidence for a DGF physical mechanism"
+  ],
+  "downgraded_claim": {
+    "id": "DGF-N4",
+    "formula": "m(q)=(2*m_p/pi)*sin(pi*q/2), q in [0,1]",
+    "boundary": "2*m_p/pi approx 13.85 microgram",
+    "final_status": "falsified-downgraded",
+    "fatal_reasons": [
+      "pointwise q_i overfitting",
+      "unproven q_visibility=q_DGF_mass bridge",
+      "incomplete penalized likelihood / null / bootstrap table",
+      "low-rank graph model flexibility not closed by preregistration"
+    ]
+  },
+  "active_next_priority": {
+    "id": "DGF-N5",
+    "question": "Does a DGF endpoint structure survive after pointwise freedoms are frozen, model complexity is preregistered, and at least two independent representations support the same invariant?",
+    "tie_break": "DGF-N5, DGF-N6, and DGF-N8 scored 3.75; DGF-N5 is selected by re-escalation origin and depth priority."
+  },
+  "subclaims": [
+    {
+      "id": "DGF-N6",
+      "question": "Can q_DGF_mass be calibrated without using visibility data?"
+    },
+    {
+      "id": "DGF-N7",
+      "question": "Does a preregistered low-rank / graph q model still beat environment nulls after effective degrees of freedom are penalized?"
+    },
+    {
+      "id": "DGF-N8",
+      "question": "Does the fold-type critical endpoint survive across visibility, mass proxy, environment channel, or information-geometric coordinates?"
+    }
+  ],
+  "review_status": {
+    "round3_reviewer": "reject DGF-N4 strong claim",
+    "forced_rescue_inspector": "rescue failed for north-star survival",
+    "final_reviewer": "minor_revision accepted after caveats"
+  },
+  "files": {
+    "project_root": "D:\\\\Claude\\\\ai-reservations\\\\LP30-DGF",
+    "final_synthesis": "synthesis\\\\PI_final_synthesis_DGF_N4.md",
+    "forced_rescue": "synthesis\\\\INSPECTOR_rescue.md",
+    "subclaims": "synthesis\\\\subclaims_extraction.md",
+    "queue": "project\\\\北极星队列.md"
+  }
+}

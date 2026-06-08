@@ -1,0 +1,81 @@
+{
+  "id": "LP29-AmorphousBands_C2T_S2_R1_I1_X1_v1_20260605",
+  "project": "LP29-AmorphousBands",
+  "north_star": "LP29-C2T-S2-R1-I1-X1 / executed O_s baseline-admission regression firewall",
+  "date": "2026-06-05",
+  "contributor": {
+    "orcid": "anonymous",
+    "github": "anonymous",
+    "name": "anonymous"
+  },
+  "status": "fixture-level executed O_s baseline-admission regression firewall / no material validation",
+  "claim": "X1 implements and executes a fixture-level O_s baseline-admission regression firewall. The validator exposes validate_payload and CLI suite modes, enforces expected status and first-failed-predicate contracts, and passes the 17-case B regression suite plus legacy partial-context tests.",
+  "allowed_claims": [
+    "validation/validate.py exists and exposes validate_payload(payload: dict) -> dict.",
+    "The CLI suite enforces the expected CSV contract for the official B regression file.",
+    "The formal 17-case suite produces validation/results.csv with all rows pass=true.",
+    "The observed status distribution is BLOCK=8, CONDITIONAL_CONTEXT_PASS=2, CANDIDATE_EXACT_REPLAY=1, ADMITTED_EXACT=1, DIAGNOSED_MISMATCH=5.",
+    "Raw PARTIAL_CONTEXT_ONLY returns BLOCK with DEPRECATED_PARTIAL_CONTEXT_ONLY and migration_required=true.",
+    "Current Srivastava summary evidence remains BLOCK and context-only evidence remains CONDITIONAL_CONTEXT_PASS."
+  ],
+  "forbidden_claims": [
+    "exact Srivastava O_s reproduced",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "exact O_s impossible in principle",
+    "physical correctness beyond the encoded fixture contract"
+  ],
+  "artifacts": {
+    "validator": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\validation\\validate.py",
+    "tests": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\tests\\test_validate.py",
+    "expected_manifest": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\validation\\fixtures\\expected_results.csv",
+    "baseline_fixtures": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\validation\\fixtures\\a_expected_cases.jsonl",
+    "legacy_fixtures": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\validation\\fixtures\\legacy_partial_context.jsonl",
+    "b_authoritative_fixtures": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\fixtures\\I1_authoritative_cases_round3.jsonl",
+    "actual_results": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\validation\\results.csv",
+    "readme": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\validation\\README.md",
+    "pi_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_R1_I1_X1_final.md",
+    "regression_results": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\regression_results_C2T_S2_R1_I1_X1.md",
+    "reviewer_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_R1_I1_X1_final.md",
+    "reviewer_recheck": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_R1_I1_X1_recheck.md",
+    "reviewer_validation": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_validation_C2T_S2_R1_I1_X1.md"
+  },
+  "commands": [
+    {
+      "command": "python -m pytest tests/test_validate.py",
+      "result": "5 passed"
+    },
+    {
+      "command": "python validation/validate.py --suite current/B/fixtures/I1_authoritative_cases_round3.jsonl --expected current/B/artifacts/I1_regression_command_contract_round3.csv --emit-csv validation/results.csv --strict-no-silent-upgrade --no-legacy-partial-context-only",
+      "result": "exit 0; 17 rows pass=true"
+    }
+  ],
+  "reviewer_blockers": [
+    {
+      "blocker": "--expected was initially parsed but not enforced in suite mode",
+      "status": "repaired",
+      "evidence": "tests/test_validate.py includes wrong expected contract negative test; reviewer recheck accepted repair"
+    }
+  ],
+  "remaining_warnings": [
+    "Malformed expected CSVs with zero valid expected rows are a future hardening issue",
+    "The validator trusts fixture predicate booleans and does not validate source-object authenticity",
+    "ADMITTED_EXACT appears only as a positive control fixture and must not be read as Srivastava exact reproduction"
+  ],
+  "next_candidates": [
+    {
+      "id": "LP29-C2T-S2-R1-I1-X1-H1",
+      "title": "expected-contract hardening and malformed-contract rejection",
+      "score": 1.5,
+      "status": "hardening candidate"
+    },
+    {
+      "id": "LP29-C2T-S2-R1-I1-X1-P1",
+      "title": "proof-object authenticity validation before terminal-status admission",
+      "score": 1.5,
+      "status": "future evidence-authenticity candidate"
+    }
+  ],
+  "next_step": "Update the project queue and select whether to harden malformed expected contracts or return to proof-carrying real O_s witness construction."
+}

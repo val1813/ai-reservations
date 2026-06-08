@@ -1,0 +1,34 @@
+{
+  "role": "B博士",
+  "round": "LP30-DGF Round 3",
+  "route": "统计几何 + 控制论可观测性",
+  "status": "fold caustic降级为fold-type critical endpoint，除非补足observable projection density或Jacobian奇性。",
+  "observables": {
+    "y_vector": ["log_M_cal", "V", "kappa=dV/dlogM", "eta=d2V/dlogM2", "R_env", "Delta_14_22"],
+    "theta_vector": ["alpha", "beta_m", "gamma_m", "q", "lambda_q", "delta_cal", "s_cal", "sigma_V", "rho_env", "b_batch"],
+    "minimal_model": "V_i = alpha + beta_m*x_i + gamma_m*x_i**2 + lambda_q*h(x_i,q) + rho_env*E_i + b_batch_i + epsilon_i"
+  },
+  "equations": {
+    "mass_calibration": "M_cal = (1 + s_cal)*M_raw + delta_cal",
+    "x_i": "log(M_cal_i)",
+    "q_independence_criterion": "rank([X_m, X_q]) - rank(X_m) >= 1",
+    "projection_score": "S_q = norm((I - P_m)*X_q, W)**2 / norm(X_q, W)**2",
+    "contrast": "Delta_14_22 = (V_22 - V_14)/sqrt(sigma_V_22**2 + sigma_V_14**2 + sigma_cal**2*beta_m**2)",
+    "T_14_22": "2*(logL_q_free - logL_q_absorbed)"
+  },
+  "caustic_like_boundary": {
+    "required": "det(J_phi.T*Sigma_y**(-1)*J_phi) -> 0 or sigma_min(J_phi) -> 0; or stable density pile-up p(y_obs).",
+    "current_position": "not proven; use fold-type critical endpoint only."
+  },
+  "claims": [
+    {"id": "B3-C1", "claim": "q独立性通过X_q在X_m正交补上的稳定非零分量判定。", "testable_form": "rank([X_m,X_q])>rank(X_m) and S_q above bootstrap null."},
+    {"id": "B3-C2", "claim": "caustic-like需要Jacobian退化或投影密度堆积；当前只可称critical endpoint。", "testable_form": "sigma_min(J_phi) below calibrated threshold."},
+    {"id": "B3-C3", "claim": "14/22 microgram判别是profile nuisance后的似然比统计量。", "testable_form": "T_14_22 bootstrap p-value plus S_q significance."}
+  ],
+  "failure_modes": [
+    {"mode": "q被质量校准吸收", "diagnostic": "rank([X_m,X_q])=rank(X_m) or S_q~0"},
+    {"mode": "q被visibility漂移吸收", "diagnostic": "adding a_V,c_V removes T_14_22 significance"},
+    {"mode": "q被环境/null吸收", "diagnostic": "adding E and batch random effects removes r_q"},
+    {"mode": "伪caustic", "diagnostic": "curvature peak exists but J_phi not singular and no density pile-up"}
+  ]
+}

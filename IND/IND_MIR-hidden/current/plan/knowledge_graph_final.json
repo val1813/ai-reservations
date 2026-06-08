@@ -1,0 +1,34 @@
+{
+  "project": "IND_MIR-hidden",
+  "version": "final",
+  "date": "2026-06-03",
+  "conclusion_type": "正向经验判据",
+  "status": "大修通过",
+  "nodes": [
+    {"id": "criterion", "label": "l/λ_F < 1 → 非高斯输运涨落 (等价k_F l < 2π≈6.3)", "type": "core_finding", "status": "confirmed"},
+    {"id": "data_table", "label": "8条目跨材料数据表 (Si MOSFET×2, VO₂, V₂O₃, NdNiO₃, κ-BEDT×2, Ca₂RuO₄)", "type": "evidence", "status": "complete"},
+    {"id": "clt_breakdown", "label": "CLT破坏机制: l<λ_F→散射事件量子相干→独立同分布前提失效→Fréchet尾", "type": "theory", "status": "proposed"},
+    {"id": "evt", "label": "EVT分类: 所有体系为Fréchet域。Si MOSFET ξ>1(均值发散)", "type": "analysis", "status": "confirmed"},
+    {"id": "sharp_jump", "label": "Si MOSFET α在n_g处跳变(非连续crossover)", "type": "evidence", "status": "confirmed"},
+    {"id": "Si_kFl_first", "label": "Si MOSFET k_F l首算: 1.24±0.15(低), 10.0±1.4(高)", "type": "original_contribution", "status": "novel"},
+    {"id": "limitation_1", "label": "⚠️ 非out-of-sample检验。8条目全用于建立+验证判据", "type": "limitation", "status": "acknowledged"},
+    {"id": "limitation_2", "label": "⚠️ V₂O₃ α修正为2.36(均值, 范围2.1-2.7), 非2.29", "type": "correction", "status": "fixed"},
+    {"id": "limitation_3", "label": "⚠️ 术语: '平均自由程'→'输运长度l_tr'(避免Boltzmann自洽性问题)", "type": "correction", "status": "acknowledged"},
+    {"id": "prediction", "label": "可证伪预言: 任一l/λ_F<1体系应有非高斯噪声; 调谐过l/λ_F=1→α跳变", "type": "falsifiable", "status": "pending_test"},
+    {"id": "reviewer", "label": "REVIEWER: 5拒稿→PI验证→大修(1致命已修, 2严重可修, 1审稿人错误)", "type": "peer_review", "status": "major_revision"}
+  ],
+  "edges": [
+    {"from": "criterion", "to": "data_table", "relation": "supported_by"},
+    {"from": "criterion", "to": "clt_breakdown", "relation": "explained_by"},
+    {"from": "clt_breakdown", "to": "evt", "relation": "implies"},
+    {"from": "data_table", "to": "sharp_jump", "relation": "contains"},
+    {"from": "Si_kFl_first", "to": "data_table", "relation": "part_of"},
+    {"from": "reviewer", "to": "limitation_1", "relation": "identified"},
+    {"from": "reviewer", "to": "limitation_2", "relation": "identified"},
+    {"from": "reviewer", "to": "limitation_3", "relation": "identified"},
+    {"from": "criterion", "to": "prediction", "relation": "generates"}
+  ],
+  "ab_scores": {"A": "数据表完整, 8条目", "B": "CLT破坏+EVT理论框架"},
+  "reviewer_verdict": "大修。R3(α值)致命已修正。R1(术语)R2(循环)严重可修。R4(跳变)审稿人错误。",
+  "next_action": "修正后写论文"
+}

@@ -1,0 +1,198 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": "LP29-C2T-S2-R1 / Round 3",
+  "agent": "A",
+  "role": "independent A scholar; validator-facing A-side bundle",
+  "polaris": "Exact O_s admission is a terminal validator state over a complete proof-carrying payload, not a status inferred from a reported scalar.",
+  "framework": {
+    "name": "validator-facing payload schema for O_s witness admission",
+    "input_contract": "payload := {payload_id, target_mode, witness}; witness fields F01-F22 are addressed by stable JSON pointers and evaluated by their Round-2 predicates.",
+    "artifact_schema": "current/A/artifacts/S2_R1_validator_payload_schema_round3.json",
+    "artifact_expected_cases": "current/A/artifacts/S2_R1_A_expected_cases_round3.csv",
+    "terminal_statuses": [
+      "BLOCK",
+      "PARTIAL_CONTEXT_ONLY",
+      "CONDITIONAL_CONTEXT_PASS",
+      "CANDIDATE_EXACT_REPLAY",
+      "DIAGNOSED_MISMATCH",
+      "ADMITTED_EXACT"
+    ],
+    "ordered_validator_gates": [
+      "source_locator_gate",
+      "reported_value_gate",
+      "structure_identity_gate",
+      "pair_population_gate",
+      "arithmetic_normalization_gate",
+      "execution_trace_gate",
+      "recompute_and_tolerance_gate"
+    ],
+    "admission_boundary": "ADMITTED_EXACT requires all F01-F22 predicates and a passing F03-vs-F21 comparison under F22. CONDITIONAL_CONTEXT_PASS is source-localized reported context only."
+  },
+  "changes_from_round2": [
+    {
+      "id": "R3C1",
+      "change": "Converted the Round-2 CSV witness schema into a validator payload contract with JSON pointers for each F01-F22 field."
+    },
+    {
+      "id": "R3C2",
+      "change": "Separated target modes into reported_context, candidate_exact_replay, diagnosed_mismatch, and admitted_exact, each with required fields, success status, and failure rule."
+    },
+    {
+      "id": "R3C3",
+      "change": "Added explicit transition guards forbidding scalar-only exactness, DOI-only context PASS, context-to-exact silent upgrade, current Srivastava exact admission, and incomplete mismatch diagnosis."
+    },
+    {
+      "id": "R3C4",
+      "change": "Added expected validator cases for null, scalar-only, DOI-only, current Srivastava summary, context-complete-only, replay-ready, future mismatch, and future admitted payloads."
+    },
+    {
+      "id": "R3C5",
+      "change": "Kept the current Srivastava exact O_s state as BLOCK and kept reported_context conditional rather than unconditional."
+    }
+  ],
+  "payload_schema_summary": {
+    "schema_file": "current/A/artifacts/S2_R1_validator_payload_schema_round3.json",
+    "field_count": 22,
+    "top_level_required": ["payload_id", "target_mode", "witness"],
+    "field_groups": {
+      "source_and_value": ["F01", "F02", "F03"],
+      "structure_identity": ["F04", "F05", "F06", "F07"],
+      "orbital_and_pair_population": ["F08", "F09", "F10", "F11", "F12"],
+      "arithmetic_and_normalization": ["F13", "F14", "F15"],
+      "execution_provenance": ["F16", "F17", "F18", "F19", "F20"],
+      "verification_verdict": ["F21", "F22"]
+    },
+    "mode_rules": {
+      "reported_context": "Requires F01-F03 and returns CONDITIONAL_CONTEXT_PASS only if all three predicates pass; otherwise BLOCK.",
+      "candidate_exact_replay": "Requires F01-F20 and returns CANDIDATE_EXACT_REPLAY only when replay inputs are complete before recomputation.",
+      "diagnosed_mismatch": "Requires F01-F22 plus failed predeclared comparison; missing replay fields are BLOCK, not mismatch.",
+      "admitted_exact": "Requires F01-F22 plus passing predeclared comparison; no shortcut from scalar, DOI, or context."
+    },
+    "current_srivastava_rule": "Current Srivastava exact O_s remains BLOCK because the complete F01-F22 witness payload is absent; if only F01-F03 become complete, the maximum permitted status is CONDITIONAL_CONTEXT_PASS."
+  },
+  "expected_cases_summary": {
+    "cases_file": "current/A/artifacts/S2_R1_A_expected_cases_round3.csv",
+    "case_count": 8,
+    "null_cases": [
+      "CASE_NULL_EMPTY",
+      "CASE_NULL_SCALAR_ONLY",
+      "CASE_NULL_DOI_ONLY"
+    ],
+    "current_cases": [
+      "CASE_CURRENT_SRIVASTAVA_SUMMARY",
+      "CASE_CURRENT_SRIVASTAVA_CONTEXT_COMPLETE_ONLY"
+    ],
+    "future_complete_cases": [
+      "CASE_FUTURE_REPLAY_READY_NO_RECOMPUTE",
+      "CASE_FUTURE_COMPLETE_MISMATCH",
+      "CASE_FUTURE_COMPLETE_MATCH"
+    ],
+    "critical_expected_statuses": {
+      "current_srivastava_summary": "BLOCK",
+      "current_context_complete_only": "CONDITIONAL_CONTEXT_PASS",
+      "future_complete_mismatch": "DIAGNOSED_MISMATCH",
+      "future_complete_match": "ADMITTED_EXACT"
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The A-side Round-3 payload schema is validator-facing: every F01-F22 witness field has a JSON pointer, type, predicate, required modes, and blocker message.",
+      "confidence": 0.9,
+      "new_insight": false,
+      "references": [
+        {
+          "local": "current/A/artifacts/S2_R1_executable_witness_schema_round2.csv",
+          "label": "A Round 2 executable witness schema"
+        },
+        {
+          "local": "current/A/artifacts/S2_R1_validator_payload_schema_round3.json",
+          "label": "A Round 3 validator payload schema"
+        }
+      ],
+      "assumptions": [
+        "Predicate bodies remain symbolic specifications until a project validator implements them.",
+        "JSON pointer paths are stable enough for a future validate.py to bind payload keys."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "Expected validator behavior is now case-specified: null/scalar-only/DOI-only/current-summary payloads BLOCK; context-complete-only payloads can at most reach CONDITIONAL_CONTEXT_PASS; complete future payloads split into DIAGNOSED_MISMATCH or ADMITTED_EXACT by F22 comparison.",
+      "confidence": 0.91,
+      "new_insight": false,
+      "references": [
+        {
+          "local": "current/A/artifacts/S2_R1_A_expected_cases_round3.csv",
+          "label": "A Round 3 expected validator cases"
+        },
+        {
+          "local": "synthesis/inspector_A_C2T_S2_R1_round2.md",
+          "label": "Inspector A Round 2 pass-forward conditions"
+        }
+      ],
+      "assumptions": [
+        "The validator reports terminal status plus first failed gate or forbidden upgrade when applicable."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The present Srivastava-related exact O_s claim remains BLOCK, and reported_context remains non-pass unless F01 stable source, F02 exact source locator, and F03 parseable scalar are all supplied.",
+      "confidence": 0.94,
+      "new_insight": false,
+      "references": [
+        {
+          "local": "synthesis/PI_C2T_S2_R1_round2.md",
+          "label": "PI C2T S2 R1 Round 2 synthesis"
+        },
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "No new source locator, row-level scalar, structure, pair-list, raw-sum, normalization, executor trace, recomputed value, or tolerance payload was introduced in this Round 3 task."
+      ]
+    }
+  ],
+  "deepening_1": {
+    "question": "What is the next-layer consequence of converting the F01-F22 schema into a payload schema plus expected cases?",
+    "layer_1": "The next validator can be tested against concrete terminal-state examples before any real Srivastava witness is recovered.",
+    "layer_2": "This shifts review from prose discipline to regression behavior: a future validator that upgrades DOI-only or scalar-only payloads will fail CASE_NULL_DOI_ONLY or CASE_NULL_SCALAR_ONLY immediately.",
+    "layer_3": "The scientific consequence is conservative but useful: exact O_s admission becomes reproducible as a state-machine contract, while current evidence remains blocked without being overinterpreted."
+  },
+  "deepening_2": {
+    "question": "Which premise in this Round 3 bundle is most likely wrong?",
+    "layer_1": "The weakest premise is that all F01-F22 predicates can be implemented as local deterministic checks. Some predicates need canonicalizers for structure serialization, pair-list ordering, formula AST equivalence, and trace-to-output binding.",
+    "layer_2": "If those canonicalizers disagree across implementations, a complete payload could be validator-dependent. The schema therefore needs future conformance fixtures, not only human-readable predicate names.",
+    "layer_3": "This does not license relaxing the gates. It means ADMITTED_EXACT should remain unreachable until both a complete payload and a tested validator implementation exist."
+  },
+  "forbidden_claims": [
+    "Do not claim exact Srivastava O_s reproduction.",
+    "Do not claim current Srivastava exact O_s is anything other than BLOCK.",
+    "Do not claim reported_context PASS from DOI-only, abstract-only, citation-only, scalar-only, or PI-summary-only evidence.",
+    "Do not treat CONDITIONAL_CONTEXT_PASS as exact O_s admission.",
+    "Do not claim ADMITTED_EXACT unless all F01-F22 predicates pass and F21 matches F03 under F22.",
+    "Do not claim DIAGNOSED_MISMATCH unless all F01-F22 predicates exist and the predeclared comparison fails.",
+    "Do not claim material validation from O_s.",
+    "Do not run or endorse graph-vs-overlap residual regression in this round.",
+    "Do not claim graph beats overlap.",
+    "Do not claim exact O_s reproduction is impossible in principle.",
+    "Do not infer missing row/page, structure identity, pair rule/list, N_pair, raw sum, normalization, basis, software, runtime environment, executor trace, recomputed value, or tolerance from the final scalar."
+  ],
+  "self_check": {
+    "read_inputs": [
+      "D:/Claude/ai-reservations/AGENTS.md",
+      "D:/Claude/ai-reservations/ai/CLAUDE.md",
+      "D:/Claude/ai-reservations/ai/A_AGENT.md",
+      "current/A/C2T_S2_R1_round2.json",
+      "current/A/artifacts/S2_R1_executable_witness_schema_round2.csv",
+      "synthesis/PI_C2T_S2_R1_round2.md",
+      "synthesis/inspector_A_C2T_S2_R1_round2.md"
+    ],
+    "not_read": [
+      "B output files"
+    ],
+    "phase_checklist_modified": false,
+    "paper_search_needed": false
+  }
+}

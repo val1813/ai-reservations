@@ -1,0 +1,1 @@
+更大的声张：非晶氧化物中所谓 band-like、mobility-edge、percolation 与 In-s connectivity 不是竞争机制，而是同一无序哈密顿量的两种投影：实空间加权连接图的谱临界面，经由自能展宽/IPR 重整化，表现为动量空间 effective-band ridge 与输运 mobility edge。被杀死的前提只是把某一投影误认成根因。可检验预言：在同一样品锁定载流子浓度、onsite variance 与 linewidth convention 后，graph Laplacian/spectral-radius 临界点应与 IPR delocalization、Drude weight onset、Hall/optical τ 残差拐点同时出现；若不同步，此大声张失败。

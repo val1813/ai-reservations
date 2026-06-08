@@ -1,0 +1,19 @@
+target_type,forbidden_namespace,forbidden_columns_pattern,rationale
+effective_mass_target,label,^m_eff_over_m0$,Do not use the target effective mass as a control or feature.
+hall_mobility_target,label,^hall_mobility_m2_Vs$,Do not use the target Hall mobility as a control or feature.
+conductivity_target,label,^(conductivity_S_m|resistivity_ohm_m)$,Conductivity and resistivity are algebraic transforms of each other and leak the target.
+hall_mobility_target,label,^(conductivity_S_m|resistivity_ohm_m|carrier_density_m3)$,Forbidden when Hall mobility is computed from same-measurement sigma/(n*e).
+transport_labels,controls,^film_thickness_m$,Forbidden for conductivity targets when combined with same-measurement sheet resistance to reconstruct conductivity.
+wannier_target,oi,^(OI_norm|OI_raw_sum)$,Forbidden when the target is the same overlap quantity or an algebraic transform of it.
+wannier_target,controls,^onsite_variance_eV2$,Forbidden when onsite variance is computed from target Wannier Hamiltonian elements.
+spectral_residual_label,controls,^mobility_edge_margin_eV$,Forbidden when extracted from the same fitted spectral feature as the target.
+spectral_residual_label,label,^(spectral_ridge_width_eV|IPR_near_EF)$,Forbidden when the target is the same spectral or IPR-derived localization label.
+graph_targets,structure,^structure_file_path$,Structure file paths identify or reconstruct graph targets and are not independent controls.
+graph_targets,graph,^(graph_node_rule|graph_edge_rule|edge_weight_definition|pair_cutoff_A)$,Graph construction metadata cannot be used as graph target predictors.
+external_residual_labels,graph,^(weighted_degree_mean|weighted_degree_variance|local_clustering_weighted)$,Forbidden as independent graph claims before OI collinearity ablation.
+external_residual_labels,graph,^spectral_radius_A$,Forbidden unless weighted-degree and OI-preserving residualization is present.
+external_residual_labels,graph,^high_betweenness_attack_loss$,Forbidden unless matched_random_attack_loss and removed_weight_budget are present.
+external_residual_labels,residual,^baseline_residual$,Forbidden as a target if computed using a test-fold fit; residuals must be train-fold/held-out only.
+raw_label_model,residual,^baseline_prediction$,Baseline prediction is forbidden as a feature in raw-label models; it is allowed only to compute residuals.
+graph_independent_claim,graph,^pair_density$,Executable OI fixed-density rule: pair_density cannot support an independent graph claim unless comparing held-out residuals within bins or matches satisfying abs(log(pair_density_a/pair_density_b)) <= 0.05 and abs(OI_norm_a-OI_norm_b) within predeclared tolerance.
+graph_independent_claim,oi;graph,^(OI_raw_sum|OI_norm|pair_density|cell_volume_m3)$,Executable OI fixed-pair versus fixed-density rule: if N_pair changes with volume or composition use OI_norm=sum(Pairs*OI)/volume and include pair_density as a control; if N_pair is fixed use OI_pair_mean=sum(Pairs*OI)/N_pair and do not claim density effects from raw pair sum.

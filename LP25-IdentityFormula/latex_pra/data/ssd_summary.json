@@ -1,0 +1,7 @@
+{
+  "n_points": 405,
+  "grid": "9 (T_H/T_C) x 9 (w23/w13) x 5 (gH/gC) = 405",
+  "fraction_positive_ergotropy": 0.7530864197530864,
+  "max_relative_deviation_analytic_vs_numeric": 1.6653345369377348e-07,
+  "agreement_within_2pct": true
+}

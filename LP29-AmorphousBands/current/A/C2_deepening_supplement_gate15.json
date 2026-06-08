@@ -1,0 +1,174 @@
+{
+  "project": "LP29-AmorphousBands",
+  "subtopic": "LP29-C2",
+  "agent": "A",
+  "artifact_type": "deepening_supplement_gate15",
+  "date": "2026-06-04",
+  "scope": "A-side mechanical field supplement only; no new physical claim is introduced.",
+  "source_files": [
+    "D:/Claude/ai-reservations/LP29-AmorphousBands/current/A/C2_round1.json",
+    "D:/Claude/ai-reservations/LP29-AmorphousBands/current/A/C2_round2.json",
+    "D:/Claude/ai-reservations/LP29-AmorphousBands/current/A/C2_round3.json",
+    "D:/Claude/ai-reservations/LP29-AmorphousBands/synthesis/inspector_A_C2_round3.md",
+    "D:/Claude/ai-reservations/LP29-AmorphousBands/synthesis/reviewer_C2_round3.md"
+  ],
+  "same_sample_validation_done": false,
+  "graph_residual_verified": false,
+  "material_validation_status": "blocked",
+  "allowed_content_boundary": [
+    "OI baseline absorption risk",
+    "same-sample residual protocol",
+    "forbidden controls",
+    "fixed-density/fixed-pair OI rule",
+    "blocked validation"
+  ],
+  "forbidden_claims": [
+    "Do not claim graph residual power has been verified.",
+    "Do not claim same-sample material validation has been completed.",
+    "Do not use Srivastava Table II rows as evidence that graph metrics win.",
+    "Do not treat synthetic or blocked rows as physical validation."
+  ],
+  "deepening_1_layer_1": {
+    "label": "OI baseline absorption risk",
+    "content": "A-side conclusion remains baseline-first: Srivastava-style normalized orbital overlap, onsite variance, carrier density, mobility-edge margin, batch, pair density and finite-size controls can absorb graph quantities that are monotone reparameterizations of overlap, distance thresholding, coordination, weighted degree, or pair density.",
+    "status": "protocol_boundary_not_numeric_defeat",
+    "no_new_claim": true
+  },
+  "deepening_1_layer_2": {
+    "label": "same-sample residual protocol",
+    "content": "Graph quantities are admissible only as residual predictors after a same-sample model y_s = f_y(OI_norm_s, onsite_variance_s, carrier_density_s, mobility_edge_margin_s, batch_s, finite_size_s) has produced external residuals r_y_s. Candidate graph terms are lambda2_resid_s, spectral_radius_resid_s and attack_resid_s only after overlap/degree/weight/size-preserving residualization.",
+    "acceptance_condition": "held-out residual improvement with stable signs and exact same-sample provenance after OI_norm plus controls",
+    "same_sample_validation_done": false,
+    "graph_residual_verified": false
+  },
+  "deepening_2_layer_1": {
+    "label": "forbidden controls and leakage boundary",
+    "content": "A-side forbidden-control rules block target-as-feature leakage, same-measurement algebraic transforms, Wannier/OI self-target leakage, graph construction metadata leakage, raw baseline-prediction leakage, and graph-independent claims before OI plus null residualization. The rules are declarative safeguards and do not by themselves establish a positive graph-physics claim.",
+    "current_warning_from_inspector": [
+      "Residual placeholder cells in baseline rows should be normalized to empty or explicit NA before downstream parsing.",
+      "The multi-namespace oi;graph rule needs parser support or split rows for unambiguous execution."
+    ],
+    "no_new_claim": true
+  },
+  "deepening_2_layer_2": {
+    "label": "fixed-pair/fixed-density OI rule and blocked validation",
+    "content": "At fixed declared N_pair and pair-set class, use OI_pair_mean = OI_raw_sum / N_pair and do not interpret OI_raw_sum as a density effect. When N_pair changes with volume, composition or cutoff, use OI_norm = sum(N_ab*S_ab) / volume and include pair_density as a control or matching variable before testing graph metrics. If neither condition is satisfied, graph metrics may be diagnostics only.",
+    "blocked_validation": {
+      "Srivastava": "four reported Table II/Fig. 4 baseline rows only; graph metrics and external residuals are blocked",
+      "Jankousky": "blocked provenance until exact structure_id, same-sample OI_norm, graph metrics, external labels and train/test residual split are joined",
+      "Furubayashi": "blocked pending real digitization and same-sample structure or accepted structural proxy",
+      "reviewer_decision": "continue internal only"
+    },
+    "same_sample_validation_done": false,
+    "graph_residual_verified": false
+  },
+  "OI_baseline_absorption_risk": {
+    "absorbed_or_high_risk_metrics": [
+      "weighted_degree_mean",
+      "mean cation-cation distance",
+      "short-bond fraction",
+      "coordination number",
+      "local cation connectivity",
+      "giant_component_fraction near a fixed threshold",
+      "defect fractions when they only shift density, onsite variance or mobility-edge controls"
+    ],
+    "admissible_only_after_controls": [
+      "lambda2_resid_s",
+      "spectral_radius_resid_s",
+      "attack_resid_s or high-betweenness targeted damage minus matched random damage",
+      "community bottleneck or conductance residual",
+      "finite-size scaling exponent of spectral gap"
+    ]
+  },
+  "same_sample_residual_protocol": {
+    "baseline_model": "y_s = f_y(OI_norm_s, onsite_variance_s, carrier_density_s, mobility_edge_margin_s, batch_s, finite_size_s) + error_s",
+    "external_residual": "r_y_s = y_s - f_y(OI_norm_s, controls_s)",
+    "graph_residual_test": "r_y_s = alpha_0 + alpha_1*lambda2_resid_s + alpha_2*spectral_radius_resid_s + alpha_3*attack_resid_s + error_s",
+    "current_status": "not met",
+    "same_sample_validation_done": false,
+    "graph_residual_verified": false
+  },
+  "forbidden_controls": {
+    "major_blocks": [
+      "target-as-feature leakage",
+      "same-measurement algebraic transforms",
+      "Wannier/OI self-target leakage",
+      "graph construction metadata leakage",
+      "raw-label baseline prediction leakage",
+      "graph independent claims before OI and null residualization"
+    ],
+    "rule_artifact_from_round3": "current/A/artifacts/C2_forbidden_controls_rules.csv",
+    "status": "declarative safeguards; not a completed validation audit"
+  },
+  "fixed_density_fixed_pair_OI_rule": {
+    "fixed_pair_rule": "If compared samples have the same declared N_pair and pair-set class, use OI_pair_mean = OI_raw_sum / N_pair.",
+    "fixed_density_rule": "If N_pair changes with volume, composition or cutoff, use OI_norm = sum(N_ab*S_ab) / volume and include pair_density as a control or matching variable.",
+    "matching_tolerance_default": "abs(log(pair_density_a/pair_density_b)) <= 0.05 plus predeclared OI_norm tolerance",
+    "failure_action": "If neither fixed-pair nor fixed-density condition is satisfied, graph metrics may be computed as diagnostics but cannot support an independent residual-power claim."
+  },
+  "blocked_validation": {
+    "status": "blocked",
+    "reason": "No row currently contains Srivastava-style OI_norm, executable controls, real graph spectral features, and an independent held-out transport/effective-mass/spectral residual label in the same auditable sample.",
+    "same_sample_validation_done": false,
+    "graph_residual_verified": false,
+    "blocked_sources": [
+      {
+        "source_family": "Srivastava",
+        "status": "baseline_rows_only",
+        "missing": [
+          "structure_id",
+          "graph metrics",
+          "external_residual"
+        ]
+      },
+      {
+        "source_family": "Jankousky",
+        "status": "blocked_provenance",
+        "missing": [
+          "exact structure_id",
+          "same-sample OI_norm",
+          "graph metrics on the same structure",
+          "external label table with sample-level provenance",
+          "train/test residual split"
+        ]
+      },
+      {
+        "source_family": "Furubayashi",
+        "status": "blocked_pending_digitization",
+        "missing": [
+          "digitized transport rows",
+          "sample-level thickness/resistivity/carrier-density/mobility provenance",
+          "same-sample structure or accepted structural proxy",
+          "OI_norm baseline",
+          "graph metrics",
+          "external residual"
+        ]
+      }
+    ]
+  },
+  "INSPECTOR_CHECK": {
+    "formula": {
+      "OI_norm": "sum(N_ab*S_ab)/V for reported Srivastava Table II baseline rows",
+      "OI_pair_mean": "OI_raw_sum/N_pair under fixed declared N_pair and pair-set class",
+      "residual_protocol": "r_y_s = y_s - f_y(OI_norm_s, onsite_variance_s, carrier_density_s, mobility_edge_margin_s, batch_s, finite_size_s)"
+    },
+    "direction": [
+      "At fixed pair sum, increasing volume lowers volume-normalized OI_norm.",
+      "At fixed N_pair, OI_pair_mean is the proper raw-sum normalization.",
+      "Graph metrics are admissible only after OI plus mandatory controls and null residualization."
+    ],
+    "data": {
+      "Srivastava_rows_status": "four reported baseline rows from Table II/Fig. 4 context; not graph validation",
+      "Jankousky_status": "blocked provenance",
+      "Furubayashi_status": "blocked pending digitization",
+      "same_sample_validation_done": false,
+      "graph_residual_verified": false
+    },
+    "assumptions": [
+      "Reported Srivastava rows are used directly rather than recomputed from structures.",
+      "External labels must be same-sample or explicitly provenance-joined.",
+      "Family-level or blocked joins cannot support decisive C2 residual claims.",
+      "Synthetic diagnostics cannot be promoted to material validation."
+    ]
+  }
+}

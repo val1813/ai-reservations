@@ -1,0 +1,556 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "north_star": "LP28-CphiCollapse",
+  "round": 2,
+  "agent": "A",
+  "polaris": "Decide whether eta/P_oe is a leakage-free input-side odd/even bilayer phase-transfer residual or collapses to oxygen, strain, dephasing, orbital, and sample-quality baselines.",
+  "framework": "Bilayer linear response in the normal state. The operational object is the static or low-energy integrated odd/even channel imbalance of a bilayer susceptibility that can be accessed by q_z-resolved magnetic/orbital spectroscopy and residualized against same-sample optical, structural, oxygen, and dephasing baselines.",
+  "findings": "P_oe can be made mathematically well-defined and leakage-free only as a normal-state channel susceptibility ratio, not as a superconducting spin resonance, gap-derived quantity, or Tc-trained latent variable. The cleanest definition is P_oe(q,Omega,T,p) = (chi_odd - chi_even)/(chi_odd + chi_even), where chi_odd and chi_even are nonnegative spectral integrals of the same response channel over a preregistered normal-state energy window. Positive P_oe means odd interlayer transfer dominates; negative P_oe means even/intralayer-like response dominates; near chi_odd + chi_even = 0 the observable is undefined and must be censored rather than regularized into a readiness score. Existing La3Ni2O7 data provide components but not a same-sample full P_oe packet. The best existing reanalysis is ambient-pressure RIXS Fig. 2 and Fig. 4 of Chen et al. 2024 for L/polarization dependence of magnetic excitations and SDW intensity, combined only as a proof-of-extraction proxy, not as pressure-series validation. Oxygen/strain/dephasing covariance can annihilate the residual under realistic small-N pressure datasets unless the experiment uses same-sample repeated pressure points plus an intervention or matched-pair design that decorrelates P_oe from vacancy, strain, and linewidth baselines.",
+  "weakest_link": "No published same-sample normal-state dataset was found that contains q_z-resolved odd/even bilayer susceptibility, c-axis optical/THz spectral weight and scattering rate, oxygen-vacancy maps, strain/structural phase fraction, and dz2/ligand-hole spectral weight on identical La3Ni2O7 specimens or pressure points.",
+  "next_plan": "Round 3 should turn this into a go/no-go threshold table: minimum channel separability, pressure-point count, residual effect size, and covariance limits required before C_phi_ind can be called non-collapsing.",
+  "literature_needed": "La3Ni2O7 pressure RIXS normal state q_z scan; La3Ni2O7 inelastic neutron scattering pressure normal state; La3Ni2O7 c-axis optical conductivity under pressure; high-pressure THz/infrared Drude spectral weight La3Ni2O7; same-sample STEM EELS oxygen vacancies Raman pressure La3Ni2O7; theory constrained bilayer susceptibility even odd channel normal state",
+  "definitions": {
+    "chi_odd": {
+      "operational_definition": "chi_odd(q,Omega,T,p) = integral_{omega_min}^{omega_max} S_odd(q,omega,T,p) / omega d_omega, where S_odd is the antisymmetric bilayer response under layer exchange, extracted from q_z or polarization form factors in the normal state.",
+      "sign": "Nonnegative by construction when extracted from a positive spectral density. Odd dominance means chi_odd > chi_even, not a negative susceptibility.",
+      "preferred_window": "Use T above all superconducting output and above any output-reveal window; for La3Ni2O7 pressure work preregister T >= 120 K or T >= max(Tc_onset + 40 K, 120 K), with sensitivity checks at 150 K and 200 K. Avoid using spectra below Tc or superconducting-gap/resonance energies as labels.",
+      "allowed_raw_sources": [
+        "inelastic neutron or RIXS intensity at q_z values where the bilayer odd form factor sin(q_z*d/2)**2 is large",
+        "polarization-resolved RIXS magnetic/orbital excitations fitted to a bilayer response model",
+        "normal-state Raman modes only as structural/strain covariates unless a calibrated layer-antisymmetric electronic Raman vertex exists"
+      ],
+      "forbidden_sources": [
+        "superconducting spin resonance below Tc",
+        "gap fits",
+        "Tc, zero resistance, Meissner or diamagnetic volume",
+        "models trained to classify superconducting versus nonsuperconducting pressure points"
+      ]
+    },
+    "chi_even": {
+      "operational_definition": "chi_even(q,Omega,T,p) = integral_{omega_min}^{omega_max} S_even(q,omega,T,p) / omega d_omega, where S_even is the symmetric bilayer response under layer exchange, extracted from the complementary q_z or polarization form factor in the same normal-state measurement.",
+      "sign": "Nonnegative by construction. Negative P_oe is allowed and means the even channel dominates.",
+      "same_units_requirement": "chi_even and chi_odd must be extracted from the same response channel, same energy window, same normalization, same sample, same pressure point, and same temperature protocol."
+    },
+    "P_oe": {
+      "definition": "P_oe = (chi_odd - chi_even) / (chi_odd + chi_even)",
+      "sign_convention": "P_oe > 0 means odd/interlayer antisymmetric bilayer response dominates. P_oe = 0 means no odd/even preference. P_oe < 0 means even/symmetric response dominates. Readiness, if used, is signed; abs(P_oe) is a separate anisotropy magnitude and must not be substituted silently.",
+      "regularization_rule": "Do not add epsilon to the denominator in the scientific definition. If chi_odd + chi_even <= denominator_floor, declare P_oe unidentifiable for that row. A plotting-only epsilon may be used but cannot enter inference.",
+      "denominator_floor": "denominator_floor = max(5*sigma_chi_sum, instrument_background_floor), preregistered before output reveal",
+      "singular_limits": [
+        {
+          "case": "chi_odd == chi_even > 0",
+          "expected": "P_oe = 0"
+        },
+        {
+          "case": "chi_even -> 0 and chi_odd > 0",
+          "expected": "P_oe -> 1"
+        },
+        {
+          "case": "chi_odd -> 0 and chi_even > 0",
+          "expected": "P_oe -> -1"
+        },
+        {
+          "case": "chi_odd + chi_even -> 0",
+          "expected": "undefined; censor row, do not rank"
+        },
+        {
+          "case": "chi_odd and chi_even both scaled by lambda > 0",
+          "expected": "P_oe invariant"
+        }
+      ]
+    },
+    "eta": {
+      "round2_definition": "eta is the component of normal-state input response not spanned by baseline vector B_base after P_oe is extracted independently. If P_oe is not independently measurable, eta remains unidentified and collapses operationally."
+    }
+  },
+  "measurement_route": {
+    "primary_route": {
+      "name": "normal-state q_z-resolved RIXS or inelastic neutron odd/even extraction plus same-sample optical/structure baselines",
+      "raw_observable": "I(q_parallel,q_z,omega; polarization,T,p) in the normal state",
+      "model": "I(q_z,omega) = A(q,omega)*(chi_even(q,omega)*cos(q_z*d/2)**2 + chi_odd(q,omega)*sin(q_z*d/2)**2) + background(q_z,omega)",
+      "extraction_steps": [
+        "Measure the same crystal or film at multiple q_z values that weight cos(q_z*d/2)**2 and sin(q_z*d/2)**2 differently.",
+        "Fit chi_even(q,omega) and chi_odd(q,omega) with shared resolution, self-absorption, and background parameters.",
+        "Integrate each fitted spectral function over a preregistered normal-state window such as 20-120 meV for magnetic excitations, excluding elastic leakage and superconducting resonance/gap windows.",
+        "Compute P_oe and its uncertainty by bootstrap or posterior sampling.",
+        "On the same sample/pressure point, measure W_c, f_D, gamma, V_O, epsilon_strain, Z_dz2, and remove them by preregistered residualization."
+      ],
+      "leakage_exclusion": "The fit cannot use superconducting labels, pressure points chosen because they later become superconducting, gap magnitude, zero resistance, diamagnetism, or post-hoc Tc ranks.",
+      "status": "conceptually valid but not yet demonstrated as a same-sample pressure-series packet in La3Ni2O7"
+    },
+    "secondary_routes": [
+      {
+        "modality": "RIXS",
+        "use": "Most practical near-term channel probe because La3Ni2O7 ambient-pressure RIXS already resolves magnetic excitations, SDW order, polarization dependence, and L dependence.",
+        "limitation": "Current ambient-pressure data do not provide a high-pressure normal-state odd/even pressure series, and pressure-cell RIXS is technically hard."
+      },
+      {
+        "modality": "inelastic neutron scattering",
+        "use": "Cleanest formal odd/even bilayer separation through q_z form factors, established in bilayer systems.",
+        "limitation": "Requires large high-quality crystals and high-pressure neutron feasibility; not currently a complete La3Ni2O7 pressure route."
+      },
+      {
+        "modality": "Raman",
+        "use": "Good for structural phase fraction, Raman-active phonon renormalization, strain gradients, and pressure hydrostaticity covariates.",
+        "limitation": "Not sufficient by itself for chi_odd/chi_even unless a calibrated electronic Raman vertex with layer parity is established. Treat as baseline, not P_oe, in Round 2."
+      },
+      {
+        "modality": "THz/c-axis optical or infrared",
+        "use": "Measures W_c, f_D, and gamma, the main c-axis coherence baselines to condition out.",
+        "limitation": "Cannot by itself distinguish odd versus even bilayer susceptibility; using it alone collapses to prior-art c-axis coherence."
+      },
+      {
+        "modality": "theory-constrained fit",
+        "use": "Allowed only if the Hamiltonian and bilayer form factors are fixed from normal-state structural/orbital data and validated by normal-state RIXS/neutron/Raman/optical spectra.",
+        "limitation": "If the theory fit is selected using superconducting pairing symmetry or output performance, it leaks and is invalid."
+      }
+    ],
+    "normal_state_packet": {
+      "minimum_rows": "At least 8 same-sample pressure or strain rows, and preferably 12-20, before any output labels are opened.",
+      "per_row_fields": [
+        "pressure_or_strain",
+        "temperature",
+        "chi_odd",
+        "sigma_chi_odd",
+        "chi_even",
+        "sigma_chi_even",
+        "P_oe",
+        "W_c",
+        "f_D",
+        "gamma",
+        "V_O",
+        "epsilon_strain",
+        "Z_dz2",
+        "structural_phase_fraction",
+        "hydrostaticity_or_linewidth_proxy"
+      ],
+      "output_fields_excluded": [
+        "Tc",
+        "zero_resistance",
+        "Meissner_fraction",
+        "superconducting_gap",
+        "Andreev_signal",
+        "spin_resonance_below_Tc"
+      ]
+    }
+  },
+  "same_sample_data_status": {
+    "same_sample_complete_packet_exists": false,
+    "basis": "paper-search-mcp searches found component measurements and theory, but no single same-sample normal-state La3Ni2O7 dataset containing q_z-resolved chi_odd/chi_even, c-axis optical baselines, oxygen maps, strain/structure, dephasing, and dz2/ligand-hole proxies.",
+    "existing_figures_for_reanalysis": [
+      {
+        "paper": "Chen et al. 2024, Electronic and magnetic excitations in La3Ni2O7, arXiv:2401.12657",
+        "figures": [
+          "Fig. 2a-b: momentum-resolved magnetic excitation dispersion and DHO peak positions; reanalyze as normal-state spectral weight window, not P_oe alone.",
+          "Fig. 2c: L scan of RIXS spectra at q_parallel=(0.035,0.035); candidate q_z form-factor check for odd/even weighting.",
+          "Fig. 2d: polarimetric RIXS at q=(0.035,0.035,2.727); separates magnetic from phonon leakage.",
+          "Fig. 4c-d: incident-energy and polarization dependence of the SDW peak; candidate dz2/interlayer orbital sensitivity proxy.",
+          "Fig. 4e-i: L scan and temperature dependence of SDW peak area/correlation length; useful for normal-state channel and ordering baseline."
+        ],
+        "can_validate_P_oe": false,
+        "reason": "Ambient-pressure low-temperature SDW/magnon data do not supply a pressure-series chi_odd/chi_even extraction or same-sample optical/oxygen baselines."
+      },
+      {
+        "paper": "Dong et al. 2024, Visualization of oxygen vacancies and self-doped ligand holes in La3Ni2O7-delta, Nature 630, 847-852",
+        "figures": [
+          "Fig. 2d-i: oxygen-vacancy concentration regions and histograms; reanalyze V_O and heterogeneity.",
+          "Fig. 3a: O-K edge EELS versus oxygen vacancy concentration; reanalyze ligand-hole proxy.",
+          "Fig. 4a-b: site-resolved O-K EELS and DFT EELS; reanalyze inner apical/planar orbital baseline.",
+          "Fig. S6: Ni-O bond-length statistics versus vacancy region; reanalyze strain/vacancy covariance.",
+          "Fig. S9: transport characterization of the same crystal; output-contaminated for validation and should be sealed away from P_oe extraction."
+        ],
+        "can_validate_P_oe": false,
+        "reason": "Excellent oxygen/orbital baseline, but no chi_odd/chi_even spectroscopy on the same measured regions."
+      },
+      {
+        "paper": "Zhang et al. 2025, Identifying the structure of La3Ni2O7 in the pressurized superconducting state, arXiv:2511.15265",
+        "figures": [
+          "Fig. 2: pressure-dependent Raman spectra; reanalyze structural transition and phonon-linewidth baselines.",
+          "Fig. 3f-i: pressure evolution of Raman shifts, intensities, and FWHM; reanalyze epsilon_strain and structural phase fraction.",
+          "Fig. S3: temperature-dependent Raman spectra at 5 and 17 GPa; normal-state structural stability check."
+        ],
+        "can_validate_P_oe": false,
+        "reason": "Useful same-batch structural/strain covariate, but Raman alone does not define chi_odd/chi_even."
+      },
+      {
+        "paper": "Boetzel, Lechermann, Gondolf, Eremin 2024, Phys. Rev. B 109, L180502",
+        "figures": [
+          "Fig. 1c,e: calculated normal-state even and odd static RPA susceptibilities; use to define target q points and sign convention.",
+          "Supplementary Fig. S1: non-interacting even/odd static susceptibilities; use as model-dependence baseline."
+        ],
+        "can_validate_P_oe": false,
+        "reason": "Theory-only; useful for preregistering q points and channel decomposition, not an experimental same-sample measurement."
+      }
+    ]
+  },
+  "covariance_annihilation_test": {
+    "question": "Can oxygen/strain/dephasing covariance annihilate the residual P_oe after conditioning?",
+    "answer": "Yes, with current or likely small-N data it can. A nonzero C_phi_ind survives only if P_oe retains cross-validated residual variance and rank discordance after oxygen vacancy, strain/phase fraction, scattering linewidth, c-axis spectral weight, Drude fraction, and dz2/ligand-hole proxies are measured on the same rows.",
+    "baseline_vector": "B_base = [z(W_c), z(f_D), z(gamma), z(V_O), z(epsilon_strain), z(Z_dz2), z(structural_phase_fraction)]",
+    "residual_definition": "C_phi_ind = P_oe - predict(P_oe | B_base)",
+    "annihilation_criterion": "Declare baseline collapse if cross_validated_R2(P_oe ~ B_base) >= 0.85 and abs(mean(C_phi_ind))/sigma_P_oe <= 0.2 and no preregistered matched-pair rank inversion survives uncertainty.",
+    "survival_criterion": "Declare provisional survival only if cross_validated_R2 <= 0.65 or residual_rank_discordance is stable under leave-one-pressure-out, with abs(C_phi_ind) >= 2*sigma_residual for at least two matched pairs.",
+    "realistic_small_N_warning": "If N_pressure_rows <= 8 and B_base has six or more covariates, ordinary regression can overfit. Use shrinkage, leave-one-pressure-out prediction, and preregistered covariate blocks; otherwise apparent residuals are not credible.",
+    "numerical_stress_test": {
+      "case_annihilated": {
+        "sigma_P_oe": 0.20,
+        "R2_from_oxygen_strain_dephasing_block": 0.90,
+        "sigma_residual": 0.063,
+        "typical_measurement_sigma": 0.05,
+        "interpretation": "Residual is comparable to measurement error; do not claim independent C_phi."
+      },
+      "case_survives": {
+        "sigma_P_oe": 0.20,
+        "R2_from_full_baseline": 0.55,
+        "sigma_residual": 0.134,
+        "typical_measurement_sigma": 0.05,
+        "interpretation": "Residual is larger than error and may survive if matched-pair rank inversion is stable."
+      }
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A leakage-free P_oe is definable only from normal-state odd/even bilayer spectral susceptibilities measured before superconducting output reveal.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "P_oe = (chi_odd - chi_even) / (chi_odd + chi_even)",
+          "variables": {
+            "P_oe": "signed odd-even bilayer channel imbalance",
+            "chi_odd": "normal-state odd-channel spectral susceptibility integral",
+            "chi_even": "normal-state even-channel spectral susceptibility integral"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "chi_odd",
+              "to": "chi_even",
+              "expected": "0",
+              "desc": "no odd/even preference"
+            },
+            {
+              "variable": "chi_even",
+              "to": "0",
+              "expected": "1",
+              "desc": "pure odd channel"
+            },
+            {
+              "variable": "chi_odd",
+              "to": "0",
+              "expected": "-1",
+              "desc": "pure even channel"
+            },
+            {
+              "variable": "chi_odd + chi_even",
+              "to": "0",
+              "expected": "undefined",
+              "desc": "unidentifiable denominator; censor row"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "chi_odd": 1.4,
+              "chi_even": 0.8
+            },
+            "expected_range": [
+              0.27,
+              0.28
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/PhysRevB.109.L180502",
+          "label": "Boetzel et al. 2024"
+        },
+        {
+          "doi": "10.48550/arxiv.2401.12657",
+          "label": "Chen et al. 2024 RIXS"
+        }
+      ],
+      "assumptions": [
+        "The measured spectral functions are positive and identically normalized.",
+        "The extraction uses only normal-state spectra."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The bilayer form-factor route provides an operational odd/even decomposition: I(q_z) can be fitted as chi_even*cos(q_z*d/2)**2 + chi_odd*sin(q_z*d/2)**2 plus background.",
+      "confidence": 0.74,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "I_qz = A * (chi_even*cos(q_z*d/2)**2 + chi_odd*sin(q_z*d/2)**2) + bg",
+          "variables": {
+            "I_qz": "measured normal-state intensity at q_z",
+            "A": "scale factor",
+            "chi_even": "even-channel susceptibility",
+            "chi_odd": "odd-channel susceptibility",
+            "q_z": "out-of-plane momentum transfer",
+            "d": "intra-bilayer layer separation",
+            "bg": "background"
+          },
+          "units": "intensity units",
+          "limits": [
+            {
+              "variable": "q_z*d/2",
+              "to": "0",
+              "expected": "A*chi_even + bg",
+              "desc": "even form factor selected"
+            },
+            {
+              "variable": "q_z*d/2",
+              "to": "pi/2",
+              "expected": "A*chi_odd + bg",
+              "desc": "odd form factor selected"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "A": 2.0,
+              "chi_even": 0.7,
+              "chi_odd": 1.3,
+              "q_z": 1.0,
+              "d": 3.141592653589793,
+              "bg": 0.1
+            },
+            "expected_range": [
+              2.69,
+              2.71
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/PhysRevB.109.L180502",
+          "label": "Boetzel et al. Eq. 7 and Fig. 1"
+        },
+        {
+          "doi": "10.1103/PhysRevB.75.184534",
+          "label": "Eremin et al. 2007 bilayer cuprate odd/even susceptibility"
+        }
+      ],
+      "assumptions": [
+        "q_z resolution and self-absorption corrections are sufficient.",
+        "The same spectral channel is measured at all q_z points."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "No complete same-sample leakage-free P_oe dataset for La3Ni2O7 was found; existing figures can only support proxy extraction and baseline construction.",
+      "confidence": 0.78,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.48550/arxiv.2401.12657",
+          "label": "Chen et al. 2024 RIXS"
+        },
+        {
+          "doi": "10.1038/s41586-024-07482-1",
+          "label": "Dong et al. 2024 oxygen vacancies"
+        },
+        {
+          "doi": "10.48550/arxiv.2511.15265",
+          "label": "Zhang et al. 2025 high-pressure Raman"
+        },
+        {
+          "doi": "10.48550/arxiv.2406.04837",
+          "label": "Wang et al. 2024 review"
+        }
+      ],
+      "assumptions": [
+        "paper-search-mcp coverage is adequate for Round 2 triage.",
+        "Search misses are possible, but no direct complete packet appeared in targeted modality searches."
+      ]
+    },
+    {
+      "id": "C4",
+      "statement": "Oxygen, strain, and dephasing covariance can annihilate P_oe under realistic small-N conditions; survival requires same-sample residual rank discordance after cross-validated conditioning.",
+      "confidence": 0.86,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3",
+          "expression": "C_phi_ind = P_oe - predict(P_oe, B_base)",
+          "variables": {
+            "C_phi_ind": "baseline-conditioned residual",
+            "P_oe": "odd-even imbalance",
+            "B_base": "baseline matrix of z-scored W_c, f_D, gamma, V_O, epsilon_strain, Z_dz2, structural_phase_fraction"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "predict(P_oe, B_base)",
+              "to": "P_oe",
+              "expected": "0",
+              "desc": "complete annihilation by baselines"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "P_oe": 0.30,
+              "predict(P_oe, B_base)": 0.27
+            },
+            "expected_range": [
+              0.029,
+              0.031
+            ]
+          }
+        },
+        {
+          "label": "F4",
+          "expression": "sigma_residual = sigma_P_oe * sqrt(1 - R2_baseline)",
+          "variables": {
+            "sigma_residual": "residual standard deviation after conditioning",
+            "sigma_P_oe": "unconditioned P_oe standard deviation",
+            "R2_baseline": "cross-validated baseline explanatory power"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "R2_baseline",
+              "to": "1",
+              "expected": "0",
+              "desc": "baseline fully explains P_oe"
+            },
+            {
+              "variable": "R2_baseline",
+              "to": "0",
+              "expected": "sigma_P_oe",
+              "desc": "baseline explains none of P_oe"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "sigma_P_oe": 0.20,
+              "R2_baseline": 0.90
+            },
+            "expected_range": [
+              0.062,
+              0.064
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41586-024-07482-1",
+          "label": "Dong et al. 2024"
+        },
+        {
+          "doi": "10.48550/arxiv.2511.15265",
+          "label": "Zhang et al. 2025 Raman pressure"
+        },
+        {
+          "doi": "10.1038/s41567-024-02754-z",
+          "label": "Khasanov et al. 2025 pressure split density-wave transitions"
+        }
+      ],
+      "assumptions": [
+        "Covariates are measured before superconducting output labels are opened.",
+        "Cross-validation, not in-sample R2, controls the annihilation call."
+      ]
+    },
+    {
+      "id": "C5",
+      "statement": "THz/c-axis optical data are necessary baselines for W_c, f_D, and gamma, but they cannot by themselves define eta/P_oe without a channel-sensitive odd/even spectroscopy.",
+      "confidence": 0.83,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F5",
+          "expression": "f_D = W_D / W_c",
+          "variables": {
+            "f_D": "c-axis Drude fraction",
+            "W_D": "Drude spectral weight",
+            "W_c": "low-energy c-axis spectral weight"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "W_D",
+              "to": "0",
+              "expected": "0",
+              "desc": "no coherent Drude channel"
+            },
+            {
+              "variable": "W_D",
+              "to": "W_c",
+              "expected": "1",
+              "desc": "all c-axis low-energy weight is Drude-like"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "W_D": 0.18,
+              "W_c": 0.60
+            },
+            "expected_range": [
+              0.29,
+              0.31
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.48550/arxiv.2406.04837",
+          "label": "Wang et al. 2024 review of optical and spectroscopic needs"
+        },
+        {
+          "doi": "10.1038/s41467-024-54518-1",
+          "label": "Meng et al. 2024 ultrafast optical density-wave gap"
+        }
+      ],
+      "assumptions": [
+        "Optical spectral weights are extracted from normal-state data.",
+        "No superconducting condensate or gap label is used."
+      ]
+    }
+  ],
+  "inspector_warning_handling": {
+    "A_round1_warning_1_standardized_covariates": "Fixed: residual formula now uses B_base with z-scored covariates and predict(P_oe | B_base).",
+    "A_round1_warning_2_sign": "Fixed: P_oe is signed; negative means even-channel dominance.",
+    "A_round1_warning_3_singular_limit": "Fixed: chi_odd + chi_even near zero is undefined and censored.",
+    "A_round1_warning_4_claim_inflation": "Fixed: P_oe is a candidate discriminator, not a proven minimal invariant.",
+    "A_round1_warning_5_leakage_free_protocol": "Fixed: raw observables, allowed modalities, forbidden labels, and fitting route specified.",
+    "A_round1_warning_6_same_sample_data": "Fixed: no complete same-sample packet found; exact reanalysis figures listed.",
+    "A_round1_warning_7_covariance_annihilation": "Fixed: explicit annihilation and survival criteria plus numerical stress test included."
+  },
+  "deepening": {
+    "deepening_1_next_consequence": "If P_oe survives baseline conditioning, C_phi is not a scalar interlayer metallicity; it is a layer-parity-selective response of the bilayer phase bus.",
+    "deepening_1_second_consequence": "That would predict pressure or strain protocols that improve odd-channel phase readiness even when total c-axis spectral weight or Drude fraction is unchanged.",
+    "deepening_2_weak_premise": "The weakest premise is that normal-state q_z/polarization spectroscopy can identify chi_odd and chi_even with enough precision under pressure.",
+    "deepening_2_second_consequence": "If this premise fails, eta is not experimentally identifiable and C_phi collapses operationally even if a microscopic odd/even theory remains meaningful."
+  },
+  "search_tool_self_check": {
+    "used_paper_search_mcp_first": true,
+    "websearch_downgrade": false,
+    "queries": [
+      "La3Ni2O7 bilayer odd even spin susceptibility RIXS neutron Raman pressure normal state",
+      "La3Ni2O7 resonant inelastic x-ray scattering spin excitations RIXS bilayer nickelate",
+      "La3Ni2O7 Raman spectroscopy density wave pressure phonon normal state",
+      "La3Ni2O7 optical conductivity infrared THz pressure c-axis Drude spectral weight",
+      "La3Ni2O7 oxygen vacancies stoichiometry ligand holes superconductivity pressure measurement",
+      "La3Ni2O7 neutron scattering spin waves bilayer odd even acoustic optical magnetic excitations",
+      "Botzel Lechermann Eremin La3Ni2O7 even odd spin susceptibility bilayer",
+      "La3Ni2O7 high pressure Raman structure I4/mmm figures phonon pressure 2025",
+      "La3Ni2O7 XANES orbital dz2 pressure ligand holes figure"
+    ],
+    "read_papers": [
+      "arXiv:2401.16151",
+      "arXiv:2401.12657",
+      "arXiv:2312.15727",
+      "arXiv:2406.04837",
+      "arXiv:2511.15265",
+      "arXiv:2503.12412"
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+column_name,required,example,field_group,provenance_rule
+sample_id,true,LP29_sample_0001,join_key,Primary same-sample join key shared by structure descriptors graph metrics controls and labels.
+material_id,true,aIn2O3_lit_0001,join_key,Stable material identifier; must not encode target value.
+structure_id,true,AIMD_cell_0001,join_key,Atomistic structure used to compute graph descriptors.
+snapshot_id,true,snap_020ps,join_key,Same-sample snapshot or declared averaged snapshot window.
+seed,false,1001,join_key,Required for synthetic or simulation ensembles; optional for literature rows.
+label_family,true,good_transport,join_key,Allowed classes good_transport bad_localization_or_scattering diagnostic_synthetic declared_extension.
+label_name,true,hall_mobility,label,One of Hall Drude Wannier_QSGW spectral_IPR linewidth ridge_coherence level_statistics or declared extension.
+label_provenance_id,true,LBL-HALL-JANKOUSKY-001,provenance,Unique label provenance key; required in sample key and all joined validation tables.
+label_value,true,3.0,label,Numeric external label value.
+label_unit,true,cm2_per_Vs,label,Required physical unit or declared dimensionless diagnostic unit.
+label_direction_class,true,good_label,label,Allowed values good_label bad_label diagnostic_only; fixes expected graph-feature signs before fitting.
+label_method,true,experiment_Hall_300K,provenance,Measurement or calculation method must be explicit.
+label_source_type,true,experiment,provenance,Allowed values experiment independent_DFT independent_QSGW independent_Wannier literature diagnostic_synthetic forbidden_graph_generated.
+source_citation_or_doi,true,10.1038/s41567-025-03099-x,provenance,DOI citation or internal report identifier.
+source_url_or_path,false,D:\data\LP29\labels\hall.csv,provenance,Path or URL for audit trail.
+measurement_or_calculation_date,false,2026-06-04,provenance,ISO date when available.
+is_external_to_graph_proxy,true,true,protection,Must be true for material validation labels.
+synthetic_label_flag,true,false,protection,True rows are diagnostic only and excluded from material claims.
+material_validation_allowed,true,true,protection,May be true only when synthetic_label_flag is false and forbidden_if_graph_generated is false.
+forbidden_if_graph_generated,true,false,protection,True means diagnostic only and excluded from material validation.
+graph_convention_provenance_id,true,GRAPH-C2-R2-LSYM-BUDGET-ATTACK,graph_provenance,Foreign key to graph-convention record locked before labels are read.
+OI_formula_source,true,Srivastava_or_declared_surrogate,graph_provenance,Source of orbital-overlap formula; must state surrogate status if not exact reproduction.
+OI_ref_value,true,1.0,graph_provenance,Reference overlap value used in w_ij=max(0 OI_ij/OI_ref).
+graph_cutoff_rule,true,predeclared_structural_orbital_cutoff,graph_provenance,Edge inclusion rule fixed before labels are read.
+laplacian_convention,true,L_sym=I-D^-1/2 A_w D^-1/2,graph_provenance,Primary lambda_2 convention; cannot mix with unnormalized coefficients.
+rho_convention,true,spectral_radius(A_w/S_w),graph_provenance,Budget-normalized spectral radius convention.
+attack_matching_rule,true,deleted_weight_or_edge_count_matched,graph_provenance,Matched random attack rule and random seed policy.
+B0_OI_norm_source,true,computed_from_same_structure,control_source,Source of overlap-budget baseline control.
+B0_OI_norm_missingness,true,present,control_missingness,Allowed values present missing not_applicable; missing requires predeclared imputation/exclusion.
+B0_OI_norm_forbidden_control,false,false,forbidden_control_audit,Must be false unless algebraically derived from target label.
+B0_onsite_variance_source,true,DFT_or_declared_surrogate,control_source,Source of onsite disorder control.
+B0_onsite_variance_missingness,true,present,control_missingness,Allowed values present missing not_applicable.
+B0_onsite_variance_forbidden_control,false,false,forbidden_control_audit,Must be checked against target-family leakage.
+B0_carrier_density_source,true,independently_measured_or_missing,control_source,Required for Hall/Drude when available; cannot be inverted from target mobility.
+B0_carrier_density_missingness,true,present_or_missing,control_missingness,Allowed values present missing not_applicable.
+B0_carrier_density_forbidden_control,true,false,forbidden_control_audit,True if inferred by inverting the same target; such rows cannot use it as control.
+B0_mobility_edge_margin_source,true,independent_calculation_or_missing,control_source,Source of mobility-edge margin control if used.
+B0_mobility_edge_margin_missingness,true,present_or_missing,control_missingness,Allowed values present missing not_applicable.
+B0_mobility_edge_margin_forbidden_control,true,false,forbidden_control_audit,True if derived from the target label or same target fit.
+B0_finite_size_source,true,structure_metadata,control_source,Finite-size/source metadata for baseline control.
+B0_finite_size_missingness,true,present,control_missingness,Allowed values present missing not_applicable.
+B0_finite_size_forbidden_control,false,false,forbidden_control_audit,Usually false; audit if sample size encodes target measurement settings.
+B0_batch_or_family_source,true,literature_or_workflow_metadata,control_source,Batch/family source for blocking and nuisance control.
+B0_batch_or_family_missingness,true,present,control_missingness,Allowed values present missing not_applicable.
+B0_batch_or_family_forbidden_control,true,false,forbidden_control_audit,True if batch encodes target measurement settings or post-target selection.
+label_forbidden_control_audit,true,passed,forbidden_control_audit,Target-family audit summary passed failed or diagnostic_only.
+provenance_confidence,true,high,provenance,Allowed values high medium low.
+notes,false,convention locked before model fit,audit,Free text audit notes.

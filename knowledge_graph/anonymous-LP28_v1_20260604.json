@@ -1,0 +1,55 @@
+{
+  "id": "anonymous-LP28",
+  "version": 1,
+  "date": "2026-06-04",
+  "project": {
+    "lp": "LP28",
+    "name": "NickelateLayerDecoupling",
+    "title": "RP nickelate three-gate materials design route",
+    "contributor": {
+      "orcid": "anonymous",
+      "github": "anonymous",
+      "name": "anonymous contributor"
+    }
+  },
+  "status": "bounded_protocol",
+  "core_claim": "Nickelate superconductivity design should be tested as a three-gate route: pairing reservoir, recoverable orbital phase bus, and independent bulk phase output.",
+  "not_claimed": [
+    "I_phi is a validated predictor",
+    "DW disappearance is sufficient for bulk superconductivity",
+    "zero resistance alone proves bulk superconductivity",
+    "interlayer coherence or dz2-pz-dz2 hybridization is novel to LP28"
+  ],
+  "input_side_index": {
+    "name": "I_phi",
+    "formula": "E_z2*C_phi/(k_B*T + hbar*Gamma_phi + E_floor)",
+    "role": "pre-registered candidate input-side index",
+    "requires": [
+      "E_z2 unit protocol",
+      "C_phi connectivity protocol",
+      "Gamma_phi rate/linewidth protocol",
+      "E_floor preregistration",
+      "no bulk output variables in the predictor"
+    ]
+  },
+  "bulk_output": [
+    "shielding",
+    "Meissner response",
+    "vortex-sensitive response",
+    "THz phase stiffness",
+    "Josephson-like response"
+  ],
+  "next_priority": "LP28-S1",
+  "next_priority_question": "Can I_phi be preregistered independently of bulk output and tested on a same-sample pressure axis?",
+  "evidence_status": {
+    "ambient_dw_layer_decoupling_baseline": "supported",
+    "pressure_sc_adjacency": "supported as motivation",
+    "phase_bus_recovery_mechanism": "not verified"
+  },
+  "files": {
+    "project_root": "D:\\\\Claude\\\\ai-reservations\\\\LP28-NickelateLayerDecoupling",
+    "final_synthesis": "current\\\\synthesis\\\\pi_final_synthesis.md",
+    "reviewer_final": "current\\\\synthesis\\\\reviewer_final.md",
+    "queue": "project\\\\北极星队列.md"
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "project": "LP28",
+  "round": 1,
+  "agent": "B",
+  "polaris": "RP镍酸盐中 DW 层解耦是否是超导前体还是超导抑制器？",
+  "framework": "计算机科学：分布式系统共识、网络分区与纠错码阈值",
+  "findings": "把三层 La4Ni3O10 视为需要达成全局相位共识的分布式节点。静态 DW 的核心作用不是提供胶水，而是在 Ni dz2 层间通道上制造网络分区，使每个 Ni-O 层可以局部有序但无法形成三维相位刚性。因此静态 DW 是 bulk superconductivity 的抑制器；只有临界、短寿命、未冻结 dz2 占据的 DW 涨落，才可能作为前体。关键判据不是 DW 是否存在，而是 DW 是否降低层间互信息/有效层间传输谱权。",
+  "math_object": "分布式共识中的 network partition 与 quorum certificate；深化到纠错码阈值：只有跨层校验边密度超过阈值时，局部相位错误才可被全局纠正。物理映射为层间相干参数 Lambda = hbar*t_perp_eff/(k_B*T + hbar*Gamma_DW)，当 Lambda 小于临界阈值 Lambda_c 时，系统可有局部配对涨落但不能建立 bulk 三维超导。",
+  "strangest_prediction": "在 La4Ni3O10 中，如果用泵浦、压力或应变选择性恢复 dz2 层间通道，即使 DW 振幅尚未完全消失，也应先出现 c-axis 低频光谱权重恢复；bulk Tc 或 Meissner 体积分数随后才上升。反过来，若只熔化 DW 峰但 rho_c/rho_ab 仍大于约 10^3，则不会出现真正 bulk superconductivity，只会出现短寿命或二维样的配对迹象。",
+  "a_objection": "保守凝聚态框架会反对：DW 和 superconductivity 相邻已经说明 DW 涨落可能是 pairing glue，不能把静态 DW 直接判作抑制器。我的回应是：glue 与 global phase quorum 是两个不同层级；前者可局部增强配对，后者决定是否形成 bulk superconductivity。PRL 2026 的 rho_c/rho_ab 从约 70 增至约 2600 正好显示静态 DW 破坏的是 quorum 通道。",
+  "failed_jumps": [
+    "音乐理论/对位法：能类比多声部独立与和声闭合，但无法给出可操作的物理阈值或可量化观测量，放弃。",
+    "地质学/断层封闭：能类比层间滑移和渗流阻断，但缺少与 dz2 轨道占据、低频光谱权重直接同构的数学对象，暂不采用。"
+  ],
+  "next_plan": "Round 2 若继续，应比较三类扰动的排序：c-axis pressure、in-plane pressure、ultrafast DW melting。若我的框架正确，增强层间通道的扰动应优先提升 superconducting volume fraction，而不必先完全消除 DW 振幅。",
+  "literature_needed": "La4Ni3O10 pressure anisotropic transport rho_c/rho_ab superconductivity; polarized infrared La4Ni3O10 pressure DW; pump probe La4Ni3O10 density wave melt c-axis conductivity; uniaxial strain Ruddlesden-Popper nickelate superconductivity interlayer coherence",
+  "deepening": {
+    "level_1_isomorphism": "分布式系统中，网络分区允许每个 partition 内部达成局部一致，但禁止全局共识。映射到 RP 镍酸盐：DW 可以允许单层或双层内局部配对/磁电有序，却通过 dz2 占据重分布阻断跨层相位一致。",
+    "level_2_deeper_structure": "纠错码阈值提供更深层结构：超导相位刚性像跨层校验边组成的码距。DW 若移除 dz2 边，相当于降低校验矩阵秩；当最小跨层校验边密度低于阈值，局部相位错误无法被纠正，bulk stiffness 消失。",
+    "translation_failure_boundary": "该映射不声称 superconductivity 是计算过程；只借用 partition/quorum/threshold 的数学结构。它不能预测 pairing symmetry，只预测层间相干、各向异性和 bulk 体积分数之间的方向关系。"
+  },
+  "predictions": [
+    {
+      "id": "P1",
+      "system": "La4Ni3O10 single crystal or epitaxial film near ambient-pressure DW transition",
+      "observable": "rho_c/rho_ab and low-frequency c-axis optical spectral weight integrated below 40 meV",
+      "expected": "Entering the static DW phase should increase rho_c/rho_ab from order 10^2 toward order 10^3 while suppressing c-axis Drude/small-polaron spectral weight. If superconductivity later appears under pressure while rho_c/rho_ab remains above 10^3, it should be non-bulk or filamentary; bulk Meissner fraction should require anisotropy reduced below roughly 10^2-10^3.",
+      "test_type": "existing PRL 2026 data plus pressure transport/optics cross-check"
+    },
+    {
+      "id": "P2",
+      "system": "Pressurized La4Ni3O10 across the DW-collapse/superconductivity boundary reported in Nat Commun 2025",
+      "observable": "pressure derivative sequence of DW amplitude, rho_c/rho_ab, and Tc or superconducting volume fraction",
+      "expected": "The first robust superconducting signal should track recovery of interlayer coherence more tightly than disappearance of the DW amplitude. A pressure point with reduced anisotropy but residual DW order can still superconduct; a pressure point with collapsed DW peak but unresolved high anisotropy should not show bulk superconductivity.",
+      "test_type": "compare pressure-dependent transport, ultrafast DW amplitude, and magnetic shielding"
+    },
+    {
+      "id": "P3",
+      "system": "Ultrafast pump-probe La4Ni3O10 below T_DW with probe polarization along c and ab",
+      "observable": "time-resolved Delta sigma_c(omega<40 meV), Delta sigma_ab, and out-of-plane phonon splitting",
+      "expected": "A nonthermal DW melt should produce a positive Delta sigma_c before any long-lived superconducting stiffness signal. The ratio Delta sigma_c/Delta sigma_ab should be strongly positive and peak while out-of-plane phonon splitting collapses. If only Delta sigma_ab grows and sigma_c remains suppressed, the pump has created local precursor correlations but not a superconducting route.",
+      "test_type": "new experiment"
+    },
+    {
+      "id": "P4",
+      "system": "La4Ni3O10 under uniaxial c-axis compression compared with mostly in-plane strain at fixed carrier count",
+      "observable": "change in rho_c/rho_ab, T_DW, and superconducting onset/volume fraction",
+      "expected": "c-axis compression should enhance superconducting signatures more efficiently than in-plane strain if it restores dz2-mediated quorum edges. The decisive sign is d(rho_c/rho_ab)/d epsilon_c < 0 accompanied by increased superconducting volume fraction even when T_DW changes weakly.",
+      "test_type": "new strain experiment"
+    }
+  ],
+  "inspector_check": {
+    "formula": "Lambda = hbar*t_perp_eff/(k_B*T + hbar*Gamma_DW), dimensionless. A bulk coherence threshold is Lambda > Lambda_c.",
+    "direction": "Static DW suppresses bulk superconductivity when it lowers t_perp_eff or raises Gamma_DW enough to push Lambda below threshold; fluctuating DW can be precursor only if it does not reduce Lambda.",
+    "data": "PRL 136, 216501 (2026): La4Ni3O10 DW phase suppresses c-axis conductivity and raises rho_c/rho_ab from about 70 to about 2600; Nat Commun 2025 reports DW collapse with superconductivity emergence under pressure.",
+    "assumptions": "rho_c/rho_ab and c-axis low-frequency spectral weight are adequate proxies for interlayer coherence; bulk superconductivity in RP nickelates requires nonzero 3D phase stiffness; pressure does not introduce a completely unrelated superconducting channel."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "Static DW order in La4Ni3O10 is a superconductivity suppressor at the bulk-coherence level because it partitions the trilayer network by reducing dz2-mediated interlayer coherence.",
+      "confidence": 0.72,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "hbar*t_perp_eff/(k_B*T + hbar*Gamma_DW)",
+          "description": "Dimensionless interlayer quorum parameter Lambda; bulk superconducting phase stiffness requires Lambda above a threshold.",
+          "variables": {
+            "hbar": "reduced Planck constant",
+            "t_perp_eff": "effective interlayer hopping rate, s**-1",
+            "k_B": "Boltzmann constant",
+            "T": "temperature, K",
+            "Gamma_DW": "DW-induced dephasing or partition rate, s**-1"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "t_perp_eff",
+              "to": "0",
+              "expected": "0",
+              "desc": "Full layer partition limit; no bulk interlayer quorum."
+            },
+            {
+              "variable": "Gamma_DW",
+              "to": "oo",
+              "expected": "0",
+              "desc": "Strong static DW dephasing suppresses bulk coherence."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "hbar": 1.054e-34,
+              "t_perp_eff": 1.0e13,
+              "k_B": 1.381e-23,
+              "T": 50,
+              "Gamma_DW": 1.0e13
+            },
+            "expected_range": [
+              0.1,
+              10.0
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/PhysRevLett.136.216501",
+          "label": "Electronic Layer Decoupling Driven by Density-Wave Order in La4Ni3O10"
+        },
+        {
+          "doi": "10.1038/s41467-025-62294-9",
+          "label": "Collapse of density wave and emergence of superconductivity in pressurized-La4Ni3O10 evidenced by ultrafast spectroscopy"
+        }
+      ],
+      "assumptions": [
+        "c-axis optical/transport anisotropy tracks interlayer electronic coherence",
+        "bulk superconductivity requires a connected three-dimensional phase-stiffness network",
+        "static DW and critical DW fluctuations must be separated as different dynamical regimes"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The experimental discriminator is not DW amplitude alone but the ordering of three events: c-axis spectral-weight recovery, DW-amplitude collapse, and superconducting stiffness onset.",
+      "confidence": 0.68,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "W_c_DW/W_c_normal",
+          "description": "Normalized c-axis low-frequency spectral weight; the suppressor route predicts this ratio rises before or with bulk superconductivity.",
+          "variables": {
+            "W_c_DW": "integral of sigma_c(omega) below a fixed low-energy cutoff in the DW or perturbed state",
+            "W_c_normal": "same integral in the normal reference state"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "W_c_DW",
+              "to": "0",
+              "expected": "0",
+              "desc": "No c-axis channel; no bulk coherence by this criterion."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "W_c_DW": 0.2,
+              "W_c_normal": 1.0
+            },
+            "expected_range": [
+              0.0,
+              1.0
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/PhysRevLett.136.216501",
+          "label": "PRL 2026 polarized infrared and transport data"
+        }
+      ],
+      "assumptions": [
+        "low-frequency sigma_c can be separated from phonon-only spectral changes",
+        "pressure/pump protocols can resolve temporal or pressure ordering among DW collapse and coherence recovery"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "A residual or fluctuating DW can be a local pairing precursor only in the subspace where it increases pairing susceptibility without lowering Lambda below Lambda_c.",
+      "confidence": 0.55,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3",
+          "expression": "Theta_pair*(Lambda - Lambda_c)",
+          "description": "Sign test for bulk superconductivity: local pairing tendency Theta_pair is insufficient unless interlayer quorum Lambda exceeds threshold Lambda_c.",
+          "variables": {
+            "Theta_pair": "dimensionless local pairing tendency",
+            "Lambda": "interlayer quorum parameter",
+            "Lambda_c": "critical quorum threshold"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "Lambda",
+              "to": "Lambda_c",
+              "expected": "0",
+              "desc": "Threshold crossing between local precursor and bulk phase stiffness."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "Theta_pair": 1.0,
+              "Lambda": 0.8,
+              "Lambda_c": 1.0
+            },
+            "expected_range": [
+              -1.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41467-025-62294-9",
+          "label": "Pressure-induced DW collapse and superconductivity emergence"
+        }
+      ],
+      "assumptions": [
+        "local pairing susceptibility and interlayer phase coherence are separable observables",
+        "bulk superconductivity can be absent even with local pairing signatures when interlayer coherence is partitioned"
+      ]
+    }
+  ]
+}

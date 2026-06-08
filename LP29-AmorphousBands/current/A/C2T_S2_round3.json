@@ -1,0 +1,131 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 3,
+  "agent": "A",
+  "polaris": "LP29-C2T-S2 / context baseline vs reproduced Srivastava exact O_s baseline",
+  "framework": "Round 3 converts the A-side field-level blocker table into an executor-facing reproduction-attempt row contract. The contract fixes four admissible modes: reported_context_only, fixed_density_attempt, fixed_pair_attempt, and exact_reproduction_attempt. Each Srivastava sample row is allowed to pass only in reported_context_only mode; all reproduction or alternative-comparison modes are blocked until their explicit witnesses exist.",
+  "findings": {
+    "verdict": "ATTEMPT_CONTRACT_CREATED__EXACT_REPRODUCTION_STILL_BLOCKED",
+    "artifact_created": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_attempt_contract.csv",
+    "summary": "The blocker table has been normalized into a 16-row contract: four Srivastava samples times four attempt modes. Reported context is available for all four samples. fixed_density_attempt, fixed_pair_attempt, and exact_reproduction_attempt are blocked for every sample because the needed witnesses remain absent. No material validation, residual validation, or graph-beats-overlap claim is enabled.",
+    "attempt_modes": {
+      "reported_context_only": "PASS_REPORTED_CONTEXT_ONLY for all four rows; use only reported OI_norm, cell volume, m_eff, and method labels as literature context.",
+      "fixed_density_attempt": "BLOCK_FIXED_DENSITY_ATTEMPT for all four rows; pair_density, pair_density provenance, structure identity, atom count, raw overlap sum, and normalization binding are missing.",
+      "fixed_pair_attempt": "BLOCK_FIXED_PAIR_ATTEMPT for all four rows; N_pair, pair-list provenance, structure identity, atom count, raw overlap sum, and OI_pair_mean are missing.",
+      "exact_reproduction_attempt": "BLOCK_EXACT_REPRODUCTION_ATTEMPT for all four rows; the complete Srivastava witness package is missing."
+    },
+    "row_scope": [
+      "a-IGZO-1114",
+      "a-IGZO-2217",
+      "a-ZnON-21",
+      "a-ZnON-11"
+    ],
+    "allowed_use_now": [
+      "Use all four Srivastava rows as reported_context_only.",
+      "Use reported OI_norm, cell volume, m_eff_over_m0, DOI, source_row_id, pair_cutoff_A, and method labels as context descriptors.",
+      "Use the attempt contract as an executor gate that should return PASS only for reported_context_only mode."
+    ],
+    "forbidden_use_now": [
+      "Do not label reported OI_norm as reproduced exact O_s.",
+      "Do not run or report material residual validation from these rows.",
+      "Do not claim graph metrics beat the orbital-overlap baseline.",
+      "Do not infer pair_density, N_pair, OI_pair_mean, OI_raw_sum, or normalization witnesses from reported OI_norm.",
+      "Do not use core_38590358.pdf or DOI 10.1038/srep13467 as Srivastava evidence."
+    ]
+  },
+  "weakest_link": "The weakest link is still row-level executable provenance. The new contract makes the failure local and machine-checkable: every non-context mode requires witnesses that the current A-side payload does not contain, especially exact structure identity, pair-list provenance, N_pair, OI_raw_sum, executable normalization, and same-structure mapping.",
+  "next_plan": {
+    "immediate": "Feed the attempt contract to INSPECTOR A Round 3. The expected inspector result should verify fixed enum statuses, explicit mode branches, four-sample coverage, and preservation of the no-material-validation boundary.",
+    "executor_rule": "A reproduction executor should accept only rows with expected_reproduction_status=PASS_REPORTED_CONTEXT_ONLY for context display. It should reject fixed_density_attempt, fixed_pair_attempt, and exact_reproduction_attempt unless the listed witnesses are attached with provenance ids.",
+    "unblock_path": "Recover official PDF/SI row provenance, Srivastava structures or coordinate hashes, pair-list generation code/output, N_pair provenance, raw overlap sums, executable Mulliken/STO kernel, q_i_q_j weights, normalization formula id, reproduced OI_norm checks, and same-structure mappings.",
+    "fallback_if_witnesses_remain_missing": "Keep Srivastava rows in reported_context_only mode. Any future fixed_density or fixed_pair baseline must be declared as a separate non-Srivastava comparison mode and cannot inherit the Srivastava reproduction label."
+  },
+  "literature_needed": [
+    "Official AIP PDF and supplementary information for DOI 10.1063/1.5096042",
+    "Srivastava 2019 Table II and Fig. 4 page-level row provenance",
+    "SI section or author material specifying STO/Mulliken pair-overlap kernel and q_i_q_j weights",
+    "Author structures or coordinate files for a-IGZO-1114, a-IGZO-2217, a-ZnON-21, and a-ZnON-11",
+    "Any author repository, dataset, or code containing pair-list generation, raw overlap sums, and normalization implementation"
+  ],
+  "claims": [
+    {
+      "id": "A-C2T-S2-R3-C1",
+      "statement": "The A-side Srivastava payload now has an explicit reproduction-attempt contract with fixed mode branches for all four samples.",
+      "confidence": 0.95,
+      "new_insight": false,
+      "evidence": [
+        {
+          "type": "new_artifact",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_attempt_contract.csv",
+          "relevance": "Contains four sample ids crossed with reported_context_only, fixed_density_attempt, fixed_pair_attempt, and exact_reproduction_attempt."
+        },
+        {
+          "type": "input_artifact",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_blocker_table.csv",
+          "relevance": "Source blocker fields were mapped into required_missing_witnesses and expected status enums."
+        }
+      ],
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "The four local A-side Srivastava rows are the intended Round 3 row universe.",
+        "Mode enums are executor-facing labels rather than claims of successful reproduction."
+      ]
+    },
+    {
+      "id": "A-C2T-S2-R3-C2",
+      "statement": "Only reported_context_only mode is allowed now; exact reproduction, fixed-density, and fixed-pair attempts remain blocked for every sample.",
+      "confidence": 0.94,
+      "new_insight": false,
+      "evidence": [
+        {
+          "type": "new_artifact",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_attempt_contract.csv",
+          "relevance": "Each non-context mode has a BLOCK_* expected_reproduction_status and enumerated missing witnesses."
+        },
+        {
+          "type": "inspector",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\inspector_A_C2T_S2_round2.md",
+          "relevance": "Inspector passed Round 2 but warned not to relabel reported OI_norm as reproduced exact O_s without row-level witnesses."
+        },
+        {
+          "type": "pi_synthesis",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_round2.md",
+          "relevance": "PI requested a minimal executor-style attempt contract with explicit mode branches and no material validation."
+        }
+      ],
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "Reported context availability does not reduce the witness burden for any reproduction mode.",
+        "A fixed-density or fixed-pair attempt would be a separate comparison mode unless independently witnessed."
+      ]
+    }
+  ],
+  "attempt_contract_path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_attempt_contract.csv",
+  "resolved_previous_warnings": {
+    "keep_OI_norm_reported_context_only": "resolved: contract passes only reported_context_only and blocks all reproduction modes.",
+    "do_not_use_wrong_fallback_pdf": "resolved: forbidden_use_now keeps core_38590358.pdf and DOI 10.1038/srep13467 excluded.",
+    "do_not_advance_to_material_validation": "resolved: all rows forbid residual or graph validation; no residual fields are populated.",
+    "preserve_decisive_claim_allowed_false": "resolved: contract allows context display only and provides no decisive material claim.",
+    "normalize_to_fixed_mode_branches": "resolved_for_A: mode labels and expected statuses are fixed strings suitable for executor gating."
+  },
+  "deepening_1": {
+    "layer_1": "Field-level blockers are insufficient for execution because they identify missing evidence globally but do not say what an executor should do for a specific row and mode.",
+    "layer_2": "The row contract resolves this by making the admissible action row-local: reported_context_only passes as context, while fixed_density_attempt, fixed_pair_attempt, and exact_reproduction_attempt fail with explicit missing-witness lists."
+  },
+  "deepening_2": {
+    "layer_1": "The most dangerous false upgrade path is to treat reported OI_norm as if it supplies either OI_raw_sum or a normalized exact O_s witness.",
+    "layer_2": "The contract blocks that upgrade by requiring independent raw sums, pair provenance, executable normalization, and same-structure mapping before any non-context status can pass."
+  }
+}

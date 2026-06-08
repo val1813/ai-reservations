@@ -1,0 +1,667 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "C2T_witness_payload_schema.json",
+  "title": "LP29-C2T witness payload schema",
+  "description": "Machine-readable witness payload contract for deriving BLOCK/WARN/PASS before any material validation. Schema conformance is not material validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project",
+    "polaris",
+    "row_id",
+    "candidate_source",
+    "joined_table_schema_ref",
+    "payload_kind",
+    "material_validation_claimed",
+    "required_joined_fields_presence",
+    "same_sample_crosswalk",
+    "graph_convention_lock",
+    "external_label_independence",
+    "forbidden_control_row_audit",
+    "OI_Srivastava_reproduction",
+    "executor_contract"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "C2T-witness-v1"
+    },
+    "project": {
+      "const": "LP29-AmorphousBands"
+    },
+    "polaris": {
+      "const": "LP29-C2T / provenance-complete external joined table construction"
+    },
+    "row_id": {
+      "type": "string",
+      "pattern": "^C2T-AUDIT-[0-9]{4}$"
+    },
+    "candidate_source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "joined_table_schema_ref": {
+      "const": "current/C2T/artifacts/C2T_joined_table_schema.csv"
+    },
+    "payload_kind": {
+      "enum": [
+        "negative_blocker_witness",
+        "candidate_pass_witness"
+      ]
+    },
+    "material_validation_claimed": {
+      "const": false
+    },
+    "required_joined_fields_presence": {
+      "$ref": "#/$defs/gateBlock"
+    },
+    "same_sample_crosswalk": {
+      "$ref": "#/$defs/sameSampleCrosswalk"
+    },
+    "graph_convention_lock": {
+      "$ref": "#/$defs/graphConventionLock"
+    },
+    "external_label_independence": {
+      "$ref": "#/$defs/externalLabelIndependence"
+    },
+    "forbidden_control_row_audit": {
+      "$ref": "#/$defs/forbiddenControlAudit"
+    },
+    "OI_Srivastava_reproduction": {
+      "$ref": "#/$defs/oiReproduction"
+    },
+    "executor_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "derive_block_status_from_payload",
+        "derive_row_decision",
+        "derive_material_validation_allowed"
+      ],
+      "properties": {
+        "derive_block_status_from_payload": {
+          "const": "Use C2T_gate_predicates.csv. Manual status labels in input are advisory only and must be recomputed from witness fields."
+        },
+        "derive_row_decision": {
+          "const": "BLOCK if any required gate status is BLOCK; WARN if no required gate is BLOCK and at least one required gate is WARN; PASS only if all required gates are PASS."
+        },
+        "derive_material_validation_allowed": {
+          "const": "true only when row_decision is PASS, material_validation_claimed is false at audit time, and all joined-table field blockers are cleared by machine-readable witnesses."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "BLOCK",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "evidenceItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_type",
+        "uri_or_citation",
+        "machine_reviewable",
+        "notes"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_type": {
+          "enum": [
+            "doi_table_row",
+            "si_file",
+            "raw_structure_file",
+            "digitized_point",
+            "protocol_record",
+            "versioned_manifest",
+            "negative_absence_record",
+            "not_applicable_rationale"
+          ]
+        },
+        "uri_or_citation": {
+          "type": "string"
+        },
+        "machine_reviewable": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "gateBlock": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "declared_status",
+        "witnesses",
+        "missing_fields",
+        "contradictions",
+        "free_text_only_fields"
+      ],
+      "properties": {
+        "declared_status": {
+          "$ref": "#/$defs/status"
+        },
+        "witnesses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceItem"
+          }
+        },
+        "missing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contradictions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "free_text_only_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sameSampleCrosswalk": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateBlock"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "sample_id_creation_record": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": false,
+              "required": [
+                "sample_id",
+                "created_before_label_access",
+                "version"
+              ],
+              "properties": {
+                "sample_id": {
+                  "type": "string"
+                },
+                "created_before_label_access": {
+                  "type": "boolean"
+                },
+                "version": {
+                  "type": "string"
+                }
+              }
+            },
+            "material_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "structure_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "snapshot_id_or_window": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "label_provenance_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "control_source_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "graph_feature_source_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "identity_basis": {
+              "enum": [
+                "same_sample_id",
+                "matched_structure_id",
+                "material_name_only",
+                "composition_only",
+                "missing"
+              ]
+            },
+            "cross_source_mismatch_screen": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "processing",
+                "temperature",
+                "carrier_density",
+                "family",
+                "temporal_or_sample_compatibility"
+              ],
+              "properties": {
+                "processing": {
+                  "$ref": "#/$defs/status"
+                },
+                "temperature": {
+                  "$ref": "#/$defs/status"
+                },
+                "carrier_density": {
+                  "$ref": "#/$defs/status"
+                },
+                "family": {
+                  "$ref": "#/$defs/status"
+                },
+                "temporal_or_sample_compatibility": {
+                  "$ref": "#/$defs/status"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "graphConventionLock": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateBlock"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "graph_convention_provenance_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "graph_protocol_timestamp_or_version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "protocol_predates_label_access": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "graph_cutoff_rule": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "laplacian_convention": {
+              "enum": [
+                "L_sym",
+                "L_rw",
+                "unnormalized_L",
+                "missing"
+              ]
+            },
+            "rho_budget_normalization_rule": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "attack_gap_protocol": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "targeted_attack_defined",
+                "matched_random_control",
+                "removed_budget_accounting",
+                "seed_policy"
+              ],
+              "properties": {
+                "targeted_attack_defined": {
+                  "type": "boolean"
+                },
+                "matched_random_control": {
+                  "type": "boolean"
+                },
+                "removed_budget_accounting": {
+                  "type": "boolean"
+                },
+                "seed_policy": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "same_graph_identity_record": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": false,
+              "required": [
+                "structure_id",
+                "snapshot_id_or_window",
+                "cutoff_rule"
+              ],
+              "properties": {
+                "structure_id": {
+                  "type": "string"
+                },
+                "snapshot_id_or_window": {
+                  "type": "string"
+                },
+                "cutoff_rule": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "externalLabelIndependence": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateBlock"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "external_label_payload": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": false,
+              "required": [
+                "value",
+                "unit",
+                "method",
+                "temperature_or_scope",
+                "source_row"
+              ],
+              "properties": {
+                "value": {
+                  "type": [
+                    "number",
+                    "string",
+                    "null"
+                  ]
+                },
+                "unit": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "method": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "temperature_or_scope": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source_row": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "label_provenance_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "is_external_to_graph_proxy": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "synthetic_label_flag": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "label_source_type": {
+              "enum": [
+                "external_measurement",
+                "external_literature_digitization",
+                "graph_proxy",
+                "same_target_fit",
+                "synthetic",
+                "missing"
+              ]
+            },
+            "graph_proxy_exclusion_evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/evidenceItem"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "forbiddenControlAudit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declared_status",
+        "audit_timestamp_or_version",
+        "auditor_role",
+        "subchecks",
+        "witnesses",
+        "missing_fields",
+        "contradictions",
+        "free_text_only_fields"
+      ],
+      "properties": {
+        "declared_status": {
+          "$ref": "#/$defs/status"
+        },
+        "audit_timestamp_or_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "auditor_role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subchecks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "onsite_variance_independence",
+            "carrier_density_independence",
+            "mobility_edge_independence",
+            "batch_family_nonleakage",
+            "graph_generated_label_exclusion",
+            "synthetic_label_exclusion",
+            "missingness_not_silent"
+          ],
+          "properties": {
+            "onsite_variance_independence": {
+              "$ref": "#/$defs/subcheck"
+            },
+            "carrier_density_independence": {
+              "$ref": "#/$defs/subcheck"
+            },
+            "mobility_edge_independence": {
+              "$ref": "#/$defs/subcheck"
+            },
+            "batch_family_nonleakage": {
+              "$ref": "#/$defs/subcheck"
+            },
+            "graph_generated_label_exclusion": {
+              "$ref": "#/$defs/subcheck"
+            },
+            "synthetic_label_exclusion": {
+              "$ref": "#/$defs/subcheck"
+            },
+            "missingness_not_silent": {
+              "$ref": "#/$defs/subcheck"
+            }
+          }
+        },
+        "witnesses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceItem"
+          }
+        },
+        "missing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contradictions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "free_text_only_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "subcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "rationale",
+        "machine_reviewable_evidence_ids"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "BLOCK",
+            "NOT_APPLICABLE_WITH_RATIONALE"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "machine_reviewable_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "oiReproduction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declared_status",
+        "applies_to_row",
+        "exact_overlap_formula_or_code_ref",
+        "normalization_rule_ref",
+        "same_structure_mapping_ref",
+        "witnesses",
+        "missing_fields",
+        "contradictions",
+        "free_text_only_fields"
+      ],
+      "properties": {
+        "declared_status": {
+          "$ref": "#/$defs/status"
+        },
+        "applies_to_row": {
+          "type": "boolean"
+        },
+        "exact_overlap_formula_or_code_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "normalization_rule_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "same_structure_mapping_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "witnesses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceItem"
+          }
+        },
+        "missing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contradictions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "free_text_only_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

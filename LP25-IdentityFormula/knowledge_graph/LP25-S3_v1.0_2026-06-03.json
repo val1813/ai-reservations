@@ -1,0 +1,64 @@
+{
+  "课题": "LP25-S3 欧拉动力学",
+  "版本": "1.0",
+  "日期": "2026-06-03",
+  "父课题": "LP25-IdentityFormula",
+  "状态": "完成",
+  "结论类型": "部分证伪+定理级成果存活",
+  "REVIEWER评分": 7.3,
+  "核心定理": [
+    {
+      "名称": "实虚不确定关系",
+      "公式": "ΔC^R_mn · ΔC^I_mn ≥ ¼|⟨n_n⟩ - ⟨n_m⟩|",
+      "证据": "85,639态0违反",
+      "推导链": "Robertson + [A,B] = -2i(Δn)",
+      "INSPECTOR": "Q1-Q6通过"
+    },
+    {
+      "名称": "欧拉动力学方程",
+      "公式": "dC^R/dt = -[H, C^I]; dC^I/dt = +[H, C^R]",
+      "先发": "Peschel & Eisler 2009 (数学形式已知)",
+      "增量": "欧拉动力学命名 + 不等式桥接 + 物理诠释"
+    },
+    {
+      "名称": "dV/dt精确公式",
+      "公式": "dV/dt = 2Σ[γ^RR(c^R)²+γ^II(c^I)²]",
+      "发现者": "B博士R2",
+      "验证": "INSPECTOR独立确认交叉项抵消"
+    }
+  ],
+  "关键洞察": [
+    "RWA = 分岔掩盖 (定性)",
+    "反退相干 ↔ dV/dt>0 ↔ Ĵ<0",
+    "Δn = 量子-经典质量参数"
+  ],
+  "被证伪": [
+    "Q_global基态相变",
+    "Ξ=1精确分岔边界"
+  ],
+  "S1-S3连接": {
+    "S1": "Born-Schrödinger断裂 = |·|²消i sin θ → Ĵ追踪",
+    "S3": "欧拉动力学方程 + 不等式定理 + dV/dt公式",
+    "桥接": "Ĵ<0 ↔ dV/dt>0; RWA = S1断裂制造者的动力系统证据"
+  },
+  "已知先发": [
+    "Peschel & Eisler (2009): 关联矩阵Bloch形式（数学重叠）",
+    "Maraga (2013): Bloch形式（待验证）"
+  ],
+  "K条目": ["K21", "K22", "K23"],
+  "文件清单": [
+    "current/A/S3_A博士_推导.md (R1, 924行)",
+    "current/A/S3_A博士_R2.md (521行+脚本)",
+    "current/A/S3_A博士_R3.md (648行+脚本)",
+    "current/B/S3_B博士_跳跃.md (R1, 725行)",
+    "current/B/S3_B博士_R2.md (911行)",
+    "current/B/S3_B博士_R3.md (663行)",
+    "INSPECTOR ×6",
+    "synthesis/PI综合_S3_R1.md",
+    "synthesis/PI综合_S3_R2.md",
+    "synthesis/PI综合_S3_最终.md",
+    "synthesis/REVIEWER_S3_终审.md",
+    "synthesis/S3_收尾_Gates.md",
+    "synthesis/S3_最终收官.md"
+  ]
+}

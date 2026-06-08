@@ -1,0 +1,30 @@
+Editor
+Physical Review B
+American Physical Society
+
+Dear Editor,
+
+We submit for your consideration our manuscript, "Two-Exponent Characterization of Nonequilibrium Steady States: Coherence Decay and Transport in Power-Law Hopping Chains with Bulk Dephasing," for publication as a Regular Article in Physical Review B.
+
+Transport in boundary-driven power-law hopping chains is typically characterized by a single exponent μ governing current decay with system size. The off-diagonal sector of the steady-state correlation matrix carries quantum coherence between distinct sites, but its spatial decay structure has not been characterized as a scaling phenomenon. We provide a self-consistent two-exponent characterization of the nonequilibrium steady state (NESS), computing both a coherence decay exponent β(α,γ_φ) from midchain off-diagonal correlations and the transport exponent μ(α,γ_φ) from the boundary current — both within the same numerical framework.
+
+Three results anchor the manuscript:
+
+1. β exhibits a two-regime large-L structure. Using exact Lindblad solutions for 125 parameter combinations up to L=64, extended with sparse GMRES to L=128 for four dephasing slices and L=256 for γ_φ=0.5, we find that β descends from a long-range boundary-dominated sector at small α and crosses into a γ_φ-dependent near-diffusive plateau at larger α. A boundary-layer analysis quantifies the convergence: δ ~ L^{1.5} at α=1.1 (boundary-dominated even at L=256), versus δ ~ L^{-0.57} at α=1.7 (bulk-diffusive). L=256 data confirm the plateau is not a finite-size artifact: |β_{128→256} − β_{64→128}| < 0.02 for α ≥ 1.5.
+
+2. β and μ respond differently to parameter variations, confirming they probe distinct Liouvillian sectors. We compute μ self-consistently from the boundary current J = Γ_L(f_L−D_1), finding μ = 0.285–0.901 at γ_φ=0.5 — systematically below the dephasing-free formula μ=2α−2, as expected when bulk dephasing suppresses transport. Both β and μ increase with γ_φ at fixed α, but with different functional sensitivities (β by ~54%, μ by ~87% from γ_φ=0.1 to 2.0 at α=1.5), demonstrating they are not locked in a fixed algebraic relation. The (μ,β) plane resolves transport-coherence regimes invisible to either exponent alone.
+
+3. β is robust under boundary-coupling variations. A factor-of-four change in Γ shifts β by under 7%, while the exact Δf-independence follows from the linearity of the Lyapunov equation. The weak Γ-dependence is interpreted as a boundary-fixed-line effect.
+
+We prove, via the homogeneous Lyapunov system argument, that off-diagonal correlations are purely imaginary for arbitrary power-law hopping — generalizing the nearest-neighbor result of Bhat and Žnidarič [Phys. Rev. B 111, 174306 (2025)]. The proof is structural and independent of the β-exponent analysis.
+
+We have been careful to distinguish what is derived from what is calibrated. The 1/α leading scaling coordinate follows from the fractional diffusion kernel and fixed-point constraints; amplitudes are calibrated numerically. Full model selection (AICc for all five γ_φ values) is reported in the Supplemental Material. A first-order commutator expansion shows β → ν (the occupation-gradient exponent) in the thermodynamic limit; the finite-size correction κ ≠ 1 distinguishes β from ν at experimentally accessible L, and the two-regime large-L structure contains physics beyond the thermodynamic limit. All raw data, analysis scripts, and figure-generation code are archived at Zenodo (DOI: 10.5281/zenodo.20553343).
+
+The manuscript has not been published elsewhere and is not under consideration by another journal. We have no conflicts of interest to declare.
+
+We believe this self-consistent two-exponent characterization — combining exact numerics up to L=256, a boundary-layer scaling analysis, and direct experimental relevance to trapped-ion and Rydberg platforms — will interest the broad readership of Physical Review B.
+
+Sincerely,
+
+Zhongchang Huang
+Independent Researcher, Nanjing, China

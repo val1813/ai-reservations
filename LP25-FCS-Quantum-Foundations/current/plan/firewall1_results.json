@@ -1,0 +1,434 @@
+[
+  {
+    "L": 4,
+    "alpha": 1.1,
+    "gamma_phi": 0.01,
+    "OXX": 0.01840252,
+    "OXX_per_L": 0.004600631,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 4,
+    "alpha": 1.1,
+    "gamma_phi": 0.5,
+    "OXX": 0.005783565,
+    "OXX_per_L": 0.001445891,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 4,
+    "alpha": 1.1,
+    "gamma_phi": 2.0,
+    "OXX": 0.001259068,
+    "OXX_per_L": 0.000314767,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 4,
+    "alpha": 1.5,
+    "gamma_phi": 0.01,
+    "OXX": 0.02121554,
+    "OXX_per_L": 0.005303884,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 4,
+    "alpha": 1.5,
+    "gamma_phi": 0.5,
+    "OXX": 0.005891179,
+    "OXX_per_L": 0.001472795,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 4,
+    "alpha": 1.5,
+    "gamma_phi": 2.0,
+    "OXX": 0.001102852,
+    "OXX_per_L": 0.0002757129,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 4,
+    "alpha": 1.9,
+    "gamma_phi": 0.01,
+    "OXX": 0.02288942,
+    "OXX_per_L": 0.005722354,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 4,
+    "alpha": 1.9,
+    "gamma_phi": 0.5,
+    "OXX": 0.005932141,
+    "OXX_per_L": 0.001483035,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 4,
+    "alpha": 1.9,
+    "gamma_phi": 2.0,
+    "OXX": 0.00101319,
+    "OXX_per_L": 0.0002532974,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.1,
+    "gamma_phi": 0.01,
+    "OXX": 0.0381531,
+    "OXX_per_L": 0.004769137,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.1,
+    "gamma_phi": 0.5,
+    "OXX": 0.005232807,
+    "OXX_per_L": 0.0006541009,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.1,
+    "gamma_phi": 2.0,
+    "OXX": 0.001021669,
+    "OXX_per_L": 0.0001277086,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.5,
+    "gamma_phi": 0.01,
+    "OXX": 0.04497802,
+    "OXX_per_L": 0.005622252,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.5,
+    "gamma_phi": 0.5,
+    "OXX": 0.005350365,
+    "OXX_per_L": 0.0006687956,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.5,
+    "gamma_phi": 2.0,
+    "OXX": 0.0007644857,
+    "OXX_per_L": 9.556071e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.9,
+    "gamma_phi": 0.01,
+    "OXX": 0.04924082,
+    "OXX_per_L": 0.006155103,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.9,
+    "gamma_phi": 0.5,
+    "OXX": 0.005223928,
+    "OXX_per_L": 0.0006529911,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 8,
+    "alpha": 1.9,
+    "gamma_phi": 2.0,
+    "OXX": 0.0006257536,
+    "OXX_per_L": 7.821921e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.1,
+    "gamma_phi": 0.01,
+    "OXX": 0.07098906,
+    "OXX_per_L": 0.004436816,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.1,
+    "gamma_phi": 0.5,
+    "OXX": 0.004548052,
+    "OXX_per_L": 0.0002842533,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.1,
+    "gamma_phi": 2.0,
+    "OXX": 0.0008337804,
+    "OXX_per_L": 5.211127e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.5,
+    "gamma_phi": 0.01,
+    "OXX": 0.08457082,
+    "OXX_per_L": 0.005285676,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.5,
+    "gamma_phi": 0.5,
+    "OXX": 0.004407036,
+    "OXX_per_L": 0.0002754397,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.5,
+    "gamma_phi": 2.0,
+    "OXX": 0.0005137963,
+    "OXX_per_L": 3.211227e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.9,
+    "gamma_phi": 0.01,
+    "OXX": 0.09330828,
+    "OXX_per_L": 0.005831768,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.9,
+    "gamma_phi": 0.5,
+    "OXX": 0.003908683,
+    "OXX_per_L": 0.0002442927,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 16,
+    "alpha": 1.9,
+    "gamma_phi": 2.0,
+    "OXX": 0.0003638414,
+    "OXX_per_L": 2.274009e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.1,
+    "gamma_phi": 0.01,
+    "OXX": 0.1160979,
+    "OXX_per_L": 0.003628061,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.1,
+    "gamma_phi": 0.5,
+    "OXX": 0.003944873,
+    "OXX_per_L": 0.0001232773,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.1,
+    "gamma_phi": 2.0,
+    "OXX": 0.0006890154,
+    "OXX_per_L": 2.153173e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.5,
+    "gamma_phi": 0.01,
+    "OXX": 0.1398391,
+    "OXX_per_L": 0.004369971,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.5,
+    "gamma_phi": 0.5,
+    "OXX": 0.003401559,
+    "OXX_per_L": 0.0001062987,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.5,
+    "gamma_phi": 2.0,
+    "OXX": 0.0003342381,
+    "OXX_per_L": 1.044494e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.9,
+    "gamma_phi": 0.01,
+    "OXX": 0.1555401,
+    "OXX_per_L": 0.004860627,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.9,
+    "gamma_phi": 0.5,
+    "OXX": 0.002566866,
+    "OXX_per_L": 8.021456e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 32,
+    "alpha": 1.9,
+    "gamma_phi": 2.0,
+    "OXX": 0.0002015182,
+    "OXX_per_L": 6.297445e-06,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.1,
+    "gamma_phi": 0.01,
+    "OXX": 0.1628429,
+    "OXX_per_L": 0.00254442,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.1,
+    "gamma_phi": 0.5,
+    "OXX": 0.003439565,
+    "OXX_per_L": 5.374321e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.1,
+    "gamma_phi": 2.0,
+    "OXX": 0.0005760674,
+    "OXX_per_L": 9.001053e-06,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.5,
+    "gamma_phi": 0.01,
+    "OXX": 0.1973866,
+    "OXX_per_L": 0.003084166,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.5,
+    "gamma_phi": 0.5,
+    "OXX": 0.002457467,
+    "OXX_per_L": 3.839792e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.5,
+    "gamma_phi": 2.0,
+    "OXX": 0.0002101205,
+    "OXX_per_L": 3.283132e-06,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.9,
+    "gamma_phi": 0.01,
+    "OXX": 0.2208945,
+    "OXX_per_L": 0.003451476,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.9,
+    "gamma_phi": 0.5,
+    "OXX": 0.001520916,
+    "OXX_per_L": 2.376431e-05,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 64,
+    "alpha": 1.9,
+    "gamma_phi": 2.0,
+    "OXX": 0.0001076269,
+    "OXX_per_L": 1.681671e-06,
+    "method": "dense_lyapunov_solve",
+    "status": "exact"
+  },
+  {
+    "L": 128,
+    "alpha": 1.1,
+    "gamma_phi": 0.01,
+    "OXX": 0.1936423,
+    "OXX_per_L": 0.001512831,
+    "method": "lyapunov_iteration",
+    "status": "converged_tol_1e-12"
+  },
+  {
+    "L": 128,
+    "alpha": 1.5,
+    "gamma_phi": 0.01,
+    "OXX": 0.233249,
+    "OXX_per_L": 0.001822258,
+    "method": "lyapunov_iteration",
+    "status": "converged_tol_1e-12"
+  },
+  {
+    "L": 128,
+    "alpha": 1.9,
+    "gamma_phi": 0.01,
+    "OXX": 0.2608433,
+    "OXX_per_L": 0.002037838,
+    "method": "lyapunov_iteration",
+    "status": "converged_tol_1e-12"
+  }
+]

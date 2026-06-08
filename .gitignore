@@ -1,0 +1,45 @@
+# Binary & generated
+*.zip
+*.pdf
+*.png
+*.jpg
+*.gif
+*.svg
+
+# LaTeX build
+*.log
+*.aux
+*.out
+*.toc
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Temp
+*.tmp
+*.bak
+*~
+
+# Large data
+*.h5
+*.pth
+*.ckpt
+*.safetensors

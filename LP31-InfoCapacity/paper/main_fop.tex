@@ -1,0 +1,396 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,graphicx,hyperref,booktabs}
+\begin{document}
+
+\title{Information Capacity as a Unifying Principle:\\
+Quantum Coherence, Classical Irreversibility, and Gravity\\
+as Phases of Finite Information}
+
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+
+\maketitle
+
+\begin{abstract}
+We propose that many structural features of physical law---the coexistence of quantum and classical behavior, the arrow of time, the Laplace-Poisson form of the gravitational field equation, the softness of physical boundaries---can be understood as consequences of a single principle: information is finite, and its directed flow under capacity constraints generates the structures we observe. The framework is built on three definitions: distinguishable states exist (A1), capacity is bounded (A2), and interactions are local (A3). From these we prove a chain of theorems culminating in a continuum $q$-field equation $\partial_t q = \kappa\nabla^2(\ln q)$, where $q$ is the vacant information capacity fraction. We prove that all qualitative conclusions---dual-domain phase coexistence, Laplace-type static limit, $1/r$ gravitational decay---belong to a universality class $\Phi$ and are independent of the specific flux form. The framework provides unified conceptual explanations for quantum entanglement thresholds, the measurement problem, cosmological inflation, and the softness of causal boundaries, while leaving specific numerical values ($c$, $\hbar$, $G$, spatial dimension) as calibrated inputs. We do not claim to derive the universe. We claim that if information is finite, the structures we observe are not contingent---they are what finite information looks like in time.
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Motivation}
+
+Why does the universe appear quantum at small scales and classical at large scales? Why is the gravitational field equation of Laplace-Poisson type? Why do physical boundaries---event horizons, light cones, the quantum-classical divide---appear sharp in some theories and soft in others?
+
+Standard physics provides separate answers to each question. Decoherence theory~\cite{Zurek2003,Schlosshauer2007} explains the quantum-to-classical transition through environmental monitoring. General relativity explains gravity through spacetime curvature. Quantum field theory explains light cones through microcausality. Each answer is correct within its domain, but the diversity of mechanisms conceals a deeper question: are these phenomena truly independent, or are they different manifestations of a common underlying principle?
+
+This paper proposes that they are the latter. The unifying principle is the finiteness of information.
+
+\subsection{The core idea}
+
+To exist is to be distinguishable (A1). To interact is to transfer information within finite bounds (A2). These are not axioms to be proved---they are operational definitions of what ``existence'' and ``interaction'' mean. If nothing can be distinguished from anything else, ``something exists'' has no meaning. If information capacity is unbounded, ``information was transferred'' cannot be tracked---there is no fact of the matter about what moved where.
+
+From these definitions, together with the physical input that interactions are local (A3), a mathematical structure unfolds. The central object is the $q$-field---the fraction of information capacity that remains vacant. We show that $q$ evolves under a nonlinear diffusion equation whose properties explain, within a single framework, phenomena that standard physics treats as unrelated.
+
+\subsection{What this paper does and does not do}
+
+This paper \emph{shows} that if one accepts the definitional basis A1--A3, then certain structural features of physical law emerge as consequences. It does \emph{not} claim to \emph{prove} that these features must exist in any possible universe, nor does it derive their specific numerical values. The contribution is conceptual unification: phenomena that appear independent in standard treatments are revealed as different regimes of the same underlying dynamics.
+
+The paper is organized as follows. Section~2 establishes the mathematical framework and the $q$-field equation. Section~3 proves the universality of the qualitative conclusions. Section~4 develops the physical interpretation: quantum coherence and classical irreversibility as two phases of $q$. Section~5 shows how gravity emerges from the static limit. Section~6 explores the soft boundary phenomenon. Section~7 applies the framework to specific physical phenomena: entanglement, measurement, and cosmology. Section~8 states the honest boundaries of the framework. Section~9 concludes.
+
+\section{The $q$-Field Framework}
+
+\subsection{Definitions}
+
+Consider $N$ binary cells, each in state $s_i\in\{0,1\}$. The global state is $\mathbf{s}\in X=\{0,1\}^N$. Dynamics is a map $f:X\to X$.
+
+\begin{description}
+\item[A1 (Distinguishability):] $f$ is injective. If two states differ, they must differ after evolution---otherwise the original distinction had no operational meaning.
+\item[A2 (Bounded capacity):] $X$ is finite, $|X|=2^N$. Each cell stores 1 bit. Infinite capacity would make ``system'' and ``environment'' indistinguishable.
+\item[A3 (Locality):] $f$ is $c$-local: each output cell depends on at most $c$ input cells, with $c\ll N$. This encodes finite propagation speed.
+\end{description}
+
+A1--A2 together imply $f$ is bijective (pigeonhole principle on a finite set). This is the structural conservation law: the total number of distinguishable states is preserved. However, no specific macroscopic quantity need be conserved---a counterexample for $N=2$ is provided in Appendix~A.
+
+\subsection{The $q$ parameter}
+
+Define the vacant capacity fraction:
+\begin{equation}
+q = \frac{1}{N}\sum_{i=1}^N (1-s_i) \in [0,1].
+\end{equation}
+$q=1$: all cells vacant (maximal capacity, supporting full quantum coherence). $q=0$: all cells occupied (zero capacity, fully classical). The $q$ parameter admits a precise mapping to standard quantum mechanics: in the pointer basis, $q$ is the normalized $\ell_1$-norm of coherence~\cite{Baumgratz2014}:
+\begin{equation}
+q(\rho) = \frac{\sum_{i\neq j}|\rho_{ij}|}{\sum_{i,j}|\rho_{ij}|}.
+\end{equation}
+
+\subsection{Discrete mathematical structure}
+
+The discrete cell model yields four exact theorems. Full proofs are in Appendix~A.
+
+\begin{theorem}[Entropy identity]
+Under coarse-graining $\pi:X\to[0,1]$, the Shannon entropy change satisfies $S[P']-S[P] = \mathbb{E}_{q'}[D[\rho'_{q'}||\mu_{q'}]] - \mathbb{E}_q[D[\rho_q||\mu_q]]$, where $D[\cdot||\cdot]$ is the Kullback-Leibler divergence.
+\end{theorem}
+
+This identity (exact for any bijection) decomposes entropy change into coarse-grained and intra-fiber contributions. When the intra-fiber distribution is initially uniform, entropy is bounded below by its initial value, but can fluctuate between consecutive steps. This is a lower bound, not a Clausius-style monotonic law.
+
+\begin{theorem}[Kac recurrence scaling]
+For a subsystem of $N_S$ cells within $N=N_S+N_E$ total cells, the expected recurrence time is $\langle T_{\rm rec}\rangle = 2^{N_S}$, independent of $N_E$.
+\end{theorem}
+
+This cleanly separates relaxation (controlled by $N_E$) from recurrence (controlled by $N_S$). A large environment accelerates relaxation but cannot eliminate recurrence.
+
+\begin{theorem}[Information reflux bound]
+When total excitation is conserved, the probability of observing information reflux of $\delta$ or more bits from environment to system satisfies $P_{\rm reflux} \le T\cdot(q_S/(1-q_S))^\delta\cdot((1-q_E)/q_E)^\delta$.
+\end{theorem}
+
+This combinatorial bound constrains quantum dynamics from information capacity alone, complementing standard spectral density constraints.
+
+\subsection{The flux form}
+
+The discrete dynamics $f$ determines how information moves between cells. In the continuum limit, this is encoded in the flux function $J(q_i,q_j)$. Physical constraints (directionality, antisymmetry, locality, capacity divergence at $q\to 0$, and vacuum stability $D(1)<\infty$) restrict the admissible forms.
+
+We adopt the self-information (surprisal) flux:
+\begin{equation}
+J_{i\to j} = \ln\frac{q_j}{q_i}, \quad \text{or in continuum form: } J = -\kappa\nabla(\ln q).
+\end{equation}
+
+This form has two independent justifications. First, Shannon's uniqueness theorem~\cite{Shannon1948} proves that $-\ln q$ is the unique additive information measure---the only information-theoretic potential consistent with the requirement that independent subsystems contribute additively. Second, the effective diffusivity $D(q)=\kappa/q$ is the mildest divergence at $q\to 0$ that still satisfies the capacity constraint $D(0^+)=\infty$. The Shannon entropy gradient, by contrast, gives $D(q)\propto 1/[q(1-q)]$, which diverges at \emph{both} $q\to 0$ and $q\to 1$, rendering the quantum vacuum unstable. We do not claim that the self-information form is uniquely forced by A1--A3 alone; rather, it is the uniquely natural choice under the additional physical requirement of vacuum stability, with Shannon uniqueness providing its information-theoretic foundation.
+
+\subsection{The continuum $q$-field}
+
+In the continuum limit $a\to 0$, $N\to\infty$, the flux $J=-\kappa\nabla(\ln q)$ and the continuity equation $\partial_t q = -\nabla\cdot J$ yield:
+\begin{equation}
+\boxed{\partial_t q = \kappa\,\nabla^2(\ln q)},
+\label{eq:qfield}
+\end{equation}
+with $D(q)=\kappa/q$. Equivalent forms: $\partial_t q = \kappa\nabla\cdot(q^{-1}\nabla q)$.
+
+Equation~(\ref{eq:qfield}) has three structural properties. (i)~Total $q$ is conserved: $\int q\,d^dx$ is constant. (ii)~$F[q]=\int(-\ln q)\,d^dx$ is a Lyapunov functional. (iii)~The equation is parabolic---its dynamics is diffusive, not wavelike.
+
+\subsection{The $q\to 0$ singularity}
+
+As $q\to 0$, $D(q)\to\infty$. This is a fast-diffusion singularity---a \emph{self-organized critical state}. Cells are nearly saturated; any incoming perturbation finds almost no buffer capacity, triggering cascaded overflow that propagates with near-zero inter-step waiting time. Individual steps respect the maximum propagation speed; the apparent instantaneous response is a continuum artifact arising from the vanishing interval between steps, analogous to sandpile avalanches at the angle of repose~\cite{Bak1987}.
+
+\subsection{The $q\approx 1/2$ attractor}
+
+The mixing entropy per cell $s(q)=-q\log q-(1-q)\log(1-q)$ attains its unique maximum at $q=1/2$, where the number of microstates $\binom{N}{N/2}\sim 2^N/\sqrt{\pi N/2}$ is maximal. Statistical mechanics drives the background toward this point.
+
+Two competing forces shape the $q$-field: \textbf{diffusion pressure} (the $1/q$ nonlinearity amplifies $q$-gradients, creating $q\approx 0$ cores) and \textbf{entropic pressure} (the statistical preference drives the background toward $q\approx 1/2$). The competition produces a two-domain asymptotic state: compact $q\approx 0$ cores embedded in a $q\approx 1/2$ sea.
+
+\section{Universality}
+
+A natural question is whether the physical conclusions depend on the specific choice of flux form. We prove that they do not.
+
+\begin{theorem}[Universality class $\Phi$]
+\label{thm:universality}
+Let $\Phi$ be the class of flux functions $\phi(q)$ satisfying: $\phi$ smooth on $(0,1]$, $\phi'(q)<0$, $\phi(0^+)=+\infty$, $\phi(1)$ finite. Then for any $\phi\in\Phi$:
+\begin{enumerate}
+\item The static limit $\partial_t q=0$ yields $\nabla^2\phi(q)=0$, a second-order elliptic equation---always of Laplace type.
+\item In $d=3$, the Green's function decays as $1/r$, independently of $\phi$.
+\item The dual-domain asymptotic state (compact $q\approx 0$ cores + $q\approx 1/2$ background) emerges for any $\phi$ with $\phi(0^+)=+\infty$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof sketch]
+The static limit $\partial_t q = -\nabla^2\phi(q) = 0 \Rightarrow \nabla^2\phi(q)=0$ for any $\phi$, always a second-order elliptic equation. The Green's function in $d$ dimensions decays as $r^{-(d-2)}$, independent of the nonlinearity. The dual-domain structure follows from $\phi(0^+)=+\infty$ (forcing $q\to 0$ cores) combined with Stirling's theorem for the entropic preference of $q\approx 1/2$. Full proof in Appendix~B.
+\end{proof}
+
+Theorem~\ref{thm:universality} is the most important mathematical result of this paper. It guarantees that the physical picture---phase coexistence between a critical classical state and an entropic quantum background, with Laplace-type static geometry and $1/r$ gravitational decay---is \emph{universal} within the physically admissible class $\Phi$. The specific choice of flux form affects only quantitative details, not qualitative structure.
+
+\section{Physical Interpretation: Two Phases of Information}
+
+\subsection{The quantum phase ($q\approx 1/2$)}
+
+At $q\approx 1/2$, the system has abundant vacant capacity. Information can be encoded in superpositions across many cells. Coherence is robust---the entropic preference actively maintains this state. This is the regime we call ``quantum.''
+
+The mapping $q\leftrightarrow \ell_1$-norm of coherence makes this precise: $q\approx 1/2$ corresponds to density matrices with substantial off-diagonal elements, capable of supporting interference and entanglement.
+
+\subsection{The classical phase ($q\approx 0$)}
+
+At $q\approx 0$, cells are nearly saturated. The system cannot absorb new information without immediately re-emitting it. This is a \emph{self-organized critical state}---not passive, but actively pumping information outward through cascaded overflow. This is the regime we call ``classical.''
+
+The criticality is not assumed; it follows from $D(q)\to\infty$ as $q\to 0$, a mathematical consequence of the capacity constraint. The classical world is not the quantum world's graveyard---it is its engine, perpetually driving information outflow.
+
+\subsection{The separation mechanism}
+
+Start from an initial condition $q\approx 1$ (maximal capacity, fully quantum). Any spatial inhomogeneity creates a $q$-gradient. The $1/q$ nonlinearity amplifies this gradient, driving some regions toward $q\approx 0$. These become classical cores. Surrounding regions, maintained near $q\approx 1/2$ by entropic pressure, remain quantum.
+
+The separation is not two worlds diverging. It is one system developing two phases under a single dynamics. The phases are distinguished by a single parameter---the capacity ratio $q_S/q_E$---that controls everything from decoherence rates to non-Markovian backflow to the emergence of objectivity.
+
+\subsection{The direction of time}
+
+Overflow events establish directed edges between cells: information moved from $i$ to $j$ because $i$ was full and $j$ was empty. The set of all such edges forms a directed acyclic graph (DAG). The partial order on this DAG defines ``before'' and ``after.''
+
+Before the first overflow, the DAG is empty---no edges, no partial order, no time. The first overflow creates the first edge---the origin of time. The arrow of time is the statistical impossibility of reversing the overflow record when the capacity ratio is large: Theorem~2 shows that while recurrence is guaranteed (Kac time $2^{N_S}$), relaxation is controlled by $N_E$, and for macroscopic environments the relaxation time far exceeds the age of the universe.
+
+\section{Gravity from the Static Limit}
+
+\subsection{The Laplace equation}
+
+In the static limit $\partial_t q=0$, Eq.~(\ref{eq:qfield}) reduces to:
+\begin{equation}
+\boxed{\nabla^2(\ln q) = 0}.
+\label{eq:laplace}
+\end{equation}
+
+This is the Laplace equation. Define the information potential $\psi\equiv -\ln q$. Then $\nabla^2\psi=0$---the same equation satisfied by the Newtonian gravitational potential in vacuum, $\nabla^2\Phi=0$.
+
+This correspondence is not an analogy. It is a structural identity: both the information potential and the gravitational potential satisfy the same partial differential equation because both describe the static geometry of a quantity that flows under capacity constraints.
+
+\subsection{Spherical solution}
+
+In spherical symmetry with boundary condition $q(\infty)=1$:
+\begin{equation}
+\boxed{q(r) = e^{-GM/rc^2}},
+\label{eq:spherical}
+\end{equation}
+with weak-field expansion $q(r)\approx 1 - GM/rc^2$, yielding the Newtonian correspondence $\ln q = \Phi/c^2$.
+
+\subsection{What this means}
+
+Table~\ref{tab:scales} shows $q$ at the surface of objects spanning the mass range.
+
+\begin{table}[h]
+\caption{$q(R)$ for systems from Earth to black hole.}
+\label{tab:scales}
+\begin{tabular}{lccc}
+\toprule
+System & $M$ [kg] & $R$ [m] & $q(R)$ \\
+\midrule
+Earth & $6.0\times10^{24}$ & $6.4\times10^6$ & $0.9999999993$ \\
+Sun & $2.0\times10^{30}$ & $7.0\times10^8$ & $0.9999979$ \\
+Neutron star & $1.4M_\odot$ & $10^4$ & $0.83$ \\
+Black hole (at $r_s$) & $10M_\odot$ & $3\times10^4$ & $e^{-1/2}\approx 0.607$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Earth is extraordinarily quantum: fewer than $10^{-7}$\% of its Planck-scale cells are occupied. Yet this minuscule deviation from $q=1$, amplified by the $1/q$ nonlinearity, produces the gravitational acceleration $g=9.8$~m/s$^2$. Gravity is weak because almost all information capacity is vacant.
+
+The $1/r$ decay of gravity is derived from Eq.~(\ref{eq:laplace}): it is the Green's function of the Laplace equation in $d=3$, not a separate postulate. If space had $d$ dimensions, the force law would be $r^{-(d-2)}$. Gravity's inverse-square law is a statement about spatial dimensionality.
+
+\subsection{What is derived and what is calibrated}
+
+The \emph{form} of the field equation (Laplace/Poisson type), the $1/r$ decay, and Gauss's law structure are derived from the $q$-field dynamics. The numerical value of $G$ is calibrated by matching to Newtonian gravity. Similarly, $c$ and $\hbar$ are not derived; they enter as the information propagation speed bound and the quantum of action, respectively. The framework explains why the gravitational field equation has the structure it does; it does not explain why $G$ has the value it has.
+
+\section{Soft Boundaries}
+
+\subsection{A universal feature}
+
+Equation~(\ref{eq:qfield}) is parabolic. Parabolic equations have a characteristic feature: their propagating fronts are smooth sigmoids, not sharp discontinuities. The traveling wave solution $q(x,t)=q(x-vt)$ with $q(\xi)=1/(1+e^{-v\xi/\kappa})$ is an exact solution, with characteristic front width:
+\begin{equation}
+\delta x = 2\ln 9 \cdot \frac{\kappa}{v} \approx 4.394 \cdot l \cdot \frac{c}{v},
+\end{equation}
+where $l$ is the information grid spacing.
+
+This width is constant---the sigmoid front does not spread with distance. It is a soliton-like feature of the $1/q$ nonlinearity. The GR sharp-light-cone limit is recovered as $l\to 0$.
+
+\subsection{Physical manifestations}
+
+The softness of boundaries is a universal prediction of the framework, applying to three apparently unrelated phenomena:
+
+\begin{enumerate}
+\item \textbf{Causal boundaries.} Information fronts are sigmoids, not step functions. The light cone is fuzzy at the scale of the information grid. There is no ``exact'' causal boundary---only an exponentially sharp transition.
+
+\item \textbf{Black hole boundaries.} The $q$-field $q(r)=e^{-GM/rc^2}$ satisfies $q>0$ for all $r>0$. There is no finite radius at which $q=0$---no sharp event horizon. The approach to $q=0$ is asymptotic, with effective boundary radius $r_q(\varepsilon) = GM/(c^2\ln(1/\varepsilon))$ depending logarithmically on the threshold $\varepsilon$.
+
+\item \textbf{Quantum-classical boundaries.} The transition from quantum ($q\approx 1/2$) to classical ($q\approx 0$) is a continuous cross-fade through the $q$-spectrum, not a binary switch. There is no ``Heisenberg cut''---only a gradual shift in capacity ratio.
+\end{enumerate}
+
+The universality of soft boundaries follows from Theorem~\ref{thm:universality}: any admissible flux function $\phi\in\Phi$ produces a second-order parabolic equation, whose propagating fronts are necessarily smooth. Sharp boundaries are a feature of hyperbolic (wave-type) theories; soft boundaries are a feature of parabolic (diffusion-type) theories. The fact that DGF yields a parabolic $q$-field is not an assumption---it follows from the continuity equation $\partial_t q = -\nabla\cdot J$ with gradient-driven flux, which is the natural structure for information flow under capacity constraints.
+
+We note that the grid spacing $l$ is currently a free parameter of the framework, preventing quantitative predictions for the front width. The soft boundary is therefore a \emph{qualitative structural prediction}, not a numerical one.
+
+\section{Applications to Physical Phenomena}
+
+\subsection{Quantum entanglement}
+
+The $q$ parameter provides a capacity-based perspective on entanglement. For Werner states $\rho = p|\psi^-\rangle\langle\psi^-|+(1-p)I/4$, we find:
+\begin{equation}
+q(p) = \frac{p}{1+p}, \quad B(q) = 2\sqrt{2}\,\frac{q}{1-q},
+\end{equation}
+where $B$ is the Bell-CHSH violation. Three thresholds emerge naturally:
+
+\begin{table}[h]
+\caption{Quantum thresholds in $q$-space.}
+\begin{tabular}{ll}
+\toprule
+Phenomenon & $q$ threshold \\
+\midrule
+Entanglement appears & $q > 1/4 = 0.250$ \\
+Bell violation begins & $q > \sqrt{2}-1 \approx 0.414$ \\
+Maximal (singlet) & $q = 1/2 = 0.500$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The framework does not predict new entanglement phenomena---$q$ re-parameterizes known quantum information theory. However, it provides a unified capacity-language for entanglement thresholds that standard quantum mechanics expresses through different mathematical objects (density matrix rank, Schmidt number, concurrence). The limitation is that a single scalar $q$ cannot distinguish entanglement from local coherence; a full DGF description of entanglement would require sub-parameters $q_{\rm loc}$ and $q_{\rm ent}$.
+
+\subsection{The measurement problem}
+
+Standard quantum mechanics leaves unresolved the question of when and why a superposition becomes a definite outcome. The DGF framework provides a capacity-based perspective:
+
+A superposition of $k$ branches requires $q_S > 0$---vacant cells are needed to encode the distinct branches. Each information exchange with the environment consumes one cell. When $q_S$ drops below a critical threshold (determined by the capacity ratio $q_S/q_E$), further superpositions become unsupportable---the system has exhausted its capacity to maintain coherence. This is the DGF analog of wavefunction collapse.
+
+The framework clarifies three aspects of measurement:
+\begin{enumerate}
+\item \textbf{Why collapse is irreversible.} The S1 reflux bound (Theorem~3) constrains information backflow. When $q_S/q_E\ll 1$, the probability of the superposition re-forming is exponentially suppressed.
+\item \textbf{Why collapse is relational.} $q$ depends on the system boundary. An observer who includes the apparatus in ``the system'' assigns a different $q$ than one who does not. Collapse is real for the observer whose boundary excludes the apparatus, but the larger system (observer+apparatus) may still have $q>0$, supporting superposition from an external perspective.
+\item \textbf{What DGF cannot explain.} The Born rule---the specific probabilities of measurement outcomes---is not derivable from A1--A3. It remains an input, just as it does in standard quantum mechanics.
+\end{enumerate}
+
+The DGF perspective is compatible with, but distinct from, Zurek's quantum Darwinism~\cite{Zurek2009} and Rovelli's relational quantum mechanics. The distinguishing feature is that collapse is driven by capacity exhaustion, not environmental monitoring alone---even a perfectly isolated system with internal information processing would, in principle, eventually exhaust its capacity, though we acknowledge that this claim is constrained by the recurrence results of Section~2.3.
+
+\subsection{Cosmology}
+
+\subsubsection{Inflation}
+
+The $q$-field equation provides a natural inflationary mechanism without requiring an inflaton field. In the early universe, when little information had been processed, $q$ was small. The effective diffusivity $D(q)=\kappa/q$ was correspondingly large, driving extremely rapid homogenization. As the universe expanded and $q$ increased (more capacity became available), the diffusion rate dropped---a natural graceful exit. The number of $e$-foldings is set by the ratio of initial to final $q$:
+\begin{equation}
+N_e \sim \ln\frac{q_{\rm final}}{q_{\rm initial}}.
+\end{equation}
+Producing 60 $e$-foldings requires $q_{\rm initial}\sim 10^{-26}$, which is naturally expected at the birth of a universe with negligible classical information content.
+
+\subsubsection{Structure formation}
+
+The $1/q$ nonlinearity provides a natural amplification mechanism for density perturbations. The effective gravitational acceleration $\mathbf{g}\propto \nabla q/q^2$ is enhanced in low-$q$ regions, creating a positive feedback loop: matter clustering lowers $q$, which strengthens gravity, which accelerates clustering. This may produce deviations from $\Lambda$CDM at small scales.
+
+\subsubsection{Limitations}
+
+The DGF framework does not naturally produce a scale-invariant spectrum of primordial perturbations; the free diffusion of $q$ yields a red spectrum ($n_s\ll 1$) unless additional dynamics are introduced. The cosmological constant problem is not addressed: with the self-information flux, the vacuum energy density is zero, offering no explanation for the observed dark energy. These are honest limitations, not failures---the framework was not designed as a cosmological model, and its explanatory power lies elsewhere.
+
+\section{Honest Boundaries}
+
+A scientific framework is defined as much by what it cannot explain as by what it can. We list both.
+
+\subsection{What the framework explains}
+
+\begin{enumerate}
+\item \textbf{Why quantum and classical behavior coexist.} They are two phases of the $q$-field, separated by the competition between diffusion pressure and entropic attraction.
+\item \textbf{Why the separation is directional.} The $1/q$ nonlinearity amplifies toward $q\approx 0$; no symmetric mechanism amplifies toward $q\approx 1$.
+\item \textbf{Why irreversibility depends on scale.} Relaxation (controlled by $N_E$) and recurrence (controlled by $N_S$) are distinct. Theorem~2 provides the quantitative separation.
+\item \textbf{Why the gravitational field equation is Laplace-Poisson type.} It is the static limit of the $q$-field equation, a consequence of information diffusion under capacity constraints.
+\item \textbf{Why $1/r$ decay.} It is the Green's function of the Laplace equation in $d=3$, not a separate postulate.
+\item \textbf{Why physical boundaries are soft.} Parabolic dynamics produce smooth sigmoidal fronts, not sharp discontinuities.
+\item \textbf{Why inflation is natural.} $D(q)=\kappa/q$ provides built-in rapid early-universe homogenization.
+\end{enumerate}
+
+\subsection{What the framework does not explain}
+
+\begin{enumerate}
+\item The numerical values of $c$, $\hbar$, $G$.
+\item Why $d=3$ spatial dimensions.
+\item The specific scale of the quantum-classical boundary.
+\item The Born rule (quantum measurement probabilities).
+\item Quantum field theory and the Standard Model.
+\item Gravitational waves (requires a hyperbolic extension of the $q$-field equation).
+\item Dark energy / the cosmological constant.
+\item The specific particle content of the universe.
+\end{enumerate}
+
+\subsection{Assumption inventory}
+
+\begin{table}[h]
+\caption{Complete assumption inventory.}
+\begin{tabular}{lll}
+\toprule
+Label & Content & Status \\
+\midrule
+A1 & Distinguishable states exist & Definition \\
+A2 & Capacity bounded & Definition \\
+A3 & Locality & Physical input \\
+C5 & Vacuum stability ($D(1)<\infty$) & Physical input \\
+$\kappa$ & Flux normalization & Calibrated to $G$ \\
+$d=3$ & Spatial dimension & Observation \\
+$c$, $\hbar$ & Propagation speed, quantum of action & Observation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Discussion}
+
+\subsection{Relation to existing frameworks}
+
+The DGF framework intersects with several established research programs:
+
+\textbf{Zurek's quantum Darwinism~\cite{Zurek2009}} describes how environmental monitoring produces objective classical facts. DGF complements this by showing that capacity asymmetry alone---without an external monitor---suffices to create the conditions for classicality. The two frameworks are compatible: quantum Darwinism provides the mechanism, DGF provides the condition.
+
+\textbf{Bassani \& Magueijo~\cite{Bassani2025}} propose that physical laws emerge through a cosmic natural selection process. DGF addresses a complementary question: given that laws exist, why do they take the structural form they do? The BM framework supplies the evolutionary mechanism; DGF supplies the architectural constraints.
+
+\textbf{Penrose and Di\'osi~\cite{Penrose1996,Diosi1989}} link decoherence to gravitational self-energy. DGF links gravity to information capacity exhaustion. Both identify gravity as implicated in the quantum-classical transition, but through different causal directions.
+
+\textbf{Vopson's infodynamics~\cite{Vopson2023}} proposes that information entropy decreases in isolated systems. DGF's Shannon entropy increases under coarse-graining. The two frameworks describe different informational quantities; the apparent contradiction is terminological.
+
+\subsection{The deepest open problem}
+
+The framework's most significant unresolved issue is the cell basis problem: what selects the $\{|0\rangle,|1\rangle\}$ basis in which cells are ``occupied'' or ``vacant''? We conjecture that the basis emerges from interaction history---a cell that repeatedly participates in overflow events has its basis locked by those events. This conjecture (OA-2, OA-3 in internal documentation) has not been proved.
+
+This problem is not fatal. It is the framework's research frontier: proving how interaction history selects a preferred basis would complete the derivation from information definitions to classical phenomenology.
+
+\section{Conclusion}
+
+We have shown that a single principle---information is finite, and its directed flow under capacity constraints generates structure---provides a unified conceptual framework for understanding phenomena that standard physics treats as unrelated. The $q$-field equation $\partial_t q = \kappa\nabla^2(\ln q)$ is the mathematical engine of this unification. Its static limit yields the gravitational field equation. Its $q\to 0$ singularity yields self-organized criticality---the classical world as active engine rather than passive residue. Its parabolic nature yields soft boundaries as a universal feature. Its nonlinearity yields natural inflation and amplified structure formation.
+
+We have not derived the universe. We have shown that if information is finite, certain features of our physical world that appear contingent are, in fact, what finite information looks like in time. The framework's contribution is not new numerical predictions---it is a new understanding of why the structures we observe take the form they do.
+
+The deepest lesson is perhaps the simplest: the classical world is not the quantum world's graveyard. It is its engine. Quantum coherence is not fragile---it is the default, maintained by entropic pressure. The separation of scales is not a mystery---it is a phase coexistence. The arrow of time is not a law---it is a statistical record. And gravity is not a force---it is the static geometry of information capacity exhaustion.
+
+\begin{thebibliography}{99}
+
+\bibitem{Zurek2003} W.H.~Zurek, Rev.~Mod.~Phys.~\textbf{75}, 715 (2003).
+\bibitem{Schlosshauer2007} M.~Schlosshauer, \emph{Decoherence and the Quantum-to-Classical Transition} (Springer, 2007).
+\bibitem{Zurek2009} W.H.~Zurek, Nat.~Phys.~\textbf{5}, 181 (2009).
+\bibitem{Baumgratz2014} T.~Baumgratz, M.~Cramer, and M.B.~Plenio, Phys.~Rev.~Lett.~\textbf{113}, 140401 (2014).
+\bibitem{Shannon1948} C.E.~Shannon, Bell Syst.~Tech.~J.~\textbf{27}, 379 (1948).
+\bibitem{Bak1987} P.~Bak, C.~Tang, and K.~Wiesenfeld, Phys.~Rev.~Lett.~\textbf{59}, 381 (1987).
+\bibitem{Cover2006} T.M.~Cover and J.A.~Thomas, \emph{Elements of Information Theory} (Wiley, 2006).
+\bibitem{Bassani2025} P.M.~Bassani and J.~Magueijo, Phys.~Rev.~D~\textbf{111}, 103529 (2025).
+\bibitem{Penrose1996} R.~Penrose, Gen.~Rel.~Grav.~\textbf{28}, 581 (1996).
+\bibitem{Diosi1989} L.~Di\'osi, Phys.~Rev.~A~\textbf{40}, 1165 (1989).
+\bibitem{Vopson2023} M.~Vopson, AIP Advances \textbf{13}, 10520 (2023).
+\bibitem{Chiribella2011} G.~Chiribella, G.M.~D'Ariano, and P.~Perinotti, Phys.~Rev.~A~\textbf{84}, 012311 (2011).
+\bibitem{Wheeler1990} J.A.~Wheeler, in \emph{Complexity, Entropy, and the Physics of Information} (1990).
+\bibitem{Verlinde2011} E.~Verlinde, JHEP \textbf{04}, 029 (2011).
+\bibitem{Malament1977} D.~Malament, J.~Math.~Phys.~\textbf{18}, 1399 (1977).
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,305 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "round": 1,
+  "agent": "A",
+  "polaris": "Can a real same-sample or matched-specimen nickelate packet supply P_oe + B_min before superconducting-output reveal, strongly enough to kill or preserve R_oe?",
+  "framework": {
+    "decision": "PACKET_FEASIBLE_NEAR_FUTURE",
+    "physics_frame": "Normal-state bilayer response metrology: construct an odd/even susceptibility observable from qz/polarization/form-factor-resolved spin/orbital scattering, then regress it only against independently measured non-superconducting baselines.",
+    "core_observable": "P_oe = signed, calibrated contrast between odd and even bilayer susceptibility channels on a frozen q, omega, T, pressure grid.",
+    "identification_rule": "All P_oe and B_min rows must be frozen before superconducting-output reveal. Tc, zero resistance, Meissner response, gap, critical current, and resonance labels are sealed until residual testing.",
+    "strongest_route_summary": "Use a matched-wafer/same-boule La3Ni2O7 packet: non-destructive composition/structure/optical/XAS/Raman baselines on sibling pieces, qz-resolved RIXS or neutron/RIXS hybrid for P_oe on the spectroscopy piece, and independent pressure-row replication in diamond-anvil or cubic-anvil environments. Existing literature supplies components, not the complete packet."
+  },
+  "findings": {
+    "main": "The strongest feasible route is a new coordinated campaign rather than retrospective assembly. Existing work already supplies the individual metrology languages: RIXS/XAS detects electronic and magnetic excitations in La3Ni2O7; theory predicts separable even/odd bilayer spin response signatures; oxygen vacancies and ligand holes are directly imageable; optical and magnetotransport baselines exist; high-pressure Raman/XRD can locate structural rows. What is missing is not a new principle but a leakage-clean row architecture that binds these blocks to same-sample or matched-specimen identities before superconducting labels are opened.",
+    "supporting_sources": [
+      {
+        "role": "P_oe source",
+        "reference": "Chen et al., Nature Communications 2024, DOI 10.1038/s41467-024-53863-5",
+        "use": "RIXS/XAS precedent for La3Ni2O7 electronic and magnetic excitation extraction; supports normal-state spectroscopy block but does not by itself provide full qz odd/even packet."
+      },
+      {
+        "role": "odd/even theory map",
+        "reference": "Boetzel et al., Physical Review B 109 L180502, DOI 10.1103/physrevb.109.l180502",
+        "use": "Defines why bilayer even and odd spin susceptibility channels carry discriminating information; supplies measurement targets for RIXS or inelastic neutron scattering."
+      },
+      {
+        "role": "oxygen and ligand-hole baseline",
+        "reference": "Dong et al., Nature 2024, DOI 10.1038/s41586-024-07482-1",
+        "use": "Direct oxygen-vacancy and ligand-hole visualization; strong candidate block for non-tautological B_min."
+      },
+      {
+        "role": "optical/correlation baseline",
+        "reference": "Liu et al., Nature Communications 2024, DOI 10.1038/s41467-024-52001-5",
+        "use": "Optical/electronic-correlation and partial-gap baseline useful as ordinary normal-state covariates, with superconducting-output features excluded."
+      },
+      {
+        "role": "pressure/structure row",
+        "reference": "Xie et al., Pressure-Induced Phase Transitions in Bilayer La3Ni2O7, DOI 10.21203/rs.3.rs-5326664/v1; ACS JPCC 2025 SI DOI 10.1021/acs.jpcc.5c07252.s001",
+        "use": "Pressure-dependent structural phase transition and resistance context; can anchor pressure path and lattice covariates but resistance-output labels must be sealed."
+      },
+      {
+        "role": "high-pressure Raman row",
+        "reference": "Zhang et al., arXiv:2511.15265",
+        "use": "Raman plus first-principles pressure-phase tracking up to 32.7 GPa; useful for pressure-row structural state and denominator floor construction."
+      },
+      {
+        "role": "known difficulty",
+        "reference": "Wang et al., arXiv:2406.04837",
+        "use": "Review explicitly flags sample quality, oxygen deficiencies, and high-pressure measurement reliability as central open issues."
+      },
+      {
+        "role": "oxygen-vacancy confound",
+        "reference": "Lu et al., Communications Physics 2025, DOI 10.1038/s42005-025-02266-z",
+        "use": "Shows pressure and apical oxygen vacancies can strongly affect predicted superconducting properties; makes oxygen baseline mandatory, not optional."
+      },
+      {
+        "role": "local electronic baseline",
+        "reference": "Mijit, DOI 10.21203/rs.3.rs-7347905/v1",
+        "use": "High-pressure XAS/XES style local valence/spin-state control; candidate block for rare-earth 5d and Ni/O charge-transfer covariates."
+      }
+    ],
+    "negative_search_result": "No search hit showed an already published leakage-clean same-sample or matched-specimen dataset containing calibrated qz/polarization odd/even susceptibility plus full B_min before superconducting-output reveal."
+  },
+  "feasible_packet_route": {
+    "route_name": "Matched-boule sealed-output P_oe+B_min campaign",
+    "specimen_design": "Grow one high-quality La3Ni2O7 batch, cut adjacent sibling specimens with tracked orientation, mass, dimensions, oxygen anneal history, and pressure-cell loading history. Reserve at least one spectroscopy specimen, one destructive microscopy specimen, one pressure-transport specimen with sealed labels, and one structural/XAS/Raman specimen per pressure row.",
+    "same_sample_pressure_row": "Best same-sample row is sequential non-destructive baseline -> pressure Raman/XRD/XAS -> qz-resolved RIXS if beamline/sample environment permits -> sealed superconducting-output measurement. If RIXS under target pressure is unavailable, use matched-specimen pressure rows with identical pressure medium, gasket geometry, ruby/diamond pressure calibration, loading date, and thermal cycle.",
+    "P_oe_sources": [
+      "Primary: qz-resolved RIXS intensity maps on Ni L edge or O K edge, with polarization scans and incident-energy dependence sufficient to separate magnetic, orbital, and charge form factors.",
+      "Secondary: inelastic neutron scattering on co-aligned crystals where sample mass permits, used to cross-calibrate even/odd qz modulation and magnetic form factor.",
+      "Fallback: theory-constrained decomposition of RIXS maps using the Boetzel even/odd susceptibility channel definitions, but only if raw spectra and calibration files remain available for independent refit."
+    ],
+    "B_min_substitutes": [
+      {
+        "target": "oxygen stoichiometry and layer asymmetry",
+        "measured_block": "STEM/EELS, iodometric or TGA-style oxygen estimate where possible, O K-edge XAS pre-edge, apical oxygen vacancy maps on sacrificial sibling pieces."
+      },
+      {
+        "target": "strain and lattice geometry",
+        "measured_block": "single-crystal XRD or synchrotron powder XRD, Raman phonon markers, pressure-dependent lattice constants, octahedral tilt/rotation proxies, c-axis and Ni-O-Ni bond-angle proxies."
+      },
+      {
+        "target": "dz2, rare-earth 5d, ligand-hole, self-doping",
+        "measured_block": "Ni L/K-edge XAS/XES, O K-edge ligand-hole pre-edge, La L-edge XAS, polarization-resolved XAS where geometry allows."
+      },
+      {
+        "target": "disorder and dephasing",
+        "measured_block": "rocking-curve width, residual resistivity ratio as normal-state quality only, Raman linewidths, XRD mosaicity, STEM defect density, low-temperature normal-state magnetoresistance before output-label reveal."
+      },
+      {
+        "target": "pressure and thermal path",
+        "measured_block": "pressure medium, pressure markers, load curve, unload curve, thermal cycle count, pressure gradient estimate, gasket/culet geometry, dwell time at pressure."
+      },
+      {
+        "target": "ordinary c-axis coherence",
+        "measured_block": "normal-state optical conductivity anisotropy or reflectivity/Kramers-Kronig Drude weight proxy, interlayer hopping proxy from ARPES/DFT-matched band splitting where available, excluding gap and superconducting coherence features."
+      }
+    ],
+    "calibration_controls": [
+      "Use fluorescence/elastic-line normalization and a non-nickelate standard for RIXS intensity calibration; publish raw S_channel to chi_unit transformation.",
+      "Freeze q, omega, qz, polarization, temperature, pressure, and censoring grids before any residual call.",
+      "Define denominator floor as max(instrumental_noise_floor, bootstrap channel-mixing floor, blank-standard residual floor). Rows below floor are censored, not rescaled.",
+      "Use independent teams or locked scripts for B_min extraction and P_oe extraction; join only on anonymized row IDs.",
+      "Pre-register U_miss as fixed latent uncertainty buckets: unmeasured oxygen microtexture, pressure-gradient uncertainty, beam-damage uncertainty, matrix-element residual, and sibling-mismatch uncertainty.",
+      "Batch controls: same-boule sibling specimens plus one different-boule replicate; sample controls: intentionally oxygen-shifted or pressure-path-shifted specimens; probe controls: repeated calibration standards and blind duplicate spectra."
+    ],
+    "output_blinding": "Before residual call, forbid access to Tc, zero-resistance, Meissner/diamagnetic signal, superconducting gap, spin resonance interpreted as superconducting, critical current, or any human label trained from those outputs. Raw transport above the frozen normal-state window may be used only after censoring temperatures near any known transition window."
+  },
+  "minimum_rows": {
+    "absolute_minimum_for_pilot": 12,
+    "preferred_minimum_for_protocol": 24,
+    "layout": [
+      "3 pressure states below/near/above structural transition or chosen pressure landmarks, each with 4 matched rows for pilot.",
+      "At least 2 independent growth batches in the preferred design.",
+      "At least 2 blinded duplicate rows whose specimen identity is hidden from the P_oe and B_min extractors.",
+      "At least 1 deliberately oxygen-shifted control and 1 deliberately pressure-path-shifted control per batch."
+    ],
+    "row_definition": "One row is a specimen or sibling-specimen bundle with frozen P_oe, frozen B_min, frozen U_miss, and sealed superconducting-output label.",
+    "why_not_smaller": "Below roughly 12 rows, denominator-floor censoring and sibling-mismatch uncertainty can dominate any cross-fitted residual test; below 2 batches, batch oxygen and growth-history confounds are indistinguishable from P_oe."
+  },
+  "missing_fields": {
+    "currently_missing_but_engineering": [
+      "Published same-row qz-resolved odd/even susceptibility with raw calibration files.",
+      "Beamline-compatible high-pressure RIXS or a validated matched-pressure transfer design.",
+      "Pre-registered S_channel to chi_unit conversion and channel-mixing covariance.",
+      "Matched-sibling oxygen microtexture maps tied to spectroscopy row IDs.",
+      "A frozen pressure/thermal-path ledger shared across probes."
+    ],
+    "dangerous_if_missing": [
+      "No independent oxygen/ligand-hole baseline: B_min becomes under-specified and pressure/oxygen confounding can masquerade as P_oe.",
+      "No denominator floor: odd/even ratios become unstable near zero channel contrast.",
+      "No sealed superconducting outputs: residual call is vulnerable to label leakage.",
+      "No batch replicate: same-boule idiosyncrasy can be misread as a physical effect.",
+      "No raw calibration archive: later reviewers cannot separate susceptibility from matrix-element artifacts."
+    ]
+  },
+  "engineering_plan": {
+    "phase_0_pre_registration": [
+      "Freeze row schema, output embargo list, q/omega/qz/T/P grid, denominator-floor rule, U_miss buckets, and censoring rules.",
+      "Assign anonymized row IDs before measurements and store superconducting-output labels with a separate custodian."
+    ],
+    "phase_1_batch_and_baseline": [
+      "Grow or source two La3Ni2O7 batches with documented oxygen anneal and phase purity.",
+      "Measure XRD/Raman/STEM-EELS/XAS/optical normal-state baselines on same or sibling pieces before any superconducting-output inspection."
+    ],
+    "phase_2_P_oe_metrology": [
+      "Acquire RIXS maps at frozen qz and polarization settings; include elastic-line, fluorescence, and standard-sample calibrations.",
+      "Fit odd/even channels using a locked model with explicit matrix-element nuisance terms and bootstrap channel-mixing covariance."
+    ],
+    "phase_3_pressure_rows": [
+      "Load matched specimens with identical pressure medium and geometry where same-sample multi-probe is impossible.",
+      "Record pressure gradient, load/unload sequence, thermal cycling, and Raman/XRD phase markers for each row."
+    ],
+    "phase_4_lock_and_reveal": [
+      "Lock P_oe, B_min, U_miss, censored rows, denominator floor, and extraction logs.",
+      "Only then reveal superconducting-output labels for the residual-collapse protocol."
+    ],
+    "landing_calculation": {
+      "status": "semi-finished blueprint",
+      "expression": "P_oe = (chi_odd - chi_even) / max(abs(chi_odd) + abs(chi_even), epsilon_floor)",
+      "variables": {
+        "chi_odd": "calibrated odd-channel normal-state susceptibility",
+        "chi_even": "calibrated even-channel normal-state susceptibility",
+        "epsilon_floor": "pre-frozen denominator floor from standards, channel mixing, and noise"
+      },
+      "numerical_test": {
+        "substitutions": {
+          "chi_odd": 1.20,
+          "chi_even": 0.80,
+          "epsilon_floor": 0.10
+        },
+        "expected_value": 0.20,
+        "censoring_check": "If abs(chi_odd)+abs(chi_even) < epsilon_floor, row is censored rather than amplified."
+      }
+    }
+  },
+  "failure_modes": [
+    {
+      "id": "F1",
+      "mode": "P_oe cannot be separated from RIXS matrix elements or pressure-cell geometry.",
+      "classification": "protocol failure if raw calibration and cross-probe validation are unavailable; engineering gap if standards and duplicate qz scans can bound it."
+    },
+    {
+      "id": "F2",
+      "mode": "Matched specimens diverge in oxygen vacancy texture or hidden phase fraction.",
+      "classification": "protocol failure if no destructive sibling mapping or batch replicate exists; engineering gap if microtexture is measured and included in U_miss."
+    },
+    {
+      "id": "F3",
+      "mode": "Superconducting-output leakage through pressure row selection, resistance curves, Meissner imaging, gap spectroscopy, or human labels.",
+      "classification": "protocol failure."
+    },
+    {
+      "id": "F4",
+      "mode": "Denominator floor is chosen after seeing residual behavior.",
+      "classification": "protocol failure."
+    },
+    {
+      "id": "F5",
+      "mode": "Too few pressure/batch rows for cross-fitting after censoring.",
+      "classification": "engineering gap for pilot; protocol failure for any claim beyond bounded feasibility."
+    },
+    {
+      "id": "F6",
+      "mode": "Pressure path is non-repeatable across probes and cannot be ledgered.",
+      "classification": "protocol failure for matched-specimen design; same-sample design may survive if all needed non-output blocks are acquired before reveal."
+    },
+    {
+      "id": "F7",
+      "mode": "B_min includes a proxy trained on Tc, zero resistance, gap, Meissner, or resonance labels.",
+      "classification": "protocol failure by tautology."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A complete published same-sample P_oe+B_min nickelate packet was not found in Round 1; the feasible route is a new coordinated near-future campaign.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "references": [
+        "10.1038/s41467-024-53863-5",
+        "10.1103/physrevb.109.l180502",
+        "10.1038/s41586-024-07482-1",
+        "10.48550/arxiv.2406.04837"
+      ],
+      "assumptions": [
+        "paper-search-mcp coverage is sufficient for Round 1 triage",
+        "unpublished beamline datasets are not counted as existing public packets"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The P_oe block is physically targetable because bilayer odd/even magnetic susceptibility channels have explicit theory targets and La3Ni2O7 RIXS/XAS magnetic-excitation measurements already exist.",
+      "confidence": 0.76,
+      "new_insight": false,
+      "references": [
+        "10.1038/s41467-024-53863-5",
+        "10.1103/physrevb.109.l180502"
+      ],
+      "assumptions": [
+        "RIXS or neutron geometry can sample enough qz contrast to constrain odd/even channel mixing",
+        "normal-state data are acquired before output reveal"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "Full B_min can be replaced by a measured covariate block spanning oxygen/ligand holes, structure/strain, local valence/orbitals, disorder, pressure path, and normal c-axis coherence.",
+      "confidence": 0.72,
+      "new_insight": false,
+      "references": [
+        "10.1038/s41586-024-07482-1",
+        "10.1038/s41467-024-52001-5",
+        "10.21203/rs.3.rs-5326664/v1",
+        "10.1038/s42005-025-02266-z",
+        "10.21203/rs.3.rs-7347905/v1"
+      ],
+      "assumptions": [
+        "sibling specimens preserve enough shared growth and oxygen history for matched-row inference",
+        "destructive oxygen mapping can be assigned to a row without contaminating superconducting-output labels"
+      ]
+    },
+    {
+      "id": "C4",
+      "statement": "The main gaps are engineering gaps until calibration, denominator floor, output blinding, and batch/matched controls fail; if any of those fail, the protocol fails rather than merely weakening.",
+      "confidence": 0.79,
+      "new_insight": false,
+      "references": [
+        "10.48550/arxiv.2406.04837",
+        "10.1038/s42005-025-02266-z",
+        "10.21203/rs.3.rs-5326664/v1"
+      ],
+      "assumptions": [
+        "protocol success requires identifiability, not just high-quality component measurements"
+      ]
+    }
+  ],
+  "inspector_check": {
+    "formula": {
+      "expression": "P_oe = (chi_odd - chi_even) / max(abs(chi_odd) + abs(chi_even), epsilon_floor)",
+      "units": "dimensionless after chi_odd and chi_even are calibrated to identical susceptibility units",
+      "limit_checks": [
+        {
+          "limit": "chi_odd == chi_even and denominator above floor",
+          "expected": "P_oe == 0"
+        },
+        {
+          "limit": "abs(chi_odd)+abs(chi_even) -> 0",
+          "expected": "row censored by epsilon_floor rule, not interpreted as large contrast"
+        }
+      ]
+    },
+    "direction": "A route exists as a near-future measurement campaign, but current literature does not already validate R_oe or contain the complete packet.",
+    "data": "paper-search-mcp was used for all four required Round 1 searches: core claim prior search, framework blind-spot search, counterexample/criticism search, and data-availability search. Targeted follow-up searches used paper-search-mcp for RIXS, odd/even theory, pressure Raman, oxygen/ligand-hole, optical, and review sources. No web_search downgrade was used.",
+    "assumptions": [
+      "A/B independence maintained: current-CphiPacket/B and B outputs were not read.",
+      "Superconducting-output reveal is not part of this A Round 1 file.",
+      "R_oe is not claimed to exist."
+    ],
+    "deepening": {
+      "next_layer_consequence": "If the packet is executed, the decisive object is no longer a literature claim but a row-level leakage audit: P_oe must retain variance after B_min and U_miss are locked.",
+      "second_layer_consequence": "If P_oe variance collapses into oxygen/pressure/structure covariates, that would kill the executable R_oe route without needing to argue against superconductivity itself.",
+      "most_fragile_premise": "Matched-sibling specimens may not preserve oxygen microtexture and pressure-path equivalence tightly enough for row-level inference."
+    }
+  }
+}

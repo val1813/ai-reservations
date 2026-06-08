@@ -1,0 +1,269 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 3,
+  "agent": "B",
+  "polaris": "LP29-C2 graph metrics are independent only if they show held-out residual power on external material labels after OI_norm plus controls; otherwise they remain Srivastava orbital-overlap reparameterizations.",
+  "framework": "Distributed network reliability / error-correcting redundancy under a fixed local overlap-capacity budget.",
+  "independence_guardrail": {
+    "current_A_read": false,
+    "A_round3_output_read": false,
+    "A_round2_output_read": false,
+    "inputs_used_only": [
+      "D:\\Claude\\ai-reservations\\ai\\B_AGENT.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2_round2.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\inspector_B_C2_round2.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\C2_round2.json",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\C2_residual_benchmark_summary.csv",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\C2_residual_benchmark_synthetic_rows.csv"
+    ],
+    "scope_note": "Round 3 stayed inside current/B and synthesis B/PI inputs. No current/A file or A Round 3 output was opened."
+  },
+  "findings": "Round 3 converts the synthetic benchmark into schema-compatible diagnostic rows and creates a blocked material graph-row table. The synthetic B-positive result only says the leakage-controlled pipeline can detect a planted graph residual; it still provides zero material validation. Jankousky, Srivastava, and Furubayashi are currently provenance-blocked for computable same-sample graph rows.",
+  "artifacts_written": [
+    "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\C2_round3.json",
+    "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\C2_graph_feature_rows_synthetic_only.csv",
+    "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\C2_material_graph_rows_blocked.csv"
+  ],
+  "synthetic_schema_rows": {
+    "source": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\C2_residual_benchmark_synthetic_rows.csv",
+    "output": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\C2_graph_feature_rows_synthetic_only.csv",
+    "source_sample_count": 144,
+    "schema_row_count": 288,
+    "row_rule": "Each synthetic sample is emitted once for Y_A_null_diagnostic and once for Y_B_positive_diagnostic, with the same B0_* and G1_* fields.",
+    "hard_gate_columns": {
+      "synthetic_label_flag": true,
+      "material_validation_allowed": false,
+      "synthetic_only_not_material_validation": true,
+      "is_external_to_graph_proxy": false,
+      "forbidden_if_graph_generated": true,
+      "validation_use": "software_sanity_only"
+    },
+    "schema_fields_present": [
+      "sample_id",
+      "material_id",
+      "structure_id",
+      "snapshot_id",
+      "seed",
+      "label_family",
+      "label_name",
+      "label_provenance_id",
+      "label_value",
+      "label_unit",
+      "label_direction_class",
+      "label_method",
+      "label_source_type",
+      "source_citation_or_doi",
+      "graph_convention_provenance_id",
+      "B0_OI_norm",
+      "B0_onsite_variance",
+      "B0_carrier_density",
+      "B0_finite_size",
+      "B0_batch_or_family",
+      "G1_lambda2_Lsym",
+      "G1_rho_A_budget_norm",
+      "G1_attack_gap_lambda2",
+      "label_forbidden_control_audit"
+    ]
+  },
+  "synthetic_benchmark_summary": [
+    {
+      "label": "Y_A_null",
+      "interpretation": "Null-control label; no stable graph residual should be inferred.",
+      "feature_results": [
+        {
+          "graph_feature": "G1_lambda2_Lsym",
+          "heldout_residual_r2": -0.06997683356150408,
+          "residual_corr": -0.08446160674922844
+        },
+        {
+          "graph_feature": "G1_rho_A_budget_norm",
+          "heldout_residual_r2": 0.01309459088660958,
+          "residual_corr": 0.12167877341233253
+        },
+        {
+          "graph_feature": "G1_attack_gap_lambda2",
+          "heldout_residual_r2": -0.03954096486160097,
+          "residual_corr": -0.1260694498111132
+        }
+      ]
+    },
+    {
+      "label": "Y_B_positive",
+      "interpretation": "Planted graph-positive diagnostic; it validates pipeline sanity only, not material physics.",
+      "feature_results": [
+        {
+          "graph_feature": "G1_lambda2_Lsym",
+          "heldout_residual_r2": 0.8561756426763487,
+          "residual_corr": 0.9269632930804722
+        },
+        {
+          "graph_feature": "G1_rho_A_budget_norm",
+          "heldout_residual_r2": -5.58587431587885,
+          "residual_corr": -0.12576823902751325,
+          "note": "Null-control behavior under the planted target; not a pipeline failure."
+        },
+        {
+          "graph_feature": "G1_attack_gap_lambda2",
+          "heldout_residual_r2": 0.134314465937595,
+          "residual_corr": 0.36750056050662055
+        }
+      ]
+    }
+  ],
+  "material_graph_rows_blocked": {
+    "output": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\C2_material_graph_rows_blocked.csv",
+    "verdict": "No material row is graph-feature-ready in Round 3.",
+    "blocked_sources": [
+      {
+        "source": "Jankousky raw structures",
+        "missing_for_graph_features": [
+          "same-sample atomic coordinates",
+          "snapshot_id or averaged snapshot window",
+          "species labels and periodic cell",
+          "OI formula inputs or orbital basis",
+          "graph_cutoff_rule",
+          "batch/family key",
+          "audit path or DOI"
+        ]
+      },
+      {
+        "source": "Srivastava structures/Table II/Fig4",
+        "missing_for_graph_features": [
+          "structure files matched to Table II/Fig4 rows",
+          "exact OI_formula_source",
+          "OI_ref_value",
+          "OI fixed-density or fixed-pair executable rule",
+          "edge cutoff rule",
+          "row-to-structure_id mapping",
+          "m_eff provenance if used as baseline or label"
+        ]
+      },
+      {
+        "source": "Furubayashi transport labels",
+        "missing_for_graph_features": [
+          "label_provenance_id with value/unit/temperature",
+          "independent carrier-density source",
+          "matching material_id to computable structure_id",
+          "batch/family blocking key",
+          "target-family forbidden-control audit"
+        ]
+      }
+    ]
+  },
+  "minimum_graph_feature_computation_plan": [
+    "For each candidate material row, first assign material_id, structure_id, snapshot_id, family/batch, and label_provenance_id; rows without these keys remain blocked.",
+    "Before reading any external labels, lock OI_formula_source, OI_ref_value, fixed-density or fixed-pair normalization, graph_cutoff_rule, laplacian_convention, rho_convention, and attack_matching_rule.",
+    "Compute B0_OI_norm and nuisance controls from structure/provenance only; audit carrier density and mobility-edge controls for target leakage.",
+    "Build A_w with w_ij=max(0,OI_ij/OI_ref), A_w symmetric, A_w diagonal zero, and fixed edge cutoff.",
+    "Compute G1_lambda2_Lsym from the symmetric normalized weighted Laplacian, G1_rho_A_budget_norm from spectral_radius(A_w/S_w), and G1_attack_gap_lambda2 from high-betweenness damage minus matched random damage.",
+    "Join only external labels that pass provenance and forbidden-control audit; then test held-out residual power after B0_OI_norm plus controls with family/batch blocking."
+  ],
+  "deepening_1_main_isomorphism": {
+    "layer_1": {
+      "source_structure": "distributed network reliability",
+      "LP29_mapping": "OI_norm is total local edge budget; lambda_2 and attack_gap test whether that budget is globally redundant or bottlenecked.",
+      "round3_status": "Still a computable hypothesis only; no material row has enough provenance."
+    },
+    "layer_2": {
+      "source_structure": "min-cut redundancy",
+      "LP29_mapping": "Equal overlap budgets can have different cut vulnerabilities; high-betweenness attack loss is the operational check.",
+      "round3_status": "Synthetic rows exercise the calculation path, but material cut structure remains blocked."
+    }
+  },
+  "deepening_2_source_extension": {
+    "layer_1": {
+      "source_structure": "error-correcting redundancy",
+      "LP29_mapping": "Local OI capacity is analogous to check count/strength; graph expansion tests redundant alternate support.",
+      "round3_status": "Retained as interpretation, not expanded into new analogies."
+    },
+    "layer_2": {
+      "source_structure": "expander-code threshold behavior",
+      "LP29_mapping": "A graph residual claim would require external labels to worsen under bottleneck vulnerability beyond OI controls.",
+      "round3_status": "Requires real or semi-real joined rows; synthetic B-positive is insufficient."
+    }
+  },
+  "a_objection": "All G1_* metrics are still functions of an OI-derived A_w, so they may be nonlinear reparameterizations of Srivastava-style orbital overlap.",
+  "b_response": "Accepted. B-positive synthetic only proves the residualization pipeline can detect a planted graph signal and reject a null-control shape. It does not establish any material conclusion until G1_* features add held-out residual power on provenance-complete external labels after OI_norm plus controls.",
+  "next_plan": "Stop expanding protocol prose. Unblock one real or semi-real row family by acquiring structure files and external label provenance, then run the same residual protocol on material-validation-eligible rows only.",
+  "literature_needed": [
+    "Jankousky raw amorphous oxide structure files atomic coordinates",
+    "Srivastava Table II Fig4 orbital overlap OI effective mass structure provenance",
+    "Furubayashi amorphous oxide Hall mobility carrier density transport labels"
+  ],
+  "claims": [
+    {
+      "id": "B-C2-R3-C1",
+      "statement": "C2_graph_feature_rows_synthetic_only.csv is schema-compatible but every row is diagnostic synthetic and excluded from material validation.",
+      "confidence": 0.95,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        "current/B/artifacts/C2_graph_feature_rows_synthetic_only.csv"
+      ],
+      "assumptions": [
+        "Rows are generated from the Round 2 synthetic benchmark artifact."
+      ]
+    },
+    {
+      "id": "B-C2-R3-C2",
+      "statement": "Jankousky/Srivastava/Furubayashi material graph rows remain blocked because computable structures, OI conventions, same-sample joins, or external-label provenance are incomplete.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        "current/B/artifacts/C2_material_graph_rows_blocked.csv"
+      ],
+      "assumptions": [
+        "No additional raw material structure or label bundle was supplied in the B-only inputs."
+      ]
+    },
+    {
+      "id": "B-C2-R3-C3",
+      "statement": "The synthetic B-positive benchmark supports pipeline sanity only and cannot support LP29 material conclusions.",
+      "confidence": 0.98,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "R3-F1",
+          "expression": "material_validation_allowed=false for synthetic_label_flag=true",
+          "units": "boolean gate"
+        }
+      ],
+      "references": [
+        "current/B/artifacts/C2_residual_benchmark_summary.csv"
+      ],
+      "assumptions": [
+        "Material inference requires external labels that are not generated from the graph proxy."
+      ]
+    }
+  ],
+  "INSPECTOR_CHECK": {
+    "formula": [
+      "w_ij=max(0,OI_ij/OI_ref), dimensionless",
+      "L_sym=I-D^{-1/2}A_wD^{-1/2}; lambda_2=eig_2(L_sym), dimensionless",
+      "rho_A=spectral_radius(A_w/S_w), dimensionless",
+      "attack_gap=D_high_betweenness-mean(D_random_matched), dimensionless",
+      "synthetic_label_flag=true -> material_validation_allowed=false"
+    ],
+    "direction": [
+      "Round 3 has no positive material graph claim.",
+      "Synthetic B-positive means the software pipeline is sane under a planted target.",
+      "Real B survives only through held-out external residual power after B0_OI_norm plus controls."
+    ],
+    "data": [
+      "C2_graph_feature_rows_synthetic_only.csv: 288 diagnostic schema rows from 144 synthetic samples.",
+      "C2_material_graph_rows_blocked.csv: blocked provenance table for Jankousky, Srivastava, Furubayashi candidates.",
+      "No current/A or A Round 3 artifact was read."
+    ],
+    "assumptions": [
+      "Synthetic rows are never material-validation eligible.",
+      "Graph conventions must be locked before labels are read.",
+      "Same-sample or explicitly justified matched structure-label joins are mandatory for material validation."
+    ]
+  },
+  "status_guardrail": {
+    "claim_level": "artifact-focused protocol stage; no empirical material validation",
+    "ready_for": "provenance unblock and inspector check",
+    "not_claimed": "No independent graph mechanism has been shown in real LP29 materials."
+  }
+}

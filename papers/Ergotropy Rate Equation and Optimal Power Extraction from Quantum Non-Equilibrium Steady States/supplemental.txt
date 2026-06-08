@@ -1,0 +1,228 @@
+                        Supplemental Material:
+Ergotropy Rate Equation and Optimal Power Extraction
+
+       from Quantum Non-Equilibrium Steady States
+
+                                   Zhongchang Huang1, 
+                                       1Independent Researcher
+                                         (Dated: May 22, 2026)
+
+S1. FULL PROOF OF THEOREM 1                                         S1.3 Regularity at Eigenvalue Crossings
+
+S1.1 Precise Statement                                       At a crossing point tc where ri(tc) = rj(tc):
+
+Theorem 1. Let H =  N    n|nn|       with  1  <   2  <       (a) The passive-state energy Epass = k rk(k) is con-
+                    n=1                                   tinuous at crossings: the jump in  involves swapping two
+
+· · · < N be a non-degenerate Hamiltonian. Let (t) be     equal eigenvalues, contributing zero change.
+
+a differentiable trajectory of density matrices. At any      (b) Therefore E(t) = Tr[H] - Epass is continuous.
+
+time t where the eigenvalues {rk(t)} of (t) are pairwise     (c) Lipschitz continuity: |E(t1) - E(t2)|  2(N -
+                                                          1)1|t1 - t2|.
+distinct, the ergotropy E(t) = Tr[H] - k rk(k) is
+differentiable and satisfies                                 Proof. Write |E(t1) - E(t2)|  |Tr[(t1)H] -
+                                                          Tr[(t2)H]| + |Epass(t1) - Epass(t2)|. The first term is
+E(t) = Tr[H · ],                                  (S1)    bounded by H(t1)-(t2)1  (N -1)1|t1-t2|.
+                                                          For the second term, Epass = k rk(k) with |(k)| 
+where H = H - Hp(a)ss and Hp(a)ss =  N    (k)|rk  rk  |.  N and k |rk(t1) - rk(t2)|  (t1) - (t2)1 (Weyl's
+                                     k=1                  inequality), giving the same bound. 
+
+                                                             (d) At crossings, E has finite left and right limits.
+
+S1.2 Proof
+
+   Step 1. Differentiability of eigenvalues. For a                              S1.4 Qubit Verification
+Hermitian matrix family (t) with non-degenerate spec-
+trum at t0, the Kato­Rellich theorem guarantees that      For    H  =        z    and       =   1  (I  + r  · ),  direct  calculation
+eigenvalues rk(t) and eigenprojections |rk(t)rk(t)| are                   2                     2
+analytic functions of t in a neighborhood of t0 [1].                   
+                                                          gives  E  =  2  (|r|  +  rz  )  (for  inverted    populations).   Then:
+   Step 2. Local constancy of the permutation.
+The permutation  is determined by the ordering of {rk}.                         Edirect   =         r · r         .         (S4)
+Since ri(t0) = rj(t0) for all i = j, by continuity there                                     2       |r| + rz
+exists  > 0 such that the ordering is preserved for |t -
+t0| < . Hence  is constant on this interval.              From   Eq.   (S1):    H         =     (z     + r^ · ),  giving
+                                                                                             2
+   Step 3. Hellmann­Feynman differentiation.
+From (t)|rk(t) = rk(t)|rk(t), differentiate and project          Tr[H        · ]  =          +      r · r   =  Edirect.     (S5)
+onto rk|:                                                                              2 rz     2    |r|
+
+rk = rk||rk.                                      (S2)                    S2. PROOF OF THEOREM 2
+
+Step 4. Assembly.                                         S2.1 Frequency-Dependent Effective Temperature
+
+E = Tr[ H] - rk (k)                                          Under the secular approximation, the steady state is
+
+                             k                            diagonal: ss = n psns|nn|. For each Bohr frequency
+                                                          j connecting levels m and n:
+  = Tr[ H] - rk||rk (k)
+                                                                                   pnss     = e-eff (j )j ,                 (S6)
+                             k                                                     pm ss
+
+  = Tr[ H] - Tr  (k)|rkrk|                        (S3)    with eff (j) given by Eq. (3) of the main text.
+
+                                       k
+
+  = Tr  (H - Hp(a)ss) = Tr[H · ]. 
+                                                                                                         2
+
+S2.2 Strict Monotonicity                                   occurs during the replenishment phase after extraction.
+                                                           Per cycle:
+
+For two baths (M = 2), let   1(). Then                                   QH = Ess/, QC = Ess(1/ - 1),    (S10)
+                                                           satisfying QH = W + QC . 
+eff =  e1 - e2                          (S7)
+                                  .
+  e1 + (1 - )e2
+
+When T1 = T2, the numerator is nonzero, so eff is                 S3.2 Entropy Production
+strictly monotone in . Condition (C2) then implies
+eff (a) = eff (b), contradicting the Gibbs requirement     The entropy production rate:
+of a single . This proves (i). 
+
+                                                                               P  12 - 13 .              (S11)
+                                                                         =
+                                                                        23 TC TH
+S2.3 Quantitative Lower Bound
+
+By the Cram´er­Rao inequality for exponential families:    The SSD condition TH /TC > 13/12 implies 12/TC >
+                                                           13/TH , hence  > 0. 
+
+       ()2                              (S8)
+       N  2 IF () ,
+                                                                        S3.3 Carnot Bound
+
+where  = eff (a) - eff (b) and IF ()  (N - 1)2/4.          From   0 and P > 0:
+This gives Eq. (4) of the main text. 
+                                                           =  23  = 1 - 12         1 - TC     = Carnot.  (S12)
+   Tightness of the bound. The Cram´er­Rao bound              13          13              TH
+uses only a single parameter () and the worst-case
+Fisher information. For the SSD qutrit with represen-      Equality holds at the inversion threshold where Ess  0
+tative parameters (13 = 100 meV, 12 = 60 meV,              (reversible, zero power). 
+TH = 300 K, TC = 77 K), numerical evaluation gives
+Nexact = 5.1 × 10-2 versus Nbound = 2.5 × 10-6, a ratio    S4. STRONG-COUPLING ANALYSIS
+of  2 × 104. The bound remains loose by 3­4 orders
+of magnitude across the SSD parameter space ( 103             S4.1 Reaction-Coordinate Mapping
+near threshold,  105 far from threshold). This is typ-
+ical of Cram´er­Rao bounds applied to low-dimensional         Following Strasberg et al. [3], each Drude-Lorentz bath
+discrete distributions. The bound's primary role is qual-  is mapped to a reaction coordinate (RC):
+itative: it guarantees N > 0 under conditions (C1)­(C2)
+with an analytically transparent dependence on system      Hext = HS +            kbk bk + gkVk(bk + bk ) , (S13)
+parameters, rather than providing a tight quantitative
+estimate. For quantitative non-Gibbs departure, direct                  k{H,C}
+numerical evaluation of N (as performed in Sec. S5) is
+recommended.                                               where gk = kk/2, VH = |13| + h.c., VC = |12| +
+                                                           h.c. The Hilbert space is truncated to 3×NH ×NC (NH =
+      S2.4 SSD Sufficient Condition for Population         NC = 6­8). The residual environment is treated in Born-
+                                  Inversion                Markov approximation.
+
+   In the SSD topology (H |1­|3, C |1­|2):                                       S4.2 Numerical Protocol
+  p3ss/ps1s = e-13/kBTH , p2ss/ps1s = e-12/kBTC . (S9)
+Inversion p3 > p2 requires TH /TC > 13/12.                    For each parameter set (H , C , TH , TC , 13, 23):
+                                                               1. Construct Hext and Lindblad dissipators for resid-
+       S3. THERMODYNAMIC CONSISTENCY
+                                                                  ual baths.
+                         S3.1 Energy Balance                   2. Solve for steady state ~ss via sparse direct methods.
+                                                               3. Compute S = TrRC[~ss].
+   In the SSD steady state, each transition satisfies de-      4. Compute E(S, HS) and F = E(RC)/E(BM).
+tailed balance with its bath independently. Heat flow      Convergence verified by increasing NH,C from 4 to 8 (all
+                                                           results converged to < 1%).
+                                                                                                                       3
+
+            S4.3 Results                                    the RC degree of freedom, the reduced population of level
+                                                            |3 is
+
+Across   [0.01, 0.5]:
+
+F()  [0.13, 0.21] (all values < 1).                (S14)    p3(RC) = |3, 0|+~ |2p~+ + |3, 0|-~ |2p~-
+
+Strong coupling suppresses ergotropy. The mecha-            =        1  (p~+  + p~-)  =  1 e-H (3-gH )  + e-H (3+gH )
+nism: RC hybridization delocalizes population over sys-              2                                  Z
+tem+RC states, smearing the inversion. The secular con-                                  2
+dition (C1) is violated at strong coupling.
+                                                            = e-H 3 cosh(H gH ) .                             (S18)
+                                                                           Z
+
+         S4.4 Analytical Estimates: Two Levels of           In the weak-coupling limit (gH  0), this reduces to the
+                             Approximation                  Born-Markov result p(3BM) = e-H3 /Z(BM). The ratio
+                                                            gives:
+   We present two analytical estimates that capture dif-
+ferent physics and give opposite predictions. Their com-                p(3RC)  =     cosh(H gH ) ·  Z (BM)   (S19)
+parison with numerics identifies which effects dominate.                p(3BM)                       Z(RC) .
+
+S4.4a. Leading-order level-shift estimate (F > 1)           Since the RC adds an extra thermal mode, Z(RC) >
+                                                            Z(BM), and the net effect on the inversion p3 - p2 (where
+                                                            p2 is unaffected by RCH ) is a reduction. Expanding to
+                                                            leading order in gH :
+
+   The simplest effect of strong coupling is energy-level   F (full  RC)      1-   gH2   coth  H H      < 1,  (S20)
+renormalization. At resonance (H = 13), the dressed                                H2             2
+states |±~  = (|3, 0 ± |1, 1)/ 2 have energies E±~ = 3 ±
+gH . The lower dressed state |-~  effectively shifts the
+energy of |3 downward:
+
+~3  3 - gH2 /H , ~13 = 13 - gH2 /(H ). (S15)                which is strictly less than unity for all gH > 0 and all
+                                                            temperatures.
+
+This lowers the SSD inversion threshold from TH /TC >              S4.4c. Resolution: why the two estimates disagree
+13/12 to TH /TC > ~13/12. The resulting enhance-
+ment factor, computed by substituting ~13 into Eq. (7)         The level-shift estimate (S4.4a) captures only the en-
+of the main text while keeping 12 fixed, is                 ergy renormalization of |3 and predicts F > 1. The
+                                                            complete trace-out (S4.4b) additionally accounts for:
+F (level-shift) = Ess(~13) > 1  (for all gH > 0).  (S16)
+                   Ess(13)                                      · Population dilution: the |3 population is shared
+                                                                   with the |1, 1RC component of the dressed state.
+This estimate predicts that strong coupling enhances er-
+gotropy by making inversion easier. It is plotted as the
+green curve in Fig. 2(b) of the main text.
+
+        S4.4b. Complete RC trace-out (F < 1)                    · Partition function increase: Z(RC) > Z(BM) due to
+                                                                   the extra RC thermal mode.
+   The level-shift estimate neglects a crucial effect: the
+RC mode enlarges the Hilbert space, diluting population         · Additional dissipation channels from the residual
+across system+RC states. We now account for this.                  bath coupled to the RC.
+
+   In the dressed-state picture (nmax = 1, resonance        These higher-order effects overwhelm the leading-order
+H = 13):                                                    energy shift, reversing the sign of the correction. The nu-
+                                                            merical RC results (Fig. 2 of the main text, F  0.1­0.2)
+|±~  =   1  (|3, 0 ± |1, 1),    E±~ = 3 ± gH .     (S17)    confirm that the complete estimate (S4.4b) is quantita-
+                                                            tively correct: strong coupling suppresses, rather than
+        2                                                   enhances, ergotropy in the SSD topology. 
+
+The global thermal state at inverse temperature H pop-
+ulates these dressed states as p~±  e-HE±~ . Tracing out
+                                                                                 4
+
+         S5. NUMERICAL METHODS                              S5.3 Parameter Scan
+
+         S5.1 Implementation                                   The scan covers: TH /TC  {1.5, 2, 3, 4, 5, 7, 10, 15, 20}
+                                                            (9 values), 23/13  {0.1, 0.2, . . . , 0.9} (9 values),
+   Born-Markov calculations use QuTiP (v5.0+). Jump         H /C  {0.1, 0.3, 1, 3, 10} (5 values). Total: 9 × 9 × 5 =
+operators:                                                  405 parameter sets. Fixed: 13 = 1.0, C = 0.01.
+
+L(H+) =  H (nH + 1) |13|,  LH(-)  =                 |31|,                               S5.4 Verification
+LC(+) =  C (nC + 1) |12|,              H nH
+                                                               For all 405 points, analytical populations (Eq. S8)
+                                                     (S21)  match numerical steady states to < 2%. The SSD bound-
+                                                            ary correctly predicts the sign of E at every point.
+                           L(C-)  =                 |21|.
+                                       C nC
+
+                                                     (S22)
+
+Steady states obtained via direct LU factorization.
+
+         S5.2 Ergotropy Computation
+
+         E(, H) = Tr[H] - rkk,                       (S23)    valhuang@kaiwucl.com
+                                                            [1] T. Kato, Perturbation Theory for Linear Operators
+                                                 k
+                                                                (Springer, 1966), Chap. II.
+where {rk} are eigenvalues of  in decreasing order and      [2] W. Pusz and S. L. Woronowicz, Commun. Math. Phys.
+{k} are energy eigenvalues in increasing order.
+                                                                58, 273 (1978).
+                                                            [3] P. Strasberg, G. Schaller, N. Lambert, and T. Brandes,
+
+                                                                New J. Phys. 18, 073007 (2016).
+

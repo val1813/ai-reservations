@@ -1,0 +1,13 @@
+{
+  "nodes": [
+    {"id": "LP14_goal", "label": "RuO2是否为交变磁体？", "type": "goal", "supports": [], "math_object": "altermagnetism order parameter"},
+    {"id": "K1.1", "label": "五探针一致否定RuO2本征交变磁性", "type": "result", "supports": ["LP14_goal"], "math_object": "μSR/neutron/ARPES/THz/Mössbauer convergence"},
+    {"id": "K1.2", "label": "中子(100)峰=Renninger artifact", "type": "result", "supports": ["K1.1"], "math_object": "Renninger multiple scattering"},
+    {"id": "K1.3", "label": "μSR上限<1.14e-4 μB/Ru(体)", "type": "result", "supports": ["K1.1"], "math_object": "muon spin rotation upper limit"},
+    {"id": "K2.1", "label": "脆弱磁性理论需U≥1.2eV→非物理", "type": "result", "supports": ["LP14_goal"], "math_object": "Landau-Pomeranchuk instability, U_c"},
+    {"id": "K2.2", "label": "脆弱性预测方差但实验显示偏倚", "type": "claim", "supports": ["K1.1", "K2.1"], "math_object": "variance vs bias"},
+    {"id": "K3.1", "label": "SSMR=界面Rashba+AMR+EAC", "type": "result", "supports": ["K1.1"], "math_object": "interface Rashba-Edelstein effect"},
+    {"id": "K4.1", "label": "交变磁性需≥2直接探针确认新范式示例", "type": "claim", "supports": ["K1.1", "K3.1"], "math_object": "MnTe/MnF2/CrSb candidates"},
+    {"id": "LP14_synth", "label": "RuO2不是交变磁体(命题B)", "type": "result", "supports": ["K1.1", "K2.1", "K3.1", "K4.1"], "math_object": "false positive case study"}
+  ]
+}

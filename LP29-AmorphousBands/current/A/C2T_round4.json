@@ -1,0 +1,186 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 4,
+  "agent": "A",
+  "polaris": "LP29-C2T / provenance-complete external joined table construction",
+  "framework": "A-side OI/Srivastava witness payload requirements and deterministic gate predicates only; this round defines what evidence a future executor must parse before any Srivastava/OI row can move beyond BLOCK. No material validation is performed.",
+  "findings": {
+    "summary": "Round 4 responds to the reviewer fatal point by specifying the A-side witness fields required to turn Srivastava/OI blocker labels into reproducible gate decisions. The required payload must carry source_row_id, structure_id, OI_comparison_mode, OI_raw_sum, OI_norm, OI_normalization_formula_id, pair_cutoff_A, pair_density, and fixed-pair denominator witnesses when applicable. Current candidates remain BLOCK because the supplied schema/blocker inputs still show incomplete source-to-structure mapping, missing raw overlap sums, missing exact normalization provenance, and no complete same-sample row.",
+    "artifact_status": "A_side_witness_requirements_defined",
+    "material_validation_allowed": false,
+    "material_validation_performed": false,
+    "Srivastava_baseline_status": "not_reproduced",
+    "current_candidate_decision": "BLOCK",
+    "did_not_read_B_outputs": true
+  },
+  "weakest_link": "A-side requirements can specify a PASS transition, but current Srivastava/OI candidate evidence still lacks executable raw-sum, normalization, pair-selection, structure_id, and source_row_id witnesses.",
+  "next_plan": {
+    "goal": "Implement a minimal payload parser against C2T_A_witness_requirements_round4.csv without validating materials.",
+    "steps": [
+      "Represent each future Srivastava/OI witness payload as one row or object keyed by source_row_id and structure_id.",
+      "Evaluate the OI_comparison_mode gate before any OI calculation claim.",
+      "Block Srivastava reproduction unless OI_raw_sum, OI_norm, OI_normalization_formula_id, pair_cutoff_A, source_row_id, and structure_id are all present and mutually consistent.",
+      "Block fixed_density mode unless pair_density is present and tied to the same source_row_id, structure_id, and pair selection rule.",
+      "Block fixed_pair mode unless OI_pair_mean, N_pair, and N_pair_provenance_id are present and tied to the same counted-pair denominator."
+    ],
+    "stop_condition": "Do not promote any current candidate beyond BLOCK until a real payload satisfies every required A-side witness predicate."
+  },
+  "literature_needed": [
+    {
+      "purpose": "Exact Srivastava O_s/OI normalization provenance",
+      "query": "Srivastava amorphous oxide orbital overlap O_s normalization supplementary pair cutoff raw overlap"
+    },
+    {
+      "purpose": "Source row to structure mapping",
+      "query": "Srivastava amorphous oxide structures supplementary coordinates row mapping overlap integral"
+    }
+  ],
+  "claims": [
+    {
+      "id": "A4-C1",
+      "statement": "A Srivastava/OI witness payload cannot support reproduced-baseline status unless source_row_id, structure_id, OI_raw_sum, OI_norm, OI_normalization_formula_id, and pair_cutoff_A are all populated and mutually provenance-linked.",
+      "confidence": 0.94,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "fixed_density_consistency_gate",
+          "expression": "OI_norm == OI_raw_sum / cell_volume_m3",
+          "variables": {
+            "OI_norm": "volume-normalized overlap value",
+            "OI_raw_sum": "raw sum over source-defined overlap-bearing pairs",
+            "cell_volume_m3": "cell or snapshot volume in SI units"
+          },
+          "units": "schema-defined overlap units per m**3",
+          "limits": [
+            {
+              "variable": "OI_raw_sum",
+              "to": "missing",
+              "expected": "BLOCK",
+              "desc": "Reported OI_norm alone is not Srivastava reproduction."
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "label": "A C2T Round 3",
+          "path": "current/A/C2T_round3.json"
+        },
+        {
+          "label": "Reviewer C2T Round 3 fatal point",
+          "path": "synthesis/reviewer_C2T_round3.md"
+        }
+      ],
+      "assumptions": [
+        "The current task is witness-requirement definition only.",
+        "No material validation or graph-vs-OI comparison is allowed from these requirements alone."
+      ]
+    },
+    {
+      "id": "A4-C2",
+      "statement": "Fixed-pair OI mode is auditable only when OI_pair_mean, N_pair, and N_pair_provenance_id are supplied for the same source row, structure, and pair-selection rule as OI_raw_sum.",
+      "confidence": 0.92,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "fixed_pair_consistency_gate",
+          "expression": "OI_pair_mean == OI_raw_sum / N_pair",
+          "variables": {
+            "OI_pair_mean": "mean overlap per counted pair",
+            "OI_raw_sum": "raw sum over counted pairs",
+            "N_pair": "positive integer counted-pair denominator"
+          },
+          "units": "schema-defined overlap units per pair",
+          "limits": [
+            {
+              "variable": "N_pair_provenance_id",
+              "to": "missing",
+              "expected": "BLOCK",
+              "desc": "A numeric denominator without provenance is not an executable witness."
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "label": "Inspector A C2T Round 3 residual warnings",
+          "path": "synthesis/inspector_A_C2T_round3.md"
+        },
+        {
+          "label": "C2T field blocker table",
+          "path": "current/C2T/artifacts/C2T_field_blocker_table.csv"
+        }
+      ],
+      "assumptions": [
+        "N_pair is dimensionless and must be derived under the same pair-selection rule as OI_raw_sum.",
+        "Failure of this gate blocks fixed_pair mode rather than producing a warning-only status."
+      ]
+    }
+  ],
+  "reviewer_response": {
+    "fatal_point": "Round 3 had blocker-status labels but no executable witness payload schema, so BLOCK/WARN/PASS was not a reproducible audit decision.",
+    "round4_response": "This A-side artifact defines the minimum OI/Srivastava witness fields and pass/block predicates needed by a future executor. It does not claim that payloads are populated.",
+    "scope_boundary": "Only A-side OI/Srivastava witness requirements are contributed here; same-sample full joined-table execution and material validation remain out of scope.",
+    "current_conclusion": "Current candidates remain BLOCK and Srivastava baseline remains not reproduced."
+  },
+  "produced_artifacts": [
+    {
+      "path": "current/C2T/artifacts/C2T_A_witness_requirements_round4.csv",
+      "type": "csv",
+      "description": "A-side OI/Srivastava witness field requirements with gate-level pass and block conditions."
+    },
+    {
+      "path": "current/A/C2T_round4.json",
+      "type": "json",
+      "description": "A Round 4 summary and gate predicate contribution for OI/Srivastava witness requirements."
+    }
+  ],
+  "gate_predicates_contribution": {
+    "A_side_scope": [
+      "source_row_id",
+      "structure_id",
+      "OI_comparison_mode",
+      "OI_raw_sum",
+      "OI_norm",
+      "OI_normalization_formula_id",
+      "pair_cutoff_A",
+      "pair_density",
+      "OI_pair_mean",
+      "N_pair",
+      "N_pair_provenance_id"
+    ],
+    "predicates": [
+      {
+        "gate": "same_source_structure_identity",
+        "pass_if": "source_row_id and structure_id are present and mutually traceable to the same Srivastava/OI source row or declared reconstruction.",
+        "block_if": "Either id is missing or the mapping is ambiguous."
+      },
+      {
+        "gate": "OI_mode_selection",
+        "pass_if": "OI_comparison_mode is one of no_claim, fixed_density, fixed_pair, srivastava_reproduction.",
+        "block_if": "Mode is missing, unsupported, or changed after label inspection."
+      },
+      {
+        "gate": "Srivastava_reproduction",
+        "pass_if": "source_row_id, structure_id, OI_raw_sum, OI_norm, OI_normalization_formula_id, and pair_cutoff_A are present and mutually consistent.",
+        "block_if": "Any required field is missing or provenance-inconsistent."
+      },
+      {
+        "gate": "fixed_density",
+        "pass_if": "OI_comparison_mode=fixed_density and pair_density is present with same source_row_id, structure_id, pair_cutoff_A, OI_raw_sum, and OI_norm provenance.",
+        "block_if": "pair_density is missing or derived under a different structure or pair rule."
+      },
+      {
+        "gate": "fixed_pair",
+        "pass_if": "OI_comparison_mode=fixed_pair and OI_pair_mean, N_pair, and N_pair_provenance_id are present and satisfy OI_pair_mean == OI_raw_sum / N_pair within declared tolerance.",
+        "block_if": "Any fixed-pair denominator witness is missing or inconsistent."
+      }
+    ],
+    "default_for_current_candidates": {
+      "row_decision": "BLOCK",
+      "material_validation_allowed": false,
+      "Srivastava_reproduced": false,
+      "reason": "The supplied schema/blocker inputs still mark the relevant source, structure, normalization, raw-overlap, and complete-row evidence as missing or partial."
+    }
+  }
+}

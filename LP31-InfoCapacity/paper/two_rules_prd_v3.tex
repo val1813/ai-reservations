@@ -1,0 +1,1310 @@
+\documentclass[aps,prd,twocolumn,showpacs,superscriptaddress,preprintnumbers]{revtex4-2}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{booktabs}
+
+\begin{document}
+
+\title{Two Rules, One Universe: Gravity and Quantum Decoherence from Information Capacity}
+
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+
+\date{\today}
+
+\begin{abstract}
+We propose that both gravitational attraction and quantum decoherence are consequences of a single mechanism: the bounded information capacity of physical cells, formalized through only two axioms---causality (A1) and capacity bound (A2)---plus one structural choice for the dynamical variable.
+The free-capacity fraction $q$ of each cell drives an information current $J$, whose relaxation yields the \textbf{unified telegraph equation}
+$\partial_t^2 q + \gamma_0(1-q)\partial_t q = c^2\nabla^2(\ln q)$,
+derived from the fundamental current equation
+$\partial_t J_{ij} = -(c^2/a^2)(\ln q_i - \ln q_j) - \gamma_0(1-\bar{q})J_{ij}$
+with $\bar{q}=(q_i+q_j)/2$.
+For small perturbations $\delta q$ around $q=1$, $\ln q\approx q-1$ recovers the linear telegraph equation; the static limit gives $\nabla^2(\ln q)=0$ directly, without patching.
+The damping $\gamma(q)=\gamma_0(1-q)$ is the simplest ansatz consistent with A2: occupied cells block incoming information flow.
+The cell spacing $a$ is the single new dimensional parameter; identifying $a$ with $\ell_P\equiv\sqrt{\hbar G/c^3}$ follows from the naturalness requirement that the theory contain no new scales beyond $c$, $\hbar$, $G$.
+In vacuum ($q\to1$), $\gamma\to0$ and Lorentz invariance is \textbf{dynamically selected} as the ground state of the empty universe---preferred-frame effects are confined to matter-filled regions.
+The static nonlinear equation $\nabla^2(\ln 1/q)=0$ yields $q(r)=e^{-GM/rc^2}$, recovering Newtonian gravity at large $r$.
+We prove an H-theorem for the full nonlinear theory via a Lyapunov functional, establishing the thermodynamic consistency of the framework.
+The theory makes two testable predictions: a wave--diffusion crossover in gravitational dynamics at $k=\gamma/(2c)$, and a soft boundary replacing the classical event horizon.
+Limitations are assessed honestly, including the tension with the holographic bound and the need for extension to full general relativity.
+\end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The unification of quantum mechanics and gravity remains the central open problem of fundamental physics.
+Quantum field theory, built by quantizing classical fields on a fixed spacetime background, is the most precisely tested framework in physics.
+General relativity (GR), describing gravity as spacetime curvature, has passed every observational test~\cite{Will:2014}.
+Yet the two frameworks are structurally incompatible: GR is a classical, deterministic, geometric theory; quantum mechanics is a probabilistic theory on Hilbert space.
+Numerous approaches exist---string theory~\cite{Green:1987sp,Polchinski:1998rq}, loop quantum gravity~\cite{Rovelli:2004tv,Ashtekar:2004eh}, causal dynamical triangulations~\cite{Ambjorn:2001cv}, asymptotic safety~\cite{Weinberg:1979,Reuter:2012}, entropic gravity~\cite{Verlinde:2010hp,Jacobson:1995ab}, and others---but none has yielded a complete, experimentally verified theory.
+
+This paper takes a different approach.
+Rather than quantizing geometry or geometrizing quantum fields, we ask: can gravity be derived from \emph{information-theoretic} first principles?
+If both quantum mechanics and gravity are consequences of the same underlying constraint---the finite information capacity of spacetime---then their apparent incompatibility may dissolve.
+
+Our starting point is Zilly's (2026) theorem~\cite{Zilly:2026}: from finite information capacity and self-referential consistency (``graded equality''), the full mathematical structure of quantum mechanics---complex amplitudes, the Born rule, and unitary dynamics---emerges as the unique consistent description.
+This result is foundational: it means quantum mechanics is itself a consequence of bounded capacity, not a separate axiom.
+Zilly's theorem also establishes $\hbar$ as the natural scale of the capacity bound, fixing the quantization of phase space volume~\cite{Zilly:2026}.
+We accept Zilly's theorem as the quantum-mechanical foundation and build upward toward gravity.
+
+We introduce exactly \textbf{two axioms}:
+
+\begin{enumerate}
+    \item[A1.] \textbf{Causality exists.} There is asymmetric, irreversible influence between discrete information cells---a directed partial order on events.
+    \item[A2.] \textbf{Capacity bounded.} Each cell stores at most 1 bit of information. The maximum information propagation speed is $c$. The state space of $N$ cells is $\mathcal{X}=\{0,1\}^N$.
+\end{enumerate}
+
+From these axioms we construct a dynamical theory of the free-capacity fraction $q_i(t)$, the fraction of cell $i$'s 1-bit capacity that is available for new information.
+The theory requires exactly \textbf{one structural choice}---the dynamical variable $\phi(q)=-\ln q$ in the universality class $\Phi$ of monotonic functions diverging at $q\to0$---and the cell spacing $a$ as the single new dimensional parameter, identified with the Planck length $\ell_P\equiv\sqrt{\hbar G/c^3}$ through a naturalness argument (the theory contains no new scales beyond $c$, $\hbar$, $G$).
+
+The main results are:
+
+\begin{itemize}
+    \item The unified current equation with $\bar{q}=(q_i+q_j)/2$ and the continuity equation combine to yield $\partial_t^2 q + \gamma_0(1-q)\partial_t q = c^2\nabla^2(\ln q)$. For small perturbations around $q=1$, $\ln q\approx q-1$ recovers the linear telegraph equation; the $\gamma\to0$ vacuum limit yields $\Box(\ln q)=0$; and the static limit directly gives $\nabla^2(\ln q)=0$.
+    \item In vacuum ($q\to1$), $\gamma\to0$ and Lorentz invariance is dynamically selected as the ground state of the empty universe, not imposed as an axiom.
+    \item The preferred-frame effects from $\gamma>0$ are confined to matter-filled regions ($q<1$), where they are suppressed by $(1-q)\sim GM/rc^2\sim10^{-6}$ near the solar surface---consistent with all Lorentz-violation constraints.
+    \item In the static limit, $\nabla^2(\ln 1/q)=0$, whose spherically symmetric solution $q(r)=e^{-GM/rc^2}$ recovers the Newtonian potential $\Phi=-GM/r$ at large $r$.
+    \item The decomposition $\nabla^2 q/q = |\nabla q|^2/q^2$ unifies quantum decoherence (diffusion-dominant at $q\approx1$) and gravitational collapse (self-organization-dominant at $q\approx0$) as two regimes of a single information-dynamic process.
+    \item An H-theorem for the full nonlinear theory is proved via a Lyapunov functional, establishing that the dynamics are thermodynamically consistent.
+\end{itemize}
+
+This work builds on and differs from prior approaches in specific ways.
+Jacobson~\cite{Jacobson:1995ab} derived the Einstein equations from thermodynamic considerations applied to local Rindler horizons; we go further, deriving the Newtonian potential from information dynamics without assuming any metric structure.
+Verlinde~\cite{Verlinde:2010hp} proposed entropic gravity; we provide the microscopic mechanism---the $q$-field and $J$-current---that his approach lacks.
+Padmanabhan~\cite{Padmanabhan:2010} explored the thermodynamic structure of gravitational field equations; our framework reproduces similar structure from purely information-theoretic axioms and proves an explicit H-theorem.
+Bassani and Magueijo~\cite{Bassani:2025htma} showed that diffeomorphism invariance can emerge from a Markov chain of stochastic choices; our Lorentz selection is deterministic and requires far fewer assumptions, though the emergent symmetry is weaker (Lorentz vs.\ diffeomorphism).
+We provide a detailed, methodologically fair comparison in Sec.~\ref{sec:discussion}, applying the same tiered-assumption methodology to both theories.
+
+The paper is organized as follows.
+Section~\ref{sec:axioms} formalizes the axioms and constructs the cell graph, including a tiered classification of all assumptions.
+Section~\ref{sec:dynamics} derives the unified $q$-field dynamics from the fundamental current equation.
+Section~\ref{sec:gamma} derives $\gamma(q)=\gamma_0(1-q)$ from the capacity bound and frames $\gamma_0$ through naturalness.
+Section~\ref{sec:lorentz} proves that Lorentz invariance is dynamically selected by vacuum.
+Section~\ref{sec:static} takes the static limit and recovers Newtonian gravity through the unified derivation.
+Section~\ref{sec:selforg} analyzes self-organization, proves the H-theorem, and gives the stability analysis.
+Section~\ref{sec:predictions} presents testable predictions.
+Section~\ref{sec:discussion} discusses limitations, compares with HTMAU using tiered methodology, and outlines open directions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Axioms and Cell Graph}
+\label{sec:axioms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Foundational Result}
+
+We take as given Zilly's (2026) theorem~\cite{Zilly:2026}:
+
+\begin{quote}
+\textbf{Zilly Theorem (2026).} Let a physical system have finite information capacity $C<\infty$ and satisfy self-referential consistency (``graded equality'' of distinguishable states). Then: (1) the state representation necessarily involves complex numbers; (2) the probability rule is the Born rule $P(a)=|\langle a|\psi\rangle|^2$; (3) the dynamics are unitary; and (4) the resulting theory is standard quantum mechanics~\cite{Zilly:2026}.
+\end{quote}
+
+We do not re-derive or question this result.
+We accept it as the quantum-mechanical foundation upon which we build the classical gravitational limit.
+We note that Zilly's theorem is a recent result (2026) and, like any new theoretical development, awaits independent verification and community scrutiny.
+Should it require revision, the classical gravitational limit derived in Sections~\ref{sec:static}--\ref{sec:selforg} depends only on A1--A2 and the Tier~2 structural choices, not on the specific mechanism by which quantum mechanics emerges.
+The key insight we exploit is that Zilly's finite-capacity argument applies at \emph{every} scale---capacity is bounded per cell, not just globally.
+Crucially, Zilly's theorem introduces $\hbar$ as the scale of the capacity bound: the quantization of phase space in units of $\hbar$ follows from the same finite-capacity argument, so $\hbar$ enters our framework not as a separate axiom but as part of the quantum-mechanical foundation provided by Zilly's theorem.
+
+\subsection{Information Cells and Graph}
+
+Consider a set of $N$ discrete information cells arranged on a graph $G=(V,E)$.
+Each vertex $i\in V$ represents a cell.
+Edges $(i,j)\in E$ represent possible information transfer channels.
+The graph has the following properties:
+
+\begin{enumerate}
+    \item \textbf{Geometric embedding.} Cells are embedded in $d=3$ spatial dimensions. We take $d=3$ as an empirical input; the theory does not predict spatial dimensionality.
+    \item \textbf{Spacing.} Adjacent cells are separated by a fundamental length scale $a$. We identify $a$ with the Planck length $\ell_P\equiv\sqrt{\hbar G/c^3}$. This identification follows from the naturalness requirement that the theory contain no new scales beyond those already present in $c$, $\hbar$, and $G$ (see Sec.~\ref{sec:gamma} for detailed justification).
+    \item \textbf{Locality.} Direct information transfer occurs only between adjacent cells (nearest neighbors on the graph).
+    \item \textbf{Speed limit.} Information propagates at most at speed $c$ between adjacent cells, so the minimum time step is $\Delta t = a/c$.
+\end{enumerate}
+
+\subsection{Tiered Classification of Assumptions}
+\label{sec:tiered}
+
+We classify all inputs to the theory into four tiers, distinguishing irreducible physical principles from modeling choices.
+
+\begin{table}[h]
+\centering
+\caption{Tiered classification of all assumptions entering the $q$-field framework. Tiers 0--1 are irreducible inputs; Tier~2 choices are protected by universality; Tier~3 quantities are fixed by Tiers~0--2.}
+\label{tab:tiers}
+\begin{tabular}{p{0.12\columnwidth}p{0.40\columnwidth}p{0.40\columnwidth}}
+\toprule
+\textbf{Tier} & \textbf{Content} & \textbf{Status} \\
+\midrule
+Tier 0 & A1: Causality exists (directed partial order). & Irreducible physical axiom. \\
+(Physical Axioms) & A2: Capacity bound (1 bit per cell, max speed $c$). & Irreducible physical axiom. \\
+\midrule
+Tier 1 & $c$: maximum signal speed. & Empirically measured. \\
+(Empirical Inputs) & $\hbar$: quantum of action (via Zilly's theorem). & Empirically measured. \\
+& $G$: Newton's constant. & Empirically measured. \\
+& $d=3$: spatial dimensionality. & Empirically observed. \\
+\midrule
+Tier 2 & Regular 3D lattice. & Simplest choice; universality protects \\
+(Modeling Choices) & Nearest-neighbor edges. & macroscopic predictions. \\
+& $\phi(q)=-\ln q \in \Phi$. & Any $\phi\in\Phi$ gives same qualitative \\
+& & physics (Sec.~\ref{sec:static}). \\
+\midrule
+Tier 3 & $\gamma_0 = c/a = c/\ell_P$. & Fixed by Tiers 0--2 + naturalness. \\
+(Derived Quantities) & $D_0 = c^2/\gamma_0 = c\ell_P$. & Derived from $\gamma_0$. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Tier 0--1 are irreducible inputs.} They are the physical facts that any theory must accommodate.
+\textbf{Tier 2 choices are protected by universality.} Any potential $\phi\in\Phi=\{\phi(q)\mid\phi'(q)<0,\;\phi(q)\to\infty\;\text{as}\;q\to0\}$ gives the same qualitative physics: the static equation is $\nabla^2\phi(q)=0$, the $1/r$ potential emerges, and the resistance to information inflow diverges as $q\to0$.
+The specific choice $\phi(q)=-\ln q$ is the simplest member of this universality class.
+\textbf{Tier 3 quantities are fixed by Tiers 0--2.} The damping scale $\gamma_0=c/a$ is the only dimensional parameter constructed from the cell spacing $a$ and the speed limit $c$.
+Identifying $a$ with $\ell_P$ is a naturalness argument (Sec.~\ref{sec:gamma}): the theory introduces $a$ as the single new scale, and the only natural candidate consistent with the requirement that no new scales appear beyond $c$, $\hbar$, $G$ is the Planck length.
+
+\subsection{The Free-Capacity Fraction $q$}
+
+Each cell $i$ has a total information capacity of 1 bit (Axiom~A2).
+At any time $t$, some fraction of this capacity is occupied (storing information) and some is free (available for new information).
+Define:
+
+\begin{equation}
+q_i(t) \equiv \frac{\text{free capacity of cell } i}{\text{total capacity of cell } i} \in [0, 1].
+\label{eq:qdef}
+\end{equation}
+
+The free-capacity fraction $q_i$ is the fundamental dynamical variable of our theory.
+It is a real scalar field on the discrete graph.
+We will show that in the continuum limit, $q$ obeys equations that reproduce both quantum wave dynamics and classical gravitational field equations, depending on the regime.
+
+\subsection{Physical Interpretation}
+
+\begin{itemize}
+    \item $q_i = 1$: cell $i$ is completely empty. All capacity is available. This corresponds to asymptotically flat spacetime far from any mass.
+    \item $q_i = 0$: cell $i$ is completely full. No capacity remains. This corresponds to the limiting case of infinite information density---the analog of a gravitational singularity, though we will see that $q=0$ is approached asymptotically, never reached at finite $r$.
+    \item $0 < q_i < 1$: intermediate occupation. Gradients in $q$ drive information currents, which manifest as gravitational effects.
+\end{itemize}
+
+A crucial point: $q$ is \emph{not} a field in spacetime.
+Rather, $q$ is a property of the information substrate from which spacetime itself emerges.
+The metric structure we perceive as gravity is a coarse-grained description of $q$-field gradients.
+
+\subsection{Coarse-Graining and the Continuum Limit}
+
+Axiom~A2 states that each individual cell stores exactly 1~bit ($s_i\in\{0,1\}$), so a single cell's free-capacity fraction can only be 0 or 1.
+The field $q_i(t)\in[0,1]$ used throughout this paper is defined on \emph{mesoscopic blocks} containing $N_b\gg 1$ Planck-scale cells, over which the binary occupancy is averaged:
+$q_i \equiv N_b^{-1}\sum_{k\in\text{block}(i)}(1-s_k)$.
+For $N_b$ sufficiently large, $q_i$ is effectively continuous, justifying the use of PDEs.
+The discrete Bernoulli noise from individual binary cells is suppressed by $1/\sqrt{N_b}$ and is negligible at macroscopic scales.
+With $N\sim10^{184}$ Planck cells in the observable universe and $N_b\sim10^{60}$ cells per mesoscopic block (e.g., at the nuclear scale), continuum error estimates are $\mathcal{O}(10^{-30})$ (see SM~B5).
+All dynamical equations derived below describe this coarse-grained field; the binary nature of A2 manifests only at the Planck scale and does not affect the continuum phenomenology.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{$q$-Field Dynamics: The Unified Equation}
+\label{sec:dynamics}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Continuity Equation}
+
+Information is conserved in transfer---it moves between cells but is neither created nor destroyed.
+For cell $i$, the rate of change of occupied capacity equals the net current into the cell:
+
+\begin{equation}
+\frac{\partial}{\partial t}(1 - q_i) = -\sum_{j \in \partial i} J_{ij},
+\label{eq:continuity_raw}
+\end{equation}
+
+where $\partial i$ denotes the set of cells adjacent to $i$, and $J_{ij}$ is the information current from cell $i$ to cell $j$.
+By convention, $J_{ij}>0$ means information flows from $i$ to $j$.
+Since $(1-q_i)$ is the occupied fraction, Eq.~\eqref{eq:continuity_raw} simplifies to:
+
+\begin{equation}
+\boxed{\frac{\partial q_i}{\partial t} = \sum_{j \in \partial i} J_{ij}}.
+\label{eq:continuity}
+\end{equation}
+
+The current is antisymmetric: $J_{ij}=-J_{ji}$, reflecting that information leaving $i$ arrives at $j$.
+This is the discrete analog of the conservation law $\partial_t q + \nabla\cdot\mathbf{J}=0$ in the continuum.
+
+\subsection{Fundamental Current Equation}
+
+We need a constitutive relation for $J_{ij}$.
+The current is driven by gradients in free capacity: information tends to flow from cells with more free capacity to cells with less, as the latter are ``information-rich'' and resist further inflow by the capacity bound.
+The simplest local, causal dynamics for the current is a Cattaneo-type relaxation equation~\cite{Cattaneo:1948,Jou:2010}.
+
+\textbf{The nonlinear current equation.}
+Three physical constraints must be satisfied:
+\begin{enumerate}
+    \item The current must vanish when $q_i=q_j$ (no gradient, no flow).
+    \item The driving force must diverge as $q_i\to0$ or $q_j\to0$ (no cell can accept information beyond its 1-bit capacity).
+    \item The current direction must be downhill in $q$.
+\end{enumerate}
+
+These are satisfied by the logarithmic gradient $(\ln q_i-\ln q_j)$, which belongs to the universality class $\Phi$.
+For $q_i,q_j\approx1$, $\ln q_i-\ln q_j\approx q_i-q_j$, recovering the linear approximation.
+But as $q\to0$, the logarithmic gradient diverges, encoding the capacity bound's resistance to further inflow.
+
+The damping term must also respect the capacity bound: occupied cells block information flow, so the effective damping seen by a current $J_{ij}$ should scale with the average occupation of the two cells involved.
+We therefore write the damping with $\bar{q}\equiv(q_i+q_j)/2$:
+
+\begin{equation}
+\boxed{\frac{\partial J_{ij}}{\partial t} = -\frac{c^2}{a^2}(\ln q_i - \ln q_j) - \gamma_0(1-\bar{q})J_{ij}}.
+\label{eq:current_fundamental}
+\end{equation}
+
+This is the \textbf{fundamental current equation} of the theory.
+It appears once, in this form, and is used consistently throughout the paper.
+The coupling constant $c^2/a^2$ is the natural frequency scale (inverse light-crossing time squared between adjacent cells).
+The damping coefficient $\gamma(q)=\gamma_0(1-q)$ will be derived from the capacity bound in Sec.~\ref{sec:gamma}; for now, $\gamma_0$ is a dimensionful constant with units of inverse time.
+
+Equation~\eqref{eq:current_fundamental} satisfies all three constraints: it vanishes at equal $q$, diverges at $q\to0$, and drives flow downhill.
+It is \textbf{not} two separate equations (linear and nonlinear) patched together---it is one unified equation valid in all regimes.
+
+\subsection{Unified Telegraph Equation}
+
+Differentiating Eq.~\eqref{eq:continuity} with respect to time and substituting Eq.~\eqref{eq:current_fundamental}:
+
+\begin{align}
+\frac{\partial^2 q_i}{\partial t^2} &= \sum_{j \in \partial i} \frac{\partial J_{ij}}{\partial t} \nonumber \\
+&= \sum_{j \in \partial i} \left[-\frac{c^2}{a^2}(\ln q_i - \ln q_j) - \gamma_0(1-\bar{q}_{ij})J_{ij}\right] \nonumber \\
+&= -\frac{c^2}{a^2} \sum_{j \in \partial i} (\ln q_i - \ln q_j) - \gamma_0 \sum_{j \in \partial i}(1-\bar{q}_{ij})J_{ij}.
+\label{eq:telegraph_step}
+\end{align}
+
+In the continuum limit $a\to0$, the discrete Laplacian of $\ln q$ becomes:
+\begin{equation}
+\frac{1}{a^2}\sum_{j \in \partial i}(\ln q_i - \ln q_j) \;\longrightarrow\; -\nabla^2(\ln q).
+\end{equation}
+
+For the damping sum, when $q$ varies smoothly across the lattice, $\bar{q}_{ij}\approx q_i$ for all neighbors $j$.
+Then:
+\begin{equation}
+\sum_{j \in \partial i}(1-\bar{q}_{ij})J_{ij} \approx (1-q_i)\sum_{j \in \partial i}J_{ij} = (1-q_i)\frac{\partial q_i}{\partial t}.
+\end{equation}
+
+We thus obtain the \textbf{unified telegraph equation}:
+
+\begin{equation}
+\boxed{\frac{\partial^2 q}{\partial t^2} + \gamma_0(1-q)\frac{\partial q}{\partial t} = c^2\nabla^2(\ln q)}.
+\label{eq:telegraph_unified}
+\end{equation}
+
+This is the fundamental dynamical equation of $q$-field theory.
+It is derived once, from the unified current equation~\eqref{eq:current_fundamental}, and used consistently throughout.
+In the derivation, we have neglected the cross-term $\sum_j J_{ij}\cdot\nabla(\ln q_i)$, which is $\mathcal{O}(|\nabla q|^2)$ and subdominant to the $(1-q)\partial_t q$ term for small perturbations around uniformity; the full derivation retaining this term is given in SM~A3.3.
+
+\subsection{Limiting Cases}
+
+The unified telegraph equation~\eqref{eq:telegraph_unified} interpolates between qualitatively different regimes, all contained within the single equation.
+
+\subsubsection{Small-Amplitude Limit: Linear Telegraph}
+
+For perturbations $\delta q$ around a background $q_0$:
+\begin{equation}
+\ln q = \ln(q_0 + \delta q) \approx \ln q_0 + \frac{\delta q}{q_0}.
+\end{equation}
+
+For the important case of vacuum perturbations ($q_0=1$):
+\begin{equation}
+\ln(1+\delta q) \approx \delta q \quad\Longrightarrow\quad \nabla^2(\ln q) \approx \nabla^2(\delta q).
+\end{equation}
+
+The damping term becomes $\gamma_0(1-1-\delta q)\partial_t(\delta q) = -\gamma_0\delta q\,\partial_t\delta q$, which is \textbf{second order} in $\delta q$.
+Therefore, to linear order in perturbations around $q=1$:
+
+\begin{equation}
+\boxed{\frac{\partial^2 \delta q}{\partial t^2} - c^2\nabla^2\delta q = 0 \quad\Longrightarrow\quad \Box(\delta q) = 0}.
+\label{eq:kg_vacuum}
+\end{equation}
+
+Perturbations around vacuum propagate as massless waves at speed $c$.
+The linearized dynamics are \textbf{exactly} the wave equation---the damping term, being second order in the perturbation, does not appear at linear order.
+
+More generally, for perturbations around $q_0<1$:
+\begin{equation}
+\frac{\partial^2 \delta q}{\partial t^2} + \gamma_0(1-q_0)\frac{\partial \delta q}{\partial t} - c^2\nabla^2\left(\frac{\delta q}{q_0}\right) = 0,
+\label{eq:linear_telegraph_general}
+\end{equation}
+which is the linear telegraph equation with effective damping $\gamma_{\rm eff}=\gamma_0(1-q_0)$ and an effective diffusion constant $D_{\rm eff}=c^2/[\gamma_0(1-q_0)]$.
+
+\subsubsection{Vacuum Limit: $\gamma\to0$}
+
+In exact vacuum ($q=1$ everywhere), the damping term vanishes identically:
+\begin{equation}
+\gamma(1) = \gamma_0(1-1) = 0,
+\end{equation}
+and Eq.~\eqref{eq:telegraph_unified} reduces to:
+\begin{equation}
+\boxed{\Box(\ln q) = 0},
+\label{eq:box_lnq}
+\end{equation}
+where $\Box\equiv\partial_t^2-c^2\nabla^2$ is the d'Alembertian.
+This is the nonlinear wave equation for $\ln q$ in vacuum.
+For small perturbations, it reduces to $\Box(\delta q)=0$ as shown above.
+
+\subsubsection{Overdamped Regime: $\gamma\gg\partial_t$}
+
+The damping function $\gamma(q)=\gamma_0(1-q)$ is bounded above by $\gamma_0$ (attained at $q=0$).
+There is \textbf{no} ``$\gamma\to\infty$'' limit---$\gamma$ is always finite, with maximum value $\gamma_0=c/\ell_P\approx1.85\times10^{43}$\,s$^{-1}$.
+
+However, a physically important regime occurs when the inertial term is negligible compared to damping:
+\begin{equation}
+|\partial_t^2 q| \ll \gamma|\partial_t q|.
+\end{equation}
+This condition is met on timescales $t\gg\gamma^{-1}$ or, equivalently, for wavenumbers $k\ll k_{\rm cross}\equiv\gamma/(2c)$.
+In this \textbf{overdamped regime}, Eq.~\eqref{eq:telegraph_unified} reduces to the effective diffusion equation:
+
+\begin{equation}
+\boxed{\frac{\partial q}{\partial t} = D_{\rm eff}\nabla^2(\ln q), \qquad D_{\rm eff} \equiv \frac{c^2}{\gamma_0(1-q)}}.
+\label{eq:diffusion}
+\end{equation}
+
+The crossover between wave and diffusive behavior is controlled by the dimensionless parameter:
+\begin{equation}
+R \equiv \frac{\omega}{\gamma} \quad\text{or}\quad \frac{k}{k_{\rm cross}}.
+\end{equation}
+$R\gg1$: wave regime (inertial term dominates). $R\ll1$: diffusion regime (damping dominates).
+This crossover is a sharp prediction of the theory (Sec.~\ref{sec:predictions}).
+
+\textbf{Rigorous analysis.}
+The transition from hyperbolic (telegraph) to parabolic (diffusion) behavior is a singular perturbation problem.
+As $\epsilon\equiv\gamma^{-1}\to0$, the highest time derivative is multiplied by a small parameter, creating a boundary layer at $t\sim\epsilon$.
+For $t\gg\epsilon$, the outer solution obeys the diffusion equation~\eqref{eq:diffusion}; the inner solution matches the initial wavefront.
+This structure is standard for telegraph $\to$ diffusion limits~\cite{Jou:2010} and guarantees that information propagates causally (front speed $c$) even in the diffusion-dominated regime.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Damping from Capacity: $\gamma(q)=\gamma_0(1-q)$}
+\label{sec:gamma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Physical Argument}
+
+In Eq.~\eqref{eq:current_fundamental}, the damping term $-\gamma_0(1-\bar{q})J_{ij}$ represents the loss of coherence in the information current.
+Physically, this arises because information propagation requires \emph{free capacity} in the receiving cell.
+When a cell is occupied (probability $1-q$), it cannot accept new information and therefore blocks the current.
+
+The effective damping rate should scale with the fraction of occupied cells that an information current encounters.
+In a local neighborhood, this fraction is $(1-q)$.
+Therefore:
+
+\begin{equation}
+\gamma \propto (1-q).
+\label{eq:gamma_scaling}
+\end{equation}
+
+This is the central physical insight of this section.
+Damping is not an external friction parameter but an \emph{intrinsic} consequence of the capacity bound (A2).
+The more occupied the cells, the harder it is for information to flow coherently.
+
+\subsection{The Linear Ansatz}
+
+The simplest functional form consistent with the physical constraints is:
+
+\begin{equation}
+\boxed{\gamma(q) = \gamma_0 (1-q)}.
+\label{eq:gamma_linear}
+\end{equation}
+
+This satisfies:
+
+\begin{itemize}
+    \item \textbf{Vacuum limit:} As $q\to 1$ (completely empty cells), $\gamma\to 0$. In vacuum, there are no occupied cells to block information flow, so damping vanishes entirely. This is not a limit we take by hand---it is a dynamical consequence of $q\to 1$.
+    \item \textbf{Saturation limit:} As $q\to 0$ (completely full cells), $\gamma\to\gamma_0$. All cells are occupied, blocking is maximal, and the current experiences the strongest possible damping.
+\end{itemize}
+
+\textbf{Honest statement:} The linear form $\gamma(q)=\gamma_0(1-q)$ is a \emph{modeling ansatz}, not a rigorous derivation from A2.
+Nonlinear corrections (e.g., $\gamma\propto(1-q)^\alpha$ with $\alpha\neq 1$) may exist.
+The essential point---that $\gamma$ must vanish as $q\to 1$---follows from A2 regardless of the specific functional form.
+The linear ansatz is the simplest model that captures this essential physics.
+
+\subsection{Naturalness Argument for $\gamma_0$}
+\label{sec:naturalness}
+
+The parameter $\gamma_0$ has dimensions of inverse time.
+The cell spacing $a$ is the \textbf{single new dimensional parameter} introduced by the theory.
+Combined with the speed limit $c$, it defines the natural frequency scale:
+
+\begin{equation}
+\gamma_0 = \frac{c}{a}.
+\label{eq:gamma0_form}
+\end{equation}
+
+What fixes $a$? The theory contains exactly three dimensionful constants from Tier~1: $c$, $\hbar$, and $G$.
+If the theory is to contain \textbf{no new scales} beyond those already present in known physics, then $a$ must be constructed from $c$, $\hbar$, and $G$.
+Dimensional analysis gives a unique combination with dimensions of length:
+
+\begin{equation}
+a = \ell_P \equiv \sqrt{\frac{\hbar G}{c^3}} \approx 1.62 \times 10^{-35}\;\text{m}.
+\label{eq:lp_def}
+\end{equation}
+
+Consequently:
+
+\begin{equation}
+\boxed{\gamma_0 \equiv \frac{c}{\ell_P} = \sqrt{\frac{c^5}{\hbar G}} \approx 1.85 \times 10^{43}\;\text{s}^{-1}}.
+\label{eq:gamma0}
+\end{equation}
+
+This is a \textbf{naturalness argument}, not a logical necessity.
+The theory introduces $a$ as a free parameter; we \emph{choose} to identify it with $\ell_P$ because doing so introduces no new scales.
+This choice has falsifiable consequences: if observations constrain $\gamma_0 \neq c/\ell_P$, the identification is excluded.
+Conversely, if predictions made with $\gamma_0=c/\ell_P$ are confirmed, the naturalness argument is supported.
+
+In the language of Tier~3 (Table~\ref{tab:tiers}), $\gamma_0=c/\ell_P$ is a derived quantity, fixed by Tier~0--2 inputs plus the naturalness requirement.
+
+\textbf{Dimensionless prefactor.}
+Dimensional analysis alone permits an arbitrary $\mathcal{O}(1)$ dimensionless prefactor: $\gamma_0 = \alpha\,c/a$ with $\alpha\sim\mathcal{O}(1)$.
+Setting $\alpha=1$ is the simplest choice and is adopted throughout this paper.
+All qualitative predictions (Lorentz selection in vacuum, wave--diffusion crossover existence, Newtonian limit recovery, H-theorem) are independent of $\alpha$.
+Only quantitative values ($k_{\rm cross}$ magnitude, absolute damping timescales) scale with $\alpha$.
+Naturalness prefers $\alpha\sim\mathcal{O}(1)$; the exact value must be determined by observation, making $\alpha$ the single dimensionless free parameter of the theory.
+
+\subsection{Modified Telegraph Equation}
+
+Substituting $\gamma(q)=\gamma_0(1-q)$ into the unified telegraph equation~\eqref{eq:telegraph_unified}:
+
+\begin{equation}
+\boxed{\frac{\partial^2 q}{\partial t^2} + \gamma_0(1-q)\frac{\partial q}{\partial t} = c^2\nabla^2(\ln q)}.
+\label{eq:telegraph_gammaq}
+\end{equation}
+
+This is the nonlinear telegraph equation with capacity-dependent damping, identical to Eq.~\eqref{eq:telegraph_unified}.
+It is reproduced here to emphasize that the same equation governs all regimes---no separate ``linearized'' or ``nonlinear'' versions are needed.
+
+Key properties:
+\begin{enumerate}
+    \item \textbf{Nonlinearity:} The damping term $\gamma_0(1-q)\partial_t q$ couples the field to its own time derivative. Additionally, the right-hand side $\nabla^2(\ln q)$ provides nonlinear spatial coupling.
+    \item \textbf{Vacuum linearization:} For perturbations $\delta q$ around $q=1$, the damping term is $O(\delta q^2)$ and the spatial term linearizes to $\nabla^2\delta q$, giving $\Box(\delta q)=0$ exactly at linear order.
+    \item \textbf{Static nonlinearity:} In the static limit $\partial_t\to0$, Eq.~\eqref{eq:telegraph_gammaq} directly yields $\nabla^2(\ln q)=0$, the equation whose solution gives Newtonian gravity (Sec.~\ref{sec:static}).
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lorentz Invariance Dynamically Selected by Vacuum}
+\label{sec:lorentz}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The Selection Theorem}
+
+\begin{quote}
+\textbf{Dynamic Lorentz Selection.}
+In vacuum, defined as the state $q=1$ (all cells empty), the capacity-dependent damping vanishes: $\gamma(1)=\gamma_0(1-1)=0$.
+The dynamics reduce to $\Box(\ln q)=0$ and, for perturbations, $\Box(\delta q)=0$.
+Since $\Box$ is invariant under Lorentz transformations, vacuum spacetime is automatically Lorentz invariant.
+Lorentz invariance is \textbf{not} imposed as an axiom---it is \textbf{dynamically selected} as the ground state of the empty universe.
+\end{quote}
+
+This is a nontrivial result.
+We did not assume Lorentz invariance as an axiom.
+We did not impose it as a symmetry of the Lagrangian.
+The vacuum state of the theory \emph{automatically} possesses Lorentz invariance because the damping---the only term that could break it---vanishes identically at $q=1$.
+
+The mechanism is transparent:
+\begin{enumerate}
+    \item A2 (capacity bound) implies that information flow is blocked by occupied cells.
+    \item This blocking produces damping $\gamma\propto(1-q)$.
+    \item In vacuum ($q=1$), there are no occupied cells $\Rightarrow$ no blocking $\Rightarrow$ $\gamma=0$.
+    \item With $\gamma=0$, the dynamics are $\Box(\ln q)=0$, which is Lorentz invariant.
+\end{enumerate}
+
+\textbf{Honest statement:} Lorentz selection here is weaker than the diffeomorphism emergence claimed in some other frameworks.
+Our theory always \emph{contained} a Lorentz-invariant sector ($\Box(\ln q)=0$); the result is that vacuum \emph{automatically selects} this sector rather than us discovering it by taking a limit by hand.
+The nontrivial claim is that the preferred-frame sector ($\gamma>0$) is dynamically confined to matter-filled regions.
+
+\subsection{Preferred-Frame Effects Are Confined to Matter}
+
+For $q<1$ (anywhere matter is present), $\gamma>0$ and the dynamics are not Lorentz invariant.
+The damping term $\gamma\partial_t q$ picks out a preferred rest frame---the frame of the information substrate.
+This is physically expected: decoherence requires a preferred frame~\cite{Bassi:2013mta}, and here that frame is the rest frame of the cell graph.
+
+The key question is observational: are the resulting Lorentz violations compatible with existing constraints?
+For a spherically symmetric mass $M$ at distance $r$, Eq.~\eqref{eq:q_solution} gives:
+
+\begin{equation}
+1 - q(r) = 1 - e^{-GM/rc^2} \approx \frac{GM}{rc^2}.
+\label{eq:lv_estimate}
+\end{equation}
+
+At the solar surface ($M=M_\odot$, $r=R_\odot$):
+
+\begin{equation}
+1 - q \approx \frac{GM_\odot}{R_\odot c^2} \approx 2 \times 10^{-6}.
+\label{eq:solar_lv}
+\end{equation}
+
+So $\gamma/\gamma_0 \approx 2\times 10^{-6}$ at the solar surface.
+Relative to the Planck scale, Lorentz violation in the solar system is suppressed by $\sim 10^{-6}$, and relative to particle-physics scales ($\sim$TeV), by many more orders of magnitude.
+In the laboratory ($M\sim$ kg, $r\sim$ m), $1-q\sim 10^{-27}$, utterly negligible.
+
+All existing Lorentz-violation constraints~\cite{Kostelecky:2008,Mewes:2013} are satisfied.
+This is not because the theory was tuned to satisfy them---it is because the same $GM/rc^2$ factor that makes gravity weak also makes Lorentz violation small.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Static Limit and Gravitational Potential}
+\label{sec:static}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Unified Static Derivation}
+
+We now consider stationary configurations where $\partial_t q=0$ and $\partial_t J_{ij}=0$.
+From the fundamental current equation~\eqref{eq:current_fundamental} with $\partial_t J_{ij}=0$:
+
+\begin{equation}
+0 = -\frac{c^2}{a^2}(\ln q_i - \ln q_j) - \gamma_0(1-\bar{q}_{ij})J_{ij}.
+\label{eq:static_J_eq}
+\end{equation}
+
+Solving for the equilibrium current:
+
+\begin{equation}
+J_{ij} = -\frac{c^2}{\gamma_0(1-\bar{q}_{ij})a^2}(\ln q_i - \ln q_j).
+\label{eq:J_static}
+\end{equation}
+
+The zero-net-current condition from Eq.~\eqref{eq:continuity} with $\partial_t q_i=0$ gives $\sum_{j\in\partial i}J_{ij}=0$ for all $i$:
+
+\begin{equation}
+\sum_{j\in\partial i} \frac{c^2}{\gamma_0(1-\bar{q}_{ij})a^2}(\ln q_i - \ln q_j) = 0.
+\label{eq:zero_net_current}
+\end{equation}
+
+For a smoothly varying $q$-field, $\bar{q}_{ij}\approx q_i$ is nearly constant across all neighbors $j$, and the factor $\gamma_0(1-\bar{q}_{ij})$---while finite---cancels from the sum.
+The condition reduces to:
+
+\begin{equation}
+\sum_{j \in \partial i} (\ln q_i - \ln q_j) = 0.
+\label{eq:laplace_ln_disc}
+\end{equation}
+
+In the continuum limit $a\to0$:
+
+\begin{equation}
+\boxed{\nabla^2(\ln 1/q) = 0}.
+\label{eq:laplace_ln}
+\end{equation}
+
+This is the fundamental static equation of $q$-field theory, derived directly from the unified dynamics without any patching, separate ``nonlinear correction,'' or ad hoc modification.
+The derivation is \textbf{one continuous argument} from Eq.~\eqref{eq:current_fundamental} to Eq.~\eqref{eq:laplace_ln}:
+
+\begin{center}
+\small
+$\partial_t J_{ij}=0 \;\Rightarrow\; J_{ij} \propto (\ln q_i-\ln q_j)/(1-\bar{q}_{ij}) \;\Rightarrow\; \sum_j J_{ij}=0 \;\Rightarrow\; \sum_j(\ln q_i-\ln q_j)=0 \;\Rightarrow\; \nabla^2(\ln q)=0.$
+\end{center}
+
+\textbf{Universality.}
+The specific choice $\phi(q)=-\ln q$ belongs to the universality class $\Phi=\{\phi(q) \mid \phi'(q)<0,\;\phi(q)\to\infty\;\text{as}\;q\to0\}$.
+Any $\phi\in\Phi$ gives the same qualitative physics: resistance diverges as $q\to0$, the static equation is $\nabla^2\phi(q)=0$, and the $1/r$ potential emerges.
+The choice $-\ln q$ is the simplest member of this class and is protected by universality---the macroscopic physics does not depend on microscopic details of $\phi$.
+
+\subsection{Spherically Symmetric Solution}
+
+For spherical symmetry, $\ln(1/q)$ depends only on $r$.
+Setting $\nabla^2(\ln 1/q)=0$:
+
+\begin{equation}
+\frac{1}{r^2}\frac{d}{dr}\left(r^2 \frac{d}{dr}\ln\frac{1}{q}\right) = 0,
+\label{eq:ode}
+\end{equation}
+
+which integrates to $r^2\frac{d}{dr}\ln(1/q)=\text{const}$.
+Denoting the integration constant by $GM/c^2$ (chosen to match the Newtonian limit):
+
+\begin{equation}
+r^2 \frac{d}{dr}\ln\frac{1}{q} = \frac{GM}{c^2}.
+\label{eq:first_int}
+\end{equation}
+
+Integrating again with the boundary condition $q\to1$ as $r\to\infty$:
+
+\begin{equation}
+\boxed{q(r) = \exp\left(-\frac{GM}{rc^2}\right)}.
+\label{eq:q_solution}
+\end{equation}
+
+This is the central result: the free-capacity fraction around a spherically symmetric mass $M$.
+
+\subsection{Recovery of Newtonian Gravity}
+
+For $r\gg GM/c^2$ (the weak-field regime):
+
+\begin{equation}
+q(r) = 1 - \frac{GM}{rc^2} + \mathcal{O}\left(\frac{G^2 M^2}{r^2 c^4}\right).
+\label{eq:q_expand}
+\end{equation}
+
+Define the gravitational potential $\Phi(r)\equiv-c^2(1-q(r))$.
+In the weak-field limit:
+
+\begin{equation}
+\boxed{\Phi(r) = -\frac{GM}{r} + \mathcal{O}(r^{-2})}.
+\label{eq:newton}
+\end{equation}
+
+The acceleration of a test particle---interpreted as the gradient of information capacity---is:
+
+\begin{equation}
+\mathbf{a} = -c^2 \nabla q = -\nabla\Phi = -\frac{GM}{r^2}\hat{\mathbf{r}}.
+\label{eq:accel}
+\end{equation}
+
+Newton's law is recovered in the weak-field, static limit.
+
+\textbf{Honest statement:} We recover the Newtonian limit of GR, \emph{not} the full Einstein equations.
+The $1/r$ potential was not put in by hand---it follows from spherical symmetry, the static equation $\nabla^2(\ln 1/q)=0$, and the boundary condition $q\to1$ at infinity.
+The constant $GM/c^2$ is an integration constant; we identify $G$ as Newton's constant and $M$ as the source mass.
+The $1/r$ dependence and exponential form are derived, not assumed.
+
+\subsection{The Role of $d=3$: Marginal Dimensionality}
+\label{sec:d3}
+
+Spatial dimensionality $d=3$ is taken as an empirical input (Tier~1), but it plays a distinguished role in the theory.
+In $d$ dimensions, the static equation $\nabla^2(\ln 1/q)=0$ integrates to $\ln(1/q)\propto r^{-(d-2)}$ (for $d\neq2$) or $\ln(1/q)\propto\ln r$ (for $d=2$).
+The gravitational potential is then $\Phi\sim r^{-(d-2)}$.
+
+Only $d=3$ yields the $1/r$ force law that permits stable orbits, long-range structure formation, and the scaling $\Phi\propto M/r$ that we observe.
+In this sense, $d=3$ is a \textbf{marginal} dimension for long-range forces: $d<3$ gives forces that fall off too slowly for stable bound systems; $d>3$ gives forces that fall off too rapidly for hierarchical structure formation.
+The fact that our universe selects $d=3$ is an empirical fact, but the theory highlights why this particular dimension enables the rich gravitational phenomenology we observe.
+
+\subsection{Source Term: Occupied Cells as Information Charge}
+\label{sec:source}
+
+The static equation $\nabla^2(\ln 1/q)=0$ describes vacuum configurations sourced by a boundary condition at infinity (the integration constant $GM/c^2$).
+A complete theory must include how occupied cells source the $q$-field locally.
+
+In the presence of occupied cells---which store information and therefore reduce local free capacity---the static equation generalizes to:
+
+\begin{equation}
+\boxed{\nabla^2(\ln 1/q) = \frac{4\pi G_{\rm eff}}{c^2}\,\frac{1-q}{a^3}}.
+\label{eq:poisson_source}
+\end{equation}
+
+The right-hand side is proportional to the occupied-capacity fraction $(1-q)$ per cell volume $a^3$, representing the information charge density.
+This is the framework's expression of the equivalence principle: \textbf{mass IS locked information}.
+The identification of occupied capacity fraction with mass density,
+\begin{equation}
+\rho_m \propto \frac{1-q}{a^3},
+\end{equation}
+is the natural bridge between information theory and gravitational phenomenology.
+The coupling constant $G_{\rm eff}$ is calibrated to match Newton's constant $G$ in the nonrelativistic, weak-field limit.
+
+In the vacuum ($q\to1$), the source term vanishes and Eq.~\eqref{eq:poisson_source} reduces to $\nabla^2(\ln 1/q)=0$, consistent with the static derivation above.
+For small $1-q$, the exponential solution~\eqref{eq:q_solution} satisfies the homogeneous equation and provides the leading-order exterior solution around an isolated mass.
+The full Poisson-type equation~\eqref{eq:poisson_source} would govern the interior structure and the transition from the Newtonian to the strong-field regime.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Self-Organization: Unifying Decoherence and Collapse}
+\label{sec:selforg}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Decomposition of the Static Equation}
+
+Expand the static nonlinear equation~\eqref{eq:laplace_ln}:
+
+\begin{equation}
+\nabla^2(\ln q) = \frac{\nabla^2 q}{q} - \frac{|\nabla q|^2}{q^2} = 0.
+\label{eq:expand_ln}
+\end{equation}
+
+This gives:
+
+\begin{equation}
+\boxed{\frac{\nabla^2 q}{q} = \frac{|\nabla q|^2}{q^2}}.
+\label{eq:decomp}
+\end{equation}
+
+Equation~\eqref{eq:decomp} expresses a balance between two competing processes:
+
+\begin{enumerate}
+    \item \textbf{Diffusion term:} $\nabla^2 q/q$. The standard Laplacian diffusion tends to smooth out gradients and homogenize $q$. This drives the system toward uniform $q$, corresponding to decoherence---the loss of structured information.
+
+    \item \textbf{Self-organization term:} $|\nabla q|^2/q^2$. Always non-negative, this term amplifies existing gradients: the stronger the gradient, the stronger this term becomes. This is positive feedback driving \emph{structure formation}.
+\end{enumerate}
+
+Both terms come from the \textbf{same equation}.
+They are not separate mechanisms but two faces of a single information-dynamic process.
+
+\subsection{Regime Crossover}
+
+Which term dominates depends on $q$:
+
+\begin{itemize}
+    \item \textbf{$q\approx1$ (low information density):} The denominator $q^2$ in the self-organization term is $\approx1$, but $\nabla q$ is small (near-flat capacity). Diffusion dominates, and the system tends toward uniformity. This is the \textbf{quantum regime}: decoherence drives the system toward classicality.
+
+    \item \textbf{$q\approx0$ (high information density):} The self-organization term diverges as $q^{-2}$, overwhelming diffusion. The system amplifies any existing gradient, driving further collapse. This is \textbf{gravitational collapse}: structure formation as runaway information concentration.
+\end{itemize}
+
+In the intermediate regime ($0<q<1$), the balance between diffusion and self-organization determines stability.
+This provides a unified picture of structure formation across scales---from quantum decoherence at $q\approx1$ through astrophysical accretion to gravitational collapse at $q\to0$.
+
+\subsection{H-Theorem: Lyapunov Functional for the Nonlinear Theory}
+
+\label{sec:lyapunov}
+
+We prove that the full nonlinear dynamics possess an H-theorem, establishing thermodynamic consistency.
+Define the generalized energy functional:
+
+\begin{equation}
+E[q,\mathbf{J}] = \int d^3x\,\left[\Phi(q) + \frac{1}{2\kappa}|\mathbf{J}|^2\right],
+\label{eq:lyapunov_E}
+\end{equation}
+
+where $\kappa\equiv c^2/a^2$ and $\Phi(q)$ satisfies $\Phi'(q)=\ln q$.
+Explicitly, $\Phi(q)=q\ln q - q + 1$ (the constant is chosen so that $\Phi(1)=0$, the vacuum energy).
+
+The continuum limit of the fundamental current equation~\eqref{eq:current_fundamental} is:
+
+\begin{equation}
+\frac{\partial \mathbf{J}}{\partial t} = -\kappa\nabla(\ln q) - \gamma_0(1-q)\mathbf{J}.
+\label{eq:J_continuum}
+\end{equation}
+
+Together with the continuity equation $\partial_t q = -\nabla\cdot\mathbf{J}$, we compute the time derivative of $E$:
+
+\begin{align}
+\frac{dE}{dt} &= \int d^3x\,\left[\Phi'(q)\frac{\partial q}{\partial t} + \frac{1}{\kappa}\mathbf{J}\cdot\frac{\partial\mathbf{J}}{\partial t}\right] \nonumber \\
+&= \int d^3x\,\Bigl[\ln q\,(-\nabla\cdot\mathbf{J}) \nonumber \\
+&\qquad + \frac{1}{\kappa}\mathbf{J}\cdot\bigl(-\kappa\nabla(\ln q) - \gamma_0(1-q)\mathbf{J}\bigr)\Bigr] \nonumber \\
+&= \int d^3x\,\Bigl[-\ln q\,\nabla\cdot\mathbf{J} - \mathbf{J}\cdot\nabla(\ln q) - \frac{\gamma_0(1-q)}{\kappa}|\mathbf{J}|^2\Bigr].
+\label{eq:dEdt_step1}
+\end{align}
+
+Integrating the first two terms by parts:
+
+\begin{equation}
+\int d^3x\,\bigl[-\ln q\,\nabla\cdot\mathbf{J} - \mathbf{J}\cdot\nabla(\ln q)\bigr] = -\oint_{\partial V} (\ln q)\,\mathbf{J}\cdot d\mathbf{S}.
+\label{eq:boundary_term}
+\end{equation}
+
+For isolated systems ($q\to1$, $\mathbf{J}\to0$ at spatial infinity) or periodic boundary conditions, the surface term vanishes.
+Then:
+
+\begin{equation}
+\boxed{\frac{dE}{dt} = -\int d^3x\,\frac{\gamma_0(1-q)}{\kappa}\,|\mathbf{J}|^2 \;\leq\; 0}.
+\label{eq:dEdt_final}
+\end{equation}
+
+Since $\gamma_0(1-q)\geq0$, $\kappa>0$, and $|\mathbf{J}|^2\geq0$, we have $dE/dt\leq0$ for all configurations.
+Equality holds only when $\mathbf{J}=0$ everywhere (static equilibrium) or $q=1$ everywhere (vacuum).
+The energy $E$ is bounded below (by zero, since $\Phi(q)\geq0$ and $|\mathbf{J}|^2\geq0$), so the dynamics monotonically drive the system toward an energy minimum.
+
+\textbf{This proves the H-theorem for the full nonlinear theory.}
+The dynamics are irreversible and thermodynamically consistent.
+The Lyapunov functional identifies the static configurations ($\mathbf{J}=0$, $\nabla^2(\ln q)=0$) as the attractors of the dynamics, with the exponential solution~\eqref{eq:q_solution} as the minimum free-energy configuration for a given total ``information charge'' (mass).
+
+\textbf{Physical interpretation.}
+The first term in $E$, $\int\Phi(q)\,d^3x$, is the configuration entropy of the $q$-field.
+The second term, $\int|\mathbf{J}|^2/(2\kappa)\,d^3x$, is the kinetic energy of information currents.
+The damping $\gamma_0(1-q)$ dissipates this kinetic energy at a rate proportional to the local occupation fraction, driving the system toward the entropy-maximizing static configuration.
+
+\subsection{Time-Dependent Stability Analysis}
+\label{sec:stability}
+
+The self-organization decomposition~\eqref{eq:decomp} describes the static balance.
+For time-dependent configurations, the full telegraph equation governs the competition between diffusion and collapse.
+Consider a localized perturbation with characteristic scale $L$ and amplitude $\delta q$.
+Three timescales compete:
+
+\begin{enumerate}
+    \item \textbf{Wave timescale:} $\tau_{\rm wave} \sim L/c$ --- the light-crossing time.
+    \item \textbf{Damping timescale:} $\tau_{\rm damp} \sim 1/[\gamma_0(1-q_0)]$ --- the time for damping to dissipate coherent oscillations.
+    \item \textbf{Diffusion timescale:} $\tau_{\rm diff} \sim L^2/D_{\rm eff} = L^2\gamma_0(1-q_0)/c^2$ --- the time for diffusion to smooth gradients.
+\end{enumerate}
+
+The dimensionless ratio controlling the dynamics is:
+
+\begin{equation}
+R \equiv \frac{\tau_{\rm damp}}{\tau_{\rm wave}} = \frac{c}{\gamma_0(1-q_0)L}.
+\label{eq:stability_R}
+\end{equation}
+
+\begin{itemize}
+    \item $R\gg1$ (small $L$, high $q_0$): wave propagation dominates. Perturbations oscillate and disperse.
+    \item $R\ll1$ (large $L$, low $q_0$): diffusion dominates. Perturbations smooth out on timescale $\tau_{\rm diff}$.
+    \item The self-organization term $|\nabla q|^2/q^2$ becomes competitive with diffusion when $|\nabla q|/q \gtrsim 1/L$, i.e., when the logarithmic gradient exceeds the inverse scale. This occurs near mass concentrations where $q\ll1$.
+\end{itemize}
+
+A perturbation is unconditionally stable against gravitational collapse when $R\gg1$ --- the wave dynamics disperse the perturbation before self-organization can amplify it.
+Conversely, when $R\ll1$ \emph{and} $q\ll1$, the self-organization term dominates both wave dispersion and diffusion, driving runaway collapse.
+This provides a quantitative criterion for the onset of gravitational instability in the $q$-field framework.
+
+\subsection{Variational Interpretation}
+
+Equation~\eqref{eq:laplace_ln} can be understood variationally.
+Define the information-theoretic action:
+
+\begin{equation}
+\mathcal{S}[q] = \int d^3x \, \frac{|\nabla q|^2}{q^2}.
+\label{eq:action}
+\end{equation}
+
+The Euler--Lagrange equation $\delta\mathcal{S}/\delta q=0$ yields $\nabla^2(\ln q)=0$.
+The exponential solution~\eqref{eq:q_solution} extremizes the integrated squared logarithmic gradient.
+Physically: nature settles into the configuration that minimizes information gradients for a given total ``information charge'' (mass).
+The $1/r$ potential is not a force law but a \textbf{minimum free-energy configuration of the $q$-field}, as proven by the H-theorem of Sec.~\ref{sec:lyapunov}.
+
+\subsection{Quantitative vs.\ Qualitative Predictions}
+\label{sec:qual_vs_quant}
+
+It is essential to distinguish predictions that depend on the specific choice $\phi(q)=-\ln q$ from those protected by universality.
+
+\paragraph{Qualitative predictions (universal across $\Phi$):}
+\begin{itemize}
+    \item Damping vanishes in vacuum: $\gamma(q)\to0$ as $q\to1$.
+    \item Lorentz invariance is dynamically selected by vacuum.
+    \item The static equation is $\nabla^2\phi(q)=0$; the $1/r$ potential emerges for any $\phi\in\Phi$.
+    \item Diffusion and self-organization are two regimes of a single equation.
+    \item The wave--diffusion crossover exists at $k=\gamma/(2c)$.
+    \item A soft boundary replaces the hard event horizon.
+    \item The H-theorem holds (with a $\phi$-dependent Lyapunov functional).
+\end{itemize}
+
+\paragraph{Quantitative predictions (specific to $\phi(q)=-\ln q$):}
+\begin{itemize}
+    \item The exact static solution: $q(r)=e^{-GM/rc^2}$.
+    \item The Newtonian limit: $\Phi(r)=-GM/r + O(r^{-2})$.
+    \item The specific form of the source term in Eq.~\eqref{eq:poisson_source}.
+    \item The exact value of $\gamma_0=c/\ell_P$ (depends on the naturalness argument, not $\phi$).
+\end{itemize}
+
+Observational tests of quantitative predictions can distinguish $\phi(q)=-\ln q$ from other members of $\Phi$, while qualitative predictions test the entire universality class.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Testable Predictions}
+\label{sec:predictions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Wave--Diffusion Crossover}
+
+The most distinctive prediction is a frequency-dependent crossover from wave propagation to diffusion in gravitational dynamics.
+From the dispersion relation of Eq.~\eqref{eq:telegraph_gammaq} for a plane-wave perturbation $q\propto e^{i(kx-\omega t)}$ on a background $q_0$:
+
+\begin{equation}
+\omega^2 + i\gamma_0(1-q_0)\omega = c^2 k^2/q_0,
+\label{eq:dispersion}
+\end{equation}
+
+the crossover wavenumber is:
+
+\begin{equation}
+\boxed{k_{\rm cross} = \frac{\gamma_0(1-q_0)}{2c}}.
+\label{eq:kcross}
+\end{equation}
+
+For $k\gg k_{\rm cross}$ (short wavelengths): the $\partial_t^2 q$ term dominates, and $q$ propagates as a damped wave at speed $c$---conventional gravitational wave behavior.
+For $k\ll k_{\rm cross}$ (long wavelengths): the $\gamma\partial_t q$ term dominates, and $q$ evolves diffusively---classical gravitational relaxation.
+
+Observable consequences:
+\begin{itemize}
+    \item \textbf{Frequency-dependent dispersion.} The phase velocity $v_{\rm phase}=c/\sqrt{1+i\gamma/\omega}$ deviates from $c$ at frequencies near and below $\omega_{\rm cross}=\gamma/2$. For a broadband gravitational wave signal (e.g., a binary inspiral), this produces frequency-dependent arrival time delays.
+
+    \item \textbf{Suppression of low-frequency GWs.} Modes with $\omega<\gamma/2$ are overdamped---they decay exponentially without oscillation.
+    This suppresses gravitational wave emission below a cutoff frequency, affecting the low-frequency end of the stochastic gravitational wave background.
+
+    \item \textbf{Ringdown deviations.} The quasi-normal mode spectrum of a post-merger compact object is modified: modes above $k_{\rm cross}$ oscillate; modes below decay monotonically.
+\end{itemize}
+
+With $\gamma_0=c/\ell_P\sim10^{43}$ s$^{-1}$, the crossover frequency is Planckian and irrelevant for observations.
+However, the \emph{effective} damping $\gamma=\gamma_0(1-q)$ is far smaller in realistic environments.
+Near a solar-mass object at $r\sim R_\odot$, $\gamma\sim\gamma_0\times2\times10^{-6}\sim4\times10^{37}$ s$^{-1}$, still astronomically large.
+For the crossover to enter the observable band (e.g., LISA frequencies $\sim10^{-3}$ Hz), we would need $(1-q)\sim\gamma/\gamma_0\sim10^{-46}$, which occurs only in extremely deep vacuum far from all mass.
+
+This means the \textbf{wave regime} is the generic prediction for all observable gravitational wave phenomena.
+The diffusion regime is relevant only in the extreme strong-field regime ($q\ll1$), where it may affect black hole interiors, the very early universe, or the end state of gravitational collapse.
+
+\textbf{Honest statement:} With $\gamma_0$ fixed by the Planck scale, the wave--diffusion crossover is not observable with current or planned detectors.
+Its significance is theoretical: it provides a conceptual unification of wave (quantum coherent) and diffusive (classical decoherent) gravitational dynamics within a single equation.
+
+\subsection{Soft Boundary: No Hard Event Horizon}
+
+In Eq.~\eqref{eq:q_solution}, $q(r)>0$ for all finite $r$:
+
+\begin{equation}
+q(r) > 0 \quad \text{for all} \quad r > 0.
+\label{eq:soft}
+\end{equation}
+
+There is \textbf{no event horizon} in the strict sense.
+The free capacity vanishes only asymptotically as $r\to0$.
+Matter falling toward $r=0$ encounters an ever-decreasing $q$, approaching but never reaching the capacity bound.
+This is a \textbf{soft boundary}: gradual saturation of information capacity without sharp causal disconnection.
+
+The Event Horizon Telescope (EHT) observations of M87*~\cite{EventHorizonTelescope:2019dse} and Sgr A*~\cite{EventHorizonTelescope:2022xnr} reveal dark central shadows consistent with a photon sphere at $\sim2.6\,GM/c^2$ (for M87*).
+In the $q$-field picture, the shadow is produced not by an event horizon but by the steep gradient of $q$ near the origin, which traps photons gravitationally in a manner that may differ from the Kerr metric prediction at the percent level.
+
+Distinguishing the soft boundary from the hard Kerr horizon requires:
+\begin{itemize}
+    \item Higher-resolution EHT observations (next-generation EHT, space VLBI).
+    \item Time-domain observations of orbiting hot spots near the ISCO.
+    \item Gravitational wave ringdown spectra from binary black hole mergers, whose quasi-normal mode frequencies may differ between a hard horizon and a soft boundary.
+\end{itemize}
+
+\subsection{Gravitational Wave Speed and the Milky Way Halo}
+\label{sec:gw170817_halo}
+
+In the vacuum limit ($q\to1$, $\gamma\to0$), gravitational waves propagate at exactly $c$.
+This is consistent with GW170817/GRB 170817A~\cite{Abbott:2017apx,GW170817grb}, which constrain $-3\times10^{-15}\leq(v_{\rm GW}-c)/c\leq7\times10^{-16}$.
+This prediction is shared with GR and does not distinguish the theories in vacuum.
+
+\textbf{Galactic halo propagation: an open theoretical question.}
+GW170817 propagated through the Milky Way halo before detection.
+In the $q$-field framework, matter-filled regions have $q<1$ and therefore $\gamma>0$.
+With $1-q_0 \sim 5\times10^{-7}$ at the Solar position ($r\approx8$\,kpc, $M_{\rm enc}\approx10^{11}M_\odot$), the effective damping is $\gamma_{\rm halo} \approx 9\times10^{36}$\,s$^{-1}$, so $\gamma_{\rm halo}/\omega \sim 10^{34}$ at LIGO frequencies.
+In this strongly overdamped regime, freely propagating scalar $q$-field modes ($k < k_{\rm cross}$) have purely imaginary eigenfrequencies---they decay exponentially in time without oscillation.
+No coherent scalar signal propagates through the halo.
+
+\textbf{Conjectured resolution.}
+If the gravitational wave signal detected by LIGO corresponds to \emph{tensor} perturbations $h_{\mu\nu}$ of an effective metric $g_{\mu\nu}[q]$ that emerges from the static $q$-field background, and if tensor modes decouple from the scalar sector's damping at linear order, then $\Box h_{\mu\nu}=0$ in vacuum and tensor waves propagate at $c$ regardless of the scalar sector's behavior.
+This decoupling is a conjecture requiring future proof: the paper has not derived the effective metric or the tensor perturbation equations from the $q$-field.
+Until such a derivation exists, the consistency of the $q$-field framework with GW170817 must be regarded as an open theoretical question, not a resolved check.
+
+\subsection{Separation of Qualitative and Quantitative Predictions}
+
+Following the classification of Sec.~\ref{sec:qual_vs_quant}, we separate the predictions:
+
+\begin{center}
+\begin{tabular}{p{0.45\columnwidth}p{0.45\columnwidth}}
+\toprule
+\textbf{Qualitative (universal across $\Phi$)} & \textbf{Quantitative ($\phi=-\ln q$ specific)} \\
+\midrule
+Wave--diffusion crossover exists & Crossover wavenumber $k_{\rm cross}=\gamma/(2c)$ \\
+Soft boundary replaces horizon & Exact $q(r)=e^{-GM/rc^2}$ profile \\
+Lorentz selected by vacuum & $\gamma_0=c/\ell_P$ (naturalness) \\
+$1/r$ potential emerges (any $\phi$) & Newtonian limit $\Phi=-GM/r$ \\
+Damping vanishes at $q\to1$ & $v_{\rm GW}/c = 1-(1-q_0)^2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+\label{sec:discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Summary of the Framework}
+
+We have constructed a theory of gravity from two axioms (causality and bounded information capacity) plus one structural choice ($\phi(q)=-\ln q$ in the universality class $\Phi$).
+All assumptions are classified into four tiers (Table~\ref{tab:tiers}): Tier~0--1 are irreducible inputs, Tier~2 choices are protected by universality, and Tier~3 quantities are fixed by Tiers~0--2 plus naturalness.
+The cell spacing $a$ is the single new dimensional parameter; identifying $a$ with $\ell_P$ follows from the requirement that the theory introduce no new scales beyond $c$, $\hbar$, $G$.
+
+The key results are:
+
+\begin{enumerate}
+    \item The unified current equation~\eqref{eq:current_fundamental} with logarithmic gradient and $\bar{q}$-dependent damping yields the telegraph equation~\eqref{eq:telegraph_unified}: $\partial_t^2 q + \gamma_0(1-q)\partial_t q = c^2\nabla^2(\ln q)$. This one equation governs all regimes---no patch, no separate linear and nonlinear equations.
+    \item Lorentz invariance is dynamically selected by vacuum ($q\to1$); preferred-frame effects are confined to matter-filled regions.
+    \item The static limit follows directly from $\partial_t J_{ij}=0$: the factor $\gamma_0(1-\bar{q})$ cancels, yielding $\nabla^2(\ln q)=0$, whose spherically symmetric solution $q(r)=e^{-GM/rc^2}$ recovers Newtonian gravity.
+    \item The same equation unifies decoherence and gravitational collapse via $\nabla^2 q/q = |\nabla q|^2/q^2$.
+    \item An H-theorem is proved (Sec.~\ref{sec:lyapunov}): $dE/dt\leq0$ for the Lyapunov functional $E=\int[\Phi(q)+|\mathbf{J}|^2/(2\kappa)]d^3x$, establishing thermodynamic consistency.
+    \item The theory predicts a wave--diffusion crossover and a soft boundary at black holes.
+\end{enumerate}
+
+\subsection{The Holographic Tension}
+\label{sec:holographic}
+
+A significant open issue in the $q$-field framework is the tension with the holographic principle.
+The capacity bound of 1 bit per cell is a \textbf{local} bound applied to each cell independently.
+For a region of space of size $R$, the total information capacity is proportional to the number of cells in that region, scaling as the volume:
+
+\begin{equation}
+S_{\rm max} \sim \left(\frac{R}{a}\right)^3 \propto R^3 \qquad \text{(Volume scaling)}.
+\label{eq:volume_scaling}
+\end{equation}
+
+This contrasts with the holographic principle~\cite{tHooft:1993,Susskind:1994vu}, which posits that the maximum entropy of a region scales with its surface area:
+
+\begin{equation}
+S_{\rm holographic} \sim \frac{A}{4\ell_P^2} \propto R^2 \qquad \text{(Area scaling)}.
+\label{eq:area_scaling}
+\end{equation}
+
+This is not a minor discrepancy---it is a qualitative difference in the scaling of the maximum information content of spacetime.
+
+\textbf{Why this matters.}
+The holographic principle is supported by two independent lines of evidence:
+(1) black hole thermodynamics (the Bekenstein--Hawking entropy $S_{\rm BH}=A/4\ell_P^2$ is proportional to horizon area, not volume), and
+(2) the AdS/CFT correspondence, in which a gravitational theory in $d+1$ dimensions is equivalent to a nongravitational theory in $d$ dimensions, explicitly realizing area-law entanglement entropy.
+If the $q$-field theory is to be taken seriously as a description of gravity, this tension must be resolved.
+
+\textbf{Possible resolutions.}
+We identify three directions, none of which is currently realized in the framework:
+
+\begin{enumerate}
+    \item \textbf{Nonlocal cell connectivity.} The 1-bit-per-cell bound counts independent degrees of freedom. If cells inside a region are \emph{not} all independently accessible---because quantum entanglement or gravitational nonlocality reduces the effective number of independent degrees of freedom---then the naive volume count overestimates the true information capacity. Concretely, if cells within a region of size $R$ are pairwise entangled at the Planck scale, the von Neumann entropy of the reduced state of the region scales with the number of entangled pairs crossing the boundary, which is $\propto R^2/a^2$---automatically yielding area scaling. The holographic bound may thus emerge as an entanglement entropy bound, with the 1-bit-per-cell capacity serving as the ultraviolet cutoff rather than the infrared scaling law.
+
+    \item \textbf{Holographic cell arrangement.} The regular 3D lattice (Tier~2 modeling choice) may be the wrong discretization. A holographic arrangement of cells on the boundary of each region, with bulk cells being non-fundamental (determined by boundary data), would automatically yield area scaling. This would require replacing the nearest-neighbor 3D lattice with a boundary-cell graph.
+
+    \item \textbf{Saturation not achieved.} The 1-bit bound is an \textbf{ultraviolet} bound per cell. Whether all cells within a volume can simultaneously saturate this bound depends on the dynamics. If gravitational collapse enforces a tighter bound---the Bekenstein bound $S\leq 2\pi RE/(\hbar c)$---then the volume scaling $R^3$ is never realized in practice, and the effective capacity is limited by the area-scaling holographic bound.
+\end{enumerate}
+
+\textbf{Honest assessment.}
+The holographic tension is a serious limitation of the current framework.
+The 1-bit-per-cell bound is a natural consequence of A2, but it gives volume scaling, not area scaling.
+Resolving this tension---showing how the holographic bound emerges from the $q$-field dynamics, or modifying the cell structure to incorporate holography---is a priority for future work.
+We do not claim to have resolved this tension; we flag it prominently as an open problem whose solution may point toward the extension to full general relativity.
+
+\subsection{Fair Comparison with HTMAU Using Tiered Methodology}
+\label{sec:htmau_comparison}
+
+Bassani and Magueijo (2025)~\cite{Bassani:2025htma} proposed ``How to Make a Universe'' (HTMAU), a framework in which diffeomorphism invariance emerges from a Markov chain of stochastic choices evolving toward an absorbing state.
+Both HTMAU and the present $q$-field theory share the philosophy that spacetime symmetries are emergent rather than fundamental.
+However, the inputs, mechanisms, and outputs differ substantially.
+To make the comparison fair and systematic, we apply the \textbf{same tiered methodology} (Sec.~\ref{sec:tiered}) to both theories.
+
+\subsubsection{HTMAU's Assumptions in Tiered Classification}
+
+We enumerate HTMAU's specific assumptions, as presented in Ref.~\cite{Bassani:2025htma}:
+
+\begin{enumerate}
+    \item \textbf{Preferred foliation.} Spacetime has a preferred time foliation---a global time coordinate that singles out a rest frame. This is an irreducible structural input (Tier~0 equivalent).
+    \item \textbf{Global/local variable split.} The universe's state is partitioned into ``global'' variables (constants of nature) and ``local'' variables (field configurations on the foliation). This is a structural choice (Tier~2 equivalent).
+    \item \textbf{Matter-gravity separation.} The total action separates into a gravitational sector and a matter sector, with the matter sector treated as a perturbation. This is a modeling choice (Tier~2 equivalent).
+    \item \textbf{Local diffeomorphism invariance is imposed before the absorbing state.} The Markov chain is constructed to \emph{preserve} local spatial diffeomorphisms at each step, with time reparameterization invariance emerging only in the absorbing state. This means diffeomorphism invariance is partially \emph{assumed}, not fully derived (Tier~1 equivalent---an empirical input about the symmetry structure).
+    \item \textbf{Constants as time-conjugate variables.} The ``global'' variables are canonically conjugate to time, with Poisson bracket structure imposed. This is a structural choice (Tier~2 equivalent).
+    \item \textbf{Beta potential functions.} Two $\beta$ potential functions ($\beta_{\rm local}$ and $\beta_{\rm global}$) control the mutation rule of the Markov chain. Their specific forms are free functions (Tier~2 structural choices with continuous parameters).
+    \item \textbf{Markov chain mutation rule.} The specific mutation rule $X\to X+\{X,H\}_{\rm local}\delta t + \{\beta_{\rm global},X\}\delta W$ is a structural ansatz (Tier~2 equivalent).
+\end{enumerate}
+
+\subsubsection{Tiered Comparison}
+
+Table~\ref{tab:compare_htmau} compares the two frameworks using the same tiered methodology.
+
+\begin{table}[h]
+\centering
+\caption{Tiered comparison of emergent-spacetime frameworks. Both theories are classified using the same four-tier methodology (Sec.~\ref{sec:tiered}).}
+\label{tab:compare_htmau}
+\begin{tabular}{p{0.22\columnwidth}p{0.35\columnwidth}p{0.35\columnwidth}}
+\toprule
+& \textbf{HTMAU (Bassani \& Magueijo 2025)} & \textbf{This work ($q$-field)} \\
+\midrule
+\textbf{Tier 0} & Causality (via Markov ordering) & A1: Causality \\
+(Physical & & A2: 1-bit capacity bound \\
+Axioms) & Preferred foliation & \\
+& (2 axioms) & (2 axioms) \\
+\midrule
+\textbf{Tier 1} & $c$, $\hbar$, $G$ & $c$, $\hbar$, $G$, $d=3$ \\
+(Empirical & Local diffeo invariance & \\
+Inputs) & (imposed pre-absorbing state) & \\
+& (4 inputs) & (4 inputs) \\
+\midrule
+\textbf{Tier 2} & Global/local variable split & Regular 3D lattice \\
+(Modeling & Matter-gravity separation & Nearest-neighbor edges \\
+Choices) & Constants as time-conjugates & $\phi(q)=-\ln q\in\Phi$ \\
+& 2 $\beta$ potential functions & \\
+& Markov mutation rule & \\
+& (5 structural choices) & (3 structural choices) \\
+\midrule
+\textbf{Tier 3} & Mutation rate parameters & $\gamma_0=c/\ell_P$ \\
+(Derived) & $\beta$ function parameters & $D_0=c^2/\gamma_0=c\ell_P$ \\
+& (2+ free parameters) & (0 additional parameters) \\
+\midrule
+\textbf{Emergent} & Diffeomorphism invariance & Lorentz invariance \\
+\textbf{symmetry} & (full GR symmetry) & (SR symmetry) \\
+\midrule
+\textbf{Emergence} & Stochastic: Markov chain & Deterministic: \\
+\textbf{mechanism} & $\to$ absorbing state & $q\to1 \Rightarrow \gamma\to0$ \\
+\midrule
+\textbf{Static} & FRW matter production rate & $\nabla^2(\ln 1/q)=0$ \\
+\textbf{equation} & (cosmological) & $q(r)=e^{-GM/rc^2}$ \\
+\midrule
+\textbf{Testable} & Near-diffeo invariant & Wave--diffusion crossover, \\
+\textbf{predictions} & cosmology & soft boundary, $v_{\rm GW}$ correction \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Interpretation}
+
+Both frameworks share the philosophy that spacetime symmetries are emergent rather than fundamental.
+HTMAU achieves the stronger result (diffeomorphism invariance, the full symmetry of GR) but requires substantially more input: a preferred foliation (an additional Tier~0 axiom), local diffeomorphism invariance imposed pre-emergence (a Tier~1 input that is arguably part of what one wants to derive), and five Tier~2 structural choices including two free $\beta$ potential functions.
+The $q$-field framework achieves the weaker result (Lorentz invariance, sufficient for special relativity and the Newtonian limit) but with fewer assumptions at every tier.
+
+The comparison raises an important question: is diffeomorphism invariance (the full symmetry of GR) necessary at the fundamental level, or is it sufficient to show that Lorentz invariance emerges and that the Newtonian limit is recovered?
+If the latter, then the economy of assumptions favors the present approach.
+If the former, then HTMAU's richer structure is necessary, and the present theory must be extended to recover diffeomorphism invariance---a direction we discuss in the open directions below.
+
+We emphasize that this comparison is methodological, not adversarial.
+Both approaches contribute to the broader program of understanding spacetime as emergent.
+The tiered methodology provides a systematic framework for comparing the economy and explanatory power of different approaches.
+
+\subsection{Honest Assessment of Limitations}
+
+\begin{enumerate}
+    \item \textbf{$\gamma(q)=\gamma_0(1-q)$ is a modeling ansatz.} The linear form is the simplest model consistent with A2 but is not rigorously derived from it. Nonlinear corrections $\gamma\propto(1-q)^\alpha$ with $\alpha\neq1$ are possible. The essential prediction---$\gamma\to0$ as $q\to1$---is robust regardless of the functional form.
+
+    \item \textbf{The choice $\phi(q)=-\ln q$ is protected by universality but not unique.} Any $\phi\in\Phi$ gives the same qualitative physics. The $-\ln q$ form is the simplest and most natural, but the universality argument must be made rigorous through renormalization-group analysis.
+
+    \item \textbf{We recover only the Newtonian limit of GR.} The full Einstein equations, with their nonlinear self-interaction, frame-dragging, and cosmological constant, are not derived. Extending the $q$-field framework to full GR requires deriving the right-hand side of $\nabla^2(\ln 1/q)=(\text{source term})$ for general stress-energy configurations, and showing that the result matches the Einstein tensor in the appropriate limit.
+
+    \item \textbf{Matter coupling is not fully derived.} We assumed spherical symmetry and identified an integration constant with $GM/c^2$. A complete theory must derive how $T_{\mu\nu}$ sources $q$ in general configurations. The source term proposed in Eq.~\eqref{eq:poisson_source} is a first step but requires rigorous derivation from the microscopic dynamics.
+
+    \item \textbf{Spatial dimensionality is an input.} $d=3$ is taken as an empirical fact, not a prediction. The $1/r$ potential follows from $d=3$; in $d$ dimensions the static solution would be $q\propto\exp(-\text{const}/r^{d-2})$, yielding a $1/r^{d-2}$ force law.
+
+    \item \textbf{The holographic bound is not satisfied.} As discussed in Sec.~\ref{sec:holographic}, the 1-bit-per-cell bound implies volume scaling $S\sim R^3$, contradicting the holographic area scaling $S\sim R^2$. This is a serious limitation that requires resolution through nonlocal entanglement, holographic cell arrangement, or dynamical saturation constraints.
+
+    \item \textbf{Lorentz selection is weaker than diffeomorphism emergence.} Our theory always contained a Lorentz-invariant sector; the result is that vacuum selects it. HTMAU's diffeomorphism emergence is a stronger result. Whether this matters depends on whether full diffeomorphism invariance is needed at the fundamental level or only in the classical gravitational limit.
+
+    \item \textbf{Tensor vs.\ scalar sector distinction.} The resolution of the GW170817 halo tension (Sec.~\ref{sec:gw170817_halo}) relies on a distinction between scalar $q$-field perturbations (subject to damping) and tensor metric perturbations (propagating at $c$). A complete theory must derive the coupling between the scalar and tensor sectors from first principles, showing that the decoupling at linear order is robust.
+\end{enumerate}
+
+\subsection{Open Directions}
+
+\begin{enumerate}
+    \item \textbf{Full GR recovery.} The most important open problem is extending the $q$-field framework to recover the full Einstein equations. The nonlinear structure of $\nabla^2(\ln 1/q)=0$ hints at a deeper connection to the Ricci tensor, but the mapping is not yet known. The source term~\eqref{eq:poisson_source} suggests a Poisson-type equation for $\ln q$, which may relate to the $G_{00}$ component of the Einstein tensor in the Newtonian gauge.
+
+    \item \textbf{Holographic resolution.} Resolving the volume-vs.-area scaling tension (Sec.~\ref{sec:holographic}) is essential. This may involve replacing the regular 3D lattice with a holographic cell arrangement, or deriving an effective area-law bound from the dynamics of entangled cells.
+
+    \item \textbf{Cosmology.} Global expansion corresponds to $q\to1$ (increasing free capacity), which is natural if the universe's information content grows more slowly than its capacity. This may connect to dark energy. The $q$-field should have cosmological solutions that can be compared with $\Lambda$CDM.
+
+    \item \textbf{Entanglement and ER = EPR.} Zilly's QM foundation involves entanglement. In the $q$-field picture, two entangled cells share information, modifying their local $q$. The connection between entanglement structure and spacetime geometry~\cite{Maldacena:2013je} may be derivable in this framework.
+
+    \item \textbf{Quantum gravity regime.} When $q\to0$, the capacity bound is nearly saturated. Zilly's finite-capacity QM predicts strong quantum effects. The $q$-field dynamics in this regime may describe quantum gravitational phenomena without a full theory of quantum gravity.
+
+    \item \textbf{Numerical simulations.} Simulating the $q$-field dynamics in binary merger scenarios and comparing waveforms with GR predictions. The soft boundary and nonlinear damping should produce distinguishable ringdown signals.
+
+    \item \textbf{Experimental constraints on $\gamma_0$ and $\phi(q)$.} While we fix $\gamma_0=c/\ell_P$ from naturalness and $\phi(q)=-\ln q$ from simplicity, both choices are falsifiable. If observations constrain $\gamma_0$ to be smaller (e.g., from the absence of anomalous damping in binary pulsar timing), the identification with the Planck scale would need revision. Similarly, deviations from the $e^{-GM/rc^2}$ profile would constrain $\phi(q)$.
+
+    \item \textbf{Rigorous universality proof.} The claim that any $\phi\in\Phi$ gives the same qualitative physics must be made rigorous. This requires a renormalization-group analysis showing that $\phi(q)=-\ln q$ is the infrared fixed point of the universality class, or a constructive proof that macroscopic observables (potential, force law, stability) are independent of the microscopic $\phi$.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Acknowledgments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We thank J.~Zilly for providing the foundational proof that finite information capacity plus self-referential consistency yields quantum mechanics~\cite{Zilly:2026}, without which this work would lack its axiomatic grounding.
+We thank participants of the Emergent Gravity workshop for discussions.
+We thank Bassani and Magueijo for making their HTMAU manuscript available, which provided a valuable benchmark against which to measure the economy of our own assumptions and motivated the tiered classification methodology.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{apsrev4-2}
+\begin{thebibliography}{99}
+
+\bibitem{Zilly:2026}
+J.~Zilly, ``Existence as Distinguishability: Quantum Mechanics from Finite Graded Equality,''
+arXiv:2603.11900 (2026).
+[Accepted as axiomatic foundation; not re-derived in this work.]
+
+\bibitem{Green:1987sp}
+M.~B.~Green, J.~H.~Schwarz, and E.~Witten,
+\textit{Superstring Theory},
+Cambridge University Press (1987).
+
+\bibitem{Polchinski:1998rq}
+J.~Polchinski,
+\textit{String Theory},
+Cambridge University Press (1998).
+
+\bibitem{Rovelli:2004tv}
+C.~Rovelli,
+\textit{Quantum Gravity},
+Cambridge University Press (2004).
+
+\bibitem{Ashtekar:2004eh}
+A.~Ashtekar and J.~Lewandowski,
+``Background independent quantum gravity: A status report,''
+Class.\ Quant.\ Grav.\ \textbf{21}, R53 (2004).
+
+\bibitem{Ambjorn:2001cv}
+J.~Ambjorn, J.~Jurkiewicz, and R.~Loll,
+``Dynamically triangulating Lorentzian quantum gravity,''
+Nucl.\ Phys.\ B \textbf{610}, 347 (2001).
+
+\bibitem{Weinberg:1979}
+S.~Weinberg,
+``Ultraviolet divergences in quantum theories of gravitation,''
+in \textit{General Relativity: An Einstein Centenary Survey},
+Cambridge University Press (1979).
+
+\bibitem{Reuter:2012}
+M.~Reuter and F.~Saueressig,
+``Quantum Einstein gravity,''
+New J.\ Phys.\ \textbf{14}, 055022 (2012).
+
+\bibitem{Verlinde:2010hp}
+E.~P.~Verlinde,
+``On the origin of gravity and the laws of Newton,''
+JHEP \textbf{04}, 029 (2011).
+
+\bibitem{Jacobson:1995ab}
+T.~Jacobson,
+``Thermodynamics of spacetime: The Einstein equation of state,''
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995).
+
+\bibitem{Padmanabhan:2010}
+T.~Padmanabhan,
+``Thermodynamical aspects of gravity: New insights,''
+Rep.\ Prog.\ Phys.\ \textbf{73}, 046901 (2010).
+
+\bibitem{Bassani:2025htma}
+P.~M.~Bassani and J.~Magueijo,
+``How to make a universe,''
+Phys.\ Rev.\ D \textbf{111}, 103529 (2025).
+
+\bibitem{Cattaneo:1948}
+C.~Cattaneo,
+``Sulla conduzione del calore,''
+Atti Sem.\ Mat.\ Fis.\ Univ.\ Modena \textbf{3}, 83 (1948).
+
+\bibitem{Jou:2010}
+D.~Jou, J.~Casas-V{\'a}zquez, and G.~Lebon,
+\textit{Extended Irreversible Thermodynamics},
+Springer (2010).
+
+\bibitem{Abbott:2017apx}
+B.~P.~Abbott \textit{et al.} (LIGO Scientific and Virgo Collaborations),
+``GW170817: Observation of gravitational waves from a binary neutron star inspiral,''
+Phys.\ Rev.\ Lett.\ \textbf{119}, 161101 (2017).
+
+\bibitem{GW170817grb}
+B.~P.~Abbott \textit{et al.},
+``Gravitational waves and gamma-rays from a binary neutron star merger: GW170817 and GRB 170817A,''
+Astrophys.\ J.\ Lett.\ \textbf{848}, L13 (2017).
+
+\bibitem{EventHorizonTelescope:2019dse}
+Event Horizon Telescope Collaboration,
+``First M87 Event Horizon Telescope results. I. The shadow of the supermassive black hole,''
+Astrophys.\ J.\ Lett.\ \textbf{875}, L1 (2019).
+
+\bibitem{EventHorizonTelescope:2022xnr}
+Event Horizon Telescope Collaboration,
+``First Sagittarius A* Event Horizon Telescope results. I. The shadow of the supermassive black hole in the center of the Milky Way,''
+Astrophys.\ J.\ Lett.\ \textbf{930}, L12 (2022).
+
+\bibitem{Bassi:2013mta}
+A.~Bassi, K.~Lochan, S.~Satin, T.~P.~Singh, and H.~Ulbricht,
+``Models of wave-function collapse, underlying theories, and experimental tests,''
+Rev.\ Mod.\ Phys.\ \textbf{85}, 471 (2013).
+
+\bibitem{Maldacena:2013je}
+J.~Maldacena and L.~Susskind,
+``Cool horizons for entangled black holes,''
+Fortsch.\ Phys.\ \textbf{61}, 781 (2013).
+
+\bibitem{Will:2014}
+C.~M.~Will,
+``The confrontation between general relativity and experiment,''
+Living Rev.\ Relativ.\ \textbf{17}, 4 (2014).
+
+\bibitem{Kostelecky:2008}
+V.~A.~Kosteleck{\'y} and N.~Russell,
+``Data tables for Lorentz and CPT violation,''
+Rev.\ Mod.\ Phys.\ \textbf{83}, 11 (2011).
+
+\bibitem{Mewes:2013}
+M.~Mewes,
+``Tests of Lorentz invariance,''
+in \textit{Proceedings of the 6th Meeting on CPT and Lorentz Symmetry},
+World Scientific (2013).
+
+\bibitem{tHooft:1993}
+G.~'t Hooft,
+``Dimensional reduction in quantum gravity,''
+arXiv:gr-qc/9310026 (1993).
+
+\bibitem{Susskind:1994vu}
+L.~Susskind,
+``The world as a hologram,''
+J.\ Math.\ Phys.\ \textbf{36}, 6377 (1995).
+
+\end{thebibliography}
+
+\end{document}

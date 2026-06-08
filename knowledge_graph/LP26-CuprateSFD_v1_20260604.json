@@ -1,0 +1,27 @@
+{
+  "project": "LP26-CuprateSFD",
+  "version": "v1",
+  "date": "2026-06-04",
+  "conclusion_type": "有边界-掺杂依赖分歧",
+  "total_rounds": 12,
+  "stages": ["S1-统计比较", "S2-Tl2201基准", "S3-ε框架", "S4-VCS", "S5-VDC", "S6-Morse鞍点"],
+  "core_findings": {
+    "R_crossing": "Cp/μSR crosses unity at p≈0.20, χ²/N=3.11",
+    "Tl2201_baseline": "Tl2201 is the clean-limit baseline, not an exception",
+    "epsilon": "ε = Bλ²/(0.04663Φ₀) ≫ 1 for all typical cuprate μSR",
+    "CMP": "Complexity Minimum Point at p*≈0.19, six signals simultaneously extremal"
+  },
+  "known_risks": [
+    "Single family (Y,Ca)123, 5 data points",
+    "Brandt correction uncertainty may alter χ² significance",
+    "δ(p) is the only unconstrained VDC parameter",
+    "Morse saddle point is phenomenological, risks tautology"
+  ],
+  "math_objects": {
+    "R_crossing": "δ_R(p) = Cp/μSR - 1, crossing at p≈0.20±0.02",
+    "morse_saddle": "F(p) = a(p-p*)² + b(p-p*)⁴, a<0, b>0",
+    "vortex_disorder": "ε = Bλ²/(0.04663Φ₀)",
+    "VDC_correction": "λ_true = λ_ext/(1+δε)^(1/4)"
+  },
+  "knowledge_entries": ["K26.1", "K26.2", "K26.3", "K26.4", "K26.5"]
+}

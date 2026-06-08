@@ -1,0 +1,6 @@
+row_id,candidate_source,required_joined_fields_presence_status,same_sample_crosswalk_status,graph_convention_lock_status,external_label_independence_status,forbidden_control_row_audit_status,OI_Srivastava_reproduction_status,row_decision,material_validation_allowed
+C2T-AUDIT-0001,Jankousky raw structures,BLOCK,BLOCK,BLOCK,BLOCK,WARN,NOT_APPLICABLE,BLOCK,false
+C2T-AUDIT-0002,Srivastava structures,BLOCK,BLOCK,BLOCK,BLOCK,WARN,BLOCK,BLOCK,false
+C2T-AUDIT-0003,Furubayashi transport labels,BLOCK,BLOCK,BLOCK,BLOCK,WARN,NOT_APPLICABLE,BLOCK,false
+C2T-AUDIT-0004,Jankousky plus Furubayashi join,BLOCK,BLOCK,BLOCK,BLOCK,WARN,NOT_APPLICABLE,BLOCK,false
+C2T-AUDIT-0005,Srivastava plus Furubayashi join,BLOCK,BLOCK,BLOCK,BLOCK,WARN,BLOCK,BLOCK,false

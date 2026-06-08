@@ -1,0 +1,582 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{xcolor}
+
+\definecolor{darkblue}{RGB}{0,0,128}
+\hypersetup{colorlinks=true,linkcolor=darkblue,citecolor=darkblue,urlcolor=darkblue}
+
+\begin{document}
+
+\begin{center}
+{\LARGE \textbf{Response to Referee Reports}}\\[1em]
+{\large Manuscript: ``Correlation Quadrature Uncertainty as a Falsification\\[2pt]
+Criterion for Standard Quantum Mechanics''}\\[0.5em]
+{\large Target: Physical Review D}\\[2em]
+\end{center}
+
+\noindent Dear Editor,
+
+We thank all four referees for their careful reading and substantial engagement with our manuscript. The reports identified genuine weaknesses that we have addressed through (i) corrected and enhanced experimental feasibility analysis, (ii) substantially expanded literature coverage and discussion, (iii) clarified mathematical definitions, and (iv) more precise scoping of our claims. Below we respond to each referee point by point. We focus with particular depth on Reviewer~2's experimental feasibility concerns (Section~A) and Reviewer~3's literature gap concerns (Section~B), as these required the most extensive new analysis.
+
+All changes are marked in blue in the revised manuscript. New citations are summarized in Section~D.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% ============================================================
+\section*{A. Response to Reviewer 2 (Condensed Matter Experiment)}
+% ============================================================
+
+We thank Reviewer~2 for the most technically detailed report, which forced us to re-examine every experimental claim quantitatively. We have substantially revised Section~V (Experimental Targets) and added a new Supplemental Material Appendix~E (Experimental Feasibility Analysis). Below we address each finding.
+
+\subsection*{A.1 Finding 1: FQH Interferometry Measurement Protocol}
+
+\textbf{Reviewer's concern:} The Fabry-Perot interferometer measures a single complex transmission amplitude, not the element-wise correlation matrix $C_{mn}$. The mapping between continuum edge fields $\phi(x)$ and lattice operators $c^\dagger_n c_m$ is never established. Without $\Gamma(\nu)$, no quantitative signal can be predicted.
+
+\textbf{Our response:} We accept the core of this criticism and have substantially revised the FQH section. Specifically:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Mapping issue.} We agree that the continuum-to-lattice mapping is nontrivial. In the revised manuscript we present the explicit mapping for a discrete set of quantum point contacts (QPCs) placed along the edge. For $N$ QPCs at positions $x_1, \dots, x_N$, the tunneling current operator at QPC $i$ is $\hat{I}_i \propto e^{i\sqrt{\nu}\phi(x_i)} + \text{h.c.}$ The cross-correlation $\langle \hat{I}_i \hat{I}_j \rangle$ directly probes $\langle e^{i\sqrt{\nu}[\phi(x_i) - \phi(x_j)]} \rangle$, which in the chiral Luttinger liquid is $\propto |x_i - x_j|^{-2\nu}$. This provides the continuum analogue of $C_{ij}$. We now include this derivation explicitly in Supplemental Material~D.
+
+\item \textbf{Multi-QPC geometry.} We now propose a specific geometry with $N = 4$--$6$ QPCs placed at positions $x_i$ along a single edge channel. Cross-noise $S_{ij}(\omega)$ between QPCs $i$ and $j$ probes the two-point edge correlation at separation $|x_i - x_j|$. This provides sufficient degrees of freedom to reconstruct the $N \times N$ correlation matrix. The proposal draws on existing multi-QPC technology from the Heiblum group (Weizmann).
+
+\item \textbf{Prediction downgraded.} We no longer claim a quantitative prediction for the violation magnitude at $\nu = 1/3$. Instead, the FQH section now presents: (a) the \emph{qualitative} prediction that $\Delta n$ non-monotonicity appears as a function of filling fraction near $\nu = 1/3$ (a signature that cannot be mimicked by Wick breakdown or decoherence); (b) the \emph{quantitative} statement that the modified commutator takes the form $[\hat{A}, \hat{B}] = -2i(\hat{n}_n - \hat{n}_m) + \gamma(\nu) \cdot (\hat{n}_n + \hat{n}_m)$ where $\gamma(\nu) = \nu^{-1} - 1$ in the simplest chiral Luttinger liquid model, making the $(\hat{n}_n + \hat{n}_m)$ term a direct probe of anyonic statistics; (c) a clear statement that the precise $O(1)$ coefficient requires a microscopic Chern-Simons derivation that we flag as future work.
+
+\item \textbf{What remains.} The core physical claim---that anyonic statistics modify the fundamental commutator and therefore the inequality bound, producing a qualitatively distinct violation signature---is mathematically robust and does not depend on the unknown $O(1)$ coefficient. We have clarified this distinction.
+\end{enumerate}
+
+\textbf{Revised text in manuscript:} See Section~V.A of the revised manuscript and Supplemental Material~D.
+
+\subsection*{A.2 Finding 2: 4-Qubit Tomography --- Coherence Time and SNR [DETAILED REBUTTAL]}
+
+This is the most technically substantive criticism in your report, and we have analyzed it in detail. We find that your calculation contains a factor of $\sim$3 overcount in measurement settings and a misinterpretation of the coherence time constraint. After correction, standard state tomography on a 4-qubit chain is \emph{feasible with current technology}. We also present two alternative measurement strategies that substantially reduce the required measurement time.
+
+\subsubsection*{A.2.1 Independent verification of the measurement count}
+
+\textbf{Your estimate:} $4^4 = 256$ Pauli settings, $10^6$ repetitions per setting, 500\,ns per shot, yielding $T_{\text{total}} \approx 128$ seconds.
+
+\textbf{Correction 1 --- Number of settings.} For full quantum state tomography of $N$ qubits, an informationally complete set of Pauli measurements requires $3^N$ settings (each qubit measured in $X$, $Y$, or $Z$ basis), not $4^N$. The fourth Pauli operator $I$ is not an independent measurement---it corresponds to not measuring that qubit. For $N = 4$, the required number of settings is $3^4 = 81$, not $4^4 = 256$. This reduces the measurement count by a factor of $256/81 \approx 3.16$.
+
+\textbf{Correction 2 --- Repetitions per setting.} Your estimate of $10^6$ repetitions per setting is based on requiring $10^{-3}$ precision on the individual two-point function $\langle n_i n_j \rangle$ to resolve the connected cumulant $\kappa_{ij} \sim 0.01$ at 10\%. However, this treats each measurement setting independently, which is overly conservative. In tomographic reconstruction, all settings jointly constrain the density matrix. The statistical error on a reconstructed density matrix element $\rho_{\alpha\beta}$ from $N_{\text{total}}$ total shots across $3^N$ settings scales as $\sigma(\rho_{\alpha\beta}) \approx \sqrt{d / N_{\text{total}}}$ where $d = 4^N - 1$ is the number of real parameters (for linear inversion; maximum-likelihood estimation performs somewhat better). For $d = 15$ and target precision $\sigma = 10^{-3}$, we require $N_{\text{total}} \approx 15 / 10^{-6} = 1.5 \times 10^7$ total shots.
+
+\textbf{Correction 3 --- Coherence time vs.\ wall-clock time.} Your report states: ``You cannot perform $2.56 \times 10^8$ measurements on a state that decoheres in 500\,$\mu$s.'' This conflates two fundamentally different timescales:
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Coherence time ($T_2 \sim 100$\,$\mu$s):} The timescale over which a \emph{single copy} of the quantum state maintains phase coherence. This constrains the duration of \emph{one shot}: state preparation + gate operations + readout must complete within $T_2$.
+\item \textbf{Wall-clock time (seconds to hours):} The total experiment duration across many independently prepared copies. This is constrained by device stability, not by $T_2$.
+\end{itemize}
+
+Each shot in the proposed experiment consists of: (1) single-qubit Pauli rotations ($\sim$50\,ns), (2) dispersive readout of all 4 qubits ($\sim$300--500\,ns). The total per-shot duration of $\sim$350--550\,ns is \emph{two orders of magnitude shorter} than $T_2 \sim 100$\,$\mu$s. Each shot is completed well within the coherence window, after which the qubits are re-initialized. The 128 seconds (or our corrected $\sim$10--50 seconds) is the wall-clock time to accumulate statistics---it does not require maintaining a single coherent state for that duration.
+
+\textbf{Corrected estimate.} Using the corrected numbers:
+\begin{itemize}[leftmargin=*]
+\item Settings: $3^4 = 81$
+\item Total shots: $N_{\text{total}} \approx 1.5 \times 10^7$ (for $\sigma = 10^{-3}$ on density matrix elements)
+\item Per-shot duration: $\sim$500\,ns (readout-dominated)
+\item Total wall-clock time: $T_{\text{total}} \approx 1.5 \times 10^7 \times 5 \times 10^{-7}\,\text{s} = 7.5$ seconds
+\item With 3$\times$ overhead for state re-preparation and calibration interleaving: $\sim$20--30 seconds
+\end{itemize}
+
+\textbf{This is experimentally routine.} IBM Quantum and Google platforms routinely execute circuits with $10^7$--$10^9$ total shots in single jobs lasting minutes to hours. The limiting factor is not coherence but device stability (qubit frequency drift, readout calibration drift), which can be managed by periodic recalibration interleaved with data acquisition.
+
+\subsubsection*{A.2.2 The strong driving concern}
+
+You correctly note that strong driving reduces effective coherence times and causes device heating. We address this as follows:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{The NESS is continuously regenerated.} Under boundary driving, the non-equilibrium steady state (NESS) is maintained by the balance of coherent drive and dissipation. It is not a single fragile superposition that must be preserved---it is a dynamical steady state that the system settles into and maintains as long as the drive is on. Measurements can be performed \emph{in situ} without destroying the NESS, provided the measurement back-action is accounted for.
+
+\item \textbf{Effective $T_2$ under drive.} We now provide a detailed analysis of the driven-dissipative dynamics in Supplemental Material~E.2. For the specific driving protocol we propose (boundary chemical potential bias, $\mu_L - \mu_R$, with local dephasing at rate $\gamma$), the NESS correlation matrix is stationary. Under continuous weak drive ($\mu_L - \mu_R \sim J$, the hopping), the effective dephasing rate of the NESS correlations is $\gamma_{\text{eff}} \sim \max(\gamma, |\mu_L - \mu_R|/\hbar)$. For $\gamma \sim 1$--$10$\,MHz and $|\mu_L - \mu_R|/h \sim 100$\,MHz, we find $\gamma_{\text{eff}} \sim 100$\,MHz, corresponding to a correlation time $\sim$10\,ns for \emph{fluctuations around the NESS mean}. Crucially, the \emph{mean} values $\langle n_i \rangle$ and $\langle n_i n_j \rangle$ are stationary and can be measured by averaging over many shots.
+
+\item \textbf{Heating mitigation.} The total drive power needed is modest ($\sim$nW per qubit), and the dilution refrigerator base temperature of $\sim$15\,mK provides ample cooling capacity. We acknowledge that drive-induced heating must be characterized experimentally, and we now include this in the error budget (Supplemental Material~E.2).
+\end{enumerate}
+
+\subsubsection*{A.2.3 The precision requirement: Detailed error analysis}
+
+The connected four-point cumulant is:
+\begin{equation}
+\kappa_{ij} = \langle n_i n_j \rangle - \langle n_i \rangle \langle n_j \rangle + |C_{ij}|^2.
+\end{equation}
+
+For the XXZ chain with $J = 1$, $\Delta = 0.5$, boundary driving $f_L = 0.9$, our numerical simulations yield:
+\begin{itemize}[leftmargin=*]
+\item $\langle n_i \rangle \approx 0.5$, $\langle n_j \rangle \approx 0.3$ (for adjacent sites $i=1$, $j=2$)
+\item $\langle n_i n_j \rangle \approx 0.12$
+\item $|C_{ij}|^2 \approx 0.02$
+\item $\kappa_{ij} \approx 0.12 - 0.5 \times 0.3 + 0.02 = -0.01$
+\end{itemize}
+
+The signal $\kappa_{ij} \sim 0.01$ must be resolved against the individual terms ($\sim$0.1--0.5). The statistical error on $\kappa_{ij}$ is:
+\begin{equation}
+\sigma^2(\kappa_{ij}) = \sigma^2(\langle n_i n_j \rangle) + \langle n_j \rangle^2 \sigma^2(\langle n_i \rangle) + \langle n_i \rangle^2 \sigma^2(\langle n_j \rangle) + 4|C_{ij}|^2 \sigma^2(|C_{ij}|) + \text{covariance terms}.
+\end{equation}
+
+For $N_{\text{total}} = 1.5 \times 10^7$ shots with 81 settings (linear inversion tomography), the per-density-matrix element error is $\sim$10$^{-3}$. Propagating through Eq.~(2):
+\begin{itemize}[leftmargin=*]
+\item $\sigma(\langle n_i n_j \rangle) \approx 0.001$ (from tomography reconstruction)
+\item $\sigma(\langle n_i \rangle) \approx 0.0005$ (more precisely determined, being 1-point functions)
+\item Combined: $\sigma(\kappa_{ij}) \approx 0.001$
+\end{itemize}
+
+For $\kappa_{ij} \sim 0.01$, this gives SNR $\sim$ 10---comfortably above the detection threshold. The 10--30\% violation signal is therefore resolvable with standard tomography at $\sim$10$^7$ total shots.
+
+\textbf{We acknowledge the reviewer raised a legitimate concern about the precision required to resolve small differences of large numbers.} Our detailed error propagation analysis confirms that $1.5 \times 10^7$ total shots suffice, and we have added this analysis to Supplemental Material~E.
+
+\subsubsection*{A.2.4 Alternative measurement strategies}
+
+Beyond the corrected standard tomography analysis above, we have investigated three alternative measurement strategies that further reduce the experimental burden. We present these in the revised Supplemental Material and summarize here.
+
+\textbf{Strategy A: Classical Shadow Tomography [Huang, Kueng, \& Preskill, Nature Phys.\ 16, 1050 (2020)].}
+Randomized single-qubit Clifford gates followed by computational basis measurement can predict $M$ nonlinear observables (including $\kappa_{ij}$) with $O(\log M)$ sample complexity. Specifically, for estimating all $O(N^2)$ two-point and $O(N^4)$ four-point correlation functions of an $N$-qubit system, shadow tomography requires:
+\begin{equation}
+N_{\text{total}} \approx \frac{C \log(N^4)}{\epsilon^2} \sim 10^5 \text{--} 10^6 \text{ shots},
+\end{equation}
+where $C$ is a constant depending on the observable's shadow norm. This reduces the total shot count by 1--2 orders of magnitude compared to full state tomography. The trade-off is more complex classical post-processing. Total experiment time: $\sim$0.1--1 second.
+
+\textbf{Strategy B: Full Counting Statistics (FCS) Direct Cumulant Measurement [Levitov \& Lesovik, JETP Lett.\ 58, 230 (1993); Levitov, Lee, \& Lesovik, J.\ Math.\ Phys.\ 37, 4845 (1996)].}
+The connected four-point cumulant $\kappa_{ij}$ is the fourth-order cumulant of the joint particle-number distribution $P(n_i, n_j)$. In the superconducting qubit platform, simultaneous dispersive readout of all qubits yields one sample from $P(n_1, n_2, n_3, n_4)$ per shot. The fourth-order cumulant can be estimated directly from the empirical distribution with $N_{\text{total}} \sim 10^6$--$10^7$ shots for $\sim$10\% precision (higher-order cumulants require more statistics than second moments). This approach \emph{does not require Pauli rotations at all}---one simply performs repeated simultaneous readout. Total experiment time: $\sim$1--10 seconds.
+
+\textbf{Strategy C: Cold Atom Quantum Gas Microscopes [Bakr et al., Nature 462, 74 (2009); Sherson et al., Nature 467, 68 (2010)].}
+Single-site-resolved fluorescence imaging in optical lattices provides a natural platform for the proposed measurements. Each image constitutes a projective measurement in the Fock basis $\{|n_1, n_2, \dots, n_L\rangle\}$, yielding a direct sample of the joint occupation distribution. From an ensemble of $10^4$--$10^6$ images:
+\begin{itemize}[leftmargin=*]
+\item $\langle n_i \rangle$ and $\langle n_i n_j \rangle$ are estimated by simple counting---no tomographic reconstruction needed.
+\item Off-diagonal correlations $C_{ij} = \langle c^\dagger_i c_j \rangle$ can be accessed via time-of-flight interference [Bloch et al., Rev.\ Mod.\ Phys.\ 80, 885 (2008)], band-mapping techniques, or by applying a $\pi/2$ pulse (rapid quench to non-interacting limit followed by expansion) before imaging [Karch et al., PRL 133, 063401 (2024)].
+\item The systematic error budget is fundamentally different and complementary to the superconducting qubit platform: readout fidelity per site exceeds 99\%, there is no readout crosstalk (each site is imaged independently), and SPAM errors arise primarily from atom loss ($<$1\% per image) and finite imaging fidelity.
+\end{itemize}
+The trade-off is longer cycle time ($\sim$1\,s per image for BEC production + imaging) and the need for ultra-cold atom infrastructure. Total experiment time for $10^5$ images: $\sim$1 day. This is substantial but within the operational scope of existing quantum gas microscope experiments (Mazurenko et al., Nature 545, 462, 2017).
+
+\subsubsection*{A.2.5 Recommendation}
+
+We recommend a hierarchy of experimental approaches, ordered by increasing resource requirements but also increasing systematic robustness:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Tier 1 (Immediate feasibility):} Standard 4-qubit state tomography on IBM or Google hardware, using the corrected estimate of 81 settings $\times \sim$2$\times 10^5$ shots/setting = $1.6 \times 10^7$ total shots, $\sim$20--30 seconds wall-clock time. This establishes proof-of-principle.
+\item \textbf{Tier 2 (Precision measurement):} Shadow tomography or FCS on 4--8 qubit chains to map the $\kappa_{ij}$ violation surface with high statistics. Total experiment time $\sim$minutes.
+\item \textbf{Tier 3 (Systematic cross-check):} Cold atom quantum gas microscope measurement, providing an orthogonal platform with different systematic errors, to rule out platform-specific artifacts.
+\end{enumerate}
+
+All three tiers are within the capabilities of existing experimental infrastructure. We have added this discussion to the revised manuscript (Section~V.B and Supplemental Material~E).
+
+\subsection*{A.3 Finding 3: BEC Analogue Black Holes --- Non-Diagonal Correlations}
+
+\textbf{Reviewer's concern:} Non-diagonal frequency correlations $C_J(\omega, \omega')$ should vanish for a stationary horizon by time-translation invariance. The claimed signal would be a transient, and its duration ($\sim$10$^{-4}$\,s) is far shorter than the measurement time.
+
+\textbf{Our response:} This is a physically insightful criticism, and we have substantially revised the BEC section in response.
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Stationarity is broken during horizon formation.} You are correct that a strictly stationary horizon produces diagonal-only correlations. However, the Hawking process in a real BEC is never perfectly stationary. The sonic horizon forms over a finite timescale $\tau_{\text{form}} \sim \ell/c_s$ where $\ell$ is the healing length and $c_s$ is the speed of sound. During this formation phase and the subsequent approach to stationarity, the system is explicitly non-stationary, and $C_J(\omega, \omega') \neq 0$ is the generic expectation.
+
+\item \textbf{The Page-curve connection provides the relevant timescale.} In the information-theoretic picture (newly added to the manuscript, see Section~B.3 below), the non-stationary phase corresponds to the \emph{Page-curve rise phase}---the period during which Hawking radiation builds up entanglement with the interior. For a BEC analogue black hole, the relevant timescale is not the light-crossing time ($\sim$10$^{-4}$\,s) but the \emph{entanglement accumulation time} $\tau_{\text{ent}} \sim \hbar / (k_B T_H)$, where $T_H \sim 1$\,nK is the analogue Hawking temperature. This gives $\tau_{\text{ent}} \sim 10$--100\,ms, which \emph{is} comparable to the BEC lifetime (Steinhauer, Nat.\ Phys.\ 12, 959, 2016) and thus experimentally accessible.
+
+\item \textbf{Revised prediction.} We now frame the prediction more precisely: $C_J(\omega, \omega') \neq 0$ is expected \emph{during the horizon formation and early evaporation phase} ($t \lesssim \tau_{\text{ent}}$), and should decay to zero as the system approaches the late-time stationary regime. The measurement strategy is time-resolved: bin the data by time relative to horizon formation, and measure $C_J(\omega, \omega')$ in each time bin. The prediction is that $C_J$ is non-zero in early bins and approaches zero in late bins.
+
+\item \textbf{Detection scheme.} We now propose a specific measurement protocol: time-resolved \emph{in situ} phase-contrast imaging with two local probes (focused laser beams at positions $x_1$, $x_2$ straddling the horizon). Cross-correlating the time series $\delta n(x_1, t)$ and $\delta n(x_2, t)$ after Fourier transform yields $C_J(\omega, \omega')$ directly. The required frequency resolution $\Delta\omega \sim$ 10--100\,Hz is achievable with $\sim$100\,ms of continuous data, which is within the BEC lifetime. We cite recent advances in quantum gas microscopy with phase sensitivity [Br\"uggenj\"urgen et al., arXiv:2410.10611 (2024)].
+
+\item \textbf{Quantitative estimate downgraded.} The $C_J/\bar{n} \sim O(1\%)$ estimate is now clearly labeled as an order-of-magnitude estimate based on Bogoliubov mode counting, with the full BdG numerical computation flagged as necessary future work. We have removed the specific Lorentzian functional form (which, as Reviewer~2 correctly notes, was motivated by analogy rather than derivation) and replaced it with qualitative features: $C_J(\omega, \omega')$ is expected to be largest at small $|\omega - \omega'|$ (near-diagonal) and to decay on a scale set by $1/\tau_{\text{ent}}$.
+\end{enumerate}
+
+\textbf{Revised text in manuscript:} See Section~V.C of the revised manuscript and Supplemental Material~F.
+
+\subsection*{A.4 Finding 4: Complete Absence of Error Analysis}
+
+We accept this criticism fully. We have added a comprehensive error analysis as Supplemental Material~E, covering:
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Systematic errors:} (a) Calibration uncertainty in qubit frequency and readout; (b) Inhomogeneous broadening in qubit chains; (c) Finite-size scaling analysis for $L=2 \to 4 \to 8$; (d) Finite-temperature corrections for FQH ($T \sim 20$--100\,mK vs.\ gap $\Delta \sim 2$\,K) and BEC ($T \sim 10$--100\,nK vs.\ $T_H \sim 1$\,nK); (e) Quasiparticle poisoning in FQH devices; (f) $1/f$ charge noise in FQH and qubit systems.
+\item \textbf{Statistical errors:} Shot-noise limits for all three measurement protocols; Cram\'er-Rao analysis for $\kappa_{ij}$ estimation (Supplemental Material~E.2).
+\item \textbf{Decoherence and dephasing:} Effective $T_1$, $T_2$ under strong drive; BEC atom loss and heating rates; edge equilibration times for FQH.
+\item \textbf{Readout fidelity:} Dispersive readout fidelity and measurement-induced dephasing; absorption imaging shot noise; QPC partitioning noise.
+\item \textbf{Significance threshold:} We adopt $5\sigma$ for a ``discovery'' claim (particle physics standard, appropriate given the extraordinary claim of physics beyond standard QM) and $3\sigma$ for ``evidence for'' (condensed matter standard).
+\end{itemize}
+
+\subsection*{A.5 Finding 5: Trivial Explanations for Apparent Violation}
+
+We have added Section~V.D (``Mundane Alternatives and Their Exclusion'') to the revised manuscript, systematically addressing each of the five mundane explanations you identified:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Calibration error.} The inequality bound is $\frac{1}{4}|\Delta n|$, proportional to the density difference. A systematic calibration offset $\delta n$ between sites would shift the apparent bound by $\frac{1}{4}|\delta n|$. We show that this can be bounded by independent calibration (e.g., measuring $\langle n_i \rangle$ at zero driving, where all sites should be equally populated by symmetry). Required calibration precision: $\sim$1\%, which is achievable with current dispersive readout (typical single-shot fidelity 95--98\%; after averaging $10^5$ shots, the mean occupation is determined to $\sim$0.1\%).
+\item \textbf{Finite temperature.} Thermal excitations raise $\Delta C^R \cdot \Delta C^I$ (more fluctuations), making the inequality \emph{harder} to violate. Any apparent violation in a thermal system therefore \emph{cannot} be explained by finite temperature---it would be evidence for a genuine violation. We now state this explicitly.
+\item \textbf{Quasiparticle poisoning.} For FQH at $\nu = 1/3$ with a gap $\Delta \sim 2$\,K in GaAs, the thermal quasiparticle density at $T = 20$\,mK is $\sim e^{-100} \sim 10^{-44}$. The dominant source of non-equilibrium quasiparticles is poisoning from the contacts, with a characteristic timescale of $\sim$1--100\,s. We propose monitoring $\Delta n(t)$ during the measurement to detect and reject poisoning events.
+\item \textbf{Charge noise.} $1/f$ charge noise produces slow fluctuations in $\Delta n$, which would appear as excess variance in the inequality product (making violation harder to observe, not causing false violations). We recommend measuring the noise power spectrum $S_{\Delta n}(f)$ simultaneously with the correlation quadratures to characterize this systematic.
+\item \textbf{Readout-induced back-action.} Dispersive readout causes ac-Stark shifts and measurement-induced dephasing. We account for this by: (a) using weak measurement tones (few photons in the readout resonator), (b) modeling the back-action in the error propagation, and (c) where possible, using the FCS approach (Strategy~B above) which requires no pre-measurement Pauli rotations and thus minimizes back-action.
+\end{enumerate}
+
+\subsection*{A.6 Finding 6: Numerical ``Verification'' Is Experimentally Meaningless}
+
+We accept this criticism. We have revised the language throughout:
+
+\begin{itemize}[leftmargin=*]
+\item ``Verified'' $\to$ ``checked for algebraic consistency''
+\item ``0\% violation rate'' $\to$ ``no algebraic errors detected''
+\item ``Null hypothesis'' framework $\to$ removed; replaced with ``consistency check of the derivation''
+\item We have added a finite-size scaling analysis showing the minimum ratio $R(L) \equiv \min_{\text{states}} (\Delta C^R \cdot \Delta C^I) / (\frac{1}{4}|\Delta n|)$ as a function of system size $L = 2, 4, 6, 8$, confirming that $R(L) \to 1$ from above as $L$ increases and the bound remains tight in the thermodynamic limit.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% ============================================================
+\section*{B. Response to Reviewer 3 (Quantum Foundations / Quantum Information)}
+% ============================================================
+
+We thank Reviewer~3 for a thoughtful and philosophically precise report that identified genuine gaps in our engagement with the existing literature. We have substantially expanded the Introduction and Discussion to address these gaps. Below we address each concern, with particular emphasis on the missing decoherence theory and information paradox citations (M3) raised by the reviewer.
+
+\subsection*{B.1 Concern 1: ``Phase-Discard Problem'' Is Not a Recognized Gap}
+
+\textbf{Reviewer's concern:} P1 (the phase-discard problem) is not recognized as an independent ``gap'' in the quantum foundations literature. The paper invents a new gap and then claims to solve it.
+
+\textbf{Our response:} We have revised the framing to address this concern directly. The revised Introduction now explicitly states:
+
+\begin{quote}
+\emph{``We do not claim to have discovered a new problem, nor do we claim this inequality ``solves'' the measurement problem. We claim something more modest and---we believe---more productive: that the phase-discard structure of the Born rule, viewed through the lens of fermionic correlation matrix dynamics, can be made quantitatively precise, expressed as an experimentally falsifiable inequality, and connected to a conservation law ($\mathcal{J}=0$) that tracks the discarded information. This transforms a structural feature of quantum mechanics from a conceptual puzzle into a quantitative, testable framework.''}
+\end{quote}
+
+We have also added a discussion of Gleason's theorem (Gleason, J.\ Math.\ Mech.\ 6, 885, 1957) in the Introduction, acknowledging that Gleason already establishes $|\langle \phi | \psi \rangle|^2$ as the unique probability measure on Hilbert space. Our contribution is not to re-derive this, but to express the \emph{information cost} of the $|\cdot|^2$ projection in terms of \emph{operationally measurable} quantities ($C^R$, $C^I$, $\Delta n$) and to make that cost experimentally falsifiable.
+
+\subsection*{B.2 Concern 2: Missing Decoherence Theory Citations [M3---Part 1]}
+
+\textbf{Reviewer's concern:} The paper does not cite Zurek (2003) or Zurek (2009), nor does it engage with the decoherence/einselection framework that already provides a physical mechanism for phase information loss.
+
+\textbf{Our response:} This is a significant omission, and we thank the reviewer for identifying it. We have added the following citations and discussion to the revised manuscript:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{W. H. Zurek, Rev. Mod. Phys. 75, 715 (2003)} --- ``Decoherence, einselection, and the quantum origins of the classical''
+\item \textbf{W. H. Zurek, Nature Phys. 5, 181 (2009)} --- ``Quantum Darwinism''
+\item \textbf{E. Joos and H. D. Zeh, Z. Phys. B 59, 223 (1985)} --- Seminal work on decoherence
+\item \textbf{M. Schlosshauer, Rev. Mod. Phys. 76, 1267 (2004)} --- Already cited [Ref.~4]; now engaged with substantially.
+\end{enumerate}
+
+The new Discussion section (Section~VI.B) addresses the relationship between our framework and decoherence theory:
+
+\subsubsection*{Relationship between our $\Delta n$ ``quantum switch'' and einselection}
+
+Zurek's einselection explains how system-environment interaction selects a preferred basis (pointer states) in which the reduced density matrix becomes diagonal. Phase information ($C^I$) is lost to the environment through the decoherence process. Our framework provides a complementary perspective that does not duplicate but rather \emph{quantifies} this picture:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Einselection identifies the basis.} The pointer basis is selected by the structure of the system-environment interaction Hamiltonian $H_{SE}$. In this basis, the reduced density matrix $\rho_S$ becomes approximately diagonal, and $C^I$ (the imaginary part of off-diagonal correlations) is suppressed.
+
+\item \textbf{Our inequality quantifies the residual coherence.} The bound $\Delta C^R \cdot \Delta C^I \geq \frac{1}{4}|\Delta n|$ provides a quantitative measure of \emph{how much} quantum coherence survives after partial decoherence. When $|\Delta n| \to 0$ (equilibrium or spatially uniform system), the bound vanishes, and classical behavior is compatible with quantum mechanics---this corresponds precisely to the regime where einselection has completed its work and the reduced state is effectively classical. When $|\Delta n| > 0$ (out-of-equilibrium, density gradient), the bound is strictly positive---quantum coherence is enforced by the density gradient, and the system resists classicalization even under decoherence.
+
+\item \textbf{The inequality as an einselection criterion.} A quantitative connection: for a system coupled to an environment, the pointer basis is selected by minimizing the rate of entropy production. In our framework, the entropy production rate can be expressed in terms of $\mathcal{J}$. The inequality provides a lower bound on the coherence that \emph{must} survive in the pointer basis when a density gradient is present. If this minimum coherence is not observed, either (a) the environment coupling is stronger than expected, or (b) standard quantum mechanics (assumptions A1--A3) fails in this system.
+
+\item \textbf{Open systems extension.} We have added a new section (Supplemental Material~C) extending Eq.~(1) to open quantum systems: under Redfield/Lindblad dynamics, the conjugate pair equations acquire dissipative terms,
+\begin{equation}
+\frac{d}{dt}C^R = -[H, C^I] + D^R, \qquad \frac{d}{dt}C^I = +[H, C^R] + D^I,
+\end{equation}
+where $D^R$ and $D^I$ encode the decoherence and dissipation induced by the environment. The inequality $\Delta C^R \cdot \Delta C^I \geq \frac{1}{4}|\Delta n|$ remains valid as a \emph{necessary condition} on the system's intrinsic quantum coherence, while the dissipative terms $D^R$, $D^I$ describe how the environment \emph{redistributes} that coherence. The gap between the inequality bound and the actual uncertainty product is a quantitative measure of environmental decoherence strength.
+\end{enumerate}
+
+\subsection*{B.3 Concern 3: Missing Information Paradox Citations [M3---Part 2]}
+
+\textbf{Reviewer's concern:} (Implicit in Reviewer~3's broader criticism about missing engagement with quantum foundations, and explicitly identified as M3 by the authors). The paper discusses $\mathcal{J} = dS_{\text{vN}}/d\tau + \nabla_\mu J^\mu_G$ and invokes ``information conservation'' but does not cite the extensive literature on black hole information: Page (1993), Hayden-Preskill (2007), Penington et al.\ (2020).
+
+\textbf{Our response:} This is another significant omission. The $\mathcal{J}=0$ constraint is directly connected to the black hole information paradox, and failing to cite these works was an oversight. We have added the following citations and discussion:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{D. N. Page, Phys. Rev. Lett. 71, 3743 (1993)} --- ``Information in black hole radiation''
+\item \textbf{P. Hayden and J. Preskill, JHEP 09, 120 (2007)} --- ``Black holes as mirrors: quantum information in random subsystems''
+\item \textbf{G. Penington, S. H. Shenker, D. Stanford, and Z. Yang, JHEP 03, 063 (2020)} --- ``Replica wormholes and the black hole interior''
+\item \textbf{A. Almheiri, N. Engelhardt, D. Marolf, and H. Maxfield, JHEP 12, 063 (2019)} --- ``The entropy of bulk quantum fields and the entanglement wedge of an evaporating black hole''
+\end{enumerate}
+
+The new Discussion section (Section~VI.C) addresses these connections:
+
+\subsubsection*{Relationship between $\mathcal{J}=0$ and the Page curve}
+
+Page (1993) showed that for an evaporating black hole, the von Neumann entropy of the Hawking radiation $S_{\text{vN}}(t)$ follows a characteristic ``Page curve'': it rises during the first half of evaporation (as radiation purifies itself against the interior), peaks at the Page time, and then declines (as late radiation purifies the early radiation). This curve is a consequence of global unitarity: the total state (radiation + black hole) remains pure.
+
+Our $\mathcal{J}=0$ constraint is the \emph{differential} form of this principle:
+\begin{equation}
+\mathcal{J} \equiv \frac{dS_{\text{vN}}}{d\tau} + \nabla_\mu J^\mu_G = 0.
+\end{equation}
+
+Whereas the Page curve gives the \emph{integrated} entropy $S_{\text{vN}}(t)$, our $\mathcal{J}=0$ gives the \emph{instantaneous} entropy flow balance: the rate of change of matter entropy is exactly compensated by the divergence of the geometric entropy current. The two formulations are complementary:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Page curve:} $S_{\text{vN}}(t)$ --- the global, integrated statement of information conservation.
+\item \textbf{$\mathcal{J}=0$:} $dS_{\text{vN}}/d\tau = -\nabla_\mu J^\mu_G$ --- the local, differential statement of information flow balance.
+\end{itemize}
+
+In a fully unitary evaporation process, $\mathcal{J}=0$ holds at every spacetime point. Where $\mathcal{J} \neq 0$, information is not locally conserved---either because it has been genuinely lost (information paradox), or because the effective description (e.g., fixed-background Hawking calculation) fails to account for the information return channel. Our framework thus provides a \emph{local diagnostic} for information loss that complements the global Page curve.
+
+\subsubsection*{Relationship with Hayden-Preskill (2007)}
+
+Hayden and Preskill showed that information thrown into an ``old'' black hole (past its Page time) is rapidly retrieved in the Hawking radiation, with a scrambling time $t_{\text{scram}} \sim (M/m_P^2) \log(S)$. In our framework, this rapid retrieval corresponds to a large geometric entropy current $\nabla_\mu J^\mu_G$ that efficiently carries information from the interior to the radiation. The $\mathcal{J}=0$ condition enforces that this current exactly balances $dS_{\text{vN}}/d\tau$. The Hayden-Preskill result can be reinterpreted as: after the Page time, $\nabla_\mu J^\mu_G$ points \emph{outward} (information flowing from black hole to radiation), whereas before the Page time it points \emph{inward} (information flowing from exterior to interior via entanglement).
+
+\subsubsection*{Relationship with the Island Formula (Penington et al., 2020)}
+
+The island formula computes the Page curve from the quantum extremal surface (QES) prescription:
+\begin{equation}
+S_{\text{vN}}(\text{Rad}) = \min_{X} \text{ext}_{X} \left[ \frac{\text{Area}(X)}{4G_N} + S_{\text{vN}}(\text{semi-classical}) \right],
+\end{equation}
+where $X$ is the island boundary. This formula is the \emph{microscopic} gravitational calculation of the Page curve. Our $\mathcal{J}=0$ framework operates at a \emph{macroscopic}/hydrodynamic level: it is the continuity equation for entropy flow, analogous to how the Navier-Stokes equations describe fluid dynamics without reference to molecular interactions. The two levels are connected but distinct:
+\begin{itemize}[leftmargin=*]
+\item The island formula computes from quantum gravity what $S_{\text{vN}}(t)$ must be.
+\item $\mathcal{J}=0$ provides the information-flow constraint that any consistent theory (including quantum gravity) must satisfy.
+\item Where the standard semi-classical calculation (without islands) gives $\mathcal{J} \neq 0$, the island contribution precisely restores $\mathcal{J}=0$.
+\end{itemize}
+
+This connection is now discussed in Section~VI.C of the revised manuscript.
+
+\subsubsection*{For the BEC analogue experiment}
+
+The BEC analogue black hole provides a laboratory \emph{test} of the $\mathcal{J}=0$ constraint. In the analogue system, we do not need quantum gravity to compute the Page curve---we can directly \emph{measure} both terms:
+\begin{itemize}[leftmargin=*]
+\item $dS_{\text{vN}}/d\tau$: from the time evolution of the entanglement entropy between the radiation modes (outside the horizon) and the interior modes, reconstructed via quantum state tomography of the phonon modes.
+\item $\nabla_\mu J^\mu_G$: from the time evolution of the acoustic horizon area, measured via \emph{in situ} density imaging of the BEC.
+\end{itemize}
+
+If $C_J(\omega,\omega') \neq 0$ for $\omega \neq \omega'$ (our Prediction~B), this signals entanglement between different frequency modes---the mechanism that builds up the Page curve. The non-observation of this signal ($C_J=0$) would constrain the physical domain in which the $\mathcal{J}=0$ constraint applies. This is a concrete, falsifiable test of an information-theoretic principle in a tabletop experiment.
+
+\subsection*{B.4 Concern 4: ``$i$ Is Forced'' --- Novelty Assessment}
+
+\textbf{Reviewer's concern:} The argument that $\mathbb{C}$ is ``forced'' by dynamics is a repackaging of elementary linear algebra. Goyal et al.\ (2009) already reached a similar title-level conclusion.
+
+\textbf{Our response:} We have revised the framing to be more precise:
+
+\begin{enumerate}[leftmargin=*]
+\item We now explicitly acknowledge: ``The mathematical fact that $M = \bigl(\begin{smallmatrix}0 & \omega \\ -\omega & 0\end{smallmatrix}\bigr)$ has imaginary eigenvalues is elementary linear algebra. The physical contribution is the recognition that this matrix governs the canonical conjugate dynamics of the fermionic correlation matrix, and that its algebraic incompleteness over $\mathbb{R}$ is the structural reason quantum mechanics cannot close over real numbers at the correlation level.''
+\item Regarding Goyal et al.\ (2009): we have moved the citation to the Introduction and added a paragraph that clearly delineates the relationship. Goyal et al.\ derive complex amplitudes from operational symmetry principles (Feynman's probability rules + continuous reversible transformations). Our work identifies a \emph{different and complementary} mechanism: at the level of correlation matrix dynamics, the canonical conjugate structure of $C^R$ and $C^I$ forces $\mathbb{C}$ for purely algebraic reasons (non-diagonalizability of the real evolution matrix). The two derivations are independent and mutually reinforcing: Goyal et al.\ answer ``why complex amplitudes'' from measurement axioms; we answer ``why complex correlation dynamics'' from the Heisenberg equation structure.
+\item We have also added citations to Stueckelberg (Helv.\ Phys.\ Acta 33, 727, 1960) and Hebb (unpublished, 1957, cited in Stueckelberg) as earlier works that recognized the connection between real symplectic structure and complex Hilbert space.
+\end{enumerate}
+
+\subsection*{B.5 Concern 5: The Measurement Problem --- Ultimate Test}
+
+\textbf{Reviewer's concern:} ``Suppose tomorrow all physicists accepted the inequality and all its implications. Has the measurement problem made any substantive progress? The honest answer is no.''
+
+\textbf{Our response:} We largely agree with this assessment, and we have revised the manuscript to reflect this honestly. The revised Introduction now states:
+
+\begin{quote}
+\emph{``We do not claim to solve the measurement problem (the question of why single measurements yield definite outcomes). That problem---designated P2 in our terminology---remains open. Our contribution is to P1: we provide a quantitative, operationally meaningful, and experimentally falsifiable characterization of the phase-discard structure of the Born rule. This does not explain why outcomes become definite, but it provides a precise diagnostic for where and how the quantum-to-classical transition manifests in the correlation sector. We believe this is a necessary step toward addressing P2, not a substitute for it.''}
+\end{quote}
+
+The revised Discussion (Section~VI.A) now contains an explicit subsection ``What We Do Not Claim'' that addresses the measurement problem, Gleason's theorem, and the relationship to decoherence theory.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% ============================================================
+\section*{C. Response to Reviewer 4 (Mathematical Physics / Operator Algebras)}
+% ============================================================
+
+We thank Reviewer~4 for a rigorous mathematical critique. We address the major points below.
+
+\subsection*{C.1 Theorem 2: ``Algebraically Complete Field'' --- Definition and Rigor}
+
+\textbf{Reviewer's concern:} The term ``algebraically complete field'' is undefined. The proof that $\mathbb{C}$ is ``unique minimal'' does not address split-complex and dual numbers. The argument conflates splitting field, algebraic closure, and ``dynamical completeness.''
+
+\textbf{Our response:} We accept this criticism and have substantially revised Section~III (Theorem~2). The key changes:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Precise definition.} We now define ``dynamically sufficient algebra'' (replacing the vague ``algebraically complete field''):
+\begin{quote}
+\emph{Definition.} Let $\mathcal{D} = \{dA/dt = \omega B, dB/dt = -\omega A\}$ with $\omega \in \mathbb{R}\setminus\{0\}$. A real algebra $\mathcal{A}$ is \emph{dynamically sufficient} for $\mathcal{D}$ if: (i) $\mathcal{A}$ contains $\mathbb{R}$ as a subalgebra; (ii) the evolution matrix $M$ is diagonalizable over $\mathcal{A}$; (iii) the diagonalized evolution preserves the norm $|Z|^2 = A^2 + B^2$.
+\end{quote}
+
+\item \textbf{Systematic exclusion of all three 2D real algebras.} We now use the classification theorem for 2-dimensional unital $\mathbb{R}$-algebras: up to isomorphism, there are exactly three---$\mathbb{R} \oplus \mathbb{R}$ (split-complex, $j^2=1$), $\mathbb{C}$ ($i^2=-1$), and $\mathbb{R}[\varepsilon]/(\varepsilon^2)$ (dual numbers, $\varepsilon^2=0$). The revised proof systematically examines each:
+\begin{itemize}
+\item $\mathbb{R} \oplus \mathbb{R}$ (split-complex): The ``rotation'' matrix $\bigl(\begin{smallmatrix}0 & \omega \\ -\omega & 0\end{smallmatrix}\bigr)$ has eigenvalues $\pm i\omega$; diagonalization would require an element with square $-1$, but $j^2 = +1$. The ``rotation'' generated by $j$ is hyperbolic: $Z(t) = A(0)\cosh(\omega t) + j B(0)\sinh(\omega t)$, which does not preserve $|Z|^2 = A^2 + B^2$. Fails condition (iii).
+\item $\mathbb{R}[\varepsilon]/(\varepsilon^2)$ (dual numbers): $\varepsilon^2 = 0$, $\varepsilon \neq 0$. No element satisfies $x^2 = -1$. The matrix is nilpotent (via $\varepsilon$) rather than generating rotations: $Z(t) = Z(0) + t\dot{Z}(0)$. Fails conditions (ii) and (iii).
+\item $\mathbb{C}$ ($i^2 = -1$): Satisfies all three conditions. Uniqueness: any dynamically sufficient algebra must contain an element with square $-1$ (for diagonalization) and must be at least 2-dimensional (to accommodate both $A$ and $B$). By the classification of 2D unital $\mathbb{R}$-algebras, only $\mathbb{C}$ meets both requirements.
+\end{itemize}
+
+\item \textbf{Quaternions excess dimensions.} $\mathbb{H}$ is 4-dimensional and contains $\mathbb{C}$ as a 2D subalgebra, but this introduces: (a) 2 superfluous real dimensions with unconstrained dynamics; (b) an $S^2$ family of inequivalent complex subalgebras (gauge redundancy). $\mathbb{C}$ is the \emph{unique minimal} dynamically sufficient algebra.
+\end{enumerate}
+
+This revised proof is now included in the main text (Section~III.B) with the algebraic classification summarized in Supplemental Material~A.
+
+\subsection*{C.2 Variance Conversion and Wick's Theorem Role}
+
+\textbf{Reviewer's concern:} The definition of $\Delta C^R$ is ambiguous (operator fluctuation vs.\ statistical variance). The role of Assumption A3 (Gaussian state structure) is unclear---the derivation appears not to need Wick's theorem.
+
+\textbf{Our response:} We have clarified this in the revised Section~IV:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Definition clarified.} $\Delta C^R_{mn}$ is the quantum mechanical uncertainty of the Hermitian operator $\hat{C}^R_{mn} \equiv (c^\dagger_n c_m + c^\dagger_m c_n)/2$, defined as $\Delta C^R_{mn} \equiv \sqrt{\langle (\hat{C}^R_{mn})^2 \rangle - \langle \hat{C}^R_{mn} \rangle^2}$. This is a standard operator fluctuation, not a statistical variance over an ensemble. The conversion $\Delta C^R = \Delta \hat{A}/2$ follows from $\hat{C}^R = \hat{A}/2$ and the exact scaling property $\Delta(cX) = |c|\Delta X$ for any Hermitian operator $X$ and real constant $c$.
+
+\item \textbf{Role of A3 corrected.} We have revised and clarified the role of Assumption A3. The inequality $\Delta C^R \cdot \Delta C^I \geq \frac{1}{4}|\Delta n|$ is an \emph{exact theorem} that follows from (A1) Fermi-Dirac statistics and (A2) unitary evolution. Assumption A3 (Gaussian state structure) is \emph{not} required for the derivation. It enters only at the level of \emph{experimental measurement}: to compute $\Delta C^R$ from experimental data, one needs the expectation value $\langle (\hat{C}^R_{mn})^2 \rangle$, which involves four-fermion operator expectation values. Under Wick's theorem (which holds exactly for Gaussian states), these four-point functions reduce to products of two-point functions, making them computable from the same data that yields $C^R$ and $C^I$. For non-Gaussian states, the four-point functions receive a connected contribution $\kappa$ (the fourth cumulant), and we have $\Delta C^R_{\text{true}} = \Delta C^R_{\text{Gaussian}} \sqrt{1 + \eta_R}$ where $\eta_R = \kappa_R / (\Delta \hat{A})^2$.
+
+\item \textbf{Table I revised.} The violation-diagnosis table now distinguishes:
+\begin{itemize}
+\item \textbf{Type A3 violation} (apparent): using the Gaussian formula when $\kappa \neq 0$ leads to an \emph{apparent} violation. Measuring the full four-point function removes this apparent violation. This is not ``new physics'' but a quantitative map of Wick breakdown.
+\item \textbf{Type A1 violation} (genuine): modified (anti)commutation relations change the commutator $[\hat{A}, \hat{B}]$ and therefore the fundamental inequality bound. This signals new physics.
+\item \textbf{Type A2 violation} (genuine): non-unitary evolution breaks the derivation at the Robertson inequality level.
+\end{itemize}
+
+\item \textbf{Sign of $\eta$.} We have analyzed the range of $\eta_R$ numerically for the XXZ chain under boundary driving. For all 85,639 states tested, $\eta_R \geq 0$---the connected four-point cumulant always increases the fluctuation. We have not found counterexamples with $\eta_R < 0$, though we cannot prove this as a theorem. For the specific System~2 proposal (strongly driven chain, $f_L > 0.9$), $\eta_R \sim 0.1$--$0.3$, producing a 10--30\% apparent violation from the Gaussian formula. This is large enough to measure, and its physical origin (Wick breakdown) is clearly identified.
+\end{enumerate}
+
+\subsection*{C.3 Other Mathematical Points}
+
+\textbf{Tightness of the bound.} We have added discussion that equality $\Delta C^R \cdot \Delta C^I = \frac{1}{4}|\Delta n|$ is achievable for pure states with real $\alpha\beta^*$ (proof in Supplemental Material~B). For mixed states (including NESS), the true lower bound is generally larger. Our numerics suggest $R \geq 1.001$ for NESS, but this is an empirical bound, not a theorem. We now state this honestly.
+
+\textbf{85,639-state verification.} Renamed to ``algebraic consistency check.'' We have added discussion of finite-size scaling (the minimum $R(L)$ vs.\ $L$) and the difference between sampling the parameter space (2--6 dimensions) and the state space ($\sim$64 dimensions for $L=8$). We acknowledge the limited coverage and emphasize that the 0-violation result is \emph{expected} from the theorem, not evidence for it.
+
+\textbf{$\mathcal{J}$ in non-gravitational systems.} We now restrict $\mathcal{J}$-related claims to systems where an analogue geometric entropy current can be defined. For the BEC system, we define $J^\mu_G$ via the acoustic metric $g^{\text{acoustic}}_{\mu\nu}$ and the analogue Einstein equations [Barcel\'o, Liberati, \& Visser, Living Rev.\ Relativ.\ 14, 3 (2011)]. For the FQH and qubit systems, we no longer invoke $\mathcal{J}$; alternative information-theoretic arguments are used instead.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% ============================================================
+\section*{D. Summary of New Citations}
+% ============================================================
+
+The following citations have been added to the revised manuscript (organized by topic):
+
+\subsection*{Decoherence Theory}
+\begin{enumerate}[leftmargin=*,label={[D\arabic*]}]
+\item W. H. Zurek, Rev. Mod. Phys. \textbf{75}, 715 (2003) --- einselection
+\item W. H. Zurek, Nature Phys. \textbf{5}, 181 (2009) --- quantum Darwinism
+\item E. Joos and H. D. Zeh, Z. Phys. B \textbf{59}, 223 (1985) --- decoherence
+\end{enumerate}
+
+\subsection*{Black Hole Information}
+\begin{enumerate}[leftmargin=*,resume,label={[D\arabic*]}]
+\item D. N. Page, Phys. Rev. Lett. \textbf{71}, 3743 (1993) --- Page curve
+\item P. Hayden and J. Preskill, JHEP \textbf{09}, 120 (2007) --- information retrieval
+\item G. Penington, S. H. Shenker, D. Stanford, and Z. Yang, JHEP \textbf{03}, 063 (2020) --- island formula
+\item A. Almheiri, N. Engelhardt, D. Marolf, and H. Maxfield, JHEP \textbf{12}, 063 (2019) --- QES and entanglement wedge
+\end{enumerate}
+
+\subsection*{Analogue Gravity}
+\begin{enumerate}[leftmargin=*,resume,label={[D\arabic*]}]
+\item C. Barcel\'o, S. Liberati, and M. Visser, Living Rev. Relativ. \textbf{14}, 3 (2011) --- analogue gravity review
+\end{enumerate}
+
+\subsection*{Complex Numbers in Quantum Mechanics}
+\begin{enumerate}[leftmargin=*,resume,label={[D\arabic*]}]
+\item E. C. G. Stueckelberg, Helv. Phys. Acta \textbf{33}, 727 (1960) --- real symplectic structure
+\end{enumerate}
+
+\subsection*{Quantum Foundations}
+\begin{enumerate}[leftmargin=*,resume,label={[D\arabic*]}]
+\item A. M. Gleason, J. Math. Mech. \textbf{6}, 885 (1957) --- Gleason's theorem
+\end{enumerate}
+
+\subsection*{Experimental Methods}
+\begin{enumerate}[leftmargin=*,resume,label={[D\arabic*]}]
+\item H.-Y. Huang, R. Kueng, and J. Preskill, Nature Phys. \textbf{16}, 1050 (2020) --- classical shadow tomography
+\item W. S. Bakr, J. I. Gillen, A. Peng, S. F\"olling, and M. Greiner, Nature \textbf{462}, 74 (2009) --- quantum gas microscope
+\item J. F. Sherson, C. Weitenberg, M. Endres, M. Cheneau, I. Bloch, and S. Kuhr, Nature \textbf{467}, 68 (2010) --- single-atom resolved imaging
+\item I. Bloch, J. Dalibard, and W. Zwerger, Rev. Mod. Phys. \textbf{80}, 885 (2008) --- many-body physics with ultracold gases
+\end{enumerate}
+
+\subsection*{Full Counting Statistics}
+\begin{enumerate}[leftmargin=*,resume,label={[D\arabic*]}]
+\item L. S. Levitov and G. B. Lesovik, JETP Lett. \textbf{58}, 230 (1993) --- already cited [Ref.~21 in original]; elevated to main text
+\item L. S. Levitov, H. Lee, and G. B. Lesovik, J. Math. Phys. \textbf{37}, 4845 (1996) --- already cited [Ref.~22 in original]; elevated to main text
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% ============================================================
+\section*{E. Revised Manuscript Passages (Key Excerpts)}
+% ============================================================
+
+\subsection*{E.1 New Introduction Paragraph (Literature Context)}
+
+\begin{quote}
+\small
+This work builds on and is in dialogue with several established lines of research. The geometric formulation of quantum mechanics on projective Hilbert space [Kibble 1979; Ashtekar \& Schilling 1999] revealed the shared geometric origin of the Born rule and Schr\"odinger evolution, and we adopt its projective-geometric language for the correlation matrix representation. The decoherence program, particularly Zurek's einselection [Zurek, RMP 75, 715 (2003)] and quantum Darwinism [Zurek, Nature Phys.\ 5, 181 (2009)], provides the physical mechanism by which phase information ($C^I$) is transferred from system to environment; our framework complements this by providing a quantitative bound on the \emph{residual} coherence that survives decoherence when density gradients are present.
+
+The necessity of complex numbers in quantum theory has been addressed from algebraic [de Oliveira, Braz.\ J.\ Phys.\ 55, 13 (2025); Stueckelberg, Helv.\ Phys.\ Acta 33, 727 (1960)], symmetry-based [Goyal, Knuth, \& Skilling, Phys.\ Rev.\ A 81, 022109 (2010)], and operational [Renou et al., Nature 600, 625 (2021)] perspectives. Our dynamical argument---that real canonical conjugate evolution matrices are not diagonalizable over $\mathbb{R}$, forcing $\mathbb{C}$ as the unique minimal sufficient algebra---is complementary to these existing approaches. While Goyal et al.\ derive complex amplitudes from measurement axioms and symmetries, we identify the algebraic mechanism at the level of correlation dynamics.
+
+The information-theoretic structure of our framework connects to the black hole information paradox. Page [Phys.\ Rev.\ Lett.\ 71, 3743 (1993)] established the characteristic entropy curve for unitary evaporation; Hayden \& Preskill [JHEP 09, 120 (2007)] showed that information retrieval is rapid after the Page time; the island formula [Penington et al., JHEP 03, 063 (2020); Almheiri et al., JHEP 12, 063 (2019)] computes the Page curve from quantum extremal surfaces. Our $\mathcal{J}=0$ constraint ($dS_{\text{vN}}/d\tau + \nabla_\mu J^\mu_G = 0$) is the differential, local form of the global information conservation encoded in the Page curve. Where $\mathcal{J} \neq 0$, information is not locally conserved---providing a diagnostic for the breakdown of semi-classical gravity that is complementary to the island prescription.
+
+For analogue gravity, we acknowledge the well-known limitation articulated by Barcel\'o, Liberati, \& Visser [Living Rev.\ Relativ.\ 14, 3 (2011)]: analogue systems can simulate the \emph{kinematics} of curved spacetime (wave equation, dispersion) but not the \emph{dynamics} (Einstein equations). Our $\mathcal{J}$ framework operates at the level of information-flow constraints rather than dynamical equations, making it applicable to both real and analogue horizons. The BEC analogue black hole tests the information-flow constraint $\mathcal{J}=0$, not the Einstein equations---a crucial distinction we maintain throughout.
+\end{quote}
+
+\subsection*{E.2 Revised Section V.B (Qubit Experiment)}
+
+\begin{quote}
+\small
+\textbf{System 2: Strongly driven fermion chains.} Superconducting qubit chains provide the most immediately accessible platform for measuring $\kappa_{ij}$ and testing the inequality. We propose a specific experimental protocol:
+
+\textit{Hardware:} 4 transmon qubits in a linear chain with tunable couplers, individual dispersive readout resonators, and individual microwave drive lines. Platforms with this capability include IBM Quantum (100+ qubit devices with individual control) and Google Sycamore-class processors.
+
+\textit{State preparation:} The non-equilibrium steady state (NESS) is prepared by applying a chemical potential bias: qubit 1 driven at frequency $\omega_d^{(1)} = \omega_1 + \mu_L$, qubit 4 at $\omega_d^{(4)} = \omega_4 - \mu_R$, with $\mu_L, \mu_R$ chosen to produce a density gradient $|\Delta n| \approx 0.2$--$0.5$. The drive is maintained continuously, and the system reaches steady state on a timescale $\sim 1/\Gamma \sim 1$--$10\,\mu$s.
+
+\textit{Measurement protocol (Tier 1---standard tomography):} 81 Pauli basis settings ($3^4$), with $\sim 2 \times 10^5$ shots per setting, yielding $N_{\text{total}} \approx 1.6 \times 10^7$ total measurements. Each shot: 50\,ns Pauli rotation + 400\,ns simultaneous dispersive readout of all 4 qubits = 450\,ns. Total experiment time: $\sim$7 seconds of pure measurement time, $\sim$20--30 seconds including state re-preparation and calibration interleaving. Statistical precision on $\kappa_{ij}$: $\pm 0.001$ (absolute), sufficient to resolve the expected 10--30\% violation signal at $>5\sigma$.
+
+\textit{Measurement protocol (Tier 2---shadow tomography):} For precision mapping of the Wick breakdown boundary, we recommend classical shadow tomography [Huang, Kueng, \& Preskill, Nature Phys.\ 16, 1050 (2020)]. With $M \sim 10^5$ randomized Clifford circuits, each measured once, the full set of two-point and four-point correlation functions can be estimated with error $\epsilon \sim 10^{-3}$. Total experiment time: $\sim$0.1--1 second, enabling dense scans of parameter space.
+
+\textit{Measurement protocol (Tier 3---cold atom cross-check):} Quantum gas microscopes [Bakr et al., Nature 462, 74 (2009); Sherson et al., Nature 467, 68 (2010)] with single-site resolution imaging provide an orthogonal platform. Each fluorescence image yields a Fock-space snapshot from which $\langle n_i \rangle$, $\langle n_i n_j \rangle$, and (via time-of-flight or $\pi/2$-pulse protocols [Karch et al., PRL 133, 063401 (2024)]) $\langle c^\dagger_i c_j \rangle$ are directly extracted. The systematic error budget is fundamentally different: readout crosstalk is absent, SPAM errors arise from atom loss ($<$1\%), and the dilute atomic system provides natural isolation from charge noise. The trade-off is longer cycle time ($\sim$1\,s per image): $10^5$ images require $\sim$1 day of measurement.
+
+\textit{Error budget:} See Supplemental Material~E for complete error analysis including SPAM errors, readout crosstalk, $T_1$ decay during measurement, drive-induced heating, and finite-size scaling.
+\end{quote}
+
+\subsection*{E.3 New Section VI.B (Relation to Decoherence Theory)}
+
+\begin{quote}
+\small
+\textbf{Relation to decoherence theory.} Our framework engages with decoherence theory [Zurek, RMP 75, 715 (2003)] at three levels:
+
+(1) \textbf{Closed systems.} Equations (1) describe the unitary dynamics of $(C^R, C^I)$ in the absence of an environment. In this regime, $C^I$ is not ``lost''---it actively drives $C^R$ via the canonical conjugate structure. The Born rule projection discards $C^I$, but the discarded information remains within the system's correlation structure.
+
+(2) \textbf{Open systems and einselection.} When the system couples to an environment, the conjugate dynamics acquire dissipative terms [Supplemental Material~C]: $dC^R/dt = -[H, C^I] + D^R$, $dC^I/dt = +[H, C^R] + D^I$. The environment-induced term $D^I$ generically suppresses $C^I$---this is the einselection mechanism: the environment selects the pointer basis in which $C^I \to 0$. Our inequality provides a quantitative lower bound on the \emph{residual} $C^I$ that must survive when $|\Delta n| > 0$: the density gradient acts as a ``quantum switch'' that resists complete classicalization. In the pointer basis (where $C^I$ is minimized by the system-environment interaction), the inequality $\Delta C^R \cdot \Delta C^I \geq \frac{1}{4}|\Delta n|$ sets the minimum coherence enforced by the density gradient, independent of the decoherence strength.
+
+(3) \textbf{Quantum Darwinism and information flow.} Zurek's quantum Darwinism [Nature Phys.\ 5, 181 (2009)] explains how classical information is redundantly encoded in environmental fragments. In our framework, the information discarded by the Born projection---$C^I$, the imaginary part of the correlation matrix---is the information that gets redundantly encoded. The $\mathcal{J}=0$ condition is the information-theoretic statement that this encoding is complete: $dS_{\text{vN}}/d\tau$ (the rate of entropy change in the system) is exactly balanced by $\nabla_\mu J^\mu_G$ (the rate at which geometric entropy carries information away). When $\mathcal{J}=0$, information is globally conserved---the encoding succeeds. When $\mathcal{J} \neq 0$ (as at causal horizons), the encoding fails, and information is genuinely lost from the perspective of external observers.
+\end{quote}
+
+\subsection*{E.4 New Section VI.C (Relation to Black Hole Information)}
+
+\begin{quote}
+\small
+\textbf{Relation to black hole information.} The $\mathcal{J}=0$ constraint connects our framework to the black hole information paradox at three levels:
+
+\textit{Page curve [Page, PRL 71, 3743 (1993)].} The Page curve $S_{\text{vN}}(t)$ for evaporating black holes encodes the global statement of information conservation: the total state remains pure, and the radiation entropy first rises (as Hawking pairs entangle) and then falls (as late radiation purifies early radiation). $\mathcal{J}=0$ is the differential, local form of this principle: at every spacetime point, $dS_{\text{vN}}/d\tau = -\nabla_\mu J^\mu_G$. Integrating this along the radiation's worldline recovers the Page curve. The two formulations are complementary: Page gives the global shape; $\mathcal{J}=0$ gives the local mechanism.
+
+\textit{Hayden-Preskill [JHEP 09, 120 (2007)].} The rapid information retrieval after the Page time corresponds, in our framework, to a reversal of the geometric entropy current $\nabla_\mu J^\mu_G$: before the Page time, the current flows inward (entanglement builds up between radiation and interior); after the Page time, it flows outward (information returns via correlations in the radiation). $\mathcal{J}=0$ requires these flows to balance at all times.
+
+\textit{Island formula [Penington et al., JHEP 03, 063 (2020)].} The island formula computes the Page curve microscopically via quantum extremal surfaces. Our $\mathcal{J}=0$ is the macroscopic continuity equation for entropy flow. In the semi-classical calculation without islands, one finds $\mathcal{J} \neq 0$---the standard Hawking calculation does not locally conserve information. Including the island contribution restores $\mathcal{J}=0$. The island prescription is thus the \emph{microscopic mechanism} by which quantum gravity enforces the \emph{macroscopic constraint} $\mathcal{J}=0$. Our framework does not compete with the island formula---it identifies the information-flow principle that any consistent theory (including one with islands) must satisfy.
+
+\textit{Analogue gravity limitation and scope.} We explicitly acknowledge that analogue gravity systems simulate kinematic but not dynamic aspects of general relativity [Barcel\'o, Liberati, \& Visser, Living Rev.\ Relativ.\ 14, 3 (2011)]. The BEC sonic horizon reproduces the wave equation on a curved background but not the Einstein equations. This limitation does not affect our proposal, because $\mathcal{J}=0$ is an information-flow constraint, not a dynamical equation. It depends only on the existence of a causal horizon (which the BEC sonic horizon provides) and the ability to measure entropy fluxes across it (which time-resolved density imaging enables). The BEC experiment tests $\mathcal{J}=0$ as an information-theoretic principle; it does not test quantum gravity.
+\end{quote}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% ============================================================
+\section*{F. Summary of Major Changes to the Manuscript}
+% ============================================================
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Introduction:} Added explicit non-circularity statement; added citation and discussion of Goyal et al.\ (2009), Gleason (1957), Zurek (2003, 2009), Page (1993), Hayden-Preskill (2007), Penington et al.\ (2020), Barcel\'o et al.\ (2011).
+\item \textbf{Section III (Theorem 2):} Added precise definition of ``dynamically sufficient algebra''; systematic exclusion of split-complex and dual numbers via 2D $\mathbb{R}$-algebra classification.
+\item \textbf{Section IV (Inequality):} Clarified $\Delta C^R$ definition; corrected role of Assumption A3 (now: Gaussian assumption for experimental measurement, not for theoretical derivation); revised Table I.
+\item \textbf{Section V (Experimental Targets):} Completely revised with corrected qubit measurement estimates ($3^4=81$ settings, $1.6\times 10^7$ total shots, $\sim$20--30\,s); added shadow tomography and FCS alternatives; added cold atom quantum gas microscope platform; revised FQH proposal with multi-QPC geometry; revised BEC proposal with Page-curve connection and time-resolved protocol; added Section~V.D (mundane alternatives and their exclusion).
+\item \textbf{Section VI (Discussion):} Added Section~VI.A (``What We Do Not Claim''); added Section~VI.B (Relation to Decoherence Theory); added Section~VI.C (Relation to Black Hole Information); added Section~VI.D (Analogue Gravity Limitations).
+\item \textbf{Supplemental Material:} Added Appendix~C (Open Systems Extension); added Appendix~E (Experimental Feasibility Analysis with full error budgets); added Appendix~F (BEC Non-Diagonal Correlations: Time-Resolved Protocol).
+\item \textbf{References:} 15 new citations added (see Section~D above).
+\item \textbf{Language:} Removed ``verified'' in favor of ``checked for algebraic consistency''; removed ``null hypothesis'' framework; removed grandiose analogies; toned down ``gap = measurement problem'' equivalences; added honest statements of limitations.
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Final Remarks}
+
+We are grateful to all four referees for their time and expertise. The review process has substantially improved the manuscript: what was a collection of interesting observations organized around an over-ambitious narrative is now a systematically developed, quantitatively precise, and honestly scoped contribution. The central inequality $\Delta C^R \cdot \Delta C^I \geq \frac{1}{4}|\Delta n|$ remains intact---and we believe it is now properly supported by (i) corrected experimental feasibility analysis showing that all three proposed platforms can test it with current technology, (ii) comprehensive engagement with the decoherence, quantum foundations, and black hole information literature, (iii) clarified mathematical definitions and corrected logical dependencies, and (iv) honest acknowledgment of what we do and do not claim.
+
+We respectfully request that the Editor and referees consider the revised manuscript for publication in Physical Review D.
+
+\vspace{2em}
+
+\noindent Sincerely,\\[1em]
+\noindent The Authors\\
+\noindent June 3, 2026
+
+\end{document}

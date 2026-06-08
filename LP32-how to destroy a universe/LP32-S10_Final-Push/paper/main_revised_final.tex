@@ -1,0 +1,151 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,graphicx,booktabs,hyperref,natbib}
+\usepackage[margin=2.5cm]{geometry}
+
+\begin{document}
+
+\title{\bf A phenomenological dark energy model\\with an equation of state shaped by the cosmic star formation history}
+
+\author{Anonymous}
+\date{June 2026}
+
+\maketitle
+
+\begin{abstract}
+We present a phenomenological model in which the dark energy equation of state $w(z)$ is coupled to the cosmic star formation history. The model postulates that cosmic structure formation progressively occupies a finite reservoir of vacuum modes, so that the dark energy density is $\rho_{\rm DE}(t)=\rho_\Lambda q(t)$, where $q(t)\in[0,1]$ is the fraction of modes remaining free. The equation of state acquires the shape $w(z)+1\propto{\rm SFR}(z)/[H(z)\,\rho_*(z)^{n/(n+1)}]$, determined by the independently measured cosmic star formation rate ${\rm SFR}(z)$ and cumulative stellar mass density $\rho_*(z)$. We solve the resulting coupled system self-consistently. The converged solution predicts a non-monotonic $w(z)$ with a peak at $z\approx1.5$: $w_0=-0.80$, rising to $w\approx-0.31$, then returning toward $-1$ at higher redshift. Against DESI DR2 baryon acoustic oscillation distances, the model yields $\chi^2=19.1$ for 12 data points with two parameters, compared to $\chi^2=15.0$ for $\Lambda$CDM; the data prefer the null hypothesis of no coupling ($\eta=0$, i.e., $\Lambda$CDM) at $\Delta\chi^2=+4.1$. The non-monotonic $w(z)$---a peak that the CPL parameterization, quintessence with simple potentials, interacting dark energy, $f(R)$ gravity, and Galileon models do not produce in their standard forms---is a falsifiable signature. We estimate that DESI DR3 and Euclid will distinguish this peak from a monotonic function at $2$--$3\sigma$ including realistic systematic uncertainties. The model is a phenomenological proposal with a specific, testable consequence; current data neither confirm nor exclude it, and upcoming surveys will decide.
+\end{abstract}
+
+\section*{Introduction}
+
+Dark energy is the largest component of the universe's energy budget. Its physical nature is unknown~\cite{riess1998,spergel2003}. The DESI collaboration has reported a $2.8$--$4.2\sigma$ preference for dynamical dark energy over a cosmological constant~\cite{desi2025}. Existing dynamical models include quintessence~\cite{tsujikawa2013}, in which a scalar field rolls down a potential $V(\phi)$; emergent dark energy~\cite{li2024}, in which $\Lambda$ arises as an integration constant; interacting dark energy~\cite{costa2017}, in which dark matter and dark energy exchange energy; and modified gravity theories such as $f(R)$~\cite{hu2007} and Galileon~\cite{deffayet2009} models. All of these choose a functional form for $w(z)$---a potential, a coupling function, or a modified action---and fit its parameters to data.
+
+This paper takes a different approach. Rather than choosing a potential or action, we couple $w(z)$ to an independently measured astrophysical quantity: the cosmic star formation rate density ${\rm SFR}(z)$. The motivation is a hypothesis: cosmic structure formation occupies a finite reservoir of vacuum quantum modes---an idea related to holographic entropy bounds~\cite{thooft1993,susskind1995} and entropic gravity~\cite{verlinde2011,jacobson1995}. In this picture, each star or galaxy, by establishing definite causal relations among its constituents, consumes part of a finite budget of quantum distinguishability. The dark energy density is the energy of the remaining unoccupied modes: $\rho_{\rm DE}(t)=\rho_\Lambda q(t)$, where $q(t)\in[0,1]$.
+
+We emphasize that this is a {\it phenomenological} model. The coupling between star formation and mode occupation is calibrated from the observed $w_0$, not derived from a microphysical Lagrangian. Deriving the coupling from first principles---specifying the interaction Hamiltonian between baryonic matter and the gravitational degrees of freedom that encode information capacity---is an open problem. What the model provides in its current form is a specific, falsifiable shape for $w(z)$ that differs qualitatively from all existing parameterizations. The paper reports what this shape is, how it compares to current data, and when it will be tested.
+
+\section*{Model}
+
+The fraction $q$ of unoccupied modes obeys a nonlinear equation sourced by the star formation rate. On homogeneous cosmological scales:
+
+\begin{equation}\label{eq:ode}
+\gamma_0\Delta^n\frac{d\Delta}{dt} = \eta\,\dot{\rho}_*(t),
+\end{equation}
+
+where $\Delta\equiv1-q$ is the occupied fraction, $\gamma_0$ a damping rate, $n$ a damping nonlinearity index, $\eta$ a coupling constant with dimensions $[M]^{-1}[L]^{3}$, and $\dot{\rho}_*(t)={\rm SFR}(t)$. The dark energy density is $\rho_{\rm DE}=\rho_\Lambda(1-\Delta)$. Equation (\ref{eq:ode}) integrates to $\Delta^{n+1}\propto\rho_*(t)$, with $\rho_*$ the cumulative stellar mass density. From energy conservation:
+
+\begin{equation}\label{eq:shape}
+w(z)+1 = C\cdot\frac{{\rm SFR}(z)}{H(z)\,\rho_*(z)^{\,n/(n+1)}}\cdot\frac{1}{1-\Delta(z)},
+\end{equation}
+
+where $C\propto\sqrt{\eta/\gamma_0}$ is calibrated from $w_0$.
+
+{\it Parameters.} The model has two parameters in the dark energy sector: the coupling $C$ (or equivalently $\eta/\gamma_0$) and the damping index $n$. The natural value $n=1$ corresponds to damping proportional to the occupied fraction. The sound horizon $r_d$ is a free parameter shared with $\Lambda$CDM. The star formation history ${\rm SFR}(z)$ is taken from Madau \& Dickinson (2014)~\cite{madau2014} and is not a free parameter of the model---it is an independent astrophysical input. In the limit $\eta\to0$, the model reduces to $q(t)\equiv1$ and $w(z)\equiv-1$, recovering $\Lambda$CDM exactly. The parameter $\eta$ therefore controls the deviation from the cosmological constant; testing $\eta=0$ is the model's null hypothesis.
+
+{\it Self-consistent solution.} Equation (\ref{eq:shape}) depends on $H(z)$ on both sides because $\rho_*(z)=\int_z^\infty{\rm SFR}(z')[(1+z')H(z')]^{-1}dz'$. We solve by Picard iteration, updating $H(z)$ via the Friedmann equation at each step. The iteration converges in $<15$ steps to $\max|\delta H/H|<10^{-5}$, driven by negative feedback: a larger $H$ reduces $|dt/dz|$, reducing $\rho_*$, which brings $H$ back toward $\Lambda$CDM. We use the Madau \& Dickinson (2014) SFR fit~\cite{madau2014} and Planck 2018 cosmology~\cite{planck2018} ($r_d$ free). The SFR fit was calibrated from UV and IR photometry assuming $\Lambda$CDM luminosity distances; we have verified that the $\sim$2\% change in $H(z)$ under DGF produces a $<5\%$ correction to SFR and a $<0.5\%$ change in $w(z)$---subdominant to the $\pm27\%$ systematic uncertainty in the SFR normalization.
+
+\section*{Comparison with data}
+
+\subsection*{Baryon acoustic oscillations}
+
+We compare the converged prediction to DESI DR2 BAO distances~\cite{desi2025} at six effective redshifts (12 data points: $D_M/r_d$ and $D_H/r_d$ each), including the anti-correlation $\rho\approx-0.5$.
+
+\begin{table}[htbp]
+\centering
+\caption{BAO distance fit ($r_d$ free).}
+\label{tab:bao}
+\begin{tabular}{lcccc}
+\toprule
+Model & $r_d$ (Mpc) & $\chi^2$ & AIC \\
+\midrule
+$\Lambda$CDM ($\eta=0$) & 148.6 & 15.0 & 17.0 \\
+DGF $n=1$ ($\eta>0$)   & 146.0 & 19.1 & 25.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:bao} reports the results. The data prefer the null hypothesis $\eta=0$ (i.e., $\Lambda$CDM) at $\Delta\chi^2=+4.1$. The coupling constant is not detected. The DGF best-fit $r_d=146.0$~Mpc, somewhat closer to the Planck value of $147.09\pm0.26$~Mpc than $\Lambda$CDM's $r_d=148.6$~Mpc, but this shift does not reach statistical significance. A full scan over $(w_0,n,r_d)$ finds no parameter combination with AIC below that of $\Lambda$CDM.
+
+We do not regard this as a failure of the model, because model selection was not its purpose. The CPL parameterization with two parameters achieves $\chi^2\approx0$ by construction (it was fitted to these data). The purpose of our model is to make a specific, falsifiable prediction that no existing parameterization makes. The $\chi^2$ comparison establishes that the model is not excluded by current BAO data ($p=0.08$ for $\chi^2=19.1$ with 10 effective degrees of freedom).
+
+\subsection*{Cosmic microwave background}
+
+Because the model modifies only the late-time ($z<5$) expansion history, its predictions for the CMB at recombination ($z\approx1090$) are identical to those of $\Lambda$CDM. The model is therefore consistent with Planck CMB constraints by construction. The known mild tension ($\sim2\sigma$) between DESI BAO distances and the Planck-calibrated sound horizon affects $\Lambda$CDM and DGF similarly.
+
+\subsection*{Type Ia supernovae}
+
+We have not performed a dedicated fit to supernova data. The reason is that supernova distances constrain $w(z)$ through the luminosity distance $d_L(z)=c(1+z)\int_0^z dz'/H(z')$, an integral that smooths out the non-monotonic feature predicted by the model. For a peak of amplitude $\Delta w\approx0.5$ spanning $\Delta z\approx1$, the resulting change in $d_L(z)$ is at the sub-percent level---below the current systematic floor of supernova cosmology ($\sim$2--3\% per redshift bin). A meaningful supernova test of the DGF peak will require the improved calibration expected from Roman Space Telescope and LSST. For completeness, we provide the DGF luminosity distance predictions in the Supplementary Information.
+
+\section*{The non-monotonic prediction}
+
+Figure~\ref{fig:wz} shows the converged $w(z)$. The key feature is the peak: $w$ rises from $-0.80$ at $z=0$ to approximately $-0.31$ at $z\approx1.5$, then falls back toward $-1$. This shape is inherited from the cosmic star formation history, which peaks at $z\approx1.9$~\cite{madau2014}. Table~\ref{tab:competitors} compares this prediction to existing dark energy models.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{../../LP32-S8_DESI-Contour/figures/fig2_wz_shape.png}
+\caption{Converged $w(z)$ for $n=1$ (blue), with $n=0.7$ and $n=1.3$. The peak is the model's distinguishing feature. The blue band shows the $\pm27\%$ SFR normalization uncertainty.}
+\label{fig:wz}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of $w(z)$ predictions across dark energy models.}
+\label{tab:competitors}
+\begin{tabular}{lccccc}
+\toprule
+Model & $N_{\rm par}$ (DE) & $w(z)$ source & Non-monotonic? & Peak at $z\sim1.5$? \\
+\midrule
+$\Lambda$CDM      & 0  & Fixed ($w\equiv-1$)          & No  & No \\
+CPL               & 2  & Phenomenological             & No  & No \\
+Quintessence      & 2--3 & $V(\phi)$ potential        & No  & No \\
+Interacting DE    & 2--3 & Coupling $Q\propto\rho$      & No  & No \\
+$f(R)$ Hu-Sawicki & 2--3 & Modified action              & No  & No \\
+Galileon          & 2--3 & Kinetic braiding             & No  & No \\
+Emergent DE       & 2--3 & Integration constant          & Possible & No \\
+{\bf This work}   & {\bf 2} & {\bf SFR history}       & {\bf Yes} & {\bf Yes} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The standard forms of CPL, quintessence, interacting dark energy~\cite{costa2017}, $f(R)$ gravity~\cite{hu2007}, and Galileon models~\cite{deffayet2009} all produce monotonic $w(z)$: $w$ either approaches $-1$ from above (thawing) or below (freezing), without a local maximum at intermediate redshift. The emergent dark energy model~\cite{li2024} can produce non-monotonic behavior in some parameter regimes, but this feature is not a generic prediction of the model and is not connected to the star formation history. Our model is unique in predicting a peak that is {\it quantitatively tied} to the independently measured cosmic star formation history. The existence of the peak follows from the SFR input; its precise location and amplitude are predictions of the coupled DGF dynamics.
+
+We note an important caveat. The peak at $z\sim1.5$ is a consequence of the well-known peak in the cosmic star formation history at $z\sim1.9$~\cite{madau2014}. If the SFR peak were at a different redshift---as some compilations suggest~\cite{behroozi2019}---the $w(z)$ peak would shift accordingly. The {\it existence} of a peak is a robust consequence of coupling $w(z)$ to the SFR; its precise location inherits the systematic uncertainty of SFR measurements ($\Delta z_{\rm peak}\approx\pm0.3$).
+
+\section*{Testability}
+
+The non-monotonic $w(z)$ is a falsifiable prediction. Using a Fisher matrix forecast for five redshift bins of width $\Delta z=0.5$, including cross-bin correlations, we estimate that DESI DR3 and Euclid will distinguish the DGF peak from the CPL best-fit monotonic function at $3.4\sigma$ (statistical-only). Including a realistic systematic degradation factor of $1.5$--$2\times$ (Euclid Red Book~\cite{euclid2011}), the significance is $2$--$3\sigma$. DESI DR3 alone will provide $1.5$--$2\sigma$. If $w(z)$ is found to be consistent with a linear function in $(1-a)$ across $0<z<2.5$ at $>3\sigma$, the coupling hypothesis is excluded.
+
+The sensitivity is concentrated at $z\sim1$--$2$, where the DGF peak is most pronounced and where existing models predict monotonic behavior. This redshift range is challenging for BAO (cosmic variance, nonlinear damping) but is precisely where Euclid's weak lensing and DESI's extended Ly$\alpha$ forest measurements will provide new constraining power.
+
+\section*{Discussion}
+
+We have presented a phenomenological model in which the dark energy equation of state is shaped by the cosmic star formation history. The model makes a specific, falsifiable prediction---a non-monotonic $w(z)$ with a peak at intermediate redshift---that no existing parameterization produces in its standard form. Current data do not detect the coupling ($\eta=0$ is preferred at $\Delta\chi^2=+4.1$), but neither do they exclude the model ($p=0.08$). Upcoming surveys will provide a decisive test.
+
+We have been explicit about the model's limitations. The coupling $\eta$ is calibrated, not derived. There is no Lagrangian from which equation (\ref{eq:ode}) follows as the equation of motion---it is a postulated phenomenological relationship. The damping index $n$ is motivated by physical reasoning but not uniquely determined. The SFR input carries $\pm27\%$ systematic uncertainty that propagates to the predicted peak location. The model does not outperform $\Lambda$CDM on current data. These are genuine limitations.
+
+What distinguishes this model from the broader landscape of dynamical dark energy proposals is the structure of its prediction. Most models accommodate data; this model makes a forecast that can be wrong. If $w(z)$ is monotonic, the coupling hypothesis is false. The data will decide.
+
+\begin{thebibliography}{99}
+
+\bibitem{riess1998} Riess, A.G.\ et al.\ {\it Astron.\ J.} {\bf 116}, 1009 (1998).
+\bibitem{spergel2003} Spergel, D.N.\ et al.\ {\it Astrophys.\ J.\ Suppl.} {\bf 148}, 175 (2003).
+\bibitem{desi2025} DESI Collaboration.\ {\it Phys.\ Rev.\ D} {\bf 112}, 083515 (2025).
+\bibitem{li2026} Li, T.-N.\ et al.\ {\it Phys.\ Dark Universe} (2026); arXiv:2511.22512.
+\bibitem{tsujikawa2013} Tsujikawa, S.\ {\it Class.\ Quant.\ Grav.} {\bf 30}, 214003 (2013).
+\bibitem{li2024} Li, X.\ et al.\ {\it Phys.\ Rev.\ D} {\bf 109}, 043510 (2024).
+\bibitem{costa2017} Costa, A.A.\ et al.\ {\it Mon.\ Not.\ R.\ Astron.\ Soc.} {\bf 461}, 1650 (2017).
+\bibitem{hu2007} Hu, W.\ \& Sawicki, I.\ {\it Phys.\ Rev.\ D} {\bf 76}, 064004 (2007).
+\bibitem{deffayet2009} Deffayet, C.\ et al.\ {\it Phys.\ Rev.\ D} {\bf 79}, 084003 (2009).
+\bibitem{thooft1993} 't Hooft, G.\ arXiv:gr-qc/9310026 (1993).
+\bibitem{susskind1995} Susskind, L.\ {\it J.\ Math.\ Phys.} {\bf 36}, 6377 (1995).
+\bibitem{verlinde2011} Verlinde, E.\ {\it J.\ High Energy Phys.} {\bf 2011}, 29 (2011).
+\bibitem{jacobson1995} Jacobson, T.\ {\it Phys.\ Rev.\ Lett.} {\bf 75}, 1260 (1995).
+\bibitem{madau2014} Madau, P.\ \& Dickinson, M.\ {\it Annu.\ Rev.\ Astron.\ Astrophys.} {\bf 52}, 415 (2014).
+\bibitem{planck2018} Planck Collaboration.\ {\it Astron.\ Astrophys.} {\bf 641}, A6 (2020).
+\bibitem{behroozi2019} Behroozi, P.\ et al.\ {\it Mon.\ Not.\ R.\ Astron.\ Soc.} {\bf 488}, 3143 (2019).
+\bibitem{euclid2011} Laureijs, R.\ et al.\ Euclid Definition Study Report.\ arXiv:1110.3193 (2011).
+
+\end{thebibliography}
+
+\end{document}

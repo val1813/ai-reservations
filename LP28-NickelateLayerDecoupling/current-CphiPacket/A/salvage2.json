@@ -1,0 +1,177 @@
+{
+  "framework": {
+    "project": "LP28-NickelateLayerDecoupling",
+    "packet": "LP28-CphiPacket",
+    "round": "Forced Salvage Round 2",
+    "agent": "A",
+    "objective": "Judge whether PILOT-001 can be instantiated from real sources without adding more theory.",
+    "input_boundary": "Read only current-CphiPacket/plan/当前状态.md, current-CphiPacket/A/salvage1.json, current-CphiPacket/synthesis/pi_salvage1_synthesis.md, and current-CphiPacket/synthesis/reviewer_verification.md. Did not read B output.",
+    "canonical_P_oe": "P_oe = (chi_odd - chi_even) / (chi_odd + chi_even), with frozen denominator-floor censoring only.",
+    "decision_rule": "Result A is allowed if a real existing/contactable facility or data source can support a minimal PILOT-001 dossier. Result B is required if no real source can be named."
+  },
+  "source_search_result": {
+    "result_class": "A_CONTACTABLE_REAL_FACILITY_FOUND_BUT_NO_EXISTING_PUBLIC_GREEN_ROW",
+    "public_existing_data_checked": [
+      {
+        "source": "Electronic and magnetic excitations in La3Ni2O7, Nature Communications 2024, DOI 10.1038/s41467-024-53863-5",
+        "url": "https://doi.org/10.1038/s41467-024-53863-5",
+        "relevance": "Direct La3Ni2O7 Ni L-edge RIXS/XAS adjacent source. It anchors that a real RIXS route for La3Ni2O7 exists.",
+        "limitation_for_PILOT_001": "Published data cannot be used as a blinded pre-output PILOT-001 row because superconducting/contextual outputs and analysis choices are already public."
+      },
+      {
+        "source": "Zenodo record for source data, DOI 10.5281/zenodo.13955595",
+        "url": "https://doi.org/10.5281/zenodo.13955595",
+        "local_file_check": "Downloaded Source Data.zip and listed contents. It contains figure-level .txt files such as Fig1d_LNO327_Ni_L_XAS.txt, Fig1f_Emap.txt, Fig4e_raw.txt, and Fig4e_self_abs_corr.txt.",
+        "limitation_for_PILOT_001": "This is source data for figures, not a complete immutable raw detector-frame/calibration/custody archive sufficient to regenerate P_oe, B_min, censor flags, U_miss, and pre-reveal firewall status."
+      }
+    ],
+    "real_contactable_facility": {
+      "primary_facility": "Diamond Light Source I21 RIXS beamline",
+      "facility_url": "https://www.diamond.ac.uk/Instruments/Magnetic-Materials/I21.html",
+      "why_real_source": "I21 is a named operating soft-X-ray RIXS facility. The La3Ni2O7 Nat Commun RIXS source above is adjacent evidence that the facility class can acquire the required odd/even bilayer-sensitive spectra.",
+      "archive_policy_anchor": {
+        "source": "Diamond Light Source Experimental Data Management Policy",
+        "url": "https://www.diamond.ac.uk/dam/jcr:a20ef7ef-6d91-4227-903f-e896ad8636de/Experimental%20Data%20Management%20Policy%20-%2010%20December%202018.pdf",
+        "usable_for_PILOT_001": "A Diamond proposal can be required to retain raw data, metadata, proposal identity, experiment time, PI/user roles, and access controls in the facility data system before output reveal."
+      },
+      "data_portal_anchor": {
+        "source": "Diamond ICAT/Topcat data portal",
+        "url": "https://topcat.diamond.ac.uk/",
+        "usable_for_PILOT_001": "Can serve as the facility-side immutable raw-data and metadata anchor if the accepted proposal and beamline staff agree to pre-reveal archive checksums and auditor access."
+      }
+    },
+    "negative_result": "No already-public data package found that is sufficient to instantiate a green PILOT-001 row today.",
+    "positive_result": "A real named and contactable acquisition source exists for an executable PILOT-001 attempt: Diamond I21 as the primary P_oe spectroscopy route, with Diamond archive/data-policy infrastructure as custody anchor."
+  },
+  "pilot001_dossier_or_template": {
+    "dossier_type": "MINIMAL_DOSSIER_FOR_CONTACTABLE_FACILITY_ROUTE",
+    "row_id": "LP28-CphiPacket-PILOT-001",
+    "current_status": "Not yet acquired; no green row claimed.",
+    "primary_source": {
+      "facility": "Diamond Light Source",
+      "beamline": "I21 RIXS",
+      "role": "Acquire blinded normal-state Ni L-edge RIXS/XAS spectra on La3Ni2O7 or formally sistered bilayer nickelate specimen lineage for chi_odd and chi_even extraction.",
+      "required_preproposal_commitments": [
+        "opaque row/sample IDs generated before output labels are visible",
+        "raw detector frames/spectra, calibration files, geometry, polarization, qz, temperature, pressure, dark/background/reference files, and analysis configs archived under proposal identity",
+        "archive timestamp and checksum manifest available before superconducting-output reveal",
+        "P_oe extraction workspace separated from B_min extraction and output custody",
+        "canonical P_oe formula and denominator-floor censoring frozen before measurement or before data reduction begins"
+      ]
+    },
+    "specimen_lineage": {
+      "material": "La3Ni2O7 bilayer nickelate single crystal, thin film, or lamella only if the bilayer/phase/orientation state is documented before output reveal.",
+      "minimum_genealogy": [
+        "growth lot or film batch",
+        "cut order or wafer/film position",
+        "anneal/storage history",
+        "piece dimensions and orientation",
+        "visible defects and beam-exposure ledger",
+        "pressure-cell identity if pressure is used"
+      ],
+      "same_sample_core": "PILOT-001-A carries the odd/even susceptibility spectroscopy and pressure/structure/beam-damage ledger.",
+      "formal_siblings": "PILOT-001-B/C may provide oxygen, valence, orbital, destructive microscopy, or c-axis baselines only if pre-output sibling tolerances are frozen and passed."
+    },
+    "B_min_sources": {
+      "allowed_real_routes": [
+        "Diamond or home-lab XRD/Raman/pressure-marker files for phase, orientation, pressure path, and damage ledger",
+        "XAS/XES/EELS/STEM-EELS/SIMS/TGA/coulometry for oxygen, valence, ligand-hole, layer-asymmetry, and disorder baselines",
+        "normal-state transport or optical conductivity proxy for ordinary c-axis baseline, acquired and locked before superconducting output reveal"
+      ],
+      "hard_independence_rule": "B_min must be regenerable without P_oe spectra, P_oe nuisance parameters, and superconducting labels. P_oe must be regenerable without B_min table and superconducting labels."
+    },
+    "minimum_green_evidence": [
+      "Diamond proposal or equivalent facility experiment identifier exists",
+      "sample genealogy ledger exists before acquisition",
+      "raw I21 archive accession or facility data path exists before output reveal",
+      "SHA256 or facility-supported checksum manifest exists for all raw and calibration files",
+      "P_oe extraction hash exists using only frozen chi_odd/chi_even spectra and calibration",
+      "B_min extraction hash exists using independent baseline files",
+      "U_miss and censor flags are frozen before reveal",
+      "green/yellow/red firewall classification is locked before reveal",
+      "output custodian attests that superconducting labels were sealed until packet lock"
+    ],
+    "why_not_existing_Zenodo_green": "The Zenodo source-data package is useful as an adjacent feasibility anchor, but it does not include the full raw/custody archive and cannot satisfy the pre-reveal blinding condition."
+  },
+  "acquisition_contact_plan": {
+    "contact_target_1": {
+      "name": "Diamond Light Source I21 beamline team",
+      "url": "https://www.diamond.ac.uk/Instruments/Magnetic-Materials/I21.html",
+      "ask": [
+        "Can I21 accept a La3Ni2O7 bilayer nickelate RIXS proposal with opaque row IDs and no superconducting-output labels shared with extractors?",
+        "Can raw detector frames, calibration files, metadata, and scripts/configs be locked in Diamond ICAT/Topcat before output reveal?",
+        "Can a third-party auditor verify archive timestamps/checksums and proposal identity before output labels are released?",
+        "Can qz/polarization/geometry metadata be exported in enough detail to refit chi_odd and chi_even independently?"
+      ],
+      "minimum_yes_for_PILOT_001": "Yes to raw archive, metadata export, timestamp/checksum verification, and output blinding."
+    },
+    "contact_target_2": {
+      "name": "Corresponding authors or data custodians of Nat Commun 2024 La3Ni2O7 RIXS paper",
+      "url": "https://doi.org/10.1038/s41467-024-53863-5",
+      "ask": [
+        "Can they identify the Diamond proposal/experiment data path behind the published source-data package?",
+        "Can any unpublished raw detector/calibration archive be accessed under controlled audit?",
+        "Do they have unreported sister specimens or blinded normal-state rows not selected using superconducting output?"
+      ],
+      "minimum_yes_for_existing_data_salvage": "Only an unrevealed or output-sealed row with full raw/custody archive could count. Published figure data alone does not count."
+    },
+    "contact_target_3": {
+      "name": "Sample-growth and baseline-metrology collaborators",
+      "ask": [
+        "Provide La3Ni2O7 same-boule or same-film-batch sibling pieces with documented genealogy.",
+        "Acquire oxygen/valence/orbital/disorder/c-axis baseline files under opaque IDs before superconducting output reveal.",
+        "Freeze sibling mismatch tolerances before seeing P_oe or output labels."
+      ],
+      "minimum_yes_for_B_min": "Baseline archive and sibling tolerances must be locked independently of P_oe fitting and output labels."
+    },
+    "first_message_payload": [
+      "One-page PILOT-001 protocol summary",
+      "required archive artifact list",
+      "blinding and output-custody rule",
+      "canonical P_oe formula and censoring rule",
+      "B_min independence rule",
+      "auditor access/checksum request",
+      "statement that yellow rows are rehearsal only"
+    ],
+    "go_no_go_after_contact": {
+      "go": "Facility agrees in writing to raw archive, metadata/checksum access, blinded row IDs, and pre-reveal packet lock.",
+      "no_go": "Facility or data custodian can only provide figure source data, post-output-selected samples, or non-auditable archives."
+    }
+  },
+  "salvage_verdict": {
+    "verdict": "A_REAL_CONTACTABLE_SOURCE_FOUND_MINIMAL_DOSSIER_WRITTEN",
+    "not_salvage_success_yet": true,
+    "reason": "A concrete source exists for instantiating PILOT-001: Diamond I21 plus Diamond facility archive infrastructure, with the 2024 La3Ni2O7 RIXS paper and Zenodo record as adjacent proof of relevance. However, no currently public package satisfies the green firewall.",
+    "current_packet_status": "CONTACTABLE_ACQUISITION_ROUTE_EXISTS; GREEN_PILOT_ROW_DOES_NOT_YET_EXIST",
+    "failure_condition": "If Diamond I21 or an equivalent RIXS facility refuses raw archive/checksum/auditor access or output blinding, and no unpublished sealed row exists from the Nat Commun data custodians, then LP28-CphiPacket must remain rejected protocol packaging."
+  },
+  "claims": {
+    "allowed": [
+      "A named real facility/data route exists for attempting PILOT-001.",
+      "The 2024 La3Ni2O7 RIXS paper and Zenodo record are adjacent feasibility anchors, not a passing row.",
+      "The public Zenodo source-data package is insufficient for green PILOT-001 by itself.",
+      "Diamond I21 plus Diamond archive/data-policy infrastructure can be the primary contactable route if the facility accepts blinding, raw archive, checksum, and auditor constraints.",
+      "This round produces a minimal dossier/contact plan, not a successful salvage."
+    ],
+    "forbidden": [
+      "R_oe exists.",
+      "C_phi is independent.",
+      "PILOT-001 has already passed green firewall.",
+      "The Nat Commun/Zenodo public data package is a complete raw audited packet.",
+      "A post-output published dataset can satisfy the pre-reveal blinding condition without a separate unrevealed sealed row."
+    ]
+  },
+  "inspector_check": {
+    "required_fields_present": true,
+    "does_not_read_B_output": true,
+    "answers_real_source_question": true,
+    "real_source_named": true,
+    "existing_public_data_limitation_explicit": true,
+    "minimal_dossier_written": true,
+    "contact_plan_written": true,
+    "no_theory_expansion": true,
+    "salvage_success_not_overclaimed": true,
+    "remaining_blocker": "PILOT-001 still requires facility/data-custodian agreement and actual archive/custody evidence. Until then the row is not green.",
+    "self_verdict": "PASS_AS_FORCED_SALVAGE_ROUND_2_A_RESULT"
+  }
+}

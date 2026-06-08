@@ -1,0 +1,69 @@
+name,type,unit,provenance,namespace,allowed_targets,forbidden_when_target
+sample_id,string,none,source table row or generated stable id,sample,all,never
+source_row_id,string,none,verbatim table or figure point id,sample,all,never
+source_doi,string,none,publication DOI,sample,all,never
+material_formula,string,none,publication table or SI,sample,all,never
+composition_vector,json,atomic fraction,publication table or parsed formula,sample,all,never
+phase_state,categorical,none,publication text,sample,all,never
+batch_id,string,none,deposition batch calculation batch or source group,sample,all,never
+deposition_or_generation_method,string,none,publication methods,sample,transport_labels;electronic_labels,never
+anneal_temperature_K,float,K,publication methods,sample,transport_labels,never
+decisive_claim_allowed,boolean,none,join audit flag,provenance,all,never
+join_level,categorical,none,exact_sample exact_structure family figure_digitized,provenance,all,never
+structure_id,string,none,structure file or model id,structure,all,never
+structure_file_path,string,none,local or source SI path,structure,graph_targets;electronic_labels,never
+cell_volume_m3,float,m**3,structure file or Table II conversion,structure,all,never
+num_atoms,integer,count,structure file,structure,all,never
+density_kg_m3,float,kg/m**3,structure file or mass/volume calculation,controls,all,never
+carrier_density_m3,float,m**-3,independent Hall or calculation source,controls,hall_mobility_m2_Vs;conductivity_S_m,forbidden for hall_mobility_m2_Vs when algebraically used with same-measurement conductivity to compute mobility
+film_thickness_m,float,m,transport methods,controls,hall_mobility_m2_Vs;conductivity_S_m,forbidden for conductivity_S_m when combined with same-measurement sheet resistance to reconstruct target
+temperature_K,float,K,measurement condition,controls,transport_labels,never
+oxygen_defect_fraction,float,fraction,structure analysis or source table,controls,all,never
+composition_fraction_In,float,fraction,parsed formula or source table,controls,all,never
+composition_fraction_Ga,float,fraction,parsed formula or source table,controls,all,never
+composition_fraction_Zn,float,fraction,parsed formula or source table,controls,all,never
+mobility_edge_margin_eV,float,eV,electronic calculation,controls,hall_mobility_m2_Vs;conductivity_S_m;spectral_residual_label,forbidden for spectral_residual_label when extracted from same fitted spectral feature
+onsite_variance_eV2,float,eV**2,electronic calculation or fitted Hamiltonian,controls,all,forbidden for wannier_overlap_or_spread when computed from target Wannier Hamiltonian elements
+finite_size_descriptor,float,count_or_length,structure file,controls,all,never
+OI_norm,float,dimensionless,Srivastava Table II or Fig 4 extraction,oi,all,forbidden for wannier_overlap_or_spread if target is the same OI quantity or algebraic transform
+OI_raw_sum,float,dimensionless,Srivastava formula or recomputed pair sum,oi,all,forbidden for wannier_overlap_or_spread if target is the same overlap sum
+OI_normalization_method,string,none,Srivastava text SI or local implementation note,oi,all,never
+OI_digitization_uncertainty,float,dimensionless,figure digitization audit,oi,all,never
+pair_cutoff_A,float,angstrom,declared graph or OI implementation,oi;graph,graph_targets;external_labels,never
+decay_length_A,float,angstrom,Srivastava SI or fitted species parameter,oi,all,never
+pair_overlap_kernel,string,none,implementation record,oi,all,never
+q_i_q_j_weight_rule,string,none,Srivastava formula or declared proxy,oi,all,never
+graph_node_rule,string,none,local graph convention,graph,graph_targets;external_labels,never
+graph_edge_rule,string,none,local graph convention,graph,graph_targets;external_labels,never
+edge_weight_definition,string,dimensionless,local graph convention,graph,graph_targets;external_labels,never
+weighted_degree_mean,float,dimensionless,recomputed from structure graph,graph,external_residual_labels,forbidden as independent claim before OI collinearity ablation
+weighted_degree_variance,float,dimensionless,recomputed from structure graph,graph,external_residual_labels,forbidden as independent claim before OI collinearity ablation
+pair_density,float,m**-3,recomputed from structure graph,graph,external_residual_labels,forbidden as independent claim unless fixed-density limit enforced
+local_clustering_weighted,float,dimensionless,recomputed from structure graph,graph,external_residual_labels,forbidden as independent claim before OI and degree-preserving nulls
+lambda_2_norm_laplacian,float,dimensionless,recomputed from normalized weighted Laplacian,graph,external_residual_labels,never
+spectral_radius_A,float,dimensionless,recomputed from nonnegative weighted adjacency,graph,external_residual_labels,forbidden unless weighted-degree and OI-preserving residualization is present
+high_betweenness_attack_loss,float,target_unit_or_dimensionless,recomputed perturbation protocol,graph,external_residual_labels,forbidden unless matched_random_attack_loss and removed_weight_budget are present
+matched_random_attack_loss,float,target_unit_or_dimensionless,recomputed perturbation null,null,external_residual_labels,never
+removed_weight_budget,float,dimensionless,recomputed perturbation protocol,null,external_residual_labels,never
+degree_preserving_null_mean,float,same_as_metric,rewiring null model,null,external_residual_labels,never
+overlap_preserving_null_mean,float,same_as_metric,overlap-budget null model,null,external_residual_labels,never
+lambda2_resid,float,dimensionless,train-fold residualization,residual,external_residual_labels,never
+spectral_radius_resid,float,dimensionless,train-fold residualization,residual,external_residual_labels,never
+attack_resid,float,target_unit_or_dimensionless,train-fold residualization,residual,external_residual_labels,never
+m_eff_over_m0,float,dimensionless,Srivastava or external electronic calculation,label,effective_mass_target,forbidden as control when target=m_eff_over_m0
+hall_mobility_m2_Vs,float,m**2/(V*s),transport table,label,hall_mobility_target,forbidden as control when target=hall_mobility_m2_Vs
+conductivity_S_m,float,S/m,transport table,label,conductivity_target,forbidden as control when target=conductivity_S_m or when target hall_mobility_m2_Vs is computed from sigma/(n*e)
+resistivity_ohm_m,float,ohm*m,transport table,label,transport_targets,forbidden as control when target=conductivity_S_m or hall_mobility_m2_Vs from same measurement
+drude_weight,float,source_defined,optical or electronic calculation,label,drude_target,forbidden as control when target=drude_weight
+wannier_spread_A2,float,angstrom**2,Wannier calculation,label,wannier_target,forbidden as control when target=wannier_overlap_or_spread
+wannier_overlap_label,float,dimensionless,Wannier calculation,label,wannier_target,forbidden as graph edge input when target=wannier_overlap_or_spread
+spectral_ridge_width_eV,float,eV,spectral function fit,label,spectral_residual_label,forbidden as control when target=spectral_residual_label
+IPR_near_EF,float,dimensionless,electronic calculation,label,spectral_residual_label,forbidden as control when target is IPR-derived localization label
+baseline_formula_id,string,none,model registry,residual,all,never
+cv_split_id,string,none,train/test split registry,residual,all,never
+baseline_prediction,float,same_as_target,train-fold baseline model,residual,all,forbidden as feature in raw-label model; allowed only to compute residual
+baseline_residual,float,same_as_target,train-fold baseline model,residual,external_residual_labels,forbidden as target if computed using test-fold fit
+graph_model_prediction,float,same_as_target,held-out graph residual model,residual,diagnostics,never
+heldout_delta_R2,float,dimensionless,cross-validation diagnostics,residual,diagnostics,never
+heldout_delta_RMSE,float,same_as_target,cross-validation diagnostics,residual,diagnostics,never
+coefficient_sign_stability,float,fraction,cross-validation diagnostics,residual,diagnostics,never

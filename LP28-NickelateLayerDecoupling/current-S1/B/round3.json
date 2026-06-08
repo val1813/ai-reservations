@@ -1,0 +1,343 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "window": "LP28-S1",
+  "round": 3,
+  "agent": "B",
+  "created_at_local": "2026-06-04T20:15:00+08:00",
+  "independence_statement": "This B round used B-agent instructions, project plan/state/context files, B Round 2, inspector_B_round2, and PI Round 2 synthesis. It did not read current-S1/A or any A-round output.",
+  "status": "final_zero_leakage_audit_protocol_not_validation",
+  "polaris": "Can I_phi be pre-registered from input-side spectroscopy, structure, and dephasing variables without becoming a posterior relabeling of bulk superconducting output?",
+  "framework": "adversarial zero-leakage preregistration, canonical byte hashing, and auditor recomputation",
+  "core_position": {
+    "go_no_go_scope": "S1 survives only as a frozen input-side encoder protocol. It does not claim that I_phi predicts superconductivity, explains nickelate pairing, or validates interlayer coherence.",
+    "C_phi_status": "C_phi is an audit observability score. Its row topology is a frozen design choice, not a derived physical mechanism.",
+    "temperature_resolution": "Separate acquisition temperature from calculation temperature. T_calc_K is frozen at 80.0 as an encoder constant. T_acq_K for every input measurement must be sealed in P0 by an input-only normal-state safety rule before output labels are opened.",
+    "primary_protocol_choice": "Use the SVD observability C_phi as the primary B audit encoder. A simpler Drude-fraction-like channel may appear only as a baseline comparator, never as a post-output replacement."
+  },
+  "forbidden_outputs": [
+    "Tc",
+    "zero_resistance",
+    "resistive_transition_onset_or_midpoint",
+    "Meissner_fraction",
+    "shielding_fraction",
+    "critical_current",
+    "Josephson_plasma",
+    "bulk_superfluid_density",
+    "bulk_phase_stiffness",
+    "transition_width_fits",
+    "phase_diagram_labels",
+    "human exclusion or threshold choices made after viewing any superconducting output"
+  ],
+  "canonical_serialization_and_hash_rules": {
+    "hash_algorithm": "SHA-256",
+    "byte_encoding": "UTF-8 without BOM",
+    "line_endings": "LF only, including the final newline for text artifacts",
+    "timestamp_authority": "repository_commit_timestamp_utc; if unavailable, use a single signed_lab_notebook_utc clock declared in P0. Mixing authorities is a protocol failure.",
+    "canonical_json_profile": {
+      "profile_name": "LP28-S1-CANON-JSON-v1",
+      "object_keys": "sort lexicographically by Unicode code point",
+      "arrays": "order is semantic and must not be sorted",
+      "whitespace": "none outside string literals",
+      "final_newline": "exactly one LF byte after the closing brace or bracket",
+      "strings": "escape only quotation mark, reverse solidus, and control characters U+0000 through U+001F; do not escape ordinary ASCII",
+      "unicode_normalization": "NFC before serialization; hashed artifacts should use ASCII keys and ASCII enum values",
+      "numbers_in_hashed_json": "forbid JSON number tokens. All numeric quantities in hashed JSON must be decimal strings.",
+      "decimal_string_regex": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+      "negative_zero": "forbidden; serialize as \"0\"",
+      "nan_infinity": "forbidden",
+      "null": "forbidden except for explicitly named noncomputable fields in I_phi_labels.csv, where the literal NA is used instead of JSON null",
+      "booleans": "allowed only for flags; use true or false lowercase"
+    },
+    "canonical_csv_profile": {
+      "profile_name": "LP28-S1-CANON-CSV-v1",
+      "encoding": "UTF-8 without BOM",
+      "line_endings": "LF only, final LF required",
+      "delimiter": ",",
+      "quote_char": "\"",
+      "quoting": "quote a field only if it contains comma, quotation mark, or LF; double embedded quotation marks",
+      "header": "required; exact column order must be declared in P0 and reproduced byte-for-byte",
+      "row_order": "sort ascending by sample_id as ASCII strings before hashing",
+      "missing_literal": "NA",
+      "decimal_fields": "all numeric columns are decimal strings matching decimal_string_regex; scientific notation is forbidden",
+      "rounded_label_fields": "normalized amplitudes, sigma_min, C_phi, E_z2_meV, denominator_meV, I_phi, and baselines are emitted with exactly 10 digits after the decimal point",
+      "raw_measurement_fields": "raw inputs use the instrument precision declared in metadata; no extra trailing zeros are added unless the instrument file already contains them"
+    },
+    "manifest_rules": {
+      "manifest_file": "manifest.sha256.json",
+      "manifest_is_hashed": true,
+      "manifest_self_hash_field": "manifest_sha256_excluding_self_hash",
+      "manifest_entry_fields": [
+        "path",
+        "sha256",
+        "byte_size",
+        "timestamp_utc",
+        "canonical_profile"
+      ],
+      "path_rule": "relative POSIX-style paths from current-S1 root; no backslashes, no absolute paths",
+      "hash_order": "hash every artifact except manifest first; then serialize manifest with self hash set to 64 zeros; hash those bytes; replace self hash; serialize final manifest"
+    }
+  },
+  "frozen_encoder": {
+    "equation": "I_phi = E_z2_meV * C_phi / (kB_meV_per_K * T_calc_K + hbarGamma_phi_meV + E_floor_meV)",
+    "constants": {
+      "kB_meV_per_K": "0.08617333262",
+      "T_calc_K": "80.0",
+      "E_z2_ref_meV": "100.0",
+      "S_dz2_ref": "0.08",
+      "W_caxis_ref": "1200000.0",
+      "Gamma_ref_meV": "20.0",
+      "sigma_ref": "0.2"
+    },
+    "temperature_rule": {
+      "T_calc_K": "80.0 is a reference denominator constant only and is never tuned.",
+      "T_acq_K": "Each input channel has its acquisition temperature sealed in P0. The allowed rule is T_acq_K = max(120.0, T_prior_upper_K + 20.0), where T_prior_upper_K is taken from pre-existing literature or normal-state instrument planning before same-sample output labels are known.",
+      "normal_state_guard": "If any sealed input acquisition is later found to overlap a superconducting output regime for that same sample, the sample status becomes input_contaminated and cannot be used to rescue S1.",
+      "no_temperature_fitting": "Changing T_calc_K, T_acq_K, or input windows because output correlation improves is immediate S1 failure."
+    },
+    "input_columns": [
+      "sample_id",
+      "S_dz2_raw",
+      "W_caxis_raw",
+      "B_struct",
+      "hbarGamma_phi_meV",
+      "D_disorder"
+    ],
+    "E_z2_rule": "E_z2_meV = E_z2_ref_meV * min(max(S_dz2_raw / S_dz2_ref, 0.0), 3.0)",
+    "E_floor_rule": "E_floor_meV = 5.0 meV + (15.0 meV) * D_disorder",
+    "row_amplitudes": {
+      "a_dz2": "u_dz2 / (1.0 + u_dz2), where u_dz2 = S_dz2_raw / S_dz2_ref",
+      "a_caxis": "u_caxis / (1.0 + u_caxis), where u_caxis = W_caxis_raw / W_caxis_ref",
+      "a_struct": "B_struct",
+      "a_phi_clean": "Gamma_ref_meV / (Gamma_ref_meV + hbarGamma_phi_meV)"
+    },
+    "C_phi_matrix": {
+      "latent_state_vector": [
+        "dz2_availability",
+        "caxis_transfer",
+        "structural_bridge",
+        "phase_memory_cleanliness"
+      ],
+      "rows": [
+        ["a_dz2", "0", "0", "0"],
+        ["0", "a_caxis", "0", "0"],
+        ["0", "0", "a_struct", "0"],
+        ["0", "0", "0", "a_phi_clean"],
+        ["a_dz2/sqrt(2)", "-a_caxis/sqrt(2)", "0", "0"],
+        ["0", "a_caxis/sqrt(2)", "-a_struct/sqrt(2)", "0"],
+        ["0", "0", "a_struct/sqrt(2)", "-a_phi_clean/sqrt(2)"]
+      ],
+      "svd_rule": "Construct the 7x4 real matrix in IEEE-754 binary64. Compute singular values with LAPACK-compatible double precision SVD. Sort descending. sigma_min is the fourth value.",
+      "C_phi_equation": "C_phi = sigma_min / (sigma_min + sigma_ref)",
+      "rounding_for_labels": "round half to even to exactly 10 digits after the decimal point after all computations are complete"
+    }
+  },
+  "auditor_recomputation_protocol": {
+    "allowed_inputs": [
+      "deposit/P0_encoder.json",
+      "deposit/X_pre_raw.csv",
+      "deposit/X_pre_metadata.json",
+      "deposit/encoder_code.py",
+      "deposit/manifest.sha256.json"
+    ],
+    "disallowed_inputs": [
+      "any current-S1/A path",
+      "Tc tables",
+      "resistance curves after output declaration",
+      "shielding data",
+      "Meissner data",
+      "critical current data",
+      "bulk phase stiffness data",
+      "phase diagrams",
+      "post-output notes"
+    ],
+    "recompute_steps": [
+      "Verify manifest byte sizes, timestamps, canonical profiles, and SHA-256 values.",
+      "Parse P0_encoder.json and X_pre_metadata.json under LP28-S1-CANON-JSON-v1.",
+      "Parse X_pre_raw.csv under LP28-S1-CANON-CSV-v1.",
+      "Reject forbidden values: NaN, infinity, negative zero, undeclared nulls, scientific notation, out-of-order sample_id rows, or extra columns not declared in P0.",
+      "For every complete sample, recompute row amplitudes, the 7x4 matrix, sigma_min, C_phi, E_z2_meV, E_floor_meV, denominator_meV, and I_phi.",
+      "Emit I_phi_labels.csv and baseline_scores.csv under the canonical CSV profile.",
+      "Compare emitted labels to the deposited labels byte-for-byte after canonical serialization."
+    ],
+    "numeric_acceptance": {
+      "machine_tolerance_before_label_formatting": "absolute error <= 5e-10 for row amplitudes, sigma_min, C_phi, denominator_meV, and I_phi",
+      "label_acceptance": "formatted 10-decimal label strings must match exactly",
+      "rank_tie_tolerance": "two scores are tied if absolute difference <= 5e-10 before formatting"
+    },
+    "auditor_verdicts": {
+      "audit_pass": "hashes pass, canonical parsing passes, recomputation passes, no forbidden inputs are referenced, and baseline/sensitivity tests are computable",
+      "audit_fail": "any hash mismatch, forbidden input dependency, canonicalization violation, recomputation mismatch, or post-output rule change",
+      "audit_incomplete": "required input channel or metadata is absent under sealed rules; cannot be converted to pass after output unblinding"
+    }
+  },
+  "baseline_collapse_metric": {
+    "purpose": "Kill the claim that I_phi is a nontrivial input-side encoder if it reduces to one raw input or one obvious single-channel proxy before output comparison.",
+    "sample_set": "all samples with status complete before output unblinding; if n_complete < 6, baseline-collapse testing is underpowered and S1 cannot claim noncollapse, but leakage checks still run",
+    "baselines": [
+      {
+        "id": "B0_dz2_only",
+        "score": "S_dz2_raw / S_dz2_ref"
+      },
+      {
+        "id": "B1_caxis_only",
+        "score": "W_caxis_raw / W_caxis_ref"
+      },
+      {
+        "id": "B2_structure_disorder_only",
+        "score": "B_struct / (1.0 + D_disorder)"
+      },
+      {
+        "id": "B3_dephasing_only",
+        "score": "1.0 / (1.0 + hbarGamma_phi_meV / Gamma_ref_meV)"
+      },
+      {
+        "id": "B4_product_without_svd",
+        "score": "(S_dz2_raw / S_dz2_ref) * (W_caxis_raw / W_caxis_ref) * B_struct / (1.0 + hbarGamma_phi_meV / Gamma_ref_meV)"
+      }
+    ],
+    "rank_metric": {
+      "primary": "Kendall tau-b between I_phi and each baseline, with ties defined by rank_tie_tolerance",
+      "secondary": "Spearman rho with average ranks for tied values",
+      "exact_rank_identity": "all pairwise order signs match between I_phi and a baseline after applying tie tolerance"
+    },
+    "collapse_threshold": {
+      "hard_collapse": "exact_rank_identity is true for any baseline",
+      "near_collapse": "Kendall tau-b >= 0.95 and Spearman rho >= 0.98 for any baseline",
+      "discordant_pair_rescue": "near_collapse is not fatal only if P0 already names at least two complete sample pairs for which the baseline order and I_phi order are opposite, and the auditor verifies both pairs without output data",
+      "fatal_rule": "hard_collapse is always fatal. near_collapse without discordant_pair_rescue is fatal for S1 nontriviality."
+    },
+    "interpretation": "Noncollapse does not validate I_phi. Collapse kills S1 because the proposed index adds no protocol-level separation beyond a simpler input proxy."
+  },
+  "anti_arbitrariness_sensitivity": {
+    "purpose": "Prevent S1 from surviving only because arbitrary constants were handpicked.",
+    "tested_constants": [
+      "E_z2_ref_meV",
+      "S_dz2_ref",
+      "W_caxis_ref",
+      "Gamma_ref_meV",
+      "sigma_ref",
+      "E_floor_intercept_meV",
+      "E_floor_slope_meV",
+      "T_calc_K"
+    ],
+    "frozen_sensitivity_grid": {
+      "multiplicative_constants": [
+        "0.5x",
+        "0.75x",
+        "1.0x",
+        "1.25x",
+        "2.0x"
+      ],
+      "T_calc_K_values": [
+        "60.0",
+        "80.0",
+        "100.0",
+        "120.0"
+      ],
+      "row_topology_variants": [
+        "direct_rows_only",
+        "direct_plus_nearest_neighbor_links_primary",
+        "direct_plus_all_pair_links"
+      ],
+      "constraint": "All variants are run before output unblinding. No variant may be chosen as primary after seeing outputs."
+    },
+    "stability_metrics": {
+      "rank_stability": "Kendall tau-b between primary I_phi ranks and each sensitivity variant",
+      "decision_stability": "whether each sample remains above or below the sealed I_phi quantile class if classes are later used",
+      "noncollapse_stability": "whether baseline-collapse fatal_rule remains false across at least 80 percent of non-primary variants"
+    },
+    "thresholds": {
+      "fragile_rank_threshold": "median variant Kendall tau-b with primary I_phi < 0.70",
+      "fragile_noncollapse_threshold": "baseline-collapse fatal_rule true in more than 20 percent of variants",
+      "temperature_fragility": "changing only T_calc_K within the grid reverses more than 30 percent of non-tied sample pairs"
+    },
+    "fatal_rule": "If any fragility threshold is crossed before output unblinding, S1 is killed as an arbitrary encoder. The protocol may still archive the failed packet but cannot claim a preregistered nontrivial I_phi."
+  },
+  "adversarial_go_no_go_decision_rule": {
+    "go_conditions_all_required": [
+      "P0, raw inputs, metadata, code, manifest, I_phi labels, and baseline scores are deposited and hashed before forbidden outputs are opened.",
+      "Canonical JSON and CSV profiles are satisfied byte-for-byte.",
+      "Auditor recomputation passes without reading forbidden outputs or current-S1/A paths.",
+      "All complete samples have same-sample input measurements acquired under the sealed normal-state guard.",
+      "No P0 constant, window, inclusion rule, missing-data rule, threshold, or row topology was changed after output unblinding.",
+      "Baseline-collapse fatal_rule is false on the sealed complete sample set.",
+      "Anti-arbitrariness fatal_rule is false on the sealed sensitivity grid.",
+      "Any later comparison to superconducting outputs is performed only after the input-side packet is frozen and cannot alter I_phi."
+    ],
+    "kill_conditions_any_sufficient": [
+      "Any forbidden output is used to define, tune, filter, impute, threshold, or reinterpret I_phi.",
+      "Any required artifact is missing or has a hash mismatch after output unblinding.",
+      "Auditor recomputation fails beyond tolerance or cannot reproduce labels exactly.",
+      "The claimed normal-state input measurement is contaminated by same-sample superconducting output information.",
+      "I_phi hard-collapses or near-collapses to a single-variable baseline under the specified metric.",
+      "Sensitivity tests show the encoder is arbitrary under the specified thresholds.",
+      "C_phi is presented as a validated physical mechanism rather than an audit score.",
+      "The only surviving measurement is output-side superconducting behavior.",
+      "A simpler baseline is substituted for the primary encoder because it performs better against superconducting outputs."
+    ],
+    "verdict_labels": {
+      "GO_PROTOCOL_ONLY": "All go conditions pass. S1 may proceed to blinded output comparison, with claims limited to protocol integrity.",
+      "NO_GO_LEAKAGE": "Any output leakage, post-output tuning, or forbidden dependency is detected.",
+      "NO_GO_RECOMPUTE": "Canonical hashes or auditor recomputation fail.",
+      "NO_GO_BASELINE_COLLAPSE": "I_phi collapses to a simpler input baseline.",
+      "NO_GO_ARBITRARY": "Sensitivity grid shows unstable or arbitrary encoder behavior.",
+      "NO_GO_NOT_INPUT_SIDE": "Required input measurements are missing, contaminated, or not same-sample."
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A zero-leakage I_phi packet is auditable only if canonical byte serialization, hash manifest construction, and decimal emission rules are frozen before output unblinding.",
+      "confidence": 0.8,
+      "new_insight": true,
+      "equations": [
+        "sha256 = SHA-256(canonical_utf8_bytes)",
+        "I_phi = E_z2_meV * C_phi / (kB_meV_per_K * T_calc_K + hbarGamma_phi_meV + E_floor_meV)"
+      ],
+      "assumptions": [
+        "All numeric values in hashed JSON are decimal strings.",
+        "CSV column order and row order are sealed in P0.",
+        "Auditors can access only input-side artifacts."
+      ],
+      "references": []
+    },
+    {
+      "id": "C2",
+      "statement": "Baseline collapse is a fatal protocol-level failure if frozen I_phi ranks are identical or nearly identical to a single-channel input baseline before any output comparison.",
+      "confidence": 0.72,
+      "new_insight": true,
+      "equations": [
+        "hard_collapse = exact_rank_identity(I_phi, baseline)",
+        "near_collapse = Kendall_tau_b >= 0.95 and Spearman_rho >= 0.98"
+      ],
+      "assumptions": [
+        "Complete sample count is at least 6 for a meaningful noncollapse check.",
+        "Ties use absolute tolerance <= 5e-10.",
+        "Noncollapse is not treated as validation."
+      ],
+      "references": []
+    },
+    {
+      "id": "C3",
+      "statement": "S1 must be killed if the encoder's rank structure depends strongly on arbitrary constants across the frozen sensitivity grid.",
+      "confidence": 0.7,
+      "new_insight": true,
+      "equations": [
+        "median_tau_b(primary, variants) >= 0.70 required",
+        "baseline_collapse_variant_fraction <= 0.20 required"
+      ],
+      "assumptions": [
+        "Sensitivity variants are run before output unblinding.",
+        "No variant is selected because it improves superconducting-output agreement."
+      ],
+      "references": []
+    }
+  ],
+  "failed_jumps": [
+    "Treating the SVD row topology as derived nickelate physics was rejected; it remains an audit design.",
+    "Using output performance to choose 80 K versus 120 K was rejected; acquisition temperature is sealed by an input-only normal-state guard, while T_calc_K remains a frozen encoder constant.",
+    "Allowing flexible JSON number formatting was rejected because it permits cross-language hash drift."
+  ],
+  "next_plan": "Submit this Round 3 B protocol to INSPECTOR for dimensional, circularity, canonicalization, recomputation, baseline-collapse, and anti-arbitrariness checks.",
+  "literature_needed": "Only for future P0 calibration: pre-output normal-state c-axis optical spectral weight, dz2-sensitive spectral normalization, same-sample structural bridge metrics, and normal-state dephasing scales in layered nickelates."
+}

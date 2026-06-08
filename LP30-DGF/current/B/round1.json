@@ -1,0 +1,65 @@
+{
+  "project": "LP30-DGF",
+  "round": 1,
+  "agent": "B",
+  "polaris": "DGF-N4: independent q controls m(q) and GUP decoherence fluctuations",
+  "framework": "information geometry: Fisher-Rao / Hellinger angle of binary readout",
+  "findings": "Define q as a normalized Fisher-Rao/Hellinger phase distance rather than a mass label. Let theta=pi*q/2; a binary readout amplitude sin(theta) gives m=m_star*sin(theta), with m_star=2*m_p/pi. This is structurally identical to the DGF-N4 sine map while avoiding the old I=(m/m_p)^2 loop.",
+  "math_object": "Bernoulli statistical manifold Fisher-Rao geodesic; equivalent qubit Fubini-Study angle.",
+  "strangest_prediction": "Microgram-scale center-of-mass interference should show a domain boundary near m_star=13.85 microgram rather than smooth survival to 22 microgram. Candidate system: cryogenic levitated optomechanical silica microspheres with masses 12, 14, 16, 20 microgram; measure background-subtracted fringe visibility.",
+  "a_objection": "If q can only be inferred from mass and has no independent readout or fluctuation, it is only a reparameterization and DGF-N4 fails.",
+  "failed_jumps": [
+    "rate-distortion gave a bounded variable but no natural sine amplitude",
+    "quantum error-correction distance was too discrete",
+    "mutual information tends to recreate the old I=(m/m_p)^2 route"
+  ],
+  "next_plan": "Write q-fluctuation as Fisher-metric random geodesic noise and test whether it can drive a Lindblad kernel independently of mass.",
+  "literature_needed": "Wootters statistical distance; Fisher-Rao metric; Fubini-Study metric; macroscopic matter-wave interferometry; levitated optomechanics",
+  "claims": [
+    {
+      "id": "B-C1",
+      "statement": "The DGF-N4 sine mass map can be interpreted as a Fisher-Rao/Hellinger angle amplitude projection.",
+      "confidence": 0.72,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "B-F1",
+          "expression": "theta - pi*q/2",
+          "variables": {"theta": "statistical_angle", "q": "interference_coordinate"},
+          "units": "dimensionless"
+        },
+        {
+          "label": "B-F2",
+          "expression": "m_star*sin(pi*q/2)",
+          "variables": {"m_star": "2*m_p/pi", "q": "interference_coordinate"},
+          "units": "kg"
+        }
+      ],
+      "references": [],
+      "assumptions": ["binary phase readout is physically meaningful", "mass is a projection of q rather than q's definition"]
+    },
+    {
+      "id": "B-C2",
+      "statement": "The 14 vs 22 microgram distinction can be phrased as whether q_inv remains real for masses between 13.85 and 21.76 microgram.",
+      "confidence": 0.68,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "B-F3",
+          "expression": "2*m_p_ug/pi",
+          "variables": {"m_p_ug": "Planck_mass_in_microgram"},
+          "units": "microgram",
+          "numerical_test": {"substitutions": {"m_p_ug": 21.76}, "expected_range": [13.8, 13.9]}
+        },
+        {
+          "label": "B-F4",
+          "expression": "2*asin(pi*m_ug/(2*m_p_ug))/pi",
+          "variables": {"m_ug": "test_mass_microgram", "m_p_ug": "Planck_mass_microgram"},
+          "units": "dimensionless"
+        }
+      ],
+      "references": [],
+      "assumptions": ["environmental decoherence can be independently calibrated", "real q-domain failure has an observable signature"]
+    }
+  ]
+}

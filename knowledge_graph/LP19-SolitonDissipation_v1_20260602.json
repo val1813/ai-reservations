@@ -1,0 +1,21 @@
+{
+  "课题": "LP19-SolitonDissipation",
+  "版本": "v1",
+  "日期": "2026-06-02",
+  "结论类型": "有边界",
+  "节点": [
+    {"id": "K_S2_A1", "label": "定理A: 阻尼FP算符最慢模=Maxwell→半圆非稳态", "type": "theorem", "math_object": "FP spectral decomposition", "strength": 5},
+    {"id": "K_S2_A2", "label": "定理B: 淬火判据Da≈2.5>1", "type": "theorem", "math_object": "quench criterion Da number", "strength": 4},
+    {"id": "K_S2_A3", "label": "否定性: 反对称散射核→Turing不成立", "type": "negation", "math_object": "anti-symmetric kernel", "strength": 5},
+    {"id": "K_S2_B1", "label": "否定性: NDR有效核1/r²→不产生Wigner半圆", "type": "negation", "math_object": "NDR thin-layer effective kernel", "strength": 5},
+    {"id": "K_S2_B2", "label": "投影双峰: ξ依赖增益→η投影多峰", "type": "mechanism", "math_object": "geometric projection", "strength": 5},
+    {"id": "K_S2_B3", "label": "增益/阻尼边界不对称→定向谱流", "type": "constraint", "math_object": "boundary asymmetry → spectral flow", "strength": 4},
+    {"id": "K1.8", "label": "DOS拓扑三重不变量分类", "type": "classification", "math_object": "T={c, dim_H, ∂-regularity}", "strength": 4},
+    {"id": "AHA1", "label": "增益多峰=投影几何→不需非线性分岔", "type": "cross_domain", "math_object": "projection vs bifurcation", "strength": 6},
+    {"id": "AHA2", "label": "边界不对称=热力学第二定律谱版本", "type": "cross_domain", "math_object": "spectral second law", "strength": 6},
+    {"id": "AHA3", "label": "反对称核→行波→对称性决定动力学类型", "type": "cross_domain", "math_object": "symmetry→dynamics", "strength": 6}
+  ],
+  "汇合": "双路径L2独立收敛: A(FNST) vs B(NDR微扰) → 半圆=淬火瞬态",
+  "orphan_nodes": ["投影双峰机制→可独立发展为实验检验课题", "非正态瞬态放大→跨领域推广到所有弱耗散可积系统"],
+  "跨LP连接": ["非厄米趋肤效应→LP-4(NHSE)共享非幺正拓扑主题", "有限N持续同调→LP-12(量子疤痕)共享TDA方法论"]
+}

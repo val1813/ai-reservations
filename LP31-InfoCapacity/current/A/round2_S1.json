@@ -1,0 +1,193 @@
+{
+  "project": "LP31-InfoCapacity",
+  "phase": "A",
+  "round": 2,
+  "subproject": "S1",
+  "title": "信息回流上限定理 — 完整证明 (Information Reflux Upper Bound Theorem)",
+  "date": "2026-06-06",
+  "status": "complete",
+  "author": "Dr. A (学院派, 数学物理)",
+  "dependency": "Round 1 定理 1-3 (T1: 双射性, T1e: Σs_i 不守恒反例, T3a: Kac 回复时间, T3b: 宏观偏倚)",
+  "summary": "从A1+A2出发, 严格证明了信息从系统流向环境后回流的概率/幅度上限。区分守恒(K conserved)和非守恒(no A3)两种情形, 给出回流概率的闭合界, 对接电路QED实验, 标注6个诚实gap。",
+
+  "axioms_used": {
+    "A1": "可区分性 → f是单射",
+    "A2": "容量有界 → |X| = 2^N < ∞",
+    "A3_optional": "占用数守恒 (仅在情形A使用, 非普遍公理)"
+  },
+
+  "definitions": {
+    "system_occupation": "k(t) = Σ_{i∈S} s_i(t) ∈ {0, ..., N_S}",
+    "environment_occupation": "m(t) = Σ_{i∈E} s_i(t) ∈ {0, ..., N_E}",
+    "system_empty_fraction": "q_S(t) = (N_S − k(t))/N_S ∈ [0, 1]",
+    "environment_empty_fraction": "q_E(t) = (N_E − m(t))/N_E ∈ [0, 1]",
+    "reflux_event": "有序对(t_1, t_2)满足: k(t_1)是局部极小值, k(t_2)−k(t_1)≥δ, 且无跌穿",
+    "reflux_probability": "P_reflux(δ, T) = 轨迹在T内包含至少一个振幅≥δ的回流事件的概率",
+    "ump": "均匀混合性质 (Uniform Mixing Property): f将任意子集近似均匀散布到全空间"
+  },
+
+  "lemmas": [
+    {
+      "id": "Lemma1.1",
+      "name": "宏态大小",
+      "statement": "|M_k| = C(N_S, k)·2^{N_E} (情形B); |M_k^{(K)}| = C(N_S, k)·C(N_E, K−k) (情形A)",
+      "proof": "组合计数 — 选k个系统细胞为占用(C(N_S,k)), 环境细胞任意(2^{N_E})或精确K−k个占用(C(N_E,K−k))"
+    },
+    {
+      "id": "Lemma2.1",
+      "name": "期望宏态转移矩阵",
+      "statement": "在随机双射系综下, W̄(k'|k) = E_f[W_f(k'|k)] = |M_{k'}|/|X| = C(N_S,k')/2^{N_S} (情形B) 或 C(N_S,k')·C(N_E,K−k')/C(N,K) (情形A)",
+      "proof": "随机置换下f(x)均匀分布于X, 因此P(f(x)∈M_{k'})=|M_{k'}|/|X|. 所有x∈M_k均匀, 期望即|M_{k'}|/|X|.",
+      "key_insight": "W̄(k'|k) 独立于出发宏态k — 期望转移矩阵是秩1矩阵, 每行相同. 这意味着在期望下, 宏态动力学无记忆."
+    },
+    {
+      "id": "Lemma2.3",
+      "name": "平稳分布 (情形B)",
+      "statement": "π_B(k) = C(N_S, k)/2^{N_S} — 二项分布Bin(N_S, 1/2)",
+      "proof": "W̄的所有行等于π_B, 故π_B是平稳分布且W̄^n=W̄(∀n≥1)"
+    },
+    {
+      "id": "Lemma2.4",
+      "name": "平稳分布 (情形A)",
+      "statement": "π_A(k) = C(N_S, k)·C(N_E, K−k)/C(N, K) — 超几何分布",
+      "proof": "同理, W̄^{(K)}的所有行等于π_A"
+    }
+  ],
+
+  "theorems": {
+    "S1A": {
+      "name": "信息回流上限 — 守恒情形 (K conserved, A3 holds)",
+      "statement": "设f满足A1+A2+A3和UMP. 则在任意时间T内, 振幅≥δ的回流概率满足: P_reflux(δ,T) ≤ T · (q_S/(1−q_S))^δ · ((1−q_E)/q_E)^δ · Poly(N_S,N_E,δ).",
+      "proof_outline": [
+        "步骤1: 由UMP, 单步转移概率W_f(k'|k) ≈ |M_{k'}^{(K)}|/|X_K| = C(N_S,k')·C(N_E,K−k')/C(N,K)",
+        "步骤2: 组合硬上界(无需UMP): W_f(k'|k) ≤ |M_{k'}^{(K)}|/|M_k^{(K)}| = [C(N_S,k')·C(N_E,K−k')]/[C(N_S,k)·C(N_E,K−k)]",
+        "步骤3: 展开比值: C(N_S,k+Δ)/C(N_S,k) = Π_{i=0}^{Δ−1}(N_S−k−i)/(k+i+1) ≤ (q_S/(1−q_S))^Δ",
+        "步骤4: 环境比值: C(N_E,K−k−Δ)/C(N_E,K−k) = Π_{i=0}^{Δ−1}(m−i)/(N_E−m+i+1) ≤ ((1−q_E)/q_E)^Δ",
+        "步骤5: 联合: P(Δk≥δ|k) ≤ Σ_{j=k+δ} [q_S/(1−q_S)]^{j−k}·[(1−q_E)/q_E]^{j−k}",
+        "步骤6: 有限时间联合界: P_reflux(δ,T) ≤ T·max_k P(Δk≥δ|k)",
+        "步骤7: 极限: q_S→0 ⇒ 因子→0 (系统无接收容量); q_E→1 ⇒ 因子→0 (环境无信息可回流)"
+      ],
+      "key_inequality": "P_reflux ≤ T · exp(−δ · |ln(q_S/(1−q_S))| − δ · |ln((1−q_E)/q_E)|)",
+      "reflux_condition": "回流被组合抑制当 q_S < q_E (系统比环境更满 → 信息倾向流出而非流入)",
+      "rigor": "★★★★☆ (组合上界严格; UMP依赖对典型f, 非普适; 联合界在T大时松)",
+      "citations": ["Levin, Peres & Wilmer (2009) §7, §12 (reversible Markov chains, hitting probabilities)", "Feller (1968) Vol.1 Ch.2 (hypergeometric distribution)"]
+    },
+    "S1B": {
+      "name": "信息回流上限 — 非守恒情形 (no A3, K not conserved)",
+      "statement": "设f满足A1+A2 (双射, 不要求A3) 和UMP. 则在随机双射系综下: P̄_reflux(δ,T) ≤ T · Σ_{j=k_min+δ}^{N_S} C(N_S, j)/2^{N_S}. 此界独立于q_E和N_E.",
+      "proof_outline": [
+        "步骤1: 由Lemma 2.1, W̄(k'|k) = C(N_S,k')/2^{N_S}, 独立于k. 期望动力学一步到稳态.",
+        "步骤2: 对典型f (满足UMP), {k(t)}近似独立同分布, 每步边际分布为π_B.",
+        "步骤3: P̄_reflux(δ,T) = P(∃t≤T: k(t)≥k_min+δ) ≤ 1−(1−π_B(k_min+δ))^T ≤ T·π_B(k_min+δ)",
+        "步骤4: π_B(k_hi) = Σ_{j=k_hi}^{N_S} C(N_S,j)/2^{N_S} — 二项尾分布",
+        "步骤5: 对δ=N_S (完全回流): π_B(N_S)=1/2^{N_S} — 回复T3a的Kac回复时间.",
+        "步骤6: q_E不进入: 总占用数可变 → 环境可以在不减少m的情况下让k增加 → q_E不约束回流."
+      ],
+      "key_insight": "在纯A1+A2下, '信息'不作为守恒物质流动 — 它作为模式(pattern)流动. 系统可以增加占用数而不要求环境减少占用数. 因此环境容量q_E与回流概率无关. 此结果令人惊讶但与T1e(T1e: Σs_i不必然守恒)一致.",
+      "reflux_condition_with_locality": "若引入局域性约束(每步最多L个细胞翻转): P_reflux ≤ T·(q_S)^δ·Poly(N_S,δ) (对q_S≪1). q_S重新进入抑制因子, 但q_E仍不进入.",
+      "rigor": "★★★★☆ (期望动力学严格; 典型f近似依赖于UMP; 独立同分布近似在混合时间之后准确)",
+      "citations": ["Cover & Thomas (2006) §2.1 (binary entropy, binomial tail bounds)", "Hoeffding (1963) (concentration for hypergeometric)"]
+    },
+    "S1_main": {
+      "name": "统一回流上限定理 (Unified Reflux Upper Bound Theorem)",
+      "statement": "对所有满足A1+A2的双射f: (I) 若K守恒, P_reflux ≤ T·f_A(q_S,q_E,δ); (II) 若K不守恒, P_reflux ≤ T·f_B(q_S,δ); (III) 大N渐近下, 大振幅(δ=O(N_S))回流被指数压制: P_reflux ≤ T·exp(−c·N_S) 对所有情形.",
+      "reflux_phase_diagram": {
+        "I_strong_reflux": {"condition": "q_S ≫ q_E", "behavior": "k倾向于增加 (系统接收信息)"},
+        "II_strong_outflow": {"condition": "q_S ≪ q_E", "behavior": "k倾向于减少 (系统输出信息) — 回流被抑制"},
+        "III_balance": {"condition": "q_S ≈ q_E", "behavior": "回流和流出动态平衡"},
+        "IV_frozen": {"condition": "q_S≈0, q_E≈1", "behavior": "双饱和 — 回流和流出皆不可能"},
+        "V_empty": {"condition": "q_S≈1, q_E≈1", "behavior": "无偏好 — k可任意变化"}
+      },
+      "numerical_examples": {
+        "N_S=100_complete_reflux": "P_reflux(δ=100, T=10^9) ≤ 10^9/2^100 ≈ 7.9×10^−22 (情形B)",
+        "N_S=100_partial_75pct": "P_reflux(δ=75, T=10^9) ≈ 2.3×10^−6 × 10^9 ≈ 2.3×10^3 → 超过1 = 平凡界 (75%振幅回流在10^9步内几乎是必然的)",
+        "N_S=100_K_conserved_qE=0.9": "P_reflux(δ=50) ≈ T · [(1−0.9)/0.9]^50 ≈ T · (1/9)^50 ≈ T · 10^−48 — 指数地不可观测",
+        "N_S=1_K_conserved_NE=100": "P_reflux(δ=1) ≈ 1/NE = 0.01 (单qubit, 100个环境模式)"
+      }
+    }
+  },
+
+  "physical_predictions": {
+    "circuit_QED_protocol": {
+      "system": "1 transmon qubit (N_S=1) + 传输线谐振腔 (N_E可控, 10^2−10^5)",
+      "key_measurement": "P_reflux = 腔真空下qubit自发从|g⟩回到|e⟩的概率",
+      "DGF_prediction": "P_reflux ∝ 1/N_E (在总激发数近似守恒下). N_E增大 → P_reflux减小.",
+      "Lindblad_prediction": "P_reflux = 0 at T=0 (自发激发forbidden). P_reflux ∝ exp(−ħω/k_BT) at T>0, independent of N_E aside from J(ω) fine structure.",
+      "discrimination": "改变腔长L (改变N_E), 测量P_reflux的定标. DGF: ∝ 1/N_E; 标准: 对N_E不敏感 (除谱密度细结构). 这是零参数差异.",
+      "feasibility": "N_E~10^3 → P_reflux~10^−3 → 需~10^6重复实验 → 电路QED单发读出保真度>99.9%, 可行."
+    }
+  },
+
+  "honest_gaps": [
+    {
+      "id": "GAP-S1-1",
+      "severity": "SEVERE",
+      "name": "细胞基优先问题 (Cell Basis Privilege)",
+      "description": "所有推导依赖于'占用/未占用'细胞基的优先性. 在标准QM中, 基的选择由观测/相互作用决定, 非内禀. 与B博士的GAP-4.1完全一致. 缓解: 对电路QED, 计算基被dispersive读取方案操作性地选择 — 定理可用于此操作场景, 但不具基独立的物理意义.",
+      "impact": "整个'k(t)'和'回流'概念的有效性依赖于此gap的解决"
+    },
+    {
+      "id": "GAP-S1-2",
+      "severity": "SEVERE",
+      "name": "有效细胞数 N_S, N_E 的估计",
+      "description": "从连续量子系统到离散细胞模型的映射是启发式的. 腔模式的Fock态截断, 连续谱的带宽选择, 热光子的处理 — 皆无第一性原理推导. 第6.1节的估计仅用于量级估算.",
+      "impact": "定量预言需要此gap的解决; 但定标关系(∝1/N_E)可能鲁棒, 不依赖于精确的N_E值"
+    },
+    {
+      "id": "GAP-S1-3",
+      "severity": "MODERATE",
+      "name": "UMP (均匀混合性质) 的物理合理性",
+      "description": "定理的许多界依赖于f将宏态均匀散布. 物理f通常受限于能量面附近的薄层 + 局域相互作用. 组合硬上界(不依赖UMP)给出了普适但较松的界. UMP下的'典型界'更紧但对物理f可能不适用.",
+      "impact": "典型界可能明显低估物理系统中的实际回流概率"
+    },
+    {
+      "id": "GAP-S1-4",
+      "severity": "MODERATE",
+      "name": "K守恒 vs 不守恒的二元对立过于简化",
+      "description": "物理系统中K近似守恒(短时间)但长时间可变. 需要引入守恒的'软度'参数ε_K, 描述ΔK的特征幅度, 实现两种情形的连续插值.",
+      "impact": "定量预言需要指明时间尺度并确定适用的情形"
+    },
+    {
+      "id": "GAP-S1-5",
+      "severity": "MINOR",
+      "name": "回流定义中的窗口参数",
+      "description": "局部窗口τ_local的选择影响噪声vs信号区分. 本文避开了此问题(假设轨迹分段单调), 但对实验噪声数据的分析需要更稳健的定义.",
+      "impact": "仅影响实验数据分析方法, 不改变定理的数学结构"
+    },
+    {
+      "id": "GAP-S1-6",
+      "severity": "MINOR",
+      "name": "实验中 N_E 的独立控制",
+      "description": "改变腔长L同时改变了模式间距和耦合强度g. 需要保持g和κ不变的'纯N_E变化'方案 — 技术上困难但可能通过tunable coupler实现.",
+      "impact": "影响实验方案的可执行性, 不改变理论预言"
+    }
+  ],
+
+  "integration_with_round1": {
+    "T3a_recovery": "S1B中δ=N_S的特例: π_B(N_S)=1/2^{N_S}, 期望回复时间=2^{N_S} — 精确恢复T3a的Kac回复时间.",
+    "T3b_recovery": "S1B的宏态转移比[W̄(k→k')]/[W̄(k'→k)]=C(N_S,k')/C(N_S,k) — 精确恢复T3b的熵偏倚, 独立于N_E.",
+    "T1e_consistency": "S1B的核心发现(情形B下q_E不约束回流)是T1e(Σs_i不必然守恒)的直接推论 — 若总占用数可变, '信息归还'不需要环境牺牲占用数.",
+    "new_contribution": "T3没有回答的问题—宏态回流的概率上界, q_S/q_E的连续调控作用, 实验可检验预言—由S1填补."
+  },
+
+  "self_attack": {
+    "strongest_objection": "如果A3不成立(总占用数不守恒), q_E完全不出现在回流界中. 这意味着'环境容量大→回流不可能'的直觉是错误的 — 在纯A1+A2下, 信息的流向完全由系统自身的组合结构决定, 环境只提供'空间'而不提供'阻力'. 这削弱了DGF关于'容量比'的核心叙事.",
+    "response": "这是T1e的自然推论 — Σs_i不守恒→'信息'不作为守恒量流动. DGF需要A3(或某种准守恒律)来恢复'环境容量约束回流'的物理图像. 这在物理上是合理的(总激发数在短时间近似守恒), 但在公理层面是个额外假设. 诚实地承认这一点.",
+    "methodological_self_critique": "证明的大部分推导是在随机双射系综下进行的(期望值). 对单个确定的f, 界可能显著偏离. 论文若声称'DGF预言了回流上限', 必须标注这是'在典型f假设下'的预言, 而非对所有双射f普适成立. 然而, 组合硬上界(步骤2)对所有f成立, 虽然较松."
+  },
+
+  "next_directions": [
+    "S1-扩展: 引入'守恒软度'参数ε_K, 实现情形A和B的连续插值",
+    "S1-数值: Monte Carlo模拟随机双射系综下的k(t)轨迹, 验证渐近界的紧度",
+    "S2: 隔离自发经典化的最小模型 (PI综合指出的第二个真预测)",
+    "实验合作: 与电路QED实验组讨论N_E可控方案的可行性"
+  ],
+
+  "cross_references": {
+    "round1_theorems": "round1_theorems.md",
+    "round1_json": "round1.json",
+    "B_holographic": "../B/round1_holographic.md",
+    "PI_synthesis": "../../synthesis/PI_synthesis_round1.md",
+    "priority_queue": "../../project/北极星队列.md"
+  }
+}

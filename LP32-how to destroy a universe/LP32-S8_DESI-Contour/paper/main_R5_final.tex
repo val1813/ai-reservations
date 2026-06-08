@@ -1,0 +1,120 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,graphicx,booktabs,hyperref,natbib}
+\usepackage[margin=2.5cm]{geometry}
+
+\begin{document}
+
+\title{\bf A dark energy prediction from cosmic structure formation\\
+and its test against DESI DR2}
+
+\author{Anonymous}
+\date{June 2026}
+
+\maketitle
+
+\begin{abstract}
+If cosmic structure formation occupies a finite reservoir of vacuum quantum modes, the dark energy equation of state $w(z)$ is determined by the star formation history. We solve the resulting model self-consistently---iterating the coupled Friedmann and mode-occupation equations---and compare the converged prediction to DESI DR2 baryon acoustic oscillation distances. The model predicts $w(z)$ with a mild peak: $w_0=-0.80$ at $z=0$, rising to $w\approx-0.31$ at $z\approx1.5$, then returning toward $-1$ at higher redshift. With the sound horizon $r_d$ treated as a free parameter, the model yields $\chi^2=19.1$ for 12 DESI distance ratios, compared to $\chi^2=15.0$ for $\Lambda$CDM ($\Delta\chi^2=+4.1$, $\Delta{\rm AIC}=+8.1$). The model is not excluded by current data but is not statistically preferred over the cosmological constant. Its distinguishing feature---a non-monotonic $w(z)$ that the CPL parameterization cannot produce---is testable by DESI DR3 and Euclid.
+\end{abstract}
+
+\section*{Introduction}
+
+The physical nature of dark energy is unknown~\cite{riess1998,spergel2003}. The DESI collaboration finds a $2.8$--$4.2\sigma$ preference for dynamical dark energy over a cosmological constant~\cite{desi2025}, with CPL best-fit $(w_0,w_a)=(-0.785\pm0.047,-0.43\pm0.10)$~\cite{li2026}. Existing dynamical models---quintessence~\cite{tsujikawa2013}, emergent dark energy~\cite{li2024}---choose $w(z)$ by hand. No model derives $w(z)$ from independently measured astrophysical quantities.
+
+This paper tests a hypothesis with that structure. Suppose the universe's information capacity is finite---an idea with deep roots~\cite{thooft1993,susskind1995,verlinde2011,jacobson1995}. Suppose further that cosmic structure formation occupies some of this capacity: each star and galaxy, by establishing definite causal relations, consumes part of a finite budget of quantum distinguishability. The dark energy density is then the energy of the remaining, unoccupied modes: $\rho_{\rm DE}(t)=\rho_\Lambda q(t)$, where $q(t)\in[0,1]$ is the free fraction. The equation of state $w(z)$ is determined by the star formation history, an independently measured quantity.
+
+This is a phenomenological model. The coupling between star formation and mode occupation is calibrated from $w_0$, not computed from first principles. The information-theoretic underpinning motivates the equation structure but does not enter the calculations quantitatively. What the model provides is a specific, falsifiable shape for $w(z)$.
+
+\section*{Model and self-consistent solution}
+
+The free fraction $q$ obeys a nonlinear telegraph equation. On homogeneous cosmological scales, in the slow-roll regime, and with damping generalized to index $n$:
+
+\begin{equation}\label{eq:ode}
+\gamma_0\Delta^n\frac{d\Delta}{dt} + \kappa\int_0^t\Delta\,dt' = \eta\,\dot{\rho}_*(t),
+\end{equation}
+
+where $\Delta\equiv1-q$, $\dot{\rho}_*(t)={\rm SFR}(t)$, and $\eta$ is a coupling with dimensions $[M]^{-1}[L]^{3}$. The dark energy density is $\rho_{\rm DE}=\rho_\Lambda(1-\Delta)$. In the driving-dominated regime ($z\gtrsim0.5$, memory subdominant), equation (\ref{eq:ode}) yields $\Delta^{n+1}\propto\rho_*(t)$, where $\rho_*$ is the cumulative stellar mass density. From energy conservation:
+
+\begin{equation}\label{eq:shape}
+w(z)+1 = C\cdot\frac{{\rm SFR}(z)}{H(z)\,\rho_*(z)^{\,n/(n+1)}}\cdot\frac{1}{1-\Delta(z)},
+\end{equation}
+
+with $C\propto\sqrt{\eta/\gamma_0}$ calibrated from $w_0$. The natural value $n=1$ (damping proportional to deficit) is used throughout; a scan over $n\in[0.3,3.0]$ finds $\chi^2$ varying by $<1$ unit (Supplementary Information), indicating the prediction is robust to this choice.
+
+Equation (\ref{eq:shape}) contains $H(z)$ on both sides because $\rho_*(z)=\int_z^\infty{\rm SFR}(z')[(1+z')H(z')]^{-1}dz'$. We solve by Picard iteration: starting from $\Lambda$CDM $H(z)$, compute $\rho_*$, $w$, and $\Delta$; update $H(z)$ via $H^2=H_0^2[\Omega_m(1+z)^3+\Omega_\Lambda(1-\Delta(z))/(1-\Delta_0)]$; recompute $\rho_*$ with the new $H(z)$; repeat. The iteration converges in $<15$ steps with $\max|\delta H/H|<10^{-5}$, driven by negative feedback: larger $H$ reduces $|dt/dz|$, reducing $\rho_*$, bringing $H$ back toward $\Lambda$CDM.
+
+We use the Madau \& Dickinson (2014) SFR fit~\cite{madau2014} and Planck 2018 cosmology~\cite{planck2018} (except $r_d$, which we fit). The SFR fit was calibrated assuming $\Lambda$CDM luminosity distances; our self-consistent iteration accounts for the $H(z)$-dependence of $|dt/dz|$, but a fully self-consistent recomputation of SFR from raw photometry under DGF cosmology is left to future work. This is the principal systematic uncertainty.
+
+\section*{Comparison with DESI DR2}
+
+We compare the converged DGF prediction to DESI DR2 BAO distances~\cite{desi2025} at six effective redshifts (12 data points: $D_M/r_d$ and $D_H/r_d$ at each). The sound horizon $r_d$ is a free parameter for both models. The $D_M$ and $D_H$ measurements are anti-correlated ($\rho\approx-0.5$); we include this in the joint $\chi^2$.
+
+\begin{table}[htbp]
+\centering
+\caption{Model comparison against DESI DR2 BAO distances ($r_d$ free).}
+\label{tab:models}
+\begin{tabular}{lccccc}
+\toprule
+Model & Dark energy params & $r_d$ (Mpc) & $\chi^2$ & AIC & $\Delta$AIC \\
+\midrule
+$\Lambda$CDM     & 0 ($w\equiv-1$)   & 148.6 & 15.0 & 17.0 & 0 \\
+{\bf DGF} $n=1$ & {\bf 2} ($C$, $n$) & {\bf 146.0} & {\bf 19.1} & {\bf 27.1} & {\bf +10.1} \\
+DGF $n=3$       & 2                  & 147.2 & 18.0 & 26.0 & +9.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:models} reports the results. With $r_d$ free, $\Lambda$CDM achieves $\chi^2=15.0$ for 12 data points, with best-fit $r_d=148.6$~Mpc (consistent with Planck's $147.09\pm0.26$~Mpc at $\sim$2$\sigma$). The self-consistent DGF model with $n=1$ yields $\chi^2=19.1$ and $r_d=146.0$~Mpc. The AIC difference of $+10.1$ favors $\Lambda$CDM.
+
+This is the honest outcome: DGF is not excluded---its $\chi^2$ of 19.1 for 12 data points is acceptable---but it is not preferred over the simpler cosmological constant when both models are given the freedom to fit the sound horizon. The DGF best-fit $r_d=146.0$~Mpc is closer to the Planck value than $\Lambda$CDM's $r_d=148.6$~Mpc, indicating that the model's $\sim$2\% modification to $H(z)$ partially absorbs the mild tension between DESI BAO distances and the Planck-calibrated sound horizon. This is a parameter effect, not a detection.
+
+Figure~\ref{fig:wz} shows the converged $w(z)$. The peak is mild---$w$ never crosses zero---and the predicted $H(z)$ deviates from $\Lambda$CDM by $\sim$2\% across all DESI redshifts.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{../figures/fig2_wz_shape.png}
+\caption{Self-consistently converged $w(z)$. The peak is mild ($w_{\rm min}\approx-0.31$) due to negative feedback in the self-consistent iteration. The band shows $\pm27\%$ SFR normalization uncertainty.}
+\label{fig:wz}
+\end{figure}
+
+\section*{Discussion}
+
+The model makes a specific, falsifiable prediction---$w(z)$ has a peak---and survives its first direct test against DESI DR2, though it is not statistically preferred over $\Lambda$CDM. Three points merit emphasis.
+
+First, the non-monotonic $w(z)$ is the model's distinguishing feature. The CPL parameterization $w(a)=w_0+w_a(1-a)$ is linear in $(1-a)$ and cannot produce a peak for any choice of parameters. Quintessence with simple potentials is also monotonic~\cite{tsujikawa2013}. DESI DR3 and Euclid will provide binned $w(z)$ measurements capable of testing this prediction directly.
+
+Second, the negative feedback that stabilizes the self-consistent solution has a clear physical interpretation: structure formation affects expansion, which affects structure formation. This coupling is absent when $w(z)$ is treated as an external function. Its consequence---that the model predicts only mild ($\sim$2\%) deviations from $\Lambda$CDM in $H(z)$---is a falsifiable statement, not a parameter choice.
+
+Third, the model's current limitations are significant. The SFR input assumes $\Lambda$CDM luminosity distances; a fully self-consistent recomputation from raw photometry is needed. The memory term in equation (\ref{eq:ode}) is set to zero; including it adds a parameter that could improve the fit. The damping index $n$ is poorly constrained by current data. The coupling $\eta$ is calibrated from $w_0$, not derived. These limitations mean the model is not yet a complete theory---it is a phenomenological framework with a specific, testable prediction.
+
+The prediction is on the table. The data will decide.
+
+\section*{Methods}
+
+\subsection*{Self-consistent solver}
+Picard iteration with damped updates on a 2000-point redshift grid. Convergence criterion: $\max|\delta H/H|<10^{-5}$. The coupling $C$ is recalibrated to $w_0=-0.80$ at each step. Madau \& Dickinson (2014) SFR fit~\cite{madau2014}; Planck 2018 cosmology~\cite{planck2018} (except $r_d$, a free parameter).
+
+\subsection*{DESI DR2 comparison}
+12 distance ratios ($D_M/r_d$, $D_H/r_d$ at six effective redshifts), joint $\chi^2$ with $\rho=-0.5$ correlation. $r_d$ fit by grid search over $[140,160]$~Mpc. AIC computed as $\chi^2+2k$ with $k$ counting free parameters ($\Lambda$CDM: $k=1$ for $r_d$; DGF: $k=3$ for $r_d$, $C$, $n$).
+
+\subsection*{Code availability}
+All code and data at the project repository (Python~3.12, NumPy, SciPy).
+
+\begin{thebibliography}{99}
+\bibitem{riess1998} Riess, A.G.\ et al.\ {\it Astron.\ J.} {\bf 116}, 1009 (1998).
+\bibitem{spergel2003} Spergel, D.N.\ et al.\ {\it Astrophys.\ J.\ Suppl.} {\bf 148}, 175 (2003).
+\bibitem{desi2025} DESI Collaboration.\ {\it Phys.\ Rev.\ D} {\bf 112}, 083515 (2025).
+\bibitem{chevallier2001} Chevallier, M.\ \& Polarski, D.\ {\it Int.\ J.\ Mod.\ Phys.\ D} {\bf 10}, 213 (2001).
+\bibitem{li2026} Li, T.-N.\ et al.\ {\it Phys.\ Dark Universe} (2026); arXiv:2511.22512.
+\bibitem{tsujikawa2013} Tsujikawa, S.\ {\it Class.\ Quant.\ Grav.} {\bf 30}, 214003 (2013).
+\bibitem{li2024} Li, X.\ et al.\ {\it Phys.\ Rev.\ D} {\bf 109}, 043510 (2024).
+\bibitem{thooft1993} 't Hooft, G.\ arXiv:gr-qc/9310026 (1993).
+\bibitem{susskind1995} Susskind, L.\ {\it J.\ Math.\ Phys.} {\bf 36}, 6377 (1995).
+\bibitem{verlinde2011} Verlinde, E.\ {\it J.\ High Energy Phys.} {\bf 2011}, 29 (2011).
+\bibitem{jacobson1995} Jacobson, T.\ {\it Phys.\ Rev.\ Lett.} {\bf 75}, 1260 (1995).
+\bibitem{madau2014} Madau, P.\ \& Dickinson, M.\ {\it Annu.\ Rev.\ Astron.\ Astrophys.} {\bf 52}, 415 (2014).
+\bibitem{planck2018} Planck Collaboration.\ {\it Astron.\ Astrophys.} {\bf 641}, A6 (2020).
+\end{thebibliography}
+
+\end{document}

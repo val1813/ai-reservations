@@ -1,0 +1,201 @@
+{
+  "framework": {
+    "project": "LP28-NickelateLayerDecoupling",
+    "packet": "LP28-CphiPacket",
+    "round": "Forced Salvage Round 1",
+    "agent": "A",
+    "objective": "Rescue the reviewer REJECT only by specifying one minimal audited pilot-row route, not by expanding the protocol.",
+    "claim_boundary": "This file claims only that a concrete pilot-row route can be attempted and audited. It does not claim that R_oe exists, that C_phi is independent, or that any current public literature already contains a passing row.",
+    "canonical_P_oe": "P_oe = (chi_odd - chi_even) / (chi_odd + chi_even), with denominator-floor censoring only."
+  },
+  "pilot_row_route": {
+    "row_id_template": "LP28-CphiPacket-PILOT-001",
+    "row_type": "formally_sistered_row_with_same-sample_core",
+    "material_and_specimen": "La3Ni2O7 bilayer nickelate crystals or lamellae cut from one documented boule/growth lot, with adjacent pieces assigned before output labels are visible.",
+    "same_sample_piece": {
+      "piece_id": "PILOT-001-A",
+      "role": "primary row carrier",
+      "measurements": [
+        "orientation and phase check by laboratory XRD or synchrotron micro-XRD before pressure loading",
+        "Raman or equivalent low-damage structural/quality check before and after high-dose spectroscopy",
+        "normal-state pressure-path ledger in one pressure cell: pressure medium, marker series, load branch, dwell, thermal-cycle count, gradient estimate, gasket/culet/cell identity",
+        "odd/even contrast-sensitive normal-state spectroscopy for chi_odd and chi_even on the frozen q, omega, qz, polarization, temperature, and pressure grid",
+        "non-superconducting output-free normal-state transport or optical c-axis proxy only if acquired before superconducting label reveal"
+      ],
+      "P_oe_source": "P_oe is extracted only from the frozen odd/even susceptibility spectra and their calibration files for PILOT-001-A.",
+      "B_min_same_sample_fields": [
+        "phase/orientation",
+        "pressure path",
+        "beam-damage flag",
+        "ordinary structural quality",
+        "normal-state c-axis proxy if independently acquired outside the P_oe fitting state"
+      ]
+    },
+    "sibling_pieces": [
+      {
+        "piece_id": "PILOT-001-B",
+        "relationship": "nearest-neighbor cut from same boule and same anneal/storage history as PILOT-001-A",
+        "measurements": [
+          "oxygen stoichiometry or oxygen-vacancy/layer-asymmetry proxy by EELS, STEM-EELS, XAS, SIMS, TGA/coulometry, or an equivalent calibrated route",
+          "Ni valence, ligand-hole, or orbital proxy by XAS/XES/EELS or equivalent"
+        ],
+        "why_sibling": "These probes may be destructive or dose-heavy, so they are sistered rather than forced onto the P_oe carrier.",
+        "pre_output_tolerance": "Green only if oxygen/layer-asymmetry and phase class remain within frozen repeatability/mismatch limits before any superconducting output reveal."
+      },
+      {
+        "piece_id": "PILOT-001-C",
+        "relationship": "optional second adjacent sibling from the same cut sequence",
+        "measurements": [
+          "normal-state optical/transport/structural anisotropy used as ordinary c-axis baseline if PILOT-001-A cannot provide a clean independent c-axis proxy"
+        ],
+        "why_sibling": "Used only to keep B_min independent from the qz/matrix-element nuisance state used in P_oe extraction.",
+        "pre_output_tolerance": "Green only if c-axis proxy, phase, and quality remain within frozen sibling tolerances; otherwise the row is yellow or red."
+      }
+    ],
+    "facility_probe_route": {
+      "P_oe_probe": "A synchrotron RIXS or equivalent odd/even bilayer susceptibility probe capable of preserving raw detector frames/spectra, standards, geometry, polarization/qz metadata, and refittable calibration code.",
+      "B_min_probe_set": "Independent structural, oxygen/valence/orbital, disorder, normal-state c-axis, and pressure-ledger probes from lab XRD/synchrotron XRD, Raman, XAS/EELS/STEM-EELS/SIMS/TGA/coulometry, optical conductivity or normal-state transport, and pressure-cell metrology.",
+      "near_future_acceptance_condition": "The route is acceptable only if the facilities agree before acquisition to blinded row IDs, immutable raw archive deposit, independent P_oe and B_min extraction workspaces, and a packet-lock hash before output reveal."
+    }
+  },
+  "custody_and_archive": {
+    "immutable_raw_archive": {
+      "required_artifacts": [
+        "raw RIXS or equivalent detector frames/spectra for chi_odd and chi_even",
+        "calibration standards, blanks/darks/backgrounds, resolution files, elastic-line references, geometry/polarization/qz metadata, and channel-mixing covariance inputs",
+        "raw XRD/Raman/pressure-marker files for same-sample structural, quality, damage, and pressure-path fields",
+        "raw sibling oxygen/valence/orbital files and mapping metadata",
+        "raw normal-state c-axis proxy files when used",
+        "exact extraction code, environment lockfile, config files, and checksum manifest"
+      ],
+      "archive_form": "Facility repository, institutional data repository, materials-data repository, or read-only object store with DOI/handle/immutable URI plus SHA256 manifest. Embargo is allowed, but write-once timestamp and independent auditor access must exist before output reveal.",
+      "minimum_passing_evidence": [
+        "archive URI or repository accession exists",
+        "manifest hash exists",
+        "every raw file needed to regenerate P_oe, B_min, censor flags, and U_miss is listed",
+        "auditor can verify that archive timestamp predates superconducting-output reveal"
+      ]
+    },
+    "custody": {
+      "roles": {
+        "sample_custodian": "assigns opaque specimen IDs and maintains genealogy/cut/transfer ledger",
+        "P_oe_extractor": "receives only blinded spectroscopy archive and calibration files",
+        "B_min_extractor": "receives only blinded baseline archive and sibling-tolerance ledger, not P_oe spectra or P_oe nuisance parameters",
+        "firewall_auditor": "classifies green/yellow/red from locked P_oe, B_min, censoring, and U_miss without output labels",
+        "output_custodian": "holds superconducting labels and releases them only after packet lock"
+      },
+      "custody_log": [
+        "growth lot, cut order, anneal/storage, piece dimensions, orientation, and visible defects",
+        "date/time/person for each transfer and measurement",
+        "pressure-cell load/unload history and thermal cycles",
+        "file creation timestamps and archive deposit timestamps",
+        "threshold freeze timestamp",
+        "packet-lock timestamp and hash",
+        "output-reveal timestamp"
+      ],
+      "independence_rule": "B_min must be regenerable with P_oe spectra, odd/even fit parameters, and superconducting labels hidden. P_oe must be regenerable with B_min fields and superconducting labels hidden."
+    }
+  },
+  "lock_sequence": {
+    "pre_measurement_lock": [
+      "row_id, sibling_set_id, batch/growth lot, cut-order relationship",
+      "which measurements are same-sample and which are sibling",
+      "q, omega, qz, polarization, temperature, and pressure grid for P_oe",
+      "canonical P_oe formula",
+      "denominator floor epsilon_D derivation from susceptibility-channel calibration only",
+      "sibling mismatch tolerances for oxygen/layer asymmetry, phase fraction, pressure path, damage, c-axis proxy, and sample quality",
+      "B_min variable list and allowed instruments",
+      "U_miss buckets and imputation/censoring response",
+      "green/yellow/red firewall rules",
+      "output embargo rule"
+    ],
+    "post_archive_pre_reveal_lock": [
+      "P_oe value or censor flag with extraction hash",
+      "B_min table with extraction hash",
+      "U_miss table",
+      "sibling tolerance pass/fail table",
+      "archive manifest hash",
+      "row firewall classification",
+      "sealed packet-lock hash"
+    ],
+    "output_reveal": {
+      "allowed_time": "Only after packet-lock hash is written and witnessed by the firewall auditor.",
+      "revealed_fields": [
+        "Tc or no-Tc label",
+        "zero-resistance label",
+        "Meissner/diamagnetic label",
+        "superconducting gap or related output fields if measured"
+      ],
+      "hard_rule": "No row inclusion, censoring, U_miss, B_min, P_oe extraction, pressure landmark, or sibling-tolerance decision may change after reveal."
+    }
+  },
+  "firewall_test": {
+    "green": [
+      "same-sample P_oe archive is complete and refittable",
+      "canonical P_oe is valid or explicitly uncensored by the frozen epsilon_D rule",
+      "B_min table can be regenerated without P_oe spectra, P_oe nuisance terms, or superconducting labels",
+      "sibling B_min fields pass pre-output tolerance limits",
+      "pressure path and damage ledger are complete",
+      "U_miss is frozen before reveal",
+      "output custodian confirms no superconducting output reached extractors or auditor before lock"
+    ],
+    "yellow": [
+      "one non-core sibling baseline is proxy-only but U_miss was frozen before reveal",
+      "archive is complete but one repeat calibration is missing",
+      "ordinary c-axis proxy comes from a sibling rather than the same sample but remains within frozen tolerance"
+    ],
+    "red": [
+      "raw archive or checksum manifest is missing",
+      "P_oe denominator floor is tuned with B_min or output information",
+      "B_min uses the same qz/matrix-element fitted nuisance state that defines P_oe",
+      "sibling mismatch exceeds frozen red tolerance on oxygen, phase, pressure path, c-axis state, or damage",
+      "any output label influences sample choice, grid, thresholds, row inclusion, censoring, B_min, U_miss, or firewall classification before packet lock"
+    ],
+    "pilot_pass_condition": "The salvage row passes only if PILOT-001 is green before output reveal. Yellow is rehearsal only and does not rescue reviewer REJECT."
+  },
+  "feasibility_verdict": {
+    "verdict": "CONDITIONALLY_SALVAGEABLE_AS_ONE_AUDITED_PILOT_ROUTE",
+    "reason": "A minimal real route is physically concrete: same-sample odd/even susceptibility and pressure/structure ledger on PILOT-001-A, destructive oxygen/valence/orbital baselines on formally sistered adjacent pieces, independent extraction, immutable raw archive, frozen censoring/U_miss, and sealed output reveal. This is enough to define the exact row the reviewer asked for.",
+    "current_status": "No passing audited pilot row is claimed from the files read. The route becomes a reviewer-facing salvage only after the archive URI, custody log, extraction hashes, packet-lock hash, and pre-reveal green firewall classification actually exist.",
+    "minimum_next_artifact": "A one-row pilot dossier containing the archive accession/URI, SHA256 manifest, custody ledger, locked P_oe extraction, locked B_min extraction, frozen U_miss/censoring table, firewall classification, and output-custodian attestation."
+  },
+  "failure_if_unavailable": {
+    "failure_verdict": "SALVAGE_FAILS_REVIEWER_REJECT_STANDS",
+    "triggers": [
+      "no facility will provide immutable raw archive and calibration deposit before output reveal",
+      "P_oe and B_min cannot be extracted by independent teams with the other side's nuisance terms hidden",
+      "destructive B_min probes cannot be tied to same-sample or formally sistered pieces by pre-output tolerances",
+      "superconducting labels are already known to the extractors or influence any pre-reveal decision",
+      "canonical P_oe censoring or U_miss cannot be frozen before reveal",
+      "the row is yellow or red rather than green before reveal"
+    ],
+    "admission": "If these conditions cannot be met for even PILOT-001, LP28-CphiPacket remains rejected protocol packaging and should not be described as packet-feasible."
+  },
+  "claims": {
+    "allowed": [
+      "A single concrete pilot-row route has been specified.",
+      "The route separates same-sample P_oe spectroscopy from sibling-only destructive B_min fields where necessary.",
+      "The route requires immutable raw archive, custody ledger, independent extraction, frozen censoring/U_miss, sealed output labels, and pre-reveal firewall classification.",
+      "The route is only conditionally salvageable until a real archive and custody package exist."
+    ],
+    "forbidden": [
+      "R_oe exists.",
+      "C_phi is independent.",
+      "The reviewer REJECT is overturned by protocol text alone.",
+      "A yellow rehearsal row is enough to claim salvage.",
+      "Current literature already contains a passing audited PILOT-001 row."
+    ]
+  },
+  "inspector_check": {
+    "required_fields_present": true,
+    "answers_row_identity": true,
+    "same_sample_vs_sibling_explicit": true,
+    "raw_archive_and_custody_explicit": true,
+    "locked_variables_and_reveal_time_explicit": true,
+    "failure_if_one_row_unavailable_explicit": true,
+    "does_not_claim_R_oe_exists": true,
+    "not_a_large_protocol_rewrite": true,
+    "remaining_weakness": "This is a route, not a completed audited row. The reviewer can still reject unless PILOT-001 is actually executed or an existing facility dossier can be produced with the stated archive and firewall evidence.",
+    "self_verdict": "READY_FOR_REVIEWER_RECHECK"
+  }
+}

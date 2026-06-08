@@ -1,0 +1,246 @@
+# AI4 Phase 执行清单
+
+> 每个Phase开始前读取此文件。每完成一步，把 `[ ]` 改成 `[✅]`。
+> ⛔ 严格顺序执行。前一步未全部✅，禁止进入下一步。
+
+---
+
+## Phase 0: Intake — 收稿与配置
+
+```
+[ ] 确认论文素材完整性:
+    [ ] 论文草稿/素材目录存在?
+    [ ] 已确认目标期刊? (PRL/PRD/PRX/Nature Physics/...)
+    [ ] 已确认论文类型? (research/hypothesis/methods/algorithmic/review)
+    [ ] 已确认输出语言? (English/Chinese)
+[ ] 读 P1_build.md → 确认build模式 (rewrite_existing / build_from_materials)
+[ ] ⛔ 术语提取: 从素材提取核心术语 → 建立术语分类账 (见 P1_build.md §术语分类账)
+    [ ] 每个术语: 规范形式 + 首次展开 + 来源变体
+    [ ] 检查冲突: 同一概念多个名称? 同一名称两个概念?
+    [ ] 锁定: 后续所有Agent只使用规范形式
+[ ] 创建输出目录: paper_output/
+[ ] 写 paper_output/paper_spine_config.json (目标期刊+类型+语言+深度)
+```
+
+## Phase 1: PaperSpine Build — Motivation驱动构建
+
+```
+[ ] 读 P1_build.md → 按步骤执行
+
+### 1a. 研究与学习
+[ ] 调研目标期刊要求 (读 journal_configs/[期刊].md)
+[ ] 收集3-6篇目标期刊近两年优秀范文 (paper-search-mcp)
+[ ] 读范文 → 提取: 结构模板 + 叙述弧线 + 引用密度 + 图表规范
+[ ] 写 paper_output/research_dossier.md
+[ ] 写 paper_output/exemplar_learning_dossier.md
+
+### 1b. Motivation确认
+[ ] 从素材提取核心motivation → 写 paper_output/confirmed_motivation.md
+    格式: 一句话motivation + 三段论证(问题→现状→为何现在可解)
+[ ] ⛔ Reader 5问检验 (来自nature-skills):
+    Q1 Relevance: 第一段能让非本领域读者理解为什么重要?
+    Q2 Novelty: 摘要能清晰区分"前人做了什么"和"我们做了什么新东西"?
+    Q3 Trust: 每个核心声称有≥1种独立验证方式?
+    Q4 Reuse: 方法和数据是否足够让同行复现?
+    Q5 Meaning: 是否诚实讨论了边界和局限?
+
+### 1c. 引用支持库
+[ ] 启动引用Agent (P1_build.md §引用支持库)
+    候选池: 目标引用数×3 (默认20×3=60)
+    近期占比: ≥80%来自近三年(2024-2026)
+[ ] 每个候选引用绑定到具体claim → 写 paper_output/citation_support_bank.md
+[ ] ⛔ Fetch验证: 逐一验证引用真实性。幻觉引用→阻断。
+
+### 1d. 写作思路矩阵
+[ ] 为论文每个section/段落写写作理由:
+    该单元承担什么功能? 服务哪个motivation?
+    学习了哪些范文? 使用什么证据?
+    预期通过什么检查?
+[ ] 写 paper_output/writing_rationale_matrix.md
+
+### 1e. 构建/重写论文
+[ ] 根据writing_rationale_matrix逐段生成正文
+    ⛔ 术语锁定: 只使用Phase 0确认的规范术语
+    ⛔ 引用锁定: 只引用citation_support_bank中已验证的文献
+[ ] 写 paper_output/final_paper/main.tex (初稿)
+[ ] ⛔ 禁词扫描: grep初稿 → "原则上可能"等→修正
+[ ] ⛔ 数据优先: 有实际数据可验证的声称→用py脚本验证后再写入
+```
+
+## Phase 2: Scientific Review — R1-R5 恶意审稿人循环
+
+```
+[ ] 读 P2_review.md → 按步骤执行
+
+每一轮 (R1→R2→R3→R4→R5):
+  [ ] 启动REVIEWER Agent (独立实例, P2_review.md prompt)
+      传入三份材料: 正文(main.tex) + SM(supplemental_material.tex) + CoverLetter(cover_letter.tex)
+      + 目标期刊 + 上一轮审稿报告(如有)
+  [ ] REVIEWER输出 → 写 paper_output/review_R[N].md
+      (报告必须分三个section: 正文审稿/SM审稿/CoverLetter审稿)
+  [ ] PI读审稿报告 → 分类: FATAL/MAJOR/MINOR (三份材料分别标注)
+  [ ] ⛔ 如果是R1且裁决Reject:
+      必须在Phase清单"期刊跟踪"区写降级判断
+  [ ] 启动FIX Agent (独立实例) → 修改三份文件
+      ⛔ 正文/SM/CoverLetter都必须修改到审稿意见全部回应
+      ⛔ 科学修正不能靠文字绕过。SM需要补数据就补数据
+      ⛔ CoverLetter声称必须与正文/SM一致,不能夸大
+  [ ] INSPECTOR校对修改处 (量纲/方向/量级/循环论证)
+  [ ] 写 paper_output/fix_R[N].md (分正文/SM/CoverLetter三个section)
+  [ ] 更新三份文件: main.tex + supplemental_material.tex + cover_letter.tex
+
+每轮REVIEWER后检查硬退出闸门 (详见 P2_review.md §5):
+  [ ] ⛔ R1: 触发即死条件? (可检验性=0/核心证明错误/先发覆盖/范畴错误/数据不可得)
+      → 🛑 立即停止。降级归档。不浪费R2-R5。
+  [ ] ⛔ R2: FATAL数≥R1? → 🛑 修复无效。诊断原因,必要时降级归档。
+  [ ] ⛔ R3: FATAL仍>0且同根因? → ⛔ 框架级缺陷。降级目标期刊,停止R4/R5。
+
+R5完成后:
+  [ ] 累积FATAL数=0? → 进入Phase 3
+  [ ] 否则→检查是否所有FATAL已修复
+```
+
+## Phase 3: Journal Format — 目标期刊格式化
+
+```
+[ ] 读 P3_format.md + journal_configs/[期刊].md
+[ ] 格式校验:
+    [ ] 字数在期刊限制内? (正文/摘要/图表标题各不超过上限)
+    [ ] Section结构符合期刊要求?
+    [ ] 图表格式符合期刊规范? (分辨率/字体/标注)
+    [ ] 引用格式符合期刊要求?
+    [ ] SM补充材料完整?
+[ ] ⛔ 图表核验:
+    [ ] 所有图由Python生成(非LLM生成)?
+    [ ] 图和正文数值对得上?
+    [ ] 误差棒合理?
+    [ ] 审稿人只看图能理解论文创新点?
+[ ] 写 Cover Letter:
+    [ ] 用P3_format.md §Cover Letter格式
+    [ ] 一句话finding + 一句话novelty + 一句话cross-disciplinary significance
+    [ ] ⛔ 不出现"We hope" / "We are confident"
+[ ] 更新 paper_output/final_paper/main.tex
+```
+
+## Phase 4: AI Detection — Structure Randomizer 重构
+
+```
+[ ] 读 P4_randomize.md → 严格按流程执行
+[ ] ⛔ 确认: Phase 2和3的所有内容修改都已完成。此步之后禁止任何内容修改!
+
+### 4a. Deep-Humanize 结构诊断
+[ ] 启动 deep-humanize Agent (独立实例, P4_randomize.md §Phase 0)
+    诊断6个致命对称 + 结构重组(删roadmap/合并section)
+    输出: paper_output/restructured_draft.tex
+
+### 4b. Structure Randomizer 生成Blueprint
+[ ] 为目标期刊计算W_total (总词数上限)
+[ ] 确定section列表和各section段落数
+[ ] 为全文所有段落一次性生成14维参数: [S,T,P,K,W,E,D,C,R,V,F,B,L,H]
+[ ] ⛔ 全局约束校验:
+    S std>2.5 / W std>4.0 / S range≥6 / W range≥10
+    相邻T不同 / 连续H≤2 / T值无一占>35% / E=3≤3次 / V=1≤70%
+    AI Pattern检测: Pattern B/D/E风险 → 自动修正
+    无周期≤4的重复pattern
+    不通过→整体重新生成(不是修补)
+[ ] 写 paper_output/blueprint.md
+
+### 4c. 按Blueprint逐段重写
+[ ] 每段严格服从14维参数(弹性: S±1, W±3, 其余精确)
+[ ] 特别注意: F(冗余句) B(逻辑断裂) L(列举限制) H(句长分散)
+[ ] 输出: paper_output/final_draft.tex
+
+### 4d. 去AI处理 — SM补充材料
+[ ] 只对文字说明段执行8维简化参数(去掉R/P)
+    Derivation和表格不参与
+    检查: ①各subsection引言句是否重复 ②结尾是否都用相同句式 ③说明段长度是否不等
+
+### 4e. 去AI处理 — Cover Letter
+[ ] 执行3维轻量参数(W_sentence/V_sentence/Break逐句控制)
+    检查: ①contribution list各条长度不等 ②无"We hope/We are confident" ③最后一句不是安全收尾句
+
+### 4f. AI Pattern 终检
+[ ] 对仗禁止扫描: "Not X; it is Y"≤1次 / 分号对仗≤1次 / sentence frame重复→REJECT
+[ ] 穷举扫描: "spanning A,B,C,and D"全文≤1次
+[ ] 不确定性表达: V=3的2-3次使用必须来自不同子类(3a/3b/3c/3d)
+[ ] 禁止hedging措辞: "We should be candid" "It remains an open question" "leave for future work"
+
+### 4g. 输出三份LaTeX文件
+[ ] ⛔ 确认三份.tex文件均存在且已去AI处理:
+    [ ] paper_output/final_paper/main.tex
+    [ ] paper_output/final_paper/supplemental_material.tex
+    [ ] paper_output/final_paper/cover_letter.tex
+```
+
+## Phase 5: Final Audit — 完整性验证与输出
+
+```
+[ ] 读 P5_audit.md → 执行审计
+[ ] 文献核验: 逐一fetch验证引用真实性 → 幻觉引用清单
+[ ] ⛔ AI致谢检查: grep全文+致谢+CoverLetter →
+    "Claude"|"AI辅助"|"LLM"|"ChatGPT"|"Anthropic"|"人工智能辅助写作"
+    命中→⛔阻断,必须删除。AI4是写作工具不是作者。
+[ ] 数据核验: 数据可由代码复现? 非随机生成/经验复用?
+[ ] ⛔ LaTeX编译: 编译三份.tex生成三个PDF → 任一份编译失败→阻断
+    [ ] paper_output/final_paper/paper.pdf (正文)
+    [ ] paper_output/final_paper/supplemental_material.pdf (SM)
+    [ ] paper_output/final_paper/cover_letter.pdf (Cover Letter)
+[ ] 最终禁词扫描: 全文grep禁词 → 命中→回Phase 4重写
+[ ] 最终格式核验: 逐项对照期刊要求
+[ ] 写 paper_output/final_artifact_manifest.md (完整产物清单)
+[ ] ⛔ 完整性检查: 以下文件全部存在?
+    [ ] paper_output/final_paper/main.tex
+    [ ] paper_output/final_paper/supplemental_material.tex
+    [ ] paper_output/final_paper/cover_letter.tex
+    [ ] paper_output/final_paper/references.bib
+    [ ] paper_output/final_paper/figures/ (所有图)
+    [ ] paper_output/final_paper/paper.pdf (正文PDF,编译成功)
+    [ ] paper_output/final_paper/supplemental_material.pdf (SM PDF,编译成功)
+    [ ] paper_output/final_paper/cover_letter.pdf (CoverLetter PDF,编译成功)
+    [ ] paper_output/citation_support_bank.md
+    [ ] paper_output/writing_rationale_matrix.md
+    [ ] paper_output/blueprint.md
+    [ ] paper_output/review_R1.md ~ review_R5.md
+    [ ] paper_output/fix_R1.md ~ fix_R5.md
+[ ] 输出: 告知用户投稿包路径
+```
+
+---
+
+## 禁止事项
+
+```
+⛔ 禁止跳过Phase顺序 (0→1→2→3→4→5严格顺序)
+⛔ 禁止在Phase 4(randomizer)后修改论文内容 (改后必须重新跑Phase 4)
+⛔ 禁止REVIEWER不独立启动Agent (PI扮演审稿人=违规)
+⛔ 禁止引用未fetch验证的文献
+⛔ 禁止图表由LLM生成 (必须Python/matplotlib等)
+⛔ 禁止论文中致谢AI工具 (Claude/AI辅助/LLM/ChatGPT等)
+⛔ 禁止禁词出现在终稿中
+⛔ 禁止跳过AI检测重构就投稿
+```
+
+## 期刊跟踪区
+
+```
+(由PI在R1 REVIEWER后填写, 每轮更新)
+
+目标期刊: [___]
+R1裁决: [___] → 降级? [是/否] → 如是: 新目标[___]
+R2裁决: [___]
+R3裁决: [___]
+R4裁决: [___]
+R5裁决: [___]
+最终投稿期刊: [___]
+
+SM检查: [通过/未通过]
+Cover Letter检查: [通过/未通过]
+AI检测预期: [预计检测率<__%]
+```
+
+## 容错
+
+```
+Agent超时/格式错误 → 自动重试1次 → 仍失败 → PI手动接管 + 记录到卡点登记册
+Phase清单.md 就是状态管理器。断点重开 → 读清单 → 从第一个 [ ] 继续
+```

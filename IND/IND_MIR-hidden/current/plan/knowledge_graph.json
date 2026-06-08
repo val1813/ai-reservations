@@ -1,0 +1,98 @@
+{
+  "project": "LP-22: Mott-Ioffe-Regel极限的重正化污染",
+  "version": "v2",
+  "date": "2026-06-03",
+  "type": "L-1隐藏假设挖掘",
+  "nodes": [
+    {
+      "id": "H",
+      "label": "隐藏假设 H: k_F l ≈ 1 → 准粒子图像失效 (MIR=真极限)",
+      "status": "待检验",
+      "type": "assumption"
+    },
+    {
+      "id": "notH",
+      "label": "¬H: 表观 k_F l ≈ 1 可来自关联重正化 (Z≪1) 的系统性压低, 非准粒子死亡",
+      "status": "待检验",
+      "type": "hypothesis"
+    },
+    {
+      "id": "eta",
+      "label": "η = T_D/T_tr 诊断量: η~0.1-0.3 → 重正化污染; η≪0.05 → 散射各向异性",
+      "status": "defined",
+      "type": "diagnostic"
+    },
+    {
+      "id": "lambda_MIR",
+      "label": "λ_MIR = k_F l_tr / Z = 1+λ (electron-boson模型, λ≫1时 ≫1)",
+      "status": "derived",
+      "type": "quantity"
+    },
+    {
+      "id": "P1",
+      "label": "预言P1: η不随 k_F l_tr→1 发散, 与材料参数弱相关",
+      "status": "待检验",
+      "type": "prediction"
+    },
+    {
+      "id": "P2",
+      "label": "预言P2: ρ_sat ∝ γ (饱和电阻率与比热系数线性正相关)",
+      "status": "待检验",
+      "type": "prediction"
+    },
+    {
+      "id": "P3",
+      "label": "预言P3: Γ_opt ≈ Γ_DC (光学Drude宽度≈DC散射率, 在各向同性耦合下)",
+      "status": "待检验",
+      "type": "prediction"
+    },
+    {
+      "id": "P4",
+      "label": "预言P4: η 对RRR/掺杂/无序度不敏感 (区别于散射各向异性)",
+      "status": "待检验",
+      "type": "prediction"
+    },
+    {
+      "id": "A_attack",
+      "label": "A博士攻击: η经验基础待验证; l_tr/l_qp混淆; λ_MIR微观推导待加强",
+      "status": "已回应(v2修订)",
+      "type": "verification"
+    },
+    {
+      "id": "B_attack",
+      "label": "B博士攻击: 量子速度极限(QSL)给出与¬H方向相反的关联修正; Z→0时的MFL极限",
+      "status": "已回应(T₁/T₂区分)",
+      "type": "verification"
+    },
+    {
+      "id": "prior_art",
+      "label": "先占: Emery&Kivelson(1995)定性讨论; Gunnarsson(2003)综述提及; 本工作差异化=定量判据+η诊断量+排他性预言",
+      "status": "acknowledged",
+      "type": "context"
+    },
+    {
+      "id": "phase1",
+      "label": "Phase 1: 文献元分析 — 系统编译 k_F l_tr + T_D 数据, 检验P1 η诊断量",
+      "status": "待执行",
+      "type": "next_step"
+    }
+  ],
+  "edges": [
+    {"from": "H", "to": "notH", "relation": "矛盾 (不能同时为真)"},
+    {"from": "notH", "to": "lambda_MIR", "relation": "推导出"},
+    {"from": "lambda_MIR", "to": "P1", "relation": "蕴含"},
+    {"from": "lambda_MIR", "to": "P2", "relation": "蕴含"},
+    {"from": "lambda_MIR", "to": "P3", "relation": "蕴含"},
+    {"from": "lambda_MIR", "to": "P4", "relation": "蕴含"},
+    {"from": "eta", "to": "P1", "relation": "量化"},
+    {"from": "A_attack", "to": "P1", "relation": "质疑经验基础"},
+    {"from": "B_attack", "to": "notH", "relation": "质疑方向(QSL修正符号)"},
+    {"from": "phase1", "to": "P1", "relation": "检验"}
+  ],
+  "ab_scores": {
+    "A": "1/3 (卡住可绕)",
+    "B": "1/3 (卡住可绕)",
+    "total": "2/6 → 存活"
+  },
+  "next_action": "Phase 1文献元分析: 编译关联金属的 (k_F l_tr, T_D) 数据对"
+}

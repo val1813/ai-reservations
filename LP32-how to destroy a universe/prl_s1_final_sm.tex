@@ -1,0 +1,43 @@
+\documentclass[aps,prl,onecolumn]{revtex4-2}
+\usepackage{amsmath,amssymb,booktabs}
+\begin{document}
+
+\title{Supplemental Material: Information-Capacity Bound on Non-Markovian Backflow}
+
+\maketitle
+
+\section{Full Proof of Theorem S1}
+
+\subsection{Definitions}
+
+$N_S$, $N_E$: total qubits in system $S$ and environment $E$. Pointer basis $\{|0\rangle,|1\rangle\}$ einselected by $H_{\rm int}$ [Eq.~(1), main text]. $q_S = N_S^{-1}\sum_{i\in S}\langle 0|\rho_i|0\rangle$, $q_E$ similarly. $C_F \equiv N_E q_E$: forward transfer capacity. $N_{\rm back}$: number of backflow events. $P_{\rm reflux} \equiv N_{\rm back}/C_F$.
+
+\subsection{Proof}
+
+\textbf{Step 1:} Forward transfer toggles undetermined $E$-qubits via $L_{S\to E}=|1\rangle\langle 1|_S\otimes|1\rangle\langle 0|_E$. At most $C_F = N_E q_E$ qubits can receive determination. \textbf{Step 2:} Backflow toggles undetermined $S$-qubits via $L_{E\to S}$. At most $N_S q_S$ undetermined $S$-qubits exist; at most $N_E(1-q_E)$ determined $E$-qubits exist to serve as sources. Hence $N_{\rm back} \leq \min(N_S q_S, N_E(1-q_E))$. \textbf{Step 3:} $P_{\rm reflux} \leq \min(N_S q_S, N_E(1-q_E))/(N_E q_E)$. For $N_S=N_E$: $P_{\rm reflux} \leq \min(q_S/q_E, (1-q_E)/q_E)$. The bound $q_S/q_E$ used in the main text is the receiver-side constraint; the source-side constraint $(1-q_E)/q_E$ can be tighter when $1-q_E < q_S$. $\square$
+
+\section{Physical Origin of $L_{S\to E}$}
+
+The jump operator $L_{S\to E}=|1\rangle\langle 1|_S\otimes|1\rangle\langle 0|_E$ describes a conditional excitation: when the source qubit is in $|1\rangle$, the target is flipped from $|0\rangle$ to $|1\rangle$. In quantum optics, this arises from a resonant Jaynes-Cummings-type interaction $H_{\rm transf} = g(\sigma_+^{(S)}\sigma_-^{(E)} + {\rm h.c.})$ combined with a strong dispersive measurement that projects the source onto the pointer basis. The dispersive coupling selects the pointer basis [Eq.~(1), main text]; the resonant coupling enables the conditional flip. The jump operator $L$ is the effective non-unitary description after tracing over the mediating degree of freedom in the Born-Markov limit.
+
+The key physical feature is that $L$ only creates $|1\rangle$ states---it contains $|1\rangle\langle 0|$ but not $|0\rangle\langle 1|$. This asymmetry arises from the energetics: the $|1\rangle$ state is lower in energy (the determined state is the ground state of the information-storage degree of freedom), so spontaneous emission $|1\rangle\to|0\rangle$ is negligible at temperatures $k_B T \ll \Delta E$, where $\Delta E$ is the determination energy gap.
+
+\section{Relation to Non-Markovianity Measures}
+
+In the DGF framework, ``backflow'' refers specifically to $E\to S$ determination events: qubits that were previously undetermined become determined through influence from the environment. This is a narrower concept than the BLP definition of non-Markovian backflow (any increase in trace-distance distinguishability). A BLP backflow event that does not involve an $E\to S$ determination (e.g., internal system recoherence without environmental information return) is not counted in $N_{\rm back}$. The S1 bound therefore constrains a subset of BLP backflow events---those mediated by the $L_{E\to S}$ mechanism. The two measures are complementary rather than equivalent.
+
+\section{The Tightened Bound}
+
+The main text uses $P_{\rm reflux} \leq q_S/q_E$. The full bound including the source constraint is:
+\begin{equation}
+P_{\rm reflux} \leq \min\!\left(\frac{q_S}{q_E},\; \frac{1-q_E}{q_E}\right).
+\end{equation}
+When $1-q_E < q_S$ (environment is mostly undetermined, so few source qubits exist), the source constraint dominates. When $q_S < 1-q_E$ (fewer undetermined system qubits than determined environment qubits), the receiver constraint dominates. The two constraints are complementary and neither is redundant.
+
+\begin{thebibliography}{5}
+\bibitem{Zurek:2003} W.~H.~Zurek, Rev.\ Mod.\ Phys.\ \textbf{75}, 715 (2003).
+\bibitem{Breuer:2009} H.-P.~Breuer, E.-M.~Laine, and J.~Piilo, Phys.\ Rev.\ Lett.\ \textbf{103}, 210401 (2009).
+\bibitem{Buscemi:2025} F.~Buscemi et al., PRX Quantum \textbf{6}, 020316 (2025).
+\end{thebibliography}
+
+\end{document}

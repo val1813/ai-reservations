@@ -1,0 +1,266 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 1,
+  "agent": "B",
+  "polaris": "LP29-C2T-S2 / context baseline vs reproduced Srivastava exact O_s baseline",
+  "framework": {
+    "name": "proof-carrying execution / reproducible-build attestation",
+    "non_a_route": true,
+    "analogy": "Treat a reported OI_norm like a binary checksum printed in a paper: useful context, but not a reproducible build unless the source, build rule, dependency versions, input artifact identity, and generated intermediate hashes are carried with it.",
+    "discipline_source": "computer science: proof-carrying code, software supply-chain attestation, and executable test oracles",
+    "scope_limit": "This framework defines reproduction evidence for exact O_s only. It does not perform material validation and does not claim Srivastava O_s has been reproduced."
+  },
+  "math_object": {
+    "object_name": "O_s reproduction certificate",
+    "definition": "A finite certificate C that makes O_s an executable function of a declared source row, structure, pair-selection rule, raw overlap computation, and normalization map.",
+    "typed_contract": {
+      "source_row_id": "stable DOI/table/figure/SI/path plus row or sample identifier",
+      "structure_id": "exact atomistic structure or declared reconstruction version used for the computation",
+      "pair_rule": "pair cutoff in Angstrom or exact source-defined pair-selection procedure",
+      "raw_overlap_sum": "numeric pre-normalization sum over the declared pair set",
+      "normalization_map": "auditable equation or code path mapping raw_overlap_sum to OI_norm or O_s",
+      "same_structure_crosswalk": "proof that reported context, raw sum, denominator, and normalized value refer to the same structure_id",
+      "executor_trace": "machine-reviewable record proving the declared inputs recompute the declared output within tolerance"
+    },
+    "minimal_equation_form": "O_s = N(S, P, theta_norm)[ sum_{(i,j) in P(S, theta_pair)} omega(i,j; theta_formula) ]",
+    "invariant": "Changing source_row_id, structure_id, pair rule, raw sum, or normalization creates a different certificate, even if the final reported OI_norm number is identical."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "finding": "Reported OI_norm is a context datum, not a residual-validation baseline, unless it is attached to a reproduction certificate that exposes the raw sum and normalization path.",
+      "basis": [
+        "C2T gate G5 blocks Srivastava-style OI reproduction when exact formula/code, normalization rule, or same-structure mapping is missing.",
+        "Round 4 A-side witness requirements make OI_raw_sum, OI_normalization_formula_id, pair_cutoff_A, pair_density, source_row_id, and structure_id required fields."
+      ],
+      "status": "proof_requirement_not_material_claim"
+    },
+    {
+      "id": "F2",
+      "finding": "The shortest B-side falsifier is not a better physical model; it is a replay executor that either recomputes the exact value or emits a typed blocker.",
+      "basis": [
+        "The witness schema states schema conformance is not material validation.",
+        "The executor contract derives row decisions from payload fields and ignores manual labels."
+      ],
+      "status": "executable_audit_path"
+    },
+    {
+      "id": "F3",
+      "finding": "A Srivastava row can pass as context and still fail as reproduced O_s. The two statuses must be represented as separate modes.",
+      "basis": [
+        "OI_comparison_mode must distinguish no_claim, fixed_density, fixed_pair, and srivastava_reproduction.",
+        "Reported OI_norm without raw-sum derivation remains not reproduced under the listed witness requirements."
+      ],
+      "status": "mode_separation"
+    }
+  ],
+  "strangest_prediction": {
+    "prediction": "If Srivastava exact O_s is truly reproducible from public materials, the first successful payload will look less like a citation table and more like a software build receipt: the raw overlap sum and normalization rule will force a unique pair-count/cutoff lineage, and most ambiguous reported rows will collapse into BLOCK before any material comparison is attempted.",
+    "observable": "A machine executor should be able to flip at least one row from BLOCK to PASS only by adding formula/code, raw sum, normalization, pair cutoff, and same-structure mapping witnesses; adding prose context alone should leave G5 as BLOCK or WARN.",
+    "falsifier": "If a reported OI_norm row can pass G5 without raw overlap sum, normalization id, and structure crosswalk, then the gate predicates are internally inconsistent and must be revised before residual validation."
+  },
+  "a_objection": {
+    "likely_objection": "A may argue that Srivastava 2019 already reports OI_norm and effective-mass context, so requiring raw sums and executable witnesses is an unnecessary audit burden.",
+    "b_reply": "That objection changes the claim type. Reported OI_norm can support literature context, but residual validation requires an independently replayable baseline. The burden is not extra physics; it is the minimum needed to prevent a context number from being silently reused as an exact O_s oracle."
+  },
+  "failed_jumps": [
+    {
+      "source_discipline": "Bayesian model comparison",
+      "attempt": "Treat reported OI_norm as a prior mean and validate residuals against posterior uncertainty.",
+      "failure_reason": "This would soften the exact-reproduction problem into uncertainty modeling and would not identify whether the same structure, pair cutoff, and normalization were used."
+    },
+    {
+      "source_discipline": "network graph isomorphism",
+      "attempt": "Use same graph identity as a surrogate for same O_s structure mapping.",
+      "failure_reason": "Graph identity does not prove orbital-overlap computation identity; it can share topology while losing orbital formula, raw pair weights, or normalization."
+    },
+    {
+      "source_discipline": "metrology calibration",
+      "attempt": "Accept a published normalized value as a calibrated reference standard.",
+      "failure_reason": "A metrology standard still needs traceability. Without raw sum, denominator, and procedure provenance, the normalized value is not traceable enough for replay."
+    }
+  ],
+  "next_plan": {
+    "round2_direction": "Build a negative-control executor table for Srivastava-style rows: each row should emit a deterministic blocker code for the first missing proof-carrying field.",
+    "immediate_artifacts": [
+      "S2_Srivastava_reproduction_blocker_table with blocker codes for source_row_id, structure_id, OI_raw_sum, OI_normalization_formula_id, pair_cutoff_A, pair_density, N_pair, and same_structure_mapping",
+      "Draft O_s certificate JSON instance with all fields null or missing where public evidence is absent, explicitly yielding BLOCK",
+      "A mode-separation rule preventing reported_context_only from being promoted to srivastava_reproduction"
+    ],
+    "stop_condition": "Stop before material validation. Only proceed when at least one row has machine-reviewable witnesses for exact formula/code, raw sum, normalization, pair selection, and same-structure mapping."
+  },
+  "literature_needed": [
+    "Srivastava 2019 orbital overlap index exact formula supplementary information raw overlap sum normalization",
+    "Srivastava orbital overlap OI_norm effective mass amorphous semiconductor supplementary data",
+    "orbital overlap index pair cutoff normalization raw sum code structure file",
+    "amorphous bands orbital overlap source code supplementary structure coordinates"
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "For LP29-C2T-S2, a reported Srivastava OI_norm value is insufficient as a residual-validation baseline unless the exact O_s reproduction certificate is present.",
+      "confidence": 0.86,
+      "new_insight": true,
+      "equations": [
+        "O_s = N(S, P, theta_norm)[ sum_{(i,j) in P(S, theta_pair)} omega(i,j; theta_formula) ]"
+      ],
+      "references": [
+        "current/C2T/artifacts/C2T_witness_payload_schema.json",
+        "current/C2T/artifacts/C2T_gate_predicates.csv",
+        "current/C2T/artifacts/C2T_A_witness_requirements_round4.csv",
+        "synthesis/gate_minus1_LP29-C2T-S2.md"
+      ],
+      "assumptions": [
+        "Residual validation requires a replayable numerical baseline, not only a reported literature context value.",
+        "Machine-reviewable witness payloads are the governing standard for C2T gating.",
+        "No material validation is permitted during this reproduction-gate task."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The primary failure mode should be typed as missing reproduction witness rather than physical disagreement.",
+      "confidence": 0.82,
+      "new_insight": true,
+      "equations": [
+        "decision = BLOCK if applies_to_row=true and (formula_or_code=null or normalization_rule=null or same_structure_mapping=null or raw_sum=null or pair_rule=null)"
+      ],
+      "references": [
+        "current/C2T/artifacts/C2T_gate_predicates.csv",
+        "current/C2T/artifacts/C2T_A_witness_requirements_round4.csv"
+      ],
+      "assumptions": [
+        "G5 is applicable to rows claiming Srivastava-style OI baseline comparison.",
+        "Manual pass/fail labels are advisory and must be recomputed from witness fields."
+      ]
+    }
+  ],
+  "reproduction_payload_minimum": {
+    "payload_name": "Srivastava exact O_s reproduction certificate minimum",
+    "material_validation_claimed": false,
+    "not_claimed": [
+      "Srivastava exact O_s has been reproduced",
+      "graph features beat orbital overlap",
+      "any material-level residual validation is allowed"
+    ],
+    "required_fields": [
+      {
+        "field": "source_row_id",
+        "why_required": "Identifies the exact Srivastava/OI source row used by the witness payload.",
+        "pass_witness": "Stable DOI plus table/figure/SI/path plus row/sample/snapshot id.",
+        "blocker_if_missing": "Cannot know which reported OI_norm or structure is being replayed."
+      },
+      {
+        "field": "structure_id",
+        "why_required": "Binds the overlap computation to the exact atomistic structure or reconstruction version.",
+        "pass_witness": "Raw structure file, SI structure, or declared reconstruction manifest tied to source_row_id.",
+        "blocker_if_missing": "Reported context may refer to a different structure than the replayed computation."
+      },
+      {
+        "field": "OI_comparison_mode",
+        "why_required": "Prevents reported_context_only from being promoted into srivastava_reproduction.",
+        "pass_witness": "Predeclared enum: no_claim, fixed_density, fixed_pair, or srivastava_reproduction.",
+        "blocker_if_missing": "Executor cannot determine whether G5 applies."
+      },
+      {
+        "field": "exact_overlap_formula_or_code_ref",
+        "why_required": "Defines omega(i,j) and the summation procedure for exact O_s.",
+        "pass_witness": "Equation id, SI method, or versioned code reference that is machine-reviewable.",
+        "blocker_if_missing": "Raw and normalized values cannot be independently recomputed."
+      },
+      {
+        "field": "OI_raw_sum",
+        "why_required": "Separates the measured or computed overlap sum from normalization and reporting.",
+        "pass_witness": "Numeric raw overlap sum with source_row_id, structure_id, pair rule, and computation provenance.",
+        "blocker_if_missing": "Reported OI_norm remains context only, even if the number is present."
+      },
+      {
+        "field": "OI_normalization_formula_id",
+        "why_required": "Defines the map from OI_raw_sum to OI_norm or exact O_s.",
+        "pass_witness": "Auditable equation, SI table note, or code path tied to the same source row.",
+        "blocker_if_missing": "Different normalizations can yield incomparable baselines."
+      },
+      {
+        "field": "pair_cutoff_A",
+        "why_required": "Defines the pair set P(S, theta_pair) used in the raw sum.",
+        "pass_witness": "Numeric cutoff in Angstrom or source-defined pair-selection procedure id.",
+        "blocker_if_missing": "The summation domain is undefined."
+      },
+      {
+        "field": "pair_density",
+        "why_required": "Needed when comparing under fixed_density mode and to audit denominator consistency.",
+        "pass_witness": "Numeric pair density with units, derived from the same structure and pair rule.",
+        "blocker_if_missing": "Fixed-density comparisons cannot be reproduced."
+      },
+      {
+        "field": "N_pair",
+        "why_required": "Needed when comparing under fixed_pair mode and for raw-sum denominator checks.",
+        "pass_witness": "Positive integer counted from the same structure and pair rule.",
+        "blocker_if_missing": "Pair-mean or fixed-pair normalization cannot be audited."
+      },
+      {
+        "field": "N_pair_provenance_id",
+        "why_required": "Proves that N_pair came from the same source row, structure, and pair rule.",
+        "pass_witness": "Versioned count manifest, SI count table, or executable pair-count trace.",
+        "blocker_if_missing": "A numeric denominator is not traceable."
+      },
+      {
+        "field": "same_structure_mapping_ref",
+        "why_required": "Binds reported OI_norm, raw sum, pair denominator, and formula execution to one structure identity.",
+        "pass_witness": "Crosswalk record linking source_row_id, structure_id, snapshot/window, and any reconstruction version.",
+        "blocker_if_missing": "The executor cannot exclude cross-structure leakage."
+      },
+      {
+        "field": "executor_trace",
+        "why_required": "Makes the certificate proof-carrying rather than prose-only.",
+        "pass_witness": "Machine-reviewable replay log with input hashes, formula/code version, computed raw sum, normalization, tolerance, and final O_s.",
+        "blocker_if_missing": "The payload cannot be independently replayed."
+      }
+    ],
+    "derived_failure_paths": [
+      {
+        "path_id": "FP1",
+        "condition": "OI_comparison_mode=srivastava_reproduction and exact_overlap_formula_or_code_ref is null",
+        "decision": "BLOCK",
+        "rationale": "The overlap weight and summation semantics are undefined."
+      },
+      {
+        "path_id": "FP2",
+        "condition": "OI_raw_sum is missing while OI_norm is present",
+        "decision": "BLOCK for reproduction; context-only may remain available",
+        "rationale": "The normalized report cannot be decomposed or replayed."
+      },
+      {
+        "path_id": "FP3",
+        "condition": "normalization_rule_ref or OI_normalization_formula_id is missing",
+        "decision": "BLOCK",
+        "rationale": "Raw and normalized overlap cannot be connected."
+      },
+      {
+        "path_id": "FP4",
+        "condition": "pair_cutoff_A and exact pair-selection procedure are both missing",
+        "decision": "BLOCK",
+        "rationale": "The pair set is undefined."
+      },
+      {
+        "path_id": "FP5",
+        "condition": "structure_id or same_structure_mapping_ref is missing",
+        "decision": "BLOCK",
+        "rationale": "Same-structure identity is not proven."
+      },
+      {
+        "path_id": "FP6",
+        "condition": "witnesses are prose-only or not machine_reviewable",
+        "decision": "WARN or BLOCK depending on required field status",
+        "rationale": "Manual interpretation cannot substitute for executable evidence."
+      },
+      {
+        "path_id": "FP7",
+        "condition": "material_validation_claimed=true during audit construction",
+        "decision": "BLOCK material_validation_allowed",
+        "rationale": "This stage is reproduction gating only."
+      }
+    ],
+    "minimal_pass_rule": "PASS for Srivastava reproduction requires OI_comparison_mode=srivastava_reproduction, material_validation_claimed=false, non-null source_row_id, structure_id, exact_overlap_formula_or_code_ref, OI_raw_sum, OI_normalization_formula_id, pair_cutoff_A or exact pair procedure, same_structure_mapping_ref, and machine-reviewable witnesses sufficient to replay O_s.",
+    "context_only_rule": "A row with reported OI_norm but without raw sum, normalization, pair rule, and same-structure crosswalk must be labeled reported_context_only or no_claim for reproduction; it cannot serve as a residual-validation baseline."
+  }
+}

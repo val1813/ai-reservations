@@ -1,0 +1,409 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "window": "LP28-S1",
+  "round": 2,
+  "agent": "B",
+  "created_at_local": "2026-06-04T19:06:55+08:00",
+  "independence_statement": "This B round used only B-agent instructions, plan/state/context files named in the task, and inspector_B_round1. It did not read current-S1/A or any A-round output.",
+  "status": "protocol_specification_only_not_validation",
+  "polaris": "Can I_phi be pre-registered from input-side spectroscopy, structure, and dephasing variables without leakage from bulk superconducting outputs?",
+  "framework": "input-side zero-leakage coding plus linear observability audit",
+  "core_claim": {
+    "statement": "C_phi is executable only as a frozen, dimensionless observability score computed from pre-output input channels; it is not a superconducting mechanism and is not validated here.",
+    "new_insight": true,
+    "confidence": 0.64
+  },
+  "forbidden_outputs": [
+    "Tc",
+    "zero_resistance",
+    "Meissner_fraction",
+    "shielding_fraction",
+    "critical_current",
+    "Josephson_plasma",
+    "bulk_superfluid_density",
+    "bulk_phase_stiffness",
+    "transition_width_fits",
+    "any threshold or inclusion rule chosen after opening bulk superconducting outputs"
+  ],
+  "frozen_index": {
+    "equation": "I_phi = E_z2_meV * C_phi / (kB_meV_per_K * T_calc_K + hbarGamma_phi_meV + E_floor_meV)",
+    "kB_meV_per_K": 0.08617333262,
+    "T_calc_K": 80.0,
+    "units": {
+      "I_phi": "dimensionless",
+      "E_z2_meV": "meV",
+      "C_phi": "dimensionless",
+      "kB*T_calc": "meV",
+      "hbarGamma_phi_meV": "meV",
+      "E_floor_meV": "meV"
+    },
+    "E_z2_rule": {
+      "raw_column": "S_dz2_raw",
+      "raw_units": "dimensionless spectral weight after beamline-specific intensity correction and normalization to total Ni-L edge spectral weight in the same scan",
+      "energy_conversion": "E_z2_meV = E_z2_ref_meV * clip(S_dz2_raw / S_dz2_ref, 0, 3)",
+      "E_z2_ref_meV": 100.0,
+      "S_dz2_ref": 0.08,
+      "spectral_window": "pre-output normal-state scan; integrate the declared dz2-sensitive component over EF +/- 0.35 eV, or over the closest preregistered instrument-accessible window listed in P0 before unblinding",
+      "normalization_note": "Raw spectral weight is not treated as an energy until multiplied by the frozen E_z2_ref_meV."
+    },
+    "Gamma_phi_rule": {
+      "raw_column": "hbarGamma_phi_meV",
+      "allowed_sources": [
+        "normal-state optical or THz Drude scattering rate above output unblinding",
+        "normal-state ARPES linewidth from a preregistered momentum/energy window",
+        "normal-state Raman or pump-probe dephasing scale if the method and window are sealed in P0"
+      ],
+      "forbidden_sources": [
+        "superconducting transition width",
+        "below-transition phase stiffness",
+        "Josephson plasma frequency",
+        "critical-current hysteresis",
+        "any fit including Tc or superconducting labels"
+      ],
+      "units": "meV for hbar*Gamma_phi; if the instrument reports Gamma in s^-1, convert with hbar = 0.6582119569 meV*ps after converting Gamma to ps^-1"
+    },
+    "E_floor_rule": {
+      "equation": "E_floor_meV = 5.0 + 15.0 * D_disorder",
+      "D_disorder_units": "dimensionless in [0,1]",
+      "D_disorder_definition": "preregistered disorder/inhomogeneity score from microstrain, mosaicity, impurity fraction, or pair-distribution-function residual; the exact selected column and calibration must be sealed in P0",
+      "minimum_floor_meV": 5.0,
+      "purpose": "prevents divergence and records ordinary disorder/structure as an input-side penalty without using output labels"
+    }
+  },
+  "C_phi_transfer_matrix": {
+    "latent_state_vector": [
+      "z1 = dz2 channel availability",
+      "z2 = c-axis charge-transfer availability",
+      "z3 = structural bridge continuity",
+      "z4 = phase-memory cleanliness"
+    ],
+    "row_amplitudes": {
+      "a_dz2": {
+        "equation": "u_dz2 / (1 + u_dz2)",
+        "u_dz2": "S_dz2_raw / S_dz2_ref",
+        "units": "dimensionless"
+      },
+      "a_caxis": {
+        "equation": "u_caxis / (1 + u_caxis)",
+        "u_caxis": "W_caxis_raw / W_caxis_ref",
+        "W_caxis_raw_units": "Ohm^-1 cm^-2 meV, equal to integral sigma1_c(omega) d(hbar omega)",
+        "W_caxis_ref": 1200000.0,
+        "W_caxis_ref_units": "Ohm^-1 cm^-2 meV",
+        "frequency_window": "25 to 250 meV in the normal state, sealed before output unblinding"
+      },
+      "a_struct": {
+        "equation": "B_struct",
+        "B_struct_units": "dimensionless in [0,1]",
+        "B_struct_definition": "frozen structural bridge score from apical-O or spacer geometry, tilt, and layer registry; exact formula must be in P0"
+      },
+      "a_phi_clean": {
+        "equation": "Gamma_ref_meV / (Gamma_ref_meV + hbarGamma_phi_meV)",
+        "Gamma_ref_meV": 20.0,
+        "units": "dimensionless"
+      }
+    },
+    "matrix_rows": [
+      {
+        "row_id": "r1_dz2_direct",
+        "coefficients": ["a_dz2", 0, 0, 0],
+        "units_after_normalization": "dimensionless"
+      },
+      {
+        "row_id": "r2_caxis_direct",
+        "coefficients": [0, "a_caxis", 0, 0],
+        "units_after_normalization": "dimensionless"
+      },
+      {
+        "row_id": "r3_struct_direct",
+        "coefficients": [0, 0, "a_struct", 0],
+        "units_after_normalization": "dimensionless"
+      },
+      {
+        "row_id": "r4_phi_clean_direct",
+        "coefficients": [0, 0, 0, "a_phi_clean"],
+        "units_after_normalization": "dimensionless"
+      },
+      {
+        "row_id": "r5_dz2_caxis_link",
+        "coefficients": ["a_dz2/sqrt(2)", "-a_caxis/sqrt(2)", 0, 0],
+        "units_after_normalization": "dimensionless"
+      },
+      {
+        "row_id": "r6_caxis_struct_link",
+        "coefficients": [0, "a_caxis/sqrt(2)", "-a_struct/sqrt(2)", 0],
+        "units_after_normalization": "dimensionless"
+      },
+      {
+        "row_id": "r7_struct_phi_link",
+        "coefficients": [0, 0, "a_struct/sqrt(2)", "-a_phi_clean/sqrt(2)"],
+        "units_after_normalization": "dimensionless"
+      }
+    ],
+    "singular_value_convention": {
+      "svd": "compute singular values of the 7x4 real matrix C using IEEE-754 float64; sort descending; sigma_min is the fourth and smallest singular value",
+      "sigma_ref": 0.2,
+      "sigma_ref_units": "dimensionless",
+      "C_phi_equation": "C_phi = sigma_min / (sigma_min + sigma_ref)",
+      "bounds": "0 <= C_phi < 1",
+      "zero_observability_limit": "if any mandatory channel amplitude is exactly zero and no allowed replacement is sealed in P0, C_phi must be reported as 0 with missingness flags rather than tuned from outputs"
+    },
+    "normalization_rationale": "Each raw channel is converted to a dimensionless bounded row amplitude before entering C. The SVD therefore audits whether the whole input-side chain is observable, rather than letting a high-value single raw channel dominate through units."
+  },
+  "missing_data_rules": {
+    "pre_unblinding_only": "All missingness decisions must be executed before opening forbidden outputs.",
+    "required_primary_columns": [
+      "sample_id",
+      "S_dz2_raw",
+      "W_caxis_raw",
+      "B_struct",
+      "hbarGamma_phi_meV",
+      "D_disorder"
+    ],
+    "rule_1_no_output_imputation": "No missing input may be imputed, weighted, excluded, or replaced using Tc, resistance, shielding, critical current, phase stiffness, or any derived phase label.",
+    "rule_2_censored_values": "If an input is reported only as below detection limit, use one-half of the sealed detection limit and set censored=true; if above saturation, use the saturation limit and set censored=true.",
+    "rule_3_missing_mandatory_channel": "If one mandatory channel is absent and no sealed alternative measurement is listed in P0 for that same channel, emit I_phi=null, C_phi=null, status='input_incomplete'. Do not drop the sample after seeing outputs.",
+    "rule_4_alternatives": "Allowed alternatives must be channel-equivalent and sealed in P0 with their own units and normalization constants. A replacement cannot be selected because it improves correlation with outputs.",
+    "rule_5_rounding": "Report normalized amplitudes, sigma_min, C_phi, and I_phi to 10 decimal places in machine labels; display tables may round to 4 significant digits."
+  },
+  "deposited_artifacts_spec": {
+    "deposit_time": "before opening any forbidden output file or superconducting phase label",
+    "timestamp_source": "UTC from the repository host or signed lab notebook clock; local timezone may be included but UTC is authoritative",
+    "hash_algorithm": "SHA-256 over canonical UTF-8 bytes",
+    "canonical_json": "sort object keys lexicographically, no insignificant whitespace, UTF-8, LF line endings, decimal numbers emitted with the frozen precision stated in P0",
+    "artifacts": [
+      {
+        "path": "current-S1/B/deposit/P0_encoder.json",
+        "required": true,
+        "contents": "frozen equations, row definitions, constants, windows, units, missing-data rules, baseline tests, code version",
+        "hash_required": true,
+        "timestamp_required": true
+      },
+      {
+        "path": "current-S1/B/deposit/X_pre_raw.csv",
+        "required": true,
+        "contents": "same-sample raw input-side measurements only",
+        "hash_required": true,
+        "timestamp_required": true
+      },
+      {
+        "path": "current-S1/B/deposit/X_pre_metadata.json",
+        "required": true,
+        "contents": "instrument, operator-blind sample ids, acquisition windows, detection limits, unit conversions, censored flags",
+        "hash_required": true,
+        "timestamp_required": true
+      },
+      {
+        "path": "current-S1/B/deposit/I_phi_labels.csv",
+        "required": true,
+        "contents": "sample_id, normalized amplitudes, sigma_min, C_phi, E_z2_meV, denominator_meV, I_phi, status",
+        "hash_required": true,
+        "timestamp_required": true
+      },
+      {
+        "path": "current-S1/B/deposit/baseline_scores.csv",
+        "required": true,
+        "contents": "same samples scored by S_dz2 only, c-axis only, disorder/structure only, Gamma_phi only, and frozen I_phi",
+        "hash_required": true,
+        "timestamp_required": true
+      },
+      {
+        "path": "current-S1/B/deposit/encoder_code.py",
+        "required": true,
+        "contents": "minimal recomputation script with no output-label inputs",
+        "hash_required": true,
+        "timestamp_required": true
+      },
+      {
+        "path": "current-S1/B/deposit/manifest.sha256.json",
+        "required": true,
+        "contents": "path, SHA-256, byte size, timestamp_utc for every deposited artifact",
+        "hash_required": true,
+        "timestamp_required": true
+      }
+    ]
+  },
+  "auditor_recomputation": {
+    "allowed_inputs": [
+      "P0_encoder.json",
+      "X_pre_raw.csv",
+      "X_pre_metadata.json",
+      "encoder_code.py"
+    ],
+    "disallowed_inputs": [
+      "Tc tables",
+      "resistance curves after output declaration",
+      "shielding or Meissner data",
+      "critical current",
+      "bulk phase stiffness",
+      "phase diagrams",
+      "A-round outputs"
+    ],
+    "pass_criteria": {
+      "hashes": "all pre-output artifact hashes match manifest.sha256.json",
+      "numeric_tolerance": "absolute error <= 5e-10 for normalized amplitudes, sigma_min, C_phi, denominator_meV, and I_phi when recomputed in float64",
+      "label_tolerance": "if labels are binned later, bin assignments must be bitwise identical to the sealed label file",
+      "missingness": "status fields and censored flags must be identical"
+    },
+    "interpretation_limit": "A recomputation pass proves only that the input-side encoder was frozen and reproducible; it does not validate predictive value."
+  },
+  "three_sample_mock_packet": {
+    "purpose": "executable sanity packet for the preregistration format; not evidence for nickelate superconductivity",
+    "constants_used": {
+      "S_dz2_ref": 0.08,
+      "W_caxis_ref": 1200000.0,
+      "Gamma_ref_meV": 20.0,
+      "sigma_ref": 0.2,
+      "E_z2_ref_meV": 100.0,
+      "T_calc_K": 80.0,
+      "kB_meV_per_K": 0.08617333262
+    },
+    "rows": [
+      {
+        "sample_id": "LP28-MOCK-001",
+        "S_dz2_raw": 0.1,
+        "W_caxis_raw": 1400000.0,
+        "B_struct": 0.72,
+        "hbarGamma_phi_meV": 18.0,
+        "D_disorder": 0.2,
+        "a_dz2": 0.5555555556,
+        "a_caxis": 0.5384615385,
+        "a_struct": 0.72,
+        "a_phi_clean": 0.5263157895,
+        "sigma_min": 0.5640122467,
+        "C_phi": 0.7382240915,
+        "E_z2_meV": 125.0,
+        "E_floor_meV": 8.0,
+        "denominator_meV": 32.8938666096,
+        "I_phi": 2.8053257627,
+        "status": "complete_mock"
+      },
+      {
+        "sample_id": "LP28-MOCK-002",
+        "S_dz2_raw": 0.16,
+        "W_caxis_raw": 500000.0,
+        "B_struct": 0.35,
+        "hbarGamma_phi_meV": 45.0,
+        "D_disorder": 0.45,
+        "a_dz2": 0.6666666667,
+        "a_caxis": 0.2941176471,
+        "a_struct": 0.35,
+        "a_phi_clean": 0.3076923077,
+        "sigma_min": 0.3274259361,
+        "C_phi": 0.6207998388,
+        "E_z2_meV": 200.0,
+        "E_floor_meV": 11.75,
+        "denominator_meV": 63.6438666096,
+        "I_phi": 1.9508551943,
+        "status": "complete_mock"
+      },
+      {
+        "sample_id": "LP28-MOCK-003",
+        "S_dz2_raw": 0.06,
+        "W_caxis_raw": 1100000.0,
+        "B_struct": 0.8,
+        "hbarGamma_phi_meV": 12.0,
+        "D_disorder": 0.15,
+        "a_dz2": 0.4285714286,
+        "a_caxis": 0.4782608696,
+        "a_struct": 0.8,
+        "a_phi_clean": 0.625,
+        "sigma_min": 0.4706930814,
+        "C_phi": 0.7018010092,
+        "E_z2_meV": 75.0,
+        "E_floor_meV": 7.25,
+        "denominator_meV": 26.1438666096,
+        "I_phi": 2.0132858111,
+        "status": "complete_mock"
+      }
+    ],
+    "anti_collapse_example": "LP28-MOCK-002 has the highest S_dz2_raw but lower I_phi than LP28-MOCK-001 because c-axis weight, structure, disorder, and Gamma_phi weaken the full input-side chain. This is a format sanity check only."
+  },
+  "baseline_collapse_tests": {
+    "test_scope": "run before output unblinding and store in baseline_scores.csv; compare score rankings only to the frozen I_phi ranking, not to superconducting outputs",
+    "baselines": [
+      {
+        "id": "B0_S_dz2_only",
+        "score": "S_dz2_raw / S_dz2_ref",
+        "collapse_flag": "true if Spearman rank correlation with I_phi across sealed input samples is >= 0.95 and every discordant-pair test is absent"
+      },
+      {
+        "id": "B1_caxis_weight_only",
+        "score": "W_caxis_raw / W_caxis_ref",
+        "collapse_flag": "true if Spearman rank correlation with I_phi across sealed input samples is >= 0.95 and no sample pair is reversed by C_phi/Gamma/E_floor"
+      },
+      {
+        "id": "B2_disorder_structure_only",
+        "score": "B_struct / (1 + D_disorder)",
+        "collapse_flag": "true if this baseline reproduces all I_phi ranks up to auditor tolerance"
+      },
+      {
+        "id": "B3_Gamma_phi_only",
+        "score": "1 / (1 + hbarGamma_phi_meV / Gamma_ref_meV)",
+        "collapse_flag": "true if this baseline reproduces all I_phi ranks up to auditor tolerance"
+      }
+    ],
+    "required_discordant_pair_checks": [
+      {
+        "id": "D1_high_dz2_not_sufficient",
+        "condition": "exists pair i,j with S_dz2_i > S_dz2_j but I_phi_i < I_phi_j",
+        "mock_result": "present: LP28-MOCK-002 has higher S_dz2 than LP28-MOCK-001 but lower I_phi"
+      },
+      {
+        "id": "D2_high_caxis_not_sufficient",
+        "condition": "exists pair i,j with W_caxis_i > W_caxis_j but I_phi_i < I_phi_j",
+        "mock_result": "present: LP28-MOCK-003 has lower W_caxis than LP28-MOCK-001 and lower I_phi; this mock does not by itself supply the reverse discordance"
+      },
+      {
+        "id": "D3_structure_disorder_not_sufficient",
+        "condition": "exists pair i,j with B_struct_i/(1+D_disorder_i) > B_struct_j/(1+D_disorder_j) but I_phi_i < I_phi_j",
+        "mock_result": "present: LP28-MOCK-003 has stronger structure/disorder score than LP28-MOCK-001 but lower I_phi"
+      },
+      {
+        "id": "D4_Gamma_only_not_sufficient",
+        "condition": "exists pair i,j with lower hbarGamma_phi_i than hbarGamma_phi_j but I_phi_i < I_phi_j",
+        "mock_result": "present: LP28-MOCK-003 has lower Gamma_phi than LP28-MOCK-001 but lower I_phi"
+      }
+    ],
+    "go_no_go_for_noncollapse": "If real sealed inputs show that I_phi is rank-identical to any single-variable baseline and no preregistered discordant-pair check exists, S1 must report baseline collapse. That is a protocol failure mode, not validation."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "C_phi can be defined as a dimensionless SVD observability score from four input-side channels with fixed units and normalization.",
+      "confidence": 0.68,
+      "new_insight": true,
+      "equations": [
+        "C_phi = sigma_min(C) / (sigma_min(C) + 0.2)",
+        "C is the 7x4 matrix defined in C_phi_transfer_matrix.matrix_rows"
+      ],
+      "assumptions": [
+        "The four input channels are measured on the same sample before opening forbidden outputs.",
+        "P0 freezes all windows, constants, replacement rules, and code.",
+        "No threshold or hyperparameter is selected using superconducting outputs."
+      ],
+      "references": []
+    },
+    {
+      "id": "C2",
+      "statement": "The audit packet can test whether I_phi collapses to S_dz2 only, c-axis weight only, disorder/structure only, or Gamma_phi only before any output comparison.",
+      "confidence": 0.62,
+      "new_insight": true,
+      "equations": [
+        "B0 = S_dz2_raw / S_dz2_ref",
+        "B1 = W_caxis_raw / W_caxis_ref",
+        "B2 = B_struct / (1 + D_disorder)",
+        "B3 = 1 / (1 + hbarGamma_phi_meV / Gamma_ref_meV)"
+      ],
+      "assumptions": [
+        "Collapse is judged against the frozen I_phi labels, not against superconducting outcomes.",
+        "Real-sample noncollapse still would not validate predictive power; it only prevents trivial input-side reduction."
+      ],
+      "references": []
+    }
+  ],
+  "failed_jumps": [
+    "Broad analogy to biological signaling was rejected because it did not specify units or an auditor-recomputable transfer matrix."
+  ],
+  "next_plan": "Have an inspector audit the JSON for dimensional consistency, canonicalization, and whether the mock packet can be recomputed without output labels.",
+  "literature_needed": "input-side normal-state c-axis optical spectral weight in layered nickelates; dz2-sensitive spectroscopy normalization; normal-state dephasing or scattering rates; structural apical-O/spacer disorder metrics"
+}

@@ -1,0 +1,854 @@
+Nature Physics | Volume 22 | January 2026 | 88–93 88
+nature physics
+Articlehttps://doi.org/10.1038/s41567-025-03099-x
+Effective bands and band-like electron 
+transport in amorphous solids
+ 
+Matthew Jankousky1, Dimitar Pashov    2, João H. Mazo1, Ross E. Larsen3,4, 
+Vladimir Dobrosavljević    5, Mark van Schilfgaarde    6 & 
+Vladan Stevanović    1,6 
+The localization of electrons caused by atomic disorder is a well-known 
+phenomenon. However, under which circumstances electrons remain 
+delocalized and retain band-like characteristics even when the crystal 
+structure is completely absent, as found in certain amorphous solids,  
+is less well understood. Here, to probe this phenomenon, we develop a  
+fully first-principles description of the electronic structure and charge 
+transport in amorphous materials, which combines a representation of  
+the amorphous state as a composite (ensemble) of local environments 
+and the state-of-the-art many-body electronic structure methods. Using 
+amorphous In2O3 as an example, we demonstrate the accuracy of o 
+ur approach in reproducing the band-like nature of the conduction electrons 
+as well as their disorder-limited mobility. Our approach reveals the physical 
+origins responsible for the electron delocalization and survival of the band 
+dispersions despite the absence of long-range order.
+In free space, eigenstates of the Schrödinger equation are free particles 
+with well-defined momentum ℏ k, which is the constant of motion. 
+For an electron moving in a perfectly periodic potential, scattering is 
+perfectly coherent. k remains a good quantum number, and by Bloch’s 
+theorem, electron states remain delocalized with ℏk reinterpreted as 
+the ‘crystal momentum’ . If the potential deviates slightly from perio -
+dicity, the Hamiltonian can be partitioned into a large periodic part 
+and a weak remainder. In such a case, transport can be characterized 
+in terms of electrons propagating in states of quantum number k , with 
+scattering between these states treated using perturbation theory. This 
+is the usual description of transport in crystalline systems. However, if 
+the disorder is strong, the remainder is no longer weak, and the Bloch 
+description breaks down, as Anderson discussed in his seminal work1.
+There is another, less well-understood possibility: that electron 
+states retain their itinerant character even in systems lacking trans -
+lational invariance, which this work seeks to address. Amorphous 
+systems are the archetypal example of broken symmetry and strong disorder. They have no translational symmetry and typically exhibit 
+poor mobility. However, there are exceptions: some amorphous sys -
+tems have relatively high electron mobility, such as amorphous In2O3 
+(ref. 2), used as an n-type transparent conducting oxide (TCO)3. This 
+system is the base material for a variety of TCOs used in a wide range of 
+optoelectronic applications, from photovoltaics to consumer electron -
+ics (flat panel displays, channels in thin film transistor structures and 
+so on)3. Amorphous TCOs are appealing as they allow low-temperature 
+processing while remaining homogeneous and without grain bounda -
+ries. Surprisingly, their electronic properties are comparable to, and 
+sometimes even better than, their (poly)crystalline counterparts. 
+Measured electron mobilities of ~10–40 cm2 V−1 s−1 or even higher3–5 
+rival those of polycrystalline films and clearly indicate band-like elec-
+tron transport in systems without any long-range order. The electron 
+mean free paths of 2–6 nm extracted from resistivity measurements 
+in a-In2O3 (ref. 2) present another clear indication of the delocalized 
+nature of electrons in this system. Although electron delocalization Received: 11 May 2025
+Accepted: 16 October 2025
+Published online: 17 November 2025
+ Check for updates
+1Department of Metallurgical and Materials Engineering, Colorado School of Mines, Golden, CO, USA. 2Theory and Simulation of Condensed Matter, 
+King’s College London, London, UK. 3Computational Science Center, National Renewable Energy Laboratory, Golden, CO, USA. 4Renewable and 
+Sustainable Energy Institute, University of Colorado Boulder, Boulder, CO, USA. 5Department of Physics and National High Magnetic Field Laboratory, 
+Florida State University, Tallahassee, FL, USA. 6Materials, Chemical and Computational Science Directorate, National Renewable Energy Laboratory, 
+Golden, CO, USA.  e-mail: vstevano@mines.edu
+Nature Physics | Volume 22 | January 2026 | 88–93
+ 89
+Article https://doi.org/10.1038/s41567-025-03099-xeither 5- or 6-fold coordinated by O. This is smaller than the crystal -
+line bixbyite phase of In2O3, for which each In has six O nearest neigh-
+bours, and it is consistent with experiments and molecular dynamics 
+simulations4,7,13– 15. The second neighbour In–In shell has an average 
+coordination number of 11.5, with the averages of each individual 
+structure ranging between 9.1 and 12.7—again, smaller than the 12-fold 
+coordination of bixbyite. Of the 12 In–In neighbours in bixbyite, 6 are 
+separated by 3.34 Å (edge-sharing In–O polyhedra), while the other 6 
+are separated by 3.82  Å (corner-sharing In–O polyhedra). In the random 
+structures, there is a bimodal distribution with the two maxima near 
+3.4 Å and 3.7 Å , respectively. In the random structures, the O atoms 
+have predominantly three or four In nearest neighbours with an aver-
+age first-shell coordination of 3.6. All this implies a strong tendency 
+of amorphous In2O3 towards In–O coordination, formation of 5- and 
+6-fold In coordination polyhedra that are connected in the corner- and 
+edge-sharing pattern similar to the crystalline phase. An important 
+feature of the amorphous phase, distinct from the crystalline, is the 
+presence of a small O–O peak at ~1.5 Å , indicating the presence of O–O 
+bonds as also observed in previous studies7,14.
+Electronic structure and transport properties in 
+the amorphous phase
+Within our approach, calculations of the electronic structure of the 
+amorphous phase entail calculations of the electronic structure of 
+each individual 40-atom structure and subsequent ensemble averag -
+ing, making the structural disorder quenched from the point of view 
+of electronic structure6. In this way, spatial fluctuations in the electron 
+energies are naturally included without the need for large supercells. 
+However, while using 40-atom structures allows for high-accuracy but 
+computationally demanding QSGW  calculations, performing them for 
+the entire set of 1,500 random structures is costly. Hence, the QSGW  
+calculations are performed on a subset of 100 structures whose average 
+S(q) and the DFT-PBE electronic spectral functions best reproduce the 
+same quantities averaged over the entire set of 1,500 structures (see 
+the Methods for details). As shown in Supplementary Figs. 8 and 9, the 
+subset of 100 structures used in QSGW  electronic structure calcula -
+tions reproduces the key structural characteristics of the entire set, 
+as well as the electronic density of states at the DFT level of theory. 
+This reduction does lead to an increased level of noise in the ensemble 
+averages, which, although noticeable, is of relatively small amplitude.
+Another important aspect of our approach is the alignment of 
+the electronic spectra of different random structures. The picture 
+of the amorphous phase as a composite of local environments sug -
+gests electrical contact between the environments and, consequently, 
+the equilibration of the Fermi energy ( Ef) across the entire sample. 
+Because of this, before ensemble averaging, all electronic structures 
+are aligned to the same Ef value, which is obtained from the calculated 
+electronic density of states (DOS) and the charge neutrality condi-
+tion at low temperature (Methods). The validity of this approach 
+is evident from Fig. 1d, which shows overall good correspondence 
+between the QSGW  calculated, ensemble-averaged electronic DOS 
+and photoemission (ultraviolet photoelectron spectroscopy, UPS) 
+experiments16. The features of the valence band of a-In2O3, including 
+the main peak and the shoulders at lower energies, agree very well with 
+experimental measurements.
+This model also lends itself to a procedure for calculating the 
+effective electronic (band) structure of the amorphous phase. First, 
+the spectral functions A (k, E), measuring the probability of finding 
+an electron with energy E and wave vector k, are the quantities being 
+averaged. However, because of the random relative orientations of the 
+local environments in the composite, A(k, E) must be spherically (iso -
+tropically) averaged over all directions of k  before ensemble averaging.
+Our results are presented in Fig. 1e, where isotropically and 
+ensemble-averaged A(k, E) from QS GW  are shown as a function of 
+energy for nine different k values, from k  = 0 to k  = 0.16 inverse Bohr and the existence of band-like features in amorphous solids and liquids 
+have previously been discussed, all proposed explanations are largely 
+qualitative and/or phenomenological6–8. A complete first-principles 
+description that allows for the evaluation of the absolute values of 
+disorder-limited electron mobility in amorphous solids is, to the best 
+of our knowledge, absent from the literature.
+In this Article, we develop a quantitative, fully first-principles 
+description of the effective band structure and the disorder-limited 
+charge-carrier transport in amorphous solids. The approach uses 
+the novel representation of the amorphous state as a composite of 
+local environments9, each representing a single microstate of the 
+system, corresponding to the small-cell, periodic local minimum on 
+the potential energy surface obtained through the first-principles 
+random structure sampling10. As we show here, by averaging over the 
+properties of individual local environments, the measured structural 
+features of a-In2O3 are well reproduced, including the structure factor 
+and the local coordination of atoms. More importantly, this repre -
+sentation enables the use of state-of-the-art many-body electronic 
+structure methods that are free of adjustable parameters, such as 
+the quasiparticle self-consistent GW  (QS GW )11, which, in turn, allows 
+formulation of an accurate effective (average) band structure for amor -
+phous systems, their electronic density of states and the direct evalu-
+ation of disorder-limited charge carrier mobility from the broadening 
+of the electronic band(s). Furthermore, our approach reveals that 
+the survival of the band-like electron transport in a-In2O3 is due to:  
+(1) largely retained coordination environment of atoms, (2) their edge- 
+and corner-sharing connectivity similar to the bulk and (3) the extended 
+and direction agnostic, largely In-s  character of the orbitals forming the 
+conduction band. Figure 1 illustrates our approach and key findings.
+Amorphous solid as a composite of local 
+environments
+Here, the structure of the amorphous state is modelled via the 
+first-principles random structure sampling that includes: (1) genera -
+tion of a large number of structures with a fixed number of atoms, 
+random lattice parameters and random atom positions, and (2) their 
+relaxation to the closest local minimum on the potential energy surface 
+using density functional theory (DFT) methods. Once relaxed, relevant 
+properties of individual structures are evaluated and the corresponding 
+properties of the amorphous state are obtained via ensemble averaging. 
+For a-In2O3 presented here, a set of 1,500 random structures with 40 
+atoms are generated and relaxed using the Perdew–Burke–Ernzerhof 
+(PBE) functional12. The number of structures and the cell size were 
+chosen large enough so that the statistical sampling was essentially 
+independent of the choice (Methods). It is important to note that the 
+vast majority of relaxed random structures do not exhibit long-range 
+symmetry, as indicated by the space-group-resolved thermodynamic 
+density of states shown in Supplementary Fig. 1.
+Figure 1b depicts structural features of a-In2O3, including both 
+powder X-ray diffraction (XRD) intensity and the structure factor S (q), 
+modelled with our approach. The broad feature in the XRD pattern 
+of a-In2O3 located between q  = 2 Å−1 and q  = 2.5 Å−1 corresponds well 
+to experimental results measured on thin films4. The same is true 
+for the structure factor, as illustrated in Fig. 1b , which matches the 
+XRD data from ref. 13 . All peaks and their intensities for the range of 
+scattering vectors q with relatively low experimental noise are repro -
+duced with satisfactory accuracy. Finally, the local coordination of 
+atoms calculated from the pair distribution functions (PDF) g (r) shown 
+in Fig. 1c agree well with those reported in the literature from both 
+experiments4,13 and molecular dynamics simulations7,14. The general 
+shape of the partial PDFs follows that of the crystalline In2O3 (bixbyite 
+structure), with some differences in the coordination numbers.
+In each random structure, In atoms have, on average, between 
+4.4 and 5.8 O atoms in their first coordination shell, with an ensem -
+ble average of 5.3. This indicates that the majority of In atoms are 
+Nature Physics | Volume 22 | January 2026 | 88–93 90
+Article https://doi.org/10.1038/s41567-025-03099-xradii (a−1
+0). The dispersion in the conduction band (red-highlighted 
+region) is clearly visible. A more detailed view is provided in the heat 
+maps in Fig. 1f , showing the curvature of the conduction band and the 
+associated energy broadening. These results allow quantification of 
+the dispersion E (k) and the broadening ΔE . From there, the electron 
+effective mass m *, relaxation time τ  and disorder-limited mobility μ  are 
+evaluated using the standard expressions
+τ=1
+2ℏ
+ΔE,μ=|e|τ
+m∗. (1)
+The following numerical results are obtained. The electron effective 
+mass computed from the effective band structure is m * ≈ 0.2 m0, almost 
+identical to the value for the crystalline In2O3, calculated using the 
+same procedure as m * = 0.22 m0. Reported experimental values for the 
+samples exhibiting n-type (electron) conductivity, due to a combina-
+tion of self- and Sn-doping3, fall in the range 0.18–0.33 m0 (refs. 17 ,18). 
+For the k  points near Γ , nearly uniform broadening of ΔE  = 0.25 eV is 
+found. These values result in an electron mobility of μ ≈ 13 cm2 V−1 s−1. 
+Finally, by taking electron concentrations in the range of 1020–1021 cm−3, 
+typically reported from transport measurements3, we estimate the 
+disorder-limited electron mean free path to be 1–3 nm, which amounts 
+to ~5–15 In–O bond lengths.
+The calculated mobility corresponds very well to the experimental 
+mobilities measured for a-In2O3 deposited at low temperatures19. Gen -
+erally, measured mobilities start at ~10 cm2 V−1 s−1 for a-In2O3 thin films deposited at −100 °C to −50 °C and then increase to ~60 cm2 V−1 s−1 as 
+the deposition temperature increases19. The reasons for this increase 
+are discussed below.
+Upon studying relationships between the electronic structure of 
+individual random structures and their atomic arrangement, one finds 
+that the most important feature influencing the electronic structure 
+is whether the atomic arrangement contains O–O bonds. Among the 
+full 1,500 structures, 54% contain one or more O–O bonds (52% in the 
+smaller sample used for QSGW  calculations). All structures without 
+O–O defects exhibit a highly dispersive conduction band with low 
+broadening. If one averages the spectral functions only over those 
+structures, no ‘mid-gap’ states are observed, and the peaks of the 
+spectral functions in the conduction band become sharper, as shown in 
+Fig. 2a. By contrast, if only structures with O–O bonds are considered, 
+the dispersion breaks down, and the conduction band splits into two: 
+one set of states below the Fermi energy and the other above, as seen in 
+Fig. 2b. This is primarily because the presence of an O–O bond changes 
+the effective electron count in surrounding coordination polyhedra. 
+The difference in the degree of localization of the conduction band 
+minimum (CBM) states between structures with and without O–O 
+bonds is clearly visible from the CBM charge densities of individual 
+structures shown in Fig. 2a,b (right).
+This different localization can also be seen in the calculated inverse 
+participation ratios for the states above and below the Fermi energy, 
+shown in Supplementary Figs. 12 and 13. For structures without O–O 
+bonds, at energies in a range between ~−2.7 and ~−1.5 eV near the valence 
+a b c
+d e fQSGW spectral functions (a.u.)
+E – Ef (eV)00.040.080.120.16
+0.020.060.100.14
+k (1/ao) 
+–10 –5 0 5 10
+E – Ef (eV) 
+k (1/ao) 0
+0.04 0.08 0.12 0.16∆E
+00.51.01.52.0
+Amorphous
+k (1/ao) 0
+0.04 0.08 0.12 0.16CrystallinePowder XRD (a.u.)
+q (1/Å) 1 2 3
+q (1/Å)4
+0 2 4 6 8–1012q (S(q) – 1) (Å–1)
+10 12 14ExperimentTheory
+g(r)
+01001020010In–In
+In–O
+O–O
+1 2 3 4 5 6 7 8
+r (Å)20
+E – Ef (eV)-10 -5 0 5 10Electr onic DOS (a.u.)Crystalline
+AmorphousCrystalline
+Amorphous
+Theory (QSGW) amorph.
+Exp. (UPS) cryst.Exp. (UPS) amorph.Theory (QSGW) cryst.
+Fig. 1 | Approach and key results. a, In our work, the structure of amorphous 
+solids is represented as a composite of local environments. b , The calculated 
+XRD intensity for crystalline and amorphous In2O3 (top) and the comparison of 
+the calculated and measured (from ref. 13) structure factors for a-In2O3 (bottom). 
+c, The comparison of the calculated partial PDFs g (r) between crystalline and 
+amorphous In2O3. d, The calculated (QSGW ) electronic DOS is shown for both 
+amorphous (amorph.) and crystalline (cryst.) In2O3 against photoemission (UPS) 
+measurements16,27. Experimental spectra (Exp.) are aligned with calculated DOSs on the same position of the respective main peak in the valence band, and are 
+shifted vertically for clarity. e , Calculated (QSGW ) spectral functions as a function 
+of electron energy at different k  points. The norms of k  points are shown in the 
+units of the inverse Bohr radius (1/ao). f , Spectral functions of the conduction 
+band (red rectangle in e ) shown as a heat map; the dispersion E (k) is clearly 
+visible, and the energy broadening is labelled. A heat map of the spherically 
+averaged conduction band of crystalline In2O3 is also shown for comparison.
+Nature Physics | Volume 22 | January 2026 | 88–93
+ 91
+Article https://doi.org/10.1038/s41567-025-03099-xband edge, the states are localized. By contrast, all the states in the 
+conduction band near 0.5 eV, which lie within a very small tail of the 
+density of states, are delocalized. As it is expected that weak disorder 
+can localize states near band edges20–22, the observed delocalization 
+suggests that the scattering from ideal electronic states caused by 
+changes in coordination number without O–O bonds is small—not large 
+enough to appreciably localize conduction band states. For structures 
+with an O–O bond, we observe delocalized valence band states below 
+about −2.0 eV, which become moderately localized at higher energies 
+within the valence band, consistent with the idea that localization near 
+band edges is preferred. In the conduction band, structures with O–O 
+bonds show moderate localization for most states within ~1.5 eV of the 
+conduction band minimum, suggesting that the electronic scattering 
+associated with the O–O defects is sufficiently strong to localize states 
+near the band edge.
+Looking at the average densities of states in Fig. 2c, calculated 
+separately for structures with and without O–O bonds, supports the 
+idea that the electronic properties of the system best reproduce the 
+experimentally observed behaviour when treated as a composite of 
+the contributions from both types of structure. The density of states 
+averaged over all 100 structures is in agreement with the experimental 
+UPS measurements in that states at energy lower than the maximum 
+peak are concave down, rather than linear or concave up as seen in the 
+average over the states with and without O–O bonds, respectively. The 
+average including states with and without O–O bonds also exhibits two 
+large and two small shoulders at energies lower than the maximum 
+frequency, showing much better agreement with the measured UPS 
+spectra than the single distinct low-energy peaks observed in the 
+densities averaging structures with and without O–O bonds separately.In addition, some fluctuations in the dispersions and the CBM 
+position relative to the common Fermi energy can be observed even 
+in structures without the O–O bonds. They are responsible for the fine 
+peak structure in the conduction band, visible in the Fig. 2a (see red cir -
+cle) and contribute to the CBM energy broadening close to the Γ  point. 
+Our analysis indicates that they are a consequence of the fluctuations 
+in the first-shell In–O coordination (Supplementary Fig. 14). Structures 
+with a lower fraction of 6-fold coordinated In atoms exhibit slightly 
+higher CBM energies compared with those in which the majority of In 
+atoms are 6-fold coordinated.
+Finally, both the structures containing O–O defects and those with 
+lower fraction of the 6-fold coordinated In, are higher in energy than 
+those without O–O and with predominantly 6-fold coordinated In, as 
+shown in Supplementary Fig. 14. Consequently, one might expect that 
+the fraction of these structures present in the actual samples would 
+decrease as the experimental conditions approach thermodynamic 
+equilibrium. In other words, averaging over all structures corresponds 
+to the experimental situation far away from equilibrium, that is, to the 
+thin films grown on cold substrates. Cold substrate conditions in the 
+thin-film growth have previously been shown to correspond to ensem -
+ble averages at high thermodynamic temperatures23. The effects of 
+increasing substrate temperatures can then be modelled by ensemble 
+averaging properties across random structures using the Boltzmann 
+distribution, assuming the energy of a particular configuration is given 
+by the energy of the PBE functional. Lower effective temperature in this 
+distribution, corresponding to higher substrate temperatures in thin 
+film growth, will lead to the lower concentration of O–O defects and 
+4- and 5-fold coordinated In. In turn, this will lead to increased electron 
+mobility by reducing the conduction band linewidth.
+a bQSGW spectral functions (a.u.)
+E – Ef (eV)Without O–O
+QSGW spectral functions (a.u.)With O–O
+O–O
+cQSGW electronic DOS (a.u.)
+E – Ef (eV)
+E – Ef (eV)
+kTeﬀ = 500 K Teﬀ = 1,000 K Teﬀ = 2,000 Kd e
+Teﬀ (K)Electron mobility µ (cm2 V–1 s–1)
+400 800 1,200 1,600 1,800141822Deposition
+temperature–10.0 –7.5 –5.0 –2.5 0 2.5 5.0
+–10 –5 0 5 10ExperimentWith O–ONO O–OTotal7.5 –10.0 –7.5 –5.0 –2.5 0 2.5 5.0 7.5
+E – Ef (eV)
+Fig. 2 | Origin of the conduction band in a-In2O3. a, The spectral functions 
+averaged over structures with no O–O bonds and a typical CBM charge density 
+of one of those structures. The red circle highlights the region from which the 
+charge density is plotted. b , The spectral functions averaged over structures 
+that contain O–O bonds and a typical charge density for one of those structures. 
+c, The calculated density of states averaged over structures with and without O–O bonds compared with the total DOS and experiment16. d, Heat maps of the 
+spectral functions for the conduction bands, with the structures ensemble-
+averaged and weighted by the Boltzmann distribution at different effective 
+temperatures. e, The calculated electron mobility of a-In2O3 as a function of the 
+effective temperature. The correspondence with the experimental deposition 
+temperature is indicated.
+Nature Physics | Volume 22 | January 2026 | 88–93 92
+Article https://doi.org/10.1038/s41567-025-03099-xThe spectral functions in Fig. 2d show a decrease in linewidth with 
+decreasing effective (ensemble averaging) temperature. Consequently, 
+mobility increases with decreasing effective temperature, as shown in 
+Fig. 2e, which agrees with the experimental observation that increas-
+ing deposition temperature will lead to increased mobility for In2O3 
+thin films. The O–O defects and, to some extent, In–O coordination 
+lower than 6 provide major perturbations (scattering centres) to the 
+conduction band electronic states. Their abundance and the associated 
+localization of conduction band states directly correlate with reduced 
+electron mobility. This is also evident from Supplementary Fig. 15 
+showing the influence of the decreasing effective temperature on the 
+mobility computed by taking into account structures with and without 
+the O–O separately.
+The remaining difference between our low effective temperature 
+electron mobility of ~25 cm2 V−1 s−1 and the experimentally observed 
+maximum of ~60 cm2 V−1 s−1 in films deposited at ~0 °C is probably 
+related to the presence of doping (electrons), which is not accounted 
+for in our approach. Electron doping will result in some fraction of 
+localized states (for example, those associated with O–O defects) 
+being occupied, effectively reducing the number of scattering channels 
+and thereby increasing the electron mobility with doping concentra-
+tion. In addition, an increase in doping concentration with deposition 
+temperature will also lead to higher Fermi velocity and longer electron 
+mean free path.
+Increasing the deposition temperature to ~25 °C or more leads to 
+the appearance of crystalline features in the XRD, which coincides with 
+the drop in measured electron mobility from ~60 back to 10 cm2 V−1 s−1 
+(ref. 4). Our results may offer an explanation for this drop as a conse-
+quence of the misalignment (band offset) of the CBM positions between 
+amorphous and crystalline phases evident from Fig. 1f. The amorphous 
+and crystalline CBM differ by ~250 meV, creating an effective barrier 
+for electron transport. If we imagine having crystalline inclusions in an 
+amorphous phase—measured to be in excess of 36% for films depos -
+ited at approximately 25 °C or higher4—their presence would lead to 
+a drop in mobility due to the band offset. The drop will continue until 
+the crystalline fraction is large enough to establish a percolation, at 
+which point the mobility will begin to increase with the deposition 
+temperature as also observed experimentally4.
+It is important to note that most of these discussed phenomena 
+are difficult to describe with approaches based on a single, large peri -
+odic cell representation of the structure of amorphous solids. First, 
+the dispersive electronic bands (if present) will be sharp and free of any 
+disorder-induced broadening. Second, the periodic boundary condi -
+tions imply the existence of a Brillouin zone, which is inconsistent with 
+the notion that waves with progressively higher k  (lower wavelength) 
+should scatter more to the point where the band dispersion is completely 
+destroyed. This effect is well reproduced in our approach, as illustrated 
+by the DFT-PBE spectral functions from Supplementary Fig. 10 calculated 
+for a larger set of k  values than in Fig. 1 .
+Physical origins responsible for electron 
+delocalization and band-like transport
+It is worth noting that treating amorphous phase as a collection of 
+independent local domains and calculating an effective electronic 
+structure as a configurational average can be justified under the fol -
+lowing conditions. First, the size of the domains needs to be larger 
+than the De Broglie wavelength of conduction electrons, which we 
+estimate to be ~2–4 nm from the single parabolic band picture and 
+for typical experimental charge carrier (electron) concentrations of 
+1020–1021 cm−3. This translates to 2–4 unit cells of our random structures, 
+whose linear dimensions are on average ~10 Å . Second, the good overall 
+agreement with the measurements indicates that the spatial correla -
+tions as well as the electron dephasing length in a-In2O3 are both shorter 
+than ~2–4 nm. All this is consistent with both measured and estimated 
+electron mean free paths of 2–6 and 1–3 nm, respectively. It is also important to note that our approach can be thought of as analogous 
+to the coherent potential approximation24,25, more precisely its cluster 
+version26, in which a real potential of disordered system (usually lat -
+tice disorder) is replaced by an effective, mean-field potential akin to 
+a configurational average.
+Next, the survival of the conduction band after both isotropic and 
+ensemble averaging indicates that: (1) the highly dispersive conduction 
+band is present in a large fraction (~50%) of individual structures despite 
+their low symmetry; (2) the spatial anisotropy of the conduction band 
+is low for all these structures; and (3) the bonding environments across 
+different structures are sufficiently similar to produce finite band gaps, 
+a similar number of states in the valence and conduction bands, and a 
+low number of mid-gap defect states, all of which lead to comparable 
+conduction band energies relative to Ef. O–O bonds are the primary 
+defects that break these patterns in amorphous In2O3.
+Indeed, a dispersive conduction band of the dominantly In-5 s 
+character can be found in all structures without the O–O defects. 
+The In-s character is clearly visible from the CBM electron densi -
+ties shown in Fig. 2a and the projected densities of states shown 
+in Supplementary Fig. 11. Also, the single degeneracy of the CBM 
+is another clear indicator of the s -like character of the conduction 
+band. This is true for the 100 structures calculated at the QSGW  level 
+of theory, and also in the remaining 1,400 (at the DFT level). This is a 
+consequence of the atomic coordination environments being similar 
+both among themselves and to those in bixbyite. Most of the In atoms 
+are 5- and 6-fold coordinated by O, and the O atoms are 3- and 4-fold 
+coordinated by In in the random structures. Moreover, the connectivity 
+of In coordination polyhedra in each random structure also resembles 
+bixbyite; most of them are edge- and corner-sharing. The existence of 
+the dispersion then implies similar site energies and strong overlaps 
+of the ‘molecular’ orbitals (In-5s -like) forming the conduction band. 
+The similarity of the site energies is supported by the observation that 
+the inverse participation ratio shows strong delocalization of these 
+conduction states (Supplementary Fig. 12).
+Furthermore, the extended range and direction-agnostic s -like 
+character of the orbitals forming the conduction band means that con -
+nected In coordination polyhedra have substantial overlap, regardless 
+of their orientation. This effect also contributes to the conduction band 
+being largely isotropic in space for each individual structure, leading to 
+the low broadening observed after the isotropic average. By contrast, 
+the valence band states, composed primarily of less-extended and 
+directional O-p orbitals are notably more localized and do not lead to 
+any dispersive band-like features, as evident from Fig. 1  and the inverse 
+participation ratio analysis in Supplementary Fig. 12. Lastly, similarity 
+between building blocks across all random structures implies similar -
+ity in the electronic DOS in both valence and conduction states. The 
+consequence of this is a similar magnitude of dispersion and similar 
+positions of the conduction bands relative to their respective Ef, all 
+of which contribute to the relatively low broadening of the effective 
+conduction band.
+Hence, the existence of the dispersive and relatively sharp conduc -
+tion band in more than half of random structures, and by extension in 
+our model of the amorphous phase, is due to the strong tendency of 
+In2O3 to form certain types of coordination polyhedra, their connectiv -
+ity and a low number of defects (wrong coordination environments). 
+Similar behaviour can be observed in amorphous/glassy SiO2, with 
+corner-sharing Si–O tetrahedra representing the sole building block 
+with s-like orbitals forming the low-energy unoccupied states giving 
+rise to the existence of a conduction band (Supplementary Fig. 16). The 
+s-like character of the conduction band minimum in both SiO2 and In2O3 
+is indicated by the single degeneracy of this band. The apparent lower 
+dispersion of CB in SiO2 is related to the near absence of edge-sharing 
+polyhedra9 and the shorter radius of Si-s orbitals.
+In conclusion, by treating amorphous phase as a composite of 
+local environments, we can quantitatively describe at the QSGW  level 
+Nature Physics | Volume 22 | January 2026 | 88–93
+ 93
+Article https://doi.org/10.1038/s41567-025-03099-xof theory the band-like character of the lowest conduction band in 
+a-In2O3, including both the effective mass and electron mobility. The 
+reasons for the existence of the conduction band despite the absence 
+of long-range order include: (1) the extended, direction-agnostic s-like 
+character of the orbitals forming the band, which averages over many 
+neighbours; (2) largely preserved coordination within polyhedra and 
+their connectivity in the vast majority of local environments; and (3) 
+a relatively small number of detrimental O–O defects, implying a 
+strong tendency to form certain types of coordination environment. 
+Similar behaviour of amorphous SiO2 (at the DFT level of theory) 
+shown in Supplementary Fig. 16 further supports this conclusion. 
+Lastly, the fully first-principles approach presented here for describ -
+ing the electronic structure of the amorphous/glassy states is general 
+and can be applied to electronic structure properties of disordered 
+systems more broadly.
+Online content
+Any methods, additional references, Nature Portfolio reporting sum-
+maries, source data, extended data, supplementary information, 
+acknowledgements, peer review information; details of author contri -
+butions and competing interests; and statements of data and code avail -
+ability are available at https://doi.org/10.1038/s41567-025-03099-x.
+References
+1. Anderson, P. W. Absence of diffusion in certain random lattices. 
+Phys. Rev.  109, 1492 (1958).
+2. Bellingham, J., Phillips, W. & Adkins, C. Amorphous indium oxide. 
+Thin Solid Films 195, 23 (1991).
+3. Shigesato, Y. in Handbook of Transparent Conductors (eds Ginley, 
+D.S., Hosono, H. & Paine, D. S.) Ch. 5, 149 (Springer, 2010).
+4. Buchholz, D. B. et al. The structure and properties of amorphous 
+indium oxide. Chem. Mater. 26, 5401 (2014).
+5. Charnas, A. et al. Review—extremely thin amorphous indium 
+oxide transistors. Adv. Mater. 36, 2304044 (2024).
+6. Stratt, R. M. & Xu, B.-C. Band structure in a liquid. Phys. Rev. Lett.  
+62, 1675 (1989).
+7. Medvedeva, J. E. et al. Origin of high carrier concentration in 
+amorphous wide-bandgap oxides: role of disorder in defect 
+formation and electron localization in In2O3−x. J. Appl. Phys. 127, 
+175701 (2020).
+8. Lee, Y., Hu, Y., Kim, D., Datta, S. & Cho, K. First-principles mobility 
+prediction for amorphous semiconductors. Phys. Rev. B 105, 
+085201 (2022).
+9. Wolf, L., Novick, A. & Stevanović, V. Modeling glasses from first 
+principles using random structure sampling. J. Appl. Phys. 137, 
+095101 (2025).
+10. Stevanović, V. Sampling polymorphs of ionic solids using random 
+superlattices. Phys. Rev. Lett. 116, 075503 (2016).
+11. Faleev, S. V., van Schilfgaarde, M. & Kotani, T. All-electron 
+self-consistent GW approximation: application to Si, MnO, and 
+NiO. Phys. Rev. Lett. 93, 126406 (2004).
+12. Perdew, J. P., Burke, K. & Ernzerhof, M. Generalized gradient 
+approximation made simple. Phys. Rev. Lett. 77, 3865–3868  
+(1996).13. Utsuno, F. et al. Structural study of amorphous In2O3 film by 
+grazing incidence X-ray scattering (GIXS) with synchrotron 
+radiation. Thin Solid Films 496, 95 (2006).
+14. Aliano, A., Catellani, A. & Cicero, G. Characterization of 
+amorphous In2O3: an a b initio molecular dynamics study. Appl. 
+Phys. Lett. 99, 211913 (2011).
+15. Eguchi, T., Inoue, H., Masuno, A., Kita, K. & Utsuno, F. Oxygen 
+close-packed structure in amorphous indium zinc oxide thin films. 
+Inorg. Chem. 49, 8298 (2010).
+16. Öfner, H., Shapira, Y. & Netzer, F. P. Evolution of the In oxide/Si(111) 
+interface: analysis by electron spectroscopies. J. Appl. Phys. 76, 
+1196 (1994).
+17. Nakazawa, H. et al. The electronic properties of amorphous and 
+crystallized In2O3 films. J. Appl. Phys. 100, 093706 (2006).
+18. Scherer, V. et al. Transport and angular resolved photoemission 
+measurements of the electronic properties of In2O3 bulk single 
+crystals. Appl. Phys. Lett. 100, 212108 (2012).
+19. Buchholz, D. B., Zeng, L., Bedzyk, M. J. & Chang, R. P. Differences 
+between amorphous indium oxide thin films. Progress Nat. Sci. 
+Mater. Int. 23, 475 (2013).
+20. Ziman, J. M. Localization of electrons in ordered and disordered 
+systems II. Bound bands. J. Phys. C 2, 1230 (1969).
+21. Abou-Chacra, R. & Thouless, D. J. Self-consistent theory of localization. 
+II. Localization near the band edges. J. Phys. C 7, 65 (1974).
+22. Nichols, C. S. & Winer, K. Localization of band-edge states in 
+periodic models of a-Si. Phys. Rev. B 38, 9850 (1988).
+23. Caskey, C. M. et al. Synthesis of a mixed-valent tin nitride and 
+considerations of its possible crystal structures. J. Chem. Phys.  
+144, 144201 (2016).
+24. Stocks, G. M. & Winter, H. in The Electronic Structure of Complex 
+Systems (eds Phariseau, P. & Temmerman, W. M.) Ch. 8, 463 
+(Plenum, 1985).
+25. Johnson, D. D., Nicholson, D. M., Pinski, F. J., Gyorffy, B. L. & 
+Stocks, G. M. Density-functional theory for random alloys: total 
+energy within the coherent-potential approximation. Phys. Rev. 
+Lett. 56, 2088 (1986).
+26. Laad, M. S. & Craco, L. Cluster coherent potential approximation 
+for the electronic structure of disordered alloys. J. Phys. Condens. 
+Matter 17, 4765 (2005).
+27. Brinzari, V. et al. Valence band and band gap photoemission study 
+of (111) In2O3 epitaxial films under interactions with oxygen, water 
+and carbon monoxide. Surf. Sci. 601, 5585 (2007).
+Publisher’s note Springer Nature remains neutral with regard to 
+jurisdictional claims in published maps and institutional affiliations.
+Springer Nature or its licensor (e.g. a society or other partner) holds 
+exclusive rights to this article under a publishing agreement with 
+the author(s) or other rightsholder(s); author self-archiving of the 
+accepted manuscript version of this article is solely governed by the 
+terms of such publishing agreement and applicable law.
+© The Author(s), under exclusive licence to Springer Nature Limited 
+2025
+Nature Physics
+Article https://doi.org/10.1038/s41567-025-03099-xMethods
+First-principles random structure sampling
+A set of 1,500 random In2O3 structures were generated with 40 atoms 
+per unit cell in a manner that encourages numerical stability of relaxa -
+tions and favours cation–anion coordination10. For each structure, 
+random values of lattice parameters (a , b, c, α, β and γ ) are chosen using 
+the constraints 0.8×scale ≤ a , b, c ≤ 1.6×scale and 60° ≤ α , β, γ ≤ 140°. 
+Atoms are distributed within the cell in a manner favouring cation–
+anion coordination and leading to homogeneous initial distribution. 
+To achieve this, a grid is generated at the minima and maxima (r) of a 
+plane wave cos(G⋅r), defined by reciprocal lattice vectors 
+G = n1g1 + n2g2 + n3g3. Cations are placed at the maxima of this wave, 
+while anions are placed at the minima. A gaussian is centred on each 
+atom, and the next atom placed is placed with higher probability on a 
+position where the sum of these gaussians is low. The scale of the struc -
+ture is changed so that the minimum distance between atoms is approx -
+imately 80% of the In–O bond length in bixbyite.
+Once these structures are generated, they are relaxed using the 
+PBE exchange-correlation functional in density functional theory 
+calculations as implemented in VASP28 code. Ionic relaxations are 
+performed using the conjugate gradient algorithm so that structures 
+relax reliably to their nearest local minimum. Pseudopotentials are 
+constructed from the projector-augmented wave method. The plane 
+wave cut-off is 340 eV, and the Γ -centred k-point grid is generated auto -
+matically using 20 divisions of the grid. All degrees of freedom, volume, 
+cell shape and atomic positions are included during relaxations and are 
+restarted at least three times to resolve the real-space grid inaccuracies 
+that occur during the volume and cell-shape relaxations. The cell shape 
+and volume are considered converged when the hydrostatic pressure is 
+less than 0.5 kilobar. Ionic relaxations are considered converged when 
+the maximum force on any atom is less than 0.02 eV Å−1.
+The PBE exchange correlation functional provides an overall 
+good representation of the structure of the crystalline (bixbyite) 
+In2O3. The calculated lattice constant a  = 10.29 Å  is 1.7% larger than 
+the experimental one of a  = 10.117(1) Å  (ref. 29 ), a usual result for the 
+PBE functional, leading to the ~5% overestimation of the volume and 
+equal underestimation of the mass density (6.8 versus 7.1 g cm−3). 
+The ensemble of random structures used in our representation of 
+a-In2O3 produces an average volume of 〈V〉 = 73 Å3 f.u.−1, effective 
+cubic lattice constant of 〈 V〉1/3 = 10.53 Å  and mass density of a-In2O3 
+of 6.3 g cm−3. The ~7% reduction in the mass density between crystal -
+line and a-In2O3 is well within the observed range of values19. When 
+averaging is performed using the Boltzmann distribution, the mass 
+density increases with decreasing temperature, approaching values 
+close to the density of cubic In2O3 (Supplementary Fig. 7), which is 
+in good correspondence with experiments that find the same result 
+for the films deposited at temperatures just before the crystallinity 
+is observed13,19.
+Finally, the choice of the 40-atom cells was justified by the con -
+vergence of relevant structure functions, namely the structure factor 
+S(q) and the PDF g (r), shown in Supplementary Fig. 2. In addition, 
+the fluctuations in S (q) and g (r) of individual structures shown in 
+Supplementary Fig. 3 illustrate the structural diversity of the set.
+QSGW calculations
+As noted, to reduce the computational cost, the QSGW  calculations 
+are performed on a subset of 100 structures chosen to approximate 
+the ensemble averages of both S (q) and the DFT-PBE-calculated 
+electronic DOS. The selection procedure uses Pareto optimiza -
+tion over 100 randomly chosen sets of 100 structures illustrated in 
+Supplementary Fig. 5. The red arrow in Supplementary Fig. 5c points 
+to the set used in subsequent calculations, which offers the minimal 
+normalized root-mean-square error in the average spectral functions 
+and is reasonably close to the lowest normalized root-mean-square 
+error in the structure factor S(q).The electronic structure of the subset of 100 of these relaxed 
+random structures is computed using QS GW , as implemented in the 
+Questaal code11. QSGW  is necessary here because PBE significantly 
+underestimates the band gap of In2O3; a starting-point–independent 
+correction to the electronic states, as provided by QSGW , yields an 
+electronic structure that can be reliably interpreted. Computational 
+cost of QS GW  is higher than, for example, hybrid functionals, but so is 
+the fidelity and without any adjustable parameters. Self-consistency 
+also improves fidelity compared with the more common GW based 
+on a one-body Hamiltonian such as PBE, as it is independent of the 
+starting point and is not affected by the well-known shortcomings of 
+any chosen one-body Hamiltonian. Here, we are interested not only 
+in obtaining accurate band gaps but also in the correct positioning of 
+the mid-gap defect states. In addition, it is not clear that uniform 1/4 
+of Fock exchange added to DFT across all structures is appropriate, 
+and obtaining the fraction of Fock exchange self-consistently30 would 
+significantly increase computational cost.
+In QSGW , the self-energy is quasiparticalized as described in ref. 11,  
+that is, the self-energy is treated as a static Hermitian potential, and 
+this is iterated to self-consistency, removing the dependence of the 
+self-energy on the starting point used for calculating the charge den-
+sity. This ensures that errors in the electronic properties are systematic 
+and well defined, coming from specific effects not included in the 
+random phase approximation, such as electron–hole interactions and 
+electron–phonon coupling31. The self-energy is considered converged 
+when the root-mean-squared deviation between steps is less than 
+4 × 10−5. Electronic states around each atom are approximated using an 
+optimized linear muffin-tin orbital basis, and higher energy states are 
+approximated with plane waves. The cut-off radius of these different 
+basis functions is chosen to include approximately 50 neighbours for 
+each atom in each structure. The k-point grid for these calculations 
+is chosen such that the number of atoms times the k-point density is 
+between 1,280 and 2,560, and the distance between k-point divisions 
+along each of the reciprocal lattice vectors is approximately even. The 
+G-vector cut-off for basis envelope functions is set to 2.9 Ry1/2, and the 
+regular mesh for the smoothed Hankel envelope functions is 8 Ry1/2. 
+High-lying elements in the self-energy matrix with energy above 2.8 Ry 
+are approximated using plane waves. Smooth Hankel energies for the 
+basis set on In and O atoms are optimized to minimize the total energy 
+of crystalline In2O3.
+Reciprocal space and real space structure functions
+The structure functions for each structure and the averages over differ -
+ent sets of structures were calculated as detailed in ref. 9 . In brief, the 
+total X-ray structure function was computed using the Faber–Ziman 
+formalism wherein
+SX(q)=1
+⟨f(q)⟩2Icoh
+a(q)−⟨f2(q)⟩−⟨f(q)⟩2
+⟨f(q)⟩2.
+Here, q is the scattering vector, and q is its norm. 〈f(q)〉 = ∑αcαfα(q) 
+is the average X-ray atomic form factor, where cα is the atomic fraction 
+of the atoms of type α and fα(q) is their atomic form factor.
+The PDFs between given atom types are computed using
+gαβ(r)=⟨1
+4πr2ncβdNαβ(r)
+dr⟩
+α,
+where dNαβ(r) is the number of β  atoms in a spherical region with thick -
+ness dr at a distance r from a given α atom, and 〈〉α denotes an average 
+over all α atoms.
+Averaging of the electronic structures
+To average densities of states and spectral functions over different ran-
+dom structures, we align their electronic spectra on the same Fermi 
+Nature Physics
+Article https://doi.org/10.1038/s41567-025-03099-xenergy. The Fermi energy for each random structure is evaluated using 
+the calculated electronic DOS and Fermi–Dirac distribution function, as 
+the value that produces charge neutrality between electrons and holes 
+at low temperatures. Ideally, this should be done in the limit of T  → 0; 
+however, the dispersive nature of the conduction band (low DOS near 
+the CBM), the band-gap values of several electronvolts or larger, and the 
+discretization of the energy axis necessitate the use of a finite tempera-
+ture. In the work presented here, we use kBT, that is 0.1 of the band gap Eg 
+(number of electrons or holes ~10−5), as we find values of this magnitude 
+provide numerically stable results (kB is the Boltzmann constant). Using 
+kBT/Eg between 0.05 and 0.1 produces essentially the same final results, 
+whereas lower values begin to introduce numerical noise (with the num -
+ber of electrons or holes dropping to the 10−50 range for kBT/Eg = 0.01).
+To obtain the spectral functions for each individual structure, a 
+k grid consisting of concentric spheres centred on the Γ  point is used. 
+These spheres are generated such that the linear density in the azimuthal 
+and polar directions are equivalent, and the number of points on each 
+sphere grows as k2 so that the surface density of k points is equivalent 
+for each value of k . The spectrum for each k point is represented by a 
+function with a Lorentzian of width 40 meV at each eigenvalue. These 
+spectra are then averaged over all k vectors in a given sphere (that share 
+the same norm). One can then average these spectral functions over 
+different structures aligned on their Fermi energies as discussed above. 
+Artificial broadening from 10 meV to 80 meV in increments of 10 meV 
+were tested. A value of 40 meV was chosen because it is the smallest 
+broadening that results in a unimodal distribution of eigenenergies 
+forming the ensemble-averaged conduction band of the amorphous 
+phase. Moreover, this value is more than a factor of six smaller than the 
+calculated physical broadening of the ensemble-averaged conduction 
+band (250 meV) and, as such, has no effect on it.
+To perform averages at an effective temperature, the density of 
+states and spectral functions can be weighted by a term e−ΔEi/(kBTeff)/Z, 
+where Teff is an effective temperature, ΔE is the energy relative to the 
+lowest energy member of the sample (in eV per formula unit) and 
+Z=∑ie−ΔEi/(kBTeff) is the partition function of the sample.
+It is important to note that the procedure described here is dif -
+ferent from the one used to calculate the effective band structure of 
+random alloys32 in which the wavefunctions computed on a supercell 
+representing an alloy are projected onto the plane waves with wavec-
+tors from the Brilloiun zone of the underlying lattice. The main dif -
+ference is in the representation of the disorder as a single microstate 
+(supercell) in the prior work on alloys and an ensemble of local micro -
+states utilized here. In addition to these conceptual differences, the 
+single microstate representation would still require large supercells, 
+rendering high-accuracy QSGW  calculations challenging.
+Calculations of effective mass, linewidth and mobility
+Several approaches can be used to characterize the peaks of the spec-
+tral functions in order to calculate the effective mass and linewidth of 
+the conduction band minimum. The simplest choice is to integrate 
+from the Fermi energy to energy at which the integral sums to one. The 
+expected value of the peak can be taken as ⟨E⟩=∫a
+EfA(k,E)EdE , and the 
+linewidth can be taken to be the standard deviation of that distribution, 
+σE=⟨E⟩2−∫a
+EfA(k,E)E2dE. These functions also display an increasing 
+background above the Fermi energy which can be removed, and if that 
+background is removed, the value of 〈 E〉 is better aligned with the visual 
+peak. Because of high-frequency noise, it is not always straightforward 
+to identify the peak as a maximum point. High-frequency noise can be 
+removed by performing a Fourier transform, discarding Fourier coef-
+ficients with frequencies above a given threshold, and then applying 
+an inverse Fourier transform. Identifying peaks by their maxima and 
+using their full width at half maximum as the linewidth yields values of 
+effective mass, mobility and linewidth that are all close to those 
+obtained through integration, both with and without subtracting the 
+monotonic background.Data availability
+Due to the size of the dataset, the data that support the findings of the 
+study are available from the corresponding author upon reasonable 
+request. Source data are provided with this paper.
+References
+28. Kresse, G. & Hafner, J. Ab initio molecular dynamics for liquid 
+metals. Phys. Rev. B 47, 558–561 (1993).
+29. Marezio, M. Refinement of the crystal structure of In2O3 at two 
+wavelengths. Acta Crystallogr. 20, 723 (1966).
+30. Skone, J. H., Govoni, M. & Galli, G. Self-consistent hybrid 
+functional for condensed systems. Phys. Rev. B 89, 195112  
+(2014).
+31. Cunningham, B., Grüning, M., Pashov, D. & van Schilfgaarde, M. 
+QSGW: quasiparticle self-consistent GW with ladder diagrams in 
+W. Phys. Rev. B 108, 165104 (2023).
+32. Popescu, V. & Zunger, A. Effective band structure of random 
+alloys. Phys. Rev. Lett. 104, 236403 (2010).
+Acknowledgements
+M.J., J.H.M. and V.S. acknowledge support from the US National 
+Science Foundation, grant no. DMR-1945010. This work was 
+authored in part by the National Renewable Energy Laboratory for 
+the US Department of Energy (DOE) under contract no. DE-AC36-
+08GO28308. Work by D.P., R.E.L. and M.v.S. was supported by 
+the Computational Chemical Sciences programme within the 
+Office of Basic Energy Sciences, US Department of Energy. Work 
+by V.D. was supported by the US NSF grant no. DMR-2409911, and 
+the National High Magnetic Field Laboratory through the NSF 
+Cooperative Agreement No. DMR-2128556 and the State of Florida. 
+We acknowledge the use of the National Energy Research Scientific 
+Computing Center under contract no. DE-AC02-05CH11231 using 
+NERSC award ERCAP0033575 and the computational resources 
+sponsored by the Department of Energy’s Office of Energy Efficiency 
+and Renewable Energy and located at the National Renewable Energy 
+Laboratory. The views expressed in this article do not necessarily 
+represent the views of the DOE or the US Government. The publisher, 
+by accepting the article for publication, acknowledges that the US 
+Government retains a non-exclusive, paid-up, irrevocable, worldwide 
+licence to publish or reproduce the published form of this work, or 
+allow others to do so, for US Government purposes.
+Author contributions
+M.J. and V.S. conceived the ideas, coordinated this work and wrote the 
+paper with input from all other authors. M.J., J.H.M. and V.S. performed 
+calculations. All authors contributed to the development of presented 
+ideas, discussed the results and commented on the paper.
+Competing interests
+The authors declare no competing interests.
+Additional information
+Supplementary information The online version contains 
+supplementary material available at  
+https://doi.org/10.1038/s41567-025-03099-x.
+Correspondence and requests for materials should be addressed to 
+Vladan Stevanović.
+Peer review information Nature Physics thanks Anshu Gaur and the 
+other, anonymous, reviewer(s) for their contribution to the peer review 
+of this work.
+Reprints and permissions information is available at  
+www.nature.com/reprints.

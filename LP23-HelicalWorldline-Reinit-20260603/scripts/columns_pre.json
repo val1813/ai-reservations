@@ -1,0 +1,317 @@
+[
+  {
+    "dependencies": [
+      {
+        "sources": [
+          3
+        ],
+        "target": 3
+      },
+      {
+        "sources": [
+          3,
+          4
+        ],
+        "target": 4
+      },
+      {
+        "sources": [
+          3,
+          4,
+          5
+        ],
+        "target": 5
+      }
+    ],
+    "direct": 0.0,
+    "label": "local_loop_stencil",
+    "max_support_diameter": 2,
+    "poles": [],
+    "preregistered": true,
+    "residues": [],
+    "sample_edges": [],
+    "sample_frequencies": [],
+    "source": "local_stencil",
+    "support": [
+      3,
+      4,
+      5
+    ],
+    "values": [
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "dependencies": [
+      {
+        "sources": [
+          6
+        ],
+        "target": 6
+      },
+      {
+        "sources": [
+          6,
+          7
+        ],
+        "target": 7
+      },
+      {
+        "sources": [
+          6,
+          7,
+          8
+        ],
+        "target": 8
+      }
+    ],
+    "direct": 0.04,
+    "label": "passive_tail_pr",
+    "max_support_diameter": 2,
+    "poles": [
+      0.45,
+      1.6
+    ],
+    "preregistered": true,
+    "residues": [
+      1.25,
+      0.35
+    ],
+    "sample_edges": [
+      6,
+      7,
+      8
+    ],
+    "sample_frequencies": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "source": "passive_realization",
+    "support": [
+      6,
+      7,
+      8
+    ],
+    "values": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0366843501326262,
+      0.6474263038548753,
+      0.47840579710144926
+    ]
+  },
+  {
+    "dependencies": [
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 0
+      },
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 1
+      },
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 2
+      },
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 3
+      },
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 4
+      },
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 5
+      },
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 6
+      },
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 7
+      },
+      {
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "target": 8
+      }
+    ],
+    "direct": 0.0,
+    "label": "oracle_source_challenge",
+    "max_support_diameter": 99,
+    "poles": [],
+    "preregistered": false,
+    "residues": [],
+    "sample_edges": [],
+    "sample_frequencies": [],
+    "source": "oracle",
+    "support": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "values": [
+      0.25,
+      0.28,
+      0.31,
+      0.33999999999999997,
+      0.37,
+      0.4,
+      0.43,
+      0.45999999999999996,
+      0.49
+    ]
+  },
+  {
+    "dependencies": [
+      {
+        "sources": [
+          1
+        ],
+        "target": 0
+      },
+      {
+        "sources": [
+          1
+        ],
+        "target": 1
+      }
+    ],
+    "direct": 0.0,
+    "label": "future_leak_challenge",
+    "max_support_diameter": 1,
+    "poles": [],
+    "preregistered": true,
+    "residues": [],
+    "sample_edges": [],
+    "sample_frequencies": [],
+    "source": "local_stencil",
+    "support": [
+      0,
+      1
+    ],
+    "values": [
+      1.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  }
+]

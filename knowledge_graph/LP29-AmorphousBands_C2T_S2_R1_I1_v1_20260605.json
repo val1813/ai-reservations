@@ -1,0 +1,79 @@
+{
+  "id": "LP29-AmorphousBands_C2T_S2_R1_I1_v1_20260605",
+  "project": "LP29-AmorphousBands",
+  "north_star": "LP29-C2T-S2-R1-I1 / executable O_s baseline-admission validator",
+  "date": "2026-06-05",
+  "contributor": {
+    "orcid": "anonymous",
+    "github": "anonymous",
+    "name": "anonymous"
+  },
+  "status": "implementation-ready regression firewall specification / validator not implemented / regression not run",
+  "claim": "I1 specifies an implementation-ready O_s baseline-admission regression firewall. It freezes terminal statuses, first-failed predicates, no-silent-upgrade rules, and expected output schema for a future executable validator, but it does not implement or run that validator.",
+  "allowed_claims": [
+    "A future validator has a frozen implementation-ready API/CLI/specification target.",
+    "The expected terminal statuses are BLOCK, CONDITIONAL_CONTEXT_PASS, CANDIDATE_EXACT_REPLAY, DIAGNOSED_MISMATCH, and ADMITTED_EXACT.",
+    "Legacy raw PARTIAL_CONTEXT_ONLY must return BLOCK with DEPRECATED_PARTIAL_CONTEXT_ONLY and migration_required=true.",
+    "Current Srivastava exact O_s summary evidence remains BLOCK.",
+    "Explicit reported-context evidence can reach only CONDITIONAL_CONTEXT_PASS, not exact admission."
+  ],
+  "forbidden_claims": [
+    "validation/validate.py exists",
+    "validator tests passed",
+    "regression command executed",
+    "exact Srivastava O_s reproduced",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "exact O_s impossible in principle",
+    "context-only, DOI, scalar closeness, executor quality, or provenance narrative is sufficient for exact admission"
+  ],
+  "artifacts": {
+    "pi_round3": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_R1_I1_round3.md",
+    "pi_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_R1_I1_final.md",
+    "reviewer_n3": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_R1_I1_N3.md",
+    "reviewer_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_R1_I1_final.md",
+    "reviewer_validation": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_validation_C2T_S2_R1_I1_final.md",
+    "gate15": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\gate15_C2T_S2_R1_I1.md",
+    "gate3": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\gate3_C2T_S2_R1_I1.md",
+    "gate4": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\gate4_C2T_S2_R1_I1.md",
+    "re_escalation": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reescalation_PI_C2T_S2_R1_I1.md",
+    "contradiction_deepening": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\contradiction_deepening_PI_C2T_S2_R1_I1.md",
+    "subpropositions": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\subpropositions_PI_C2T_S2_R1_I1.md",
+    "implementation_package": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\I1_minimal_implementation_package_round3.csv",
+    "regression_contract": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\I1_regression_command_contract_round3.csv"
+  },
+  "remaining_warnings": [
+    "validation/validate.py does not exist",
+    "fixtures and tests do not exist",
+    "the 17-case regression command has not been run",
+    "future implementation must preserve legacy PARTIAL_CONTEXT_ONLY as BLOCK plus DEPRECATED_PARTIAL_CONTEXT_ONLY"
+  ],
+  "new_candidates": [
+    {
+      "id": "LP29-C2T-S2-R1-I1-X1",
+      "title": "executed O_s baseline-admission regression firewall",
+      "score": 1.95,
+      "status": "next priority candidate; must directly implement and run"
+    },
+    {
+      "id": "LP29-C2T-S2-R1-I1-X2",
+      "title": "legacy PARTIAL_CONTEXT_ONLY no-silent-upgrade fixtures",
+      "score": 1.5,
+      "status": "internal X1 acceptance gate"
+    },
+    {
+      "id": "LP29-C2T-S2-R1-I1-X3",
+      "title": "current Srivastava exact-admission guard fixtures",
+      "score": 1.5,
+      "status": "internal X1 acceptance gate"
+    },
+    {
+      "id": "LP29-C2T-S2-R1-I1-X4",
+      "title": "CLI/API shared-core conformance",
+      "score": 1.5,
+      "status": "internal X1 acceptance gate"
+    }
+  ],
+  "next_step": "Enter LP29-C2T-S2-R1-I1-X1: implement validation/validate.py, JSONL fixtures, expected outputs, tests, README/CLI contract, then run the 17-case regression and record actual outputs."
+}

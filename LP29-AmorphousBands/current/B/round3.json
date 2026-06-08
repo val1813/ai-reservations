@@ -1,0 +1,328 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 3,
+  "agent": "B",
+  "polaris": "For amorphous In2O3 and related transparent conducting oxides without long-range periodicity, is band-like transport sufficiently diagnosed by Anderson/Mott mobility-edge filling, or by a medium-range metal-s-orbital connectivity network plus O-O/coordination-defect thresholds?",
+  "round3_status": {
+    "product_type": "protocol plus reproducible synthetic toy benchmark",
+    "has_real_material_measurements": false,
+    "has_real_dft_wannier_data": false,
+    "interpretation_guardrail": "All numeric values in numeric_products_round3 are deterministic toy-ensemble statistics generated from the pseudocode and seeds below. They are not amorphous In2O3 measurements, not Nature Physics extracted data, and not DFT/Wannier results.",
+    "inspector_round2_warning_repair_summary": {
+      "P1_direction_wording": "repaired",
+      "toy_reproducibility_and_noninteger_edges": "repaired by declaring ensemble means, n=32 seeds, reporting E_mean/E_sd and density means derived from integer per-seed edge counts",
+      "controls_quantitative_pass_fail": "repaired",
+      "protocol_vs_data_status": "repaired"
+    }
+  },
+  "framework": "Network science plus graph-spectral robustness, now explicitly bounded as a measurement protocol: structure-derived graph metrics M(X) are hypotheses, and pass only if they improve independent Hall/Drude/Wannier/spectral labels beyond matched carrier-density, EF-Ec, onsite-disorder, m*, tau, and finite-size controls.",
+  "findings": "Round 3 does not claim material discovery. It repairs Round 2 by converting the toy table into a deterministic synthetic ensemble specification and by making the validation criteria falsifiable. The main B claim is now: mobility, Drude weight, and band-ridge coherence should increase with z_eff/S_GC, or equivalently decrease as z_eff/S_GC decrease, after non-network controls.",
+  "math_object": "A motif-conditioned weighted random geometric graph ensemble. V=In sites in a periodic cubic cell; candidate In-In edges are pairs with r_ij<r_cut; weights are t_ij=t0*exp(-(r_ij-r0)/lambda)*(1+alpha_edge*I_edge+alpha_corner*I_corner)*exp(-beta*f_OO,ij). Observables for validation must be independent of this proxy formula.",
+  "direction_repairs": {
+    "P1_corrected_statement": "At matched carrier density and matched EF-Ec, independent Hall mobility, optical Drude weight, and band-ridge coherence decrease as structure-derived z_eff and S_GC decrease; equivalently, they increase with z_eff and S_GC after controls.",
+    "forbidden_wording": "Do not write 'mobility decreases with z_eff/S_GC' without the word 'decrease' attached to z_eff/S_GC.",
+    "threshold_direction": "Keeping only edges with abs(t_ij)>t_min means increasing t_min deletes weak edges, so S_GC, rho_E_atom, and z_eff cannot increase under the same fixed graph."
+  },
+  "synthetic_toy_ensemble_specification": {
+    "status": "executed lightweight deterministic toy ensemble for Round 3 JSON only; not a material calculation",
+    "global_parameters": {
+      "L_angstrom": 18.0,
+      "N_In": 64,
+      "r0_angstrom": 3.30,
+      "r_cut_angstrom": 4.20,
+      "lambda_angstrom": 0.55,
+      "t0_eV": 1.0,
+      "t_min_eV": 0.35,
+      "alpha_edge": 0.30,
+      "alpha_corner": 0.10,
+      "beta": 2.0,
+      "periodic_boundary_conditions": true
+    },
+    "seed_rule": {
+      "n_seeds_per_ensemble": 32,
+      "G_good": "seed = 2903000 + k, k=0..31",
+      "BD_borderline": "seed = 2904000 + k, k=0..31",
+      "BA_bad": "seed = 2905000 + k, k=0..31"
+    },
+    "ensemble_parameters": [
+      {
+        "ensemble": "G_good",
+        "sigma_O_angstrom_label": 0.28,
+        "f_OO_target": 0.00,
+        "p_edge_sharing": 0.34,
+        "p_corner_sharing": 0.66,
+        "position_disturbance": 0.00
+      },
+      {
+        "ensemble": "BD_borderline",
+        "sigma_O_angstrom_label": 0.45,
+        "f_OO_target": 0.04,
+        "p_edge_sharing": 0.24,
+        "p_corner_sharing": 0.76,
+        "position_disturbance": 0.18
+      },
+      {
+        "ensemble": "BA_bad",
+        "sigma_O_angstrom_label": 0.65,
+        "f_OO_target": 0.10,
+        "p_edge_sharing": 0.15,
+        "p_corner_sharing": 0.85,
+        "position_disturbance": 0.34
+      }
+    ],
+    "coordinate_and_edge_generation_pseudocode": [
+      "For each ensemble c and seed k, initialize rng with the deterministic seed_rule.",
+      "Generate N_In=64 In positions in a cubic L=18 angstrom cell by random sequential addition with periodic minimum image distance min_d=2.85-position_disturbance angstrom; if the RSA attempt cap is reached, fill remaining sites with seeded random positions and mark the cell as toy-only.",
+      "For every i<j, compute periodic minimum-image r_ij. Candidate edges are r_ij<4.20 angstrom. The reported A_3p0_4p2 is the fraction of all In-In pairs with 3.0<=r_ij<4.2 in this toy generator.",
+      "Accept each candidate edge with probability clamp(1-1.4*position_disturbance-0.10*max(0,r_ij-3.6),0,1). This artificial degradation is a toy ensemble axis, not a physical oxygen-relaxation model.",
+      "Assign edge-sharing with probability p_edge_sharing; otherwise assign corner-sharing. Draw local f_OO_ij=max(0, Normal(f_OO_target, 0.015)) for f_OO_target>0, or max(0, Normal(0, 0.002)) for G_good.",
+      "Compute t_ij using the motif-weight formula. The raw integer edge count E is the number of accepted candidate edges; the kept integer edge count E_kept is the number with abs(t_ij)>t_min.",
+      "Compute rho_E_atom=2*E/N_In and rho_E_vol=E/L^3 for each seed before averaging. Non-integer E_mean and density means are ensemble means over integer per-seed E values, not single-cell edge counts.",
+      "Compute S_GC on the kept-edge graph and z_eff=(1/N_In)*sum_i sum_j abs(t_ij)/t0 over kept edges."
+    ],
+    "minimal_table_is": "ensemble_mean_plus_sample_sd_over_32_deterministic_toy_seeds"
+  },
+  "numeric_products_round3": {
+    "status": "synthetic toy ensemble statistics only",
+    "minimal_table": [
+      {
+        "ensemble": "G_good",
+        "n_seeds": 32,
+        "E_raw_mean": 83.6875,
+        "E_raw_sd": 6.4879,
+        "E_kept_t_gt_tmin_mean": 66.2188,
+        "E_kept_t_gt_tmin_sd": 5.5109,
+        "A_3p0_4p2_mean": 0.03886,
+        "A_3p0_4p2_sd": 0.00307,
+        "rho_E_atom_mean": 2.6152,
+        "rho_E_atom_sd": 0.2027,
+        "rho_E_vol_angstrom_minus3_mean": 0.01435,
+        "rho_E_vol_angstrom_minus3_sd": 0.00111,
+        "R_edge_mean": 0.3413,
+        "R_edge_sd": 0.0509,
+        "R_corner_mean": 0.6587,
+        "R_corner_sd": 0.0509,
+        "S_GC_t_gt_tmin_mean": 0.7373,
+        "S_GC_t_gt_tmin_sd": 0.1638,
+        "z_eff_mean": 2.1849,
+        "z_eff_sd": 0.2590,
+        "toy_prediction": "network-percolating toy class; independent mu_H/Drude/ridge labels should be higher only if real validation confirms the same residual sign"
+      },
+      {
+        "ensemble": "BD_borderline",
+        "n_seeds": 32,
+        "E_raw_mean": 66.5938,
+        "E_raw_sd": 5.7746,
+        "E_kept_t_gt_tmin_mean": 50.4063,
+        "E_kept_t_gt_tmin_sd": 6.1846,
+        "A_3p0_4p2_mean": 0.03754,
+        "A_3p0_4p2_sd": 0.00316,
+        "rho_E_atom_mean": 2.0811,
+        "rho_E_atom_sd": 0.1805,
+        "rho_E_vol_angstrom_minus3_mean": 0.01142,
+        "rho_E_vol_angstrom_minus3_sd": 0.00099,
+        "R_edge_mean": 0.2301,
+        "R_edge_sd": 0.0593,
+        "R_corner_mean": 0.7699,
+        "R_corner_sd": 0.0593,
+        "S_GC_t_gt_tmin_mean": 0.4136,
+        "S_GC_t_gt_tmin_sd": 0.1487,
+        "z_eff_mean": 1.8862,
+        "z_eff_sd": 0.3396,
+        "toy_prediction": "near or below toy threshold; independent labels should show degraded residuals relative to G_good if B is right"
+      },
+      {
+        "ensemble": "BA_bad",
+        "n_seeds": 32,
+        "E_raw_mean": 45.7188,
+        "E_raw_sd": 4.8542,
+        "E_kept_t_gt_tmin_mean": 33.5938,
+        "E_kept_t_gt_tmin_sd": 3.9665,
+        "A_3p0_4p2_mean": 0.03516,
+        "A_3p0_4p2_sd": 0.00341,
+        "rho_E_atom_mean": 1.4287,
+        "rho_E_atom_sd": 0.1517,
+        "rho_E_vol_angstrom_minus3_mean": 0.00784,
+        "rho_E_vol_angstrom_minus3_sd": 0.00083,
+        "R_edge_mean": 0.1380,
+        "R_edge_sd": 0.0495,
+        "R_corner_mean": 0.8620,
+        "R_corner_sd": 0.0495,
+        "S_GC_t_gt_tmin_mean": 0.1455,
+        "S_GC_t_gt_tmin_sd": 0.0492,
+        "z_eff_mean": 1.3679,
+        "z_eff_sd": 0.2396,
+        "toy_prediction": "fragmented toy class; independent mobility/Drude/ridge coherence should be lower as z_eff/S_GC decrease, not because the toy graph itself proves transport"
+      }
+    ],
+    "integer_edge_count_repair": "For each seed E_raw and E_kept are integers. The reported E_raw_mean values are ensemble means, so non-integer values are expected and no longer imply a single impossible graph.",
+    "density_consistency": "rho_E_atom_mean=2*E_raw_mean/64 and rho_E_vol_mean=E_raw_mean/18^3 within rounding."
+  },
+  "quantitative_validation_controls": {
+    "principle": "B passes only if structure-derived M improves prediction of independent labels Y. Proxy-Hamiltonian outputs can be diagnostics but cannot be the sole Y.",
+    "primary_model_comparison": {
+      "baseline_model": "Y_independent ~ carrier_density + EF_minus_Ec + onsite_variance + mstar + tau_proxy + oxygen_vacancy_proxy + batch",
+      "network_model": "Y_independent ~ baseline_terms + S_GC + z_eff + R_edge + R_corner + f_OO + high_betweenness_damage",
+      "cross_validation": "Use grouped 5-fold CV when sample count >=25; otherwise leave-one-synthesis-batch-out or leave-one-seed-family-out. Groups must prevent near-duplicate structures from crossing train/test.",
+      "pass": "Mean out-of-sample R2 improves by at least +0.10 absolute for continuous labels, or RMSE decreases by at least 15%, with bootstrap 95% CI of the improvement entirely above 0.",
+      "fail": "R2 improvement <+0.03, RMSE improvement <5%, or the bootstrap CI crosses 0 in two independent label families."
+    },
+    "information_criteria": {
+      "pass": "Delta AIC <= -6 or Delta BIC <= -4 for the network model versus baseline, computed on held-out predictions or with effective degrees of freedom declared.",
+      "fail": "Delta AIC > -2 and Delta BIC > -2 after adding M, meaning network terms do not justify complexity."
+    },
+    "matched_control_residual_test": {
+      "matched_sets": "Match carrier density within +/-10%, EF-Ec within +/-0.03 eV or overlapping posterior 68% intervals, onsite variance within +/-10%, and m*/tau within measurement uncertainty when available.",
+      "pass": "Within matched sets, residual(mu_H), residual(Drude weight), or residual(ridge coherence) has positive Spearman correlation with z_eff/S_GC and negative residual shift for high-betweenness O-O damage. Required |Spearman rho|>=0.35 and permutation p<0.05, or Cohen d>=0.50 for targeted-versus-random damage.",
+      "fail": "Residual sign flips relative to prediction, |rho|<0.20, or targeted O-O defects are indistinguishable from random O-O placement with |d|<0.20."
+    },
+    "carrier_density_and_oxygen_vacancy_control": {
+      "pass": "Network coefficients keep the predicted sign and at least 70% of their standardized magnitude after adding Hall n, oxygen vacancy proxy, and anneal batch.",
+      "fail": "Network coefficients shrink below 30% of the unadjusted magnitude or become sign-unstable across density bins."
+    },
+    "onsite_disorder_control": {
+      "pass": "At matched onsite variance, adding edge/motif metrics improves CV R2 by >=0.08 or targeted-edge residual effect size d>=0.50.",
+      "fail": "Onsite variance alone matches the network model within Delta CV R2<0.03 and Delta BIC<2."
+    },
+    "finite_size_control": {
+      "pass": "Threshold estimate S_c changes by <0.08 between N_In=64,128,256 toy or AIMD-derived cells and z_eff rank ordering is preserved with Kendall tau>=0.6.",
+      "fail": "S_c drifts by >=0.15 or class ordering changes sign with size."
+    },
+    "EF_Ec_mobility_edge_control": {
+      "pass": "Across posterior samples of EF-Ec, network residual sign is preserved in >=80% of posterior draws and median Delta CV R2>=0.08.",
+      "fail": "Corrected EF-Ec alone explains Y as well as the network model, with Delta CV R2<0.03 and no stable network sign."
+    }
+  },
+  "non_self_certifying_validation_chain": {
+    "preferred_external_labels": [
+      "Hall mobility from experiment at matched n and temperature",
+      "optical Drude weight and scattering rate",
+      "DFT/QSGW/Wannier hoppings fitted independently from the structure-derived graph metrics",
+      "spectral ridge linewidth/coherence from electronic-structure calculations",
+      "matched-control residuals where O-O defects are randomized or degree-preserving rewired"
+    ],
+    "cycle_break_rule": "If Y is generated only by the same t_ij proxy used to compute z_eff and S_GC, that test is marked diagnostic-only and cannot pass the B claim."
+  },
+  "falsifiable_predictions": [
+    {
+      "id": "P1",
+      "statement": "At matched carrier density and matched EF-Ec, independently measured Hall mobility, optical Drude weight, and band-ridge coherence decrease as structure-derived z_eff and S_GC decrease; equivalently, they increase with z_eff and S_GC after controls.",
+      "observable": "mu_H, Drude weight, or spectral ridge coherence from experiment/DFT, not from the proxy graph Hamiltonian",
+      "expected_direction": "Lower S_GC and z_eff -> lower mu_H, lower Drude weight, and weaker ridge coherence after controls.",
+      "pass_fail_pointer": "Use quantitative_validation_controls.primary_model_comparison plus matched_control_residual_test."
+    },
+    {
+      "id": "P2",
+      "statement": "O-O defects located on high-betweenness In-In bridges suppress independent Wannier hoppings/spectral ridge more than random O-O motifs at the same total f_OO.",
+      "observable": "Wannier abs(t_ij), spectral ridge linewidth, or matched-control residual",
+      "expected_direction": "Targeted high-betweenness damage has a more negative residual than random damage; pass requires Cohen d>=0.50 or permutation p<0.05 with the predicted sign."
+    },
+    {
+      "id": "P3",
+      "statement": "Onsite-only disorder at matched variance should not reproduce the same mobility/Drude collapse unless it also reduces motif-aware connectivity.",
+      "observable": "DFT/Wannier or experiment-constrained transport labels under matched sigma_epsilon",
+      "expected_direction": "Edge/motif damage explains residual degradation beyond onsite variance; pass requires Delta CV R2>=0.08 or Delta BIC<=-4 after adding network metrics."
+    }
+  ],
+  "strangest_prediction": "Two amorphous In2O3 samples can have indistinguishable carrier density, EF-Ec, and onsite-disorder variance, yet differ in Hall/Drude response because one concentrates O-O defects on high-betweenness In-s bridge edges. This remains a targeted-attack measurement protocol until external labels are attached.",
+  "deepening_1": {
+    "question": "Does the repaired isomorphism have a deeper mathematical layer?",
+    "answer": "Yes. The graph object is a targeted-attack problem on a weighted geometric multiplex: edge-sharing and corner-sharing are coupled layers, while O-O defects act as localized attacks on bridge edges. The transport claim is only legitimate if external labels show the same residual vulnerability."
+  },
+  "deepening_2": {
+    "question": "Does network science offer a next-level extension?",
+    "answer": "Yes. Average degree is too weak; vulnerability should use a distribution V_e=b_e*abs(t_e)/t0. Equal f_OO can be harmless or fatal depending on whether defects hit high V_e edges. That is the nonstandard B route."
+  },
+  "a_objection": "A will object that EF-Ec, carrier density, oxygen vacancies, onsite variance, m*, and tau already contain the physics. Round 3 accepts this objection as the null model: B wins only if M(X) clears the quantitative model-comparison and matched-control thresholds above.",
+  "failed_jumps": [
+    "A single proxy graph Hamiltonian validation remains rejected as self-certifying.",
+    "A single-cell toy table with non-integer inferred edges is rejected; Round 3 uses ensemble means over integer per-seed edge counts instead.",
+    "A broad qualitative controls list is rejected; controls now require explicit CV, AIC/BIC, residual sign, and effect-size thresholds."
+  ],
+  "next_plan": "Materialize the pseudocode as a script and write seed-level CSV/edge lists under current/B/inputs/toy_ensemble_v1, then replace the toy benchmark with real coordinates or experimentally constrained models. The first real pass/fail artifact should be a table joining M(X) to independent Hall/Drude/Wannier/spectral labels with the control criteria in this file.",
+  "literature_needed": [
+    "Jankousky Nature Physics 2026 amorphous In2O3 supplementary coordinates QSGW Wannier",
+    "Aliano Catellani Cicero amorphous In2O3 ab initio molecular dynamics coordinates",
+    "pair distribution function EXAFS amorphous In2O3 In-In O-O defects",
+    "Wannier hopping amorphous oxide semiconductor In s orbital"
+  ],
+  "inspector_check": [
+    {
+      "formula": "rho_E_atom=2*E/N_In; rho_E_vol=E/L^3; reported means are mean_s[2*E_s/N_In] and mean_s[E_s/L^3] over s=1..32",
+      "direction": "Non-integer E_mean is valid for an ensemble mean; each seed-level E_s remains an integer.",
+      "data": "Deterministic synthetic toy ensemble generated with seed rules in synthetic_toy_ensemble_specification.",
+      "assumptions": "Toy generation is a benchmark fixture, not a physical relaxation model."
+    },
+    {
+      "formula": "t_ij=t0*exp(-(r_ij-r0)/lambda)*(1+alpha_edge*I_edge+alpha_corner*I_corner)*exp(-beta*f_OO_ij)",
+      "direction": "For beta>0, higher f_OO lowers hopping; for fixed threshold abs(t_ij)>t_min, lower z_eff/S_GC predicts lower independent mobility/Drude/ridge coherence if B is correct.",
+      "data": "Toy weights only; no material Wannier labels yet.",
+      "assumptions": "All exponential arguments are dimensionless; lambda is a length; alpha_edge, alpha_corner, beta, and f_OO are dimensionless."
+    },
+    {
+      "formula": "Delta R2_CV = R2_CV(network_model)-R2_CV(baseline_model); Delta BIC=BIC(network_model)-BIC(baseline_model)",
+      "direction": "B passes only for positive out-of-sample improvement and predicted residual signs; protocol status remains until external labels are attached.",
+      "data": "No external labels in Round 3.",
+      "assumptions": "Validation labels must be Hall/Drude/Wannier/spectral or matched-control residuals not generated by the same proxy graph."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "Round 3 B is a falsifiable measurement protocol, not a claim that the toy ensemble proves amorphous In2O3 transport.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "equations": [
+        "Y_independent ~ controls + M(X)",
+        "Delta R2_CV >= 0.10 or RMSE decrease >= 15% for primary pass"
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2026",
+          "role": "project foundation and target independent labels"
+        },
+        {
+          "doi": "10.1063/1.3664224",
+          "label": "Aliano et al. 2011",
+          "role": "fallback AIMD structure precedent"
+        }
+      ],
+      "assumptions": [
+        "External labels can be obtained or reconstructed",
+        "Controls are matched tightly enough to isolate network residuals",
+        "Toy numbers are not used as material evidence"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The corrected P1 direction is that mobility/Drude/ridge coherence decrease as z_eff and S_GC decrease.",
+      "confidence": 0.90,
+      "new_insight": false,
+      "equations": [
+        "partial(mu_H)/partial(z_eff) > 0 after controls",
+        "partial(D_Drude)/partial(S_GC) > 0 after controls"
+      ],
+      "references": [],
+      "assumptions": [
+        "Carrier density, EF-Ec, onsite variance, m*, and tau are controlled",
+        "The sign is tested on independent labels"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The toy table is now internally consistent because rho_E_atom and rho_E_vol are ensemble means derived from integer seed-level edge counts.",
+      "confidence": 0.88,
+      "new_insight": false,
+      "equations": [
+        "rho_E_atom_mean=2*mean(E_s)/64",
+        "rho_E_vol_mean=mean(E_s)/5832"
+      ],
+      "references": [],
+      "assumptions": [
+        "n=32 deterministic seeds per ensemble",
+        "Reported standard deviations are sample standard deviations over seeds"
+      ]
+    }
+  ]
+}

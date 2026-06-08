@@ -1,0 +1,111 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,booktabs,hyperref,natbib}
+\usepackage[margin=2.5cm]{geometry}
+
+\begin{document}
+
+\title{\bf A dark energy prediction from information theory\\---and its tension with DESI DR2}
+
+\author{Anonymous}
+\date{June 2026}
+
+\maketitle
+
+\begin{abstract}
+If dark energy originates from a finite information capacity of spacetime, the equation of state $w(z)$ acquires a specific, falsifiable shape determined by the cosmic star formation history: $w(z)+1\propto{\rm SFR}(z)/[H(z)\,\rho_*(z)^{n/(n+1)}]$. This shape has a peak at $z\sim1$--$2$, is non-monotonic, and cannot be produced by the CPL parameterization. We show that the simplest version of this model---with natural damping index $n=1$ and negligible memory corrections---is in tension with DESI DR2 baryon acoustic oscillation distance measurements. The predicted equation of state crosses $w=0$ near $z\approx1.2$, implying a dark energy density at $z\sim2$ substantially larger than $\Lambda$CDM, and a Hubble parameter at intermediate redshifts in conflict with DESI's $D_H/r_d$ and $D_M/r_d$ constraints. We identify the physical ingredients that could resolve this tension---stronger memory corrections, a larger damping nonlinearity index, or a self-consistent recalibration of the star formation history---and outline the observations that will decisively test the underlying hypothesis.
+\end{abstract}
+
+\section*{Introduction}
+
+Dark energy is the largest component of the universe's energy budget, and we do not know what it is~\cite{riess1998,spergel2003}. The simplest hypothesis, a cosmological constant $\Lambda$, fits most data but offers no mechanism. Dynamical models---quintessence~\cite{tsujikawa2013}, emergent dark energy~\cite{li2024}, and parameterized equations of state~\cite{chevallier2001}---allow $w$ to vary but treat its functional form as an empirical choice.
+
+The DESI collaboration has reported a $2.8$--$4.2\sigma$ preference for dynamical dark energy over $\Lambda$CDM~\cite{desi2025}. In the CPL parameterization $w(a)=w_0+w_a(1-a)$, the best fit is $(w_0,w_a)=(-0.785\pm0.047,-0.43\pm0.10)$ for DESI+CMB+DESY5~\cite{li2026}. But CPL is a fitting form. It describes {\it that} $w$ evolves, not {\it why}.
+
+This paper derives a specific shape for $w(z)$ from an information-theoretic hypothesis, compares it to data, and reports the outcome---which, in the simplest version of the model, is a tension.
+
+\section*{The hypothesis}
+
+Suppose spacetime possesses a finite information capacity. This idea has a long history~\cite{thooft1993,susskind1995,sorkin2005,verlinde2011,jacobson1995}. We adopt a concrete formulation: causal relations are asymmetric and directional, and each minimal causal unit carries at most one bit of distinguishable information. From these postulates, the fraction $q\in[0,1]$ of causal units in the unoccupied state obeys a nonlinear telegraph equation. On homogeneous cosmological scales, in the slow-roll regime, the equation reduces to
+
+\begin{equation}\label{eq:ode}
+\gamma_0\Delta^n\frac{d\Delta}{dt} + \kappa\int_0^t\Delta\,dt' = \eta\,\dot{\rho}_*(t),
+\end{equation}
+
+where $\Delta\equiv1-q$ is the information deficit, $\gamma_0$ a damping rate, $n$ a nonlinearity index, $\kappa$ a memory strength, $\eta$ a coupling constant, and $\dot{\rho}_*(t)={\rm SFR}(t)$ the cosmic star formation rate density. The physical picture is that structure formation occupies vacuum information modes; the dark energy density is the energy of the remaining modes, $\rho_{\rm DE}=\rho_\Lambda(1-\Delta)$. The coupling $\eta$ is calibrated from the observed $w_0$. Derivation details are in the Supplementary Information.
+
+\section*{Predicted shape}
+
+Where the driving term dominates ($z\gtrsim0.5$), equation (\ref{eq:ode}) gives $\gamma_0\Delta^n d\Delta/dt\simeq\eta\,{\rm SFR}$. Integrating yields $\Delta^{n+1}\propto\rho_*(t)$, with $\rho_*$ the cumulative stellar mass density. From energy conservation,
+
+\begin{equation}\label{eq:shape}
+\boxed{w(z)+1 = C\cdot\frac{{\rm SFR}(z)}{H(z)\,\rho_*(z)^{\,n/(n+1)}}\cdot\frac{1}{1-\Delta(z)}},
+\end{equation}
+
+with $C$ calibrated from $w_0$. The normalized shape $S(z)\equiv[w(z)+1]/[w(0)+1]$ is independent of $C$.
+
+The function ${\rm SFR}(z)$ rises from $z=0$ to a peak at $z\approx1.9$~\cite{madau2014}. The function $w(z)+1$ inherits this peak. At the natural value $n=1$---damping proportional to information deficit---the peak is at $z\approx1.2$ with $w_{\rm peak}\approx-0.3$ (Fig.~\ref{fig:wz}a). This is a non-monotonic shape that the CPL form cannot produce for any $(w_0,w_a)$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig2_wz_shape.png}
+\caption{{\bf a}, $w(z)$ for $n=1.0$, $0.7$, and $1.3$. The blue band shows the $\pm27\%$ SFR normalization uncertainty. {\bf b}, $w(z)+1$ on a logarithmic scale. The peak is the central prediction.}
+\label{fig:wz}
+\end{figure}
+
+\section*{Tension with DESI DR2}
+
+The peak has a physical consequence. A less negative $w$ at intermediate redshift means the dark energy density was larger in the past than $\Lambda$CDM predicts, and $H(z)$ is correspondingly larger. At the DESI DR2 best-measured redshift, $z=0.934$, the LRG3+ELG1 tracer gives $D_H/r_d=17.64\pm0.19$~\cite{desi2025}. For the driving-dominated DGF with $n=1$, we find $H(z=0.934)$ approximately $20$--$25\%$ larger than $\Lambda$CDM, implying $D_H/r_d\approx14.2$, a discrepancy of roughly $18\sigma$ at this single point.
+
+This tension is not an artifact of the CPL parameterization. It is direct. The DGF equation of state crosses $w=0$ near $z\approx1.2$ and becomes positive at higher redshift, meaning the dark energy density grows rapidly with lookback time. The DESI BAO distance ladder does not support this rapid growth.
+
+Figure~\ref{fig:cpl_vs_dgf} shows the qualitative mismatch. The DGF $w(z)$ (blue) has a peak and crosses $w=0$. The CPL best-fit (red dashed) is a straight line in $(1-a)$ remaining below $w=-0.4$ at all redshifts. The two functions differ in shape, amplitude, and sign.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{../figures/figS1_cpl_vs_dgf.png}
+\caption{DGF $w(z)$ (blue) compared to the CPL best-fit (red dashed). The DGF curve crosses $w=0$ at $z\approx1.2$; the CPL curve never does.}
+\label{fig:cpl_vs_dgf}
+\end{figure}
+
+\section*{What could resolve the tension}
+
+The tension is a property of the {\it simplest} version of the model---driving-dominated, $n=1$, constant memory kernel. Three modifications could bring the prediction into agreement with data.
+
+First, the memory term in (\ref{eq:ode}) opposes the driving term. If the memory-drive ratio $\mathcal{R}_0$ is larger than the $0.3$ assumed here, the peak amplitude is reduced. $\mathcal{R}_0\gtrsim0.7$ would suppress $w(z)$ below $w=0$ at all redshifts.
+
+Second, a larger $n$ reduces the peak amplitude and shifts it to lower redshift. At $n\gtrsim2$, $w(z)$ remains below $-0.5$ for $z<2$. However, the DESI DR2 data, when fitted to the CPL projection of DGF, prefer $n\approx1$---so this resolution introduces a tension between the direct distance fit and the CPL parameter fit.
+
+Third, the star formation history used as input is derived from observations assuming $\Lambda$CDM cosmology. A self-consistent recalculation, iterating between the DGF cosmology and the inferred SFR, would modify the input function. This iteration has not been performed.
+
+Each of these possibilities is testable. A full likelihood analysis of DGF against the DESI DR2 BAO data vector, marginalizing over $n$, $\eta/\gamma_0$, and the memory strength $\kappa$, will determine whether any parameter combination can simultaneously fit the distance measurements and produce a peak. That analysis is in preparation.
+
+\section*{Discussion}
+
+We have stated a physical hypothesis---dark energy as an information capacity deficit---derived its observable consequence, and compared that consequence to data. The comparison reveals a tension, not an agreement. This is how science is supposed to work.
+
+The hypothesis makes a prediction that is qualitatively different from the standard parameterizations. It predicts a peak. CPL and quintessence do not. The simplest version of the model is in conflict with current data. Whether modified versions survive is an open question that the data---DESI DR2, and soon DR3 and Euclid---can answer.
+
+The broader program of which this work is a part aims to connect dark energy to quantum information theory, and through the same postulates, to the Einstein equations and black hole thermodynamics (Supplementary Information). The cosmological prediction is the most immediately testable component. It may be wrong. The data will decide.
+
+\begin{thebibliography}{99}
+\bibitem{riess1998} Riess, A.G.\ et al.\ {\it Astron.\ J.} {\bf 116}, 1009 (1998).
+\bibitem{spergel2003} Spergel, D.N.\ et al.\ {\it Astrophys.\ J.\ Suppl.} {\bf 148}, 175 (2003).
+\bibitem{tsujikawa2013} Tsujikawa, S.\ {\it Class.\ Quant.\ Grav.} {\bf 30}, 214003 (2013).
+\bibitem{li2024} Li, X.\ et al.\ {\it Phys.\ Rev.\ D} {\bf 109}, 043510 (2024).
+\bibitem{chevallier2001} Chevallier, M.\ \& Polarski, D.\ {\it Int.\ J.\ Mod.\ Phys.\ D} {\bf 10}, 213 (2001).
+\bibitem{desi2025} DESI Collaboration.\ {\it Phys.\ Rev.\ D} {\bf 112}, 083515 (2025).
+\bibitem{li2026} Li, T.-N.\ et al.\ {\it Phys.\ Dark Universe} (2026); arXiv:2511.22512.
+\bibitem{thooft1993} 't Hooft, G.\ arXiv:gr-qc/9310026 (1993).
+\bibitem{susskind1995} Susskind, L.\ {\it J.\ Math.\ Phys.} {\bf 36}, 6377 (1995).
+\bibitem{sorkin2005} Sorkin, R.D.\ In {\it Approaches to Quantum Gravity} (Cambridge, 2009).
+\bibitem{verlinde2011} Verlinde, E.\ {\it J.\ High Energy Phys.} {\bf 2011}, 29 (2011).
+\bibitem{jacobson1995} Jacobson, T.\ {\it Phys.\ Rev.\ Lett.} {\bf 75}, 1260 (1995).
+\bibitem{madau2014} Madau, P.\ \& Dickinson, M.\ {\it Annu.\ Rev.\ Astron.\ Astrophys.} {\bf 52}, 415 (2014).
+\bibitem{planck2018} Planck Collaboration.\ {\it Astron.\ Astrophys.} {\bf 641}, A6 (2020).
+\bibitem{driver2018} Driver, S.P.\ et al.\ {\it Mon.\ Not.\ R.\ Astron.\ Soc.} {\bf 475}, 2891 (2018).
+\end{thebibliography}
+
+\end{document}

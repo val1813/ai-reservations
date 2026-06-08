@@ -1,0 +1,493 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "round": 3,
+  "agent": "A",
+  "role": "学院派；文献边界与可执行判据优先",
+  "polaris": "把 trilayer RP nickelates 中的 Ni dz2/apical-O/dz2 interlayer phase bus 从概念变量落到同一样品 tuning-axis go/no-go 协议。",
+  "framework": "Trilayer c-axis recovery / bulk shielding ordering criterion: predictor 只含 dz2-mediated interlayer recovery 输入量，outcome 只含外部 bulk superconductivity 验证量；所有阈值先作为工作协议，必须由 La4Ni3O10/Pr4Ni3O10 同一样品压力、应变、泵浦或氧化学计量序列校准。",
+  "findings": "Round 3 将 Round 2 的循环性 Q 分数拆成可执行协议：I_phi = E_z2*C_phi/(k_B*T + hbar*Gamma_phi + E_floor) 是 go/no-go predictor，B_bulk = shielding fraction + Meissner/vortex/THz phase stiffness 是 outcome。当前已有数据足以证明 ambient La4Ni3O10 的 static DW 会强烈削弱 c-axis low-frequency charge dynamics，并足以建立 W_z2/E_z2 的基线重分析；但没有同一样品 pressure/strain/pump 下 W_c 或 sigma_c 恢复与 shielding fraction 同步增长的数据。因此 LP28 目前只能称为可检验科技进步路线，不能称为已验证机制。实际突破路线是：用最小实验阈值把 phase-bus recovery、bulk shielding、Hall number、domain fraction、oxygen stoichiometry 和 ab-plane Drude controls 放入同一判据，只有通过时才升级为材料设计规则。",
+  "weakest_link": "最弱环节仍是 pressure-dependent 或 tuning-dependent c-axis Drude/sigma_c 数据缺失；没有该数据时，pressure-induced superconductivity 仍可能由 bandwidth、carrier density、结构相变、disorder 或 filamentary percolation 解释。",
+  "next_plan": "优先执行 La4Ni3O10/Pr4Ni3O10 同一样品 tuning-axis protocol：在同一 pressure/strain/pump/oxygen series 中同步测 W_c 或 sigma_c、rho_c/rho_ab、Hall number、ab Drude weight、domain fraction、oxygen stoichiometry 和 shielding/Meissner/THz response；若 I_phi 先于或同步于 B_bulk 跨阈值则进入强判据，若 B_bulk 跨阈值而 W_c 不恢复则否定 phase-bus 作为必要工程变量。",
+  "literature_needed": "La4Ni3O10 pressure c-axis infrared; pressure rho_c/rho_ab six-terminal geometry; Pr4Ni3O10 high-pressure shielding fraction with demagnetization correction; RP nickelate oxygen stoichiometry XAS/EELS; c-axis strain nickelate dz2-pz hybridization; THz phase stiffness under pressure",
+  "protocol_name": "Trilayer dz2 phase-bus go/no-go protocol",
+  "predictor_outcome_split": {
+    "predictor": {
+      "name": "I_phi",
+      "expression": "E_z2*C_phi/(k_B*T + hbar*Gamma_phi + E_floor)",
+      "allowed_inputs": [
+        "c-axis Drude spectral weight W_c or dz2-resolved normalized spectral weight W_z2",
+        "phase-connectivity factor C_phi from domain fraction, kz dispersion, structural coherence, or coherent pump response",
+        "dephasing rate Gamma_phi from optical/THz linewidth, relaxation rate, or Drude scattering after separating spectral weight from scattering",
+        "temperature T",
+        "experimental/disorder floor E_floor"
+      ],
+      "forbidden_inputs": [
+        "shielding fraction",
+        "Meissner fraction",
+        "zero resistance",
+        "Tc",
+        "vortex signature",
+        "THz superfluid stiffness"
+      ],
+      "interpretation": "I_phi is a forward interlayer phase-bus recovery index. It predicts whether the sample has enough dz2-mediated interlayer connectivity to permit bulk phase quorum, but it does not contain the bulk outcome."
+    },
+    "outcome": {
+      "name": "B_bulk",
+      "components": [
+        "demagnetization-corrected shielding fraction",
+        "Meissner fraction or field-cooled diamagnetic response",
+        "vortex-sensitive magnetic-field response",
+        "THz or microwave phase stiffness when available",
+        "zero resistance only as a secondary transport consistency check"
+      ],
+      "interpretation": "B_bulk validates bulk superconducting phase coherence. It must never be used as an input to I_phi."
+    }
+  },
+  "unit_protocol": {
+    "W_z2": {
+      "primary_definition": "dimensionless dz2/apical-O/dz2 coherent spectral weight normalized to the same sample's high-temperature non-DW reference or to a DFT/sum-rule reference",
+      "allowed_range": "[0, 1] for normalized protocol; values above 1 are allowed only if explicitly normalized to an ambient-pressure reference rather than a sum-rule ceiling",
+      "extraction": "Fit low-frequency c-axis optical conductivity with Drude-Lorentz or extended Drude model, report plasma_frequency_c**2 spectral weight separately from 1/tau_c scattering; dz2 projection requires polarization or orbital-sensitive spectroscopy when available.",
+      "do_not_mix": "Do not mix raw sigma_c, Drude plasma frequency, and integrated spectral weight without stating integration window and normalization."
+    },
+    "E_z2": {
+      "primary_definition": "energy-scale representation of W_z2",
+      "conversion_options": [
+        {
+          "name": "dimensionless-to-energy",
+          "expression": "E_z2 = E0*W_z2",
+          "default_E0_meV": 10,
+          "status": "working calibration; E0 must be re-fit when direct c-axis plasma-frequency energy or Josephson plasma scale is measured"
+        },
+        {
+          "name": "direct optical scale",
+          "expression": "E_z2 = hbar*omega_p_c_eff",
+          "status": "preferred when pressure/strain optical data resolve a coherent c-axis plasma edge or Drude plasma frequency"
+        },
+        {
+          "name": "integrated spectral weight",
+          "expression": "E_z2 = E0*(SW_c/SW_c_ref)",
+          "status": "allowed if integration window is fixed across all tuning points"
+        }
+      ],
+      "units": "meV",
+      "reporting_rule": "Always report both the raw spectral-weight convention and the converted E_z2 in meV."
+    },
+    "E_floor": {
+      "definition": "positive denominator floor representing experimental resolution, residual disorder, and unresolved dephasing not captured by Gamma_phi",
+      "default_meV": 0.5,
+      "valid_domain": "Use only when k_B*T + hbar*Gamma_phi is comparable to instrumental resolution or when extrapolating toward low T; do not use it to hide a poor Gamma_phi estimate.",
+      "invalid_domain": "Do not compare I_phi across different instruments or sample preparations if E_floor differs by more than a factor of 2 unless sensitivity analysis is reported.",
+      "sensitivity_required": "Report I_phi for E_floor = 0.25, 0.5, and 1.0 meV; threshold decisions are stable only if go/no-go label is unchanged across this range."
+    },
+    "C_phi": {
+      "definition": "dimensionless phase-connectivity factor",
+      "working_form": "C_phi = f_domain * C_kz * C_struct",
+      "component_ranges": {
+        "f_domain": "[0, 1], coherent domain fraction measured by diffraction, microscopy, or polarization-resolved probes",
+        "C_kz": "[0, 1], kz dispersion/coherence proxy",
+        "C_struct": "[0, 1], structural coherence and apical alignment proxy"
+      },
+      "minimum_reporting": "If C_kz or C_struct is unavailable, set it to unknown rather than 1; only classify as ambiguous, not go."
+    }
+  },
+  "I_phi_threshold_table": [
+    {
+      "band": "no-go",
+      "I_phi_range": "I_phi < 0.3",
+      "meaning": "Interlayer phase bus too weak or too incoherent for bulk phase quorum under this protocol.",
+      "action": "Do not claim phase-bus-enabled bulk SC; search for carrier-density, structural, filamentary, or disorder explanation if B_bulk appears."
+    },
+    {
+      "band": "ambiguous",
+      "I_phi_range": "0.3 <= I_phi < 1.0",
+      "meaning": "Possible local or mesoscopic interlayer recovery, but not enough for a forward go decision.",
+      "action": "Require stronger C_phi measurement, lower dephasing, and repeat with E_floor sensitivity."
+    },
+    {
+      "band": "go_candidate",
+      "I_phi_range": "1.0 <= I_phi < 2.0",
+      "meaning": "Working threshold for recoverable dz2 phase bus; bulk outcome may appear if pairing fluctuations survive.",
+      "action": "Proceed to B_bulk validation; require temporal or tuning-axis ordering where I_phi crosses threshold before or at B_bulk onset."
+    },
+    {
+      "band": "strong_go",
+      "I_phi_range": "I_phi >= 2.0",
+      "meaning": "Strong phase-bus recovery under the chosen unit protocol.",
+      "action": "If B_bulk also passes and controls hold, classify as strong support for the engineering route."
+    }
+  ],
+  "minimal_experimental_thresholds": {
+    "Delta_W_c_lower_bound": {
+      "primary_threshold": "Delta W_c/W_c_ref >= 0.25 relative to the low-temperature DW-suppressed state, or >= 0.15 absolute recovery of normalized W_z2 when W_z2 is normalized to high-temperature non-DW reference",
+      "strong_threshold": "Delta W_c/W_c_ref >= 0.50 or normalized W_z2 crosses 0.50",
+      "rationale": "Must exceed typical fit/systematic uncertainty and separate spectral-weight recovery from mere scattering-rate narrowing.",
+      "fail_condition": "B_bulk grows while Delta W_c is < 0.10 or statistically consistent with zero."
+    },
+    "Delta_sigma_c_lower_bound": {
+      "primary_threshold": "Delta sigma_c(omega_low)/sigma_c_ref >= 0.30 in a fixed low-frequency window below the DW gap scale",
+      "allowed_substitute": "Use only if Drude weight cannot be reliably fitted; must report the same frequency window at all tuning points.",
+      "fail_condition": "Only 1/tau_c improves while plasma_frequency_c**2 or integrated low-frequency spectral weight is unchanged."
+    },
+    "shielding_fraction_gate": {
+      "go_threshold": "demagnetization-corrected shielding fraction >= 0.20 with reproducible onset and nonzero Meissner/vortex/THz consistency",
+      "strong_threshold": "shielding fraction >= 0.50 plus Meissner or vortex-sensitive response",
+      "no_go_threshold": "shielding fraction < 0.05 or only zero resistance without bulk magnetic/phase-stiffness evidence",
+      "caution": "Pressure-cell background and demagnetization correction must be reported; low volume fraction is not bulk validation."
+    },
+    "Hall_number_matching_tolerance": {
+      "go_control": "|Delta n_H/n_H| <= 0.15 across the I_phi threshold crossing, unless a multiband analysis demonstrates that the carrier-density change cannot account for B_bulk",
+      "ambiguous": "0.15 < |Delta n_H/n_H| <= 0.30",
+      "fail_or_reassign": "|Delta n_H/n_H| > 0.30 and B_bulk tracks n_H more closely than W_c or I_phi",
+      "purpose": "Prevents pressure carrier-density changes from masquerading as phase-bus recovery."
+    },
+    "domain_fraction_control": {
+      "go_control": "phase-connected domain fraction f_domain >= 0.70 and changes in f_domain are included in C_phi",
+      "ambiguous": "0.50 <= f_domain < 0.70",
+      "no_go": "f_domain < 0.50 or unmeasured domain fraction when claiming strong go",
+      "purpose": "Distinguishes microscopic interlayer recovery from percolative or domain-selected transport."
+    },
+    "oxygen_stoichiometry_control": {
+      "go_control": "|Delta oxygen_per_formula_unit| <= 0.01 across a pressure/strain/pump tuning sequence, or explicit annealing/EELS/XAS correction showing fixed carrier count",
+      "ambiguous": "0.01 < |Delta oxygen_per_formula_unit| <= 0.03",
+      "fail_or_reassign": "|Delta oxygen_per_formula_unit| > 0.03 without compensation",
+      "purpose": "Prevents oxygen disorder or doping from being misidentified as dz2 phase-bus tuning."
+    },
+    "ab_Drude_control": {
+      "go_control": "|Delta W_ab/W_ab| <= 0.20 while Delta W_c/W_c_ref >= 0.25, or Delta W_c/Delta W_ab >= 2",
+      "ambiguous": "0.20 < |Delta W_ab/W_ab| <= 0.40",
+      "fail_or_reassign": "B_bulk follows W_ab or carrier proxy while W_c does not recover",
+      "purpose": "Separates c-axis phase-bus recovery from generic bandwidth or in-plane metallicity improvement."
+    }
+  },
+  "go_no_go_protocol": [
+    {
+      "step": 1,
+      "name": "Baseline extraction",
+      "required_measurements": [
+        "ambient or initial tuning-point sigma_c(omega), W_c, W_ab",
+        "DW order proxy A_DW",
+        "rho_c/rho_ab with geometry control or optical substitute",
+        "Hall number",
+        "oxygen stoichiometry",
+        "domain fraction"
+      ],
+      "go_condition": "Baseline W_z2/E_z2 and control proxies are quantified with stated units.",
+      "no_go_condition": "W_c or sigma_c cannot be separated from geometry/scattering artifacts.",
+      "label_if_failed": "measurement-incomplete, not mechanism-failed"
+    },
+    {
+      "step": 2,
+      "name": "Tuning-axis phase-bus test",
+      "required_measurements": [
+        "W_c or sigma_c at each pressure/strain/pump/oxygen point",
+        "Gamma_phi or linewidth/scattering proxy",
+        "C_phi components",
+        "T and E_floor sensitivity"
+      ],
+      "go_condition": "Delta W_c and I_phi cross go_candidate threshold before or at the tuning point where B_bulk begins.",
+      "no_go_condition": "B_bulk appears while I_phi remains below 0.3 or W_c recovery is below the lower bound.",
+      "ambiguous_condition": "I_phi is 0.3-1.0, C_phi is incomplete, or W_c and sigma_c disagree."
+    },
+    {
+      "step": 3,
+      "name": "Bulk outcome validation",
+      "required_measurements": [
+        "shielding fraction with demagnetization correction",
+        "Meissner or field-cooled response",
+        "vortex-sensitive response or THz phase stiffness when feasible",
+        "zero resistance as secondary check"
+      ],
+      "go_condition": "B_bulk passes shielding threshold and at least one independent bulk phase-coherence marker.",
+      "no_go_condition": "Only zero resistance or pump-probe slowing is present with low shielding fraction.",
+      "ambiguous_condition": "shielding 0.05-0.20 without Meissner/vortex/THz confirmation."
+    },
+    {
+      "step": 4,
+      "name": "Alternative-explanation exclusion",
+      "required_controls": [
+        "Hall number tolerance",
+        "ab Drude control",
+        "domain fraction",
+        "oxygen stoichiometry",
+        "structure proxy by XRD/Raman where pressure or strain is used",
+        "hydrostatic medium or geometry-control statement"
+      ],
+      "go_condition": "No control variable alone tracks B_bulk more strongly than I_phi/W_c, and the required thresholds hold.",
+      "no_go_condition": "Carrier density, structure, disorder, or in-plane Drude changes explain B_bulk without c-axis recovery.",
+      "ambiguous_condition": "Controls missing; classify as proposed route, not verified route."
+    },
+    {
+      "step": 5,
+      "name": "Decision labels",
+      "labels": {
+        "GO_strong": "I_phi >= 2.0, Delta W_c passes strong threshold, B_bulk passes strong threshold, and all controls pass.",
+        "GO_working": "I_phi >= 1.0, Delta W_c passes lower bound, B_bulk >= 0.20 with at least one bulk marker, and controls pass or are quantitatively bounded.",
+        "AMBIGUOUS": "Predictor or outcome passes but controls are incomplete, threshold sensitivity changes label, or W_c/sigma_c disagree.",
+        "NO_GO_phase_bus": "B_bulk appears without c-axis recovery or I_phi remains no-go.",
+        "NO_GO_bulk": "c-axis recovery appears but B_bulk remains filamentary/nonbulk."
+      }
+    }
+  ],
+  "data_status": {
+    "existing_data_sufficient_for": [
+      {
+        "claim": "Ambient La4Ni3O10 static DW suppresses c-axis low-frequency charge dynamics and strongly enhances anisotropy.",
+        "status": "sufficient as baseline, not sufficient for pressure causality",
+        "sources": [
+          "arXiv:2601.08997 / PRL 136, 216501",
+          "Zenodo optical dataset 10.5281/zenodo.20089847 and 10.5281/zenodo.20089846"
+        ]
+      },
+      {
+        "claim": "Interlayer coherence and dz2-pz-dz2 hybridization are already prior-art central variables in RP/bilayer nickelates.",
+        "status": "sufficient for novelty boundary",
+        "sources": [
+          "arXiv:2605.18524",
+          "arXiv:2604.14701"
+        ]
+      },
+      {
+        "claim": "Pressure superconductivity and DW collapse are experimentally adjacent in La4Ni3O10/Pr4Ni3O10.",
+        "status": "sufficient for motivation, not sufficient for phase-bus mechanism",
+        "sources": [
+          "Nature 2024 La4Ni3O10 pressure superconductivity",
+          "PRX 2025 pressure superconductivity reports",
+          "Nat Commun 2025 ultrafast/pressure reports",
+          "arXiv:2604.16611 as nonbulk/filamentary caution"
+        ]
+      }
+    ],
+    "new_experiments_required_for": [
+      {
+        "claim": "Pressure or strain restores dz2-mediated c-axis phase bus before bulk superconductivity.",
+        "required_data": "same-sample W_c/sigma_c/rho_c-rho_ab versus pressure or uniaxial strain plus B_bulk versus the same axis",
+        "current_status": "not verified"
+      },
+      {
+        "claim": "Phase-bus recovery is not a carrier-density or bandwidth effect.",
+        "required_data": "Hall number and ab Drude controls across the threshold",
+        "current_status": "not verified"
+      },
+      {
+        "claim": "Phase-bus recovery is not oxygen/disorder/domain percolation.",
+        "required_data": "oxygen stoichiometry, domain fraction, and disorder proxies under the same tuning sequence",
+        "current_status": "not verified"
+      },
+      {
+        "claim": "Pump or selective phonon control can restore phase bus without destroying pairing fluctuations.",
+        "required_data": "pump fluence-dependent W_c or THz interlayer stiffness with heating controls and B_bulk-compatible response",
+        "current_status": "not verified"
+      }
+    ],
+    "do_not_claim_as_verified": [
+      "I_phi threshold values are not experimentally calibrated yet.",
+      "E0 = 10 meV is a working conversion, not a measured universal scale.",
+      "Pressure-induced superconductivity is not yet proven to be mediated by dz2 phase-bus recovery.",
+      "Low shielding fraction or zero resistance alone is not evidence for bulk phase quorum."
+    ]
+  },
+  "alternative_explanation_table": [
+    {
+      "alternative": "pressure changes carrier density or bandwidth directly",
+      "minimum_discriminator": "Hall number tolerance and ab Drude control",
+      "pass_result": "B_bulk tracks I_phi/W_c while |Delta n_H/n_H| <= 0.15 and |Delta W_ab/W_ab| <= 0.20",
+      "fail_result": "B_bulk tracks n_H or W_ab while W_c does not recover"
+    },
+    {
+      "alternative": "structural phase transition directly causes superconductivity",
+      "minimum_discriminator": "same-axis XRD/Raman structural proxy plus W_c and B_bulk",
+      "pass_result": "structure changes are not sufficient unless W_c/I_phi also crosses threshold",
+      "fail_result": "structural transition predicts B_bulk with no phase-bus recovery"
+    },
+    {
+      "alternative": "oxygen stoichiometry or disorder controls both W_c and B_bulk",
+      "minimum_discriminator": "EELS/XAS/annealing or stoichiometry proxy plus linewidth/disorder proxy",
+      "pass_result": "oxygen and disorder stay within thresholds while W_c recovers",
+      "fail_result": "oxygen/disorder variation exceeds thresholds and explains response"
+    },
+    {
+      "alternative": "scattering anisotropy, not coherent hopping, explains rho_c/rho_ab",
+      "minimum_discriminator": "separate plasma_frequency_c**2 from 1/tau_c",
+      "pass_result": "spectral weight recovery dominates over scattering-rate improvement",
+      "fail_result": "only scattering rate changes"
+    },
+    {
+      "alternative": "current redistribution or pressure-cell geometry artifact",
+      "minimum_discriminator": "six-terminal/Corbino-like geometry or optical sigma_c",
+      "pass_result": "transport and optical/geometry-corrected measures agree",
+      "fail_result": "anisotropy disappears after geometry correction"
+    },
+    {
+      "alternative": "filamentary superconductivity",
+      "minimum_discriminator": "shielding fraction, Meissner/vortex/THz response",
+      "pass_result": "bulk markers pass threshold",
+      "fail_result": "zero resistance without bulk magnetic or phase-stiffness evidence"
+    }
+  ],
+  "landing_calculation": {
+    "system": "La4Ni3O10 or Pr4Ni3O10 under a same-sample pressure or uniaxial c-axis strain sequence",
+    "example_substitution": {
+      "E0_meV": 10,
+      "W_z2": 0.35,
+      "C_phi": 0.80,
+      "T_K": 20,
+      "k_B_meV_per_K": 0.0861733,
+      "hbar_Gamma_phi_meV": 0.80,
+      "E_floor_meV": 0.50
+    },
+    "calculation": {
+      "E_z2_meV": 3.5,
+      "denominator_meV": 3.023466,
+      "I_phi": 0.926
+    },
+    "interpretation": "This example is ambiguous, not go: W_z2 recovery is nontrivial but dephasing/temperature/floor keep I_phi below 1. A go result would require either larger W_z2, higher C_phi, lower Gamma_phi, or lower T, and must still be validated by B_bulk.",
+    "target_for_go_at_20K": "With C_phi = 0.80, hbar*Gamma_phi = 0.80 meV, E_floor = 0.50 meV, I_phi >= 1 requires W_z2 >= 0.378 if E0 = 10 meV.",
+    "target_for_strong_go_at_20K": "Under the same assumptions, I_phi >= 2 requires W_z2 >= 0.756, likely demanding a very strong c-axis spectral-weight recovery or a larger calibrated E0."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The defensible LP28 breakthrough route is not claiming interlayer coherence as new, but turning trilayer DW-induced dz2 layer decoupling into a same-sample recovery-ordering protocol.",
+      "confidence": 0.9,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        {
+          "id": "arXiv:2605.18524",
+          "label": "Interlayer electronic coherence prior-art boundary"
+        },
+        {
+          "id": "arXiv:2604.14701",
+          "label": "Bilayer dz2-pz-dz2 hybridization prior-art boundary"
+        }
+      ],
+      "assumptions": [
+        "The remaining novelty is trilayer-specific causal ordering and engineering protocol.",
+        "Prior-art boundaries from Round 2 remain valid."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "A non-circular phase-bus predictor must exclude shielding and Tc; I_phi is acceptable only if W_z2/E_z2, C_phi, Gamma_phi, and E_floor are reported with fixed unit conventions.",
+      "confidence": 0.86,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "E_z2*C_phi/(k_B*T + hbar_Gamma_phi + E_floor)",
+          "variables": {
+            "E_z2": "dz2 interlayer coherent energy scale",
+            "C_phi": "phase-connectivity factor",
+            "k_B": "Boltzmann constant in meV/K",
+            "T": "temperature in K",
+            "hbar_Gamma_phi": "dephasing energy in meV",
+            "E_floor": "resolution/disorder floor in meV"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "E_z2",
+              "to": "0",
+              "expected": "0",
+              "desc": "no dz2 interlayer bus"
+            },
+            {
+              "variable": "Gamma_phi",
+              "to": "large",
+              "expected": "0",
+              "desc": "strong dephasing destroys phase-bus predictivity"
+            },
+            {
+              "variable": "C_phi",
+              "to": "0",
+              "expected": "0",
+              "desc": "no connected phase domains"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "E_z2": 3.5,
+              "C_phi": 0.8,
+              "k_B": 0.0861733,
+              "T": 20,
+              "hbar_Gamma_phi": 0.8,
+              "E_floor": 0.5
+            },
+            "expected_range": [
+              0.90,
+              0.95
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "id": "inspector_A_round2",
+          "label": "Round 2 circularity warning"
+        }
+      ],
+      "assumptions": [
+        "E_z2 can be calibrated from optical spectral weight or normalized W_z2.",
+        "E_floor is small compared with real dephasing and not used as a fitting escape."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The minimal go decision requires Delta W_c recovery, B_bulk validation, and Hall/domain/oxygen/ab-Drude controls on the same tuning axis; existing literature does not yet satisfy this combined requirement.",
+      "confidence": 0.88,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "Delta_W_c_over_ref",
+          "variables": {
+            "Delta_W_c_over_ref": "(W_c_tuned - W_c_DW_lowT)/W_c_ref"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "Delta_W_c_over_ref",
+              "to": "0",
+              "expected": "no_go_or_ambiguous",
+              "desc": "no phase-bus recovery"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "Delta_W_c_over_ref": 0.25
+            },
+            "expected_range": [
+              0.25,
+              0.25
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "id": "arXiv:2601.08997",
+          "label": "ambient c-axis optical baseline"
+        },
+        {
+          "id": "arXiv:2604.16611",
+          "label": "nonbulk caution under pressure"
+        }
+      ],
+      "assumptions": [
+        "A 25 percent lower bound is a working experimental threshold above likely systematic uncertainty, not a universal constant.",
+        "Bulk shielding must be corrected for pressure-cell and demagnetization effects."
+      ]
+    }
+  ],
+  "deepening": {
+    "consequence_layer_1": "If the protocol works, the design objective changes from merely suppressing static DW to tuning a three-variable window: weakened static DW, preserved pairing fluctuations, and restored dz2 phase bus.",
+    "consequence_layer_2": "The next physical consequence is a materials map where pressure, c-axis strain, oxygen compensation, and apical-O/dz2 phonon pumping are judged by whether they increase I_phi without moving Hall number or ab Drude enough to explain superconductivity.",
+    "most_fragile_premise_layer_1": "The most fragile premise is that c-axis Drude/sigma_c spectral-weight recovery is a faithful proxy for phase-bus connectivity rather than a generic metallicity or scattering artifact.",
+    "most_fragile_premise_layer_2": "If spectral weight and scattering cannot be separated under pressure, the protocol collapses to an ambiguous transport correlation and the claimed theoretical advance must be downgraded to an experimental diagnostic program."
+  },
+  "search_tool_self_check": {
+    "round3_new_literature_search": "No new literature search was performed in Round 3; the task used the required Round 2 synthesis, known-error file, knowledge base, A round2 output, and A inspector report.",
+    "reason": "The Round 3 objective was protocolization and threshold fixation, not prior-art expansion. Existing cited data status is explicitly marked as sufficient only for baseline/motivation and insufficient for mechanism verification."
+  }
+}

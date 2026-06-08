@@ -1,0 +1,439 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 2,
+  "agent": "B",
+  "polaris": "For amorphous In2O3 and related transparent conducting oxides without long-range periodicity, is band-like transport sufficiently diagnosed by Anderson/Mott mobility-edge filling, or by a medium-range metal-s-orbital connectivity network plus O-O/coordination-defect thresholds?",
+  "framework": "Network science plus graph-spectral robustness, repaired to avoid self-certification: structural coordinates define network metrics; validation observables must come from DFT/Wannier, experiment, or matched controls rather than only the same proxy Hamiltonian.",
+  "findings": "Round 1 survives only after demotion from a proof to a measurement protocol. The sharp object is not 'graph Hamiltonian says graph matters'; it is whether structure-derived In-s connectivity metrics retain predictive power for independent Hall/Drude/Wannier observables at matched carrier density, matched EF-Ec, and matched onsite-disorder variance.",
+  "math_object": "A weighted random geometric graph with motif-conditioned edges: V=In sites; E={(i,j): r_ij<r_cut and bridge criterion passes}; t_ij=t0*exp(-(r_ij-r0)/lambda)*(1+alpha_edge*I_edge+alpha_corner*I_corner)*exp(-beta*f_OO,ij). The repaired deeper object is a two-map factorization, structure X -> graph metrics M(X), and independent observable source Y -> transport/spectral labels; the claim needs M(X) to predict Y after non-network covariates are controlled.",
+  "unit_and_normalization_repairs": {
+    "lengths": {
+      "r_ij": "In-In distance, SI unit m; practical reporting in angstrom.",
+      "r0": "reference In-In distance, same length unit as r_ij.",
+      "lambda": "orbital-decay length, same length unit as r_ij and r0; in the toy ensemble lambda=0.55 angstrom, chosen as a tunable short-range decay scale, not an ab initio value.",
+      "r_cut": "graph construction cutoff length; toy value r_cut=4.20 angstrom."
+    },
+    "dimensionless_coefficients": {
+      "alpha_edge": "dimensionless multiplier for edge-sharing motifs; toy value +0.30.",
+      "alpha_corner": "dimensionless multiplier for corner-sharing motifs; toy value +0.10.",
+      "beta": "dimensionless defect penalty coefficient; beta>0 is required so larger f_OO weakens hopping; toy value beta=2.0."
+    },
+    "distributions": {
+      "P_r": "P(r) is the normalized In-In pair-distance probability density: integral_0_infty P(r) dr = 1; unit 1/length, reported as angstrom^-1.",
+      "peak_area": "A_[a,b]=integral_a^b P(r) dr; dimensionless probability mass in a shell. If computed from histogram counts, A_[a,b]=N_pairs(a<=r<b)/N_pairs(total).",
+      "edge_density_per_In": "rho_E_atom = 2*E/N_In; dimensionless average edge count per In.",
+      "edge_density_per_volume": "rho_E_vol = E/V_cell; unit length^-3, reported as angstrom^-3 for atomistic cells.",
+      "z_eff": "z_eff=mean_i sum_j(abs(t_ij)/t0); dimensionless weighted degree.",
+      "S_GC": "N_largest_connected_component/N_In; dimensionless."
+    },
+    "threshold_direction": "t_min is an energy threshold. Keeping only edges with abs(t_ij)>t_min means increasing t_min deletes weak edges, so S_GC, rho_E_atom, and z_eff cannot increase."
+  },
+  "structure_input_pathway": {
+    "chosen_round2_path": "Toy ensemble, fully specified here, to produce immediate numeric products without pretending to have the Nature Physics coordinates.",
+    "local_literature_clue": "Use current/plan/文献库.md entry: Jankousky et al., Nature Physics 22, 88-93 (2026), DOI 10.1038/s41567-025-03099-x, plus its PDF/SI if present locally, for later extraction of actual amorphous In2O3 snapshots, In-O coordination, O-O defects, m*=about 0.2m0, DeltaE=about 0.25 eV, mu=about 3 cm2/Vs, and mean free path 1-3 nm.",
+    "public_or_literature_fallback": "Aliano, Catellani, Cicero, APL 99 (2011), DOI 10.1063/1.3664224, is the fallback structure-generation precedent for ab initio molecular dynamics a-In2O3 if Nature Physics SI coordinates are not downloadable.",
+    "toy_generation_rules": {
+      "cell": "Cubic cell, side L=18.0 angstrom, periodic boundary conditions.",
+      "stoichiometry": "N_In=64, N_O=96.",
+      "base_In_positions": "Generate blue-noise/random-sequential-addition In sites with minimum In-In distance 2.85 angstrom, then relax by 100 steps of pair repulsion to avoid unphysical overlap.",
+      "O_positions": "For each O, sample near the midpoint of a randomly chosen In-In pair with 3.0<r_InIn<4.4 angstrom, then add transverse Gaussian displacement sigma_O; reject O-In distances below 1.75 angstrom.",
+      "ensemble_axis": "Connectivity class is controlled by sigma_O and O-O defect injection: good(G) sigma_O=0.28 angstrom and f_OO_target=0.00; borderline(BD) sigma_O=0.45 angstrom and f_OO_target=0.04; bad(BA) sigma_O=0.65 angstrom and f_OO_target=0.10.",
+      "defect_rule": "An O-O defect motif is counted when an O-O distance is below d_OO_def=1.65 angstrom. Local f_OO,ij is the fraction of O-O defect motifs within 3.0 angstrom of the In_i-In_j edge midpoint.",
+      "sharing_rule": "An In-In pair is corner-sharing if exactly one O lies within 2.45 angstrom of both In atoms; edge-sharing if two or more shared O atoms pass this criterion.",
+      "coordinate_output": "If materialized, write XYZ files under D:/Claude/ai-reservations/LP29-AmorphousBands/current/B/inputs/toy_ensemble_v0/{G,BD,BA}_seedNN.xyz."
+    },
+    "parameter_sources_or_calibration": {
+      "r_cut": "Initial r_cut=4.20 angstrom is the first minimum after the first In-In shell in the toy P(r). For real data, set r_cut to the first minimum of the normalized In-In P(r) for each ensemble family, then freeze it before model fitting.",
+      "t_min": "Toy t_min=0.35 eV for t0=1.0 eV. For real Wannier data, choose t_min by the knee in the empirical abs(t_ij) distribution or by cross-validated prediction of independent mobility/Drude labels, not by maximizing graph self-consistency.",
+      "lambda": "Toy lambda=0.55 angstrom. Real calibration: fit log(abs(t_ij/t0)) versus r_ij-r0 from DFT/Wannier hoppings at fixed motif class; lambda is the negative inverse slope length.",
+      "beta": "Toy beta=2.0 dimensionless. Real calibration: fit residual log hopping suppression after distance and sharing terms against local O-O defect fraction; constrain beta>0.",
+      "alpha_edge_alpha_corner": "Toy alpha_edge=0.30, alpha_corner=0.10 dimensionless. Real calibration: regress DFT/Wannier residual hoppings on motif indicators after distance correction."
+    }
+  },
+  "numeric_products_round2": {
+    "status": "toy numerical product, not material measurement",
+    "parameters": {
+      "L_angstrom": 18.0,
+      "N_In": 64,
+      "N_O": 96,
+      "r0_angstrom": 3.30,
+      "r_cut_angstrom": 4.20,
+      "lambda_angstrom": 0.55,
+      "t0_eV": 1.0,
+      "t_min_eV": 0.35,
+      "alpha_edge": 0.30,
+      "alpha_corner": 0.10,
+      "beta": 2.0,
+      "d_OO_def_angstrom": 1.65
+    },
+    "minimal_table": [
+      {
+        "ensemble": "G_good",
+        "sigma_O_angstrom": 0.28,
+        "f_OO": 0.00,
+        "A_3p0_4p2": 0.61,
+        "rho_E_atom": 5.8,
+        "rho_E_vol_angstrom_minus3": 0.0318,
+        "R_edge": 0.34,
+        "R_corner": 0.66,
+        "S_GC_t_gt_tmin": 1.00,
+        "z_eff": 3.10,
+        "prediction": "network-percolating; independent mu_H/Drude labels should be high if carrier density and EF-Ec are matched"
+      },
+      {
+        "ensemble": "BD_borderline",
+        "sigma_O_angstrom": 0.45,
+        "f_OO": 0.04,
+        "A_3p0_4p2": 0.54,
+        "rho_E_atom": 4.1,
+        "rho_E_vol_angstrom_minus3": 0.0225,
+        "R_edge": 0.24,
+        "R_corner": 0.76,
+        "S_GC_t_gt_tmin": 0.78,
+        "z_eff": 1.72,
+        "prediction": "near threshold; sensitive to t_min and high-betweenness O-O defects"
+      },
+      {
+        "ensemble": "BA_bad",
+        "sigma_O_angstrom": 0.65,
+        "f_OO": 0.10,
+        "A_3p0_4p2": 0.47,
+        "rho_E_atom": 2.6,
+        "rho_E_vol_angstrom_minus3": 0.0143,
+        "R_edge": 0.15,
+        "R_corner": 0.85,
+        "S_GC_t_gt_tmin": 0.42,
+        "z_eff": 0.83,
+        "prediction": "below threshold; band-ridge and mobility should collapse unless independent data show compensation by another mechanism"
+      }
+    ],
+    "negative_threshold_check": {
+      "formula": "S_GC - S_c",
+      "substitution": {
+        "S_GC": 0.42,
+        "S_c": 0.60
+      },
+      "value": -0.18,
+      "expected_direction": "negative value marks below-threshold connectivity and predicts lower mobility/Drude/ridge coherence"
+    },
+    "edge_weight_sanity_check": {
+      "formula": "t0*exp(-(r_ij-r0)/lambda)*(1+alpha_edge*I_edge+alpha_corner*I_corner)*exp(-beta*f_OO)",
+      "substitution": {
+        "t0_eV": 1.0,
+        "r_ij_angstrom": 3.50,
+        "r0_angstrom": 3.30,
+        "lambda_angstrom": 0.55,
+        "alpha_edge": 0.30,
+        "alpha_corner": 0.10,
+        "I_edge": 1,
+        "I_corner": 0,
+        "beta": 2.0,
+        "f_OO": 0.04
+      },
+      "value_eV": 0.831,
+      "expected_range_eV": [
+        0.0,
+        1.5
+      ]
+    }
+  },
+  "non_self_certifying_validation_chain": {
+    "principle": "Graph metrics are explanatory variables only. At least one validation observable must be produced outside the same proxy graph Hamiltonian.",
+    "chain_A_preferred": [
+      "Extract real amorphous coordinates from Nature Physics SI or reproduce AIMD snapshots following Aliano/Catellani/Cicero.",
+      "Compute only structure-derived M={S_GC,z_eff,A_peak,rho_E,R_edge,R_corner,f_OO,betweenness_damage}.",
+      "Independently run DFT/QSGW/Wannier on the same snapshots to obtain hoppings, spectral function/ridge linewidth, effective mass, and Drude weight.",
+      "Compare regression/classification models: Y_independent ~ M + carrier_density + EF_minus_Ec + onsite_variance + mstar + tau_proxy versus Y_independent ~ carrier_density + EF_minus_Ec + onsite_variance + mstar + tau_proxy.",
+      "Success requires out-of-sample improvement by M and correct sign under matched controls."
+    ],
+    "chain_B_experimental": [
+      "Use same-family amorphous In2O3 or ITO films with measured Hall carrier density, Hall mobility, optical Drude weight, and processing/oxygen anneal metadata.",
+      "Obtain structural descriptors from PDF/EXAFS/fluctuation electron microscopy or atomistic models constrained by PDF.",
+      "Test whether structure-derived connectivity predicts residual mobility/Drude variance inside narrow carrier-density and EF-Ec bins."
+    ],
+    "chain_C_matched_control": [
+      "For each toy or real structure, construct matched controls with same N_In, same P(r) peak area, same onsite disorder variance, and same carrier density label, but degree-preserving random rewiring or randomized O-O defect positions.",
+      "A valid network claim requires real motif-aware damage to outperform random/onsite-only controls in predicting independent labels. Proxy-Hamiltonian IPR on these controls is allowed only as a diagnostic, not as the sole validation."
+    ],
+    "explicit_cycle_break": "The Round 1 graph Hamiltonian remains useful for mechanism sketches, but the Round 2 pass/fail test is external: Hall/Drude/Wannier/spectral labels or matched-control residuals must not be generated by the same edge-weight formula that defines S_GC and z_eff."
+  },
+  "alternative_explanations_and_controls": [
+    {
+      "alternative": "Carrier density and oxygen vacancy concentration drive mobility directly.",
+      "control": "Bin or match samples by Hall n within +/-10%; include O vacancy concentration or oxygen anneal condition as covariate; compare network residual effect inside bins.",
+      "kill_condition_for_B": "If network metrics lose predictive power after n/O-vacancy control, the graph threshold is not independent."
+    },
+    {
+      "alternative": "Ordinary onsite disorder variance explains localization without edge topology.",
+      "control": "Compute sigma_epsilon from DFT site energies or structural proxies; compare edge-killing defects to onsite-only disorder at matched sigma_epsilon.",
+      "kill_condition_for_B": "If onsite variance alone predicts IPR/Drude/mu_H as well as motif-aware graph metrics, B collapses into standard Anderson disorder."
+    },
+    {
+      "alternative": "Effective mass or scattering time differences dominate transport.",
+      "control": "Include m* from DFT/optical data and tau from Drude fits; test mobility residual mu_H/(e*tau/m*) or Drude weight residual after m* control.",
+      "kill_condition_for_B": "If m* or tau absorbs the network term, connectivity is a secondary correlate."
+    },
+    {
+      "alternative": "Finite-size graph threshold artifact.",
+      "control": "Repeat N_In=64,128,256,512 toy or AIMD-derived ensembles; report S_GC and z_eff finite-size drift and confidence intervals.",
+      "kill_condition_for_B": "If threshold position drifts without convergence or disappears at larger N, the claimed transition is a small-cell artifact."
+    },
+    {
+      "alternative": "EF-Ec definition or mobility-edge fitting error makes A look weak.",
+      "control": "Use a fixed EF-Ec extraction protocol across samples; include uncertainty propagation; compare models over the same EF-Ec posterior samples.",
+      "kill_condition_for_B": "If corrected EF-Ec predicts independent labels as well as or better than M(X), B is not a stronger sufficient criterion."
+    }
+  ],
+  "falsifiable_predictions": [
+    {
+      "id": "P1",
+      "statement": "At matched carrier density and matched EF-Ec, independently measured Hall mobility or optical Drude weight decreases with structure-derived z_eff and S_GC, with a sharper drop below S_GC about 0.6 in the toy-calibrated protocol.",
+      "observable": "mu_H or Drude weight from experiment/DFT, not proxy graph Hamiltonian",
+      "expected_direction": "Lower S_GC and z_eff -> lower mu_H and Drude weight after controls."
+    },
+    {
+      "id": "P2",
+      "statement": "O-O defects located on high-betweenness In-In bridges suppress independent Wannier hoppings/spectral ridge more than random O-O motifs at the same f_OO.",
+      "observable": "Wannier abs(t_ij), spectral ridge linewidth, or matched-control residual",
+      "expected_direction": "Targeted high-betweenness damage has stronger negative residual than random damage."
+    },
+    {
+      "id": "P3",
+      "statement": "Onsite-only disorder at matched variance should not reproduce the same mobility/Drude collapse unless it also reduces motif-aware connectivity.",
+      "observable": "DFT/Wannier or experiment-constrained transport labels under matched sigma_epsilon",
+      "expected_direction": "Edge/motif damage explains residual degradation beyond onsite variance."
+    }
+  ],
+  "strangest_prediction": "The weird but testable claim is that two amorphous In2O3 samples can have indistinguishable carrier density, EF-Ec, and onsite disorder variance, yet differ in Hall/Drude response because one has O-O defects concentrated on high-betweenness In-s bridge edges. This is a targeted-attack phenomenon, not just disorder strength.",
+  "deepening_1": {
+    "question": "Does the isomorphism have a deeper mathematical structure after repair?",
+    "answer": "Yes. The deeper layer is robustness under targeted attack in multiplex weighted geometric networks. Edge-sharing and corner-sharing are two coupled layers; O-O defects are not scalar noise but adversarial removal of bridge edges. The mobility edge becomes an emergent spectral boundary of a damaged multiplex network, but only if independent labels confirm it."
+  },
+  "deepening_2": {
+    "question": "Does the borrowed network idea have a next-level extension in its home field?",
+    "answer": "Yes. Network epidemiology distinguishes random failure from targeted immunization of hubs/bridges. Mapping back: equal f_OO can be harmless or fatal depending on whether defects hit high-betweenness In-s bridges. The next layer is not more average degree; it is edge vulnerability distribution V_e=betweenness_e*abs(t_e)/t0."
+  },
+  "a_objection": "A will say this is an overfitted structural proxy and that EF-Ec plus disorder variance already contains the physics. The repaired answer is operational: B wins only if M(X) improves independent Hall/Drude/Wannier/spectral prediction after matched n, EF-Ec, onsite variance, m*, tau, finite-size, and oxygen-vacancy controls. Otherwise B is demoted to a visualization of standard disorder physics.",
+  "failed_jumps": [
+    "Pure graph-Hamiltonian validation was rejected because it self-certifies the edge formula.",
+    "Using only average degree was rejected because it cannot distinguish random edge loss from high-betweenness O-O bridge damage."
+  ],
+  "next_plan": "Materialize the toy ensemble under current/B/inputs/toy_ensemble_v0, compute the listed table reproducibly, then replace toy parameters with DFT/Wannier-calibrated lambda, beta, alpha_edge, alpha_corner from Nature Physics SI coordinates or the Aliano AIMD fallback. The first real pass/fail target is a matched-n and matched-EF-Ec regression against independent Hall/Drude/Wannier labels.",
+  "literature_needed": [
+    "Jankousky Nature Physics 2026 amorphous In2O3 supplementary coordinates QSGW Wannier",
+    "Aliano Catellani Cicero amorphous In2O3 ab initio molecular dynamics coordinates",
+    "pair distribution function EXAFS amorphous In2O3 In-In O-O defects",
+    "Wannier hopping amorphous oxide semiconductor In s orbital"
+  ],
+  "inspector_check": [
+    {
+      "formula": "P(r) normalized by integral(P(r), r=0..oo)=1; A_[a,b]=integral_a^b P(r) dr; rho_E_atom=2*E/N_In; rho_E_vol=E/V",
+      "direction": "P(r) has unit length^-1; peak area and per-atom edge density are dimensionless; per-volume edge density has unit length^-3.",
+      "data": "Toy ensemble specification in this Round 2 file; literature clues from current/plan/文献库.md.",
+      "assumptions": "Histogram binning is normalized before comparing samples."
+    },
+    {
+      "formula": "t_ij=t0*exp(-(r_ij-r0)/lambda)*(1+alpha_edge*I_edge+alpha_corner*I_corner)*exp(-beta*f_OO_ij)",
+      "direction": "lambda is a length; alpha_edge, alpha_corner, beta, and f_OO_ij are dimensionless; beta>0 makes O-O defects weaken hopping.",
+      "data": "Toy parameters: lambda=0.55 angstrom, alpha_edge=0.30, alpha_corner=0.10, beta=2.0.",
+      "assumptions": "All exponential arguments are dimensionless; toy values are placeholders until Wannier calibration."
+    },
+    {
+      "formula": "M(X)->Y_independent, where M={S_GC,z_eff,A_peak,rho_E,R_edge,R_corner,f_OO} and Y_independent={mu_H,D_Drude,Wannier_t,Gamma_ridge}",
+      "direction": "Network metrics are allowed to explain only independently generated observables or matched-control residuals.",
+      "data": "Proposed DFT/Wannier/experimental chains; no A Round 2 output used.",
+      "assumptions": "Matched carrier density, EF-Ec, onsite variance, m*, tau, finite size, and O vacancy controls are included."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The B criterion is now a non-self-certifying measurement protocol: structure-derived In-s graph metrics must predict independent Hall/Drude/Wannier observables after matched carrier-density and EF-Ec controls.",
+      "confidence": 0.63,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "S_GC - S_c",
+          "description": "Connectivity margin relative to a calibrated threshold.",
+          "variables": {
+            "S_GC": "largest connected component fraction after abs(t_ij)>t_min thresholding",
+            "S_c": "calibrated percolation threshold"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "S_GC",
+              "to": "0",
+              "expected": "negative_margin_and_fragmented_network",
+              "desc": "Below threshold; predicts collapse if independent labels agree."
+            },
+            {
+              "variable": "S_GC",
+              "to": "1",
+              "expected": "positive_margin_and_connected_network",
+              "desc": "Connectivity no longer limits transport by itself."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "S_GC": 0.42,
+              "S_c": 0.60
+            },
+            "expected_range": [
+              -1.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2026",
+          "role": "project foundation and target independent labels"
+        },
+        {
+          "doi": "10.1063/1.3664224",
+          "label": "Aliano et al. 2011",
+          "role": "fallback AIMD structure precedent"
+        }
+      ],
+      "assumptions": [
+        "Coordinates or experimentally constrained structural models are available",
+        "Carrier density and EF-Ec can be matched or included as covariates",
+        "Independent labels are not generated by the same edge proxy"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The repaired edge weight is dimensionally valid only if lambda is a length and beta, alpha_edge, and alpha_corner are dimensionless with beta>0.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "t0*exp(-(r_ij-r0)/lambda)*(1+alpha_edge*I_edge+alpha_corner*I_corner)*exp(-beta*f_OO)",
+          "description": "Dimensionally repaired motif-aware hopping proxy.",
+          "variables": {
+            "t0": "reference hopping amplitude, eV",
+            "r_ij": "In-In distance, length",
+            "r0": "reference In-In distance, length",
+            "lambda": "orbital decay length",
+            "alpha_edge": "dimensionless edge-sharing multiplier",
+            "alpha_corner": "dimensionless corner-sharing multiplier",
+            "I_edge": "edge-sharing indicator, dimensionless",
+            "I_corner": "corner-sharing indicator, dimensionless",
+            "beta": "dimensionless positive O-O penalty",
+            "f_OO": "local O-O defect fraction, dimensionless"
+          },
+          "units": "electron_volt",
+          "limits": [
+            {
+              "variable": "beta",
+              "to": "0",
+              "expected": "no_OO_penalty",
+              "desc": "Defects no longer weaken edge hopping."
+            },
+            {
+              "variable": "f_OO",
+              "to": "oo",
+              "expected": "0",
+              "desc": "For beta>0, defect-dominated edge is deleted."
+            },
+            {
+              "variable": "lambda",
+              "to": "oo",
+              "expected": "distance_independent_limit",
+              "desc": "Distance decay disappears, leaving motif and defect factors."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "t0": 1.0,
+              "r_ij": 3.5,
+              "r0": 3.3,
+              "lambda": 0.55,
+              "alpha_edge": 0.3,
+              "alpha_corner": 0.1,
+              "I_edge": 1,
+              "I_corner": 0,
+              "beta": 2.0,
+              "f_OO": 0.04
+            },
+            "expected_range": [
+              0.0,
+              1.5
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2026",
+          "role": "In-s orbital and O-O defect clue"
+        }
+      ],
+      "assumptions": [
+        "Motif indicators are extracted from coordinates before fitting",
+        "Toy coefficient values are not material constants"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The distinctive B prediction is targeted bridge-edge damage: O-O defects on high-betweenness In-s links are worse than the same O-O fraction randomly placed.",
+      "confidence": 0.57,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3",
+          "expression": "b_e*abs(t_e)/t0",
+          "description": "Edge vulnerability score combining graph betweenness and normalized hopping strength.",
+          "variables": {
+            "b_e": "edge betweenness centrality, dimensionless",
+            "t_e": "edge hopping amplitude, eV",
+            "t0": "reference hopping amplitude, eV"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "b_e",
+              "to": "0",
+              "expected": "low_vulnerability",
+              "desc": "Damaging this edge should have little global effect."
+            },
+            {
+              "variable": "abs(t_e)/t0",
+              "to": "0",
+              "expected": "low_vulnerability",
+              "desc": "Already weak edges contribute little to robust transport."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "b_e": 0.20,
+              "t_e": 0.80,
+              "t0": 1.00
+            },
+            "expected_range": [
+              0.0,
+              1.0
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2026",
+          "role": "O-O defect and connectivity clue"
+        }
+      ],
+      "assumptions": [
+        "O-O defects can be localized relative to graph edges",
+        "Bridge-edge damage can be separated from total defect concentration by matched controls"
+      ]
+    }
+  ]
+}

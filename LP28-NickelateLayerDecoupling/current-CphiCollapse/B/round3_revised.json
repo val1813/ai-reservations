@@ -1,0 +1,424 @@
+﻿{
+    "project":  "LP28-NickelateLayerDecoupling",
+    "active_north_star":  "LP28-CphiCollapse",
+    "round":  3,
+    "agent":  "B",
+    "role":  "B鍗氬＋ / wild-path no-go stress test",
+    "polaris":  "Does any experimentally measurable input-side C_phi remain independent after measured normal-state baselines for c-axis coherence, disorder, oxygen stoichiometry, orbital/self-doping, strain, and pressure history are conditioned out?",
+    "framework":  "Response-kernel closure plus empirical non-identifiability; computational analogy: minimum sufficient statistic versus tautological full-state encoding.",
+    "findings":  "B revised final position remains an empirical non-identifiability/collapse claim, not a universal theorem. Formal collapse is tautological under B_plus/B_formal because the full normal-state response kernel contains the ingredients that generate P_oe. The experimentally meaningful claim is weaker: with a pre-registered measured B_min, C_phi/P_oe has no independent input-side content only if unsigned paired residuals and pre-registered null tests show R_oe annihilation out of sample within the thresholds below, without leakage, post-hoc direction choice, or residual absorption into U_miss.",
+    "math_object":  "Conditional sufficiency and residual annihilation: R_oe = P_oe - E_crossfit[P_oe | B_min], with B_plus used only for formal closure and B_min used only for empirical testing.",
+    "strangest_prediction":  "Among matched bilayer nickelate specimens with indistinguishable measured B_min, B predicts that pairwise residual magnitudes in P_oe shrink to measurement noise and that any signed pattern appears only under a P_oe/R_oe-blind, pre-frozen orientation rule. If B_min predicts residual annihilation under unsigned paired residual and permutation checks, C_phi is empirically non-identifiable as an independent input variable.",
+    "a_objection":  "A will argue that bilayer odd/even phase-transfer leaves a stable R_oe after all ordinary baselines are matched, especially in pairs with similar c-axis Drude weight and disorder but different odd/even susceptibility contrast.",
+    "failed_jumps":  [
+                         "Universal no-go from Kubo closure failed: if the baseline includes the same kernel terms used to construct P_oe, collapse is tautological rather than experimentally decisive.",
+                         "High-dimensional B_plus regression failed as an empirical design: n=12 cannot support unconstrained kernel-level fitting without absorbing the target post hoc.",
+                         "Readiness labels based on later superconducting outcomes failed leakage control and are excluded."
+                     ],
+    "next_plan":  "Run only the pre-registered B_min matched-pair residual-annihilation test. If the result falls in the gray zone, do not claim either independence or no-go; enlarge sample count and freeze the extraction code before repeating.",
+    "literature_needed":  "bilayer nickelate normal-state qz spectroscopy; La3Ni2O7-delta oxygen stoichiometry metrology; c-axis optical Drude weight under pressure; nickelate dz2 and rare-earth 5d self-doping; strain and pressure-path hysteresis in bilayer nickelates",
+    "claim_boundary":  {
+                           "allowed_claims":  [
+                                                  "Conditional no-go under full normal-state kernel closure.",
+                                                  "Empirical non-identifiability if measured B_min annihilates R_oe out of sample.",
+                                                  "Current nickelate constraints make independent C_phi unproven unless residual survival passes the stated thresholds."
+                                              ],
+                           "forbidden_claims":  [
+                                                    "Universal theorem that all possible C_phi variables collapse.",
+                                                    "Claim that P_oe is impossible or meaningless.",
+                                                    "Claim that B_plus collapse is experimental evidence.",
+                                                    "Use of Tc, zero resistance, Meissner response, critical current, gap opening, or historical superconducting labels in selection, fitting, stopping, or Z_pre definition."
+                                                ]
+                       },
+    "baseline_split":  {
+                           "B_plus_or_B_formal":  {
+                                                      "definition":  "Omniscient full normal-state response-kernel state, including matrix elements M_even/odd, self-energies Sigma_even/odd, vertex/dephasing kernels Gamma_vertex_even/odd, all structural disorder fields, oxygen configuration, strain tensor, orbital occupancy, pressure path, and probe calibration.",
+                                                      "status":  "tautological closure only",
+                                                      "permitted_use":  "Formal conditional statement: if P_oe is a deterministic or noisy function of the complete normal-state response kernel and measurement noise is conditionally independent of pre-output Z_pre, then I(C_phi; Z_pre | B_plus) = 0.",
+                                                      "forbidden_use":  "Do not use B_plus as the empirical baseline, because it contains target-generating kernel components and can absorb P_oe by construction."
+                                                  },
+                           "B_min":  {
+                                         "definition":  "Pre-registered experimentally measured baseline vector, acquired independently of P_oe extraction and before any superconducting-output information is used.",
+                                         "components":  [
+                                                            {
+                                                                "name":  "oxygen_stoichiometry_and_layer_asymmetry",
+                                                                "measures":  [
+                                                                                 "delta_O",
+                                                                                 "apical_or_inner_outer_oxygen_imbalance",
+                                                                                 "Ni_valence_proxy"
+                                                                             ],
+                                                                "allowed_probes":  [
+                                                                                       "neutron or synchrotron refinement where available",
+                                                                                       "EELS or XAS valence calibration",
+                                                                                       "thermogravimetric or chemical stoichiometry calibration"
+                                                                                   ],
+                                                                "matching_rule":  "within 1 sigma metrology uncertainty or pre-registered delta_O tolerance, whichever is stricter"
+                                                            },
+                                                            {
+                                                                "name":  "strain_and_lattice_geometry",
+                                                                "measures":  [
+                                                                                 "a_axis",
+                                                                                 "b_axis",
+                                                                                 "c_axis",
+                                                                                 "orthorhombicity",
+                                                                                 "Ni-O-Ni bond angle proxy",
+                                                                                 "bilayer spacing"
+                                                                             ],
+                                                                "allowed_probes":  [
+                                                                                       "x-ray diffraction",
+                                                                                       "synchrotron diffraction",
+                                                                                       "Rietveld or PDF analysis"
+                                                                                   ],
+                                                                "matching_rule":  "Mahalanobis distance in standardized geometry subspace \u003c= 1.0"
+                                                            },
+                                                            {
+                                                                "name":  "orbital_self_doping",
+                                                                "measures":  [
+                                                                                 "dz2_weight_proxy",
+                                                                                 "rare_earth_5d_weight_proxy",
+                                                                                 "carrier_density_proxy"
+                                                                             ],
+                                                                "allowed_probes":  [
+                                                                                       "XAS/RIXS orbital polarization",
+                                                                                       "normal-state Hall coefficient",
+                                                                                       "ARPES where surface validity is documented"
+                                                                                   ],
+                                                                "matching_rule":  "standardized subspace distance \u003c= 1.0 and same sign of carrier-density offset"
+                                                            },
+                                                            {
+                                                                "name":  "dephasing_disorder",
+                                                                "measures":  [
+                                                                                 "residual_resistivity_ratio",
+                                                                                 "normal_state_scattering_rate",
+                                                                                 "linewidth_or_Dingle_proxy",
+                                                                                 "defect_density_proxy"
+                                                                             ],
+                                                                "allowed_probes":  [
+                                                                                       "transport above superconducting fluctuation window",
+                                                                                       "optical linewidth",
+                                                                                       "quantum oscillation Dingle proxy if available",
+                                                                                       "diffraction peak width"
+                                                                                   ],
+                                                                "matching_rule":  "standardized disorder subspace distance \u003c= 1.0"
+                                                            },
+                                                            {
+                                                                "name":  "pressure_and_thermal_path",
+                                                                "measures":  [
+                                                                                 "pressure_value",
+                                                                                 "pressure_medium",
+                                                                                 "loading_history",
+                                                                                 "thermal_cycle_count",
+                                                                                 "maximum_prior_pressure",
+                                                                                 "time_under_pressure"
+                                                                             ],
+                                                                "allowed_probes":  [
+                                                                                       "run log",
+                                                                                       "ruby or equivalent pressure calibration",
+                                                                                       "thermal history record"
+                                                                                   ],
+                                                                "matching_rule":  "same pressure protocol class and pressure difference \u003c= 0.2 GPa or \u003c= 1 sigma pressure uncertainty"
+                                                            },
+                                                            {
+                                                                "name":  "ordinary_c_axis_coherence",
+                                                                "measures":  [
+                                                                                 "c_axis_Drude_weight",
+                                                                                 "rho_c_over_rho_ab",
+                                                                                 "normal_state_plasma_edge_proxy",
+                                                                                 "qz_broadening_proxy"
+                                                                             ],
+                                                                "allowed_probes":  [
+                                                                                       "optical conductivity acquired independently of odd/even susceptibility decomposition",
+                                                                                       "anisotropic transport",
+                                                                                       "normal-state qz scattering width only when reduced to a frozen low-dimensional coherence proxy independent of P_oe target extraction"
+                                                                                   ],
+                                                                "matching_rule":  "standardized c-axis coherence distance \u003c= 1.0",
+                                                                "leakage_guard":  "The qz/c-axis coherence proxy must be acquired independently from, or reduced by a pre-frozen pipeline separate from, the odd/even susceptibility decomposition used to compute P_oe. It may not reuse target-generating susceptibility data, odd/even matrix-element fits, probe-calibration matrices, window tuning, or residual-informed preprocessing from P_oe extraction."
+                                                            }
+                                                        ],
+                                         "exclusions":  [
+                                                            "No P_oe-derived odd/even contrast terms inside B_min.",
+                                                            "No fitted matrix elements from the same susceptibility decomposition used to compute P_oe.",
+                                                            "No qz/c-axis coherence proxy that reuses target-generating odd/even susceptibility data, calibration matrices, or extraction-window choices.",
+                                                            "No superconducting output variables or labels.",
+                                                            "No post-hoc feature selection after seeing P_oe or R_oe."
+                                                        ]
+                                     }
+                       },
+    "observable_definitions":  {
+                                   "P_oe":  {
+                                                "formula":  "P_oe = (chi_odd - chi_even) / max_abs_floor(chi_odd + chi_even)",
+                                                "chi_requirement":  "chi_odd and chi_even must be the same normal-state susceptibility component, integrated over the same pre-registered q, omega, polarization, and temperature window.",
+                                                "temperature_window":  "normal state only; exclude superconducting fluctuation regime and any window chosen using Tc or later superconducting output",
+                                                "dimension":  "dimensionless"
+                                            },
+                                   "denominator_floor_rule":  {
+                                                                  "definition":  "Let S = chi_odd + chi_even in the registered integration window and S_ref = median_abs(S) across calibration specimens/probe repeats before hypothesis testing. The effective denominator is sign(S) * max(abs(S), S_floor).",
+                                                                  "S_floor":  "max(5 * sigma_S, 0.05 * S_ref)",
+                                                                  "exclusion":  "If abs(S) \u003c S_floor for both technical repeats or if sign(S) is not repeat-stable, P_oe is marked denominator-ill-conditioned and excluded before model fitting.",
+                                                                  "reporting":  "Report excluded fraction. If more than 20 percent of specimens are excluded, the round outcome is protocol failure, not B no-go."
+                                                              },
+                                   "R_oe":  {
+                                                "formula":  "R_oe_i = P_oe_i - E_crossfit[P_oe_i | B_min_i]",
+                                                "model_rule":  "E_crossfit is trained without specimen i and without its matched partner. Model class, feature transforms, and regularization are frozen before seeing R_oe.",
+                                                "dimension":  "dimensionless on the P_oe scale"
+                                            },
+                                   "eta":  {
+                                               "normalization":  "eta is dimensionless and lives on the same normalized P_oe residual scale.",
+                                               "decomposition":  "eta = U_miss + epsilon_meas + R_oe",
+                                               "scale_rule":  "U_miss, epsilon_meas, and R_oe are all reported in units of normalized P_oe. epsilon_meas is estimated from technical repeats and propagated through the denominator-floor rule.",
+                                               "B_interpretation":  "B predicts eta contains no stable R_oe after B_min cross-fitted conditioning; remaining eta may be attributed to pre-bounded U_miss plus epsilon_meas only inside the frozen uncertainty envelope. Residuals outside that envelope must enter survival or gray-zone criteria and cannot be absorbed post hoc.",
+                                               "U_miss_rule":  {
+                                                                   "source":  "U_miss is bounded before P_oe/R_oe inspection from independent metrology uncertainty, external covariance estimates, or a pre-registered sensitivity grid over plausible missing baseline components.",
+                                                                   "upper_bound":  "For each specimen or pair, report U_miss_max on the normalized P_oe scale. The combined envelope is sigma_total_j = sqrt(sigma_res_j^2 + U_miss_max_j^2) or the pre-registered conservative linear sum if covariance is unknown.",
+                                                                   "freeze_rule":  "U_miss_max, covariance assumptions, and sensitivity-grid endpoints are frozen before residuals are computed and cannot be enlarged after seeing R_oe, Delta_r_pair, or pooled shifts.",
+                                                                   "decision_rule":  "Residual magnitude beyond the frozen U_miss + epsilon_meas envelope counts toward residual survival or gray-zone; it is not reclassified as missing-baseline uncertainty."
+                                                               }
+                                           }
+                               },
+    "kubo_closure_status":  {
+                                "status":  "conditional_schematic_only",
+                                "statement":  "The Kubo/response-kernel argument is a sufficiency closure, not a dimensionally complete theorem. If the full normal-state kernel state is included in B_plus, then P_oe is generated by B_plus plus measurement noise.",
+                                "not_claimed":  [
+                                                    "No complete SI-normalized susceptibility derivation is claimed.",
+                                                    "No proof that measured B_min equals the full kernel state is claimed.",
+                                                    "No inference from B_plus closure to empirical no-go is allowed without B_min residual annihilation."
+                                                ],
+                                "formal_closure":  "If C_phi = F(P_oe, other pre-output probes), P_oe = H(B_plus, epsilon_meas), other probes = G(B_plus, epsilon_other), and measurement noises are conditionally independent of Z_pre, then I(C_phi; Z_pre | B_plus) = 0."
+                            },
+    "matched_pair_design":  {
+                                "material_scope":  "La3Ni2O7-delta and closely related bilayer nickelates only; do not pool single-layer, infinite-layer, or chemically unrelated systems unless declared as negative controls.",
+                                "minimum_pilot":  "12 specimens arranged as 6 matched pairs across at least 2 synthesis/measurement batches.",
+                                "preferred_decision_sample":  "24 specimens arranged as 12 matched pairs across at least 3 batches if available; pilot thresholds below remain valid but gray-zone repeat is mandatory for n=12.",
+                                "pairing_rule":  "Pairs are chosen by B_min distance before P_oe is computed. Matching must satisfy every component rule or be rejected. Pair left/right orientation is frozen before P_oe extraction using a P_oe/R_oe-blind deterministic rule such as acquisition timestamp, specimen registry ID, or a pre-declared independent X_pre_not_in_B_min axis; if no such axis is scientifically justified, signed direction is not interpreted.",
+                                "residual_annihilation_prediction_by_B":  "Primary B prediction uses unsigned paired residuals: abs(Delta_r_pair_j) = abs(R_oe_left_j - R_oe_right_j) should be \u003c= 2 * sigma_total_j for most pairs, where sigma_total includes frozen measurement and U_miss envelopes. Signed patterns are evaluated only under the pre-frozen P_oe/R_oe-blind orientation rule and are secondary.",
+                                "survival_prediction_against_B":  "Residual survival against B requires excess unsigned paired residual magnitude, pooled residual shift, or a pre-registered permutation/hierarchical test rejecting the measurement-error-plus-U_miss null. Same-sign survival is allowed only if the sign direction is determined before P_oe extraction by an independent X_pre_not_in_B_min axis that is not used to fit B_min.",
+                                "overfit_controls":  [
+                                                         "Leave-one-pair-out cross-fitting.",
+                                                         "Maximum effective degrees of freedom \u003c= number_of_pairs / 3 for the pilot.",
+                                                         "No feature selection after viewing P_oe residuals.",
+                                                         "External or replicate calibration required for measurement-error covariance.",
+                                                         "Report negative CV-R2 as zero explanatory support, not as evidence for independence."
+                                                     ],
+                                "Delta_r_pair_direction_rule":  {
+                                                                    "primary_test":  "Use direction-free abs(Delta_r_pair) and a paired permutation or hierarchical measurement-error null as the primary residual-survival test.",
+                                                                    "signed_test":  "A signed Delta_r_pair test is permitted only if left/right orientation and any same-sign hypothesis are frozen before P_oe extraction by specimen registry/acquisition order or an independent X_pre_not_in_B_min axis. The rule must not depend on P_oe, R_oe, residual magnitude, superconducting output, or conclusion-favorable ordering.",
+                                                                    "no_posthoc_direction":  "If the orientation rule was not frozen before P_oe extraction, report only unsigned paired residual magnitude and permutation/hierarchical p-values; do not interpret left/right sign or same-sign patterns."
+                                                                }
+                            },
+    "collapse_no_go_table":  [
+                                 {
+                                     "outcome":  "B_min collapse / conditional no-go",
+                                     "criteria_all_required":  [
+                                                                   "At least 5 of 6 pilot pairs or at least 10 of 12 preferred pairs satisfy abs(Delta_r_pair) \u003c= 2 * sigma_total, where sigma_total includes frozen epsilon_meas and U_miss envelopes.",
+                                                                   "Pre-registered paired permutation/hierarchical measurement-error null is not rejected for excess residual survival after B_min conditioning.",
+                                                                   "If and only if a P_oe/R_oe-blind signed orientation was frozen before P_oe extraction, no same-direction signed residual survival appears in more than one third of pairs; otherwise no signed conclusion is reported.",
+                                                                   "abs(mean(R_oe)) \u003c 0.05 and abs(pooled matched residual shift) \u003c 0.05 on normalized P_oe scale.",
+                                                                   "Cross-validated R2 for P_oe from B_min \u003e= 0.85, or CV-R2 \u003e= 0.65 with residual-pair collapse and bootstrap 95 percent CI for pooled residual shift contained within [-0.05, 0.05].",
+                                                                   "Negative controls and batch/sample-quality/probe-calibration reports show no artificial residual survival or collapse."
+                                                               ],
+                                     "allowed_conclusion":  "C_phi/P_oe is empirically non-identifiable as an independent input-side variable under the measured B_min protocol. Stop phase-bus claims for this material window unless a new independent observable is proposed.",
+                                     "forbidden_conclusion":  "Universal impossibility theorem for all C_phi."
+                                 },
+                                 {
+                                     "outcome":  "Residual survival / B falsified for this protocol",
+                                     "criteria_any_sufficient_with_leakage_clean":  [
+                                                                                        "Unsigned abs(Delta_r_pair) \u003e= 3 * sigma_total in at least 4 of 6 pilot pairs or at least 7 of 12 preferred pairs.",
+                                                                                        "Pre-registered paired permutation or hierarchical measurement-error-plus-U_miss null is rejected for excess residual magnitude at the frozen alpha level.",
+                                                                                        "Pooled matched residual shift \u003e= 0.10 on normalized P_oe scale with bootstrap 95 percent CI excluding 0.",
+                                                                                        "Cross-validated partial R2 of residual predictor not contained in B_min \u003e= 0.10 with bootstrap 95 percent CI excluding 0.",
+                                                                                        "If a P_oe/R_oe-blind X_pre_not_in_B_min orientation was frozen before extraction, residual sign remains stable under leave-one-batch-out analysis."
+                                                                                    ],
+                                     "allowed_conclusion":  "Measured B_min does not annihilate R_oe; B\u0027s empirical collapse claim fails for this protocol. This permits, but does not prove, an independent input-side phase-transfer residual.",
+                                     "forbidden_conclusion":  "Validated superconducting predictor or proof of phase-bus mechanism."
+                                 },
+                                 {
+                                     "outcome":  "Gray zone / repeat required",
+                                     "criteria_any":  [
+                                                          "0.65 \u003c CV-R2 \u003c 0.85 while pairwise and pooled residual criteria disagree.",
+                                                          "2 to 3 of 6 pilot pairs, or 4 to 6 of 12 preferred pairs, show unsigned abs(Delta_r_pair) \u003e= 3 * sigma_total.",
+                                                          "Pooled residual shift is between 0.05 and 0.10 or its bootstrap CI overlaps 0.",
+                                                          "Negative CV-R2, unstable feature weights, or residual signs that change under the pre-frozen signed orientation in leave-one-batch-out analysis.",
+                                                          "Denominator-ill-conditioned exclusions exceed 10 percent but do not exceed 20 percent.",
+                                                          "U_miss sensitivity envelope is too wide to distinguish collapse from survival but was frozen before residual inspection."
+                                                      ],
+                                     "allowed_conclusion":  "Inconclusive. Freeze code and extraction windows, increase matched-pair count, improve metrology, and repeat. Do not claim either no-go or independent C_phi.",
+                                     "forbidden_conclusion":  "Selective interpretation based on whichever statistic favors A or B."
+                                 },
+                                 {
+                                     "outcome":  "Protocol failure",
+                                     "criteria_any":  [
+                                                          "More than 20 percent denominator-ill-conditioned specimens.",
+                                                          "Any superconducting output leakage in selection, labels, fitting, or stopping.",
+                                                          "P_oe extraction windows changed after seeing residuals.",
+                                                          "B_min includes fitted odd/even kernel terms derived from the same P_oe contrast.",
+                                                          "B_min qz/c-axis coherence proxy shares target-generating information with odd/even susceptibility extraction.",
+                                                          "Matched pairs fail pre-registered B_min distance thresholds.",
+                                                          "Pair orientation, same-sign direction, U_miss envelope, or residual-survival alpha level is chosen after seeing P_oe or R_oe."
+                                                      ],
+                                     "allowed_conclusion":  "No decision about C_phi. Redesign protocol.",
+                                     "forbidden_conclusion":  "No-go, survival, or gray-zone scientific inference."
+                                 }
+                             ],
+    "negative_controls":  [
+                              {
+                                  "name":  "scrambled_pair_control",
+                                  "design":  "Randomly permute pair labels within batch after B_min measurement.",
+                                  "B_expected_result":  "Residual annihilation should not look stronger than in true B_min-matched pairs.",
+                                  "failure_meaning":  "If scrambled pairs perform equally well, the matching design has low discriminating power."
+                              },
+                              {
+                                  "name":  "single_layer_or_non_bilayer_control",
+                                  "design":  "Apply the same P_oe extraction machinery to a material/window without bilayer odd/even parity structure.",
+                                  "B_expected_result":  "No stable R_oe survival; any apparent P_oe should be denominator-noise or matrix-element artifact.",
+                                  "failure_meaning":  "Stable residual indicates extraction artifact or unmodeled probe asymmetry."
+                              },
+                              {
+                                  "name":  "high_disorder_control",
+                                  "design":  "Use specimens with intentionally broad disorder/dephasing where phase-sensitive bilayer contrast should be washed out.",
+                                  "B_expected_result":  "B_min disorder/dephasing terms explain apparent contrast; residuals collapse.",
+                                  "failure_meaning":  "Residual survival in this control suggests hidden calibration or denominator artifacts."
+                              },
+                              {
+                                  "name":  "probe_window_control",
+                                  "design":  "Repeat extraction in an adjacent normal-state q, omega, polarization window not expected to carry bilayer parity-transfer information.",
+                                  "B_expected_result":  "No stable residual after B_min conditioning.",
+                                  "failure_meaning":  "Window-independent residuals favor sample-quality or probe-systematic explanations, not independent C_phi."
+                              },
+                              {
+                                  "name":  "batch_stratified_control",
+                                  "design":  "Repeat residual-annihilation and survival tests within batch and leave-one-batch-out; include at least two pilot batches and preferably three decision batches.",
+                                  "B_expected_result":  "Collapse or survival calls must not be driven by a single synthesis or measurement batch.",
+                                  "failure_meaning":  "Batch-specific residual patterns indicate synthesis/probe batch effects rather than a clean C_phi residual decision."
+                              },
+                              {
+                                  "name":  "sample_quality_repeatability_report",
+                                  "design":  "Report same-batch technical repeat P_oe repeatability, denominator-ill-conditioned exclusions versus sample-quality metrics, and disorder/dephasing correlations.",
+                                  "B_expected_result":  "Residual calls remain stable after accounting for sample-quality metrics and technical repeat variance.",
+                                  "failure_meaning":  "Residual survival or collapse tracks sample quality rather than B_min-conditioned odd/even physics."
+                              },
+                              {
+                                  "name":  "probe_calibration_blank_or_reference",
+                                  "design":  "Run blank/reference-standard probe calibration through the frozen P_oe pipeline and report calibration drift, matrix asymmetry, and window-dependent artifacts.",
+                                  "B_expected_result":  "Calibration blanks/reference standards produce no stable P_oe-like residual after the frozen denominator and B_min rules.",
+                                  "failure_meaning":  "Stable residual in calibration controls indicates probe or matrix-element artifact."
+                              }
+                          ],
+    "Z_pre_rules":  {
+                        "allowed":  [
+                                        "Pre-output normal-state structural, spectroscopic, and transport observables measured before superconducting-output knowledge enters analysis.",
+                                        "Readiness labels only if assigned by a frozen rule from allowed pre-output observables."
+                                    ],
+                        "forbidden":  [
+                                          "Tc",
+                                          "zero resistance",
+                                          "Meissner response",
+                                          "critical current",
+                                          "gap opening",
+                                          "retrospective labels based on historical or later superconducting behavior",
+                                          "manual labels assigned after seeing superconducting outcomes"
+                                      ]
+                    },
+    "INSPECTOR_CHECK":  {
+                            "formulae":  [
+                                             "P_oe = (chi_odd - chi_even) / (sign(S) * max(abs(S), S_floor)), S = chi_odd + chi_even, S_floor = max(5 sigma_S, 0.05 S_ref)",
+                                             "R_oe_i = P_oe_i - E_crossfit[P_oe_i | B_min_i]",
+                                             "Delta_r_pair_j is tested primarily as abs(R_oe_left_j - R_oe_right_j); signed tests require a P_oe/R_oe-blind pre-frozen orientation rule",
+                                             "eta = U_miss + epsilon_meas + R_oe, with U_miss bounded independently before residual inspection",
+                                             "I(C_phi; Z_pre | B_plus) = 0 only under full-kernel closure and conditionally independent measurement noise"
+                                         ],
+                            "direction":  "B predicts measured B_min annihilates R_oe within the frozen epsilon_meas + U_miss envelope under direction-free paired residual and permutation/hierarchical null tests. Stable signed residuals falsify B only when the sign axis was frozen before P_oe extraction by P_oe/R_oe-blind information.",
+                            "data":  "No new external data used in Round 3; this is a pre-registered decision and collapse/no-go table built from Round 2 synthesis and B inspector warnings.",
+                            "assumptions":  [
+                                                "chi_odd and chi_even are measured in the same normal-state convention.",
+                                                "B_min is measured independently of P_oe extraction and its qz/c-axis proxy does not reuse target-generating odd/even susceptibility information.",
+                                                "Superconducting output leakage is absent.",
+                                                "Cross-fitting, matching, pair orientation, U_miss bounds, and residual-survival tests are frozen before residual interpretation.",
+                                                "U_miss is independently bounded and cannot be enlarged after seeing R_oe.",
+                                                "Batch/sample-quality/probe-calibration negative controls are reported.",
+                                                "Kubo closure is schematic and conditional, not a complete theorem."
+                                            ]
+                        },
+    "claims":  [
+                   {
+                       "id":  "B3-C1",
+                       "statement":  "B_plus collapse is formally valid only as a tautological full-kernel sufficiency closure and must not be treated as experimental evidence.",
+                       "confidence":  0.9,
+                       "new_insight":  false,
+                       "equations":  [
+                                         "I(C_phi; Z_pre | B_plus) = 0"
+                                     ],
+                       "references":  [
+                                          "pi_round2_synthesis.md",
+                                          "inspector_B_round2.md"
+                                      ],
+                       "assumptions":  [
+                                           "B_plus contains the full normal-state response kernel",
+                                           "measurement noise is conditionally independent of Z_pre",
+                                           "Z_pre is output-leakage-free"
+                                       ]
+                   },
+                   {
+                       "id":  "B3-C2",
+                       "statement":  "Measured B_min gives an empirical collapse test: if cross-fitted residual R_oe is annihilated in matched pairs, C_phi/P_oe is non-identifiable as an independent input-side variable for this nickelate window.",
+                       "confidence":  0.75,
+                       "new_insight":  true,
+                       "equations":  [
+                                         "R_oe_i = P_oe_i - E_crossfit[P_oe_i | B_min_i]"
+                                     ],
+                       "references":  [
+                                          "pi_round2_synthesis.md",
+                                          "inspector_B_round2.md"
+                                      ],
+                       "assumptions":  [
+                                           "B_min features are pre-registered",
+                                           "matched-pair thresholds are met",
+                                           "model complexity is controlled",
+                                           "negative controls pass"
+                                       ]
+                   },
+                   {
+                       "id":  "B3-C3",
+                       "statement":  "Excess unsigned paired R_oe after B_min matching, or stable signed R_oe under a pre-frozen independent orientation axis, falsifies B\u0027s empirical collapse but only permits an independent residual claim; it does not validate superconducting prediction or a phase-bus mechanism.",
+                       "confidence":  0.8,
+                       "new_insight":  false,
+                       "equations":  [
+                                         "abs(Delta_r_pair) \u003e= 3 sigma_total",
+                                         "pooled residual shift \u003e= 0.10",
+                                         "signed Delta_r_pair only under a pre-frozen P_oe/R_oe-blind orientation rule"
+                                     ],
+                       "references":  [
+                                          "pi_round2_synthesis.md"
+                                      ],
+                       "assumptions":  [
+                                           "No output leakage",
+                                           "denominator floor passed",
+                                           "U_miss bound frozen before residual inspection",
+                                           "residual survives batch and negative-control checks"
+                                       ]
+                   },
+                   {
+                       "id":  "B3-C4",
+                       "statement":  "Gray-zone outcomes must be classified as inconclusive/repeat rather than selectively converted into either collapse or survival.",
+                       "confidence":  0.85,
+                       "new_insight":  true,
+                       "equations":  [
+                                         "0.65 \u003c CV-R2 \u003c 0.85"
+                                     ],
+                       "references":  [
+                                          "inspector_B_round2.md"
+                                      ],
+                       "assumptions":  [
+                                           "Pilot sample remains small",
+                                           "bootstrap and batch analyses are fragile under n=12"
+                                       ]
+                   }
+               ],
+    "revision_notes":  [
+                           "Fixed the Round 3 blocker by removing post-hoc signed pair interpretation. Delta_r_pair is now either oriented by a frozen P_oe/R_oe-blind rule or evaluated with unsigned paired residual magnitude plus a pre-registered permutation/hierarchical null.",
+                           "Deleted the mathematically invalid signed absolute-value language and replaced survival/collapse criteria with unsigned magnitude, pooled shift, and optional sign tests tied only to an independent frozen X_pre_not_in_B_min axis.",
+                           "Corrected INSPECTOR_CHECK P_oe parentheses to divide by (sign(S) * max(abs(S), S_floor)).",
+                           "Added explicit leakage guard that B_min c-axis/qz coherence proxies cannot share target-generating data, decomposition, calibration matrices, or window tuning with odd/even susceptibility extraction.",
+                           "Added an independent U_miss upper-bound/sensitivity rule: it is frozen before residuals are seen and cannot absorb residual survival post hoc.",
+                           "Added batch, sample-quality, and probe-calibration negative-control/reporting requirements."
+                       ]
+}

@@ -1,0 +1,179 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 4,
+  "agent": "B",
+  "polaris": "LP29-C2T / provenance-complete external joined table construction",
+  "framework": "Executable witness payload contract for a row audit automaton. Round 4 replaces reviewer-readable BLOCK/WARN/PASS labels with payload-derived gate decisions over same-sample crosswalk, graph convention lock, external label independence, forbidden-control audit, and applicable Srivastava OI reproduction.",
+  "math_object": "A typed decision function D(payload) over finite gate predicates: gate_status_i = f_i(witness_fields_i); row_decision = BLOCK if any required gate is BLOCK, WARN if no required gate is BLOCK and at least one required gate is WARN, PASS only if all required gates PASS. material_validation_allowed = true only when row_decision = PASS and all joined-table blockers are cleared.",
+  "findings": [
+    {
+      "id": "B4-F1",
+      "status": "PASS_AS_INFRASTRUCTURE",
+      "finding": "Round 4 emits a JSON Schema for witness payloads. The schema requires row_id, candidate_source, required joined-field witness block, same_sample_crosswalk, graph_convention_lock, external_label_independence, forbidden_control_row_audit, OI_Srivastava_reproduction, and executor_contract.",
+      "artifact": "current/C2T/artifacts/C2T_witness_payload_schema.json",
+      "material_validation_performed": false
+    },
+    {
+      "id": "B4-F2",
+      "status": "PASS_AS_INFRASTRUCTURE",
+      "finding": "Round 4 emits five example JSONL witness payloads linked to C2T-AUDIT-0001 through C2T-AUDIT-0005. Each payload carries missing fields, contradictions, witness arrays, and machine_reviewable evidence flags sufficient for an executor to derive current BLOCK outcomes.",
+      "artifact": "current/C2T/artifacts/C2T_witness_payload_examples.jsonl",
+      "material_validation_performed": false
+    },
+    {
+      "id": "B4-F3",
+      "status": "PASS_AS_INFRASTRUCTURE",
+      "finding": "Round 4 emits gate predicates as CSV. These predicates define PASS/WARN/BLOCK transitions for required_joined_fields_presence, same_sample_crosswalk, graph_convention_lock, external_label_independence, forbidden_control_row_audit, OI_Srivastava_reproduction, row_decision, and material_validation_allowed.",
+      "artifact": "current/C2T/artifacts/C2T_gate_predicates.csv",
+      "material_validation_performed": false
+    },
+    {
+      "id": "B4-F4",
+      "status": "BLOCK_CURRENT_CANDIDATES",
+      "finding": "Expected executor results preserve the Round 3 boundary: all five current candidate rows remain BLOCK and material_validation_allowed=false.",
+      "artifact": "current/C2T/artifacts/C2T_executor_expected_results.csv",
+      "material_validation_performed": false
+    }
+  ],
+  "strangest_prediction": {
+    "prediction": "A future row will look complete in the joined table and still be executor-BLOCK because its graph convention protocol timestamp is after label access or because its same-sample identity is only a material-name join.",
+    "testable_consequence": "Running the gate predicates against witness payloads will reject plausible-looking rows even when all user-facing schema columns are nonempty.",
+    "material_validation_performed": false
+  },
+  "a_objection": "A will likely object that this is still bookkeeping rather than physics. The reply is that C2T's claimed physical comparison is forbidden until the row identity, graph protocol, label independence, and forbidden-control witnesses are executable. This round makes that prohibition reproducible.",
+  "failed_jumps": [
+    {
+      "source_discipline": "Manual audit table",
+      "failure": "A table of statuses cannot prove how statuses were obtained.",
+      "round4_resolution": "Replace status-only rows with JSONL witness payloads plus deterministic gate predicates."
+    },
+    {
+      "source_discipline": "JSON Schema alone",
+      "failure": "Schema conformance can prove shape but not the BLOCK/WARN/PASS transition.",
+      "round4_resolution": "Separate shape schema from C2T_gate_predicates.csv and expected executor results."
+    },
+    {
+      "source_discipline": "Material validation rescue",
+      "failure": "Attempting to validate materials now would launder missing provenance into a scientific result.",
+      "round4_resolution": "No material validation is performed; current candidates remain BLOCK."
+    }
+  ],
+  "next_plan": {
+    "status": "executor_handoff_ready",
+    "steps": [
+      "Implement a deterministic executor that validates each JSONL line against C2T_witness_payload_schema.json.",
+      "Recompute gate statuses from C2T_gate_predicates.csv rather than trusting declared_status.",
+      "Compare executor output with C2T_executor_expected_results.csv.",
+      "Keep material_validation_allowed=false for the five current candidates unless new machine-reviewable witnesses clear every required gate."
+    ],
+    "stop_rule": "Do not run or claim material validation until at least one row has payload-derived row_decision=PASS and all joined-table field blockers are cleared."
+  },
+  "literature_needed": {
+    "needed_now": false,
+    "reason": "Round 4 is an executor/witness artifact step. It introduces no new material mechanism, numerical material result, or prior-art claim requiring literature expansion.",
+    "future_keywords_if_payloads_are_populated": [
+      "amorphous oxide same-sample structure transport provenance",
+      "Srivastava orbital overlap executable normalization SI",
+      "materials informatics provenance executor row-level audit",
+      "graph feature leakage materials machine learning"
+    ]
+  },
+  "claims": [
+    {
+      "id": "B4-C1",
+      "statement": "C2T now has a generic machine-readable witness payload schema that can carry executable evidence for row-level provenance gates.",
+      "confidence": 0.9,
+      "new_insight": true,
+      "equations": [
+        "schema_conforms(payload) != row_decision(payload)",
+        "row_decision(payload) = g(C2T_gate_predicates, payload)"
+      ],
+      "references": [
+        "current/C2T/artifacts/C2T_witness_payload_schema.json",
+        "current/C2T/artifacts/C2T_gate_predicates.csv"
+      ],
+      "assumptions": [
+        "Executor uses the schema and predicates, not manual status labels.",
+        "No material validation is inferred from schema conformance."
+      ]
+    },
+    {
+      "id": "B4-C2",
+      "statement": "For the current five candidate audit rows, the expected executor result is BLOCK with material_validation_allowed=false.",
+      "confidence": 0.92,
+      "new_insight": false,
+      "equations": [
+        "exists required_gate = BLOCK => row_decision = BLOCK",
+        "row_decision != PASS => material_validation_allowed = false"
+      ],
+      "references": [
+        "current/C2T/artifacts/C2T_witness_payload_examples.jsonl",
+        "current/C2T/artifacts/C2T_executor_expected_results.csv",
+        "current/C2T/artifacts/C2T_row_level_audit_record_round3.csv"
+      ],
+      "assumptions": [
+        "The five Round 3 audit rows are the only current candidates in the allowed Round 4 input scope.",
+        "No unlisted source or A output is used."
+      ]
+    },
+    {
+      "id": "B4-C3",
+      "statement": "The reviewer Round 3 fatal point is resolved at the infrastructure level: BLOCK/WARN/PASS can now be derived from witness payloads and gate predicates.",
+      "confidence": 0.86,
+      "new_insight": true,
+      "equations": [
+        "manual_status_label is advisory",
+        "executor_status = predicate(payload)"
+      ],
+      "references": [
+        "synthesis/reviewer_C2T_round3.md",
+        "current/C2T/artifacts/C2T_gate_predicates.csv"
+      ],
+      "assumptions": [
+        "A future implementation must actually execute these predicates.",
+        "The current artifact is a schema/predicate/fixture handoff, not a finished joined table."
+      ]
+    }
+  ],
+  "reviewer_response": {
+    "round3_fatal_point": "Round 3 had blocker-status CSV but no executable witness payload schema, making BLOCK/WARN/PASS manual labels.",
+    "round4_response": "Added witness payload schema, five JSONL payload examples, deterministic gate predicates, and executor expected results. The executor can recompute status from missing_fields, contradictions, machine_reviewable witnesses, and specific gate fields.",
+    "pass_transition_defined": true,
+    "pass_transition_summary": "A row can become PASS only when required joined fields have machine-reviewable provenance, same_sample_crosswalk proves a pre-label same-sample identity, graph_convention_lock proves pre-label L_sym/cutoff/rho/attack controls on the same graph, external_label_independence proves non-synthetic external labels, forbidden_control_row_audit passes all applicable subchecks, and any claimed OI reproduction has exact formula/code, normalization, and same-structure mapping.",
+    "current_candidate_status": "All current candidates remain BLOCK.",
+    "material_validation_performed": false,
+    "material_validation_allowed_now": false
+  },
+  "produced_artifacts": [
+    {
+      "path": "current/C2T/artifacts/C2T_witness_payload_schema.json",
+      "type": "json_schema",
+      "purpose": "Defines machine-readable witness payload shape.",
+      "validation_claim": "schema only; no material validation"
+    },
+    {
+      "path": "current/C2T/artifacts/C2T_witness_payload_examples.jsonl",
+      "type": "jsonl_fixture",
+      "purpose": "Provides one executable negative witness payload per current candidate row.",
+      "validation_claim": "executor fixture only; all rows BLOCK"
+    },
+    {
+      "path": "current/C2T/artifacts/C2T_gate_predicates.csv",
+      "type": "predicate_table",
+      "purpose": "Defines deterministic PASS/WARN/BLOCK derivation rules.",
+      "validation_claim": "audit transition logic only"
+    },
+    {
+      "path": "current/C2T/artifacts/C2T_executor_expected_results.csv",
+      "type": "expected_results",
+      "purpose": "Expected executor output for current fixtures.",
+      "validation_claim": "all current candidates remain BLOCK"
+    },
+    {
+      "path": "current/B/C2T_round4.json",
+      "type": "B_round_output",
+      "purpose": "Round 4 B summary and reviewer response.",
+      "validation_claim": "infrastructure closure only; no material validation"
+    }
+  ]
+}

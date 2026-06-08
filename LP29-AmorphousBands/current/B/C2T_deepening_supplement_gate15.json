@@ -1,0 +1,98 @@
+{
+  "agent": "B",
+  "gate": {
+    "id": "LP29-C2T Round 4 GATE 1.5",
+    "purpose": "Deepen the B-side witness payload executor/type-state contract before re-escalation.",
+    "input_scope": {
+      "read": [
+        "current/B/C2T_round4.json",
+        "synthesis/PI_C2T_round4.md",
+        "synthesis/inspector_B_C2T_round4.md"
+      ],
+      "not_read": [
+        "current/A/C2T_round4.json"
+      ]
+    },
+    "boundary": {
+      "material_validation_performed": false,
+      "material_validation_allowed_now": false,
+      "current_candidate_status": "all current candidates BLOCK",
+      "allowed_claim": "C2T now has an infrastructure-level witness payload and type-state contract in principle.",
+      "forbidden_claims": [
+        "No material validation.",
+        "No Srivastava reproduction.",
+        "No graph-beats-overlap claim.",
+        "No same-sample closure claim.",
+        "No candidate may be upgraded from BLOCK on the current evidence."
+      ]
+    },
+    "inspector_feed_forward_absorbed": [
+      "The final material-validation boundary was already conservative: all rows remain BLOCK and material_validation_allowed=false.",
+      "The per-gate expected-results mismatch for C2T-AUDIT-0001 and C2T-AUDIT-0002 is a type-state oracle cleanliness issue, not a permission to validate.",
+      "Future executor handoff must recompute gate statuses from predicates and payload fields, not trust declared_status or fixture labels."
+    ]
+  },
+  "deepening_1": {
+    "title": "The next consequence is that witness payloads become executable evidence, not descriptive metadata.",
+    "layer_1": {
+      "surface_result_from_round4": "Round 4 moved B from reviewer-readable BLOCK/WARN/PASS labels to a schema, JSONL payload fixtures, gate predicates, and expected executor results. This answers the reviewer fatal point at infrastructure level: status can in principle be recomputed from witness fields.",
+      "next_layer_consequence": "The payload is no longer a container of notes. It is the only admissible evidence object from which the row type-state may transition. If a field is human-plausible but not represented as a machine-reviewable witness, it has no force in the executor.",
+      "type_state_reading": {
+        "UNOBSERVED": "A gate lacks required witness fields or machine-reviewable provenance.",
+        "BLOCK": "A required witness is missing, contradictory, post-label, target-derived, synthetic when external is required, or only material-name/composition joined.",
+        "WARN": "A nonfatal ambiguity remains only where the predicate explicitly permits warning and no required gate blocks.",
+        "PASS": "Every required gate has positive machine-reviewable evidence and no contradiction.",
+        "MATERIAL_VALIDATION_ALLOWED": "Reachable only after row_decision=PASS and all joined-table blockers are cleared; unreachable for all current candidates."
+      },
+      "executor_implication": "A valid executor must treat schema conformance as a precondition, not as a pass. The executable transition is predicate(payload) -> gate_status -> row_decision -> material_validation_allowed. Therefore a row can be syntactically valid JSON and still remain BLOCK, which is exactly the current state.",
+      "current_candidate_boundary": {
+        "C2T-AUDIT-0001": "BLOCK",
+        "C2T-AUDIT-0002": "BLOCK",
+        "C2T-AUDIT-0003": "BLOCK",
+        "C2T-AUDIT-0004": "BLOCK",
+        "C2T-AUDIT-0005": "BLOCK"
+      },
+      "no_material_validation_reason": "The supplement deepens the executor contract only. It does not add any new material row, close any same-sample witness, reproduce Srivastava OI, or permit validation."
+    },
+    "layer_2": {
+      "deeper_structure": "The B-side contract is a proof-carrying row system. Each row must carry enough witness payload to prove its own admissibility under finite gate predicates. Manual labels, table completeness, and reviewer prose become advisory artifacts unless the executor can derive the same state from payload data.",
+      "next_layer_consequence": "The hard problem shifts from 'Can we fill the joined table?' to 'Can any row produce a noncircular proof object whose proof graph predates label access?' This is stricter than provenance bookkeeping because the executor must reject evidence whose order, identity, or dependency path is ambiguous.",
+      "contract_invariant": {
+        "I1": "declared_status is never authoritative.",
+        "I2": "schema_conforms(payload) does not imply row_decision=PASS.",
+        "I3": "any required_gate=BLOCK forces row_decision=BLOCK.",
+        "I4": "row_decision!=PASS forces material_validation_allowed=false.",
+        "I5": "external label independence must be positively witnessed; missing external label payload or missing label_provenance_id cannot be treated as benign warning for a required gate."
+      },
+      "most_important_executor_test": "Delete all declared statuses from the fixtures, recompute every gate from witness payload fields and C2T_gate_predicates.csv, and require exact agreement on final row_decision=BLOCK and material_validation_allowed=false for all current candidates.",
+      "failure_if_skipped": "If the executor trusts expected-results fixtures or declared_status, C2T can silently reintroduce the Round 3 fatal flaw: labels that look executable but are still hand-authored."
+    }
+  },
+  "deepening_2": {
+    "title": "The most likely wrong premise is that a deterministic gate contract is the same as a correct scientific precondition.",
+    "layer_1": {
+      "surface_premise": "Round 4 assumes that once witness payloads, predicates, and expected results exist, the remaining problem is implementation cleanliness: build the executor, fix fixture mismatches, and wait for a future row to pass.",
+      "why_this_may_be_wrong": "A deterministic executor can faithfully enforce the wrong ontology. If the payload schema does not represent the actual causal/order structure needed for C2T, then exact predicate execution only makes the wrong abstraction reproducible.",
+      "most_likely_wrong_premise": "The current gate list may be necessary but not sufficient: same-sample crosswalk, graph convention lock, external label independence, forbidden-control audit, and OI reproduction may still fail to encode the decisive relation, namely whether the row's admissibility proof itself was constructed before and independently of target knowledge.",
+      "immediate_consequence": "A future row could satisfy every present field-level gate while still being invalid because the witness graph was assembled through target-aware curation, benchmark-family selection, or graph-proxy feedback not captured by the existing payload vocabulary.",
+      "current_boundary": "This risk does not unblock anything. It strengthens the conservative result: all current candidates remain BLOCK and material_validation_allowed=false."
+    },
+    "layer_2": {
+      "deeper_structure": "The type-state contract should be interpreted as a temporal dependency calculus, not only a Boolean gate table. PASS requires not merely presence of witnesses, but an acyclic admissibility proof whose construction order excludes target-derived edges.",
+      "missing_or_underweighted_dimension": {
+        "witness_creation_time": "When the evidence object was created relative to label access, graph protocol choice, and candidate selection.",
+        "witness_authority": "Whether the witness is an independent source record, a derived reconstruction, a manual curation artifact, or a synthetic/graph-generated proxy.",
+        "dependency_edges": "Which payload fields depend on target labels, graph outputs, fitted transport quantities, material family screens, or post hoc row inclusion.",
+        "negative_evidence": "Whether missingness itself was audited, rather than silently converted into absence of contradiction."
+      },
+      "stronger_gate_form": {
+        "row_payload": "A row is not just a flat witness object; it should expose an evidence DAG.",
+        "pass_condition": "The evidence DAG must contain a connected same-sample proof, a locked graph protocol preceding label access, independent external label payload, forbidden-control exclusion, and no path from target knowledge into any field used to justify admissibility.",
+        "block_condition": "If the only proof path uses post-label curation, target-fitted controls, graph-generated labels, family-level substitution, or untimestamped manual reconciliation, the row remains BLOCK even if every scalar field is present."
+      },
+      "strangest_prediction": "The first apparently PASS-like future payload will probably fail not because a required field is empty, but because the evidence DAG reveals that row inclusion, label source selection, or graph convention locking happened after target exposure.",
+      "executor_requirement": "The next executor should be able to emit not only gate statuses, but the minimal blocking dependency path for every BLOCK transition. Without that path, C2T can say a row is blocked but cannot prove why in a way that prevents future label laundering.",
+      "no_material_validation_reason": "This is a stricter prevalidation contract proposal. It performs no material validation, claims no reproduction, and leaves every current candidate BLOCK."
+    }
+  }
+}

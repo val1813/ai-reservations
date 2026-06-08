@@ -1,0 +1,304 @@
+{
+  "framework": {
+    "role": "B_doctor_round3",
+    "round": 3,
+    "north_star": "Can a real same-sample or matched-specimen nickelate packet supply P_oe + B_min before superconducting-output reveal, strongly enough to kill or preserve R_oe?",
+    "verdict": "FINAL_KILL_TABLE_WITH_CONCESSION_BOUNDARY",
+    "scope_guard": "This is a packet/protocol identifiability boundary, not a universal no-go theorem for all future nickelate measurements or all formulations of C_phi/R_oe.",
+    "starting_point": "No complete existing leakage-clean same-sample or blinded matched-specimen P_oe + B_min packet has been found in the allowed state files. A near-future sealed packet remains conditionally feasible only if the firewall and decision-grade thresholds are met.",
+    "canonical_objects": {
+      "P_oe": "(chi_odd - chi_even) / (chi_odd + chi_even), with pre-frozen signed-denominator floor and censoring rules. The floor censors or flags rows; it does not redefine the primary denominator.",
+      "P_oe_L1_diagnostic": "Optional robustness diagnostic using an L1 or max-style denominator. It must remain a separately named diagnostic and cannot drive the primary residual call.",
+      "B_min": "A pre-output baseline vector covering oxygen/vacancy or ligand-hole state, structure/phase fraction, orbital/self-doping proxies, disorder/dephasing, pressure/thermal path, ordinary c-axis coherence, and sample quality, constructed without importing the fitted P_oe extraction state.",
+      "forbidden_pre_residual_information": [
+        "Tc",
+        "zero_resistance",
+        "Meissner",
+        "diamagnetism",
+        "gap",
+        "spin_resonance",
+        "critical_current",
+        "output-trained labels",
+        "post-output sample selection notes"
+      ]
+    },
+    "row_firewall": {
+      "green": "Same-sample or formally sistered row; output labels sealed; P_oe and B_min have separate raw stores or hash-locked scripts; B_min does not reuse fitted qz/c-axis/orbital states from P_oe; covariance and calibration perturbations are archived; pre-output mismatch tolerances are met.",
+      "yellow": "Some shared metadata or calibration constants exist, but no shared fitted P_oe state enters B_min; overlap is declared before label reveal and primary conclusions survive yellow-row exclusion and covariance sensitivity.",
+      "red": "Output leakage, post-hoc row rescue, shared fitted qz/c-axis/orbital state between P_oe and B_min, untraceable montage rows, or denominator/calibration tuning after B_min/output inspection. Red rows cannot enter the primary residual test."
+    }
+  },
+  "kill_table": [
+    {
+      "status": "NOT_FOUND",
+      "definition": "No accessible packet exists that contains row-level P_oe, B_min, calibration, genealogy, denominator/censoring, U_miss, and output-blinding records.",
+      "triggers": [
+        "Only retrospective literature montage is available.",
+        "P_oe and B_min are reported on different specimens without same-boule or formally sistered genealogy.",
+        "Raw-to-chi calibration, qz/polarization covariance, oxygen/structure/phase records, or output-blinding logs are unavailable.",
+        "Rows cannot be reconstructed before superconducting-output reveal."
+      ],
+      "allowed_claim": "Packet not found; R_oe remains untested by this evidence.",
+      "forbidden_claim": "Do not claim R_oe is killed, preserved, or structurally impossible."
+    },
+    {
+      "status": "NON_DECISION_GRADE",
+      "definition": "A packet or pilot exists, but it does not meet the decision-grade threshold required to kill or preserve R_oe under this protocol.",
+      "triggers": [
+        "N=12 or comparable small rehearsal-scale data.",
+        "N=24 with at least 18 valid uncensored P_oe rows and at least 2 batches: executable pilot only.",
+        "24 to 35 complete blinded rows after censoring: gray-zone pilot only.",
+        "Fewer than 4 batches or fewer than 3 labs for claim-bearing use.",
+        "Leave-one-batch-out or leave-one-lab-out validation cannot be run, even if internal cross-validation appears stable."
+      ],
+      "allowed_claim": "Use only for feasibility, variance, row-loss, censoring-rate, calibration-sensitivity, and axis-coupling estimates.",
+      "forbidden_claim": "Do not call this a statistical refutation or support of R_oe."
+    },
+    {
+      "status": "NON_IDENTIFIABLE",
+      "definition": "The packet cannot separate P_oe from B_min as independent pre-output information sources, so residual structure can be explained by shared extraction state, latent sample quality, calibration, or path history.",
+      "triggers": [
+        "B_min ordinary c-axis coherence or orbital/qz proxy is computed from the same fitted qz/polarization/form-factor state used to estimate chi_odd or chi_even.",
+        "Matrix-element, self-absorption, geometry, monitor, or background choices are tuned jointly for P_oe and B_min without covariance propagation.",
+        "Batch, lab, pressure cell, probe family, or specimen source is aliased with P_oe/B_min block membership so held-out lineage tests are impossible.",
+        "Matched specimens lack pre-output tolerances for oxygen microtexture, phase fraction, pressure path, beam damage, c-axis state, or sample quality.",
+        "The residual appears only under one calibration or denominator-floor choice and fails the frozen sensitivity grid.",
+        "Missingness, censoring, or row loss plausibly depends on output knowledge and is not covered by pre-frozen U_miss."
+      ],
+      "allowed_claim": "For this packet class and these records, R_oe is not identifiable.",
+      "forbidden_claim": "Do not generalize to all conceivable future probes or all alternative theoretical objects."
+    },
+    {
+      "status": "PROTOCOL_FAILURE",
+      "definition": "The packet might have been measurable, but the execution violates blinding, locking, row identity, or pre-registration constraints badly enough that it cannot adjudicate R_oe.",
+      "triggers": [
+        "Superconducting-output labels are available before row inclusion, calibration, censoring, feature selection, residual model selection, or residual call.",
+        "Rows are added, dropped, sistered, or rescued after inspecting output or residual alignment.",
+        "P_oe denominator floor, censoring, U_miss, B_min variable list, or calibration grid is changed after output or B_min correlation inspection.",
+        "Blind custodian, timestamped lock file, raw hashes, or script hashes are missing.",
+        "Red rows enter the primary residual test.",
+        "Technical repeats are split across folds as if they were independent specimen lineages."
+      ],
+      "allowed_claim": "Protocol failed; the run cannot decide R_oe even if some measurements are high quality.",
+      "forbidden_claim": "Do not reclassify a protocol-failed run as evidence for feasibility or non-identifiability without a separate clean audit."
+    },
+    {
+      "status": "PACKET_FEASIBLE_NEAR_FUTURE",
+      "definition": "A sealed prospective campaign can plausibly produce a decision-grade packet with enough independent pre-output information to test R_oe.",
+      "triggers": [
+        "Campaign plan reaches N=48 target rows and at least 36 complete blinded rows after censoring.",
+        "At least 4 growth or oxygenation batches and at least 3 labs contribute, with no dominant batch/lab aliasing.",
+        "Leave-one-batch-out and leave-one-lab-out validation are designed before measurement.",
+        "At least 80% of complete primary rows are green and zero red rows enter the primary residual test.",
+        "A pilot demonstrates that P_oe extraction and B_min acquisition can remain information-separated despite qz/c-axis/matrix-element corrections.",
+        "Blind custody is operational before any superconducting-output measurement or release."
+      ],
+      "allowed_claim": "B must concede that a near-future decision-grade packet is feasible in protocol terms.",
+      "forbidden_claim": "Do not infer that R_oe is true, false, or already validated."
+    }
+  ],
+  "concession_boundary": {
+    "B_must_concede_PACKET_FEASIBLE_NEAR_FUTURE_if_all_hold": [
+      "The prospective design targets N=48 rows, expects at least 36 complete blinded rows after censoring, spans at least 4 batches and 3 labs, and includes leave-one-batch-out plus leave-one-lab-out validation.",
+      "P_oe, B_min, denominator floor, censoring, U_miss, calibration covariance grid, row inclusion rules, and sibling mismatch tolerances are frozen before output reveal.",
+      "B_min is built from independent pre-output measurements, not from the fitted odd/even qz/c-axis/orbital state used to compute P_oe.",
+      "A blind custodian, timestamped lock file, raw-data hashes, and script hashes are in place before residual calls.",
+      "The probe plan supplies the necessary independent information sources: odd/even susceptibility, oxygen/structure/orbital/disorder baselines, independent c-axis/path calibration, and leakage/negative controls.",
+      "A pilot or facility dry run shows that qz/polarization calibration and ordinary c-axis baseline can be measured without collapsing into one shared fitted state."
+    ],
+    "B_must_concede_PACKET_FEASIBLE_NOW_if_all_hold": [
+      "An already accessible dataset satisfies the same N=48 target and at least 36 complete-row decision-grade criteria.",
+      "Rows are same-sample or formally sistered with auditable genealogy, pressure path, oxygenation, phase fraction, probe order, and blinding logs.",
+      "Raw spectra, calibration covariance, B_min raw observables, and output-lock records are available for audit.",
+      "Leave-one-batch-out and leave-one-lab-out validation pass without red rows in the primary analysis.",
+      "Permutation controls for odd/even labels, qz channels, and output labels destroy the residual alignment under the same frozen pipeline."
+    ],
+    "B_does_not_concede_if_any_hold": [
+      "The evidence is a literature montage without row-level identity and pre-output blinding.",
+      "Complete blinded rows after censoring remain below 36 for claim-bearing use.",
+      "The design has fewer than 4 batches or fewer than 3 labs for decision-grade use.",
+      "B_min imports fitted P_oe qz/c-axis/orbital states as independent covariates.",
+      "Output labels or output-trained labels enter row selection, calibration, censoring, feature selection, or residual model selection.",
+      "Sibling rows are justified by post-hoc residual agreement instead of pre-output mismatch tolerances."
+    ],
+    "concession_is_limited_to": "Packet feasibility and protocol decidability. It is not a concession that R_oe exists, that C_phi is independent, or that current literature already validates the packet."
+  },
+  "structural_nonidentifiability": {
+    "still_holds_when": [
+      "Every practical P_oe probe requires fitted qz/c-axis/orbital calibration quantities that B_min must then use as supposedly independent baseline covariates.",
+      "Ordinary c-axis coherence cannot be measured by an independent channel or treated as a propagated covariance component rather than an independent B_min variable.",
+      "Pressure path, oxygen/vacancy state, structure/phase fraction, and sample quality remain so aliased with P_oe extraction that held-out batch/lab/path tests cannot be run.",
+      "The only way to assemble rows is specimen montage without pre-output genealogy and mismatch tolerances.",
+      "Output blinding is incompatible with row selection, calibration, or censoring in the actual measurement workflow.",
+      "Sensitivity analysis shows that plausible matrix-element or denominator-floor perturbations create, erase, or flip the residual."
+    ],
+    "does_not_hold_when": [
+      "P_oe extraction state and B_min construction are information-separated before output reveal.",
+      "Shared metadata are limited to predeclared row identity, pressure/temperature grid, and auditable calibration constants with covariance propagation.",
+      "Green-row fraction is at least 80%, red rows are excluded, and conclusions survive yellow-row exclusion.",
+      "Batch/lab/path/oxygen/structure variation is sufficient for held-out lineage validation."
+    ],
+    "boundary_statement": "Structural non-identifiability remains a packet-class result whenever the required baseline correction is downstream of the same fitted state that defines P_oe. It is not a proof that nature forbids future independent probes."
+  },
+  "threshold_interpretation": {
+    "principle": "The numeric thresholds are decision-grade protocol gates chosen to prevent false precision from small-N, batch/lab aliasing, leakage, and shared-calibration artifacts. They are not statistical power theorems and not literature-derived minimum sample-size laws.",
+    "tiers": [
+      {
+        "tier": "rehearsal_only",
+        "threshold": "N=12 or comparable",
+        "interpretation": "Can test logistics, raw formats, denominator censoring, damage, and blinding mechanics only."
+      },
+      {
+        "tier": "minimum_executable_not_claim_bearing",
+        "threshold": "N=24, at least 18 valid uncensored P_oe rows, at least 2 batches",
+        "interpretation": "Can run the pipeline and estimate feasibility, but cannot kill or preserve R_oe."
+      },
+      {
+        "tier": "gray_zone_pilot",
+        "threshold": "24 to 35 complete blinded rows after censoring, with at least 3 batches and at least 2 labs",
+        "interpretation": "Can refine variance, row loss, calibration sensitivity, and coupling risks; still non-decision-grade."
+      },
+      {
+        "tier": "decision_grade_B_concession_target",
+        "threshold": "N=48 target rows, at least 36 complete blinded rows after censoring, at least 4 batches, at least 3 labs, plus leave-one-batch-out and leave-one-lab-out validation",
+        "interpretation": "Sufficient for B to concede packet feasibility under this protocol if firewall and leakage controls pass."
+      }
+    ],
+    "anti_overclaim": [
+      "N<24 is a protocol-access failure or non-decision-grade condition, not a theorem that crossfit can never work.",
+      "N=48/36 is a conservative decision threshold for this packet, not a universal lower bound for all future designs.",
+      "A later pilot-powered statistician may revise sample-size targets, but cannot remove the independence, blinding, and lineage requirements without changing the claim."
+    ]
+  },
+  "probe_family_requirements": {
+    "necessary_independent_information_sources": [
+      {
+        "source": "odd_even_susceptibility_P_oe",
+        "role": "Defines the canonical P_oe numerator and denominator from chi_odd and chi_even.",
+        "acceptable_probe_families": [
+          "qz-resolved RIXS",
+          "polarized neutron or equivalent magnetic susceptibility extraction",
+          "another validated qz/polarization/form-factor susceptibility probe"
+        ],
+        "independence_requirement": "Raw-to-chi extraction must be locked before output reveal and must not import B_min residual feedback."
+      },
+      {
+        "source": "material_baseline_B_min",
+        "role": "Blocks ordinary oxygen, structure, orbital, ligand-hole, disorder, phase, pressure-path, and sample-quality explanations.",
+        "acceptable_probe_families": [
+          "oxygen/vacancy or ligand-hole quantification",
+          "in situ or path-linked structure/phase fraction",
+          "orbital/self-doping proxy",
+          "disorder/dephasing/sample-quality proxy"
+        ],
+        "independence_requirement": "These features cannot be computed from the fitted P_oe qz/c-axis/orbital state if treated as independent B_min covariates."
+      },
+      {
+        "source": "independent_c_axis_and_path_calibration",
+        "role": "Separates ordinary c-axis coherence and pressure/thermal history from odd/even residual structure.",
+        "acceptable_probe_families": [
+          "transport/optical c-axis baseline in the normal state",
+          "structural c-axis metric under relevant pressure path",
+          "pressure medium, hydrostaticity, dwell, thermal-cycle, and damage logs"
+        ],
+        "independence_requirement": "May share predeclared metadata with P_oe but must not be a downstream transform of the same odd/even spectral fit unless propagated only as covariance."
+      },
+      {
+        "source": "leakage_and_negative_controls",
+        "role": "Proves that residual alignment is not produced by output leakage, channel labels, qz ordering, or pipeline tuning.",
+        "acceptable_probe_families": [
+          "blind custodian and timestamped lock audit",
+          "odd/even label permutation",
+          "qz-channel permutation",
+          "output-label permutation",
+          "negative-control rows or channels"
+        ],
+        "independence_requirement": "Controls must run through the same frozen pipeline as the primary test."
+      }
+    ],
+    "replaceable_or_redundant_families": [
+      {
+        "replaceable_item": "Specific P_oe instrument",
+        "rule": "RIXS is not uniquely required if another probe yields auditable chi_odd and chi_even on the frozen qz/polarization/form-factor grid with comparable covariance."
+      },
+      {
+        "replaceable_item": "Specific oxygen or ligand-hole assay",
+        "rule": "Any assay is acceptable if it is pre-output, row-level, calibrated, and not inferred from the same fitted P_oe state."
+      },
+      {
+        "replaceable_item": "Exact orbital/self-doping proxy",
+        "rule": "The proxy family may vary across labs if it maps to a predeclared B_min variable with covariance and missingness handling."
+      },
+      {
+        "replaceable_item": "Negative-control implementation",
+        "rule": "Permutation, sham labels, off-window qz channels, or non-superconducting matched controls can substitute if they test the same leakage and tuning failure modes."
+      }
+    ],
+    "non_replaceable_requirements": [
+      "There must be one independent source for odd/even susceptibility.",
+      "There must be one independent source for ordinary material baselines, including oxygen/structure/orbital/disorder or explicitly justified minimal substitutes.",
+      "There must be one independent source for c-axis/pressure-path calibration or an equivalent covariance treatment that prevents same-source pollution.",
+      "There must be a leakage-control source independent of the scientists constructing P_oe and B_min.",
+      "The four information roles may be implemented by different instruments than listed above, but the information roles themselves cannot be collapsed into one fitted qz/c-axis state."
+    ]
+  },
+  "claims": [
+    {
+      "claim": "The current packet remains NOT_FOUND for claim-bearing use because the allowed state files report no complete leakage-clean same-sample or blinded matched-specimen P_oe + B_min packet.",
+      "status": "supported_by_allowed_context",
+      "strength": "strong for current evidence"
+    },
+    {
+      "claim": "N=48 target rows and at least 36 complete blinded rows after censoring define B's decision-grade concession threshold under this protocol.",
+      "status": "protocol_decision_rule",
+      "strength": "not a statistical power theorem"
+    },
+    {
+      "claim": "N=24 with at least 18 valid uncensored P_oe rows is minimum executable but not claim-bearing.",
+      "status": "protocol_decision_rule",
+      "strength": "pilot-only"
+    },
+    {
+      "claim": "Structural non-identifiability still holds if B_min must reuse the same fitted qz/c-axis/orbital state that defines P_oe.",
+      "status": "core_B_boundary",
+      "strength": "strong for this packet class"
+    },
+    {
+      "claim": "B must concede PACKET_FEASIBLE_NEAR_FUTURE when a sealed prospective design satisfies decision-grade thresholds, row firewall, independent information sources, and blind-custody requirements.",
+      "status": "concession_boundary",
+      "strength": "conditional"
+    },
+    {
+      "claim": "The final kill table does not prove a universal no-go for future nickelate experiments; it only governs the CphiPacket evidence class and bounded R_oe protocol.",
+      "status": "scope_guard",
+      "strength": "mandatory limitation"
+    }
+  ],
+  "inspector_check": {
+    "json_validity": "intended_valid_json",
+    "required_fields_present": [
+      "framework",
+      "kill_table",
+      "concession_boundary",
+      "structural_nonidentifiability",
+      "threshold_interpretation",
+      "probe_family_requirements",
+      "claims",
+      "inspector_check"
+    ],
+    "A_independence": "Did not read current-CphiPacket/A or any A output while producing this file. Used only 当前状态.md, B/round2.json, inspector_B_round2.md, pi_round2_synthesis.md, plus governing project instructions.",
+    "contains_required_statuses": [
+      "NOT_FOUND",
+      "NON_DECISION_GRADE",
+      "NON_IDENTIFIABLE",
+      "PROTOCOL_FAILURE",
+      "PACKET_FEASIBLE_NEAR_FUTURE"
+    ],
+    "B_concession_boundary_defined": true,
+    "structural_nonidentifiability_boundary_defined": true,
+    "N_48_36_written_as_decision_grade_threshold_not_power_theorem": true,
+    "probe_families_necessary_vs_replaceable_defined": true,
+    "universal_no_go_avoided": true,
+    "primary_remaining_risk": "qz/c-axis/matrix-element same-source pollution between P_oe and B_min."
+  }
+}

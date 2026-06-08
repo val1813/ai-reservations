@@ -1,0 +1,547 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 3,
+  "agent": "A",
+  "polaris": "LP29-C2T / provenance-complete external joined table construction",
+  "framework": "Minimal executable row-level audit artifact for Srivastava/OI-side joined-table rows; the artifact is a provenance and leakage gate, not a material-validation run.",
+  "findings": {
+    "summary": "Round 3 converts the Round 2 audit-template design into a deterministic row-level audit contract. The key executable upgrades are explicit OI_comparison_mode, N_pair, N_pair_provenance_id, OI_raw_sum, OI_norm, and a normalized forbidden-control audit output table with one row per rule evaluation. Existing Srivastava/OI rows remain blocked_context_only because exact O_s reproduction, row-to-structure mapping, raw overlap sums, exact normalization provenance, and same-sample joined labels are still incomplete.",
+    "artifact_status": "minimal_executable_contract",
+    "material_validation_allowed": false,
+    "Srivastava_baseline_status": "reported_context_candidate_not_reproduced",
+    "fixed_density_fixed_pair_status": "executable_gate_defined_but_no_claim_allowed_without_populated_fields",
+    "did_not_read_B_outputs": true,
+    "no_material_validation_performed": true
+  },
+  "weakest_link": "The artifact can now mechanically block or pass rows, but no current row has the required same-sample structure-label-baseline crosswalk, OI_raw_sum, exact OI normalization source, or N_pair provenance needed to move beyond blocked_context_only.",
+  "next_plan": {
+    "next_round_goal": "Populate a blocked-row ledger from actual candidate sources using this contract, without enabling material validation.",
+    "steps": [
+      "Create one audit row per candidate sample only after sample_id and source row identity are stable.",
+      "Populate label_provenance_id with DOI plus table/figure/SI/path plus row or digitized point id.",
+      "Populate structure_or_SI_source, structure_id, num_atoms_or_snapshot_size, and cell_volume_m3 from the same sample or explicitly mark blocked.",
+      "For Srivastava/OI rows, populate OI_comparison_mode, OI_raw_sum, OI_norm, OI_normalization_formula_id, pair_cutoff_A, pair_density, N_pair, and N_pair_provenance_id; otherwise keep no_claim/context-only status.",
+      "Run the normalized forbidden_control_audit table and derive row_decision and material_validation_allowed from the audit outputs."
+    ],
+    "stop_condition": "Do not proceed to material validation until at least one row passes all required fields, provenance, OI mode, B0/G1 independence, synthetic-label, and forbidden-control gates."
+  },
+  "literature_needed": [
+    {
+      "purpose": "Srivastava exact O_s/OI normalization provenance",
+      "query": "Srivastava 2019 amorphous oxide orbital overlap O_s supplementary normalization pair cutoff overlap integral"
+    },
+    {
+      "purpose": "Row-level structure and sample mapping",
+      "query": "Srivastava amorphous oxide structures supplementary coordinates sample table orbital overlap"
+    },
+    {
+      "purpose": "Independent external labels for same-sample joined rows",
+      "query": "amorphous oxide Hall mobility carrier density effective mass table supplementary sample conditions"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A row-level C2T audit is executable only if its OI mode fields include OI_comparison_mode, OI_raw_sum, OI_norm, and, for fixed-pair comparisons, N_pair plus N_pair_provenance_id.",
+      "confidence": 0.92,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "OI_fixed_density_gate",
+          "expression": "OI_norm == OI_raw_sum / cell_volume_m3",
+          "variables": {
+            "OI_norm": "volume-normalized overlap context value",
+            "OI_raw_sum": "raw sum over overlap-bearing pairs",
+            "cell_volume_m3": "cell or snapshot volume in SI units"
+          },
+          "units": "schema-defined OI units per m**3",
+          "limits": [
+            {
+              "variable": "OI_raw_sum",
+              "to": "missing",
+              "expected": "blocked_context_only",
+              "desc": "Reported OI_norm alone cannot support fixed-density or Srivastava reproduction claims."
+            }
+          ]
+        },
+        {
+          "label": "OI_fixed_pair_gate",
+          "expression": "OI_pair_mean == OI_raw_sum / N_pair",
+          "variables": {
+            "OI_pair_mean": "mean overlap per counted pair",
+            "OI_raw_sum": "raw sum over counted pairs",
+            "N_pair": "fixed counted pair denominator"
+          },
+          "units": "schema-defined OI units per pair",
+          "limits": [
+            {
+              "variable": "N_pair_provenance_id",
+              "to": "missing",
+              "expected": "blocked_context_only",
+              "desc": "Fixed-pair mode is not auditable without denominator provenance."
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "label": "A Round 2 artifact",
+          "path": "current/A/C2T_round2.json"
+        },
+        {
+          "label": "INSPECTOR A C2T Round 2 warning 1",
+          "path": "synthesis/inspector_A_C2T_round2.md"
+        }
+      ],
+      "assumptions": [
+        "The audit artifact evaluates provenance and leakage gates only.",
+        "Reported OI_norm is context unless exact formula and raw denominator provenance are populated."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "The normalized forbidden-control audit must emit one row per rule evaluation with rule_id, target_type, namespace, columns_checked, result, and reason before material_validation_allowed can be derived.",
+      "confidence": 0.9,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        {
+          "label": "C2 forbidden controls rules",
+          "path": "current/A/artifacts/C2_forbidden_controls_rules.csv"
+        },
+        {
+          "label": "INSPECTOR A C2T Round 2 warning 2",
+          "path": "synthesis/inspector_A_C2T_round2.md"
+        }
+      ],
+      "assumptions": [
+        "Parser-level pass/fail reproducibility requires a normalized table rather than a high-level JSON blob.",
+        "Unknown parser semantics block the row."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "This Round 3 artifact does not reproduce Srivastava O_s and does not establish that graph features beat the Srivastava/OI baseline.",
+      "confidence": 0.98,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        {
+          "label": "Current project state hard boundaries",
+          "path": "current/plan/当前状态.md"
+        },
+        {
+          "label": "A Round 2 claim boundary",
+          "path": "current/A/C2T_round2.json"
+        }
+      ],
+      "assumptions": [
+        "No material validation data were joined or tested in this round.",
+        "No exact Srivastava formula implementation was executed in this round."
+      ]
+    }
+  ],
+  "resolved_previous_warnings": [
+    {
+      "warning": "fixed-density versus fixed-pair rule lacked executable fields",
+      "resolution": "Added required row fields OI_comparison_mode, N_pair, N_pair_provenance_id, OI_raw_sum, OI_norm, and OI_pair_mean with mode-specific blockers.",
+      "status": "resolved_in_contract"
+    },
+    {
+      "warning": "forbidden_control_audit was a high-level JSON result rather than a normalized output contract",
+      "resolution": "Defined forbidden_control_audit_rows with one row per rule evaluation and required columns rule_id, target_type, namespace, columns_checked, result, reason, provenance_checked, and blocker_code.",
+      "status": "resolved_in_contract"
+    },
+    {
+      "warning": "A-side Srivastava/OI fields were schema extensions but not explicitly declared",
+      "resolution": "Declared an A_side_schema_extension list and separated base joined-table fields from Srivastava/OI audit extension fields.",
+      "status": "resolved_in_contract"
+    },
+    {
+      "warning": "Srivastava baseline must not be written as reproduced",
+      "resolution": "All claim and decision logic explicitly set Srivastava_reproduced=false unless exact normalization, raw sum, and row-to-structure mapping are populated and checked in a later artifact.",
+      "status": "resolved"
+    }
+  ],
+  "executable_artifact_plan": {
+    "artifact_type": "row_level_audit_contract",
+    "row_unit": "one candidate sample, digitized row, or declared snapshot/window with stable sample_id and same-row provenance",
+    "base_joined_table_fields": [
+      "sample_id",
+      "label_provenance_id",
+      "structure_or_SI_source",
+      "O_s_or_exact_overlap_baseline",
+      "B0_onsite_variance",
+      "B0_carrier_density",
+      "B0_mobility_edge_margin",
+      "B0_finite_size",
+      "B0_batch_or_family",
+      "G1_lambda2_Lsym",
+      "G1_rho_A_budget_norm",
+      "G1_attack_gap_lambda2",
+      "external_Hall_Drude_Wannier_spectral_label",
+      "forbidden_control_audit"
+    ],
+    "A_side_schema_extension": [
+      {
+        "field": "row_audit_id",
+        "required": true,
+        "type": "string",
+        "blocker_if_missing": "schema_missing"
+      },
+      {
+        "field": "structure_id",
+        "required": true,
+        "type": "string",
+        "blocker_if_missing": "structure_mapping_missing"
+      },
+      {
+        "field": "num_atoms_or_snapshot_size",
+        "required": true,
+        "type": "integer_or_string",
+        "blocker_if_missing": "finite_size_missing"
+      },
+      {
+        "field": "cell_volume_m3",
+        "required": true,
+        "type": "float_or_missing_declaration",
+        "blocker_if_missing": "volume_missing"
+      },
+      {
+        "field": "OI_comparison_mode",
+        "required": true,
+        "type": "enum",
+        "allowed_values": [
+          "fixed_density",
+          "fixed_pair",
+          "no_claim"
+        ],
+        "blocker_if_missing": "OI_mode_missing"
+      },
+      {
+        "field": "OI_raw_sum",
+        "required": true,
+        "type": "float_or_missing_declaration",
+        "blocker_if_missing": "OI_raw_sum_missing_blocks_reproduction_and_mode_claims"
+      },
+      {
+        "field": "OI_norm",
+        "required": true,
+        "type": "float_or_missing_declaration",
+        "blocker_if_missing": "OI_norm_missing_blocks_baseline_context"
+      },
+      {
+        "field": "OI_normalization_formula_id",
+        "required": true,
+        "type": "string_or_missing_declaration",
+        "blocker_if_missing": "OI_exact_normalization_missing"
+      },
+      {
+        "field": "pair_cutoff_A",
+        "required": true,
+        "type": "float_or_missing_declaration",
+        "blocker_if_missing": "pair_cutoff_missing"
+      },
+      {
+        "field": "pair_density",
+        "required": true,
+        "type": "float_or_missing_declaration",
+        "blocker_if_missing": "pair_density_missing_blocks_fixed_density"
+      },
+      {
+        "field": "OI_pair_mean",
+        "required": "required_when_OI_comparison_mode_is_fixed_pair",
+        "type": "float_or_null",
+        "blocker_if_missing": "fixed_pair_mean_missing"
+      },
+      {
+        "field": "N_pair",
+        "required": "required_when_OI_comparison_mode_is_fixed_pair",
+        "type": "integer_or_missing_declaration",
+        "blocker_if_missing": "N_pair_missing_blocks_fixed_pair"
+      },
+      {
+        "field": "N_pair_provenance_id",
+        "required": "required_when_OI_comparison_mode_is_fixed_pair",
+        "type": "string_or_missing_declaration",
+        "blocker_if_missing": "N_pair_provenance_missing_blocks_fixed_pair"
+      },
+      {
+        "field": "B0_carrier_density_independence_status",
+        "required": true,
+        "type": "enum",
+        "allowed_values": [
+          "independent",
+          "same_measurement_inversion_forbidden",
+          "missing_declared",
+          "unknown_blocked"
+        ],
+        "blocker_if_missing": "carrier_density_independence_unknown"
+      },
+      {
+        "field": "synthetic_label_flag",
+        "required": true,
+        "type": "boolean",
+        "blocker_if_missing": "synthetic_status_missing"
+      },
+      {
+        "field": "material_validation_allowed",
+        "required": true,
+        "type": "boolean_derived",
+        "blocker_if_missing": "derived_flag_missing"
+      },
+      {
+        "field": "row_decision",
+        "required": true,
+        "type": "enum",
+        "allowed_values": [
+          "pass_for_material_validation",
+          "blocked_context_only",
+          "failed_forbidden_control",
+          "diagnostic_only_synthetic"
+        ],
+        "blocker_if_missing": "decision_missing"
+      }
+    ],
+    "forbidden_control_audit_contract": {
+      "table_name": "forbidden_control_audit_rows",
+      "grain": "one row per audit rule evaluation per sample_id",
+      "required_columns": [
+        "row_audit_id",
+        "sample_id",
+        "rule_id",
+        "target_type",
+        "namespace",
+        "columns_checked",
+        "result",
+        "reason",
+        "provenance_checked",
+        "blocker_code"
+      ],
+      "result_allowed_values": [
+        "pass",
+        "fail",
+        "not_applicable",
+        "parser_blocked"
+      ],
+      "blocking_results": [
+        "fail",
+        "parser_blocked"
+      ],
+      "minimum_rule_set": [
+        {
+          "rule_id": "FC_effective_mass_self_leakage",
+          "source": "C2_forbidden_controls_rules.csv",
+          "target_type": "effective_mass_target",
+          "namespace": "label",
+          "columns_checked": [
+            "m_eff_over_m0",
+            "external_Hall_Drude_Wannier_spectral_label"
+          ]
+        },
+        {
+          "rule_id": "FC_hall_carrier_density_inversion",
+          "source": "C2_forbidden_controls_rules.csv plus A Round 2 addendum",
+          "target_type": "hall_mobility_target",
+          "namespace": "controls",
+          "columns_checked": [
+            "B0_carrier_density",
+            "B0_carrier_density_independence_status"
+          ]
+        },
+        {
+          "rule_id": "FC_OI_overlap_target_leakage",
+          "source": "C2_forbidden_controls_rules.csv",
+          "target_type": "wannier_target",
+          "namespace": "oi",
+          "columns_checked": [
+            "OI_norm",
+            "OI_raw_sum"
+          ]
+        },
+        {
+          "rule_id": "FC_graph_pair_density_claim",
+          "source": "split from oi;graph rule",
+          "target_type": "graph_independent_claim",
+          "namespace": "graph",
+          "columns_checked": [
+            "pair_density",
+            "cell_volume_m3"
+          ]
+        },
+        {
+          "rule_id": "FC_OI_mode_fixed_density_fixed_pair",
+          "source": "A Round 2 rule A_R2_RULE_ADD_002",
+          "target_type": "graph_independent_claim",
+          "namespace": "oi",
+          "columns_checked": [
+            "OI_comparison_mode",
+            "OI_raw_sum",
+            "OI_norm",
+            "OI_pair_mean",
+            "pair_density",
+            "cell_volume_m3",
+            "N_pair",
+            "N_pair_provenance_id"
+          ]
+        }
+      ]
+    },
+    "row_gate_algorithm": [
+      {
+        "step": 1,
+        "gate": "schema_completeness",
+        "logic": "If any base or required extension field is missing without an allowed missing_declaration, row_decision=blocked_context_only and material_validation_allowed=false."
+      },
+      {
+        "step": 2,
+        "gate": "same_sample_provenance",
+        "logic": "If sample_id, label_provenance_id, structure_or_SI_source, or structure_id cannot be traced to the same row/sample/snapshot, row_decision=blocked_context_only."
+      },
+      {
+        "step": 3,
+        "gate": "Srivastava_OI_status",
+        "logic": "If exact O_s reproduction is claimed but OI_raw_sum, OI_normalization_formula_id, pair_cutoff_A, structure_id, and same-row source are incomplete, force Srivastava_reproduced=false and row_decision=blocked_context_only."
+      },
+      {
+        "step": 4,
+        "gate": "OI_comparison_mode",
+        "logic": "OI_comparison_mode=no_claim allows context-only. fixed_density requires OI_raw_sum, OI_norm, pair_density, cell_volume_m3, and OI_normalization_formula_id. fixed_pair additionally requires OI_pair_mean, N_pair, and N_pair_provenance_id. Any missing required mode input blocks the row."
+      },
+      {
+        "step": 5,
+        "gate": "B0_G1_independence",
+        "logic": "B0 fields must have independent provenance or declared missingness; B0_carrier_density_independence_status cannot be unknown_blocked or same_measurement_inversion_forbidden for Hall mobility targets. G1 fields must have locked graph-convention provenance before label inspection."
+      },
+      {
+        "step": 6,
+        "gate": "synthetic_label",
+        "logic": "If synthetic_label_flag is missing or true, row_decision=diagnostic_only_synthetic and material_validation_allowed=false."
+      },
+      {
+        "step": 7,
+        "gate": "forbidden_control_audit",
+        "logic": "Evaluate forbidden_control_audit_rows. Any fail or parser_blocked result sets row_decision=failed_forbidden_control and material_validation_allowed=false."
+      },
+      {
+        "step": 8,
+        "gate": "final_derivation",
+        "logic": "Only if steps 1-7 pass may material_validation_allowed=true. For this Round 3 artifact, no actual row is asserted to pass."
+      }
+    ],
+    "default_current_row_derivation": {
+      "row_decision": "blocked_context_only",
+      "material_validation_allowed": false,
+      "Srivastava_reproduced": false,
+      "graph_beats_Srivastava_allowed": false,
+      "reason": "Current inputs define a contract but do not populate complete same-sample rows or execute material validation."
+    }
+  },
+  "required_fields_status": [
+    {
+      "field": "sample_id",
+      "status": "defined_not_populated_for_complete_rows",
+      "material_validation_blocker": "no_complete_same_sample_row"
+    },
+    {
+      "field": "label_provenance_id",
+      "status": "partial",
+      "material_validation_blocker": "needs DOI plus table/figure/SI/path plus row or digitized point id"
+    },
+    {
+      "field": "structure_or_SI_source",
+      "status": "partial",
+      "material_validation_blocker": "no raw structure bundle or stable same-row source"
+    },
+    {
+      "field": "structure_id",
+      "status": "A_side_extension_required_missing_for_current_rows",
+      "material_validation_blocker": "structure_mapping_missing"
+    },
+    {
+      "field": "num_atoms_or_snapshot_size",
+      "status": "partial",
+      "material_validation_blocker": "finite_size_descriptor_incomplete"
+    },
+    {
+      "field": "cell_volume_m3",
+      "status": "partial_context_only",
+      "material_validation_blocker": "not yet same-row mapped to structure and label"
+    },
+    {
+      "field": "O_s_or_exact_overlap_baseline",
+      "status": "reported_context_candidate_not_reproduced",
+      "material_validation_blocker": "exact normalization and structure mapping incomplete"
+    },
+    {
+      "field": "OI_comparison_mode",
+      "status": "added_required_round3",
+      "material_validation_blocker": "missing mode blocks fixed-density/fixed-pair audit"
+    },
+    {
+      "field": "OI_raw_sum",
+      "status": "required_missing_for_current_rows",
+      "material_validation_blocker": "missing raw overlap sum blocks Srivastava reproduction and OI mode claims"
+    },
+    {
+      "field": "OI_norm",
+      "status": "partial_reported_context_only",
+      "material_validation_blocker": "reported value alone is not reproduced O_s"
+    },
+    {
+      "field": "OI_normalization_formula_id",
+      "status": "required_missing_for_current_rows",
+      "material_validation_blocker": "exact normalization missing"
+    },
+    {
+      "field": "pair_cutoff_A",
+      "status": "required_missing_for_current_rows",
+      "material_validation_blocker": "pair selection not executable"
+    },
+    {
+      "field": "pair_density",
+      "status": "required_missing_for_current_rows",
+      "material_validation_blocker": "fixed-density control not auditable"
+    },
+    {
+      "field": "OI_pair_mean",
+      "status": "conditionally_required_for_fixed_pair",
+      "material_validation_blocker": "fixed-pair claim blocked unless populated"
+    },
+    {
+      "field": "N_pair",
+      "status": "conditionally_required_for_fixed_pair_added_round3",
+      "material_validation_blocker": "N_pair provenance missing blocks fixed-pair comparison"
+    },
+    {
+      "field": "N_pair_provenance_id",
+      "status": "conditionally_required_for_fixed_pair_added_round3",
+      "material_validation_blocker": "fixed-pair denominator source missing"
+    },
+    {
+      "field": "B0_carrier_density_independence_status",
+      "status": "required_enum_defined",
+      "material_validation_blocker": "unknown or same-measurement inversion remains forbidden"
+    },
+    {
+      "field": "forbidden_control_audit",
+      "status": "normalized_contract_defined_round3",
+      "material_validation_blocker": "must be executed with one output row per rule"
+    },
+    {
+      "field": "synthetic_label_flag",
+      "status": "required",
+      "material_validation_blocker": "missing or true forces diagnostic_only_synthetic"
+    },
+    {
+      "field": "material_validation_allowed",
+      "status": "derived_false_for_round3",
+      "material_validation_blocker": "cannot be manually asserted"
+    },
+    {
+      "field": "row_decision",
+      "status": "derived_default_blocked_context_only",
+      "material_validation_blocker": "no current row passes all gates"
+    }
+  ]
+}

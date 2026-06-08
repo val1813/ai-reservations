@@ -1,0 +1,16 @@
+field,blocker_condition,required_action_before_material_validation
+sample_id,not_same_sample_or_generated_after_label_inspection,Define stable sample key before reading targets
+label_provenance_id,no DOI/table/figure/SI/path row id,Record auditable label source id
+structure_or_SI_source,no structure or SI row matching sample_id,Obtain structure source or mark row blocked
+O_s_or_exact_overlap_baseline,Srivastava exact normalization missing and surrogate not declared,Freeze graph-vs-overlap claims
+B0_onsite_variance,computed from target Wannier Hamiltonian,Exclude as forbidden control
+B0_carrier_density,used algebraically with same measurement to compute Hall mobility,Exclude from Hall mobility target model
+B0_mobility_edge_margin,extracted from same spectral fit as target,Exclude from spectral target model
+B0_finite_size,missing atom count/cell/snapshot descriptor,Block graph metric comparison
+B0_batch_or_family,no batch/family key,Block held-out/family leakage audit
+G1_lambda2_Lsym,graph convention chosen after labels are read,Invalidate graph residual claim
+G1_rho_A_budget_norm,raw unnormalized rho only,Require budget normalization
+G1_attack_gap_lambda2,no matched random attack or removed-budget control,Block attack-feature claim
+external_Hall_Drude_Wannier_spectral_label,synthetic or graph-generated label,Set material_validation_allowed=false
+forbidden_control_audit,not run or failed,Set material_validation_allowed=false
+

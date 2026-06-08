@@ -1,0 +1,174 @@
+{
+  "project": "LP23-HelicalWorldline-Reinit-20260603",
+  "version": "final_R2_R3_R4_2026-06-03",
+  "status": "closed",
+  "active_north_star": null,
+  "final_decision": {
+    "LP23-R4": "hard_stop",
+    "new_physics_claim": "rejected",
+    "new_math_claim": "rejected",
+    "retained_tool": "LP23-R4t certified residual-linter / physical witness-validator skeleton",
+    "tool_boundary": [
+      "must_not_output_NEW_PHYSICS",
+      "must_not_output_PHYSICAL_OBSTRUCTION_CONFIRMED",
+      "holdout_error_is_not_independent_evidence",
+      "B_pipeline_verdict_is_R4_TOOL_NOT_VALIDATED_BY_HOLDOUT"
+    ]
+  },
+  "north_star_chain": [
+    {
+      "id": "LP23-S1",
+      "type": "initial_claim",
+      "status": "hard_stopped",
+      "summary": "Fixed-radius helical worldline does not generate a light cone; theta=alpha is not covariant; holonomy is not optical twist.",
+      "artifacts": [
+        "synthesis/PI_final_synthesis.md"
+      ]
+    },
+    {
+      "id": "LP23-R1",
+      "type": "projective_spinor_contact",
+      "status": "hard_stopped",
+      "summary": "Strong identification between internal phase curvature or vertical holonomy and optical twist is falsified. Weak layered transport claim is covered by prior art.",
+      "knowledge_nodes": [
+        "K13",
+        "K16",
+        "K17",
+        "K20"
+      ],
+      "artifacts": [
+        "knowledge_graph/LP23-HelicalWorldline-Reinit_R1_v2_2026-06-03.json",
+        "synthesis/PI_final_synthesis_R1.md"
+      ]
+    },
+    {
+      "id": "LP23-R2",
+      "type": "bridge_structure_observable",
+      "source": "AHA #2 from R1 closure",
+      "status": "hard_stopped_diagnostic_downgrade",
+      "summary": "I_bridge only survives as a model-mismatch diagnostic after a fixed standard template space. It is absorbed by nuisance regression, model selection, matched filtering, system identification, or nonlocal response fitting.",
+      "knowledge_nodes": [
+        "K21",
+        "K22",
+        "K23",
+        "K24",
+        "K25",
+        "K26",
+        "K27",
+        "K28"
+      ],
+      "local_computation": [
+        "scripts/r2_syndrome_toy.py",
+        "scripts/r2_syndrome_templates.py",
+        "scripts/r2_syndrome_adversarial.py"
+      ],
+      "artifacts": [
+        "synthesis/PI_R2_round3.md"
+      ],
+      "successor": "LP23-R3"
+    },
+    {
+      "id": "LP23-R3",
+      "type": "quotient_naturality_obstruction",
+      "source": "R2 re-escalation",
+      "status": "hard_stopped_as_new_physics",
+      "summary": "Ontology-level quotient obstruction is covered by existing gauge, cohomology, nuisance projection, inverse-problem discrepancy, and model-checking frameworks. QNP-Lint survives only as a finite-contract negative validator.",
+      "knowledge_nodes": [
+        "K29",
+        "K30",
+        "K31"
+      ],
+      "local_computation": [
+        "scripts/r3_qnp_lint_toy.py"
+      ],
+      "artifacts": [
+        "synthesis/PI_R3_round1.md",
+        "synthesis/PI_R3_round2.md",
+        "synthesis/re_escalation_R3_round2.md"
+      ],
+      "successor": "LP23-R4"
+    },
+    {
+      "id": "LP23-R4",
+      "type": "protocol_closure_obstruction",
+      "source": "R3 re-escalation",
+      "status": "hard_stopped",
+      "score_at_closure": 0.98,
+      "summary": "Residual discovery cannot be certified as new physics by nonzero residuals or quotient classes alone. Physical closure of legal extensions is itself covered by mature passive/causal response, realization, approximation, calibration, pre-registration, and holdout protocols.",
+      "knowledge_nodes": [
+        "K32",
+        "K33",
+        "K34"
+      ],
+      "local_computation": [
+        "scripts/r4_protocol_closure_toy.py",
+        "scripts/r4_witness_checker_toy.py",
+        "scripts/r4_physical_witness_pipeline.py"
+      ],
+      "critical_output": {
+        "rank": 6,
+        "train_residual_norm": 0.0013957664881648368,
+        "holdout_error": 0.0014384846096407084,
+        "holdout_independent": false,
+        "verdict": "R4_TOOL_NOT_VALIDATED_BY_HOLDOUT"
+      },
+      "artifacts": [
+        "synthesis/PI_R4_round3_final.md",
+        "synthesis/REVIEWER_R4_final.md",
+        "synthesis/AUDITOR_R4_final.md"
+      ]
+    }
+  ],
+  "core_lessons": [
+    {
+      "id": "L1",
+      "statement": "Physical legality certificate is not a source-independence certificate.",
+      "scope": "R4 final closure"
+    },
+    {
+      "id": "L2",
+      "statement": "Synthetic smoke tests cannot validate physical discovery.",
+      "scope": "R4 pipeline"
+    },
+    {
+      "id": "L3",
+      "statement": "Residual nonzero after a chosen template space is diagnostic, not physics, unless protected against all pre-registered legal extensions.",
+      "scope": "R2-R4 chain"
+    },
+    {
+      "id": "L4",
+      "statement": "A downgrade to a bounded tool skeleton is not a PRL-level result and must be labeled as such.",
+      "scope": "project valuation"
+    }
+  ],
+  "project_queue_state": {
+    "active": "none",
+    "hard_stopped": [
+      "LP23-S1",
+      "LP23-R1",
+      "LP23-R2",
+      "LP23-R3",
+      "LP23-R4"
+    ],
+    "downgraded_tools": [
+      {
+        "id": "LP23-R4t",
+        "status": "retained_as_tool_skeleton_only",
+        "score": 0.9
+      },
+      {
+        "id": "LP23-R3a",
+        "status": "subcomponent_of_R4t_only",
+        "score": 1.95
+      }
+    ]
+  },
+  "closure_files": {
+    "phase_checklist": "project/Phase清单.md",
+    "current_status": "current/plan/当前状态.md",
+    "project_queue": "project/北极星队列.md",
+    "project_knowledge": "current/plan/知识库.md",
+    "shared_knowledge": "D:/Claude/ai-reservations/shared/知识库汇总.md"
+  },
+  "next_action_if_continuing_LP23": "Do not revive R4 as physics. If continuing, select a fresh north star from the project queue or, if the queue is empty, run SELECTOR SOP."
+}

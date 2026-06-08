@@ -1,0 +1,63 @@
+{
+  "id": "LP29-AmorphousBands_C2T_S2_R1_v1_20260605",
+  "project": "LP29-AmorphousBands",
+  "north_star": "LP29-C2T-S2-R1 / O_s as provenance-conditioned observable / proof-carrying baseline contract",
+  "date": "2026-06-05",
+  "contributor": {
+    "orcid": "anonymous",
+    "github": "anonymous",
+    "name": "anonymous"
+  },
+  "status": "bounded / protocol-ready validator contract / not executed validator",
+  "claim": "O_s baseline admission has been specified as a proof-carrying validator contract with payload schema, expected cases, and transition oracle. Current Srivastava exact O_s remains BLOCK.",
+  "allowed_claims": [
+    "The project has specified a proof-carrying O_s baseline-admission validator contract.",
+    "The contract includes payload schema, expected cases, and transition oracle.",
+    "Current exact Srivastava O_s admission remains blocked.",
+    "reported_context is only a locator-gated conditional context mode."
+  ],
+  "forbidden_claims": [
+    "exact Srivastava O_s has been reproduced",
+    "validator has been executed",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "exact O_s impossible in principle"
+  ],
+  "artifacts": {
+    "pi_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_R1_final.md",
+    "reviewer_n3": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_R1_N3.md",
+    "reviewer_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_R1_final.md",
+    "payload_schema": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_R1_validator_payload_schema_round3.json",
+    "expected_cases": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_R1_A_expected_cases_round3.csv",
+    "transition_oracle": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\S2_R1_transition_oracle_round3.csv",
+    "re_escalation": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reescalation_PI_C2T_S2_R1.md",
+    "contradiction_deepening": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\contradiction_deepening_PI_C2T_S2_R1.md",
+    "subpropositions": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\subpropositions_PI_C2T_S2_R1.md"
+  },
+  "remaining_warnings": [
+    "validation/validate.py does not exist",
+    "PARTIAL_CONTEXT_ONLY terminal status must be defined or removed before validator implementation"
+  ],
+  "new_candidates": [
+    {
+      "id": "LP29-C2T-S2-R1-I1",
+      "title": "executable O_s baseline-admission validator",
+      "score": 1.95,
+      "status": "new candidate; pending AB validation"
+    },
+    {
+      "id": "LP29-C2T-S2-R1-I2",
+      "title": "define or remove PARTIAL_CONTEXT_ONLY terminal status",
+      "score": 1.5,
+      "status": "implementation subcandidate"
+    },
+    {
+      "id": "LP29-C2T-S2-R1-I3",
+      "title": "canonicalization conformance fixtures",
+      "score": 1.5,
+      "status": "implementation subcandidate"
+    }
+  ],
+  "next_step": "Enter LP29-C2T-S2-R1-I1 and implement validation/validate.py plus fixtures instead of adding another theory round."
+}

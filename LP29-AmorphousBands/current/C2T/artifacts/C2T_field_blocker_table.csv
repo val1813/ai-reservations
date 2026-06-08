@@ -1,0 +1,15 @@
+field,blocker_class,blocking_detail,minimum_unblock_condition,can_fill_now,material_validation_allowed_now
+sample_id,no_complete_row,"No row currently links baseline controls graph features and external label",Create stable row ids only after structure-label-baseline crosswalk exists,false,false
+label_provenance_id,crosswalk_missing,"External labels exist only as candidate sources or schemas",Record DOI/table/figure/SI row and measurement conditions for each label,false,false
+structure_or_SI_source,raw_structure_missing,"No auditable raw atomistic structure bundle with stable structure_id for candidate validation rows",Acquire SI/raw coordinates or reconstruct with explicit provenance and version,false,false
+O_s_or_exact_overlap_baseline,normalization_missing,"Srivastava OI_norm rows exist but exact executable normalization and structure mapping are incomplete",Obtain SI/exact formula and map values to same structure rows,partial,false
+B0_onsite_variance,hamiltonian_missing,"No same-sample Hamiltonian/Wannier onsite variance source",Extract from independent Hamiltonian/Wannier data or declare unavailable,false,false
+B0_carrier_density,label_crosswalk_missing,"Carrier density cannot be tied to same graph/baseline sample without crosswalk",Create same-sample or justified matched material_id with measurement provenance,partial,false
+B0_mobility_edge_margin,method_mapping_missing,"Mobility-edge margin not row-mapped to graph/baseline sample",Define extraction method and source row mapping,false,false
+B0_finite_size,structure_metadata_missing,"num_atoms/snapshot/window incomplete for material graph rows",Obtain structure metadata for each row,partial,false
+B0_batch_or_family,batch_key_weak,"Family/source keys exist but do not prove sample identity",Define batch/family key and leakage policy per row,partial,false
+G1_lambda2_Lsym,graph_uncomputed,"No raw structure graph for material rows",Compute from locked graph construction on auditable structures,false,false
+G1_rho_A_budget_norm,graph_uncomputed,"No raw structure graph for material rows",Compute from locked graph construction on auditable structures,false,false
+G1_attack_gap_lambda2,graph_uncomputed,"No raw structure graph for material rows",Compute targeted and random damage metrics from locked graph,false,false
+external_Hall_Drude_Wannier_spectral_label,same_sample_label_missing,"Candidate labels are not joined to computable graph rows",Lock label provenance and same-sample crosswalk,partial,false
+forbidden_control_audit,no_rows_to_audit,"Rules exist but no complete row exists to audit",Run audit after candidate rows are assembled,partial,false

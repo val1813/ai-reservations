@@ -1,0 +1,22 @@
+round2_column,round3_column,namespace,role,required,provenance_or_audit_rule
+family,B0_batch_or_family,B0_,baseline_control,true,Family/batch blocking control; source and missingness must be recorded in upgraded external schema.
+seed,seed,join_key,true,Synthetic diagnostic seed; not a material sample key.
+N,B0_finite_size,B0_,baseline_control,true,Finite-size control; source and missingness must be explicit for material validation.
+edge_count,B0_edge_count,B0_,baseline_control,true,Non-spectral graph-size/control descriptor; allowed only as baseline nuisance not as graph mechanism evidence.
+S_overlap_rescaled,B0_OI_norm,B0_,baseline_control,true,Overlap budget control; OI formula source and OI_ref provenance required before labels are read.
+onsite_sigma,B0_onsite_variance,B0_,baseline_control,true,Onsite disorder control; material rows require source and missingness.
+edge_density,B0_edge_density,B0_,baseline_control,true,Density nuisance control; not counted as G1 graph organization.
+lambda2_norm,G1_lambda2_Lsym,G1_,graph_feature,true,Primary graph feature; convention fixed to symmetric normalized weighted Laplacian.
+spectral_radius_norm,G1_rho_A_budget_norm,G1_,graph_feature,true,Budget-normalized adjacency spectral radius; graph-mode participation ratio required when used directionally.
+damage_target_rel_loss,G1_attack_damage_target_rel_loss,G1_,graph_feature,true,Relative loss under high-betweenness attack; attack matching rule required.
+damage_random_rel_loss,G1_attack_damage_random_rel_loss,G1_,graph_feature,true,Relative loss under matched random attack; random-matching provenance required.
+attack_gap,G1_attack_gap_lambda2,G1_,graph_feature,true,Targeted-minus-random relative damage; positive means bottleneck vulnerability.
+Y_A_null,Y_A_null_diagnostic,Y_,diagnostic_label,true,Synthetic planted null label; synthetic_label_flag true and material_validation_allowed false.
+Y_B_positive,Y_B_positive_diagnostic,Y_,diagnostic_label,true,Synthetic planted graph-positive label; synthetic_label_flag true and material_validation_allowed false.
+missing,synthetic_label_flag,protection_flag,true,Must be true for all planted synthetic rows.
+missing,material_validation_allowed,protection_flag,true,Must be false for all planted synthetic rows.
+missing,label_provenance_id,provenance_key,true,External/material rows require unique label provenance; synthetic rows use SYN-C2-R2-PLANTED.
+missing,graph_convention_provenance_id,provenance_key,true,Rows must link to graph convention record containing OI/cutoff/Laplacian/rho/attack provenance.
+missing,control_source_map,audit_object,true,Material validation requires control-level source for every B0_* control.
+missing,control_missingness_map,audit_object,true,Material validation requires explicit present/missing/not_applicable state for every B0_* control.
+missing,forbidden_control_audit,audit_object,true,Material validation requires target-family-specific forbidden-control exclusion.

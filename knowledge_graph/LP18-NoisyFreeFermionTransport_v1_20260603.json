@@ -1,0 +1,171 @@
+{
+  "topic": "LP18-NoisyFreeFermionTransport",
+  "version": "v1",
+  "date": "2026-06-03",
+  "conclusion_type": "bounded_current_mainline_keep_major_revision",
+  "north_star": "NSF-FCS-2: long-jump open exclusion NESS FDT residual scaling",
+  "nodes": [
+    {
+      "id": "K1",
+      "label": "Equilibrium two-terminal second cumulant is finite-volume FDT corollary lambda_T''(0)=2G_T",
+      "type": "downgraded_result",
+      "math_object": "finite_volume_FDT",
+      "supports": [],
+      "status": "confirmed_with_normalization_caveat"
+    },
+    {
+      "id": "K2",
+      "label": "NESS density bias gives nonzero R2=lambda_T''-2G_T with near-quadratic delta amplitude",
+      "type": "result",
+      "math_object": "NESS_FDT_residual",
+      "supports": ["K1"],
+      "status": "numerical_small_L"
+    },
+    {
+      "id": "K3",
+      "label": "Reverse-bias check supports R2 evenness at rho_bar=0.5 to numerical precision",
+      "type": "sanity_check",
+      "math_object": "bias_reversal_symmetry",
+      "supports": ["K2"],
+      "status": "passed_centered"
+    },
+    {
+      "id": "K4",
+      "label": "Qhat=R2/(delta^2 G_T) is the Round-2 primary diagnostic; Qhat~L^1/2 is only an ansatz",
+      "type": "diagnostic",
+      "math_object": "normalized_residual_scaling",
+      "supports": ["K2"],
+      "status": "ansatz"
+    },
+    {
+      "id": "K5",
+      "label": "Off-center density falsifier shows Qhat slope nearly unchanged for rho_bar=0.4,0.5,0.65 over L=4..7",
+      "type": "falsifier_result",
+      "math_object": "particle_hole_artifact_test",
+      "supports": ["K4"],
+      "status": "passed_small_L"
+    },
+    {
+      "id": "K6",
+      "label": "Activity controls must distinguish reversible_side LDB sanity from nonLDB_site_skew kinetic forcing",
+      "type": "method_constraint",
+      "math_object": "non_LDB_activity_forcing",
+      "supports": [],
+      "status": "implemented_and_sanity_passed"
+    },
+    {
+      "id": "R1",
+      "label": "Reviewer recommendation: major revision; no exact prior-art conflict found, but normalization and non-circular delta^2 proof are required",
+      "type": "reviewer_constraint",
+      "math_object": "review_constraints",
+      "supports": ["K1", "K2", "K4"],
+      "status": "major_revision"
+    },
+    {
+      "id": "K7",
+      "label": "Raw R2 passes non-circular delta^2 test before Qhat normalization",
+      "type": "validation_result",
+      "math_object": "direct_delta_scaling",
+      "supports": ["K2"],
+      "status": "passed_small_L"
+    },
+    {
+      "id": "K8",
+      "label": "Off-center reverse-bias checks pass at rho_bar=0.4 and 0.65 to numerical precision",
+      "type": "falsifier_result",
+      "math_object": "off_center_reverse_bias",
+      "supports": ["K2", "K5"],
+      "status": "passed_small_L"
+    },
+    {
+      "id": "K9",
+      "label": "Qhat model comparison favors log drift over power law in current small-L data",
+      "type": "model_comparison",
+      "math_object": "Qhat_growth",
+      "supports": ["K4"],
+      "status": "unresolved_growth_not_power_claim"
+    },
+    {
+      "id": "K10",
+      "label": "reversible_side preserves equilibrium FDT while nonLDB_site_skew produces distinguishable equilibrium residual",
+      "type": "control_result",
+      "math_object": "activity_control_split",
+      "supports": ["K6"],
+      "status": "implemented_and_sanity_passed"
+    },
+    {
+      "id": "K11",
+      "label": "NSF-FCS-2 redirects within keep from Qhat exponent framing to finite-volume FDT-residual curvature/separability diagnostic",
+      "type": "redirect_result",
+      "math_object": "claim_reframing",
+      "supports": ["K7", "K8", "K9", "K10"],
+      "status": "active_sharpened_subclaim"
+    },
+    {
+      "id": "K12",
+      "label": "Coefficient extraction gives R2=C_L delta^2 + D_L delta^4 with C_L>0 for L=4..7 and alpha=0.5,1.0",
+      "type": "validation_result",
+      "math_object": "finite_volume_delta_coefficient",
+      "supports": ["K7", "K11"],
+      "status": "passed_small_L"
+    },
+    {
+      "id": "K13",
+      "label": "Equal-density nonLDB_site_skew activity response is even in A with leading resolved A^2 term",
+      "type": "validation_result",
+      "math_object": "activity_parity",
+      "supports": ["K10", "K11"],
+      "status": "passed_small_L"
+    },
+    {
+      "id": "K14",
+      "label": "Mixed scan shows density-bias and nonLDB skew are additive to current precision, while reversible traffic renormalizes NESS curvature",
+      "type": "separability_result",
+      "math_object": "perturbation_channel_separability",
+      "supports": ["K12", "K13"],
+      "status": "passed_with_reversible_traffic_caveat"
+    },
+    {
+      "id": "K15",
+      "label": "NSF-FCS-2T reframes the result as finite-window parity tomography of FDT-residual response channels",
+      "type": "redirect_result",
+      "math_object": "parity_tomography",
+      "supports": ["K12", "K13", "K14"],
+      "status": "active_reviewer_gate_claim"
+    },
+    {
+      "id": "K16",
+      "label": "Signed mixed grid finds nonLDB_site_skew c_deltaA at numerical floor while delta^2 and A^2 channels remain dominant",
+      "type": "validation_result",
+      "math_object": "signed_mixed_parity",
+      "supports": ["K15"],
+      "status": "passed_small_L"
+    },
+    {
+      "id": "K17",
+      "label": "reversible_side preserves equilibrium FDT but renormalizes density-biased NESS coefficients",
+      "type": "control_result",
+      "math_object": "reversible_traffic_renormalization",
+      "supports": ["K10", "K14", "K15"],
+      "status": "traffic_control_not_null"
+    },
+    {
+      "id": "K18",
+      "label": "Reviewer-gate claim is conditional: finite-window ledger diagnostic only, not theorem or asymptotic scaling",
+      "type": "gate_constraint",
+      "math_object": "reviewer_gate_caveat",
+      "supports": ["K15", "K16", "K17"],
+      "status": "ready_for_conditional_reviewer_gate"
+    }
+  ],
+  "next_actions": [
+    "launch independent REVIEWER for NSF-FCS-2T conditional finite-window parity-tomography claim",
+    "if REVIEWER flags prior-art or coverage conflict, PI must verify independently",
+    "keep all statements finite-window and ledger-conventional"
+  ],
+  "project_files": {
+    "status": "LP18-NoisyFreeFermionTransport/current/plan/NSF-FCS-2_当前状态.md",
+    "pi_synthesis": "LP18-NoisyFreeFermionTransport/synthesis/PI_NSF_FCS2_round1_synthesis.md",
+    "reviewer": "LP18-NoisyFreeFermionTransport/synthesis/REVIEWER_NSF_FCS2_final.md"
+  }
+}

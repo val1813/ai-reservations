@@ -1,0 +1,257 @@
+{
+  "project": "LP29-AmorphousBands",
+  "task": "LP29-C2T-S2-R1-I1 / executable O_s baseline-admission validator",
+  "round": 1,
+  "agent": "A",
+  "role": "independent implementation-plan designer",
+  "framework": {
+    "validator_goal": "Design, but do not implement, an executable baseline-admission validator for O_s witness bundles.",
+    "core_principle": "Admission is predicate-gated and target-mode-specific. Missing proof objects block promotion; narrative familiarity, scalar availability, numeric closeness, or executor quality alone cannot silently upgrade a payload.",
+    "status_model": {
+      "emitted_terminal_statuses": [
+        "BLOCK",
+        "CONDITIONAL_CONTEXT_PASS",
+        "CANDIDATE_EXACT_REPLAY",
+        "DIAGNOSED_MISMATCH",
+        "ADMITTED_EXACT"
+      ],
+      "non_emitted_compatibility_statuses": [
+        "PARTIAL_CONTEXT_ONLY"
+      ],
+      "diagnostic_codes": [
+        "MISSING_TARGET_MODE",
+        "MISSING_WITNESS",
+        "MISSING_REQUIRED_FIELD",
+        "INVALID_FIELD",
+        "FAILED_COMPARISON",
+        "PASSED_COMPARISON",
+        "DEPRECATED_PARTIAL_CONTEXT_ONLY",
+        "ORACLE_WARN_UNRESOLVED_SCALAR"
+      ]
+    },
+    "decision_order": [
+      "Parse JSON payload and require top-level payload_id, target_mode, and witness.",
+      "Resolve target_mode aliases into the four schema modes: reported_context, candidate_exact_replay, diagnosed_mismatch, admitted_exact.",
+      "Evaluate required F-predicates for the resolved mode using schema JSON pointers and local predicate adapters.",
+      "Apply transition guards before any terminal status upgrade.",
+      "For reported_context, emit CONDITIONAL_CONTEXT_PASS only when F01-F03 pass; otherwise BLOCK.",
+      "For candidate_exact_replay, emit CANDIDATE_EXACT_REPLAY only when F01-F20 pass; otherwise BLOCK.",
+      "For diagnosed_mismatch and admitted_exact, require F01-F22 and then compare recomputed_value with reported_scalar under predeclared acceptance_tolerance.",
+      "Emit DIAGNOSED_MISMATCH when the complete comparison fails; emit ADMITTED_EXACT when it passes; otherwise BLOCK."
+    ]
+  },
+  "input_contracts": {
+    "schema_contract": {
+      "path": "current/A/artifacts/S2_R1_validator_payload_schema_round3.json",
+      "schema_version": "A.round3.validator_payload.v1",
+      "used_for": [
+        "top-level required keys",
+        "target modes",
+        "field IDs F01-F22",
+        "required fields per mode",
+        "transition guards"
+      ]
+    },
+    "expected_cases_contract": {
+      "path": "current/A/artifacts/S2_R1_A_expected_cases_round3.csv",
+      "used_for": [
+        "baseline fixture classes",
+        "terminal status expectations",
+        "forbidden upgrade constraints"
+      ],
+      "case_count": 8
+    },
+    "transition_oracle_contract": {
+      "path": "current/B/artifacts/S2_R1_transition_oracle_round3.csv",
+      "used_for": [
+        "no-silent-upgrade transition coverage",
+        "first-failed-predicate diagnostics",
+        "adversarial mismatch categories"
+      ],
+      "note": "Only the provided contract artifact was read. No B round output was read."
+    }
+  },
+  "implementation_plan": [
+    {
+      "step_id": "I1.1",
+      "file_target": "validation/validate.py",
+      "step": "Create a pure validation module with no project-specific hard-coded payload IDs. Expose validate_payload(payload: dict) -> dict and a CLI entry point that reads JSON and writes JSON.",
+      "expected_result": "The validator can be imported by tests and run as a command-line checker without changing behavior."
+    },
+    {
+      "step_id": "I1.2",
+      "file_target": "validation/validate.py",
+      "step": "Load the schema contract as data or encode a generated FieldSpec table containing field_id, JSON pointer, expected type, required modes, and predicate adapter name.",
+      "expected_result": "Mode requirements are auditable against F01-F22 instead of being scattered through conditional code."
+    },
+    {
+      "step_id": "I1.3",
+      "file_target": "validation/validate.py",
+      "step": "Implement JSON pointer extraction and distinguish missing fields from present-invalid fields.",
+      "expected_result": "Diagnostics can report first_failed_predicate, missing_fields, invalid_fields, and blocker reasons."
+    },
+    {
+      "step_id": "I1.4",
+      "file_target": "validation/validate.py",
+      "step": "Implement conservative predicate adapters for F01-F22. Adapters should check syntax and internal consistency available inside the payload, not claim external material validity.",
+      "expected_result": "Stable identifier, locator, scalar, structure, pair, arithmetic, execution, and verification gates are mechanically testable."
+    },
+    {
+      "step_id": "I1.5",
+      "file_target": "validation/validate.py",
+      "step": "Implement target-mode resolution with accepted modes reported_context, candidate_exact_replay, diagnosed_mismatch, admitted_exact, plus exact_certified_observable as an alias that must satisfy admitted_exact gates.",
+      "expected_result": "The schema cases and transition-oracle cases can share one evaluator while preserving strict target predicates."
+    },
+    {
+      "step_id": "I1.6",
+      "file_target": "validation/validate.py",
+      "step": "Remove PARTIAL_CONTEXT_ONLY from emitted terminals. If encountered as input target_mode or legacy expectation, map it to BLOCK with diagnostic DEPRECATED_PARTIAL_CONTEXT_ONLY unless F01-F03 explicitly pass, in which case the valid emitted status is CONDITIONAL_CONTEXT_PASS.",
+      "expected_result": "The undefined status cannot become a silent middle pass and the contract conflict is resolved deterministically."
+    },
+    {
+      "step_id": "I1.7",
+      "file_target": "validation/validate.py",
+      "step": "Implement transition guards G01-G05 before final status selection, including no scalar-only exactness, no DOI-only context pass, context-is-not-exact, current Srivastava exact BLOCK, and mismatch requires complete replay.",
+      "expected_result": "Forbidden upgrades are blocked even when a payload carries intent, labels, or partial proof objects."
+    },
+    {
+      "step_id": "I1.8",
+      "file_target": "validation/validate.py",
+      "step": "Implement comparison only after F01-F22 pass. Compare witness.verification.recomputed_value to witness.source.reported_scalar.scalar using witness.verification.acceptance_tolerance with predeclared abs and/or rel tolerance.",
+      "expected_result": "DIAGNOSED_MISMATCH and ADMITTED_EXACT are impossible without a complete replay bundle and a declared tolerance."
+    },
+    {
+      "step_id": "I1.9",
+      "file_target": "validation/fixtures/*.json",
+      "step": "Create fixtures from the eight A expected cases plus transition-oracle adversarial cases, including scalar-only, DOI-only, locator-context-only, replay-ready-no-recompute, complete-match, complete-mismatch, numeric-closeness-only, narrative-provenance-only, executor-quality-only, and failed structure/pair/sum/normalization variants.",
+      "expected_result": "Every status transition and forbidden upgrade has a concrete regression fixture."
+    },
+    {
+      "step_id": "I1.10",
+      "file_target": "tests/test_validate.py",
+      "step": "Parametrize tests over fixture files and expected terminal statuses; separately assert first_failed_predicate and forbidden-upgrade diagnostics for oracle-derived cases.",
+      "expected_result": "The validator is executable and regression-tested against both contracts."
+    },
+    {
+      "step_id": "I1.11",
+      "file_target": "validation/README.md",
+      "step": "Document emitted statuses, the retired PARTIAL_CONTEXT_ONLY handling, fixture schema, CLI usage, and explicit forbidden claims.",
+      "expected_result": "Future implementers cannot mistake context localization for exact O_s admission."
+    }
+  ],
+  "partial_context_decision": {
+    "decision": "remove_as_emitted_terminal_status",
+    "reason": "The schema lists PARTIAL_CONTEXT_ONLY as a terminal status but defines no target mode or success rule that emits it. The A expected cases explicitly forbid upgrading null or scalar-only payloads to PARTIAL_CONTEXT_ONLY. Keeping it as an emitted status would create an unguarded middle state and contradict the no-silent-upgrade contract.",
+    "replacement": "Use BLOCK for incomplete context. Use CONDITIONAL_CONTEXT_PASS only when F01, F02, and F03 all pass under target_mode reported_context.",
+    "compatibility_rule": "If a legacy payload asks for target_mode PARTIAL_CONTEXT_ONLY, the validator should emit BLOCK with diagnostic DEPRECATED_PARTIAL_CONTEXT_ONLY unless it is converted by the caller to reported_context and passes F01-F03.",
+    "oracle_warning_handling": "The transition oracle row SCALAR_ONLY_TO_CONTEXT expects WARN_UNRESOLVED_SCALAR, but that status is absent from the A schema terminal set. Treat it as diagnostic ORACLE_WARN_UNRESOLVED_SCALAR with terminal BLOCK."
+  },
+  "fixture_schema": {
+    "fixture_file_shape": {
+      "fixture_id": "string",
+      "source_contract": "A_expected_cases_round3 | B_transition_oracle_round3 | hand_minimal",
+      "input_payload_class": "string",
+      "payload": {
+        "payload_id": "string",
+        "target_mode": "reported_context | candidate_exact_replay | diagnosed_mismatch | admitted_exact | exact_certified_observable",
+        "witness": "object"
+      },
+      "expected": {
+        "terminal_status": "BLOCK | CONDITIONAL_CONTEXT_PASS | CANDIDATE_EXACT_REPLAY | DIAGNOSED_MISMATCH | ADMITTED_EXACT",
+        "first_failed_predicate": "string or NONE",
+        "missing_fields": [
+          "Fxx"
+        ],
+        "invalid_fields": [
+          "Fxx"
+        ],
+        "forbidden_upgrade": "string"
+      }
+    },
+    "validator_output_shape": {
+      "payload_id": "string or null",
+      "target_mode": "resolved target mode or null",
+      "terminal_status": "BLOCK | CONDITIONAL_CONTEXT_PASS | CANDIDATE_EXACT_REPLAY | DIAGNOSED_MISMATCH | ADMITTED_EXACT",
+      "passed_fields": [
+        "Fxx"
+      ],
+      "missing_fields": [
+        "Fxx"
+      ],
+      "invalid_fields": [
+        "Fxx"
+      ],
+      "first_failed_predicate": "string or NONE",
+      "diagnostics": [
+        {
+          "code": "string",
+          "message": "string"
+        }
+      ],
+      "comparison": {
+        "evaluated": "boolean",
+        "reported_scalar": "number or null",
+        "recomputed_value": "number or null",
+        "abs_tol": "number or null",
+        "rel_tol": "number or null",
+        "passed": "boolean or null"
+      }
+    },
+    "minimal_valid_context_fixture": "F01 stable DOI/arXiv identifier, F02 exact page/table/figure/row locator, and F03 numeric scalar with units or dimensionless=true.",
+    "minimal_replay_fixture": "F01-F20 all present and predicate-valid; F21-F22 absent.",
+    "minimal_admitted_fixture": "F01-F22 all present and predicate-valid; recomputed_value within predeclared tolerance.",
+    "minimal_mismatch_fixture": "F01-F22 all present and predicate-valid except final numeric comparison fails under predeclared tolerance."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A valid reported_context result is only a source-localized reported scalar and must emit CONDITIONAL_CONTEXT_PASS, not exact admission.",
+      "confidence": 0.96,
+      "basis": "S2_R1_validator_payload_schema_round3 target_modes.reported_context and CASE_CURRENT_SRIVASTAVA_CONTEXT_COMPLETE_ONLY."
+    },
+    {
+      "id": "C2",
+      "statement": "Candidate exact replay requires F01-F20 and remains below exact admission until F21 recomputation and F22 acceptance tolerance are supplied.",
+      "confidence": 0.96,
+      "basis": "Schema candidate_exact_replay required_fields and CASE_FUTURE_REPLAY_READY_NO_RECOMPUTE."
+    },
+    {
+      "id": "C3",
+      "statement": "DIAGNOSED_MISMATCH and ADMITTED_EXACT are terminally decidable only after complete F01-F22 predicates and the predeclared comparison are evaluated.",
+      "confidence": 0.95,
+      "basis": "Schema diagnosed_mismatch/admitted_exact modes and guard G05."
+    },
+    {
+      "id": "C4",
+      "statement": "PARTIAL_CONTEXT_ONLY should be retired as an emitted terminal status because it has no success path and is explicitly forbidden for null or scalar-only evidence.",
+      "confidence": 0.94,
+      "basis": "Schema lacks a target mode for PARTIAL_CONTEXT_ONLY; A expected cases forbid upgrade to it."
+    },
+    {
+      "id": "C5",
+      "statement": "The current Srivastava exact O_s payload class must remain BLOCK until the full proof-carrying witness tuple is supplied.",
+      "confidence": 0.97,
+      "basis": "Transition guard G04 and CASE_CURRENT_SRIVASTAVA_SUMMARY."
+    }
+  ],
+  "deepening_1": {
+    "question": "What is the next-layer consequence of retiring PARTIAL_CONTEXT_ONLY?",
+    "answer": "The validator has a two-step evidence ladder: BLOCK for absent or incomplete source context, then CONDITIONAL_CONTEXT_PASS only for F01-F03. There is no ambiguous middle terminal that downstream synthesis could reinterpret as partial admission.",
+    "consequence_of_consequence": "Regression tests must assert that empty, scalar-only, DOI-only, and legacy PARTIAL_CONTEXT_ONLY target payloads remain BLOCK unless explicitly converted to reported_context and satisfying F01-F03."
+  },
+  "deepening_2": {
+    "question": "Which premise in this plan is most likely to be wrong?",
+    "answer": "The weakest premise is that all schema predicates can be represented by conservative local syntax/internal-consistency checks. Some predicates, such as implementation_matches_formula or generated_from_fields, may require actual code execution, hash verification, or external artifact availability.",
+    "mitigation": "Split predicate adapters into syntax predicates, internal consistency predicates, and executable provenance predicates. If executable evidence is unavailable, mark the field invalid rather than granting a pass."
+  },
+  "forbidden_claims": [
+    "exact Srivastava O_s reproduced",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "exact O_s impossible in principle",
+    "CONDITIONAL_CONTEXT_PASS is exact O_s admission",
+    "numeric closeness alone can promote reported_context to admitted_exact",
+    "executor quality alone can replace digest-bearing trace and required proof objects"
+  ]
+}

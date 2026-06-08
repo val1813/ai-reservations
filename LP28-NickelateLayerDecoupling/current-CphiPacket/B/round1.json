@@ -1,0 +1,235 @@
+{
+  "framework": {
+    "role": "B_doctor_round1",
+    "north_star": "Can a real same-sample or matched-specimen nickelate packet supply P_oe + B_min before superconducting-output reveal, strongly enough to kill or preserve R_oe?",
+    "decision": "PACKET_NONIDENTIFIABLE_FROM_CURRENT_LITERATURE",
+    "scope_guard": "This is not a universal theorem. The claim is restricted to current literature assembly and near-term matched-specimen designs that do not impose a new sealed, same-specimen metrology campaign.",
+    "standard_for_identification": [
+      "P_oe must be estimated from normal-state odd/even bilayer susceptibility with raw S_channel_to_chi_unit calibration retained.",
+      "B_min must be measured by covariates that do not reuse the same qz, c-axis, pressure-path, matrix-element, or superconducting-output information that generates P_oe.",
+      "The residual call must be made before Tc, zero resistance, Meissner, diamagnetism, gap, spin resonance, critical-current, or output-trained labels are revealed.",
+      "Rows must be numerous enough for held-out residual testing rather than post-hoc alignment of a few famous samples."
+    ],
+    "evidence_base": [
+      "Allowed plan files state that no complete same-sample P_oe + B_min packet was found at startup.",
+      "Seed literature supports individual components: RIXS/magnetic excitations, even/odd theory, pressure/structure, oxygen/ligand-hole, and optical baselines.",
+      "paper-search-mcp Round 1 found additional pressure/oxygen/structure results and reviews emphasizing reproducibility, oxygen content, sample quality, structural transitions, and high-pressure measurement difficulty."
+    ]
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "fatal_for_literature_packet",
+      "finding": "P_oe and qz/c-axis B_min are not cleanly separable when assembled from existing probes.",
+      "basis": "Odd/even bilayer susceptibility requires qz, polarization, form-factor, and interlayer response extraction. The proposed B_min covariates include ordinary c-axis coherence, lattice geometry, dz2/rare-earth/ligand-hole/self-doping proxies, and structural phase, which are exactly the latent variables that shape the qz-dependent spectral weight and matrix elements.",
+      "implication": "A residual after subtracting B_min can be manufactured by choosing which c-axis information is assigned to P_oe versus baseline. The denominator is not independent of the numerator."
+    },
+    {
+      "id": "F2",
+      "severity": "fatal_for_matched_specimen_without_new_protocol",
+      "finding": "Pressure path, oxygen content, structural phase, and sample quality are treatment variables, not nuisance labels.",
+      "basis": "Recent La3Ni2O7 work links superconductivity and normal-state behavior to pressure, apical oxygen vacancies, structural transition, oxygen content windows, phase coexistence, and measurement reliability under high pressure.",
+      "implication": "Matched specimens from different pressure cells, batches, growth runs, oxygen histories, or probes do not define exchangeable rows for crossfit. Matching can hide rather than remove confounding."
+    },
+    {
+      "id": "F3",
+      "severity": "high",
+      "finding": "S_channel_to_chi_unit and matrix-element calibration can create the residual that R_oe would interpret.",
+      "basis": "RIXS-like channel intensities require polarization, resonance, self-absorption, geometry, form-factor, and normalization choices before they become chi_odd or chi_even. These choices are coupled to orbital character, qz, pressure environment, and sample thickness/quality.",
+      "implication": "Unless raw counts, monitor normalization, geometry, energy resolution, polarization leakage, and uncertainty propagation are frozen before output reveal, the residual is calibration-contingent."
+    },
+    {
+      "id": "F4",
+      "severity": "fatal_for_current_crossfit",
+      "finding": "Small-N makes crossfit mostly ceremonial.",
+      "basis": "The relevant rows would need same-sample or tightly matched P_oe, oxygen/structure/orbital/disorder/c-axis baselines, pressure/thermal path, and sealed output labels. Current literature is fragmented across probes and specimens, with no found complete packet.",
+      "implication": "With N near the number of laboratories/samples rather than the number of independent blinded rows, held-out residuals are dominated by lab, batch, instrument, and pressure-cell effects."
+    },
+    {
+      "id": "F5",
+      "severity": "high",
+      "finding": "Matched-specimen designs fail unless they match hidden preparation variables more tightly than current reporting usually allows.",
+      "basis": "Oxygen stoichiometry, phase admixture, strain, pressure medium, contact geometry, sample damage, and crystallinity can all move the same observables used in P_oe and B_min.",
+      "implication": "A matched row assembled from specimen A for RIXS, specimen B for optical transport, specimen C for high-pressure structure, and specimen D for superconducting output is not a row; it is a literature montage."
+    },
+    {
+      "id": "F6",
+      "severity": "medium",
+      "finding": "The packet may be experimentally possible, but only as a new sealed campaign.",
+      "basis": "The component measurements are plausible in principle, but the independence, raw calibration, pressure path logging, oxygen/structure characterization, and output blinding must be co-designed.",
+      "implication": "B does not prove impossibility of the physics. It blocks the claim that current or loosely matched literature can kill or preserve R_oe."
+    }
+  ],
+  "nonidentifiability_argument": {
+    "short_form": "The same latent variables generate both P_oe and B_min, and current measurements do not provide an independent instrument that perturbs or observes one without the other.",
+    "latent_variables": [
+      "pressure path and hydrostaticity",
+      "oxygen stoichiometry and apical vacancy configuration",
+      "orthorhombic/tetragonal/hidden structural phase fraction",
+      "La3Ni2O7 versus La4Ni3O10 or other RP phase admixture",
+      "c-axis coherence and interlayer hopping",
+      "dz2, rare-earth 5d, ligand-hole, and self-doping balance",
+      "sample damage, strain, thickness, mosaicity, and disorder",
+      "RIXS resonance, polarization, self-absorption, and normalization"
+    ],
+    "identification_failure": [
+      "P_oe is inferred from qz/polarization/form-factor-resolved spectral response.",
+      "B_min asks to regress out qz/c-axis/orbital/structure/oxygen/disorder/pressure baselines.",
+      "Those baselines are not pre-treatment covariates independent of P_oe; they are part of the same measurement-generating mechanism.",
+      "Therefore residual R_oe is underdetermined: the same dataset can support a large residual, no residual, or a sign-flipped residual depending on calibration and baseline allocation.",
+      "Crossfit does not solve this if folds split a small set of batch-correlated specimens rather than independent blinded samples."
+    ],
+    "minimal_counterfactual_needed": "A valid design needs at least one independent axis that changes B_min without changing P_oe calibration, or changes P_oe while holding B_min fixed, under sealed output labels. Current literature does not provide this counterfactual."
+  },
+  "impossible_or_near_future": {
+    "classification": "near_future_only_with_new_experiment; impossible_from_literature拼接",
+    "not_impossible_in_principle": true,
+    "why_literature拼接_fails": [
+      "Rows are not same-sample.",
+      "Matched specimens do not preserve oxygen, pressure path, structural phase fraction, or damage history.",
+      "Raw S_channel_to_chi_unit calibration and censoring floors are usually not available in a reusable form.",
+      "Superconducting-output labels are often already known because the literature selected samples for the superconductivity question.",
+      "The number of complete blinded rows is effectively zero in the startup state."
+    ],
+    "what_new_experiment_would_require": [
+      "Pre-registered normal-state measurement order before any superconducting-output reveal.",
+      "Same crystal or diced sister pieces with shared growth, oxygenation, and pressure/thermal logs.",
+      "In situ or immediately paired structure/oxygen/orbital/disorder/c-axis baselines under the same pressure path.",
+      "Raw RIXS or neutron channel counts with full geometry, polarization, monitor normalization, resolution, and matrix-element uncertainty.",
+      "Independent blind custodian for Tc, zero resistance, Meissner, diamagnetism, gap, spin resonance, and related labels.",
+      "Enough rows across pressure, oxygen, and batch axes to permit true held-out residual testing."
+    ]
+  },
+  "fatal_missing_fields": [
+    {
+      "field": "same_sample_id_graph",
+      "reason": "Need a specimen genealogy linking growth batch, oxygenation, cutting, pressure cell, probe sequence, and output reveal status."
+    },
+    {
+      "field": "pressure_path_log",
+      "reason": "Need pressure medium, loading/unloading path, hydrostaticity, pressure gradients, dwell time, thermal cycling, and damage markers."
+    },
+    {
+      "field": "oxygen_and_vacancy_state",
+      "reason": "Need quantitative stoichiometry and apical vacancy configuration, not only nominal La3Ni2O7-delta labels."
+    },
+    {
+      "field": "phase_fraction_under_measurement_conditions",
+      "reason": "Need orthorhombic/tetragonal/hidden/RP-intergrowth fractions at the actual pressure and temperature of P_oe and B_min."
+    },
+    {
+      "field": "raw_S_channel_to_chi_unit",
+      "reason": "Need raw counts, normalization, polarization leakage, geometry, self-absorption, resolution, resonance condition, and covariance to avoid calibration-made residuals."
+    },
+    {
+      "field": "qz_and_c_axis_denominator_floor",
+      "reason": "Need a pre-frozen floor and censoring rule for weak/ambiguous odd-even denominators."
+    },
+    {
+      "field": "ordinary_c_axis_coherence_baseline",
+      "reason": "Need an independent baseline that is not derived from the same qz dependence used to define P_oe."
+    },
+    {
+      "field": "sealed_output_labels",
+      "reason": "Need proof that Tc, zero resistance, Meissner, diamagnetism, gap, spin resonance, and critical-current information was unavailable before residual call."
+    },
+    {
+      "field": "independent_batch_probe_controls",
+      "reason": "Need rows where batch, lab, instrument, and probe sequence do not alias with P_oe or B_min."
+    },
+    {
+      "field": "pre_frozen_U_miss",
+      "reason": "Need a declared missingness model before seeing whether residuals align with superconducting output."
+    }
+  ],
+  "contamination_paths": [
+    {
+      "path": "qz/c_axis_common_cause",
+      "description": "qz-resolved odd/even intensity and c-axis coherence baselines share interlayer hopping, lattice geometry, dz2 weight, and pressure-induced structural changes."
+    },
+    {
+      "path": "pressure_path_common_cause",
+      "description": "Pressure path changes structure, defects, hydrostaticity, transport contacts, spectral response, and superconducting output at once."
+    },
+    {
+      "path": "oxygen_common_cause",
+      "description": "Oxygen vacancies and ligand holes affect orbital filling, phase stability, scattering/disorder, superfluid density, and the normal-state spectral channels."
+    },
+    {
+      "path": "phase_fraction_common_cause",
+      "description": "La3Ni2O7, La4Ni3O10, hidden phases, or orthorhombic/tetragonal fractions can masquerade as both bilayer odd-even physics and baseline quality."
+    },
+    {
+      "path": "matrix_element_common_cause",
+      "description": "Polarization, resonance energy, self-absorption, form-factor, sample orientation, and geometry can shift chi_odd/chi_even and also track structural/orbital baselines."
+    },
+    {
+      "path": "sample_quality_selection",
+      "description": "Crystals selected for strong spectral signal, clean transport, or high Tc may differ systematically in disorder, oxygenation, phase purity, and damage tolerance."
+    },
+    {
+      "path": "instrument_lab_batch_aliasing",
+      "description": "RIXS, optical, structural, transport, and magnetization data often come from different labs and samples, making instrument identity a proxy for the target covariate."
+    },
+    {
+      "path": "output_leakage",
+      "description": "Published superconducting samples are usually already labeled by transport or magnetic output, so covariate choices can be unconsciously tuned to known success/failure."
+    }
+  ],
+  "falsifier_for_B": {
+    "what_would_defeat_this_B_argument": [
+      "A same-crystal or genuinely sister-specimen dataset with pre-output P_oe, full B_min, raw calibration, and pressure/oxygen/phase logs.",
+      "A frozen analysis plan proving that qz/c-axis baselines used in B_min are measured independently of the P_oe extraction channel.",
+      "Blind residual calls made before any superconducting-output reveal.",
+      "Held-out rows spanning at least batch, pressure path, oxygen state, and structural phase, with folds split by batch/lab rather than by repeated measurements of the same object.",
+      "Negative controls showing that residuals do not appear when odd/even labels, qz channels, or output labels are permuted under the same calibration pipeline.",
+      "Sensitivity analysis showing R_oe sign and magnitude survive plausible matrix-element and denominator-floor perturbations."
+    ],
+    "minimum_practical_threshold": "B should concede PACKET_FEASIBLE_NEAR_FUTURE if a sealed campaign can produce at least several independent same-sample/sister-specimen rows with raw calibration, independent B_min, and blinded output labels. B should concede PACKET_FEASIBLE_NOW only if such rows already exist in accessible data, which this round did not find."
+  },
+  "claims": [
+    {
+      "claim": "Current literature supports the existence of relevant measurement components, not a complete identifiable P_oe + B_min packet.",
+      "status": "supported_by_allowed_files_and_mcp_search"
+    },
+    {
+      "claim": "A literature-assembled packet is non-identifiable because P_oe and qz/c-axis/orbital/pressure/structure baselines share the same latent causes and calibration machinery.",
+      "status": "B_round1_core_claim"
+    },
+    {
+      "claim": "Matched-specimen assembly is not enough unless growth, oxygen, pressure path, phase fraction, instrument, and output blinding are controlled as part of one protocol.",
+      "status": "supported"
+    },
+    {
+      "claim": "Small-N crossfit cannot rescue the packet when rows are batch/lab/probe-correlated and output labels are already known.",
+      "status": "supported"
+    },
+    {
+      "claim": "The route is not universally impossible; it requires a new sealed same-sample or tightly sistered-specimen experiment.",
+      "status": "boundary_condition"
+    },
+    {
+      "claim": "R_oe remains protocol-only for this packet until the new experiment or an already complete hidden dataset is identified.",
+      "status": "round1_B_conclusion"
+    }
+  ],
+  "inspector_check": {
+    "json_validity": "intended_valid_json",
+    "required_fields_present": [
+      "framework",
+      "findings",
+      "nonidentifiability_argument",
+      "impossible_or_near_future",
+      "fatal_missing_fields",
+      "contamination_paths",
+      "falsifier_for_B",
+      "claims",
+      "inspector_check"
+    ],
+    "A_independence": "Did not read current-CphiPacket/A or any A output. Only top-level directory names were listed while checking that B exists.",
+    "universal_theorem_guard": "The argument is explicitly bounded to current literature assembly and ordinary near-term matched-specimen designs; it allows a new sealed experiment to falsify B.",
+    "paper_search_mcp_used": true,
+    "main_residual_risk": "Some cited mcp search results are metadata/abstract-level, not full-paper extractions; this is acceptable for Round 1 B because the claim is about packet non-existence and coupling risks, not detailed numerical reproduction.",
+    "decision_target_mapping": "Closest official plan label: PACKET_NONIDENTIFIABLE. More precise B label: PACKET_NONIDENTIFIABLE_FROM_CURRENT_LITERATURE; near-future only with new sealed experiment."
+  }
+}

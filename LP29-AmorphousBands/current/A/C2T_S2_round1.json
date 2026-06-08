@@ -1,0 +1,217 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 1,
+  "agent": "A",
+  "polaris": "LP29-C2T-S2 / context baseline vs reproduced Srivastava exact O_s baseline",
+  "framework": "Literature-first reproducibility audit: distinguish reported orbital-overlap context from a machine-reviewable exact O_s reproduction baseline requiring formula/code, raw overlap sum, normalization rule, pair cutoff, same-structure mapping, and witness payload.",
+  "findings": {
+    "verdict": "BLOCK_REPRODUCED_EXACT_O_S_BASELINE",
+    "summary": "Srivastava 2019 (DOI 10.1063/1.5096042) is a valid literature context source for reported orbital-overlap values and effective-mass correlation, but the A-side evidence available in this round does not support labeling those values as reproduced exact O_s. Crossref confirms the paper metadata, DOI, abstract, AIP URL, official PDF URL, and the claim that an orbital overlap integral can be calculated from structural information and correlates with effective mass. However, paper-search-mcp arXiv search returned no arXiv record; Unpaywall returned no open OA record; AIP PDF direct access was blocked by a JavaScript/cookie challenge; and the successful fallback download was identified as a different 2015 Scientific Reports article, so it was excluded as Srivastava evidence. The local C2 Srivastava rows contain reported OI_norm values and method labels, but not OI_raw_sum, structure_id, atom count, executable normalization witness, or same-structure mapping. Therefore reported OI_norm remains context-only and must not be written as reproduced O_s.",
+    "positive_support_for_context_baseline": [
+      "Crossref DOI lookup for 10.1063/1.5096042 identifies Srivastava, Nahas, Bhowmick, and Gaur, Journal of Applied Physics 126, article 125702, published 2019-09-23.",
+      "Crossref abstract states the work compares a-IGZO and a-ZnON, discusses transport paths through outer s-orbital overlap, and reports direct correlation between orbital overlap integral and carrier effective mass.",
+      "Local C2_Srivastava_baseline_rows.csv records four reported_table_and_text rows with OI_norm and m_eff_over_m0 values for a-IGZO and a-ZnON."
+    ],
+    "negative_support_against_reproduced_baseline": [
+      "No arXiv record was found for the DOI/title/query set.",
+      "No Unpaywall open-access metadata was returned for DOI 10.1063/1.5096042.",
+      "AIP official PDF URL from Crossref could not be retrieved automatically because pubs.aip.org returned a JavaScript/cookie challenge.",
+      "paper-search-mcp fallback downloaded core_38590358.pdf, but text extraction showed it is Lee et al., Scientific Reports 5:13467 (2015), DOI 10.1038/srep13467, not Srivastava 2019; it was rejected as evidence.",
+      "Local Srivastava baseline rows leave structure_id, num_atoms, OI_raw_sum, and residual fields blank and mark decisive_claim_allowed=false.",
+      "C2T witness requirements explicitly require OI_raw_sum, OI_normalization_formula_id, pair_cutoff_A or exact pair rule, structure_id, source_row_id, and mode declaration before Srivastava reproduction can pass."
+    ],
+    "decision_rule": "Use Srivastava 2019 only as reported_context_only unless a source-row-specific witness payload supplies exact formula/procedure, raw overlap sum, normalization, pair selection, and structure mapping."
+  },
+  "weakest_link": "The weakest link is not the existence of Srivastava 2019 or its reported OI/effective-mass correlation; it is the missing row-level executable witness tying reported OI_norm to OI_raw_sum, normalization, pair selection, and the exact atomistic structure used for the same sample.",
+  "next_plan": {
+    "round2_focus": "Try to obtain the official AIP PDF/SI through library/manual access or author repository, then extract Table II, Fig. 4 context, SI section on STO/Mulliken orbital weights, and any downloadable structure files. If no such payload exists, produce S2_Srivastava_reproduction_blocker_table.",
+    "minimum_success_condition": "At least one Srivastava row has source_row_id, structure_id, OI_comparison_mode=srivastava_reproduction, OI_raw_sum, OI_norm, OI_normalization_formula_id, pair_cutoff_A or exact pair-selection rule, and provenance linking all fields to the same structure.",
+    "fallback_if_blocked": "Keep reported OI_norm as context-only and route LP29-C2T validation through a newly declared fixed_density or fixed_pair baseline rather than Srivastava reproduction."
+  },
+  "literature_needed": [
+    "10.1063/1.5096042 supplementary material",
+    "Srivastava Nahas Bhowmick Gaur 2019 Journal of Applied Physics 126 125702 supplemental orbital overlap",
+    "Mulliken Slater type orbital overlap integral amorphous IGZO ZnON pair cutoff",
+    "a-IGZO a-ZnON orbital overlap integral Table II Fig. 4 effective mass",
+    "author repository structures IGZO 1114 IGZO 2217 ZnON orbital overlap"
+  ],
+  "claims": [
+    {
+      "id": "A-C2T-S2-R1-C1",
+      "statement": "Srivastava 2019 supports a reported orbital-overlap/effective-mass context baseline for a-IGZO and a-ZnON.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "evidence": [
+        {
+          "type": "doi_metadata",
+          "source": "Crossref via paper-search-mcp",
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019",
+          "relevance": "Confirms title, authors, journal, date, abstract, official AIP URL, and orbital-overlap/effective-mass context."
+        },
+        {
+          "type": "local_artifact",
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\C2_Srivastava_baseline_rows.csv",
+          "relevance": "Contains four reported OI_norm rows with m_eff_over_m0 and source_doi=10.1063/1.5096042."
+        }
+      ],
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "Reported OI_norm rows in the local C2 artifact correctly transcribe Srivastava Table II/Fig. 4 context.",
+        "Context baseline does not require machine-reviewable reproduction fields."
+      ]
+    },
+    {
+      "id": "A-C2T-S2-R1-C2",
+      "statement": "The available evidence does not support upgrading reported OI_norm to reproduced exact O_s.",
+      "confidence": 0.91,
+      "new_insight": false,
+      "evidence": [
+        {
+          "type": "field_audit",
+          "source": "C2_Srivastava_baseline_rows.csv",
+          "relevance": "structure_id, num_atoms, OI_raw_sum are blank; decisive_claim_allowed=false; blocked_fields includes structure_id, num_atoms, OI_raw_sum."
+        },
+        {
+          "type": "gate_requirements",
+          "source": "C2T_A_witness_requirements_round4.csv",
+          "relevance": "Requires OI_raw_sum, OI_normalization_formula_id, pair_cutoff_A, pair_density, source_row_id, and structure_id for reproduction gates."
+        },
+        {
+          "type": "search_result",
+          "source": "paper-search-mcp arXiv and Unpaywall",
+          "relevance": "No arXiv or Unpaywall open record found for DOI/title; no public exact reproduction payload found in Round 1 search."
+        }
+      ],
+      "equations": [],
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "A valid residual-validation baseline requires exact, source-row-specific reproduction fields, not only reported normalized values.",
+        "A blocked automatic PDF/SI access path cannot be treated as evidence that an exact payload exists."
+      ]
+    }
+  ],
+  "search_self_check": {
+    "group1_core_claim_duplication": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "Srivastava 2019 orbital overlap integral amorphous oxide semiconductor effective mass 10.1063/1.5096042 2023 2024 2025",
+        "orbital overlap integral amorphous oxide semiconductor effective mass transparent conducting oxide review solved resolved"
+      ],
+      "result": "DOI/title context found through Google Scholar/Crossref; no later paper in this search provided exact Srivastava O_s reproduction payload.",
+      "websearch_degraded": false
+    },
+    "group2_framework_blind_spot": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "orbital overlap integral amorphous oxide semiconductor effective mass transparent conducting oxide review solved resolved",
+        "amorphous oxide semiconductor orbital overlap integral measurement experiment data effective mass IGZO ZnON"
+      ],
+      "result": "Search returned broader amorphous oxide semiconductor references and reviews, but no source that removes the Srivastava reproduction-witness gap.",
+      "websearch_degraded": false
+    },
+    "group3_counterexample_negative": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "Srivastava orbital overlap integral amorphous oxide semiconductor failure criticism counterexample normalization pair cutoff"
+      ],
+      "result": "No direct counterexample/criticism paper was found; returned items were not relevant to Srivastava exact reproduction.",
+      "websearch_degraded": false
+    },
+    "group4_data_availability": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "amorphous oxide semiconductor orbital overlap integral measurement experiment data effective mass IGZO ZnON",
+        "10.1063/1.5096042",
+        "Electronic structure and transport in amorphous metal oxide and amorphous metal oxynitride semiconductors"
+      ],
+      "result": "Crossref metadata found official AIP page and PDF URL; arXiv search returned empty; Unpaywall returned empty; Semantic Scholar title search returned empty. No public machine-readable structure/raw-sum/normalization payload was found.",
+      "websearch_degraded": false
+    },
+    "additional_access_checks": {
+      "crossref_doi_lookup": "success",
+      "arxiv_lookup": "empty",
+      "unpaywall_lookup": "empty",
+      "aip_pdf_direct_download": "blocked_by_javascript_cookie_challenge",
+      "download_with_fallback": "returned_wrong_pdf_core_38590358_excluded",
+      "wrong_pdf_identification": "Text extraction identified DOI 10.1038/srep13467, not DOI 10.1063/1.5096042."
+    }
+  },
+  "reproduction_fields_status": {
+    "source_row_id": {
+      "status": "partial",
+      "evidence": "Local rows define stable labels such as Srivastava2019_TableII_Fig4_a_IGZO_1114.",
+      "blocks_reproduction": false,
+      "note": "Resolvable to local reported rows, but not yet to a full official table/SI extraction package."
+    },
+    "structure_id": {
+      "status": "missing",
+      "evidence": "Blank in C2_Srivastava_baseline_rows.csv.",
+      "blocks_reproduction": true
+    },
+    "OI_comparison_mode": {
+      "status": "missing_for_payload",
+      "evidence": "C2T_A_witness_requirements_round4.csv requires declaration; current Srivastava rows predate the mode field.",
+      "blocks_reproduction": true,
+      "allowed_current_mode": "reported_context_only"
+    },
+    "OI_raw_sum": {
+      "status": "missing",
+      "evidence": "Blank in local Srivastava rows; no public raw-sum witness found in Round 1.",
+      "blocks_reproduction": true
+    },
+    "OI_norm": {
+      "status": "reported_context_only",
+      "evidence": "Values present: 0.02966, 0.02669, 0.06231, 0.06693 in local C2 Srivastava rows.",
+      "blocks_reproduction": false,
+      "warning": "These are reported OI_norm values, not reproduced exact O_s."
+    },
+    "OI_normalization_formula_id": {
+      "status": "missing_or_ambiguous",
+      "evidence": "Local rows contain a prose method label but no executable formula id tied to OI_raw_sum.",
+      "blocks_reproduction": true
+    },
+    "pair_cutoff_A": {
+      "status": "partial_context",
+      "evidence": "Local rows list pair_cutoff_A=4, but no source-row-specific pair-count/provenance witness was found in Round 1.",
+      "blocks_reproduction": true
+    },
+    "pair_density": {
+      "status": "missing",
+      "evidence": "Required by C2T witness file; not populated in local Srivastava rows.",
+      "blocks_reproduction": true
+    },
+    "OI_pair_mean": {
+      "status": "missing_conditional",
+      "evidence": "Required for fixed_pair mode; absent.",
+      "blocks_reproduction": true
+    },
+    "N_pair": {
+      "status": "missing_conditional",
+      "evidence": "Required for fixed_pair mode; absent.",
+      "blocks_reproduction": true
+    },
+    "N_pair_provenance_id": {
+      "status": "missing_conditional",
+      "evidence": "Required for fixed_pair mode; absent.",
+      "blocks_reproduction": true
+    },
+    "same_structure_mapping": {
+      "status": "missing",
+      "evidence": "No structure_id or downloadable atomistic structure was found or linked to the reported OI_norm rows in Round 1.",
+      "blocks_reproduction": true
+    },
+    "overall_status": "reported_context_available_exact_O_s_reproduction_blocked"
+  }
+}

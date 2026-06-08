@@ -1,0 +1,216 @@
+\documentclass[aps,prl,twocolumn,superscriptaddress,nofootinbib,floatfix]{revtex4-2}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue]{hyperref}
+\begin{document}
+\title{Macrocosmic Decoherence as Archive-Decompression Dynamics}
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+\email{valhuang@kaiwucl.com}
+\date{June 5, 2026}
+\begin{abstract}
+We revise Decoherence Geometry Framework (DGF) around a distinction between flowing and archived information. The accessible quantum variable is $q=N_{\rm accessible}/N_{\rm total}(V)$, the fraction of Planck-scale spatial cells whose interference information remains branch-recombinable. Decoherence is the directed archival process $q\to0$. Mass is not the lost flowing information; it is the archived information $A=1-q$. This resolves the apparent contradiction that decoherence does not make ordinary masses decrease. The Euler residual mass map becomes $m(A)=2m_p\sin(\pi A/2)/\pi$. The direction of decoherence is supplied by a Fokker-Planck drift toward smaller $q$, driven by the receiver capacity of low-mass degrees of freedom. The larger conjecture is an archive-decompression cycle: when local archived information reaches a Planck critical density, the region becomes an empty quantum container and resets toward $q\to1$.
+\end{abstract}
+\maketitle
+
+The macro-world is not classical because quantum mechanics lacks something. It is classical because flowing spatial-interference information has been archived into a locked form. Ordinary environmental decoherence is the laboratory-scale face of this archival process.
+
+Two quantities must be separated:
+\begin{align}
+q&=\text{accessible coherence},\\
+A&=1-q.
+\end{align}
+Decoherence moves $q$ downward and $A$ upward. Mass follows $A$, not $q$. This prevents the false inference that a decohering stone should lose mass.
+
+Partition the support volume $V_S$ of a system $S$ into Planck cells $c\in\mathcal C_S$, with $N_S=|\mathcal C_S|$. Each cell carries an access weight
+\begin{equation}
+a_c=\frac{\mathcal V_c}{\mathcal V_c^{\max}}\in[0,1],
+\end{equation}
+where $\mathcal V_c$ is the local branch-recombination visibility. Define
+\begin{equation}
+\boxed{
+q_S=\frac{1}{N_S}\sum_{c\in\mathcal C_S}a_c,
+\qquad
+A_S=1-q_S.
+}
+\end{equation}
+Operationally, this is the Planck-limit of a coarse-grained density-matrix visibility,
+\begin{equation}
+a_{c,\ell}=
+\frac{\int W_\ell|\rho_S(x,x')|\,dx\,dx'}
+{\int W_\ell|\rho_S^{\rm max}(x,x')|\,dx\,dx'},
+\quad
+q_{S,\ell}=N_\ell^{-1}\sum_{c_\ell}a_{c,\ell}.
+\end{equation}
+For composite systems, independent accessibilities multiply:
+\begin{equation}
+q_{\rm comp}=\prod_iq_i^{w_i},
+\qquad \sum_iw_i=1.
+\end{equation}
+
+There is no global pairing between heavy and light systems. Information disperses locally, but low-mass or weakly saturated receiver modes have larger available state density and statistically absorb more flowing coherence. Let $P(q,t)$ be the probability density of accessible coherence. DGF uses
+\begin{equation}
+\boxed{
+\partial_tP(q,t)
+=-\partial_q[\mu(q)P]+\partial_q^2[D(q)P].
+}
+\end{equation}
+For archival, $\mu(q_S)<0$, so the mean accessible coherence decreases. The drift is an entropy-gradient drift in the sender coordinate:
+\begin{align}
+\mu(q_S)&=\Gamma(q_S)\partial_{q_S}S_{\rm tot}\nonumber\\
+&=-\Gamma(q_S)\partial_{A_S}S_{\rm tot},
+\qquad A_S=1-q_S .
+\end{align}
+Writing the sender-side coherence cost as $S_{\rm cost}$,
+\begin{equation}
+\partial_{A_S}S_{\rm tot}
+=\partial_{A_S}S_{\rm recv}-\partial_{A_S}S_{\rm cost}.
+\end{equation}
+Archival occurs when $\partial_{A_S}S_{\rm recv}>\partial_{A_S}S_{\rm cost}$, so $\mu(q_S)<0$, $d\langle q_S\rangle/dt<0$, and $d\langle A_S\rangle/dt>0$. The direction is therefore receiver record multiplicity, analogous to spontaneous emission being selected by photon mode density.
+Equivalently, local rates obey
+\begin{equation}
+\frac{W_+}{W_-}=\exp[\Delta S_{\rm tot}/k_B],
+\quad
+\mu_q=-\frac{D_A}{k_B}\partial_{A_S}S_{\rm tot}+O(\delta A^2),
+\end{equation}
+after Kramers--Moyal expansion.
+
+The accessible and archived sectors form
+\begin{equation}
+|\chi\rangle=\sqrt q\,|Q\rangle+\sqrt A\,|C\rangle.
+\end{equation}
+$|Q\rangle$ is flowing quantum access; $|C\rangle$ is archived classical storage. The archived sector occupies normalized arc fraction $A$ on the information half-circle, giving
+\begin{equation}
+\boxed{\theta(A)=\pi A=\pi(1-q).}
+\end{equation}
+This angle is not the Bures distance $2\arccos\sqrt{1-A}$ from $\rho(0)$ to $\rho(A)$. The Bures/Fubini--Study geometry fixes only the orthogonal endpoint diameter $\pi$. The linear law is the maximum-entropy archive coordinate: with Haar-induced uniform measure on unresolved archive channels,
+\begin{equation}
+A=\frac{\mu_{\rm H}(\mathcal C_\theta)}
+        {\mu_{\rm H}(\mathcal C_\pi)}
+=\frac{\theta}{\pi},
+\end{equation}
+so $\theta(A)=\pi A+O(N^{-1})$ for $N\gg1$ archive channels.
+For finite equiprobable archive sectors, $A_j=j/(N-1)$ and $\theta_j=\pi j/(N-1)$; nonlinear coordinates would make branch mass depend on coarse-graining order.
+No archived information should give no residual mass, so
+\begin{equation}
+R(A)=1-e^{i\pi A}.
+\end{equation}
+Then
+\begin{equation}
+|R(A)|^2=2-2\cos(\pi A)=4\sin^2\left(\frac{\pi A}{2}\right),
+\end{equation}
+and
+\begin{equation}
+\boxed{
+m(A)=\frac{m_p}{\pi}|R(A)|
+=\frac{2m_p}{\pi}\sin\left(\frac{\pi A}{2}\right).
+}
+\end{equation}
+The endpoint $m_{\max}=2m_p/\pi\simeq14\,\mu{\rm g}$ is a single DGF archival-branch closure value, not a cap on total composite rest mass. The global $A_{\rm comp}$ controls whole-object recombinability, and $m(A_{\rm comp})\neq M_S$. A composite has a local branch partition $\mathcal B_S=\{b\}$ fixed by coherence connectivity, with
+\begin{equation}
+M_S^{\rm DGF}
+=\sum_{b\in\mathcal B_S}
+\frac{2m_p}{\pi}\sin\!\left(\frac{\pi A_b}{2}\right)
++\frac{E_{\rm bind}+E_{\rm field}}{c^2}.
+\end{equation}
+The partition is fixed by the coherence graph
+\begin{equation}
+G_{ij}=|\mathcal V_{ij}|/\sqrt{\mathcal V_i\mathcal V_j}
+=e^{-\chi_{ij}},\qquad
+i\sim j\iff G_{ij}>e^{-1}.
+\end{equation}
+
+\begin{figure}[!htb]
+\includegraphics[width=\linewidth]{figures/fig4_cosmic_decoherence_order.png}
+\caption{Accessible coherence $q$ decreases as archived information $A=1-q$ grows. Mass follows $A$, not $q$.}
+\label{fig:archive}
+\end{figure}
+
+Let $b_\lambda$ be low-mass receiver modes with spectral density
+\begin{equation}
+J_{\rm recv}(\omega)=\sum_\lambda |g_\lambda|^2\delta(\omega-\omega_\lambda).
+\end{equation}
+Concrete sectors give, for example,
+\begin{align}
+J_\gamma(\omega)&=C_\gamma\omega^3f_\gamma(\omega/\omega_c),\nonumber\\
+J_g(\omega)&=C_g\frac{G}{c^5}Q_{ij}Q^{ij}
+\omega^3f_g(\omega/\omega_c).
+\end{align}
+The interaction is
+\begin{equation}
+H_{\rm int}=\Lambda(A)V_S\otimes
+\sum_\lambda g_\lambda(b_\lambda+b_\lambda^\dagger).
+\end{equation}
+The system imprint operator is
+\begin{equation}
+V_S=\frac{p^4}{3m_S}.
+\end{equation}
+The receiver mass never appears in the denominator; low-mass receivers enter through $J_{\rm recv}$, occupation, and cutoff. For a Gaussian receiver bath,
+\begin{equation}
+K_{ab}(t)=e^{-\chi_{ab}(t)},
+\end{equation}
+\begin{align}
+\chi_{ab}(t)&=
+\frac{\Lambda^2(A)}{\hbar^2}
+(\Delta V_{ab})^2\nonumber\\
+&\times
+\int_0^\infty d\omega\,J_{\rm recv}(\omega)
+\coth\!\left(\frac{\hbar\omega}{2k_BT}\right)
+\frac{1-\cos\omega t}{\omega^2},
+\end{align}
+where $\Delta V_{ab}=\Delta\langle p^4/(3m_S)\rangle$. The white-noise constant is the filtered receiver strength
+\begin{equation}
+D_\beta^{\rm eff}
+=\frac12\int_0^\infty d\omega\,J_{\rm recv}(\omega)
+\coth\!\left(\frac{\hbar\omega}{2k_BT}\right)F_\tau(\omega).
+\end{equation}
+For spatial cats the imprint is
+\begin{equation}
+\Delta\mathcal V_{ab}=\Delta\langle p^4/(3m_S)\rangle_{ab}
++\Delta\Phi_{\rm recv}[x_a,x_b],
+\end{equation}
+so equal momentum moments need not imply zero archival. The Planck-local GUP matching condition is
+\begin{equation}
+\Lambda^2(A)D_\beta^{\rm eff}/\hbar^2=t_pl_p^4/\hbar^6.
+\end{equation}
+When this filtered noise is flat over the system bandwidth, one recovers
+\begin{equation}
+\boxed{
+K_{ab}(t)=
+\exp\!\left[
+-\frac{2t_p l_p^4}{\hbar^6}
+\left(\Delta\left\langle\frac{p^4}{3m_S}\right\rangle\right)^2t
+\right].
+}
+\end{equation}
+
+The larger conjecture is local critical cycling:
+\begin{equation}
+q\to0,\quad A\to1
+\quad
+\xrightarrow{\rho_A\sim\rho_p}
+\quad
+q\to1,\quad A\to0.
+\end{equation}
+When archived information reaches a Planck critical density, the region is effectively an empty quantum container: no flowing classical record remains to suppress quantum fluctuations. Local quantum access is restored. This is decompression.
+Here
+\begin{equation}
+\rho_A(V)=V^{-1}\sum_{b\subset V}A_bI_p,\quad I_p=\ln2/l_p^3,
+\end{equation}
+or $\epsilon_A=V^{-1}\sum_bm_b(A_b)c^2$, and the reset obeys
+\begin{equation}
+dM_{\rm branch}c^2+dE_{\rm rad}+dE_{\rm field}=0.
+\end{equation}
+
+The revised hypothesis makes three non-standard predictions: a visibility kink as one branch approaches $2m_p/\pi$; receiver-sector-dependent rates through $D_\beta^{\rm eff}[J_{\rm recv}]$; and non-thermal endpoint correlations from Planck-critical decompression.
+
+\begin{acknowledgments}
+The author reports no external funding and no competing interests. Figures and numerical tables were generated with \texttt{scripts/generate\_dgf\_figures.py}; the corresponding CSV files are included in \texttt{data/}.
+\end{acknowledgments}
+
+\begin{thebibliography}{99}
+\bibitem{petruzziello2021} L. Petruzziello and F. Illuminati, Nat. Commun. \textbf{12}, 4449 (2021), doi:10.1038/s41467-021-24711-7.
+\bibitem{alnasrallah2023} E. Al-Nasrallah, S. Das, F. Illuminati, L. Petruzziello, and E. C. Vagenas, Nucl. Phys. B \textbf{992}, 116246 (2023), doi:10.1016/j.nuclphysb.2023.116246.
+\bibitem{arzano2023} M. Arzano, V. D'Esposito, and G. Gubitosi, Commun. Phys. \textbf{6}, 242 (2023).
+\end{thebibliography}
+\end{document}

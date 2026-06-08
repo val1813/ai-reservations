@@ -1,0 +1,266 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "round": 2,
+  "agent": "A",
+  "role": "学院派；文献边界与可验证判据优先",
+  "polaris": "判断 dz2-mediated interlayer phase quorum 是否是 RP nickelates 中可工程化的材料设计变量。",
+  "framework": "多轨道层状金属的层间相干判据：把 Ni dz2/apical-O mediated interlayer hopping 的可观测后果投影到 rho_c/rho_ab、c-axis Drude weight、low-frequency sigma_c 与 bulk Meissner/shielding fraction，而不是仅用 DW collapse 或 zero resistance 作因果代理。",
+  "findings": "Round 2 后，interlayer coherence 作为 RP nickelates 的组织参数已经被 arXiv:2605.18524 先发；bilayer 中 coherent dz2-pz-dz2 hybridization enabling superconductivity 已被 arXiv:2604.14701 先发。LP28 可保留的突破点应收窄为 La4Ni3O10/Pr4Ni3O10 trilayer 中 static DW 是否通过 dz2 layer decoupling 抑制 bulk phase quorum，以及压力、应变或泵浦是否能在不破坏 pairing fluctuations 的条件下恢复该 quorum。现有证据支持该方向可工程化，但尚未闭合因果链：ambient-pressure optical/transport 已显示 DW 强烈压低 c-axis low-frequency conductivity 并使 rho_c/rho_ab 激增；pressure ultrafast/transport/magnetization 已显示 DW collapse 与 SC-like response，但缺少同一样品同压力下的 rho_c/rho_ab 或 c-axis Drude weight 直接随 pressure 恢复的数据。因此本轮结论是“保留为材料设计判据，不能升格为已证明机制”。",
+  "weakest_link": "最弱环节是 pressure-dependent interlayer-coherence observable 缺失：目前压力主要通过 Tc、zero resistance、DW collapse、ultrafast relaxation 或 susceptibility 间接连接到 superconductivity，尚未把 c-axis spectral weight/rho_c-rho_ab 的恢复与 bulk shielding/Meissner fraction 在同一压力轴上闭合。",
+  "next_plan": "优先寻找或设计同一样品压力序列：rho_c/rho_ab(P,T) 或 sigma_c(omega->0,P,T) 与 shielding fraction(P,T) 同步；其次用 strain/oxygen-stoichiometry series 分离 carrier density、structural distortion 与 dz2 interlayer coherence。",
+  "literature_needed": "La4Ni3O10 pressure c-axis transport; La4Ni3O10 high-pressure infrared c-axis Drude; Pr4Ni3O10 pressure shielding fraction; RP nickelate oxygen stoichiometry dz2 pz hybridization strain; nickelate ultrafast magneto-pressure vortex quasiparticle dynamics",
+  "prior_art_boundary": [
+    {
+      "paper": "arXiv:2605.18524",
+      "title": "Interlayer electronic coherence links magnetism and superconductivity in Ruddlesden-Popper nickelates",
+      "status": "全文核查完成",
+      "boundary": "已提出 crystallographic-axis-resolved transport 中 rho_perp/rho_parallel 的本征强各向异性、rho_perp coherent-to-incoherent crossover，并把低温各向异性与压力下最大 Tc 反相关；因此 LP28 不能声称 interlayer coherence 作为组织参数是首创。",
+      "usable_data": "La4Ni3O10 low-T gamma_rho ~ 1.8e4, Pr4Ni3O10 ~ 1.8e3, La3Ni2O7 ~ 1.7e2；rho_perp 对 DW/磁转变强响应，rho_parallel 响应弱；Fig. 4c 给出 ambient anisotropy vs pressure maximum Tc 的经验反相关。",
+      "gap_left_for_LP28": "该文主要是 ambient-pressure anisotropy 与 pressure Tc 的跨材料相关性，不是同一样品 pressure-dependent c-axis coherence 与 bulk SC volume 的因果排序。"
+    },
+    {
+      "paper": "arXiv:2604.14701",
+      "title": "Interlayer hybridization enables superconductivity in bilayer nickelates",
+      "status": "全文核查完成",
+      "boundary": "已提出 bilayer (La,Pr)3Ni2O7 薄膜中 superconductivity only when coherent dz2-pz-dz2 interlayer hybridization develops，同时 static SDW 被压制；oxygen stoichiometry 与 epitaxial strain 共同调控 interlayer channel。",
+      "usable_data": "SC samples Tc,onset ~ 30 K, Tc,zero 可到 ~10 K；O K-edge out-of-plane XAS、Ni L-edge/RIXS 显示 dz2/pz out-of-plane reconstruction、SDW suppression、spin excitation damping。",
+      "gap_left_for_LP28": "这是 bilayer thin-film 的 spectroscopic phase diagram；LP28 的 trilayer La4Ni3O10 问题必须落在 inner/outer layer dz2 redistribution 和 pressure-induced layer re-coupling 的可观测顺序。"
+    }
+  ],
+  "data_matrix": [
+    {
+      "observable": "rho_c/rho_ab or rho_perp/rho_parallel",
+      "evidence_found": "arXiv:2605.18524 六端几何给出 RP nickelates 本征各向异性；La4Ni3O10 低温 gamma_rho 最高，且 DW/磁转变主要显现在 rho_perp。arXiv:2601.08997/PRL 136, 216501 光学外推给出 La4Ni3O10 中 rho_c*/rho_ab 从室温约 70 到 4 K 约 2600，并在 DW transition 附近急剧增强。",
+      "pressure_or_tuning_status": "未找到 La4Ni3O10 同一样品 pressure-dependent rho_c/rho_ab；这是关键数据缺口。",
+      "interpretation": "强支持 DW-induced layer decoupling；对 pressure-SC 因果链仍为间接支持。"
+    },
+    {
+      "observable": "c-axis Drude weight / kinetic-energy renormalization",
+      "evidence_found": "arXiv:2601.08997 对 La4Ni3O10 E||c* 低频光学用 Drude+epsilon_inf 拟合；160 K 上方 K_exp^c*/K_DFT^c* = 0.032，远低于 K_exp^ab/K_DFT^ab = 0.237，且 DW 下 c-axis low-energy response 被进一步压低。",
+      "pressure_or_tuning_status": "未找到 high-pressure c-axis infrared Drude weight 数据。",
+      "interpretation": "这是目前最接近 dz2-mediated interlayer quorum 的光谱代理，但仍限于 ambient pressure。"
+    },
+    {
+      "observable": "low-frequency sigma_c",
+      "evidence_found": "arXiv:2601.08997 显示 La4Ni3O10 在 E||c* 方向近绝缘，DW 相中 out-of-plane conductivity sharply suppressed；Zenodo dataset 10.5281/zenodo.20089847/20089846 提供 E||ab 与 E||c* 的 reflectivity、sigma1、sigma2 数据。",
+      "pressure_or_tuning_status": "压力下 sigma_c 未找到；可用 existing dataset 做 ambient 重分析，建立 sigma_c low-frequency spectral weight 与 DW order 的基线。",
+      "interpretation": "可作为工程变量的直接读数：若 pressure/strain/pump 恢复 sigma_c spectral weight 且同时提升 bulk shielding，quorum 判据成立概率显著上升。"
+    },
+    {
+      "observable": "Meissner/shielding fraction",
+      "evidence_found": "Nature 2024 La4Ni3O10 pressure SC、PRX 2025 La4Ni3O10 pressure SC、PRX 2025 Pr4Ni3O10 bulk SC、PRB 2025 Pr4Ni3O10 low fractional volume、arXiv:2604.16611 magneto-pressure ultrafast 均表明 bulk nature/volume fraction 是核心争议。arXiv:2604.16611 指出 full shielding rarely reported except helium medium cases，并在 Pr4Ni3O10 中因 7 T 下缺少 vortex-related ultrafast signatures 而判定 present conditions 下 SC likely non-bulk/filamentary/inhomogeneous。",
+      "pressure_or_tuning_status": "已有压力磁化/超快迹象，但与 c-axis coherence 未同步。",
+      "interpretation": "shielding fraction 必须作为 phase quorum 的外部验证，而不能只用 zero resistance 或 pump-probe slowing down。"
+    }
+  ],
+  "alternative_explanations": [
+    {
+      "name": "压力直接改变带宽或载流子密度",
+      "status": "保留，不能排除",
+      "reason": "压力可同时提高 bandwidth、改变 EF 附近轨道占据、压缩 Ni-O-Ni bond geometry，并可能改变 carrier density；现有 pressure-SC 数据不能单独证明层间相干是主因。",
+      "discriminator": "若 rho_c/rho_ab 或 sigma_c(omega->0) 的恢复先于或同步于 shielding fraction 增长，且 in-plane Drude/carrier proxy 变化较小，则支持 quorum；若 Tc 随 in-plane spectral weight/carrier proxy 变化而非 sigma_c 变化，则否定。"
+    },
+    {
+      "name": "结构畸变或压力诱导相变直接导致 SC",
+      "status": "保留",
+      "reason": "Pr4Ni3O10 在高压有 monoclinic-to-tetragonal 等结构信息；bilayer 文献也强调 strain/bond angle。结构变化可以是原因，也可以只是恢复 dz2-pz-dz2 channel 的手段。",
+      "discriminator": "比较 hydrostatic helium vs less hydrostatic media；同步 Raman/XRD 与 sigma_c。如果结构转变区域内 sigma_c 未恢复或 shielding 不增长，则结构不是充分条件。"
+    },
+    {
+      "name": "disorder/oxygen stoichiometry",
+      "status": "保留且很重要",
+      "reason": "arXiv:2604.14701 显示 oxygen vacancies/interstitials 同时影响 hole density、dz2-pz hybridization 和 correlation strength；这会伪装成 interlayer coherence 或 carrier-density 效应。",
+      "discriminator": "用 EELS/XAS/annealing 或 isotope/oxygen control 固定 stoichiometry；寻找相同 carrier density 下 sigma_c 与 shielding 的变化。"
+    },
+    {
+      "name": "散射各向异性而非 hopping/coherence 各向异性",
+      "status": "部分排除，仍需压力数据",
+      "reason": "arXiv:2605.18524 指出 rho_perp 非单调和 coherent-to-incoherent crossover，且 rho_perp 对 DW/磁序选择性敏感；arXiv:2601.08997 的 c-axis Drude/kinetic-energy renormalization 更偏向 interlayer channel 被重整而非单纯 scattering。但压力下尚未有同类区分。",
+      "discriminator": "同时拟合 Drude weight plasma frequency 与 scattering rate：quorum 变量应主要表现为 c-axis plasma frequency/spectral weight 恢复，而不只是 1/tau_c 改善。"
+    },
+    {
+      "name": "结构畴/电流重分布导致 rho_c/rho_ab 假象",
+      "status": "ambient 部分排除，pressure 未排除",
+      "reason": "arXiv:2605.18524 六端几何专门校正 highly anisotropic current redistribution；arXiv:2601.08997 的 absolute rho_c/rho_ab 仍提示 conventional geometry 有混合风险。",
+      "discriminator": "pressure DAC 中需要 microfabricated six-terminal/Corbino-like geometry 或 optical sigma_c，避免四探针混流。"
+    },
+    {
+      "name": "共同第三变量：DW collapse、interlayer coherence、SC 同时由 pressure 驱动",
+      "status": "保留，是当前最大因果风险",
+      "reason": "现有 pressure evidence 多为同一 pressure axis 上 DW collapse 与 SC emergence，但没有证明 c-axis coherence 是中介变量。",
+      "discriminator": "用非压力调控打断共同变量：uniaxial c-axis strain、epitaxial strain、oxygen compensation、mid-IR/THz pump selective to apical-O/dz2 phonon。如果在不等价改变 bandwidth/carrier density 的情况下恢复 sigma_c 并增强 shielding，才支持工程变量。"
+    }
+  ],
+  "materials_design_criterion": {
+    "name": "Interlayer Phase Quorum Criterion",
+    "decision_rule": "保留 dz2-mediated interlayer phase quorum 作为可工程化变量，当且仅当在同一材料序列或同一样品压力/应变/泵浦路径中满足：Delta W_c^Drude 或 Delta sigma_c(omega->0) 显著为正，rho_c/rho_ab 显著下降，并且 bulk shielding/Meissner fraction 同步或随后增长；同时 in-plane carrier-density proxy、structural distortion proxy 与 disorder proxy 不能单独解释该增长。",
+    "minimal_quantitative_form": "Q = (W_c_Drude / W_ab_Drude) * f_shield / (1 + A_DW_static)",
+    "variables": {
+      "W_c_Drude": "c-axis low-frequency Drude spectral weight or plasma_frequency_c**2",
+      "W_ab_Drude": "in-plane Drude spectral weight or plasma_frequency_ab**2",
+      "f_shield": "Meissner or shielding volume fraction normalized to 1",
+      "A_DW_static": "static DW order proxy from diffraction/RIXS/ultrafast critical slowing; normalized to ambient low-T value"
+    },
+    "engineering_target": "材料设计不应只追求消灭 DW，而应寻找 static DW 已弱化、spin/pairing fluctuations 尚存、W_c_Drude 已恢复且 f_shield 增长的窗口。候选调控包括 hydrostatic pressure, uniaxial c-axis strain, epitaxial strain that straightens apical Ni-O-Ni, oxygen-stoichiometry compensation, and selective pump of apical-O/dz2-coupled phonons.",
+    "falsification": "若 pressure/strain/pump 下 Tc 或 shielding 增长而 W_c_Drude/sigma_c 不恢复，或 W_c_Drude 恢复但 shielding fraction 仍低且无 vortex/Meissner response，则 dz2 quorum 不是充分工程变量，只能作为伴随诊断。"
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "LP28 的首创空间不在 interlayer coherence itself，而在 trilayer La4Ni3O10/Pr4Ni3O10 中 DW-induced dz2 layer decoupling 与 pressure/strain/pump-induced bulk phase quorum recovery 的因果排序判据。",
+      "confidence": 0.88,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        {
+          "id": "arXiv:2605.18524",
+          "label": "Liu et al. 2026",
+          "url": "https://arxiv.org/abs/2605.18524"
+        },
+        {
+          "id": "arXiv:2604.14701",
+          "label": "Zhang et al. 2026",
+          "url": "https://arxiv.org/abs/2604.14701"
+        },
+        {
+          "doi": "10.1103/qgl1-zh9f",
+          "label": "Guan et al. PRL 2026"
+        }
+      ],
+      "assumptions": [
+        "rho_c/rho_ab and sigma_c low-frequency spectral weight can serve as experimentally meaningful proxies for interlayer phase coherence when current-geometry artifacts are controlled.",
+        "Bulk shielding/Meissner fraction is a stricter phase-quorum output than zero resistance."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "Ambient La4Ni3O10 已显示 static DW 强烈压低 c-axis charge dynamics：rho_c*/rho_ab 从约 70 到约 2600，c-axis kinetic-energy renormalization 远强于 ab-plane，因此 dz2 layer-decoupling 是真实物理变量而非单纯叙事。",
+      "confidence": 0.82,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "gamma_rho = rho_c / rho_ab",
+          "variables": {
+            "rho_c": "out-of-plane resistivity",
+            "rho_ab": "in-plane resistivity"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "rho_c",
+              "to": "0",
+              "expected": "0",
+              "desc": "perfect c-axis metallicity reduces anisotropy"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "gamma_rho_room_T": 70,
+              "gamma_rho_4K": 2600
+            },
+            "expected_range": [
+              30,
+              50000
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "id": "arXiv:2601.08997",
+          "label": "Guan et al. 2026",
+          "url": "https://arxiv.org/abs/2601.08997"
+        },
+        {
+          "doi": "10.5281/zenodo.20089847",
+          "label": "Guan et al. optical dataset"
+        }
+      ],
+      "assumptions": [
+        "Optical Drude extrapolation captures the low-frequency c-axis channel relevant to phase coupling.",
+        "The main DW anomaly is electronic rather than a large structural-symmetry change."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "现有压力/泵浦数据支持 DW collapse 与 SC-like response 的相邻性，但不足以证明 interlayer coherence 是中介变量；必须把 pressure-dependent sigma_c/rho_c 和 shielding fraction 放到同一判据中。",
+      "confidence": 0.9,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "Q = (W_c_Drude / W_ab_Drude) * f_shield / (1 + A_DW_static)",
+          "variables": {
+            "W_c_Drude": "c-axis Drude spectral weight",
+            "W_ab_Drude": "in-plane Drude spectral weight",
+            "f_shield": "bulk shielding fraction",
+            "A_DW_static": "normalized static density-wave amplitude"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "A_DW_static",
+              "to": "0",
+              "expected": "(W_c_Drude/W_ab_Drude)*f_shield",
+              "desc": "static DW removed"
+            },
+            {
+              "variable": "f_shield",
+              "to": "0",
+              "expected": "0",
+              "desc": "no bulk phase quorum even if c-axis transport improves"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "W_c_Drude": 0.05,
+              "W_ab_Drude": 1.0,
+              "f_shield": 0.5,
+              "A_DW_static": 0.2
+            },
+            "expected_range": [
+              0.01,
+              0.1
+            ]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41467-025-62294-9",
+          "label": "Xu et al. Nat Commun 2025"
+        },
+        {
+          "id": "arXiv:2604.16611",
+          "label": "Chong et al. 2026",
+          "url": "https://arxiv.org/abs/2604.16611"
+        },
+        {
+          "doi": "10.1038/s41586-024-07553-3",
+          "label": "Zhu et al. Nature 2024"
+        },
+        {
+          "doi": "10.1103/PhysRevX.15.021005",
+          "label": "Zhang et al. PRX 2025"
+        }
+      ],
+      "assumptions": [
+        "Shielding fraction is experimentally comparable across pressure media after demagnetization correction.",
+        "A_DW_static can be normalized across diffraction/RIXS/ultrafast proxies only after calibration."
+      ]
+    }
+  ],
+  "round2_answer": {
+    "is_dz2_mediated_interlayer_phase_quorum_engineerable": "保留，且值得作为 LP28 的技术杠杆推进；但当前只能称为可检验设计变量，不能称为已证机制。",
+    "why": "先发文献已经把 interlayer coherence 与 dz2-pz-dz2 hybridization 抬到中心位置；LP28 的增量是把 trilayer DW-induced dz2 layer decoupling 转化为一个跨 pressure/strain/pump 的工程判据，并要求它通过 bulk shielding/Meissner fraction 外部验证。",
+    "what_would_upgrade_to_strong": "同一样品中 pressure 或 uniaxial strain 使 sigma_c(omega->0) 或 W_c_Drude 在 DW collapse 前后显著恢复，rho_c/rho_ab 降低，同时 shielding fraction 增长并出现磁场/vortex-sensitive response。",
+    "what_would_kill": "SC 或 shielding 随 pressure 增长但 c-axis Drude/sigma_c 无恢复；或 c-axis coherence 恢复而 shielding 仍为低体积分数/filamentary；或 carrier density/structural transition/disorder proxy 单独解释全部趋势。"
+  },
+  "search_tool_self_check": {
+    "group_1_core_prior_art": "paper-search-mcp first: search_arxiv by id returned empty; read_arxiv_paper succeeded for 2605.18524 and 2604.14701; search_papers by exact title confirmed OpenAlex/arXiv metadata for 2605.18524.",
+    "group_2_framework_blind_spot": "paper-search-mcp used for interlayer coherence, dz2-pz-dz2 hybridization, La4Ni3O10 layer decoupling, and pressure superconductivity searches.",
+    "group_3_counterexamples": "paper-search-mcp/read_arxiv found arXiv:2604.16611 as a pressure ultrafast counterweight: SC-like relaxation in Pr4Ni3O10 lacks magnetic-field/vortex signatures and may be non-bulk.",
+    "group_4_data_availability": "paper-search-mcp found PRL/arXiv 2601.08997 optical sigma_c data, Zenodo optical dataset, Nat Commun 2025 pressure ultrafast, Nature/PRX pressure SC papers; no pressure-dependent c-axis Drude or rho_c/rho_ab dataset found."
+  }
+}

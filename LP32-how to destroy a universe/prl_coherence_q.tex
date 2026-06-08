@@ -1,0 +1,175 @@
+\documentclass[aps,prl,twocolumn,superscriptaddress,hyperref]{revtex4-2}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+
+\title{Quantum Coherence as a Function of Pointer-Basis Population:\\
+A Falsifiable Prediction}
+
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+
+\begin{abstract}
+Standard quantum mechanics predicts that a qubit's decoherence rate is independent of its pointer-basis population $q = \langle 0|\rho|0\rangle$---the probability that a projective measurement in the pointer basis yields $|0\rangle$. We show that if physical systems are composed of a finite number of discrete elements each storing at most 1 bit, the decoherence rate acquires an intrinsic contribution from elements already in the determined state $|1\rangle$: $\gamma(q) = \gamma_{\rm env} + \gamma_0(1-q)$, where $\gamma_0$ parameterizes the information-processing rate of the underlying substrate. The prediction is qualitative and parameter-free in its $q$-dependence: the decoherence rate must decrease linearly as $q$ increases, regardless of the numerical value of $\gamma_0$. We propose a protocol using $N=5$ superconducting transmon qubits on existing IBM Q hardware---one probe, four auxiliary---that varies $q$ independently of the environmental coupling by initializing the auxiliary qubits in different pointer-basis states. The experiment requires under one hour of wall time. A measurement of $\partial\gamma/\partial q < 0$ at $>3\sigma$ would constitute evidence for an information-theoretic limit on quantum coherence; a null result would constrain $\gamma_0$.
+\end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In standard quantum mechanics, the decoherence rate $\gamma$ of a qubit is determined by its coupling to unobserved environmental degrees of freedom~\cite{Zurek:2003,Schlosshauer:2007}. A perfectly isolated qubit retains coherence indefinitely---$\gamma$ depends on the environment, not on the qubit's own state.
+
+This Letter asks a question that standard quantum mechanics does not pose: \textbf{does a qubit's decoherence rate depend on its own pointer-basis population $q = \langle 0|\rho|0\rangle$?} Here $q$ is the probability that a measurement in the pointer basis finds the qubit in $|0\rangle$. For a qubit in the superposition $|+\rangle = (|0\rangle+|1\rangle)/\sqrt{2}$, $q=1/2$. For a qubit in $|0\rangle$, $q=1$. For a qubit in $|1\rangle$, $q=0$.
+
+The question is motivated by a specific hypothesis: physical systems are composed of a finite number of discrete elements, each storing at most 1 bit, with the pointer basis $\{|0\rangle,|1\rangle\}$ corresponding to whether an element is undetermined ($|0\rangle$) or determined ($|1\rangle$) by a prior causal event. An element in $|1\rangle$ has exhausted its 1-bit capacity and cannot participate in the cyclic propagation of phase information that maintains quantum coherence. The fraction $(1-q)$ of blocked channels produces an effective intrinsic dephasing rate $\gamma_0(1-q)$.
+
+Regardless of whether this specific hypothesis is correct, the empirical question is well-posed and testable: does $\gamma$ depend on $q$? Standard quantum mechanics predicts no dependence. Any statistically significant dependence would indicate new physics.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consider a qubit whose pointer basis is $\{|0\rangle,|1\rangle\}$, einselected by the dominant system-environment coupling~\cite{Zurek:2003}. Let $q(t) = \langle 0|\rho(t)|0\rangle$ be the instantaneous pointer-basis population. In standard QM, the dephasing rate $\gamma = \gamma_{\rm env}$ is independent of $q$.
+
+If, however, each physical element can store at most 1 bit and the pointer basis labels whether that bit has been determined, the dephasing dynamics acquire an additional $q$-dependent channel. The simplest dynamics consistent with complete positivity, the pointer-basis diagonality of the interaction, and the requirement that $\gamma \to \gamma_{\rm env}$ as all elements become undetermined ($q \to 1$) is:
+\begin{equation}
+\frac{d\rho}{dt} = -i[H,\rho] + [\gamma_{\rm env} + \gamma_0(1-q)]\,\mathcal{D}[\sigma_z](\rho),
+\label{eq:lindblad}
+\end{equation}
+where $\mathcal{D}[L](\rho) = L\rho L^\dagger - \frac{1}{2}\{L^\dagger L, \rho\}$ and $\sigma_z = |0\rangle\langle 0| - |1\rangle\langle 1|$.
+
+For Ramsey interferometry, the off-diagonal element decays as:
+\begin{equation}
+\rho_{01}(t) = \rho_{01}(0)\,e^{-i\omega t}\,e^{-\gamma(q)t},
+\qquad \boxed{\gamma(q) = \gamma_{\rm env} + \gamma_0(1-q)}.
+\label{eq:contrast}
+\end{equation}
+
+\textbf{Key prediction:} $\gamma(q)$ decreases linearly with $q$. The slope is $-\gamma_0$. The intercept at $q=1$ is $\gamma_{\rm env}$. Standard QM predicts zero slope. This qualitative difference does not depend on the numerical value of $\gamma_0$.
+
+\subsection{Microscopic motivation}
+
+The Lindblad form in Eq.~\eqref{eq:lindblad} can be derived from a discrete-time model in which the system evolves via a permutation $\sigma$ on the joint state space of $N$ binary elements. At each time step of duration $\tau$, the permutation $\sigma$ cyclically propagates phase information among the $N$ elements. An element in state $|1\rangle$ is blocked---its 1-bit capacity is exhausted and it cannot accept new phase information. The fraction $(1-q)$ of blocked elements reduces the effective cycle length, producing a dephasing rate $\gamma_0(1-q)$ with $\gamma_0 = 1/\tau$ (see Supplemental Material~\cite{SM} for the full derivation). The $\sigma_z$ channel is the unique pointer-basis-diagonal dissipator that preserves population $q$ while maximizing the dephasing rate per blocked element.
+
+The model does not fix the element-to-qubit mapping. The parameter $\gamma_0$ is treated as a free parameter to be constrained---or discovered---by experiment. The qualitative prediction $\partial\gamma/\partial q < 0$ is independent of the mapping.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimental Protocol}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Controlling $q$ with auxiliary qubits}
+
+We control $q$ using $k$ auxiliary qubits initialized in different pointer-basis states. The system consists of one probe qubit $S$ and $k$ auxiliary qubits $\{A_1,\ldots,A_k\}$. The probe is always initialized in $|+\rangle$, giving it $q_S = 1/2$. The effective $q$ of the full system is:
+\begin{equation}
+q_{\rm eff} = \frac{1}{1+k}\left(q_S + \sum_{i=1}^{k} q_{A_i}\right),
+\label{eq:qeff}
+\end{equation}
+where $q_{A_i} = \langle 0|\rho_{A_i}|0\rangle$ is each auxiliary's pointer-basis population. Equation~\eqref{eq:qeff} holds for the reduced states: after nearest-neighbor CNOT gates entangle the probe with each auxiliary, the reduced density matrix of each qubit remains well-defined and its pointer-basis population is preserved (CNOT is diagonal in the pointer basis for the control qubit). The full derivation is given in the SM.
+
+By biasing the auxiliary initialization, $q_{\rm eff}$ can be swept across $[0.20, 1.00]$ for $k=4$ (see SM Table~I).
+
+\subsection{Platform and circuit}
+
+\textbf{Platform:} Superconducting transmon qubits, IBM Q (any backend with $\geq 5$ qubits, $T_2^* \gtrsim 10\,\mu{\rm s}$). The experiment uses standard single-qubit rotations, CNOT gates, and $\sigma_z$-basis readout---no custom hardware.
+
+\textbf{Gate sequence} (per $q_{\rm eff}$, per Ramsey delay $\tau$):
+\begin{enumerate}
+    \item Probe: $R_y(\pi/2)$ (prepares $|+\rangle$).
+    \item Auxiliary $A_i$: $R_y(2\arccos\sqrt{q_{A_i}})|0\rangle$ (sets pointer-basis population).
+    \item CNOT$_{S \to A_i}$ for each auxiliary (establishes pointer-basis correlation).
+    \item Delay $\tau$ (free evolution).
+    \item CNOT$_{S \to A_i}$ (reverses correlation).
+    \item Probe: $R_y(-\pi/2)$, then $\sigma_z$ measurement. $N_{\rm shots}=2000$.
+\end{enumerate}
+
+The CNOT pair surrounding the delay implements a Hahn echo on the probe with respect to auxiliary-induced $ZZ$ shifts. For the probe alone, this is equivalent to a spin echo with the $\pi$-pulse replaced by the entangled auxiliary register.
+
+\subsection{Confounding variables and calibration}
+
+Three known confounds are calibrated independently (see SM):
+
+\begin{enumerate}
+    \item \textbf{Crosstalk:} The crosstalk matrix $M_{ij} = \partial\Phi_i/\partial n_j$ is measured via Ramsey spectroscopy at varied auxiliary bias. The extracted $\gamma(q)$ is corrected for flux crosstalk using the independently measured $T_2^*(\Phi)$ curve.
+    \item \textbf{Quasiparticle poisoning:} Auxiliary-induced frequency shifts alter $\Gamma_{\rm qp}$. Calibrated via $T_1$ vs.\ wait-time measurement and subtracted.
+    \item \textbf{Dynamic $ZZ$ coupling:} The Hahn-echo structure (CNOT--delay--CNOT) refocuses static $ZZ$ shifts. Residual dynamic $ZZ$ from pulse transients is estimated from the independently calibrated $\zeta$ parameter.
+\end{enumerate}
+
+The total residual systematic uncertainty after correction is estimated at $\sigma_{\rm sys} \sim 5 \times 10^3\,{\rm s}^{-1}$ for current-generation IBM Q hardware with standard calibration. This estimate is conservative relative to published crosstalk and quasiparticle benchmarks~\cite{Krantz:2019}; the SM provides a full propagation model.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Predictions and Falsification}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The core prediction is a negative slope: $\partial\gamma/\partial q = -\gamma_0 < 0$. Standard QM predicts $\partial\gamma/\partial q = 0$.
+
+With $N_{\rm points}=5$ values of $q_{\rm eff}$ and $N_{\rm shots}=2000$ per Ramsey delay, the statistical uncertainty on the slope is $\sigma_{\rm slope} \approx 2.9 \times 10^3\,{\rm s}^{-1}$ (1$\sigma$). A slope of $-\gamma_0$ is detectable at $3\sigma$ when $\gamma_0 > 8.7 \times 10^3\,{\rm s}^{-1}$.
+
+\textbf{Outcome categories:}
+\begin{itemize}
+    \item $\partial\gamma/\partial q < 0$ at $>3\sigma$: Evidence for $q$-dependent decoherence. The measured slope gives $\gamma_0$.
+    \item $\partial\gamma/\partial q = 0$ (null result): Constrains $\gamma_0 < 8.7 \times 10^3\,{\rm s}^{-1}$ at 99.7\% CL. DGF mechanism excluded at this sensitivity.
+    \item Inconclusive (slope negative but $<3\sigma$): Requires sensitivity improvement (more qubits, longer $T_2^*$, lower crosstalk).
+\end{itemize}
+
+The prediction is falsifiable in Popper's sense: a null result eliminates the mechanism above the sensitivity threshold. The sensitivity threshold itself is improvable with better hardware.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Relation to prior work}
+
+Intrinsic decoherence has a three-decade history. Milburn~\cite{Milburn:1991} proposed a universal minimum dephasing rate from discrete time evolution; our mechanism differs in predicting a $q$-dependent rate that varies with state preparation---a signature absent from Milburn-type models. The Di\'osi-Penrose model~\cite{Diosi:1987,Penrose:1996} predicts mass-dependent decoherence from gravitational self-energy; our prediction is mass-independent and varies only with the pointer-basis population. Rahmaniar \& Ramzan~\cite{Rahmaniar:2026} derived an information-capacity bound on coherence time using the Bekenstein bound; our prediction is structurally different in its $q$-dependence and provides a concrete experimental protocol.
+
+\subsection{Interpretation}
+
+If confirmed, a negative slope $\partial\gamma/\partial q < 0$ would indicate that quantum coherence is constrained by an information-theoretic parameter internal to the system---the fraction of its constituent elements already in the determined state---rather than solely by external couplings. This would support Wheeler's ``it from bit'' program~\cite{Wheeler:1989} and the broader hypothesis that finite information capacity is a fundamental physical constraint, not merely a practical limit on measurement~\cite{Bekenstein:1981}.
+
+If excluded, the DGF mechanism is ruled out at the achieved sensitivity, and the hypothesis that $\gamma$ depends on $q$ via blocked phase-information channels is falsified.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We have proposed a specific, falsifiable test of whether quantum decoherence depends on the pointer-basis population $q = \langle 0|\rho|0\rangle$. The prediction $\partial\gamma/\partial q < 0$ distinguishes the hypothesis from standard quantum mechanics, requires no new hardware, and can be executed in under one hour on existing IBM Q processors. The experimental outcome will either constrain or discover an information-theoretic contribution to decoherence.
+
+\begin{thebibliography}{20}
+
+\bibitem{Zurek:2003}
+W.~H.~Zurek, Rev.\ Mod.\ Phys.\ \textbf{75}, 715 (2003).
+
+\bibitem{Schlosshauer:2007}
+M.~Schlosshauer, \emph{Decoherence and the Quantum-to-Classical Transition} (Springer, 2007).
+
+\bibitem{Milburn:1991}
+G.~J.~Milburn, Phys.\ Rev.\ A \textbf{44}, 5401 (1991).
+
+\bibitem{Diosi:1987}
+L.~Di\'osi, Phys.\ Lett.\ A \textbf{120}, 377 (1987).
+
+\bibitem{Penrose:1996}
+R.~Penrose, Gen.\ Rel.\ Grav.\ \textbf{28}, 581 (1996).
+
+\bibitem{Rahmaniar:2026}
+W.~Rahmaniar and B.~Ramzan, SSRN preprint 6854024 (2026).
+
+\bibitem{Wheeler:1989}
+J.~A.~Wheeler, \emph{Information, Physics, Quantum: The Search for Links}, Proc.\ 3rd Int.\ Symp.\ Found.\ Quantum Mech.\ (1989).
+
+\bibitem{Bekenstein:1981}
+J.~D.~Bekenstein, Phys.\ Rev.\ D \textbf{23}, 287 (1981).
+
+\bibitem{Krantz:2019}
+P.~Krantz et al., Appl.\ Phys.\ Rev.\ \textbf{6}, 021318 (2019).
+
+\bibitem{Breuer:2009}
+H.-P.~Breuer, E.-M.~Laine, and J.~Piilo, Phys.\ Rev.\ Lett.\ \textbf{103}, 210401 (2009).
+
+\bibitem{SM}
+See Supplemental Material for the permutation-model derivation of the dissipator, the full $q_{\rm eff}$ formula for entangled states, calibration protocols, sensitivity analysis, and the cell-to-qubit mapping argument.
+
+\end{thebibliography}
+
+\end{document}

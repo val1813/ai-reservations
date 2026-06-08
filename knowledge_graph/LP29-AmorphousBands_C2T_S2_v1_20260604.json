@@ -1,0 +1,69 @@
+{
+  "id": "LP29-AmorphousBands_C2T_S2_v1_20260604",
+  "project": "LP29-AmorphousBands",
+  "north_star": "LP29-C2T-S2 / context baseline vs reproduced Srivastava exact O_s baseline",
+  "date": "2026-06-04",
+  "contributor": {
+    "orcid": "anonymous",
+    "github": "anonymous",
+    "name": "anonymous"
+  },
+  "status": "bounded / baseline-admissibility / exact O_s reproduction blocked",
+  "claim": "Srivastava 2019 can be used as reported orbital-overlap/effective-mass context, but cannot currently be used as a reproduced exact O_s baseline for residual validation.",
+  "allowed_claims": [
+    "Srivastava 2019 may be cited as reported orbital-overlap/effective-mass context.",
+    "S2 defines a machine-reviewable witness burden for exact O_s baseline admission.",
+    "Current exact O_s reproduction is blocked under available evidence.",
+    "Future unblock requires a complete provenance package."
+  ],
+  "forbidden_claims": [
+    "exact Srivastava O_s has been reproduced",
+    "graph metrics beat orbital-overlap baseline",
+    "graph-vs-overlap residual regression has been run",
+    "material validation is allowed",
+    "exact O_s is impossible in principle"
+  ],
+  "required_exact_os_witnesses": [
+    "source row/page provenance",
+    "structure identity",
+    "coordinates or file hash",
+    "pair cutoff",
+    "generated pair list",
+    "N_pair provenance",
+    "raw overlap sum",
+    "normalization formula or code",
+    "same-structure mapping",
+    "executor trace"
+  ],
+  "artifacts": {
+    "pi_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_final.md",
+    "reviewer_n3": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_N3.md",
+    "reviewer_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_final.md",
+    "attempt_contract": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\S2_Srivastava_reproduction_attempt_contract.csv",
+    "executor_modes": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\S2_reproduction_executor_modes.csv",
+    "re_escalation": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reescalation_PI_C2T_S2.md",
+    "contradiction_deepening": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\contradiction_deepening_PI_C2T_S2.md",
+    "subpropositions": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\subpropositions_PI_C2T_S2.md"
+  },
+  "new_candidates": [
+    {
+      "id": "LP29-C2T-S2-R1",
+      "title": "O_s as provenance-conditioned observable / proof-carrying baseline contract",
+      "score": 1.95,
+      "status": "new candidate; pending AB validation"
+    },
+    {
+      "id": "LP29-C2T-S2-R2",
+      "title": "baseline-mode promotion calculus",
+      "score": 1.5,
+      "status": "subcandidate"
+    },
+    {
+      "id": "LP29-C2T-S2-R3",
+      "title": "same-structure identity as precondition for mechanism comparison",
+      "score": 1.5,
+      "status": "subcandidate"
+    }
+  ],
+  "next_step": "After S2 closeout, choose among tied 1.95 C2T candidates by executable unblock value; strongest continuity candidate is LP29-C2T-S2-R1."
+}

@@ -1,0 +1,145 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 2,
+  "agent": "B",
+  "polaris": "LP29-C2T-S2 / context baseline vs reproduced Srivastava exact O_s baseline",
+  "framework": {
+    "name": "failure-mode schema for proof-carrying O_s reproduction",
+    "discipline_source": "computer science: negative test oracles, proof-carrying execution, and supply-chain attestation",
+    "non_a_route": true,
+    "round2_shift": "Round 1 defined the certificate idea; Round 2 materializes the executor-facing failure modes that prevent reported context from being promoted to reproduced exact O_s.",
+    "scope_limit": "This is a payload admissibility result under C2T gates. It is not material validation and not a claim that Srivastava exact O_s is impossible to reproduce in principle."
+  },
+  "math_object": {
+    "object_name": "Srivastava exact O_s reproduction failure-mode lattice",
+    "definition": "A finite set of typed blockers over witness fields whose join determines whether a row claiming srivastava_reproduction is executable, context-only, or blocked.",
+    "gate_projection": {
+      "G5": "Formula/code, normalization, and same-structure mapping decide whether Srivastava-style OI reproduction is admissible.",
+      "G6": "The executor recomputes row_decision from payload fields and ignores manual labels.",
+      "G7": "Material validation remains false unless row_decision is PASS and unresolved blockers are cleared."
+    },
+    "minimal_replay_equation": "O_s = N(S, P, theta_norm)[ sum_{(i,j) in P(S, theta_pair)} omega(i,j; theta_formula) ]",
+    "failure_invariant": "Any missing identity, pair-rule, raw-sum, normalization, same-structure, or executor-trace witness changes the payload from reproduced exact O_s into context-only or BLOCK."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "finding": "The current payload does not reproduce Srivastava exact O_s because it lacks executor-grade witnesses for at least formula/code, normalization, same-structure mapping, raw overlap sum, pair selection, and replay trace.",
+      "blocked_gate": "G5 with downstream G6/G7 effects",
+      "status": "BLOCK_CURRENT_PAYLOAD_ONLY"
+    },
+    {
+      "id": "F2",
+      "finding": "The smallest useful Round 2 artifact is a failure-mode table, not another prose certificate: it makes every blocked jump explicit and machine-auditable.",
+      "artifact": "current/B/artifacts/S2_Os_reproduction_payload_failure_modes.csv",
+      "status": "implemented"
+    },
+    {
+      "id": "F3",
+      "finding": "Reported Srivastava context remains allowed as literature context, but it must not be used as a graph-vs-overlap residual baseline until a replayable O_s payload passes.",
+      "blocked_gate": "G5/G6/G7",
+      "status": "mode_separation_preserved"
+    }
+  ],
+  "strangest_prediction": {
+    "prediction": "The first successful exact O_s reproduction payload will look like a failed build log that has been repaired one blocker at a time: formula/code, raw sum, pair rule, normalization, same-structure identity, and executor trace will collapse into one replay chain.",
+    "observable": "Adding prose context or a reported OI_norm alone will not change G5 from BLOCK to PASS. Only machine-reviewable witnesses that bind the same source row and structure to the replayed raw sum and normalization should change the executor status.",
+    "falsifier": "If an executor can emit PASS for srivastava_reproduction while exact_overlap_formula_or_code_ref, normalization_rule_ref, or same_structure_mapping_ref is missing, then C2T_gate_predicates.csv and the payload schema are inconsistent."
+  },
+  "a_objection": {
+    "likely_objection": "A conservative route may say that reported OI_norm is enough for a contextual comparison and that a failure-mode schema overburdens the literature claim.",
+    "b_reply": "That is correct only for reported_context_only. The moment the row is used as an exact residual-validation baseline, the claim becomes executable reproduction, and the proof-carrying witnesses are the minimal anti-leakage contract."
+  },
+  "failed_jumps": [
+    {
+      "id": "J1",
+      "attempt": "Use a paper-level citation as source identity.",
+      "why_failed": "Paper-level identity cannot select one row, structure, snapshot, or denominator; it therefore blocks deterministic replay."
+    },
+    {
+      "id": "J2",
+      "attempt": "Treat OI_norm as a checksum.",
+      "why_failed": "A checksum is only useful when source, build rule, dependencies, and intermediate hashes are known. A reported normalized value lacks that chain."
+    },
+    {
+      "id": "J3",
+      "attempt": "Let same material or composition stand in for same structure.",
+      "why_failed": "Exact O_s is atomistic-structure and pair-rule dependent; material-name identity is insufficient under G1/G5."
+    },
+    {
+      "id": "J4",
+      "attempt": "Convert a blocked reproduction payload into a physical disagreement.",
+      "why_failed": "The blocker is epistemic and executor-level. It does not say Srivastava O_s is wrong or unreproducible in principle."
+    }
+  ],
+  "next_plan": {
+    "immediate": "Use the CSV failure-mode schema as the negative-control table for any Srivastava-style row claiming exact O_s reproduction.",
+    "executor_rule": "Emit BLOCK for srivastava_reproduction when any required G5 witness is missing; preserve reported_context_only as a non-reproduction status.",
+    "next_round_request": "If Round 3 continues, build a null witness payload instance that conforms to C2T_witness_payload_schema.json and deterministically maps these failure modes to G5/G6/G7 decisions."
+  },
+  "literature_needed": [
+    "Srivastava orbital overlap index exact formula supplementary information",
+    "Srivastava OI_norm raw overlap sum normalization pair cutoff structure file",
+    "amorphous semiconductor orbital overlap index code repository",
+    "Srivastava 2019 effective mass OI_norm source row SI table"
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "Under the current C2T witness schema and gate predicates, a row claiming Srivastava exact O_s reproduction must be blocked unless exact formula/code, normalization, and same-structure mapping are present as machine-reviewable witnesses.",
+      "confidence": 0.9,
+      "new_insight": true,
+      "equations": [
+        "G5 = PASS iff applies_to_row=false OR (exact_overlap_formula_or_code_ref != null AND normalization_rule_ref != null AND same_structure_mapping_ref != null AND witnesses machine_reviewable)"
+      ],
+      "references": [
+        "current/C2T/artifacts/C2T_witness_payload_schema.json",
+        "current/C2T/artifacts/C2T_gate_predicates.csv",
+        "synthesis/inspector_B_C2T_S2_round1.md",
+        "synthesis/PI_C2T_S2_round1.md"
+      ],
+      "assumptions": [
+        "The row is claiming srivastava_reproduction rather than reported_context_only.",
+        "Executor decisions are derived from payload fields, not manual labels."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "Raw overlap sum, pair-selection rule, denominator trace, and executor trace are not extra material-validation claims; they are sub-witnesses needed to make exact O_s replay meaningful.",
+      "confidence": 0.84,
+      "new_insight": true,
+      "equations": [
+        "O_s = N(S, P, theta_norm)[ sum_{(i,j) in P(S, theta_pair)} omega(i,j; theta_formula) ]"
+      ],
+      "references": [
+        "current/B/C2T_S2_round1.json",
+        "current/B/artifacts/S2_Os_reproduction_payload_failure_modes.csv"
+      ],
+      "assumptions": [
+        "Exact reproduction requires an auditable numerator, denominator or normalization, and identity binding.",
+        "Schema conformance is not material validation."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The correct Round 2 conclusion is: current payload not reproduced; this is not evidence that Srivastava exact O_s is unreproducible in principle.",
+      "confidence": 0.92,
+      "new_insight": false,
+      "equations": [],
+      "references": [
+        "synthesis/inspector_B_C2T_S2_round1.md",
+        "synthesis/PI_C2T_S2_round1.md"
+      ],
+      "assumptions": [
+        "Future public or reconstructed witnesses may supply missing formula/code, normalization, same-structure mapping, and replay trace."
+      ]
+    }
+  ],
+  "failure_modes_path": "current/B/artifacts/S2_Os_reproduction_payload_failure_modes.csv",
+  "resolved_previous_warnings": {
+    "no_principle_irreproducibility_claim": "Resolved. The JSON and CSV state BLOCK_CURRENT_PAYLOAD_ONLY and explicitly allow future witness recovery.",
+    "no_gate_as_external_literature_fact": "Resolved. The claims are framed as C2T executor admissibility under the provided schema and predicates.",
+    "instantiate_negative_control_table": "Resolved. The CSV provides row-level failure modes, blocked gates, required witnesses, insufficiency rationale, and executor status.",
+    "mode_separation": "Resolved. reported_context_only is separated from srivastava_reproduction; context cannot become residual baseline without G5 PASS."
+  }
+}

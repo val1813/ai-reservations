@@ -1,0 +1,186 @@
+{
+  "project": "LP29-AmorphousBands",
+  "task": "LP29-C2T-S2-R1-I1 / executable O_s baseline-admission validator",
+  "round": 2,
+  "agent": "A",
+  "role": "independent compatibility-rule resolver",
+  "framework": {
+    "round2_scope": "Resolve the A Round 1 warning about legacy PARTIAL_CONTEXT_ONLY semantics before implementation.",
+    "source_inputs_read": [
+      "current/A/C2T_S2_R1_I1_round1.json",
+      "current/A/artifacts/I1_validator_implementation_plan_round1.csv",
+      "synthesis/PI_C2T_S2_R1_I1_round1.md",
+      "synthesis/inspector_warnings_C2T_S2_R1_I1_round1.md",
+      "synthesis/inspector_A_C2T_S2_R1_I1_round1.md",
+      "synthesis/round1_checks_C2T_S2_R1_I1.md",
+      "current/A/artifacts/S2_R1_validator_payload_schema_round3.json",
+      "current/A/artifacts/S2_R1_A_expected_cases_round3.csv"
+    ],
+    "source_inputs_not_read": [
+      "current/B outputs",
+      "current/B artifacts"
+    ],
+    "status_model_after_resolution": {
+      "emitted_terminal_statuses": [
+        "BLOCK",
+        "CONDITIONAL_CONTEXT_PASS",
+        "CANDIDATE_EXACT_REPLAY",
+        "DIAGNOSED_MISMATCH",
+        "ADMITTED_EXACT"
+      ],
+      "deprecated_non_emitted_statuses": [
+        "PARTIAL_CONTEXT_ONLY"
+      ],
+      "required_deprecated_diagnostic": "DEPRECATED_PARTIAL_CONTEXT_ONLY",
+      "strict_rule": "A payload whose target_mode is legacy PARTIAL_CONTEXT_ONLY always returns terminal_status BLOCK with diagnostic DEPRECATED_PARTIAL_CONTEXT_ONLY. It does not auto-convert to CONDITIONAL_CONTEXT_PASS even if F01-F03 pass. The only way to obtain CONDITIONAL_CONTEXT_PASS is for the caller to submit target_mode reported_context and for F01-F03 to pass."
+    },
+    "decision_order_delta": [
+      "Parse payload and require payload_id, target_mode, and witness when available.",
+      "Before target-mode alias resolution, detect exact legacy target_mode PARTIAL_CONTEXT_ONLY.",
+      "For legacy PARTIAL_CONTEXT_ONLY, evaluate F01-F03 only for diagnostics, but do not use those passes to promote the terminal status.",
+      "Return BLOCK with DEPRECATED_PARTIAL_CONTEXT_ONLY and migration_required=true.",
+      "If the caller explicitly resubmits or rewrites target_mode to reported_context, evaluate the normal reported_context rule: F01-F03 pass gives CONDITIONAL_CONTEXT_PASS; otherwise BLOCK.",
+      "No emitted result may contain terminal_status PARTIAL_CONTEXT_ONLY."
+    ]
+  },
+  "warning_resolution": {
+    "inspector_warning": "Clarify legacy PARTIAL_CONTEXT_ONLY compatibility semantics before coding: choose automatic conversion to CONDITIONAL_CONTEXT_PASS when F01-F03 pass, or strict BLOCK unless target mode is explicitly converted to reported_context.",
+    "chosen_rule": "strict BLOCK unless the caller explicitly converts target_mode to reported_context.",
+    "round1_tension_removed": {
+      "old_conflicting_phrase": "Round 1 implementation_plan.I1.6 allowed legacy PARTIAL_CONTEXT_ONLY target requests to become CONDITIONAL_CONTEXT_PASS when F01-F03 pass.",
+      "replacement": "Legacy PARTIAL_CONTEXT_ONLY never emits CONDITIONAL_CONTEXT_PASS. It emits BLOCK with DEPRECATED_PARTIAL_CONTEXT_ONLY. F01-F03 success is only diagnostic evidence that a caller-side migration to reported_context would be eligible for CONDITIONAL_CONTEXT_PASS."
+    },
+    "why_strict": [
+      "It prevents a retired compatibility label from becoming a silent middle-pass target mode.",
+      "It preserves the schema distinction between target_mode and terminal_status.",
+      "It forces migration to be caller-visible rather than validator-inferred.",
+      "It keeps null, scalar-only, DOI-only, and legacy partial-context fixtures in the no-silent-upgrade family."
+    ],
+    "resolved_status": "A warning resolved for A-side contract design; no validator implementation is claimed."
+  },
+  "implementation_delta": [
+    {
+      "step_id": "I1.5_delta",
+      "file_target": "validation/validate.py",
+      "change": "Mode resolver must not treat PARTIAL_CONTEXT_ONLY as an alias for reported_context. It is a deprecated input sentinel handled before normal mode resolution.",
+      "expected_result": "Legacy target_mode cannot inherit reported_context success behavior."
+    },
+    {
+      "step_id": "I1.6_replacement",
+      "file_target": "validation/validate.py",
+      "change": "Replace Round 1 I1.6 with: if raw target_mode == PARTIAL_CONTEXT_ONLY, return BLOCK with DEPRECATED_PARTIAL_CONTEXT_ONLY, migration_required=true, and optional observed F01-F03 diagnostic state. Do not auto-promote.",
+      "expected_result": "The deprecated status is never emitted and cannot silently become CONDITIONAL_CONTEXT_PASS."
+    },
+    {
+      "step_id": "I1.10_delta",
+      "file_target": "tests/test_validate.py",
+      "change": "Add regression assertions that legacy PARTIAL_CONTEXT_ONLY with F01-F03 absent, partial, failed, or passed all returns BLOCK plus DEPRECATED_PARTIAL_CONTEXT_ONLY.",
+      "expected_result": "Strict compatibility behavior is locked before implementation."
+    },
+    {
+      "step_id": "I1.12_delta",
+      "file_target": "validation/README.md",
+      "change": "Document caller migration: change target_mode from PARTIAL_CONTEXT_ONLY to reported_context, then satisfy F01-F03. The validator will not perform this migration implicitly.",
+      "expected_result": "Downstream users cannot mistake deprecated compatibility handling for a pass path."
+    }
+  ],
+  "fixture_delta": {
+    "new_artifact": "current/A/artifacts/I1_partial_context_resolution_round2.csv",
+    "required_columns": [
+      "legacy_input",
+      "target_mode",
+      "F01_F03_state",
+      "expected_status",
+      "diagnostic",
+      "reason"
+    ],
+    "new_fixture_classes": [
+      {
+        "fixture_id": "LEGACY_PARTIAL_ABSENT_CONTEXT",
+        "target_mode": "PARTIAL_CONTEXT_ONLY",
+        "F01_F03_state": "all_absent",
+        "expected_status": "BLOCK",
+        "diagnostic": "DEPRECATED_PARTIAL_CONTEXT_ONLY"
+      },
+      {
+        "fixture_id": "LEGACY_PARTIAL_DOI_ONLY",
+        "target_mode": "PARTIAL_CONTEXT_ONLY",
+        "F01_F03_state": "F01_pass_F02_F03_absent",
+        "expected_status": "BLOCK",
+        "diagnostic": "DEPRECATED_PARTIAL_CONTEXT_ONLY"
+      },
+      {
+        "fixture_id": "LEGACY_PARTIAL_CONTEXT_COMPLETE",
+        "target_mode": "PARTIAL_CONTEXT_ONLY",
+        "F01_F03_state": "F01_F02_F03_pass",
+        "expected_status": "BLOCK",
+        "diagnostic": "DEPRECATED_PARTIAL_CONTEXT_ONLY"
+      },
+      {
+        "fixture_id": "CALLER_MIGRATED_REPORTED_CONTEXT_COMPLETE",
+        "target_mode": "reported_context",
+        "F01_F03_state": "F01_F02_F03_pass",
+        "expected_status": "CONDITIONAL_CONTEXT_PASS",
+        "diagnostic": "NONE"
+      }
+    ],
+    "negative_assertion": "No fixture may expect PARTIAL_CONTEXT_ONLY as terminal_status. No legacy PARTIAL_CONTEXT_ONLY target fixture may expect CONDITIONAL_CONTEXT_PASS."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "PARTIAL_CONTEXT_ONLY is a deprecated input compatibility label, not an emitted terminal status and not a target-mode alias.",
+      "confidence": 0.98,
+      "basis": "A Inspector warning required choosing one behavior; this round chooses strict BLOCK unless caller converts to reported_context."
+    },
+    {
+      "id": "C2",
+      "statement": "A legacy PARTIAL_CONTEXT_ONLY request with F01-F03 passing still returns BLOCK with DEPRECATED_PARTIAL_CONTEXT_ONLY.",
+      "confidence": 0.98,
+      "basis": "Strict rule chosen to prevent validator-inferred migration."
+    },
+    {
+      "id": "C3",
+      "statement": "CONDITIONAL_CONTEXT_PASS is reachable only through explicit target_mode reported_context and passing F01-F03 predicates.",
+      "confidence": 0.97,
+      "basis": "Schema target_modes.reported_context defines F01-F03 as required fields and success_status CONDITIONAL_CONTEXT_PASS."
+    },
+    {
+      "id": "C4",
+      "statement": "F01-F03 evaluation under a legacy target is diagnostic-only and may report migration eligibility, but it cannot change the terminal status.",
+      "confidence": 0.96,
+      "basis": "Round 2 strict compatibility decision."
+    },
+    {
+      "id": "C5",
+      "statement": "This round resolves a contract warning only; it does not implement or validate validation/validate.py.",
+      "confidence": 1.0,
+      "basis": "PI Round 1 instructed Round 2 to resolve scope before implementation."
+    }
+  ],
+  "deepening_1": {
+    "question": "What is the next-layer consequence of choosing strict legacy BLOCK?",
+    "answer": "Migration becomes an explicit caller action, so downstream synthesis cannot infer that a deprecated PARTIAL_CONTEXT_ONLY input was accepted as source-local context.",
+    "layer_2": "The validator output must carry enough diagnostics for a caller to know whether resubmission as reported_context is likely to pass, but the terminal status remains BLOCK until that resubmission occurs.",
+    "implementation_consequence": "Output shape should separate terminal_status from compatibility_diagnostics, for example terminal_status=BLOCK, diagnostics=[DEPRECATED_PARTIAL_CONTEXT_ONLY], legacy_F01_F03_state=F01_F02_F03_pass, migration_hint=target_mode_reported_context_required."
+  },
+  "deepening_2": {
+    "question": "Which premise in this strict rule is most likely to be wrong?",
+    "answer": "A downstream consumer may have historical data where PARTIAL_CONTEXT_ONLY was used as a synonym for reported_context, so strict BLOCK could create migration work.",
+    "layer_2": "That compatibility cost is preferable to silent semantic promotion because the validator is an admission gate. A deprecated label cannot safely express both old partial context and new reported_context success semantics.",
+    "mitigation": "Provide a pre-validator migration helper or documentation outside the validator core, but keep validate_payload itself strict and non-promoting."
+  },
+  "forbidden_claims": [
+    "validator already implemented",
+    "validator tests passed",
+    "PARTIAL_CONTEXT_ONLY is an emitted terminal status",
+    "PARTIAL_CONTEXT_ONLY is an alias for reported_context",
+    "legacy PARTIAL_CONTEXT_ONLY automatically becomes CONDITIONAL_CONTEXT_PASS when F01-F03 pass",
+    "CONDITIONAL_CONTEXT_PASS is exact O_s admission",
+    "exact Srivastava O_s reproduced",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "exact O_s impossible in principle"
+  ]
+}

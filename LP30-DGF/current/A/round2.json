@@ -1,0 +1,80 @@
+{
+  "project": "LP30-DGF",
+  "round": 2,
+  "agent": "A",
+  "polaris": "DGF-N4: q is an independent interference coordinate, not inferred from m; m>2*m_p/pi can only appear as statistical constrained-model mismatch.",
+  "framework": "standard interferometric measurement theory plus classical Fisher information from fringe or phase-space visibility",
+  "paper_search_mcp_summary": [
+    {
+      "query": "Fisher information visibility matter wave interferometry macroscopic superposition",
+      "hits": ["Haine 2016 PRL DOI 10.1103/PhysRevLett.116.230404", "Nimmrichter 2014 Macroscopic Matter Wave Interferometry DOI 10.1007/978-3-319-07097-1"]
+    },
+    {
+      "query": "16 microgram Schrodinger cat decoherence data Fadel 2023",
+      "hits": ["Bild/Fadel/Yang/von Lupke/Martin/Bruno/Chu Science DOI 10.1126/science.adf7553; arXiv 2211.00449"]
+    },
+    {
+      "query": "quantum parameter estimation visibility Fisher information interferometry",
+      "hits": ["Ataman 2020 PRA DOI 10.1103/PhysRevA.102.013704", "Hu/Lu 2025 JPhysA DOI 10.1088/1572-9494/adcf08"]
+    }
+  ],
+  "findings": "Define q_hat from an interference readout channel, not mass inversion. Candidate readouts: normalized visibility, Wigner negativity/parity oscillation amplitude, or coherent peak area. Mass is only a sample label/covariate. For m_obs>m_star, do not observe imaginary q; test whether the constrained DGF mass-q model fails against environmental/null likelihood.",
+  "q_independent_readout": {
+    "definition": "Scan controlled phase phi or cat phase theta; fit P(y|phi)=P0(y)*(1+V*cos(phi+phi0))/N; define q_hat=(2/pi)*asin(clip(V/V_ref,0,1)), or replace V with Wigner interference amplitude A_int. V_ref is a same-device calibrated maximum/short-time reference, not computed from m.",
+    "required_columns": ["run_id", "mass_label", "time_t", "phase_phi_or_cat_phase_theta", "outcome_y_or_quadrature_XP", "visibility_V_or_A_int", "visibility_error", "environment_T_pressure_Q", "calibration_V_ref"]
+  },
+  "nonreal_qinv_to_observable": {
+    "minimal_model": "Compare M0: V(t)=V_env(t) with M1_DGF: V(t)=V_env(t)*exp(-Gamma_q(q_hat,t)*t), constrained by m_obs=(2*m_p/pi)*sin(pi*q/2), q in [0,1]. For m_obs>m_star, M1_DGF cannot map mass to real q; treat as constrained-model failure, not direct observable.",
+    "test_statistics": ["residual_R=(V_obs-V_DGF_best)/sigma_V", "Delta_chi2=chi2_DGF_constrained-chi2_env", "LLR=2*(logL_env-logL_DGF_constrained)", "Bayes_factor=Z_env/Z_DGF_constrained"]
+  },
+  "experiment_path": "Primary: reanalyze Bild et al./Fadel 16 microgram mechanical cat platform. Extract cat size, phase, decoherence time series, parity/Wigner or tomography-derived interference amplitude vs delay. Fit visibility-derived q_hat independently, then test whether the DGF mass-q constraint predicts q_hat/t-dependence.",
+  "weakest_link": "V/V_ref to q calibration is phenomenological; must prove same q fluctuation drives GUP-Lindblad beta(q,t)->K(t), otherwise Petruzziello-Illuminati 2021 remains prior art.",
+  "claims": [
+    {
+      "id": "A2-C1",
+      "statement": "q can be made non-circular by defining it from fringe or phase-space interference visibility, not from mass inversion.",
+      "confidence": 0.72,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "q_readout",
+          "expression": "(2/pi)*asin(V/V_ref)",
+          "variables": {"V": "measured_visibility_or_interference_amplitude", "V_ref": "same_device_calibrated_maximum_visibility"},
+          "units": "dimensionless",
+          "limits": [{"variable": "V", "to": "V_ref", "expected": "1", "desc": "maximal coherent reference gives q=1"}]
+        },
+        {
+          "label": "fisher_visibility",
+          "expression": "sum((diff(P_i,q)**2)/P_i for i in outcomes)",
+          "variables": {"P_i": "probability of outcome i", "q": "visibility-defined coordinate"},
+          "units": "dimensionless"
+        }
+      ],
+      "references": [{"doi": "10.1103/PhysRevLett.116.230404"}, {"doi": "10.1103/PhysRevA.102.013704"}],
+      "assumptions": ["V_ref is independent of mass inversion", "visibility channel is calibrated and not dominated by environmental loss"]
+    },
+    {
+      "id": "A2-C2",
+      "statement": "m>2*m_p/pi is a constrained-model rejection condition tested through likelihood of visibility data.",
+      "confidence": 0.78,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "DGF_mass_map",
+          "expression": "(2*m_p/pi)*sin(pi*q/2)",
+          "variables": {"m_p": "Planck mass", "q": "independent interference coordinate"},
+          "units": "kg"
+        },
+        {
+          "label": "LLR",
+          "expression": "2*(logL_env-logL_DGF)",
+          "variables": {"logL_env": "null_environment_likelihood", "logL_DGF": "constrained_DGF_likelihood"},
+          "units": "dimensionless"
+        }
+      ],
+      "references": [{"doi": "10.1126/science.adf7553"}, {"doi": "10.1007/978-3-319-07097-1"}],
+      "assumptions": ["likelihood model includes environmental baseline", "observable visibility remains measurable with quantified uncertainty"]
+    }
+  ],
+  "next_plan": "Use Fadel/Bild public figures or supplementary data to extract V(t), sigma_V, cat_size; build M0/M1 minimal likelihood table."
+}

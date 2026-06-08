@@ -1,0 +1,31 @@
+{
+  "project": "LP27-Tlinear-NFL",
+  "version": "v1.0",
+  "date": "2026-06-04",
+  "rounds": 3,
+  "status": "有边界完成",
+  "reviewer_verdict": "大修 (Major Revision)",
+  "nodes": [
+    {"id": "K1", "label": "T-linear≠NFL", "confidence": 0.75, "connections": ["K2", "K3", "K4", "K8"]},
+    {"id": "K2", "label": "Z(T)∈[0.19,0.53]", "confidence": 0.80, "connections": ["K1"]},
+    {"id": "K3", "label": "I/II/III分类", "confidence": 0.70, "connections": ["K1", "K4"]},
+    {"id": "K4", "label": "Fano因子诊断", "confidence": 0.30, "connections": ["K1", "K3"]},
+    {"id": "K5", "label": "MaxCal吸引子", "confidence": 0.55, "connections": ["K7"]},
+    {"id": "K6", "label": "SOC纳米噪声", "confidence": 0.40, "connections": ["K7"]},
+    {"id": "K7", "label": "接触几何统一", "confidence": 0.30, "connections": ["K5", "K6"]},
+    {"id": "K8", "label": "先发: Tulipman&Berg 2023", "type": "prior_art", "connections": ["K1"]}
+  ],
+  "edges": [
+    {"from": "K1", "to": "K2", "relation": "quantified_by"},
+    {"from": "K1", "to": "K3", "relation": "taxonomized_by"},
+    {"from": "K1", "to": "K4", "relation": "testable_via"},
+    {"from": "K1", "to": "K8", "relation": "preceded_by"},
+    {"from": "K5", "to": "K7", "relation": "unified_by"},
+    {"from": "K6", "to": "K7", "relation": "unified_by"}
+  ],
+  "open_roadblocks": [
+    "Section 3.4 Hlubina-Rice方向反了 (INSPECTOR-A R3)",
+    "Tulipman&Berg 2023 先发了C1核心声张 (REVIEWER)",
+    "Z(T)公式缺乏已发表文献独立锚点 (REVIEWER)"
+  ]
+}

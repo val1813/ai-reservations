@@ -1,0 +1,208 @@
+{
+  "project": "LP29-AmorphousBands",
+  "task": "LP29-C2T-S2-R1-I1 / minimal implementation package contract",
+  "round": 3,
+  "agent": "A",
+  "role": "independent minimal implementation package definer",
+  "scope": "Define the smallest implementation package needed to implement and test the O_s baseline-admission validator. No code is written and no Phase file is read or modified.",
+  "source_inputs_read": [
+    "current/A/C2T_S2_R1_I1_round2.json",
+    "synthesis/PI_C2T_S2_R1_I1_round2.md",
+    "synthesis/inspector_A_C2T_S2_R1_I1_round2.md",
+    "current/A/artifacts/I1_partial_context_resolution_round2.csv",
+    "current/A/artifacts/I1_validator_implementation_plan_round1.csv",
+    "current/A/artifacts/S2_R1_validator_payload_schema_round3.json",
+    "current/A/artifacts/S2_R1_A_expected_cases_round3.csv",
+    "current/A/artifacts/S2_R1_executable_witness_schema_round2.csv",
+    "current/A/artifacts/S2_R1_Os_witness_contract_round1.csv"
+  ],
+  "source_inputs_not_read": [
+    "current/B outputs",
+    "current/B artifacts"
+  ],
+  "framework": {
+    "validator_goal": "A pure, deterministic validator converts one payload into one structured result without claiming material validation or executing new science.",
+    "minimal_files": [
+      "validation/validate.py",
+      "validation/fixtures/a_expected_cases.jsonl",
+      "validation/fixtures/legacy_partial_context.jsonl",
+      "validation/fixtures/expected_results.csv",
+      "tests/test_validate.py",
+      "validation/README.md"
+    ],
+    "emitted_terminal_statuses": [
+      "BLOCK",
+      "CONDITIONAL_CONTEXT_PASS",
+      "CANDIDATE_EXACT_REPLAY",
+      "DIAGNOSED_MISMATCH",
+      "ADMITTED_EXACT"
+    ],
+    "deprecated_non_emitted_statuses": [
+      "PARTIAL_CONTEXT_ONLY"
+    ],
+    "strict_legacy_partial_context_only_block_rule": {
+      "rule": "If raw input target_mode is exactly PARTIAL_CONTEXT_ONLY, the validator must return terminal_status BLOCK with diagnostic DEPRECATED_PARTIAL_CONTEXT_ONLY and migration_required true.",
+      "ordering_requirement": "This branch must run before target-mode alias resolution, normalization, or reported_context evaluation.",
+      "non_promotion_requirement": "F01-F03 may be evaluated for diagnostics only, but passing F01-F03 must not promote a legacy PARTIAL_CONTEXT_ONLY payload to CONDITIONAL_CONTEXT_PASS.",
+      "migration_requirement": "CONDITIONAL_CONTEXT_PASS is reachable only when the caller explicitly submits target_mode reported_context and F01-F03 pass.",
+      "forbidden_output": "No result may emit terminal_status PARTIAL_CONTEXT_ONLY."
+    },
+    "target_mode_contract": {
+      "reported_context": {
+        "required_predicates": ["F01", "F02", "F03"],
+        "success_status": "CONDITIONAL_CONTEXT_PASS",
+        "failure_status": "BLOCK"
+      },
+      "candidate_exact_replay": {
+        "required_predicates": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20"],
+        "success_status": "CANDIDATE_EXACT_REPLAY",
+        "failure_status": "BLOCK"
+      },
+      "diagnosed_mismatch": {
+        "required_predicates": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20", "F21", "F22"],
+        "success_status": "DIAGNOSED_MISMATCH",
+        "failure_status": "BLOCK",
+        "comparison_rule": "All required predicates must pass and recomputed_value must fail the predeclared tolerance comparison."
+      },
+      "admitted_exact": {
+        "required_predicates": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20", "F21", "F22"],
+        "success_status": "ADMITTED_EXACT",
+        "failure_status": "BLOCK",
+        "comparison_rule": "All required predicates must pass and recomputed_value must match reported_scalar under the predeclared tolerance."
+      }
+    }
+  },
+  "package_summary": {
+    "csv_artifact": "current/A/artifacts/I1_minimal_implementation_package_round3.csv",
+    "implementation_unit": "validation/validate.py must expose validate_payload(payload: dict) -> dict and a CLI wrapper that calls the same function.",
+    "fixtures": "JSONL fixtures are split into baseline A expected cases and legacy PARTIAL_CONTEXT_ONLY regression cases; expected terminal statuses live in a CSV manifest so test assertions remain declarative.",
+    "tests": "tests/test_validate.py must parametrize over the fixture manifest and assert terminal_status, diagnostics, first_failed_predicate, missing_fields, invalid_fields, and migration_required when applicable.",
+    "docs": "validation/README.md must document emitted statuses, non-emitted PARTIAL_CONTEXT_ONLY, fixture schema, CLI/API usage, and forbidden scientific claims."
+  },
+  "api_contract": {
+    "function": "validate_payload(payload: dict) -> dict",
+    "input_top_level_required": ["payload_id", "target_mode", "witness"],
+    "input_target_modes": ["reported_context", "candidate_exact_replay", "diagnosed_mismatch", "admitted_exact", "exact_certified_observable", "PARTIAL_CONTEXT_ONLY"],
+    "alias_rule": "exact_certified_observable may be treated as a strict alias for admitted_exact; PARTIAL_CONTEXT_ONLY must not be treated as an alias.",
+    "output_required_keys": [
+      "payload_id",
+      "target_mode_raw",
+      "target_mode_resolved",
+      "terminal_status",
+      "diagnostics",
+      "missing_fields",
+      "invalid_fields",
+      "first_failed_predicate",
+      "predicate_results",
+      "migration_required",
+      "comparison"
+    ],
+    "output_statuses": ["BLOCK", "CONDITIONAL_CONTEXT_PASS", "CANDIDATE_EXACT_REPLAY", "DIAGNOSED_MISMATCH", "ADMITTED_EXACT"],
+    "error_handling": "Malformed JSON or absent top-level required keys returns BLOCK with diagnostic MALFORMED_PAYLOAD or MISSING_REQUIRED_FIELD; it must not raise through the CLI path."
+  },
+  "cli_contract": {
+    "module_command": "python -m validation.validate --input validation/fixtures/a_expected_cases.jsonl --output validation/results.jsonl",
+    "single_payload_command": "python -m validation.validate --payload path/to/payload.json",
+    "stdin_command": "python -m validation.validate --stdin",
+    "exit_codes": {
+      "0": "Validator ran and wrote structured result records, including BLOCK outcomes.",
+      "2": "Input file, JSON parse, or CLI argument error prevented producing a structured validator result."
+    },
+    "stdout_stderr": "Structured validation results go to stdout or --output. Human-readable parse or argument errors go to stderr.",
+    "regression_command": "python -m pytest tests/test_validate.py",
+    "no_code_claim": "This round defines the command contract only; it does not claim the command exists yet."
+  },
+  "fixture_contract": {
+    "fixture_jsonl_schema": {
+      "fixture_id": "string",
+      "source_contract": "string",
+      "payload": "object",
+      "notes": "string"
+    },
+    "expected_result_csv_schema": {
+      "fixture_id": "string",
+      "expected_terminal_status": "enum",
+      "expected_diagnostic": "string",
+      "expected_first_failed_predicate": "string_or_empty",
+      "expected_missing_fields": "semicolon_list",
+      "expected_invalid_fields": "semicolon_list",
+      "expected_migration_required": "boolean",
+      "forbidden_terminal_statuses": "semicolon_list"
+    },
+    "minimum_fixture_classes": [
+      "CASE_NULL_EMPTY",
+      "CASE_NULL_SCALAR_ONLY",
+      "CASE_NULL_DOI_ONLY",
+      "CASE_CURRENT_SRIVASTAVA_SUMMARY",
+      "CASE_CURRENT_SRIVASTAVA_CONTEXT_COMPLETE_ONLY",
+      "CASE_FUTURE_REPLAY_READY_NO_RECOMPUTE",
+      "CASE_FUTURE_COMPLETE_MISMATCH",
+      "CASE_FUTURE_COMPLETE_MATCH",
+      "LEGACY_PARTIAL_ABSENT_CONTEXT",
+      "LEGACY_PARTIAL_DOI_ONLY",
+      "LEGACY_PARTIAL_CONTEXT_COMPLETE",
+      "CALLER_MIGRATED_REPORTED_CONTEXT_COMPLETE"
+    ],
+    "legacy_regression_requirement": "Every fixture with payload.target_mode == PARTIAL_CONTEXT_ONLY must expect BLOCK, DEPRECATED_PARTIAL_CONTEXT_ONLY, migration_required=true, and must list CONDITIONAL_CONTEXT_PASS and PARTIAL_CONTEXT_ONLY as forbidden terminal statuses.",
+    "reported_context_requirement": "Only an explicit reported_context payload with F01-F03 passing may expect CONDITIONAL_CONTEXT_PASS."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The minimal package is contract-first and consists of one validator module, two fixture JSONL files, one expected-results CSV, one test module, and one README.",
+      "confidence": 0.95,
+      "basis": "PI Round 2 requested validation/validate.py, fixture inputs, expected outputs, regression command, and no-silent-upgrade tests."
+    },
+    {
+      "id": "C2",
+      "statement": "PARTIAL_CONTEXT_ONLY must be handled as a deprecated raw input sentinel before target-mode normalization and must always return BLOCK with DEPRECATED_PARTIAL_CONTEXT_ONLY.",
+      "confidence": 0.99,
+      "basis": "A Round 2 and A Inspector Round 2 both pass the strict BLOCK resolution."
+    },
+    {
+      "id": "C3",
+      "statement": "The expected-result schema must separate terminal_status from diagnostics, missing_fields, invalid_fields, and migration_required.",
+      "confidence": 0.96,
+      "basis": "Round 2 deepening requires diagnostics to show migration eligibility without changing BLOCK."
+    },
+    {
+      "id": "C4",
+      "statement": "The CLI and API must share the same validate_payload function so shell and import behavior cannot drift.",
+      "confidence": 0.93,
+      "basis": "Round 1 implementation plan identified CLI/import drift as a risk."
+    },
+    {
+      "id": "C5",
+      "statement": "This round defines the implementation package only; it does not implement validation/validate.py or claim tests passed.",
+      "confidence": 1.0,
+      "basis": "User instruction says define package, no code."
+    }
+  ],
+  "deepening_1": {
+    "question": "What is the next-layer consequence of turning the Round 2 strict rule into an implementation package?",
+    "answer": "The package must make legacy blocking observable in both fixtures and result schema, otherwise a future implementer could satisfy terminal_status while hiding the migration semantics.",
+    "layer_2": "The expected-results CSV therefore needs explicit expected_migration_required and forbidden_terminal_statuses fields, not only expected_terminal_status.",
+    "implementation_consequence": "A test must fail if a legacy PARTIAL_CONTEXT_ONLY payload emits CONDITIONAL_CONTEXT_PASS, emits PARTIAL_CONTEXT_ONLY, or omits DEPRECATED_PARTIAL_CONTEXT_ONLY even when F01-F03 pass."
+  },
+  "deepening_2": {
+    "question": "Which premise in this minimal package is most likely to be wrong?",
+    "answer": "The package assumes predicate adapters can be implemented conservatively from schema contracts without full scientific replay infrastructure.",
+    "layer_2": "If adapters such as implementation_matches_formula or generated_from_fields require heavier execution provenance, the minimal module should still BLOCK with first_failed_predicate rather than inventing proof.",
+    "mitigation": "Keep predicate adapters syntactic and auditable in v1, record missing or invalid evidence, and reserve ADMITTED_EXACT for fixtures that explicitly carry all F01-F22 fields plus a predeclared comparison."
+  },
+  "forbidden_claims": [
+    "validator already implemented",
+    "validator tests passed",
+    "validation/validate.py exists",
+    "PARTIAL_CONTEXT_ONLY is an emitted terminal status",
+    "PARTIAL_CONTEXT_ONLY is an alias for reported_context",
+    "legacy PARTIAL_CONTEXT_ONLY automatically becomes CONDITIONAL_CONTEXT_PASS when F01-F03 pass",
+    "CONDITIONAL_CONTEXT_PASS is exact O_s admission",
+    "exact Srivastava O_s reproduced",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "exact O_s impossible in principle",
+    "Phase was updated"
+  ]
+}

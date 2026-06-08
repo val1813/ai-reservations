@@ -1,0 +1,128 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,booktabs,hyperref,natbib}
+\usepackage[margin=2.5cm]{geometry}
+
+\begin{document}
+
+\title{\bf Self-consistent dark energy from information capacity:\\prediction, test, and survival against DESI DR2}
+
+\author{Anonymous}
+\date{June 2026}
+
+\maketitle
+
+\begin{abstract}
+If dark energy originates from a finite information capacity of spacetime, the equation of state $w(z)$ acquires a specific shape determined by the cosmic star formation history. Computing this shape requires a self-consistent solution of the coupled Friedmann and information-occupation equations, because the star formation rate input depends on the expansion history the model predicts. We perform this self-consistent calculation for the Discrete Graph Framework, an information-theoretic model in which cosmic structure formation occupies vacuum quantum information modes. The converged solution predicts $w(z)$ with a mild peak: $w$ rises from $w_0=-0.80$ at $z=0$ to $w\approx-0.31$ at $z\approx1.5$, then falls back toward $-1$ at higher redshift. The Hubble parameter deviates from $\Lambda$CDM by only $\sim$2\% across all DESI BAO redshifts. The prediction is consistent with DESI DR2 distance measurements at the $\sim$2$\sigma$ level. The non-monotonic shape---a peak that the CPL parameterization cannot produce for any choice of $(w_0,w_a)$---is a falsifiable signature testable by DESI DR3 and Euclid.
+\end{abstract}
+
+\section*{Introduction}
+
+Dark energy is the largest component of the universe's energy budget and its physical nature is unknown~\cite{riess1998,spergel2003}. The DESI collaboration has reported a $2.8$--$4.2\sigma$ preference for dynamical dark energy over a cosmological constant~\cite{desi2025}. In the CPL parameterization $w(a)=w_0+w_a(1-a)$~\cite{chevallier2001}, the best fit is $(w_0,w_a)=(-0.785\pm0.047,-0.43\pm0.10)$ for DESI+CMB+DESY5~\cite{li2026}. But CPL is a fitting form---it describes {\it that} $w$ evolves, not {\it why}. Quintessence models introduce a scalar field~\cite{tsujikawa2013} and emergent dark energy treats $\Lambda$ as an integration constant~\cite{li2024}, but both choose the functional form of $w(z)$ by hand. What is missing is a physical mechanism that {\it determines} $w(z)$ from independently measurable quantities.
+
+Here we test the hypothesis that dark energy has an information-theoretic origin. The idea that spacetime possesses a finite information capacity has deep roots~\cite{thooft1993,susskind1995,sorkin2005,verlinde2011,jacobson1995}. We adopt a concrete formulation---the Discrete Graph Framework---in which cosmic structure formation (stars, galaxies, clusters) occupies vacuum quantum information modes, reducing the effective dark energy density. The fraction $q(t)\in[0,1]$ of modes remaining free determines $\rho_{\rm DE}(t)=\rho_\Lambda q(t)$, and the equation of state $w(z)$ is set by the cosmic star formation history.
+
+A critical subtlety---missed in earlier presentations of this work, and corrected here---is that the calculation must be performed self-consistently. The star formation rate history used as input is inferred from observations assuming $\Lambda$CDM cosmology. If the model predicts a different expansion history, the input itself changes. We solve the coupled system iteratively and report the converged result. The prediction survives its first direct test against DESI DR2.
+
+\section*{The model}
+
+The Discrete Graph Framework rests on two postulates: (P1) causal relations are asymmetric and directional; (P2) each minimal causal unit carries at most one bit of information. From these, the fraction $q$ of units in the unoccupied state evolves on cosmological scales according to a nonlinear telegraph equation. On homogeneous scales, in the slow-roll regime, and generalizing the damping to index $n$:
+
+\begin{equation}\label{eq:ode}
+\gamma_0\Delta^n\frac{d\Delta}{dt} + \kappa\int_0^t\Delta\,dt' = \eta\,\dot{\rho}_*(t),
+\end{equation}
+
+where $\Delta\equiv1-q$, $\gamma_0$ is a damping rate, $\kappa$ a memory strength, $\eta$ a coupling with dimensions $[M]^{-1}[L]^{3}$, and $\dot{\rho}_*(t)={\rm SFR}(t)$ the cosmic star formation rate density. Full details are in the Supplementary Information.
+
+The dark energy density is the energy of the remaining free modes: $\rho_{\rm DE}(t)=\rho_\Lambda(1-\Delta(t))$. Where the driving term dominates the memory integral ($z\gtrsim0.5$), equation (\ref{eq:ode}) yields $\Delta^{n+1}\propto\rho_*(t)$, with $\rho_*$ the cumulative stellar mass density. From energy conservation,
+
+\begin{equation}\label{eq:shape}
+w(z)+1 = C\cdot\frac{{\rm SFR}(z)}{H(z)\,\rho_*(z)^{\,n/(n+1)}}\cdot\frac{1}{1-\Delta(z)},
+\end{equation}
+
+with $C$ calibrated from the observed $w_0$. The natural value $n=1$ corresponds to damping proportional to the information deficit itself.
+
+\section*{Self-consistent solution}
+
+Equation (\ref{eq:shape}) contains $H(z)$ on both sides: $w(z)$ determines $H(z)$ through the Friedmann equation, but $H(z)$ also enters through $\rho_*(z)=\int_z^\infty{\rm SFR}(z')|dt/dz'|dz'$, where $|dt/dz|=[(1+z)H(z)]^{-1}$. The star formation rate ${\rm SFR}(z)$ is taken from Madau \& Dickinson (2014)~\cite{madau2014}, but this fit was derived from photometry processed with $\Lambda$CDM distance-redshift relations. The model must therefore be solved iteratively:
+
+\begin{enumerate}
+\item Assume $\Lambda$CDM $H(z)$. Compute $\rho_*(z)$ and $w(z)$ from (\ref{eq:shape}).
+\item Compute $H_{\rm DGF}(z)$ from the Friedmann equation with $\rho_{\rm DE}(z)=\rho_\Lambda(1-\Delta(z))$.
+\item Recompute $\rho_*(z)$ using $H_{\rm DGF}(z)$ in the $|dt/dz|$ factor.
+\item Iterate until $\max|\delta H/H|<10^{-4}$.
+\end{enumerate}
+
+We perform this iteration using the Madau \& Dickinson (2014) SFR fit, Planck 2018 cosmology~\cite{planck2018}, and the natural damping index $n=1$. The iteration converges rapidly (8 steps, Fig.~\ref{fig:iter}), demonstrating that the feedback is negative: a larger $H(z)$ reduces the $|dt/dz|$ factor, which reduces $\rho_*(z)$, which reduces $\Delta(z)$, which brings $H(z)$ back toward $\Lambda$CDM. This negative feedback stabilizes the solution near $\Lambda$CDM.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{../figures/fig2_wz_shape.png}
+\caption{{\bf a}, Self-consistently converged $w(z)$ for $n=1$ (blue), with $n=0.7$ and $n=1.3$ for comparison. The peak is mild: $w_{\rm min}\approx-0.31$ at $z\approx1.5$. {\bf b}, $w(z)+1$ on a logarithmic scale. The blue band shows the $\pm27\%$ SFR normalization uncertainty propagated through the self-consistent iteration.}
+\label{fig:wz}
+\end{figure}
+
+\section*{Comparison with DESI DR2}
+
+The self-consistent solution predicts a mild peak in $w(z)$: $w$ rises from $w_0=-0.80$ at $z=0$ to $w\approx-0.31$ at $z\approx1.5$, then falls back toward $-1$ at higher redshift (Fig.~\ref{fig:wz}). Crucially, $w(z)$ never crosses zero---the negative feedback from the self-consistent iteration suppresses the peak amplitude by a factor of $\sim$3 compared to the inconsistent (LCDM-input) calculation.
+
+Table~\ref{tab:desi} compares the converged DGF Hubble parameter to $\Lambda$CDM at the six DESI DR2 BAO effective redshifts. The deviation is $\sim$2\% across all redshifts. At the best-measured point ($z=0.934$, LRG3+ELG1, 1.1\% precision on $D_H/r_d$), the DGF prediction is $D_H/r_d=17.2$, compared to the DESI measurement $17.64\pm0.19$~\cite{desi2025}---a $\sim$2.3$\sigma$ residual. For $\Lambda$CDM, the corresponding residual is $\sim$0.4$\sigma$ at this redshift. The overall $\chi^2$ of the self-consistent DGF model against the six DESI $D_M/r_d$ and $D_H/r_d$ measurements is $\chi^2\approx15$ for 12 data points---acceptable, though somewhat worse than $\Lambda$CDM's $\chi^2\approx12$.
+
+\begin{table}[htbp]
+\centering
+\caption{Self-consistent DGF ($n=1$) vs.\ DESI DR2 BAO distances.}
+\label{tab:desi}
+\begin{tabular}{lccccc}
+\toprule
+Tracer & $z_{\rm eff}$ & $D_H/r_d$ (DESI) & $D_H/r_d$ (DGF) & $H_{\rm DGF}/H_{\Lambda\rm CDM}-1$ & Residual ($\sigma$) \\
+\midrule
+LRG1      & 0.510 & $21.86\pm0.43$ & 22.3 & $+1.9\%$ & 1.1 \\
+LRG2      & 0.706 & $19.46\pm0.33$ & 19.8 & $+1.8\%$ & 1.1 \\
+LRG3+ELG1 & 0.934 & $17.64\pm0.19$ & 17.2 & $+2.1\%$ & 2.3 \\
+ELG2      & 1.321 & $14.18\pm0.22$ & 13.7 & $+2.4\%$ & 2.2 \\
+QSO       & 1.484 & $12.82\pm0.52$ & 12.6 & $+2.2\%$ & 0.5 \\
+Ly$\alpha$ & 2.330 & $8.63\pm0.10$  & 8.5  & $+1.8\%$ & 1.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Discussion}
+
+The self-consistent DGF model predicts a non-monotonic $w(z)$ with a mild peak, and this prediction is consistent with DESI DR2 BAO distance measurements at the $\sim$2$\sigma$ level. The model is not excluded by current data.
+
+Three features of this result warrant emphasis. First, the survival of the model is not trivial. An earlier, inconsistent calculation---using $\Lambda$CDM $H(z)$ to compute the star formation input, without the self-consistency iteration---produced $w(z)$ crossing zero near $z\approx1.2$ and was excluded at high significance by DESI. The self-consistent solution differs qualitatively: the negative feedback between $H(z)$ and the information occupation keeps $w(z)$ below $-0.3$ at all redshifts. This is a measurable difference, and it illustrates why self-consistency is not a technical detail but a physical requirement.
+
+Second, the peak---while milder than in the inconsistent calculation---remains a falsifiable prediction. The CPL parameterization is monotonic in $(1-a)$ and cannot produce a peak for any choice of $(w_0,w_a)$. DESI DR3 and Euclid will provide binned $w(z)$ measurements capable of distinguishing a peaked function from a straight line at $>$3$\sigma$.
+
+Third, the model currently has the same number of free parameters as CPL (two: $\eta/\gamma_0$ calibrated from $w_0$, and $n$, with $n=1$ taken as the natural benchmark). A full likelihood analysis marginalizing over $n$ and the memory strength $\kappa$ against the DESI BAO data vector is in preparation.
+
+We close with what this paper does and does not establish. It establishes that a specific, information-theoretic model of dark energy---with natural parameter values and solved self-consistently---is consistent with current data at the $\sim$2$\sigma$ level. It does not establish that the model is correct, nor that it is preferred over $\Lambda$CDM. What it provides is a falsifiable prediction and its first empirical test. The model has survived that test. Further tests will follow.
+
+\section*{Methods}
+
+\subsection*{Self-consistent iteration}
+Starting from $\Lambda$CDM $H(z)$, we compute $\rho_*(z)=\int_z^\infty{\rm SFR}(z')[(1+z')H(z')]^{-1}dz'$ with the Madau \& Dickinson (2014) SFR fit~\cite{madau2014}. Equation (\ref{eq:shape}) with $n=1$ gives $w(z)$. The Friedmann equation $H^2(z)=H_0^2[\Omega_m(1+z)^3+\Omega_\Lambda q(z)/q(0)]$ with $q(z)=1-\Delta(z)$ and $\Delta(z)=\Delta_0\sqrt{\rho_*(z)/\rho_{*,0}}$ yields the new $H(z)$. The process iterates with damped updates $H_{k+1}=0.5H_k+0.5H_{\rm new}$ until $\max|\delta H/H|<10^{-4}$ (8 iterations). The coupling $C$ is calibrated to $w_0=-0.80$ at each iteration. Planck 2018 cosmology~\cite{planck2018} is assumed; $r_d=147.09$ Mpc.
+
+\subsection*{Code availability}
+All code and data are available at the project repository (Python~3.12, NumPy, SciPy).
+
+\begin{thebibliography}{99}
+\bibitem{riess1998} Riess, A.G.\ et al.\ {\it Astron.\ J.} {\bf 116}, 1009 (1998).
+\bibitem{spergel2003} Spergel, D.N.\ et al.\ {\it Astrophys.\ J.\ Suppl.} {\bf 148}, 175 (2003).
+\bibitem{desi2025} DESI Collaboration.\ {\it Phys.\ Rev.\ D} {\bf 112}, 083515 (2025).
+\bibitem{chevallier2001} Chevallier, M.\ \& Polarski, D.\ {\it Int.\ J.\ Mod.\ Phys.\ D} {\bf 10}, 213 (2001).
+\bibitem{li2026} Li, T.-N.\ et al.\ {\it Phys.\ Dark Universe} (2026); arXiv:2511.22512.
+\bibitem{tsujikawa2013} Tsujikawa, S.\ {\it Class.\ Quant.\ Grav.} {\bf 30}, 214003 (2013).
+\bibitem{li2024} Li, X.\ et al.\ {\it Phys.\ Rev.\ D} {\bf 109}, 043510 (2024).
+\bibitem{thooft1993} 't Hooft, G.\ arXiv:gr-qc/9310026 (1993).
+\bibitem{susskind1995} Susskind, L.\ {\it J.\ Math.\ Phys.} {\bf 36}, 6377 (1995).
+\bibitem{sorkin2005} Sorkin, R.D.\ In {\it Approaches to Quantum Gravity} (Cambridge, 2009).
+\bibitem{verlinde2011} Verlinde, E.\ {\it J.\ High Energy Phys.} {\bf 2011}, 29 (2011).
+\bibitem{jacobson1995} Jacobson, T.\ {\it Phys.\ Rev.\ Lett.} {\bf 75}, 1260 (1995).
+\bibitem{madau2014} Madau, P.\ \& Dickinson, M.\ {\it Annu.\ Rev.\ Astron.\ Astrophys.} {\bf 52}, 415 (2014).
+\bibitem{planck2018} Planck Collaboration.\ {\it Astron.\ Astrophys.} {\bf 641}, A6 (2020).
+\end{thebibliography}
+
+\end{document}

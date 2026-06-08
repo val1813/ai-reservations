@@ -1,0 +1,49 @@
+{
+  "id": "LP29-AmorphousBands_C2T_S2_R1_I1_X1_P1_v1_20260605",
+  "project": "LP29-AmorphousBands",
+  "north_star": "LP29-C2T-S2-R1-I1-X1-P1 / proof-object authenticity validation before terminal-status admission",
+  "date": "2026-06-05",
+  "contributor": {
+    "orcid": "anonymous",
+    "github": "anonymous",
+    "name": "anonymous"
+  },
+  "status": "proof-object authenticity precondition implemented for fixture-level O_s admission / no material validation",
+  "claim": "P1 implements an authenticity precondition over F01-F22 proof-object metadata before terminal-status admission. It blocks direct forged exact/replay/mismatch payloads lacking authenticity PASS and catches fixture-level comparison contradictions.",
+  "allowed_claims": [
+    "validation/authenticity.py exists and validates F01-F22 metadata groups.",
+    "authenticity PASS can feed the terminal validator through payload_from_proof_object.",
+    "direct forged exact/replay/mismatch payloads without authenticity PASS are blocked.",
+    "self-contradictory match verdicts fail F22 at fixture level.",
+    "combined tests pass: 11 passed."
+  ],
+  "forbidden_claims": [
+    "real source PDFs or rows authenticated",
+    "exact Srivastava O_s reproduced",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "physical correctness beyond encoded proof-object fixtures"
+  ],
+  "artifacts": {
+    "authenticity_validator": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\validation\\authenticity.py",
+    "authenticity_fixtures": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\validation\\fixtures\\authenticity_cases.jsonl",
+    "authenticity_tests": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\tests\\test_authenticity.py",
+    "pi_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\PI_C2T_S2_R1_I1_X1_P1_final.md",
+    "results": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\authenticity_results_C2T_S2_R1_I1_X1_P1.md",
+    "reviewer_final": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_R1_I1_X1_P1_final.md",
+    "reviewer_recheck": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_C2T_S2_R1_I1_X1_P1_recheck.md",
+    "reviewer_validation": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\synthesis\\reviewer_validation_C2T_S2_R1_I1_X1_P1.md"
+  },
+  "commands": [
+    {
+      "command": "python -m pytest tests/test_validate.py tests/test_authenticity.py",
+      "result": "11 passed"
+    }
+  ],
+  "remaining_warnings": [
+    "I1_ payload ids remain an internal fixture-contract namespace exception and must not be used for source-authenticated admission.",
+    "P1 authenticates fixture metadata shape and consistency, not real external source files."
+  ],
+  "next_step": "Update project queue and choose whether to harden fixture namespace policy or pursue real source-row proof-object construction."
+}

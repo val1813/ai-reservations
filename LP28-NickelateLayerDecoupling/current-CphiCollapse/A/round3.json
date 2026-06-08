@@ -1,0 +1,339 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "north_star": "LP28-CphiCollapse",
+  "round": 3,
+  "agent": "A",
+  "role_boundary": "A-side only; current-CphiCollapse/B and B outputs were not read.",
+  "polaris": "Test whether an independent input-side bilayer parity-transfer residual R_oe survives after measured non-superconducting baselines B_min are removed.",
+  "framework": "Normal-state bilayer susceptibility decomposition with leakage-free residualization against measured input-side covariates.",
+  "findings": "R_oe survives only as a candidate variable if a preregistered normal-state odd/even bilayer susceptibility ratio P_oe has a well-conditioned denominator, is extracted on a fixed temperature grid without Tc- or superconducting-output leakage, and retains matched-pair rank inversions after residualization against B_min. Survival is not claimed from existing literature; it is a go/no-go design for a same-sample pressure packet.",
+  "weakest_link": "No same-sample pressure-series packet yet contains q_z-resolved odd/even susceptibility plus the full B_min baseline block; therefore R_oe is currently a candidate-variable definition and decision protocol, not a validated nickelate predictor.",
+  "next_plan": "Acquire or assemble a same-sample pressure-row packet with P_oe and B_min measured before any superconducting-output labels are opened, then run blocked/shrinkage residualization and the matched-pair inversion test.",
+  "literature_needed": "La3Ni2O7 pressure RIXS q_z bilayer form factor; high-pressure nickelate optical c-axis Drude weight; oxygen stoichiometry layer asymmetry nickelates; pressure path hysteresis La3Ni2O7; nickelate dz2 RE5d self-doping normal state",
+  "measurement_protocol": {
+    "observable": "P_oe",
+    "definition": "P_oe = (chi_odd - chi_even)/(chi_odd + chi_even)",
+    "chi_definition": "chi_channel(T,p) = integral_{omega_low}^{omega_high} S_channel(q_z,omega,T,p) / max(omega,omega_IR) d_omega after identical resolution, self-absorption, polarization-leakage, and background corrections for odd and even channels.",
+    "channel_units": {
+      "chi_odd": "calibrated susceptibility-integral units, denoted chi_unit",
+      "chi_even": "same chi_unit as chi_odd",
+      "chi_sum": "chi_unit",
+      "P_oe": "dimensionless",
+      "R_oe": "dimensionless"
+    },
+    "denominator_floor": {
+      "rule": "A pressure-temperature row is admissible only if abs(chi_odd + chi_even) >= D_floor.",
+      "D_floor_expression": "max(5*sigma_chi_sum, 10*B_chi, 0.02*median_abs_chi_sum_reference)",
+      "units": "chi_unit",
+      "terms": {
+        "sigma_chi_sum": "one-sigma propagated uncertainty of chi_odd + chi_even in chi_unit from counting statistics, fitting covariance, calibration transfer, and background subtraction",
+        "B_chi": "instrument background floor converted into chi_unit by applying the same intensity-to-chi calibration and energy-window integration used for chi_odd and chi_even",
+        "median_abs_chi_sum_reference": "median abs(chi_odd + chi_even) across admissible reference rows in the same sample packet, in chi_unit"
+      },
+      "failure_handling": "Rows below D_floor are denominator-censored and cannot be used for survival, collapse, or gray-zone decisions; they are reported separately as non-identifiable P_oe."
+    },
+    "temperature_window_rule": {
+      "leakage_free_grid_K": [120, 150, 200],
+      "primary_temperature_K": 150,
+      "allowed_rule": "Use all preregistered grid temperatures that are experimentally in the normal state by protocol, without using same-row Tc_onset, zero resistance, Meissner response, diamagnetism, gap fits, spin resonance, or output-trained classifiers.",
+      "forbidden_rule": "Do not define the window as Tc_onset + delta for the same pressure row, and do not discard rows after seeing superconducting-output labels.",
+      "normal_state_guard": "If a material-specific historical phase diagram is used to justify the grid, it must be frozen before row ranking and cannot be updated with the packet's superconducting outcomes.",
+      "window_stability_requirement": "The sign of R_oe and the matched-pair inversion call must be unchanged between at least two of the three grid temperatures, including 150 K unless that row is denominator-censored."
+    }
+  },
+  "B_min": {
+    "principle": "B_min contains only measured input-side covariates available before superconducting-output labels are opened. It must be distinct from tautological B_plus terms fitted from the same odd/even kernel.",
+    "covariates": [
+      {
+        "name": "oxygen_stoichiometry_and_layer_asymmetry",
+        "examples": ["delta_O", "apical_oxygen_occupancy", "inner_outer_layer_charge_asymmetry"],
+        "leakage_rule": "Measured structurally or chemically, not inferred from Tc or superconducting volume fraction."
+      },
+      {
+        "name": "strain_and_lattice_context",
+        "examples": ["a_axis", "b_axis", "c_axis", "Ni-O-Ni_angle", "bilayer_spacing_d", "microstrain_width"],
+        "leakage_rule": "From diffraction or local structure at the same pressure-temperature row."
+      },
+      {
+        "name": "orbital_self_doping_block",
+        "examples": ["dz2_proxy", "RE_5d_proxy", "ligand_hole_proxy", "Ni_valence_proxy"],
+        "leakage_rule": "From normal-state spectroscopy only; no superconducting gap or resonance features."
+      },
+      {
+        "name": "dephasing_and_disorder",
+        "examples": ["normal_state_scattering_rate", "peak_width_structural", "residual_disorder_proxy"],
+        "leakage_rule": "Normal-state transport or spectroscopy above the frozen temperature grid."
+      },
+      {
+        "name": "pressure_path",
+        "examples": ["pressure_GPa", "loading_unloading_branch", "anneal_history", "hydrostaticity_proxy", "pressure_gradient"],
+        "leakage_rule": "Recorded before outcome labels."
+      },
+      {
+        "name": "c_axis_coherence",
+        "examples": ["f_D = W_D/W_c", "c_axis_Drude_weight", "rho_c_normal", "rho_c_over_rho_ab_normal"],
+        "leakage_rule": "Normal-state only; cannot use zero-resistance onset, diamagnetism, or any superconducting transition feature."
+      },
+      {
+        "name": "sample_quality",
+        "examples": ["mosaicity", "phase_fraction_normal_structural", "impurity_fraction", "crack_porosity_proxy"],
+        "leakage_rule": "Independent characterization, not selected by superconducting performance."
+      }
+    ],
+    "preprocessing": "Each covariate is z-scored within the same sample packet using only admissible rows. Missingness indicators are included if imputation is used.",
+    "excluded_from_B_min": ["P_oe", "chi_odd_minus_chi_even", "odd_even_kernel_fit_residuals", "Tc", "zero_resistance", "Meissner_fraction", "diamagnetism", "superconducting_gap", "spin_resonance", "output_trained_latent_quality_score"]
+  },
+  "residualization": {
+    "definition": "R_oe = P_oe - E_hat[P_oe | B_min]",
+    "normalization": "R_oe is dimensionless and may also be reported as Z_oe = R_oe / sigma_R_oe for thresholding.",
+    "model_order": [
+      "preregistered blocked ridge regression using the seven B_min blocks",
+      "leave-one-pressure-row-out cross-validation for N >= 20",
+      "blocked nested cross-validation for N >= 12 and N < 20",
+      "no full survival/collapse call for N < 12 unless a single prespecified low-dimensional model with <= 3 effective degrees of freedom is used"
+    ],
+    "negative_CV_R2_handling": {
+      "rule": "If CV_R2 < 0, report CV_R2 as baseline prediction failure and set R2_for_sigma = 0 for uncertainty propagation.",
+      "sigma_expression": "sigma_R_oe = sigma_P_oe*sqrt(1 - max(0, min(CV_R2, 1)))",
+      "interpretation": "Negative CV_R2 cannot be used as evidence that the independent signal is larger than the raw P_oe variance."
+    },
+    "small_N_overfit_control": {
+      "N_min_full_B_min": 20,
+      "N_gray_design": "12 <= N < 20 permits only blocked shrinkage, nested tuning, and stability reporting; it cannot make a strong survival claim unless matched-pair criteria are met and coefficients are stable under leave-block-out analysis.",
+      "N_too_small": "N < 12 is design-only. It may nominate pairs but cannot decide survival or collapse for the full B_min block.",
+      "effective_degrees_of_freedom_limit": "edf <= floor(N_admissible/4) for any residualization model used in a decision call.",
+      "pair_independence": "Matched pairs used for the inversion test must not be the same rows that determine a post-hoc covariate weighting; matching metric and calipers are frozen before seeing P_oe ranks."
+    }
+  },
+  "survival_table": [
+    {
+      "decision": "SURVIVES_AS_CANDIDATE_VARIABLE",
+      "required_conditions": [
+        "All used rows pass the denominator floor.",
+        "Temperature/window rule is leakage-free and stable across at least two preregistered temperatures.",
+        "CV_R2 <= 0.65 for B_min, or 0.65 < CV_R2 < 0.85 with matched-pair inversion plus independent holdout replication.",
+        "At least two matched pairs show sign-stable rank inversion with abs(Z_oe) >= 2 for both members or abs(delta_R_oe_pair) >= 2*sigma_delta.",
+        "The residual rank inversion is not explained by any single B_min block under leave-one-block-out and leave-one-pair-out sensitivity.",
+        "N_admissible >= 20 for a full claim, or 12 <= N_admissible < 20 only for provisional candidate survival with shrinkage and holdout replication."
+      ],
+      "allowed_claim": "R_oe remains a candidate independent input-side bilayer parity-transfer residual in this packet.",
+      "forbidden_claim": "R_oe is validated as a universal predictor of superconductivity."
+    },
+    {
+      "decision": "COLLAPSES_TO_BASELINE",
+      "required_conditions": [
+        "B_min predicts P_oe with CV_R2 >= 0.85 under nested or leave-row-out cross-validation.",
+        "mean_abs(R_oe) <= 0.5*sigma_P_oe and no row has abs(Z_oe) >= 2 after multiplicity control.",
+        "No matched pair shows a preregistered rank inversion after residualization.",
+        "Collapse remains under leave-one-block-out checks, or the responsible block is physically ordinary input-side baseline such as c-axis coherence, oxygen asymmetry, strain, disorder, pressure path, orbital self-doping, or sample quality."
+      ],
+      "allowed_claim": "P_oe carries no independent candidate-variable content beyond measured B_min in this packet.",
+      "forbidden_claim": "A universal no-go theorem is proven for all possible C_phi definitions."
+    },
+    {
+      "decision": "GRAY_ZONE_INCONCLUSIVE",
+      "required_conditions": [
+        "0.65 < CV_R2 < 0.85 without independent matched-pair inversion replication.",
+        "Only one matched pair inverts, or inversion is temperature-unstable.",
+        "12 <= N_admissible < 20 without holdout replication.",
+        "Any major B_min block is missing or imputed in more than 20 percent of admissible rows.",
+        "Denominator censoring removes more than 25 percent of rows."
+      ],
+      "allowed_claim": "The packet is inconclusive; R_oe neither survives nor collapses.",
+      "next_action": "Add rows, repair missing B_min blocks, improve odd/even channel conditioning, and rerun the frozen protocol."
+    },
+    {
+      "decision": "NON_IDENTIFIABLE",
+      "required_conditions": [
+        "P_oe denominator floor fails for the relevant rows.",
+        "The temperature window uses same-row superconducting outputs.",
+        "B_min includes tautological odd/even kernel terms or output-trained labels.",
+        "N_admissible < 12 for full B_min and no prespecified <=3-edf fallback exists."
+      ],
+      "allowed_claim": "This packet cannot test R_oe."
+    }
+  ],
+  "matched_pair_intervention_design": {
+    "goal": "Create or identify pairs with matched B_min but deliberately different independent P_oe/R_oe expectation, then ask whether R_oe predicts a rank inversion unavailable to ordinary baselines.",
+    "matching_rule": {
+      "covariate_space": "z-scored B_min blocks excluding P_oe and superconducting outputs",
+      "calipers": {
+        "oxygen_stoichiometry_and_layer_asymmetry": "abs(delta_z) <= 0.25",
+        "strain_and_lattice_context": "abs(delta_z) <= 0.25",
+        "orbital_self_doping_block": "abs(delta_z) <= 0.30",
+        "dephasing_and_disorder": "abs(delta_z) <= 0.30",
+        "pressure_path": "same branch and abs(delta_pressure_GPa) <= 0.5",
+        "c_axis_coherence": "abs(delta_f_D_z) <= 0.25",
+        "sample_quality": "abs(delta_z) <= 0.30"
+      },
+      "minimum_pairs": 4,
+      "decision_pairs": "At least 2 pairs must independently pass inversion criteria for candidate survival."
+    },
+    "intervention_axes": [
+      {
+        "axis": "bilayer parity form-factor tuning",
+        "example": "compare pressure or strain rows where bilayer spacing/form-factor shifts odd/even spectral transfer while B_min remains within calipers",
+        "independent_prediction": "P_oe and R_oe rank row i above row j despite matched c-axis coherence and sample-quality baselines"
+      },
+      {
+        "axis": "oxygen/strain-matched pressure path contrast",
+        "example": "loading versus unloading rows matched in oxygen, strain, f_D, and disorder but differing in odd/even susceptibility redistribution",
+        "independent_prediction": "R_oe reverses the baseline rank produced by B_min-only E_hat[P_oe | B_min]"
+      }
+    ],
+    "rank_inversion_definition": "For a matched pair (i,j), B_min predicts abs(E_hat_i - E_hat_j) <= 0.5*sigma_delta or predicts E_hat_i <= E_hat_j, while measured residuals satisfy R_oe_i - R_oe_j >= 2*sigma_delta with the same sign at two preregistered temperatures.",
+    "holdout_rule": "The pair nomination, calipers, and inversion sign must be frozen before superconducting-output labels are opened; superconducting output can only be inspected after the R_oe survival call, and only as downstream exploratory context."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A leakage-free P_oe can be defined as a dimensionless odd/even bilayer susceptibility imbalance only when chi_odd and chi_even are extracted in identical calibrated units and the chi_sum denominator exceeds a chi_unit floor.",
+      "confidence": 0.78,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "(chi_odd - chi_even)/(chi_odd + chi_even)",
+          "variables": {
+            "chi_odd": "odd-channel calibrated susceptibility integral, chi_unit",
+            "chi_even": "even-channel calibrated susceptibility integral, chi_unit"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "chi_odd - chi_even",
+              "to": "0",
+              "expected": "0",
+              "desc": "equal odd and even susceptibility gives no parity imbalance"
+            },
+            {
+              "variable": "chi_even",
+              "to": "0",
+              "expected": "1",
+              "desc": "pure odd channel"
+            },
+            {
+              "variable": "chi_odd",
+              "to": "0",
+              "expected": "-1",
+              "desc": "pure even channel"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "chi_odd": 1.4,
+              "chi_even": 0.8
+            },
+            "expected_range": [0.27, 0.28]
+          }
+        },
+        {
+          "label": "F2",
+          "expression": "max(5*sigma_chi_sum, 10*B_chi, 0.02*median_abs_chi_sum_reference)",
+          "variables": {
+            "sigma_chi_sum": "uncertainty in chi_odd + chi_even, chi_unit",
+            "B_chi": "background floor converted to chi_unit",
+            "median_abs_chi_sum_reference": "same-packet reference median abs chi_sum, chi_unit"
+          },
+          "units": "chi_unit",
+          "limits": [
+            {
+              "variable": "sigma_chi_sum",
+              "to": "0",
+              "expected": "max(10*B_chi, 0.02*median_abs_chi_sum_reference)",
+              "desc": "noise-free limit is still bounded by calibrated background and reference-scale floors"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "sigma_chi_sum": 0.01,
+              "B_chi": 0.003,
+              "median_abs_chi_sum_reference": 2.0
+            },
+            "expected_range": [0.049, 0.051]
+          }
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "Odd and even channels are extracted with identical resolution and calibration conventions.",
+        "Background intensity is converted to chi_unit before entering the denominator floor.",
+        "Rows failing the floor are censored rather than regularized into artificial P_oe values."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "R_oe is a candidate independent variable only if residualized P_oe survives measured B_min without using superconducting-output leakage.",
+      "confidence": 0.72,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F3",
+          "expression": "P_oe - E_hat_P_oe_given_B_min",
+          "variables": {
+            "P_oe": "dimensionless odd/even susceptibility imbalance",
+            "E_hat_P_oe_given_B_min": "cross-validated prediction of P_oe from B_min"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "E_hat_P_oe_given_B_min",
+              "to": "P_oe",
+              "expected": "0",
+              "desc": "complete baseline collapse"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "P_oe": 0.31,
+              "E_hat_P_oe_given_B_min": 0.24
+            },
+            "expected_range": [0.069, 0.071]
+          }
+        },
+        {
+          "label": "F4",
+          "expression": "sigma_P_oe*sqrt(1 - max(0, min(CV_R2, 1)))",
+          "variables": {
+            "sigma_P_oe": "uncertainty or packet-scale standard deviation of P_oe, dimensionless",
+            "CV_R2": "cross-validated R2 of B_min predicting P_oe"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "CV_R2",
+              "to": "-1",
+              "expected": "sigma_P_oe",
+              "desc": "negative CV_R2 is clipped to zero for uncertainty propagation"
+            },
+            {
+              "variable": "CV_R2",
+              "to": "1",
+              "expected": "0",
+              "desc": "perfect baseline prediction leaves no residual variance"
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "sigma_P_oe": 0.2,
+              "CV_R2": 0.75
+            },
+            "expected_range": [0.099, 0.101]
+          }
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "B_min covariates are measured before superconducting-output labels are opened.",
+        "Residualization model complexity is controlled by nested cross-validation or blocked shrinkage.",
+        "Gray-zone CV_R2 is inconclusive unless independent matched-pair inversion replication is present."
+      ]
+    }
+  ],
+  "inspector_check": {
+    "formula": "P_oe = (chi_odd - chi_even)/(chi_odd + chi_even); R_oe = P_oe - E_hat[P_oe | B_min]",
+    "direction": "If B_min explains P_oe, R_oe collapses to zero; if parity-transfer information remains, R_oe can produce matched-pair rank inversions despite matched baselines.",
+    "data": "Requires same-sample normal-state pressure rows with q_z/polarization/form-factor odd-even susceptibility and B_min covariates; existing stitched literature is design support only.",
+    "assumptions": "Fixed temperature grid, denominator-censored rows, non-tautological B_min, no superconducting-output leakage, and small-N overfit controls."
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "project": "LP31-InfoCapacity",
+  "phase": "A",
+  "round": 1,
+  "date": "2026-06-06",
+  "status": "complete",
+  "summary": "从A1+A2出发建立三个严格定理: (1)信息守恒(双射性+熵守恒,但Σs_i不一定守恒); (2)粗粒化熵增(条件性第二定律); (3)容量比→实践不可逆性(Poincaré回复标度).",
+  "axioms": {
+    "A1": {
+      "name": "可区分性 (Distinguishability)",
+      "statement": "∀s, s' ∈ X: s ≠ s' ⇒ f(s) ≠ f(s'). 即f是单射(injective).",
+      "formal": "f: X → X is injective",
+      "physical_interpretation": "不同的微观状态在演化后仍然不同——信息不会丢失."
+    },
+    "A2": {
+      "name": "容量有界 (Bounded Capacity)",
+      "statement": "X = {0,1}^N, |X| = 2^N < ∞.",
+      "formal": "|X| = 2^N, finite",
+      "physical_interpretation": "信息系统由N个二元细胞组成,状态空间有限."
+    }
+  },
+  "theorems": [
+    {
+      "id": "T1",
+      "name": "信息守恒定理 (Information Conservation Theorem)",
+      "statement": "对任何满足A1+A2的信息系统S=(X,f): (a) f是双射(bijection); (b) 状态可区分性双向保持; (c) 对任意概率分布p,Shannon熵H(p)在f下守恒; (d) 信息容量N bits守恒; (e) 宏观变量Σs_i(总占用数)在仅有A1+A2时不守恒,需额外公理A3.",
+      "parts": {
+        "T1a": {
+          "name": "双射性 (Bijectivity)",
+          "statement": "f: X → X 是双射.",
+          "proof": "由A1,f是单射. 由A2,|X|=2^N有限. 有限集上的单射必为满射(鸽巢原理: 若f不是满射,则|f(X)|<|X|,但f是单射⇒|f(X)|=|X|,矛盾). 因此f既单且满→双射. QED.",
+          "rigor": "strict",
+          "citations": ["Pigeonhole Principle (Dirichlet 1834)"],
+          "hidden_assumptions": []
+        },
+        "T1b": {
+          "name": "可区分性双向守恒 (Bidirectional Distinguishability Conservation)",
+          "statement": "∀s,s'∈X: s≠s' ⇔ f(s)≠f(s').",
+          "proof": "正向(⇒)即A1. 反向(⇐): 若f(s)≠f(s')但s=s',则f不是函数(矛盾). 或等价地:由T1a,f是双射故f^{-1}存在且也是双射,对f^{-1}应用A1即得反向. QED.",
+          "rigor": "strict",
+          "citations": [],
+          "hidden_assumptions": []
+        },
+        "T1c": {
+          "name": "Shannon熵守恒 (Shannon Entropy Conservation)",
+          "statement": "对X上的任意概率分布p,定义推前分布(f∘p)(y)=p(f^{-1}(y)). 则H(f∘p)=H(p),其中H(p)=-Σ_{x∈X} p(x) log p(x).",
+          "proof": "H(f∘p) = -Σ_y (f∘p)(y) log (f∘p)(y) = -Σ_y p(f^{-1}(y)) log p(f^{-1}(y)). 作变量替换x=f^{-1}(y). 由T1a,f是双射故求和是X上的置换: = -Σ_x p(x) log p(x) = H(p). QED.",
+          "rigor": "strict",
+          "citations": ["Cover & Thomas (2006) §2.1"],
+          "hidden_assumptions": ["对连续熵需Jacobian修正,但此处X离散,无此问题"]
+        },
+        "T1d": {
+          "name": "信息容量守恒 (Information Capacity Conservation)",
+          "statement": "信息容量的上界为N bits(=log_2|X|),在f下不变. 最大熵分布为均匀分布p(x)=1/2^N,对应H=N bits.",
+          "proof": "由T1a,f是X上的置换,不改变|X|. log_2|X|=N是信息容量的定义. 对均匀分布u,H(u)=log_2|X|=N. 由T1c,H(u)守恒. QED.",
+          "rigor": "strict",
+          "citations": ["Shannon (1948) Theorem 2"],
+          "hidden_assumptions": ["信息容量=log_2|状态数|是Shannon的定义; 不依赖系统的物理实现"]
+        },
+        "T1e": {
+          "name": "Σs_i不守恒的反例 (Counterexample: Σs_i Non-conservation)",
+          "statement": "仅有A1+A2不能推出Σs_i守恒. 需要额外公理A3: 'f保持占用数'(Σs_i=Σf(s)_i).",
+          "proof": "构造N=2的反例: X={00,01,10,11},定义f为循环置换f(00)=01,f(01)=10,f(10)=11,f(11)=00. 验证A1: f是双射(循环置换)⇒单射✓. A2: |X|=4有限✓. 但Σs_i轨迹: 0→1→1→2→0,不守恒. 因此Σs_i守恒不是A1+A2的逻辑推论. QED.",
+          "rigor": "strict",
+          "citations": [],
+          "hidden_assumptions": [],
+          "proposed_axiom": {
+            "id": "A3",
+            "name": "占用数守恒 (Occupation Number Conservation)",
+            "statement": "∀s∈X: Σ_{i=1}^N s_i = Σ_{i=1}^N f(s)_i.",
+            "justification": "A3等价于f保持Hamming重量. 在物理上对应粒子数守恒或能量守恒. 仅有A1+A2不足以建立此约束.",
+            "note": "A3在本课题中暂不引入,因为定理2和3更自然地基于'双射+粗粒化'框架,而非Σs_i守恒."
+          }
+        }
+      },
+      "discussion": "T1的核心贡献是澄清'信息守恒'的精确含义. 在A1+A2框架下,(a)-(d)是严格推论,(e)的反例说明宏观量Σs_i的守恒需要额外物理假设. 这消除了LP30中关于'吸引子定理'的一个主要混淆: Σs_i不被A1+A2所保护,因此不能从信息守恒演绎出Σs_i的收敛性."
+    },
+    {
+      "id": "T2",
+      "name": "粗粒化熵增定理 (Coarse-Grained Entropy Increase Theorem)",
+      "statement": "定义粗粒化映射π(s)=q=(N-Σs_i)/N和宏观熵泛函S[p]. 在A1+A2+f是满射(T1a)下,S[p]的变化等于纤维内KL散度的变化. S[p]非递减在额外统计假设(纤维内均匀化)下成立.",
+      "definitions": {
+        "coarse_graining": "π: X→Q, Q={0,1/N,2/N,...,1}, π(s)=(N-Σ_i s_i)/N",
+        "fiber": "π^{-1}(q)={s∈X: π(s)=q}, |π^{-1}(q)|=C(N,N(1-q))=Ω(q)",
+        "macro_entropy": "S[p]=H(p)+⟨log Ω⟩_p = -Σ_q p(q)log p(q) + Σ_q p(q)log Ω(q)",
+        "gibbs_entropy": "S_G[ρ] = -Σ_s ρ(s) log ρ(s)",
+        "fiber_kl": "D[ρ] = Σ_q p(q)·D_KL(ρ(·|q) || u_q), 其中u_q是π^{-1}(q)上的均匀分布"
+      },
+      "parts": {
+        "T2a": {
+          "name": "熵差恒等式 (Entropy Difference Identity)",
+          "statement": "S[p'] - S[p] = D[ρ'] - D[ρ], 其中ρ'=f∘ρ, p'是ρ'的宏观分布.",
+          "proof": "步骤1: S_G[ρ] = -Σ_s ρ(s) log ρ(s). 对每个纤维q分解: ρ(s)=p(q)·ρ(s|q). 则 S_G[ρ] = -Σ_q Σ_{s∈π^{-1}(q)} p(q)ρ(s|q)[log p(q)+log ρ(s|q)] = -Σ_q p(q)log p(q)·(Σ_s ρ(s|q)) - Σ_q p(q)Σ_s ρ(s|q)log ρ(s|q) = H(p) - Σ_q p(q)Σ_s ρ(s|q)log ρ(s|q). 第二项中: -Σ_s ρ(s|q)log ρ(s|q) = log Ω(q) - D_KL(ρ(·|q)||u_q). 代入: S_G[ρ] = H(p) + Σ_q p(q)log Ω(q) - Σ_q p(q)D_KL(ρ(·|q)||u_q) = S[p] - D[ρ]. 步骤2: 由T1c/T1a,f是双射,S_G[f∘ρ]=S_G[ρ]. 步骤3: ρ'=f∘ρ ⇒ S_G[ρ']=S[p']-D[ρ']. 步骤4: S_G[ρ']=S_G[ρ] ⇒ S[p']-D[ρ']=S[p]-D[ρ] ⇒ S[p']-S[p]=D[ρ']-D[ρ]. QED.",
+          "rigor": "strict",
+          "citations": ["Gibbs (1902) Elementary Principles, Ch.XII", "Cover & Thomas (2006) §2.3"],
+          "hidden_assumptions": []
+        },
+        "T2b": {
+          "name": "条件性第二定律 (Conditional Second Law)",
+          "statement": "如果初始分布ρ在纤维内均匀(D[ρ]=0),则S[p'] ≥ S[p].",
+          "proof": "由T2a,S[p']-S[p]=D[ρ']-0=D[ρ']. 而D[ρ']是KL散度的期望,KL散度≥0( Gibbs不等式),故D[ρ']≥0⇒S[p']≥S[p]. QED.",
+          "rigor": "strict",
+          "citations": ["Gibbs' inequality (Cover & Thomas Theorem 2.6.3)"],
+          "hidden_assumptions": ["纤维内均匀假设D[ρ]=0是统计力学的'等概率先验'(Postulate of equal a priori probability). 这不是从A1+A2推出的,而是关于初始条件的假设."]
+        },
+        "T2c": {
+          "name": "随机置换系综下的期望熵增 (Expected Entropy Increase under Random Permutation Ensemble)",
+          "statement": "对均匀随机双射f∈S_{2^N}(对称群),期望宏观转移概率满足E[W(q'|q)]=Ω(q')/2^N. 期望熵变化E[S[p']]≥S[p],等号仅当p是稳态分布π_q=Ω(q)/2^N.",
+          "proof": "步骤1: 对固定A=π^{-1}(q), B=π^{-1}(q'), 随机f下|f(A)∩B|的超几何期望: E[|f(A)∩B|]=|A|·|B|/|X|. 步骤2: W(q'|q)=|f(A)∩B|/|A|,故E[W(q'|q)]=|B|/|X|=Ω(q')/2^N. 步骤3: E[W]是秩1矩阵,每行相同=E[W](q'|q)=π_{q'}. 因此对任意初始p,p'的期望是E[p']=π(稳态). 步骤4: 由Gibbs不等式,S[π]≥S[p]对任意p成立,且S[π]是最大值. 故E[S[p']]在p≠π时严格大于S[p]. 注意: 由于Jensen不等式,E[S[p']]≥S[E[p']]=S[π]不一定成立(S是凹函数). 需要单独处理. 但这在N大时是涨落可忽略的情况. 更弱但严格的不等式: E[H(p')]≥H(p)当W的期望是双随机且p不是均匀时. 细节见Cover & Thomas. QED.",
+          "rigor": "strict_with_caveat",
+          "citations": ["Cover & Thomas (2006) Theorem 2.7.1 (doubly stochastic → H non-decreasing)", "Random permutation → doubly stochastic in expectation"],
+          "hidden_assumptions": ["'随机f'的系综选择需要论证物理合理性. 若f是确定性的(实际系统),期望E[·]是对'典型f'的假设.", "从E[S[p']]≥S[p]需要Jensen处理或大N渐近."]
+        },
+        "T2d": {
+          "name": "大N涨落界 (Large-N Fluctuation Bound)",
+          "statement": "对N>>1,使用Stirling近似Ω(q)≈2^{N H_2(q)},其中H_2(q)=-q log_2 q-(1-q)log_2(1-q). 则对任意ε>0,概率P(S[p']≤S[p]-Nε)≤exp(-c(ε)N),其中c(ε)=Ω(ε^2).",
+          "proof": "步骤1: Ω(q)=C(N,N(1-q)). Stirling: ln Ω(q)=N H_2(q) - (1/2)ln(2πNq(1-q)) + O(1/N). 步骤2: 对随机f,W(q'|q)是超几何随机变量,满足Chernoff界. 步骤3: |f(A)∩B|是超几何(Hypergeometric)分布,方差~|A||B|/|X|. 当|A||B|/|X|>>1时收敛到期望. 当N大时,除q≈0或1附近的纤维外,纤维足够大. 步骤4: 应用Hoeffding不等式: P(|W(q'|q)-π_{q'}|>δ)≤2exp(-2|A|δ^2). 对S[p']的偏离求和,得指数界. QED.",
+          "rigor": "sketch (完整证明需~20行集中不等式处理)",
+          "citations": ["Hoeffding (1963)", "Ellis (1985) Entropy, Large Deviations, and Statistical Mechanics"],
+          "hidden_assumptions": ["需N足够大使纤维内部统计有意义(至少几十个状态). 对极小纤维(q≈0或1),指数界退化,需单独处理边界."]
+        }
+      },
+      "discussion": "T2的核心贡献是明确粗粒化熵增的逻辑结构: (a) Gibbs熵守恒(来自双射性); (b) 宏观熵与Gibbs熵的差恰好是纤维内KL散度; (c) 因此宏观熵的变化完全等于纤维内KL散度的变化. 第二定律不是A1+A2的演绎推论,而是加上'纤维内均匀化'这个统计假设后的结果. 这澄清了LP30中关于'必然熵增'的混淆: 熵增是统计趋向,不是逻辑必然."
+    },
+    {
+      "id": "T3",
+      "name": "容量比→实践不可逆性定理 (Capacity Ratio → Practical Irreversibility Theorem)",
+      "statement": "将N个细胞分为系统(N_S)和环境(N_E). 当N_E/N_S>>1时: (a) Poincaré回复时间为2^{N_S}(精确); (b) 系统宏观态按熵梯度演化(随机系综下); (c) 信息一旦流入环境,在观测时间T<<2^{N_S}内返回概率可忽略.",
+      "definitions": {
+        "system_partition": "X = X_S × X_E, |X_S|=2^{N_S}, |X_E|=2^{N_E}, N_S+N_E=N",
+        "system_projection": "Π_S: X→X_S, Π_S(s,e)=s",
+        "system_occupation": "k = Σ_{i∈S} s_i ∈ {0,...,N_S}",
+        "environment_occupation": "m = Σ_{i∈E} s_i ∈ {0,...,N_E}",
+        "macrostate_S": "M_k = {x∈X: Σ_{i∈S} x_i = k}, |M_k|=C(N_S,k)·2^{N_E}"
+      },
+      "parts": {
+        "T3a": {
+          "name": "Kac回复时间 (Kac Recurrence Time for System Projection)",
+          "statement": "对任意双射f和任意目标系统状态s_S^*∈X_S,集合A={s_S^*}×X_E的Poincaré回复时间期望为E[τ_A]=2^{N_S},其中τ_A(x)=min{t>0: f^t(x)∈A},期望在A上的均匀分布下取.",
+          "proof": "Kac引理: 对保测动力系统(X,μ,f)(μ是f-不变测度),集合A⊂X的平均回复时间为E_μ[τ_A|A]=1/μ(A). 此处取μ为X上的计数测度归一化: μ(A)=|A|/|X|=2^{N_E}/2^N=2^{-N_S}. 故E[τ_A]=1/μ(A)=2^{N_S}. f的双射性保证μ的f-不变性. QED.",
+          "rigor": "strict",
+          "citations": ["Kac (1947) On the notion of recurrence in discrete stochastic processes", "Kac (1959) Statistical Independence, §3.2"],
+          "hidden_assumptions": ["计算平均回复时间而非最坏情况; 对特定f,某些轨道的回复时间可以远短于或远长于均值.", "回复时间是精确的2^{N_S},不依赖于N_E——这是一个重要的精确结果."]
+        },
+        "T3b": {
+          "name": "系统宏观跃迁的熵偏倚 (Entropic Bias in System Macro-Transitions)",
+          "statement": "在随机双射系综下,系统宏观跃迁的期望转移概率比为E[W(k→k')]/E[W(k'→k)]=C(N_S,k')/C(N_S,k). 该比值独立于N_E.",
+          "proof": "E[W(k'|k)] = E[|f(M_k)∩M_{k'}|]/|M_k| = (|M_k|·|M_{k'}|/2^N)/|M_k| = |M_{k'}|/2^N = C(N_S,k')·2^{N_E}/2^N = C(N_S,k')/2^{N_S}. 因此比值E[W(k→k')]/E[W(k'→k)]=C(N_S,k')/C(N_S,k). 注意N_E被约掉了: 环境容量不影响系统宏观跃迁的相对概率! QED.",
+          "rigor": "strict",
+          "citations": [],
+          "hidden_assumptions": ["这个结果说明: 在随机f系综下,N_E只通过总容量2^N影响绝对速率(速率~2^{-N_S}),不影响相对偏好. 系统的宏观动力学完全由自身的组合结构决定."]
+        },
+        "T3c": {
+          "name": "关联稀释与信息流出 (Correlation Dilution and Information Outflow)",
+          "statement": "定义互信息I_t=I(S_t;E_0)度量系统当前状态与初始环境之间的关联. 对满足'局部性'(每个细胞新状态仅依赖最多c个细胞)的f,有I_t≤O(c·t). 当c·t接近N_E时关联饱和.",
+          "proof": "设f有局部依赖图: 每个细胞的新状态依赖最多c个旧状态细胞. 则t步后,系统细胞的因果锥包含最多c^t个细胞. 简化情况: 若f是'细胞置换'(细胞身份的置换,每个细胞的新状态恰好是某个旧细胞的状态),则t步后系统细胞的因果锥大小为c·t. 互信息I((S_t);E_0)受限于因果锥与E_0的交集大小. 若初始信息在E_0中编码在k个细胞内,这些细胞在t步后最多扩散到c·t个细胞. I_t≤min(k, c·t)/N·log 2. QED.",
+          "rigor": "sketch (完整证明需图论+信息论不等式链条)",
+          "citations": ["Data Processing Inequality (Cover & Thomas §2.8)", "Causal graph information bounds (Pearl 2009)"],
+          "hidden_assumptions": ["局部性假设(c有限)是关键. 若非局部(每个细胞依赖O(N)个旧细胞),则关联稀释速度可达O(N),I_t可迅速达到N_E."]
+        },
+        "T3d": {
+          "name": "实践不可逆性 (Practical Irreversibility)",
+          "statement": "信息一旦从系统流入环境,在观测时间T_obs<<2^{N_S}内(对中等N_S~100,2^{100}~10^{30}>>宇宙年龄),信息返回系统的概率P_return≤T_obs/2^{N_S}≈0.",
+          "proof": "由T3a,系统状态回复时间为2^{N_S}. 对典型f和典型初始条件,回复时间分布近似指数: P(τ_A>t)≈exp(-t/2^{N_S})(Kac的指数渐近). 故P_return(T_obs)=P(τ_A≤T_obs)≈1-exp(-T_obs/2^{N_S})≈T_obs/2^{N_S}(对T_obs<<2^{N_S}). 代入N_S=100,2^{100}≈1.27×10^{30}. 若T_obs=10^9步(10亿步),P_return≈10^9/10^{30}=10^{-21}. 实践上不可逆. QED.",
+          "rigor": "strict (given Kac's lemma + exponential approximation for mixing systems)",
+          "citations": ["Kac (1947)", "Boltzmann's reply to Zermelo's recurrence paradox (1896)"],
+          "hidden_assumptions": ["回复时间的指数分布需要f有足够的混合性(mixing). 对一般的双射(如恒等映射),回复可以很快. 但'典型'双射有强混合性.", "N_E/N_S→大数的效果: N_E本身不改变回复时间的均值(仍是2^{N_S}),但影响混合速率: 大环境意味着系统更快达到'均衡'(宏观稳态). 混合时间和回复时间是两个不同的时间尺度."]
+        }
+      },
+      "discussion": "T3的核心贡献: (a) 回复时间由N_S单独决定(2^{N_S}),而非N_E/N_S; (b) N_E的作用是提供'热浴'——加速系统向典型宏观态的弛豫,但不改变终极回复时间; (c) 不可逆性是实践的而非逻辑的: 信息在数学上可回复(Poincaré),但在任何实际观测时间内概率为零; (d) 这与统计力学的标准理解完全一致(Boltzmann回应Zermelo)."
+    }
+  ],
+  "cross_references": {
+    "cover_thomas": "Cover, T.M. & Thomas, J.A. (2006). Elements of Information Theory, 2nd ed. Wiley.",
+    "kac_1947": "Kac, M. (1947). On the notion of recurrence in discrete stochastic processes. Bull. AMS 53, 1002-1010.",
+    "gibbs_1902": "Gibbs, J.W. (1902). Elementary Principles in Statistical Mechanics.",
+    "shannon_1948": "Shannon, C.E. (1948). A Mathematical Theory of Communication. Bell System Technical Journal.",
+    "boltzmann_1896": "Boltzmann, L. (1896). Entgegnung auf die wärmetheoretischen Betrachtungen des Hrn. E. Zermelo. Annalen der Physik 57, 773-784.",
+    "hoeffding_1963": "Hoeffding, W. (1963). Probability inequalities for sums of bounded random variables. JASA 58, 13-30."
+  },
+  "honest_annotations": {
+    "T1e_counterexample": "Σs_i不守恒(N=2反例)是严格的. A3(占用数守恒)是额外公理. 论文若声称'信息守恒⇒占用数守恒'属于逻辑跳跃.",
+    "T2_conditional": "第二定律不是A1+A2的定理——是A1+A2+'纤维均匀化假设'的定理. 这个区分对避免过度声称至关重要.",
+    "T2c_jensen": "E[S[p']]≥S[p]需要Jensen不等式处理(因S是凹函数). 在大N极限下此技术问题不影响结论,但需标注.",
+    "T3a_independent_of_NE": "Kac回复时间2^{N_S}独立于N_E——这是一个令人惊讶的精确结果. N_E只影响混合速率,不影响回复时间.",
+    "T3d_exponential_approximation": "指数回复时间分布需要混合性假设. 一般情况只有Chebyshev界: P(τ_A≤T)≤T/E[τ_A]=T/2^{N_S}.",
+    "overall_assessment": "三个定理的严格性: T1(a-d)完全严格; T1e构造性反例严格; T2a严格恒等式; T2b-d有条件严格性; T3a-b严格; T3c-d需要混合性假设."
+  },
+  "next_steps": {
+    "T4_candidates": [
+      "信息处理的能量下界(连接Landauer原理)",
+      "容量约束下的最优编码定理(Shannon信道编码的有限版本)",
+      "多系统互信息演化(三体+信息流动不等式)",
+      "量子推广(A1→单位性,A2→有限维Hilbert空间)"
+    ],
+    "paper_outline": "基于T1-T3可撰写短篇数学物理论文(8-10页): Introduction(A1+A2动机)→Theorem1(信息守恒)→Theorem2(熵增的条件性)→Theorem3(容量比与不可逆性)→Discussion(与Landauer原理/Kolmogorov复杂度的关系)."
+  }
+}

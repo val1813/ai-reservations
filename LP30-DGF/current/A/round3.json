@@ -1,0 +1,43 @@
+{
+  "role": "A博士_学院派",
+  "round": "LP30-DGF_Round3",
+  "models": {
+    "M0_environment_null": {
+      "description": "环境退相干/null visibility模型；q不作为DGF潜变量出现。",
+      "params": ["V_ref", "Gamma_env", "V_floor"],
+      "sympy": "V_floor + (V_ref - V_floor)*exp(-Gamma_env*t)"
+    },
+    "M1_DGF_constrained": {
+      "description": "DGF constrained likelihood；q是潜变量，不由V_obs/V_ref直接反演，也不clip。",
+      "latent": "q_i in [0, 1]",
+      "sympy_visibility": "V_ref*sin(pi*q_i/2)",
+      "sympy_mass": "(2*m_p/pi)*sin(pi*q_i/2)"
+    }
+  },
+  "likelihood": {
+    "M0_gaussian_logL": "Sum(-log(sigma_V_i*sqrt(2*pi)) - (V_obs_i - (V_floor + (V_ref - V_floor)*exp(-Gamma_env*t_i)))**2/(2*sigma_V_i**2), (i, 1, N))",
+    "M1_profile_logL": "Sum(-log(sigma_V_i*sqrt(2*pi)) - (V_obs_i - V_ref*sin(pi*q_i/2))**2/(2*sigma_V_i**2) - (q_i - mu_q)**2/(2*sigma_q**2), (i, 1, N))",
+    "LLR": "2*(logL_env - logL_DGF)",
+    "LLR_interpretation": "LLR > 0 supports environment/null; LLR < 0 supports DGF constrained model."
+  },
+  "q_bridge_handling": {
+    "q_visibility": "控制可见度抑制的统计潜变量",
+    "q_DGF_mass": "进入质量桥接m_model的DGF潜变量",
+    "bridge_assumption": "single_order_parameter_bridge: q_visibility_i = q_DGF_mass_i",
+    "fallback": "若不接受桥接，M1只能作为经验受限可见度模型。"
+  },
+  "minimal_example_table": {
+    "status": "hypothetical example only; not Fadel/Bild real data",
+    "rows": [
+      {"t": 0.0, "V_obs": 0.92, "sigma_V": 0.04, "V_env_best": 0.91, "V_DGF_best": 0.7071, "residual": 0.2129, "chi2_contribution": 28.329},
+      {"t": 1.0, "V_obs": 0.78, "sigma_V": 0.05, "V_env_best": 0.80, "V_DGF_best": 0.7071, "residual": 0.0729, "chi2_contribution": 2.126},
+      {"t": 2.0, "V_obs": 0.66, "sigma_V": 0.05, "V_env_best": 0.69, "V_DGF_best": 0.7071, "residual": -0.0471, "chi2_contribution": 0.887},
+      {"t": 3.0, "V_obs": 0.58, "sigma_V": 0.06, "V_env_best": 0.60, "V_DGF_best": 0.7071, "residual": -0.1271, "chi2_contribution": 4.488}
+    ]
+  },
+  "claims": [
+    {"id": "A3-C1", "claim": "DGF-N4统计化版本应以q为潜变量进入likelihood，而不是clip(V_obs/V_ref)。", "status": "accepted_constraint"},
+    {"id": "A3-C2", "claim": "若采用q_visibility=q_DGF_mass，必须显式声明single_order_parameter_bridge；否则降级为经验latent-visibility模型。", "status": "bridge_condition"},
+    {"id": "A3-C3", "claim": "LLR=2*(logL_env-logL_DGF)，LLR>0支持环境/null，LLR<0支持DGF constrained model。", "status": "sign_fixed"}
+  ]
+}

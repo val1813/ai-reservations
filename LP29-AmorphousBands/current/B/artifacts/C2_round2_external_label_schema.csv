@@ -1,0 +1,25 @@
+column_name,required,example,provenance_rule
+sample_id,true,LP29_sample_0001,Primary join key shared by structure descriptors graph metrics controls and labels
+structure_id,true,AIMD_cell_0001,Must identify the atomistic structure used to compute graph descriptors
+snapshot_id,true,snap_020ps,Must identify same-sample snapshot or averaged snapshot window
+material_family,true,a-In2O3,Used for leave-one-family-out validation and batch control
+batch_id,true,batch_qsgw_2026_06,Control only must not leak target measurement
+label_name,true,hall_mobility,One of Hall Drude Wannier_QSGW spectral_IPR linewidth ridge_coherence level_statistics or declared extension
+label_value,true,3.0,Numeric external label value
+label_unit,true,cm2_per_Vs,Required for every quantitative label
+label_method,true,experiment_Hall_300K,Measurement or calculation method must be explicit
+label_source_type,true,experiment,Allowed values experiment independent_DFT independent_QSGW independent_Wannier literature diagnostic_synthetic forbidden_graph_generated
+source_citation_or_doi,true,10.1038/s41567-025-03099-x,DOI citation or internal report identifier
+source_url_or_path,false,D:\data\LP29\labels\hall.csv,Path or URL for audit trail
+measurement_or_calculation_date,false,2026-06-04,Use ISO date when available
+temperature_K,false,300,Required for transport labels when available
+carrier_density_cm3,false,1.0e20,Required control for Hall or Drude labels
+hall_factor_convention,false,r_H_declared,Declare Hall factor convention before regression
+drude_extraction_convention,false,plasma_frequency_fit,Declare optical Drude extraction convention before regression
+wannier_or_qsgw_settings,false,QSGW_vX_basisY,Required for Wannier or QSGW labels
+spectral_metric_definition,false,IPR_band_edge_window_0p1eV,Required for linewidth IPR ridge coherence or level statistics
+is_external_to_graph_proxy,true,true,Must be true for material validation labels
+forbidden_if_graph_generated,true,false,True means diagnostic only and excluded from material validation
+baseline_controls_available,true,true,Confirms overlap onsite disorder density mobility-edge finite-size and batch controls are joined or explicitly missing
+provenance_confidence,true,high,Allowed values high medium low
+notes,false,convention locked before model fit,Free text audit notes

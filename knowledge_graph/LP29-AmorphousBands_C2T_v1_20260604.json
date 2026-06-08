@@ -1,0 +1,49 @@
+{
+  "project": "LP29-AmorphousBands",
+  "subproject": "LP29-C2T",
+  "version": "v1",
+  "date": "2026-06-04",
+  "conclusion_type": "executor-contract-ready / no provenance-complete material rows / validation blocked",
+  "total_rounds": 4,
+  "core_findings": {
+    "status": "C2T is an internal pre-validation witness/executor contract artifact.",
+    "reviewer_response": "Round 3 reviewer required executable witness payload schema; Round 4 supplied schema, examples, gate predicates, executor, expected results, and regression outputs.",
+    "boundary": "No provenance-complete material rows exist; all current candidates remain BLOCK and material_validation_allowed=false.",
+    "next_step": "Audit one concrete Jankousky candidate row or reconstruct one Srivastava exact O_s baseline row before any residual regression."
+  },
+  "core_artifacts": [
+    "current/C2T/artifacts/C2T_joined_table_schema.csv",
+    "current/C2T/artifacts/C2T_source_inventory.csv",
+    "current/C2T/artifacts/C2T_field_blocker_table.csv",
+    "current/C2T/artifacts/C2T_A_witness_requirements_round4.csv",
+    "current/C2T/artifacts/C2T_witness_payload_schema.json",
+    "current/C2T/artifacts/C2T_witness_payload_examples.jsonl",
+    "current/C2T/artifacts/C2T_gate_predicates.csv",
+    "current/C2T/scripts/C2T_executor.py",
+    "current/C2T/artifacts/C2T_executor_expected_results.csv",
+    "current/C2T/artifacts/C2T_executor_actual_results.csv",
+    "current/C2T/artifacts/C2T_executor_unit_expected_results.csv",
+    "current/C2T/artifacts/C2T_executor_unit_actual_results.csv"
+  ],
+  "negative_candidate_rows": [
+    "C2T-AUDIT-0001",
+    "C2T-AUDIT-0002",
+    "C2T-AUDIT-0003",
+    "C2T-AUDIT-0004",
+    "C2T-AUDIT-0005"
+  ],
+  "forbidden_claims": [
+    "material validation",
+    "Srivastava reproduction complete",
+    "graph metrics beat orbital-overlap baseline",
+    "Jankousky/Furubayashi/Jang same-sample closure complete",
+    "synthetic executor unit tests are material evidence"
+  ],
+  "re_escalated_candidate": "LP29-C2T-R1 proof-carrying row / witness-executor admissibility calculus",
+  "knowledge_entries": [
+    "K29.5",
+    "K29.6",
+    "K29.7",
+    "K29.8"
+  ]
+}

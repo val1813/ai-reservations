@@ -1,0 +1,515 @@
+{
+  "project": "LP28-NickelateLayerDecoupling",
+  "window": "current-S1",
+  "round": 2,
+  "agent": "A",
+  "role": "literature-driven",
+  "status": "candidate preregistration stack only; no validation claimed",
+  "polaris": "Can I_phi be computed from input-side spectroscopy, structure, and dephasing before bulk superconducting outputs are inspected?",
+  "framework": "Leakage-controlled input encoder for layered nickelates, using only same-sample normal-state or structure/spectroscopy variables. The physical ingredients are prior art; the only surviving target is a non-circular measurement protocol.",
+  "findings": "Round 2 reduces I_phi to an executable, lab-feasible measurement stack. The least-circular C_phi is a normal-state c-axis optical transfer-matrix/Drude audit computed at frozen pressure-temperature points and fixed frequency windows, with Josephson plasma, superfluid density, Meissner response, zero resistance, critical current, condensate spectral weight, and bulk phase stiffness explicitly forbidden. E_z2, Gamma_phi, and E_floor can be computed with exact units if all coefficients and windows are frozen before output reveal. This is not validation; it is a preregistered encoder specification plus mock arithmetic.",
+  "weakest_link": "C_phi remains the weakest link because normal-state c-axis optical decomposition can collapse into a generic interlayer-coherence proxy or leak output information if windows, temperature selection, pressure inclusion, or fit components are chosen after viewing superconducting outcomes.",
+  "next_plan": "Have INSPECTOR audit whether the C_phi transfer-matrix recipe and missing-data rules fully prevent output leakage; if it passes, PI can assemble a blind preregistration packet for real same-sample data.",
+  "literature_needed": [
+    "same-sample La3Ni2O7 c-axis optical conductivity under pressure before bulk-output reveal",
+    "raw dz2-resolved ARPES/XAS/RIXS or DFT-constrained spectral weight for the same samples",
+    "normal-state optical/NMR linewidths measured at the frozen temperatures",
+    "sample-resolved oxygen vacancy and structural linewidth metrics with output labels withheld"
+  ],
+  "hard_prohibitions": [
+    "No Tc, zero resistance, shielding, Meissner fraction, critical current, Josephson plasma, superfluid density, condensate spectral weight, bulk phase stiffness, or transition-width fit may enter E_z2, C_phi, Gamma_phi, E_floor, thresholds, windows, sample exclusion, or coefficients.",
+    "No pressure point, temperature point, spectral window, or missing-data rule may be changed after any bulk superconducting output is opened.",
+    "Density-wave disappearance may be logged as context but is not sufficient evidence for superconductivity and is not an input to I_phi."
+  ],
+  "constants": {
+    "kB_meV_per_K": 0.08617333262,
+    "hbar_meV_ps": 0.6582119569
+  },
+  "frozen_measurement_grid": {
+    "sample_family": "La3Ni2O7-delta or bilayer RP nickelate film/bulk samples; all samples declared before output reveal",
+    "pressure_GPa": [0, 5, 10, 15, 20],
+    "temperature_K": [300, 200, 150, 120],
+    "index_temperature_K": 120,
+    "temperature_rule": "I_phi is evaluated only at 120 K. Higher-temperature points are quality-control anchors for optical fits and structural continuity. If 120 K is unavailable because the normal-state spectrum cannot be obtained under the frozen protocol, the sample is marked not_computable rather than substituted by a post hoc temperature.",
+    "spectral_windows": {
+      "E_z2_window_eV_relative_to_EF": [-0.25, 0.15],
+      "C_phi_Drude_window_cm_minus_1": [0, 600],
+      "C_phi_incoherent_window_cm_minus_1": [600, 5000],
+      "Gamma_phi_fit_window_cm_minus_1": [0, 600],
+      "background_window_cm_minus_1": [5000, 8000]
+    },
+    "output_blinding": "Input files, fit scripts, coefficients, and sample inclusion list are timestamped before opening any bulk-output file. Output files are stored in a separate sealed directory until I_phi_sample_table is frozen."
+  },
+  "measurement_stack": {
+    "E_z2": {
+      "definition": "input-side dz2 channel energy proxy from normalized dz2 spectral weight in the fixed window around EF",
+      "primary_measurement": "ARPES orbital projection if available; fallback to polarization-resolved XAS/RIXS or DFT-constrained spectral proxy declared before output reveal",
+      "formula": "E_z2_meV = min(alpha_z2_meV*S_z2_norm, E_z2_cap_meV)",
+      "units": {
+        "S_z2_norm": "dimensionless, normalized integral of dz2 spectral weight over -0.25 eV to +0.15 eV relative to EF",
+        "alpha_z2_meV": "meV per unit normalized dz2 spectral weight",
+        "E_z2_meV": "meV"
+      },
+      "frozen_coefficients": {
+        "alpha_z2_meV": 100.0,
+        "E_z2_cap_meV": 120.0
+      },
+      "coefficient_provenance": "Protocol calibration constant chosen before output reveal to convert a unit-normalized orbital spectral weight into a 0-120 meV energy-scale proxy; not fitted to superconducting output. Literature provenance: nickelate dz2/apical oxygen and orbital-weight relevance from Sui et al. Phys Rev B 109, 205156 (2024), Lu et al. Commun Phys 8 (2025), and bilayer nickelate electronic-structure papers already logged in Round 1.",
+      "quality_controls": [
+        "Use identical orbital-projection basis for every sample.",
+        "Background subtraction is fixed from the 5000-8000 cm^-1 optical or high-binding-energy spectroscopy window as applicable.",
+        "If S_z2_norm is outside [0, 1.2], flag fit_failure and do not compute I_phi."
+      ]
+    },
+    "C_phi": {
+      "definition": "dimensionless input-side recoverable interlayer phase-bus observability factor from normal-state c-axis optical conductivity only",
+      "least_circular_route": "Fit the 120 K c-axis optical conductivity with a frozen normal-state transfer-matrix model containing one narrow Drude component, one broad incoherent component, and fixed interband/background terms. C_phi is the narrow coherent spectral-weight fraction after enforcing passivity and nonnegative weights.",
+      "formula": "C_phi = max(0, min(1, W_c_Drude/(W_c_Drude + W_c_incoh + epsilon_W)))",
+      "units": {
+        "sigma1_c": "ohm^-1 cm^-1",
+        "omega_tilde": "cm^-1",
+        "W_c_Drude": "ohm^-1 cm^-2, numerical integral of fitted narrow Drude sigma1_c over 0-600 cm^-1",
+        "W_c_incoh": "ohm^-1 cm^-2, numerical integral of fitted broad incoherent sigma1_c over 600-5000 cm^-1 after fixed background subtraction",
+        "epsilon_W": "ohm^-1 cm^-2",
+        "C_phi": "dimensionless, bounded [0, 1]"
+      },
+      "frozen_coefficients": {
+        "epsilon_W_ohm_inv_cm_minus_2": 50.0,
+        "minimum_signal_to_noise_for_C_phi": 5.0,
+        "maximum_allowed_negative_spectral_weight_fraction": 0.0
+      },
+      "transfer_matrix_audit": {
+        "inputs": [
+          "sample thickness or pressure-cell optical path declared before fitting",
+          "c-axis reflectivity/transmission or ellipsometry spectrum at 120 K",
+          "fixed substrate/diamond/anvil optical constants from calibration run",
+          "same pressure point metadata before output reveal"
+        ],
+        "model_components": [
+          "narrow normal-state Drude oscillator in 0-600 cm^-1",
+          "broad incoherent oscillator constrained by 600-5000 cm^-1 area",
+          "fixed high-energy background from 5000-8000 cm^-1",
+          "no superconducting delta function, no Josephson plasma oscillator, no condensate term"
+        ],
+        "pass_fail_rules": [
+          "PASS if both W_c_Drude and W_c_incoh are nonnegative and the low-frequency Kramers-Kronig/transfer-matrix residual is within the preregistered instrument tolerance.",
+          "FAIL if a superconducting, Josephson, condensate, or phase-stiffness component is required to fit the spectrum.",
+          "FAIL if the fit requires changing the 0-600 cm^-1 or 600-5000 cm^-1 windows after inspecting output labels.",
+          "FAIL if pressure/temperature points are dropped because of known superconducting behavior rather than documented optical data failure."
+        ]
+      },
+      "coefficient_provenance": "Optical spectral-weight and Drude/scattering decomposition are established in layered conductors; MCP searches found c-axis optical spectra in La2-xSrxCuO4 (Uchida et al., Phys Rev B 53, 14558, 1996) and recent anisotropic optical spectroscopy in La4Ni3O10 (Liu et al., arXiv:2512.03806). These are method provenance only, not validation for I_phi.",
+      "forbidden_C_phi_sources": [
+        "Josephson plasma resonance",
+        "superfluid density",
+        "Meissner screening",
+        "zero resistance",
+        "critical current",
+        "bulk phase stiffness",
+        "transition width",
+        "condensate missing area below Tc"
+      ]
+    },
+    "Gamma_phi": {
+      "definition": "input-side dephasing/scattering rate in the same normal-state stack",
+      "primary_formula": "Gamma_phi_ps_inv = Gamma_Drude_cm_minus_1/5.308837",
+      "energy_formula": "hbarGamma_phi_meV = hbar_meV_ps*Gamma_phi_ps_inv",
+      "units": {
+        "Gamma_Drude_cm_minus_1": "cm^-1, narrow Drude scattering width from normal-state c-axis optical fit",
+        "Gamma_phi_ps_inv": "ps^-1",
+        "hbarGamma_phi_meV": "meV"
+      },
+      "fallback_measurement": "normal-state NMR 1/T1 or linewidth converted to ps^-1 only if the conversion rule is declared before output reveal; no superconducting fluctuation or transition broadening fits",
+      "coefficient_provenance": "Direct unit conversion using 1 cm^-1 = 0.188365 ps^-1; normal-state NMR and DW context from Kakoi et al., J Phys Soc Jpn 93, 053702 (2024), used only as measurability provenance."
+    },
+    "E_floor": {
+      "definition": "nonnegative disorder/structure energy floor preventing divergence and penalizing oxygen/strain/residual-scattering damage",
+      "formula": "E_floor_meV = max(E_floor_min_meV, lambda_vac_meV_per_pct*sigma_vac_pct + lambda_strain_meV_per_mrad*sigma_strain_mrad + lambda_res*hbarGamma_res_meV)",
+      "units": {
+        "sigma_vac_pct": "percentage points of apical oxygen vacancy/disorder proxy, e.g. 1.5 means 1.5 percent",
+        "sigma_strain_mrad": "mrad excess rocking-curve or structural-linewidth metric above instrument baseline",
+        "Gamma_res_ps_inv": "ps^-1 residual normal-state scattering rate at 300 K or pressure-cell baseline",
+        "hbarGamma_res_meV": "meV",
+        "lambda_vac_meV_per_pct": "meV per percentage point",
+        "lambda_strain_meV_per_mrad": "meV per mrad",
+        "lambda_res": "dimensionless",
+        "E_floor_meV": "meV"
+      },
+      "frozen_coefficients": {
+        "E_floor_min_meV": 3.0,
+        "lambda_vac_meV_per_pct": 2.0,
+        "lambda_strain_meV_per_mrad": 1.0,
+        "lambda_res": 0.25
+      },
+      "coefficient_provenance": "Fixed conservative coefficients chosen before output reveal to make oxygen vacancy, strain/stacking disorder, and residual scattering visible at meV scale. Literature provenance for relevance, not coefficient fitting: Lu et al. Commun Phys 8 (2025) on pressure/apical oxygen vacancies; Sui et al. Phys Rev B 109, 205156 (2024) on oxygen vacancies and dz2 electronic structure; Wang et al. Inorg Chem 63 (2024) and ACS structural supplements on hidden/temperature-dependent structure."
+    }
+  },
+  "main_equation": {
+    "label": "I_phi_round2_preregistered",
+    "expression": "E_z2_meV*C_phi/(kB_meV_per_K*T_K + hbarGamma_phi_meV + E_floor_meV)",
+    "units": "dimensionless",
+    "bounds": {
+      "E_z2_meV": "[0, 120]",
+      "C_phi": "[0, 1]",
+      "Gamma_phi_ps_inv": ">= 0",
+      "E_floor_meV": ">= 3",
+      "T_K": "fixed at 120 for index evaluation"
+    },
+    "divergence_controls": [
+      "T_K is fixed to 120 K, so kB*T = 10.3407999144 meV.",
+      "E_floor_meV is bounded below by 3 meV.",
+      "C_phi is clipped to [0, 1].",
+      "E_z2_meV is capped at 120 meV.",
+      "If denominator is not finite or is below 13.3407999144 meV, mark formula_error; do not rescale after output reveal."
+    ],
+    "limits": [
+      {
+        "variable": "C_phi",
+        "to": "0",
+        "expected": "0",
+        "desc": "no recoverable normal-state c-axis coherent channel"
+      },
+      {
+        "variable": "Gamma_phi_ps_inv",
+        "to": "0",
+        "expected": "E_z2_meV*C_phi/(kB_meV_per_K*T_K + E_floor_meV)",
+        "desc": "finite because T_K and E_floor_min_meV are fixed nonzero"
+      },
+      {
+        "variable": "E_floor_meV",
+        "to": "large",
+        "expected": "0",
+        "desc": "strong disorder/structure floor suppresses the index"
+      }
+    ]
+  },
+  "missing_data_rules": {
+    "sample_set_freeze": "The sample list and pressure-temperature grid are frozen before output reveal.",
+    "required_for_primary_I_phi": [
+      "S_z2_norm or declared fallback proxy",
+      "W_c_Drude",
+      "W_c_incoh",
+      "Gamma_Drude_cm_minus_1 or declared Gamma fallback",
+      "sigma_vac_pct",
+      "sigma_strain_mrad",
+      "Gamma_res_ps_inv"
+    ],
+    "not_computable_rule": "If any required primary input is missing or fails QC, I_phi_status is not_computable. The sample remains in the preregistration ledger and cannot be silently excluded.",
+    "sensitivity_rule": "A separate worst-case sensitivity table may assign C_phi=0 for missing C_phi or E_z2=0 for missing E_z2, but this table is labeled sensitivity_only and cannot replace the primary ledger.",
+    "outlier_rule": "Input outliers are winsorized only at preregistered physical bounds: S_z2_norm in [0, 1.2], C_phi in [0, 1], E_z2_meV <= 120. No output-aware outlier deletion.",
+    "pressure_failure_rule": "If pressure calibration fails, the pressure point is marked pressure_QC_fail with the calibration log. It is not moved to a neighboring pressure after output reveal.",
+    "fit_failure_rule": "If optical transfer-matrix residual exceeds the frozen tolerance or requires forbidden superconducting components, C_phi_status is fit_failure and I_phi is not computed."
+  },
+  "coefficient_provenance_summary": {
+    "not_fitted_to_output": true,
+    "alpha_z2_meV": "predeclared scale for normalized orbital spectral weight; literature-motivated by dz2 relevance but numerically fixed by protocol convention",
+    "epsilon_W_ohm_inv_cm_minus_2": "instrument-stabilizer area comparable to a small optical spectral-weight noise floor; fixed before output reveal",
+    "lambda_vac_meV_per_pct": "predeclared disorder penalty per percentage point apical oxygen vacancy proxy; relevance from oxygen-vacancy nickelate literature",
+    "lambda_strain_meV_per_mrad": "predeclared structural-linewidth penalty; relevance from hidden/temperature-dependent structural nickelate literature",
+    "lambda_res": "predeclared residual-scattering penalty converting hbarGamma_res into a floor contribution",
+    "threshold_policy": "No superconducting-output threshold is set in Round 2. If PI later sets a go/no-go I_phi threshold, it must be fixed before output reveal or trained only on an external dataset that is not part of the evaluation set."
+  },
+  "baseline_collapse_checks": {
+    "purpose": "After output reveal only, test whether I_phi adds anything beyond simpler input-side explanations. These checks evaluate collapse risk; they do not validate the index in Round 2.",
+    "predeclared_baselines": [
+      {
+        "id": "B0_C_only",
+        "formula": "C_phi",
+        "interpretation": "normal-state c-axis coherent fraction alone"
+      },
+      {
+        "id": "B1_E_z2_only",
+        "formula": "E_z2_meV/120",
+        "interpretation": "dz2 spectral weight alone"
+      },
+      {
+        "id": "B2_disorder_only",
+        "formula": "1/(1 + E_floor_meV/10)",
+        "interpretation": "oxygen/strain/residual-scattering cleanliness alone"
+      },
+      {
+        "id": "B3_denominator_only",
+        "formula": "1/(kB_meV_per_K*T_K + hbarGamma_phi_meV + E_floor_meV)",
+        "interpretation": "low dephasing/disorder energy scale alone"
+      },
+      {
+        "id": "B4_total_c_axis_weight",
+        "formula": "(W_c_Drude + W_c_incoh)/(W_c_Drude + W_c_incoh + epsilon_W)",
+        "interpretation": "generic c-axis optical spectral weight without coherent-fraction distinction"
+      }
+    ],
+    "collapse_failures": [
+      "If C_phi-only ranks samples as well as I_phi within the preregistered uncertainty, I_phi collapses to generic interlayer coherence.",
+      "If disorder-only ranks samples as well as I_phi, I_phi collapses to sample-quality or oxygen/strain control.",
+      "If E_z2-only ranks samples as well as I_phi, the denominator and C_phi are unnecessary.",
+      "If total c-axis weight ranks samples as well as I_phi, the coherent/incoherent split is not justified."
+    ],
+    "evaluation_metric_after_reveal": "Use the same predeclared metric for I_phi and baselines, e.g. rank correlation or AUROC against withheld output. Do not choose the metric after seeing which model wins."
+  },
+  "three_sample_mock_calculation": {
+    "status": "mock arithmetic only; not real data; no validation",
+    "shared_inputs": {
+      "T_K": 120,
+      "kB_T_meV": 10.3407999144,
+      "alpha_z2_meV": 100.0,
+      "epsilon_W_ohm_inv_cm_minus_2": 50.0,
+      "E_floor_min_meV": 3.0,
+      "lambda_vac_meV_per_pct": 2.0,
+      "lambda_strain_meV_per_mrad": 1.0,
+      "lambda_res": 0.25,
+      "hbar_meV_ps": 0.6582119569
+    },
+    "samples": [
+      {
+        "sample_id": "Mock-A_clean_coherent",
+        "pressure_GPa": 15,
+        "S_z2_norm": 0.62,
+        "E_z2_meV": 62.0,
+        "W_c_Drude_ohm_inv_cm_minus_2": 900.0,
+        "W_c_incoh_ohm_inv_cm_minus_2": 600.0,
+        "C_phi": 0.5806451613,
+        "Gamma_Drude_cm_minus_1": 80.0,
+        "Gamma_phi_ps_inv": 15.069685,
+        "hbarGamma_phi_meV": 9.919,
+        "sigma_vac_pct": 0.8,
+        "sigma_strain_mrad": 0.7,
+        "Gamma_res_ps_inv": 8.0,
+        "hbarGamma_res_meV": 5.266,
+        "E_floor_meV_unclipped": 3.616,
+        "E_floor_meV": 3.616,
+        "denominator_meV": 23.8758,
+        "I_phi": 1.5078,
+        "baseline_values": {
+          "B0_C_only": 0.5806,
+          "B1_E_z2_only": 0.5167,
+          "B2_disorder_only": 0.7344,
+          "B3_denominator_only_meV_inv": 0.04188,
+          "B4_total_c_axis_weight": 0.9677
+        }
+      },
+      {
+        "sample_id": "Mock-B_dz2_high_but_incoherent",
+        "pressure_GPa": 15,
+        "S_z2_norm": 0.70,
+        "E_z2_meV": 70.0,
+        "W_c_Drude_ohm_inv_cm_minus_2": 180.0,
+        "W_c_incoh_ohm_inv_cm_minus_2": 1300.0,
+        "C_phi": 0.1176470588,
+        "Gamma_Drude_cm_minus_1": 220.0,
+        "Gamma_phi_ps_inv": 41.441634,
+        "hbarGamma_phi_meV": 27.276,
+        "sigma_vac_pct": 1.2,
+        "sigma_strain_mrad": 1.1,
+        "Gamma_res_ps_inv": 18.0,
+        "hbarGamma_res_meV": 11.848,
+        "E_floor_meV_unclipped": 6.462,
+        "E_floor_meV": 6.462,
+        "denominator_meV": 44.0788,
+        "I_phi": 0.1868,
+        "baseline_values": {
+          "B0_C_only": 0.1176,
+          "B1_E_z2_only": 0.5833,
+          "B2_disorder_only": 0.6075,
+          "B3_denominator_only_meV_inv": 0.02269,
+          "B4_total_c_axis_weight": 0.9673
+        }
+      },
+      {
+        "sample_id": "Mock-C_dirty_moderate_coherence",
+        "pressure_GPa": 20,
+        "S_z2_norm": 0.45,
+        "E_z2_meV": 45.0,
+        "W_c_Drude_ohm_inv_cm_minus_2": 500.0,
+        "W_c_incoh_ohm_inv_cm_minus_2": 900.0,
+        "C_phi": 0.3448275862,
+        "Gamma_Drude_cm_minus_1": 160.0,
+        "Gamma_phi_ps_inv": 30.13937,
+        "hbarGamma_phi_meV": 19.838,
+        "sigma_vac_pct": 3.0,
+        "sigma_strain_mrad": 2.0,
+        "Gamma_res_ps_inv": 25.0,
+        "hbarGamma_res_meV": 16.455,
+        "E_floor_meV_unclipped": 12.114,
+        "E_floor_meV": 12.114,
+        "denominator_meV": 42.2928,
+        "I_phi": 0.3669,
+        "baseline_values": {
+          "B0_C_only": 0.3448,
+          "B1_E_z2_only": 0.375,
+          "B2_disorder_only": 0.4522,
+          "B3_denominator_only_meV_inv": 0.02364,
+          "B4_total_c_axis_weight": 0.9655
+        }
+      }
+    ],
+    "worked_arithmetic_example": {
+      "sample_id": "Mock-A_clean_coherent",
+      "C_phi_step": "900/(900 + 600 + 50) = 0.5806451613",
+      "Gamma_step": "Gamma_phi = 80/5.308837 = 15.069685 ps^-1; hbarGamma = 0.6582119569*15.069685 = 9.919 meV",
+      "E_floor_step": "max(3, 2*0.8 + 1*0.7 + 0.25*(0.6582119569*8)) = max(3, 3.616) = 3.616 meV",
+      "I_phi_step": "62*0.5806451613/(10.3407999144 + 9.919 + 3.616) = 1.5078"
+    }
+  },
+  "claims": [
+    {
+      "id": "R2C1",
+      "statement": "A dimensionally consistent I_phi encoder is lab-feasible only if E_z2, C_phi, Gamma_phi, and E_floor are computed in meV/meV-compatible units from frozen input-side measurements.",
+      "confidence": 0.78,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "I_phi_round2_preregistered",
+          "expression": "E_z2_meV*C_phi/(kB_meV_per_K*T_K + hbarGamma_phi_meV + E_floor_meV)",
+          "variables": {
+            "E_z2_meV": "input-side dz2 spectral-weight energy proxy in meV",
+            "C_phi": "dimensionless normal-state c-axis coherent-fraction audit",
+            "kB_meV_per_K": "0.08617333262 meV/K",
+            "T_K": "fixed index temperature, 120 K",
+            "hbarGamma_phi_meV": "hbar*Gamma_phi in meV",
+            "E_floor_meV": "nonnegative disorder/structure floor in meV"
+          },
+          "units": "dimensionless",
+          "numerical_test": {
+            "substitutions": {
+              "E_z2_meV": 62.0,
+              "C_phi": 0.5806451613,
+              "kB_meV_per_K": 0.08617333262,
+              "T_K": 120,
+              "hbarGamma_phi_meV": 9.919,
+              "E_floor_meV": 3.616
+            },
+            "expected_value": 1.5078,
+            "expected_range": [1.50, 1.52]
+          }
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/PhysRevB.109.205156",
+          "label": "Sui et al. 2024"
+        },
+        {
+          "doi": "10.1038/s42005-025-02266-z",
+          "label": "Lu et al. 2025"
+        }
+      ],
+      "assumptions": [
+        "The input measurements are performed and frozen before output reveal.",
+        "The coefficients are not trained on bulk superconducting output."
+      ]
+    },
+    {
+      "id": "R2C2",
+      "statement": "The least-circular C_phi is a normal-state c-axis optical coherent-fraction audit, not any superconducting phase-stiffness or condensate observable.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "C_phi_optical_audit",
+          "expression": "max(0, min(1, W_c_Drude/(W_c_Drude + W_c_incoh + epsilon_W)))",
+          "variables": {
+            "W_c_Drude": "0-600 cm^-1 fitted normal-state narrow Drude spectral weight, ohm^-1 cm^-2",
+            "W_c_incoh": "600-5000 cm^-1 fitted normal-state incoherent spectral weight, ohm^-1 cm^-2",
+            "epsilon_W": "50 ohm^-1 cm^-2 stabilizer"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "W_c_Drude",
+              "to": "0",
+              "expected": "0",
+              "desc": "no coherent normal-state c-axis channel"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1103/PHYSREVB.53.14558",
+          "label": "Uchida et al. 1996"
+        },
+        {
+          "doi": "arXiv:2512.03806",
+          "label": "Liu et al. 2025 La4Ni3O10 optical spectroscopy"
+        }
+      ],
+      "assumptions": [
+        "Normal-state c-axis optical spectra have sufficient SNR under pressure or in film geometry.",
+        "The fitting model excludes superconducting optical components."
+      ]
+    },
+    {
+      "id": "R2C3",
+      "statement": "Divergence is controlled by frozen T=120 K, E_floor>=3 meV, C_phi clipping, and E_z2 capping; therefore low-Gamma or low-disorder samples cannot create an infinite index.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "E_floor_round2",
+          "expression": "max(E_floor_min_meV, lambda_vac_meV_per_pct*sigma_vac_pct + lambda_strain_meV_per_mrad*sigma_strain_mrad + lambda_res*hbarGamma_res_meV)",
+          "variables": {
+            "E_floor_min_meV": "3 meV",
+            "lambda_vac_meV_per_pct": "2 meV per percentage point",
+            "sigma_vac_pct": "apical oxygen vacancy/disorder proxy in percentage points",
+            "lambda_strain_meV_per_mrad": "1 meV per mrad",
+            "sigma_strain_mrad": "structural linewidth/strain metric",
+            "lambda_res": "0.25 dimensionless",
+            "hbarGamma_res_meV": "residual scattering energy"
+          },
+          "units": "meV"
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s42005-025-02266-z",
+          "label": "Lu et al. 2025"
+        },
+        {
+          "doi": "10.1021/acs.inorgchem.3c04474",
+          "label": "Wang et al. 2024 hidden structural phase"
+        }
+      ],
+      "assumptions": [
+        "The floor coefficients are protocol constants rather than output-fitted weights.",
+        "The structural and oxygen metrics are measured input-side."
+      ]
+    }
+  ],
+  "deepening": {
+    "deepening_1": {
+      "next_consequence": "If C_phi can be measured this way, false positives become diagnostic: a sample may have input-side c-axis phase-bus readiness but still fail bulk superconductivity because pairing amplitude, percolation, phase purity, or disorder bottlenecks are missing.",
+      "second_consequence": "Therefore evaluation must not optimize I_phi to eliminate false positives; it must compare I_phi against baselines and preserve failures as evidence about mechanism separation."
+    },
+    "deepening_2": {
+      "most_fragile_assumption": "That a normal-state c-axis Drude fraction is an input-side observability proxy rather than an already sufficient generic interlayer-coherence label.",
+      "second_consequence": "If C_phi-only or total c-axis spectral weight performs as well as I_phi after output reveal, LP28-S1 collapses to prior-art interlayer coherence and should not be claimed as an independent index."
+    }
+  },
+  "inspector_check": {
+    "formula": "I_phi = E_z2_meV*C_phi/(kB_meV_per_K*T_K + hbarGamma_phi_meV + E_floor_meV), dimensionless; C_phi = W_c_Drude/(W_c_Drude + W_c_incoh + epsilon_W)",
+    "direction": "Increasing E_z2 or C_phi increases I_phi; increasing Gamma_phi, T, or E_floor decreases I_phi; divergence is bounded by T=120 K and E_floor>=3 meV.",
+    "data": "Mock arithmetic plus literature-provenance stack only; no validation and no bulk output used.",
+    "assumptions": "Normal-state optical decomposition is feasible with frozen windows; all coefficients and missing-data rules are timestamped before output reveal."
+  },
+  "search_tool_self_check": {
+    "new_round2_search_tool": "paper-search-mcp",
+    "websearch_downgrade": "not used",
+    "queries": [
+      "La3Ni2O7 c-axis optical conductivity Drude spectral weight pressure nickelate normal state",
+      "bilayer nickelate La3Ni2O7 dz2 orbital spectral weight ARPES RIXS XAS pressure apical oxygen",
+      "La3Ni2O7 NMR scattering rate dephasing normal state pressure spin density wave nickelate",
+      "La3Ni2O7 oxygen vacancy disorder apical oxygen structural phase pressure nickelate superconductivity"
+    ],
+    "mcp_results_used": [
+      "Uchida et al. Phys Rev B 53, 14558 (1996) for c-axis optical spectra method provenance in layered superconductors",
+      "Liu et al. arXiv:2512.03806 for anisotropic optical spectroscopy and dz2-involved density-wave optical response in La4Ni3O10",
+      "Sui et al. Phys Rev B 109, 205156 (2024) for oxygen vacancies affecting dz2 electronic structure",
+      "Lu et al. Commun Phys 8 (2025) for pressure and apical oxygen vacancy relevance",
+      "Kakoi et al. J Phys Soc Jpn 93, 053702 (2024) for normal-state NMR/DW measurability context"
+    ],
+    "limitations": [
+      "MCP did not identify a complete same-sample La3Ni2O7 c-axis optical pressure dataset containing all I_phi variables.",
+      "Several Crossref hits were supplemental components; they are used only as structural-data provenance signals, not as full validation."
+    ]
+  }
+}

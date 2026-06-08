@@ -1,0 +1,281 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Static Metric from Information Propagation}
+\label{sec:metric}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We now derive the full spacetime metric in the static, spherically symmetric limit.
+The previous section established the static solution $q(r)=e^{-GM/rc^2}$ from the field equation $\nabla^2(\ln 1/q)=0$.
+This section shows that the same information-theoretic principles that fix the temporal metric component also fix the spatial components, yielding a complete metric with precise post-Newtonian predictions.
+
+\subsection{Causal Locking and the Temporal Metric}
+
+The global projection clock advances at rate $1/t_P$ in coordinate time $t$.
+A cell $i$ with free-capacity fraction $q_i$ can accept new information only when it is free.
+The fraction of coordinate time during which the cell is receptive to causal updates is exactly $q_i$.
+Therefore, the proper time $d\tau$ experienced at a point with free capacity $q$ is related to coordinate time $dt$ by
+\begin{equation}
+\boxed{d\tau = q\,dt}.
+\label{eq:causal_locking}
+\end{equation}
+We term this \textbf{causal locking}: the local clock rate equals the free capacity fraction.
+
+In the rest frame of a static observer, the proper time interval is $d\tau^2 = -g_{00}\,dt^2$.
+Equation~\eqref{eq:causal_locking} therefore fixes the temporal metric component:
+\begin{equation}
+\boxed{g_{00} = -q^2}.
+\label{eq:g00}
+\end{equation}
+
+For $q\to1$ (empty space, far from all masses), $g_{00}\to-1$, recovering the Minkowski form.
+For $q<1$ (massive region), $|g_{00}|<1$ and clocks run slower, as required.
+
+\subsection{Information Propagation Constraint and the Spatial Metric}
+
+The spatial metric follows from an equally fundamental information-theoretic constraint.
+Consider how information propagates on the cell graph.
+
+Each cell-to-cell hop of information occurs at the fundamental speed $c=a/t_P$, where $a$ is the cell spacing and $t_P=a/c$ is the Planck time.
+However, a hop from cell $i$ to cell $j$ can succeed \emph{only if cell $j$ is free}---if cell $j$ is occupied (its 1-bit capacity is saturated), the information must wait for the cell to become available.
+
+In the steady state, cell $j$ is free with probability $q_j$.
+The number of attempts needed for a successful hop follows a geometric distribution with mean $1/q_j$.
+Therefore the mean hop time is
+\begin{equation}
+\Delta t_{\rm hop} = \frac{t_P}{q}.
+\label{eq:hop_time}
+\end{equation}
+(For a smooth $q$ field, $q_i\approx q_j\approx q$, and the harmonic mean is well approximated by the local $q$.)
+
+The effective propagation speed across the cell graph is therefore
+\begin{equation}
+c_{\rm eff} = \frac{a}{\Delta t_{\rm hop}} = c\,q.
+\label{eq:ceff}
+\end{equation}
+In regions with low $q$ (near massive bodies, where most cells are occupied), information propagates more slowly because it must queue behind occupied cells.
+
+The proper distance $dl_{\rm proper}$ traversed by an information signal in proper time $d\tau$ is $dl_{\rm proper}=c\,d\tau_{\rm prop}$, where $d\tau_{\rm prop}$ is the proper time for the signal to cross coordinate distance $dl_{\rm coord}$.
+Since $c_{\rm eff}=dl_{\rm coord}/d\tau_{\rm prop}$, we have $d\tau_{\rm prop}=dl_{\rm coord}/(c q)$, and thus
+\begin{equation}
+\boxed{dl_{\rm proper} = \frac{dl_{\rm coord}}{q}}.
+\label{eq:proper_length}
+\end{equation}
+
+This is the central result: the effective proper distance is the coordinate distance \emph{stretched} by factor $1/q$, because each cell-to-cell hop requires, on average, $1/q$ attempts.
+Equation~\eqref{eq:proper_length} is the spatial analog of Eq.~\eqref{eq:causal_locking}: temporal intervals contract by $q$, spatial intervals dilate by $1/q$---a natural duality rooted in the same information bottleneck.
+
+In isotropic coordinates, where the spatial part of the metric is conformally flat,
+\begin{equation}
+dl_{\rm coord}^2 = dr^2 + r^2(d\theta^2 + \sin^2\theta\,d\varphi^2),
+\end{equation}
+the spatial metric components are
+\begin{equation}
+\boxed{g_{rr} = \frac{1}{q^2},\qquad
+g_{\theta\theta} = \frac{r^2}{q^2},\qquad
+g_{\varphi\varphi} = \frac{r^2\sin^2\theta}{q^2}}.
+\label{eq:spatial_metric}
+\end{equation}
+
+\subsection{Full Static Metric}
+
+Combining Eqs.~\eqref{eq:g00} and~\eqref{eq:spatial_metric}, the full line element in isotropic coordinates is
+\begin{equation}
+\boxed{ds^2 = -q^2\,dt^2 + \frac{1}{q^2}\bigl(dr^2 + r^2 d\Omega^2\bigr)}.
+\label{eq:full_metric}
+\end{equation}
+The metric is fully determined by the single scalar field $q(\mathbf{x})$.
+
+Inserting the static point-mass solution $q(r)=e^{-GM/rc^2}$ established in Section~\ref{sec:static}:
+\begin{equation}
+\boxed{ds^2 = -e^{-2GM/rc^2}\,dt^2 + e^{2GM/rc^2}\bigl(dr^2 + r^2 d\Omega^2\bigr)}.
+\label{eq:DGF_metric}
+\end{equation}
+
+Several properties are immediately apparent:
+\begin{enumerate}
+    \item As $r\to\infty$, $q\to1$, and the metric approaches Minkowski: $ds^2\to -dt^2+dr^2+r^2d\Omega^2$.
+    \item Both $g_{00}$ and $g_{rr}$ depend only on $q(r)$, so the metric is determined by a single degree of freedom---no independent temporal and spatial potentials.
+    \item The metric is everywhere non-singular for $r>0$: $g_{00}=-e^{-2GM/rc^2}<0$ and $g_{rr}=e^{2GM/rc^2}>0$.
+    \item At $r=0$, $g_{00}\to0$ and $g_{rr}\to\infty$, indicating the Planck-scale limit where $q\to0$ and the capacity bound is saturated.
+\end{enumerate}
+
+\subsection{Post-Newtonian Expansion}
+
+Define the Newtonian potential in dimensionless form:
+\begin{equation}
+U(r) \equiv \frac{GM}{rc^2}.
+\label{eq:Udef}
+\end{equation}
+For Solar System applications, $U\lesssim 10^{-5}$ everywhere outside the Sun, so a post-Newtonian expansion in powers of $U$ is well-justified.
+
+Expand the DGF metric~\eqref{eq:DGF_metric}:
+\begin{align}
+g_{00} &= -e^{-2U} = -\Bigl(1 - 2U + 2U^2 - \frac{4}{3}U^3 + \frac{2}{3}U^4 - \cdots\Bigr), \label{eq:g00_expand} \\
+g_{rr} &= e^{2U} = 1 + 2U + 2U^2 + \frac{4}{3}U^3 + \frac{2}{3}U^4 + \cdots. \label{eq:grr_expand}
+\end{align}
+
+In the standard parameterized post-Newtonian (PPN) formalism~\cite{Will:1993,Will:2014}, the isotropic metric is written as
+\begin{align}
+g_{00} &= -1 + 2U - 2\beta U^2 + \mathcal{O}(U^3), \label{eq:ppn_g00} \\
+g_{ij} &= (1 + 2\gamma U)\delta_{ij} + \mathcal{O}(U^2). \label{eq:ppn_gij}
+\end{align}
+
+Comparing Eq.~\eqref{eq:g00_expand} with Eq.~\eqref{eq:ppn_g00}:
+\begin{equation}
+\boxed{\beta = 1}.
+\label{eq:beta}
+\end{equation}
+Comparing Eq.~\eqref{eq:grr_expand} with Eq.~\eqref{eq:ppn_gij}:
+\begin{equation}
+\boxed{\gamma = 1}.
+\label{eq:gamma}
+\end{equation}
+
+Both PPN parameters take their general-relativistic values.
+DGF therefore reproduces GR at first post-Newtonian order.
+
+\subsection{Consistency with Solar System Tests}
+
+With $\beta=\gamma=1$, all three classical tests of general relativity are satisfied identically:
+
+\textbf{Perihelion precession.}
+The PPN expression for the perihelion advance per orbit is~\cite{Will:1993}
+\begin{equation}
+\Delta\phi = \frac{2+2\gamma-\beta}{3}\,\Delta\phi_{\rm GR},
+\end{equation}
+where $\Delta\phi_{\rm GR}=6\pi GM/[ac^2(1-e^2)]$ is the standard GR result in terms of the semi-major axis $a$ and eccentricity $e$.
+With $\beta=\gamma=1$, the prefactor is $(2+2-1)/3=1$, and DGF gives exactly the GR prediction:
+\begin{equation}
+\boxed{\Delta\phi_{\rm DGF} = \Delta\phi_{\rm GR} = 42.98''\text{/century (Mercury)}}.
+\end{equation}
+
+\textbf{Light deflection.}
+The PPN expression for the deflection angle of light passing a mass $M$ with impact parameter $b$ is
+\begin{equation}
+\Delta\theta = \frac{1+\gamma}{2}\,\frac{4GM}{bc^2}.
+\end{equation}
+With $\gamma=1$, this gives $\Delta\theta = 4GM/(bc^2)$, matching the GR result of $1.75''$ for starlight grazing the solar limb.
+
+\textbf{Shapiro time delay.}
+The PPN expression for the round-trip radar delay is
+\begin{equation}
+\Delta t = \frac{1+\gamma}{2}\,\Delta t_{\rm GR},
+\end{equation}
+which again reduces to the GR value for $\gamma=1$.
+
+Thus DGF passes all Solar System tests at the current level of precision.
+The previous concern that DGF might be ruled out by perihelion data~\cite{...} was based on an incorrect acceleration law $\mathbf{a}=-c^2\nabla q$; the correct metric derivation via causal locking and the propagation constraint yields $\beta=\gamma=1$ and full consistency with observation.
+
+\subsection{Second-Order Deviation from General Relativity}
+
+Although DGF and GR agree at first PPN order, they differ at second post-Newtonian order.
+For GR in isotropic coordinates, the exact Schwarzschild metric is~\cite{MTW:1973}
+\begin{equation}
+ds^2_{\rm GR} = -\left(\frac{1-GM/2rc^2}{1+GM/2rc^2}\right)^2 dt^2 + \left(1+\frac{GM}{2rc^2}\right)^4 (dr^2 + r^2d\Omega^2).
+\end{equation}
+Expanding:
+\begin{align}
+g_{00}^{\rm GR} &= -1 + 2U - 2U^2 + \frac{3}{2}U^3 + \mathcal{O}(U^4), \label{eq:gr_g00} \\
+g_{rr}^{\rm GR} &= 1 + 2U + \frac{3}{2}U^2 + \frac{1}{2}U^3 + \mathcal{O}(U^4). \label{eq:gr_grr}
+\end{align}
+
+Comparing with the DGF expansions~\eqref{eq:g00_expand}--\eqref{eq:grr_expand}:
+
+\begin{center}
+\begin{tabular}{c|cccc}
+\toprule
+Component & Theory & $\mathcal{O}(U)$ & $\mathcal{O}(U^2)$ & $\mathcal{O}(U^3)$ \\
+\midrule
+\multirow{2}{*}{$-g_{00}$} & DGF & $1-2U$ & $+2U^2$ & $-\frac{4}{3}U^3$ \\
+                            & GR  & $1-2U$ & $+2U^2$ & $-\frac{3}{2}U^3$ \\
+\midrule
+\multirow{2}{*}{$g_{rr}$}   & DGF & $1+2U$ & $+2U^2$ & $+\frac{4}{3}U^3$ \\
+                            & GR  & $1+2U$ & $+\frac{3}{2}U^2$ & $+\frac{1}{2}U^3$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The first deviation appears at $\mathcal{O}(U^2)$ in $g_{rr}$:
+\begin{equation}
+\Delta g_{rr} \equiv g_{rr}^{\rm DGF} - g_{rr}^{\rm GR}
+= \frac{1}{2}U^2 + \mathcal{O}(U^3).
+\label{eq:delta_grr}
+\end{equation}
+
+For the Sun at its surface ($U_\odot \approx 2.1\times10^{-6}$):
+\begin{equation}
+\Delta g_{rr}(R_\odot) \approx 2.2\times10^{-12}.
+\end{equation}
+
+For Mercury's orbit ($U_{\rm Mercury}\approx 2.5\times10^{-8}$):
+\begin{equation}
+\Delta g_{rr}(r_{\rm Mercury}) \approx 3.1\times10^{-16}.
+\end{equation}
+
+The perihelion precession deviation at second PPN order is suppressed by an additional factor of $U$:
+\begin{equation}
+\frac{\delta(\Delta\phi)}{\Delta\phi} \sim \mathcal{O}(U^2) \sim 6\times10^{-16}\quad\text{(Mercury)}.
+\end{equation}
+This corresponds to a deviation of $\sim 3\times10^{-14}$ arcseconds per century, compared to the current measurement precision of $\sim 10^{-3}$ arcseconds per century from MESSENGER data~\cite{Park:2017}.
+The second-order DGF deviation is therefore \textbf{eight orders of magnitude} below current observational sensitivity.
+
+\subsection{Sensitivity Required for Detection}
+
+To discriminate DGF from GR at the second PPN order would require:
+
+\begin{itemize}
+    \item \textbf{Solar spectroscopy:} measuring the gravitational redshift at the solar surface to $\sim 10^{-12}$ fractional precision. Current best: $\sim 10^{-6}$ (GRAVITY/VLTI, PHI/Solar~Orbiter). Required improvement: ${\sim}10^{6}\times$.
+
+    \item \textbf{Planetary ranging:} measuring Mercury's orbit to $\sim 10^{-16}$ fractional precision in the gravitational potential. Current best: $\sim 10^{-8}$ (MESSENGER, BepiColombo). Required improvement: ${\sim}10^{8}\times$.
+
+    \item \textbf{Pulsar timing:} the double pulsar PSR~J0737--3039 has $U\sim 2\times10^{-6}$ at periastron, giving $\Delta g_{rr}\sim 2\times10^{-12}$. The periastron advance is measured to $\sim 10^{-6}$ fractional precision~\cite{Kramer:2006}. Required improvement: ${\sim}10^{6}\times$.
+
+    \item \textbf{Lunar laser ranging:} $U_{\rm Earth}\sim 7\times10^{-10}$ at the Moon's orbit. $\Delta g_{rr}\sim 2.5\times10^{-19}$, requiring ranging precision of $\sim 10^{-19}$---beyond any foreseeable technology.
+\end{itemize}
+
+\textbf{Strong-field regime.}
+For a neutron star surface where $U\sim 0.1$--$0.2$, the second-order effect reaches $\Delta g_{rr}/g_{rr}\sim 0.5\%$--$2\%$.
+However, in this regime the PPN expansion itself breaks down, and one must solve the full nonlinear DGF field equations.
+The soft boundary replacing the classical event horizon (Section~\ref{sec:predictions}) provides a qualitatively distinct, strong-field discriminant that does not require precision metrology.
+
+\textbf{Cosmological regime.}
+If $q_\infty$ evolves cosmologically (e.g., $q_\infty(t)\propto 1/a(t)$), the cumulative effect over $\sim 10^{10}$ years could produce $\mathcal{O}(1)$ differences in $g_{rr}$ at cosmological distances, potentially observable through integrated Sachs-Wolfe effect anomalies, distance-ladder tensions, or $f\sigma_8$ growth-rate measurements.
+This remains an open direction.
+
+\subsection{Comparison of Derivation Methods}
+
+It is instructive to contrast the present derivation with the earlier DGF effective acceleration interface~\cite{DGF_v3_1}.
+In that approach, the complex quadratic representation $Q_q=e^{i\pi(1-q)}$ was projected to its real part, and an effective Christoffel symbol was computed to give $\mathbf{a}=-(c^2\pi^2/2)q\nabla q$.
+This produced a non-standard PPN $\gamma$ and led to the false conclusion that DGF was ruled out by perihelion data.
+
+The present derivation avoids this detour entirely:
+\begin{enumerate}
+    \item Causal locking gives $g_{00}=-q^2$ directly, without invoking complex representations.
+    \item The information propagation constraint gives $g_{rr}=1/q^2$ directly, without introducing Christoffel symbols or geodesic equations.
+    \item Together, the metric is fully determined by $q(r)$ alone, and the PPN expansion follows mechanically.
+    \item The result $\beta=\gamma=1$ is \emph{exact} at first PPN order for \emph{any} spherically symmetric $q(r)$, provided the metric takes the form~\eqref{eq:full_metric}.
+\end{enumerate}
+
+The key insight is that \textbf{the metric is not a separate postulate}---it is a direct consequence of how information propagates on the cell graph.
+Causal locking and the information bottleneck are two faces of the same capacity bound.
+
+\subsection{Connection to the Planck-Cell Paradigm}
+
+The present framework shares a foundational assumption with the Quantum Memory Matrix (QMM) hypothesis of Neukart et al.~\cite{Neukart:2024}:
+spacetime at the Planck scale consists of discrete cells, each carrying a finite-dimensional Hilbert space, and physical processes are fundamentally information-encoding operations on this substrate.
+In QMM, each Planck cell acts as a quantum memory unit that stores and releases information via ``quantum imprints,'' preserving unitarity in black hole evaporation.
+In DGF, each Planck cell acts as an information capacity unit whose occupation state determines the local metric structure.
+
+The independent convergence of these two programs on the Planck-cell paradigm---from opposite directions (black hole information paradox vs.\ decoherence-to-gravity emergence)---lends mutual credibility.
+QMM verifies that Planck-scale information storage is mathematically consistent with known physics; DGF provides the dynamical bridge from that information substrate to the classical gravitational field.
+
+\subsection{Summary}
+
+The static metric derivation closes a structural gap in the DGF/LP31 framework.
+The chain from axioms to observable metric is now complete:
+\begin{equation}
+\text{A1+A2}\;\to\;q(r)=e^{-GM/rc^2}\;\to\;g_{00}=-q^2,\;g_{rr}=1/q^2\;\to\;\beta=\gamma=1.
+\end{equation}
+DGF reproduces all three classical Solar System tests at the precision with which they have been measured.
+The second-order deviation from GR, $\Delta g_{rr}\simeq\frac{1}{2}(GM/rc^2)^2$, is a genuine prediction that distinguishes the two theories, albeit at a level (${\sim}10^{-16}$ for Mercury) far below current observational reach.
+Qualitative discriminants in the strong-field regime (soft boundary, modified gravitational wave ringdown) offer more promising near-term tests.
+\end{document}

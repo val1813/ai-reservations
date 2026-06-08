@@ -1,0 +1,211 @@
+{
+  "project": "LP29-AmorphousBands",
+  "subtopic": "LP29-C2",
+  "round": 2,
+  "agent": "A",
+  "date": "2026-06-04",
+  "input_scope": {
+    "project_files_read": [
+      "current/A/C2_round1.json",
+      "synthesis/inspector_A_c2_round1.md",
+      "synthesis/PI_c2_round1.md",
+      "current/plan/文献库.md"
+    ],
+    "project_files_not_read": [
+      "current/B"
+    ],
+    "governing_files_read_due_global_routing": [
+      "D:/Claude/ai-reservations/AGENTS.md",
+      "D:/Claude/ai-reservations/ai/CLAUDE.md"
+    ]
+  },
+  "round2_position": {
+    "claim_level": "protocol-and-schema artifact only",
+    "mechanism_claim_status": "No material-mechanism validity claim is made in this round.",
+    "A_route_update": "A route remains baseline-first: graph quantities are only admissible as residual predictors after orbital-overlap, onsite variance, carrier density, mobility-edge margin, batch and finite-size controls."
+  },
+  "srivastava_orbital_overlap_baseline_gap_audit": {
+    "source_status_from_round1": {
+      "doi": "10.1063/1.5096042",
+      "label": "Srivastava et al. 2019",
+      "available_in_read_scope": "metadata/abstract-level baseline claim from C2_round1; exact full-text/SI constants were not available in the provided read scope",
+      "reproduction_status": "not reproduced"
+    },
+    "missing_SI_or_normalization_items": [
+      {
+        "item": "pair orbital definition",
+        "needed_detail": "Which atomic orbitals enter the overlap integral, especially whether the implemented center set is only metal-s or includes species-specific orbital mixtures.",
+        "why_needed": "Defines the graph edge set and prevents graph features from being computed on a different structural object than the baseline."
+      },
+      {
+        "item": "species-pair decay/overlap kernel",
+        "needed_detail": "Exact radial functional form and all species-pair parameters; Round 1 used exp(-d_ij/rho_ij) only as a proxy.",
+        "why_needed": "Controls the numerical scale and monotonicity of O_s."
+      },
+      {
+        "item": "normalization denominator",
+        "needed_detail": "Whether the total overlap is normalized by N_pair, atom count, volume, composition-weighted pair counts, or another sample-size/composition factor.",
+        "why_needed": "Distinguishes physical overlap density from trivial finite-size or composition scaling."
+      },
+      {
+        "item": "cutoff and boundary convention",
+        "needed_detail": "Distance cutoff, periodic-image handling, and whether all pairs or nearest-neighbor shells are included.",
+        "why_needed": "Directly changes O_s and any overlap-preserving null model."
+      },
+      {
+        "item": "species/composition weights",
+        "needed_detail": "Definitions and units of q_i, q_j or equivalent orbital weights, including treatment of In/Ga/Zn/Sn/O/N centers.",
+        "why_needed": "Prevents uncalibrated equal-weight assumptions from masquerading as the Srivastava metric."
+      },
+      {
+        "item": "relation to effective mass/transport regression",
+        "needed_detail": "Original dependent variable, transforms, fitted coefficients, sample list, and any density/disorder controls used in Srivastava.",
+        "why_needed": "Required before claiming numerical agreement or defeat of graph residuals."
+      },
+      {
+        "item": "SI sample mapping",
+        "needed_detail": "Structure IDs, compositions, cell sizes, and any tabulated O_s or m_eff values.",
+        "why_needed": "Needed to create true same-sample rows rather than literature-family joins."
+      }
+    ],
+    "obtainability_in_this_round": {
+      "status": "not obtained",
+      "reason": "The Round 2 instruction constrained project-file reads to the listed files; within that scope the exact Srivastava SI/normalization is absent. The output therefore records a surrogate rather than a reproduced Srivastava implementation.",
+      "binding_rule": "All downstream rows using the surrogate must carry provenance='surrogate:not_srivastava_reproduction'."
+    }
+  },
+  "surrogate_overlap_baseline": {
+    "surrogate_id": "A_C2_R2_overlap_proxy_v0",
+    "formula": {
+      "pair_set": "E_s(r_c) = declared conduction-center pairs within cutoff r_c under periodic boundary conditions",
+      "pair_overlap_proxy": "S_ij = exp(-d_ij / ell_ij)",
+      "weighted_pair_overlap": "W_ij = q_i * q_j * S_ij",
+      "sample_overlap": "O_s = sum_{(i,j) in E_s} W_ij / N_pair_s",
+      "onsite_variance": "V_s = Var(epsilon_i)"
+    },
+    "parameter_defaults_for_surrogate_rows": {
+      "r_c": {
+        "value": null,
+        "unit": "angstrom",
+        "status": "must_be_declared_per_dataset"
+      },
+      "ell_ij": {
+        "value": null,
+        "unit": "angstrom",
+        "status": "species-pair orbital decay length placeholder; do not call rho_ij in code tables"
+      },
+      "q_i_q_j": {
+        "value": null,
+        "unit": "dimensionless",
+        "status": "species/orbital weights placeholder"
+      }
+    },
+    "provenance_flag": "surrogate:not_srivastava_reproduction",
+    "allowed_use": "screening, schema construction, null-model plumbing, and residual-test dry runs",
+    "forbidden_use": "numerical claim that the Srivastava 2019 orbital-overlap metric has been reproduced"
+  },
+  "unit_and_notation_corrections": {
+    "beta_2": {
+      "old_context": "beta_2 * V_s in log(m_eff_s/m0) regression",
+      "V_s_unit": "eV^2",
+      "correct_beta_2_unit": "eV^-2",
+      "corrected_term_unit": "dimensionless",
+      "storage_rule": "regression coefficient tables must include coefficient_unit for every fitted beta/gamma/alpha"
+    },
+    "rho_conflict": {
+      "problem": "Round 1 used rho_ij for orbital decay length and rho_resid_s for spectral-radius residual.",
+      "correction": {
+        "orbital_decay_length": "ell_ij",
+        "spectral_radius_residual": "spectral_radius_resid_s",
+        "disallowed_alias": "rho_resid_s"
+      }
+    },
+    "graph_feature_equation_update": {
+      "old": "r_y_s = alpha_0 + alpha_1*lambda2_resid_s + alpha_2*rho_resid_s + alpha_3*damage_resid_s + error_s",
+      "new": "r_y_s = alpha_0 + alpha_1*lambda2_resid_s + alpha_2*spectral_radius_resid_s + alpha_3*damage_resid_s + error_s"
+    }
+  },
+  "same_sample_table_schema": {
+    "required_minimum_fields": [
+      "sample_id",
+      "O_s",
+      "V_s",
+      "n_s",
+      "DeltaE_s",
+      "batch",
+      "size",
+      "lambda2_resid_s",
+      "external_label",
+      "external_residual",
+      "provenance"
+    ],
+    "column_definitions": {
+      "sample_id": "Stable sample/structure/measurement join key.",
+      "O_s": "Dimensionless normalized orbital-overlap baseline; may be exact Srivastava metric only if SI constants are available.",
+      "V_s": "Onsite energy variance in eV^2.",
+      "n_s": "Carrier density in m^-3.",
+      "DeltaE_s": "Mobility-edge margin E_F - E_c in eV.",
+      "batch": "Synthesis, simulation, or literature batch identifier.",
+      "size": "Finite-size descriptor such as atom count, cell length, film thickness, or ensemble size.",
+      "lambda2_resid_s": "Algebraic-connectivity residual after overlap/degree/size controls; placeholder allowed before graph computation.",
+      "spectral_radius_resid_s": "Spectral-radius residual after degree/weight-preserving controls; avoids rho notation.",
+      "external_label": "External Hall/Drude/Wannier/spectral observable not used to construct graph features.",
+      "external_residual": "external_label minus baseline prediction f_y(O_s,V_s,n_s,DeltaE_s,batch,size).",
+      "provenance": "Exact/reported/surrogate/missing-data status for each row."
+    }
+  },
+  "same_sample_table_rows": [
+    {
+      "sample_id": "A_C2_R2_schema_row_Jankousky_aIn2O3_literature_candidate",
+      "O_s": null,
+      "V_s": null,
+      "n_s": null,
+      "DeltaE_s": 0.25,
+      "batch": "Jankousky2026_NaturePhysics_literature_candidate",
+      "size": {
+        "atom_count": null,
+        "film_or_mean_free_path_nm": "1-3",
+        "source_note": "mean free path range listed in current/plan/文献库.md; not a structure size"
+      },
+      "lambda2_resid_s": null,
+      "spectral_radius_resid_s": null,
+      "external_label": {
+        "name": "m_eff_over_m0",
+        "value": 0.2,
+        "unit": "m0",
+        "label_status": "literature-plan approximate value"
+      },
+      "external_residual": null,
+      "provenance": {
+        "row_type": "schema_row_not_decisive_evidence",
+        "label_source": "current/plan/文献库.md reports m*≈0.2m0 and DeltaE≈0.25 eV for DOI 10.1038/s41567-025-03099-x",
+        "overlap_source": "missing",
+        "graph_source": "missing",
+        "join_status": "not same-sample complete until structure/SI and computed O_s/graph residuals are attached",
+        "overlap_flag": "surrogate:not_srivastava_reproduction"
+      }
+    }
+  ],
+  "residual_protocol_after_round2": {
+    "baseline_model": "y_s = f_y(O_s, V_s, n_s, DeltaE_s, batch, size) + error_s",
+    "external_residual": "r_y_s = y_s - f_y(O_s, V_s, n_s, DeltaE_s, batch, size)",
+    "graph_residual_test": "r_y_s = alpha_0 + alpha_1*lambda2_resid_s + alpha_2*spectral_radius_resid_s + alpha_3*damage_resid_s + error_s",
+    "acceptance_condition": "Only held-out residual improvement with stable coefficients and exact/same-sample provenance can support further mechanism investigation.",
+    "current_status": "No acceptance condition is met in this round because exact overlap normalization and complete same-sample rows are still missing."
+  },
+  "graph_absorption_claim_status": {
+    "weighted_degree_mean": "protocol hypothesis; likely reparameterizes O_s but not numerically established here",
+    "distance_or_coordination_summaries": "protocol hypothesis; likely absorbed by overlap baseline when edge definitions match",
+    "lambda2_resid_s": "admissible placeholder only after overlap/degree/size residualization",
+    "spectral_radius_resid_s": "admissible placeholder only after degree/weight-preserving controls",
+    "damage_resid_s": "admissible placeholder only as targeted-minus-matched-random perturbation residual"
+  },
+  "round2_key_conclusions": [
+    "Exact Srivastava SI/normalization remains the blocking missing item for numerical reproduction.",
+    "A usable surrogate is defined with explicit provenance, but it is not Srivastava reproduction.",
+    "At least one same-sample schema row is instantiated; it is a non-decisive literature-candidate row with missing overlap/graph values clearly marked.",
+    "beta_2 is corrected to eV^-2 when V_s is in eV^2.",
+    "rho notation collision is removed by using ell_ij for orbital decay length and spectral_radius_resid_s for spectral radius.",
+    "No material mechanism claim is made."
+  ]
+}

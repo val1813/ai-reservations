@@ -1,0 +1,558 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 2,
+  "agent": "A",
+  "role": "A博士-学院派",
+  "scope_guard": {
+    "read_B_round2": false,
+    "allowed_inputs_used": [
+      "current/A/round1.json",
+      "synthesis/inspector_A_round1.md",
+      "synthesis/PI_round1.md",
+      "current/plan/文献库.md"
+    ],
+    "new_literature_search": {
+      "paper_search_mcp_first": true,
+      "websearch_downgrade_used": true,
+      "queries": [
+        "Furubayashi Maehara Yamamoto 2019 very thin amorphous Sn-doped In2O3 Hall mobility mean free path carrier density figures table",
+        "Jankousky effective bands band-like electron transport amorphous solids In2O3 Hall mobility mean free path figure table",
+        "amorphous In2O3 Hall factor optical Drude mobility Hall mobility carrier density infrared plasma frequency",
+        "transparent conducting oxide Hall factor Drude mobility optical mobility In2O3 ITO"
+      ],
+      "downgrade_reason": "paper-search-mcp returned metadata but CrossRef read/download did not provide full text for figure/table extraction; web/publisher/arXiv were used only after MCP."
+    }
+  },
+  "polaris": "在 amorphous In2O3 透明导电氧化物中，带状输运的充分判据究竟是 Anderson/Mott mobility-edge 填充，还是 In-s 中程连通网络与 O-O/配位缺陷阈值？",
+  "framework": "Anderson/Mott mobility-edge + Drude/Ioffe-Regel consistency test, converted in Round 2 into a same-sample falsification table against structural connectivity metrics.",
+  "findings": "Round 2 修复 A Round 1 的落地阻断：A 不再只指出 same-sample k_F*l vs In-s/结构连通阈值的空白，而给出两个可执行 artifact。Artifact A1 用 Furubayashi 2019 的 a-ITO 厚度序列重分析 Hall n/mu 与结构量，把 k_F*l、E_F 和厚度/密度/界面粗糙等同样品列放进一张表；这是现有实验数据的最低可执行落地。Artifact A2 用 Jankousky 2025/2026 的 1500 个 40-atom a-In2O3 random structures 和 100 个 QSGW subset，把每个结构的 O-O bond、In coordination、edge/corner-sharing proxy、spectral linewidth、IPR、mobility 组成同一行；这是能真正检验 A-vs-B 的计算蓝图。A 的可证伪判据也被明确化：若在 matched carrier density 或 matched E_F-E_c 后，网络/O-O/配位指标仍独立预测 mu、spectral linewidth 或 IPR，而 k_F*l/E_F-E_c 不再显著，A 输。",
+  "weakest_link": "Hall mobility = Drude mobility 仍是最高杠杆假设；必须用 Hall factor 与 optical/THz Drude mobility 检查。如果 r_H = mu_H/mu_D 显著偏离 1，Round 1 的 tau、l、k_F*l 全部按 1/r_H 重新标定。",
+  "landing_artifacts": [
+    {
+      "id": "A1_existing_experimental_reanalysis",
+      "type": "landing_C_existing_dataset_table",
+      "purpose": "用现有 a-ITO 实验图表生成可执行表，检验 mobility-edge/Ioffe-Regel 指标是否比同样品结构/几何指标更能解释 mobility collapse。",
+      "data_source": {
+        "label": "Furubayashi, Maehara, Yamamoto 2019",
+        "title": "New Insights on Factors Limiting the Carrier Transport in Very Thin Amorphous Sn-Doped In2O3 Films with High Hall Mobility",
+        "doi": "10.1186/s11671-019-2948-4",
+        "paper_search_mcp_hit": true,
+        "usable_items": [
+          "Table 1: XRR-derived film thickness / density / surface or interface structural quantities",
+          "Fig. 4: Hall carrier density n_e, Hall mobility mu_H, resistivity versus film thickness",
+          "Fig. 5: transport-limiting analysis versus thickness",
+          "Fig. 7: electron mean free path / Ioffe-Regel-style criterion plot if digitizable from article"
+        ],
+        "sample_axis": "film thickness series for very thin amorphous Sn-doped In2O3; each thickness is one same-sample row"
+      },
+      "extraction_table_schema": [
+        {
+          "column": "sample_id",
+          "source": "manual label, e.g. F2019_t{thickness_nm}",
+          "unit": "string"
+        },
+        {
+          "column": "t_nm",
+          "source": "Table 1 / Fig. 4 x-axis",
+          "unit": "nm"
+        },
+        {
+          "column": "rho_ohm_cm",
+          "source": "Fig. 4 or text",
+          "unit": "ohm*cm"
+        },
+        {
+          "column": "n_H_cm3",
+          "source": "Fig. 4 Hall carrier density",
+          "unit": "cm**-3"
+        },
+        {
+          "column": "mu_H_cm2_Vs",
+          "source": "Fig. 4 Hall mobility",
+          "unit": "cm**2/(V*s)"
+        },
+        {
+          "column": "density_g_cm3",
+          "source": "Table 1 XRR density if available",
+          "unit": "g/cm**3"
+        },
+        {
+          "column": "roughness_nm",
+          "source": "Table 1 XRR roughness if available",
+          "unit": "nm"
+        },
+        {
+          "column": "l_reported_nm",
+          "source": "Fig. 7 if directly plotted; otherwise leave null",
+          "unit": "nm"
+        },
+        {
+          "column": "structural_proxy",
+          "source": "derived from t_nm, density_g_cm3, roughness_nm, and any text assignment of ultrathin-limit disorder",
+          "unit": "dimensionless",
+          "definition": "z-score composite: low density, high roughness, and smaller t_nm imply larger disorder/connectivity penalty"
+        },
+        {
+          "column": "k_F_nm_minus1",
+          "source": "computed",
+          "unit": "nm**-1"
+        },
+        {
+          "column": "tau_fs_assuming_rH1",
+          "source": "computed from mu_H with Hall factor set to 1",
+          "unit": "fs"
+        },
+        {
+          "column": "l_Drude_nm_assuming_rH1",
+          "source": "computed",
+          "unit": "nm"
+        },
+        {
+          "column": "kF_l_assuming_rH1",
+          "source": "computed",
+          "unit": "dimensionless"
+        },
+        {
+          "column": "E_F_eV_parabolic",
+          "source": "computed from n_H and m_star",
+          "unit": "eV"
+        },
+        {
+          "column": "TCR_or_activation_flag",
+          "source": "temperature-dependent transport figure/text if available",
+          "unit": "categorical",
+          "allowed_values": ["metallic", "activated", "VRH", "not_reported"]
+        }
+      ],
+      "calculation_formulas": {
+        "unit_conversions": {
+          "mu_m2_Vs": "mu_H_cm2_Vs*1e-4/r_H",
+          "n_m3": "n_H_cm3*1e6/r_H"
+        },
+        "F1": "k_F = (3*pi**2*n_m3)**(1/3)",
+        "F2": "tau = mu_m2_Vs*m_star/e",
+        "F3": "v_F = hbar*k_F/m_star",
+        "F4": "l_Drude = v_F*tau",
+        "F5": "kF_l = k_F*l_Drude",
+        "F6": "E_F_eV = hbar**2*k_F**2/(2*m_star*e)"
+      },
+      "default_parameters": {
+        "m_star": "0.2*m0 unless source-specific optical/effective-mass value is extracted",
+        "r_H": "1 for first pass; sweep 0.5, 1, 2 as sensitivity check"
+      },
+      "judgment_rules": [
+        "A passes this artifact only weakly if samples with kF_l > 2 and matched high E_F_eV are metallic/high-mu regardless of structural_proxy.",
+        "A is ambiguous if mobility collapse occurs only near kF_l about 1, because mobility-edge and structural disorder can both explain the boundary.",
+        "A loses on this artifact if, after matching n_H or E_F_eV bins, structural_proxy predicts mu_H or l_reported_nm with monotonic residual trend while kF_l adds no predictive power.",
+        "Do not claim a decisive B failure from A1 alone because it uses structural proxies rather than direct In-s graph connectivity."
+      ],
+      "deliverable_file_blueprint": "current/A/artifacts/A1_Furubayashi2019_digitized_transport.csv"
+    },
+    {
+      "id": "A2_same_sample_computational_table",
+      "type": "landing_B_blueprint_computable_table",
+      "purpose": "在同一批 atomistic structures 上同时计算 A 指标与结构网络指标，直接消除 Round 1 的 same-sample 空白。",
+      "data_source": {
+        "label": "Jankousky et al. 2025/2026",
+        "title": "Effective bands and band-like electron transport in amorphous solids",
+        "doi": "10.1038/s41567-025-03099-x",
+        "arxiv": "2505.07707",
+        "paper_search_mcp_hit": true,
+        "usable_items": [
+          "1500 random 40-atom a-In2O3 structures relaxed at PBE",
+          "100-structure QSGW subset",
+          "Fig. 1 spectral functions / effective conduction band",
+          "Fig. 2 O-O bond split and mobility trend",
+          "SI Fig. S7/S8 IPR with/without O-O bonds",
+          "SI Fig. S9 correlation of total energy, CBM, In coordination"
+        ],
+        "sample_axis": "one relaxed 40-atom structure per row; QSGW rows get spectral/IPR/mobility columns, PBE-only rows get structural/network columns"
+      },
+      "extraction_table_schema": [
+        {
+          "column": "structure_id",
+          "source": "random structure index",
+          "unit": "string"
+        },
+        {
+          "column": "energy_rel_meV_atom",
+          "source": "PBE total energy relative to lowest structure",
+          "unit": "meV/atom"
+        },
+        {
+          "column": "has_OO_bond",
+          "source": "distance cutoff d_OO <= 1.7 Angstrom",
+          "unit": "boolean"
+        },
+        {
+          "column": "n_OO_bonds_per_40atom",
+          "source": "count O-O pairs below cutoff",
+          "unit": "count"
+        },
+        {
+          "column": "frac_In_6fold",
+          "source": "In-O coordination count using first minimum of g_InO(r)",
+          "unit": "fraction"
+        },
+        {
+          "column": "frac_In_5_or_6fold",
+          "source": "same coordination count",
+          "unit": "fraction"
+        },
+        {
+          "column": "mean_InIn_coord",
+          "source": "second-shell In-In coordination",
+          "unit": "count"
+        },
+        {
+          "column": "edge_corner_ratio",
+          "source": "In-In peak assignment near 3.4 Angstrom edge-sharing and 3.7-3.8 Angstrom corner-sharing",
+          "unit": "dimensionless"
+        },
+        {
+          "column": "largest_In_s_component_size",
+          "source": "graph with In nodes and edge weight exp(-r_InIn/lambda_s); threshold theta chosen from crystalline bixbyite nearest-neighbor distribution",
+          "unit": "fraction of In nodes"
+        },
+        {
+          "column": "lambda2_graph_laplacian",
+          "source": "weighted In-s graph algebraic connectivity",
+          "unit": "dimensionless"
+        },
+        {
+          "column": "CBM_rel_to_EF_eV",
+          "source": "QSGW aligned spectra, or PBE proxy for non-QSGW rows",
+          "unit": "eV"
+        },
+        {
+          "column": "linewidth_DeltaE_eV",
+          "source": "QSGW spectral function peak width",
+          "unit": "eV"
+        },
+        {
+          "column": "m_star_m0",
+          "source": "fit conduction spectral dispersion",
+          "unit": "m0"
+        },
+        {
+          "column": "mu_Drude_calc_cm2_Vs",
+          "source": "computed from linewidth and m_star",
+          "unit": "cm**2/(V*s)"
+        },
+        {
+          "column": "IPR_CBM",
+          "source": "SI S7/S8 wavefunction IPR for CBM",
+          "unit": "1/volume"
+        },
+        {
+          "column": "kF_l_at_n1e20",
+          "source": "computed at fixed n = 1e20 cm^-3",
+          "unit": "dimensionless"
+        },
+        {
+          "column": "kF_l_at_matched_DeltaE0p25",
+          "source": "computed at fixed E_F-E_c = 0.25 eV",
+          "unit": "dimensionless"
+        }
+      ],
+      "calculation_formulas": {
+        "F7": "tau_linewidth = hbar/(2*DeltaE_J)",
+        "F8": "mu_Drude = e*tau_linewidth/m_star",
+        "F9": "w_InIn = exp(-r_InIn/lambda_s)",
+        "F10": "largest_component_fraction = N_largest_component(theta)/N_In",
+        "F11": "lambda2 = second_smallest_eigenvalue(L_weighted)",
+        "F12": "IPR = integral(abs(psi(r))**4, r)/(integral(abs(psi(r))**2, r)**2)"
+      },
+      "threshold_definitions": {
+        "O_O_bond_cutoff": "1.7 Angstrom; motivated by O-O peak near 1.5 Angstrom in Jankousky/Aliano-style a-In2O3 structural analysis; sensitivity sweep 1.6-1.8 Angstrom",
+        "In_O_coordination_cutoff": "first minimum of g_InO(r) for the same ensemble; do not hard-code if raw PDF is available",
+        "In_s_graph_edge": "weighted edge w=exp(-r_InIn/lambda_s); lambda_s calibrated so bixbyite first/second In-In shells remain connected; theta swept and reported rather than fitted to mu"
+      },
+      "judgment_rules": [
+        "A wins if, after controlling for n or E_F-E_c, mu_Drude_calc and IPR_CBM are explained by linewidth/E_F/kF_l and structural graph variables lose significance or only enter through DeltaE.",
+        "A loses if has_OO_bond, frac_In_6fold, largest_In_s_component_size, or lambda2_graph_laplacian predict linewidth_DeltaE_eV, mu_Drude_calc, or IPR_CBM within matched E_F-E_c bins.",
+        "A/B integration result if graph variables predict DeltaE but not residual transport after DeltaE: mobility edge is the observable projection of the In-s graph, not an independent sufficient cause."
+      ],
+      "minimal_code_blueprint": [
+        "load relaxed structures as pymatgen Structure objects",
+        "compute O-O counts, In-O coordination, In-In shells",
+        "build weighted In graph and compute largest component plus Laplacian lambda2 with networkx",
+        "join QSGW spectral rows by structure_id",
+        "fit nested models: mu/IPR ~ E_F-E_c + kF_l versus mu/IPR ~ E_F-E_c + kF_l + graph_metrics",
+        "report AIC/BIC/cross-validated R2 and residual monotonicity within matched E_F-E_c bins"
+      ],
+      "deliverable_file_blueprint": "current/A/artifacts/A2_Jankousky_structure_spectral_join.csv"
+    }
+  ],
+  "hall_factor_and_optical_drude_checks": {
+    "problem_statement": "Round 1 treated Hall mobility as Drude mobility. In general mu_H = r_H*mu_D, and Hall carrier density n_H = n/r_H for a single carrier type. Therefore k_F, tau, l and k_F*l must be sensitivity-tested against r_H and, where possible, replaced by optical/THz Drude parameters.",
+    "check_paths": [
+      {
+        "id": "H1_Hall_factor_literature_or_model",
+        "action": "For each experimental sample, record whether the source reports Hall factor, multiband correction, or scattering model. If absent, sweep r_H = 0.5, 1, 2.",
+        "formula": "mu_D = mu_H/r_H; n_true = r_H*n_H",
+        "impact": "k_F scales as r_H**(1/3), tau scales as 1/r_H, and k_F*l approximately scales as r_H**(-1/3) at fixed mu_H,n_H,m_star."
+      },
+      {
+        "id": "H2_optical_Drude_mobility",
+        "action": "Use IR/THz ellipsometry or Drude-Smith fits where available. Extract plasma frequency omega_p and scattering rate gamma.",
+        "formula": "n_opt = epsilon0*m_star*omega_p**2/e**2; mu_opt = e/(m_star*gamma); tau_opt = 1/gamma",
+        "comparison_rule": "If abs(log10(mu_opt/mu_H)) <= 0.2 dex, Hall=Drude is acceptable for k_F*l classification. If mismatch exceeds 0.3 dex, use optical tau for l and treat Hall-only k_F*l as assumption-level."
+      },
+      {
+        "id": "H3_Drude_Smith_backscattering",
+        "action": "If optical data are fitted by Drude-Smith rather than simple Drude, extract c parameter.",
+        "formula": "sigma_dc = epsilon0*omega_p**2*tau*(1 + c)",
+        "comparison_rule": "Strong negative c, e.g. c < -0.5, means Hall mobility can overstate a clean Drude mean free path; classify A's k_F*l as non-independent consistency estimate."
+      },
+      {
+        "id": "H4_same_sample_crosscheck",
+        "action": "Prefer papers/samples that report Hall n/mu and optical Drude or THz conductivity on the same film.",
+        "candidate_sources_from_mcp": [
+          "Furubayashi 2019 for Hall transport in a-ITO",
+          "Sahoo/Au/Pan 2024 ITO THz Drude-Smith as method precedent, DOI 10.3390/coatings14070895",
+          "ITO/ENZ ellipsometry papers as optical-Drude method precedents when a-In2O3 same-sample optical data are absent"
+        ]
+      }
+    ]
+  },
+  "falsification_criteria_for_A": {
+    "primary_rule": "A loses if, in matched carrier density or matched E_F-E_c subsets, structural network metrics still predict mu, spectral linewidth, or IPR with significant residual power after k_F*l/E_F-E_c are included.",
+    "matched_density_protocol": [
+      "bin or match samples by n_true within +/-0.1 dex after Hall-factor correction",
+      "within each bin compare residual mu_D, linewidth_DeltaE, and IPR_CBM against graph metrics",
+      "use nested regression or paired ranking; require graph residual effect to be monotonic and not driven by one outlier"
+    ],
+    "matched_EF_protocol": [
+      "compute E_F-E_c from optical/effective-band data where possible; otherwise use parabolic E_F_eV consistently",
+      "match rows within +/-0.05 eV",
+      "test whether has_OO_bond, frac_In_6fold, largest component fraction, or lambda2 still predicts localization/IPR/mobility"
+    ],
+    "A_win_condition": "At matched n or E_F-E_c, k_F*l/linewidth explains transport and graph metrics have no independent residual predictive power except through their effect on DeltaE or Ec.",
+    "A_loss_condition": "At matched n or E_F-E_c, graph metrics predict mu or IPR while k_F*l is held fixed or loses significance.",
+    "ambiguous_condition": "Graph metrics only predict DeltaE, and DeltaE predicts transport; then the correct synthesis is not strong A but 'mobility edge as projection of structural graph'."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "A Round 2 的最小可落地产物是 Furubayashi 2019 thickness-series CSV：每个厚度样品提取 n_H、mu_H、rho、XRR结构量，并计算 k_F、tau、l、k_F*l、E_F；这可立即测试 Hall/Drude mobility-edge 指标是否独立于结构/厚度 proxy 解释 mobility collapse。",
+      "confidence": 0.78,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "k_F = (3*pi**2*n_m3)**(1/3)",
+          "variables": {
+            "n_m3": "carrier density in m**-3 after Hall-factor correction"
+          },
+          "units": "m**-1",
+          "limits": [
+            {
+              "variable": "n_m3",
+              "to": "0",
+              "expected": "0",
+              "desc": "zero carrier density gives zero Fermi wavevector"
+            }
+          ]
+        },
+        {
+          "label": "F2",
+          "expression": "tau = mu_H*m_star/(e*r_H)",
+          "variables": {
+            "mu_H": "Hall mobility in m**2/(V*s)",
+            "m_star": "effective mass in kg",
+            "e": "elementary charge in C",
+            "r_H": "Hall factor"
+          },
+          "units": "s",
+          "numerical_test": {
+            "substitutions": {
+              "mu_H": 0.001,
+              "m_star": 1.822e-31,
+              "e": 1.602e-19,
+              "r_H": 1
+            },
+            "expected_range": [
+              1.0e-15,
+              1.3e-15
+            ]
+          }
+        },
+        {
+          "label": "F3",
+          "expression": "kF_l = k_F*(hbar*k_F/m_star)*tau",
+          "variables": {
+            "hbar": "reduced Planck constant",
+            "k_F": "Fermi wavevector",
+            "m_star": "effective mass",
+            "tau": "scattering time"
+          },
+          "units": "dimensionless"
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1186/s11671-019-2948-4",
+          "label": "Furubayashi et al. 2019"
+        }
+      ],
+      "assumptions": [
+        "Furubayashi thickness series is treated as comparable same-study samples, not identical atomistic structures.",
+        "Structural connectivity is proxied by thickness/XRR density/roughness unless direct pair distribution data are available.",
+        "Hall factor is swept rather than assumed fixed."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "A 的强判据现在可证伪：在 Jankousky 结构集合中，若 matched n 或 matched E_F-E_c 后 O-O bond、In coordination 或 In-s graph connectivity 仍预测 mu/IPR/linewidth，则 A 的 'mobility-edge first and sufficient' 版本失败。",
+      "confidence": 0.86,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F7",
+          "expression": "tau_linewidth = hbar/(2*DeltaE_J)",
+          "variables": {
+            "DeltaE_J": "spectral linewidth in joule"
+          },
+          "units": "s",
+          "numerical_test": {
+            "substitutions": {
+              "hbar": 1.055e-34,
+              "DeltaE_J": 4.005e-20
+            },
+            "expected_range": [
+              1.0e-15,
+              1.5e-15
+            ]
+          }
+        },
+        {
+          "label": "F8",
+          "expression": "mu_Drude = e*tau_linewidth/m_star",
+          "variables": {
+            "e": "elementary charge",
+            "tau_linewidth": "linewidth relaxation time",
+            "m_star": "effective mass"
+          },
+          "units": "m**2/(V*s)"
+        },
+        {
+          "label": "F11",
+          "expression": "lambda2 = second_smallest_eigenvalue(L_weighted)",
+          "variables": {
+            "L_weighted": "weighted graph Laplacian of In-s connectivity graph"
+          },
+          "units": "dimensionless"
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2025/2026"
+        },
+        {
+          "arxiv": "2505.07707",
+          "label": "Jankousky et al. arXiv version"
+        }
+      ],
+      "assumptions": [
+        "The 40-atom local-environment ensemble is a valid same-sample surrogate for amorphous microstates.",
+        "Graph thresholds are predeclared and sensitivity-swept, not fitted to the mobility target.",
+        "Matched E_F-E_c can be constructed from aligned QSGW spectra."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "Hall mobility cannot be silently equated to Drude mobility; the correct Round 2 table must carry r_H and optical/THz Drude checks, otherwise k_F*l remains a plausibility diagnostic rather than an independent proof.",
+      "confidence": 0.9,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F13",
+          "expression": "mu_D = mu_H/r_H",
+          "variables": {
+            "mu_H": "Hall mobility",
+            "r_H": "Hall factor",
+            "mu_D": "Drude drift mobility"
+          },
+          "units": "m**2/(V*s)"
+        },
+        {
+          "label": "F14",
+          "expression": "n_opt = epsilon0*m_star*omega_p**2/e**2",
+          "variables": {
+            "epsilon0": "vacuum permittivity",
+            "m_star": "effective mass",
+            "omega_p": "unscreened plasma frequency",
+            "e": "elementary charge"
+          },
+          "units": "m**-3"
+        },
+        {
+          "label": "F15",
+          "expression": "mu_opt = e/(m_star*gamma)",
+          "variables": {
+            "gamma": "Drude scattering rate"
+          },
+          "units": "m**2/(V*s)"
+        }
+      ],
+      "references": [
+        {
+          "doi": "10.3390/coatings14070895",
+          "label": "Sahoo, Au, Pan 2024 THz Drude-Smith ITO method precedent"
+        }
+      ],
+      "assumptions": [
+        "Optical Drude data may not exist for every a-In2O3 same sample; if absent, r_H sensitivity is mandatory.",
+        "Drude-Smith backscattering parameter c must be reported if the optical fit is not simple Drude."
+      ]
+    }
+  ],
+  "INSPECTOR_CHECK": {
+    "formula": "Furubayashi artifact: k_F=(3*pi**2*n_m3)**(1/3), tau=mu_H*m_star/(e*r_H), l=(hbar*k_F/m_star)*tau, kF_l=k_F*l, E_F=hbar**2*k_F**2/(2*m_star*e). Jankousky artifact: tau_linewidth=hbar/(2*DeltaE_J), mu=e*tau_linewidth/m_star, graph metrics from predeclared In-In/O-O/coordination cutoffs.",
+    "direction": "If same-sample mobility/IPR is controlled by kF_l or linewidth after matching n/E_F-E_c, A survives; if network/O-O/coordination metrics retain independent residual power, A fails.",
+    "data": "Furubayashi et al. 2019 DOI 10.1186/s11671-019-2948-4 Table 1/Fig. 4/Fig. 5/Fig. 7; Jankousky et al. 2025/2026 DOI 10.1038/s41567-025-03099-x and arXiv:2505.07707 Fig. 1/Fig. 2/SI S7/S8/S9; optical Drude method precedent DOI 10.3390/coatings14070895.",
+    "assumptions": "m*=0.2m0 first pass; Hall factor r_H swept or replaced by optical Drude; structural graph thresholds predeclared; no B Round 2 output used."
+  },
+  "deepening": {
+    "deepening_1_consequence_layer_1": "若 A2 表显示 graph metrics 只通过 DeltaE/linewidth 影响 mobility，则 LP29 的更准确表述不是 A 压倒 B，而是 mobility edge 是结构网络扰动的谱投影。",
+    "deepening_1_consequence_layer_2": "再下一层后果是实验上无需寻找单独的 In-s percolation 临界点；只要测到 optical linewidth、E_F-E_c 与 Hall/THz mobility 的一致漂移，就可把结构效应折叠进 A 的 mobility-edge 参数。",
+    "deepening_2_weak_premise_layer_1": "最可能错的前提仍是单带 Hall/Drude 映射；r_H、多带与 Drude-Smith backscattering 会系统改写 tau 和 mean free path。",
+    "deepening_2_weak_premise_layer_2": "若 optical tau 与 Hall tau 不一致，k_F*l 不再能作为判据核心，A 必须退化为 spectral linewidth/mobility-edge 判据，而不是 Hall-derived Ioffe-Regel 判据。"
+  },
+  "next_plan": "下一轮不再增加概念推导，直接产出 A1 或 A2 的首版 CSV。优先 A1：数字化 Furubayashi 2019 Table 1/Fig. 4/Fig. 7，填入 n_H、mu_H、rho、t_nm、XRR structural columns 与 k_F*l(r_H=0.5/1/2)。若可获得 Jankousky raw structures/QSGW subset，则并行启动 A2 结构-谱 join 表。",
+  "literature_needed": [
+    "Furubayashi 2019 full figure data or digitized curves Table 1 Fig 4 Fig 7",
+    "Jankousky 2025 supplementary data random structures QSGW subset IPR linewidth",
+    "a-In2O3 same-sample Hall ellipsometry THz Drude mobility",
+    "ITO Hall factor optical Drude mobility Drude-Smith backscattering"
+  ],
+  "references": [
+    {
+      "label": "Furubayashi, Maehara, Yamamoto 2019",
+      "title": "New Insights on Factors Limiting the Carrier Transport in Very Thin Amorphous Sn-Doped In2O3 Films with High Hall Mobility",
+      "doi": "10.1186/s11671-019-2948-4",
+      "url": "https://doi.org/10.1186/s11671-019-2948-4"
+    },
+    {
+      "label": "Jankousky et al. 2025/2026",
+      "title": "Effective bands and band-like electron transport in amorphous solids",
+      "doi": "10.1038/s41567-025-03099-x",
+      "arxiv": "2505.07707",
+      "url": "https://doi.org/10.1038/s41567-025-03099-x"
+    },
+    {
+      "label": "Sahoo, Au, Pan 2024",
+      "title": "Characterization of Indium Tin Oxide (ITO) Thin Films towards Terahertz (THz) Functional Device Applications",
+      "doi": "10.3390/coatings14070895",
+      "url": "https://doi.org/10.3390/coatings14070895"
+    },
+    {
+      "label": "Aliano, Catellani, Cicero 2011",
+      "title": "Characterization of amorphous In2O3: An ab initio molecular dynamics study",
+      "doi": "10.1063/1.3664224",
+      "url": "https://doi.org/10.1063/1.3664224"
+    }
+  ]
+}

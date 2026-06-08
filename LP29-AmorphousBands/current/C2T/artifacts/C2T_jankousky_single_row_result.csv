@@ -1,0 +1,2 @@
+row_id,candidate_source,required_joined_fields_presence_status,same_sample_crosswalk_status,graph_convention_lock_status,external_label_independence_status,forbidden_control_row_audit_status,OI_Srivastava_reproduction_status,row_decision,material_validation_allowed
+C2T-AUDIT-0101,Jankousky local PDF single-row candidate,BLOCK,BLOCK,BLOCK,BLOCK,WARN,NOT_APPLICABLE,BLOCK,false

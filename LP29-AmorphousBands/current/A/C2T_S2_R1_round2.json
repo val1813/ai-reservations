@@ -1,0 +1,164 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": "LP29-C2T-S2-R1 / Round 2",
+  "agent": "A",
+  "role": "independent A scholar; A-side executable witness-schema consolidation",
+  "polaris": "exact O_s admission is a predicate over a proof-carrying witness tuple, not a PASS attached to a bare reported scalar.",
+  "framework": {
+    "name": "executable provenance schema for O_s witness admission",
+    "observable_model": "O_s_exact := Admit(v, P, S, E, M, X) where v is the scalar, P is stable source provenance, S is canonical structure identity, E is runtime environment, M is pair/channel/normalization method, and X is executor trace.",
+    "predicate_order": [
+      "source_locator_gate",
+      "reported_value_gate",
+      "structure_identity_gate",
+      "pair_population_gate",
+      "arithmetic_normalization_gate",
+      "execution_trace_gate",
+      "recompute_and_tolerance_gate"
+    ],
+    "status_lattice": [
+      "BLOCK",
+      "PARTIAL_CONTEXT_ONLY",
+      "CONDITIONAL_CONTEXT_PASS",
+      "CANDIDATE_EXACT_REPLAY",
+      "DIAGNOSED_MISMATCH",
+      "ADMITTED_EXACT"
+    ],
+    "source_boundary": "Round 2 is an A-side consolidation from A Round 1 plus PI/inspector synthesis; it does not depend on reading B output files directly.",
+    "artifact": "current/A/artifacts/S2_R1_executable_witness_schema_round2.csv"
+  },
+  "changes_from_round1": [
+    {
+      "id": "R2C1",
+      "change": "Converted the 22 Round-1 witness fields into field_id-addressable executable schema rows with type, mode requirements, validation predicates, status, and blockers."
+    },
+    {
+      "id": "R2C2",
+      "change": "Separated reported_context from admitted_exact. reported_context can only become CONDITIONAL_CONTEXT_PASS when both a stable DOI/arXiv source and an exact page/table/figure/row locator are present."
+    },
+    {
+      "id": "R2C3",
+      "change": "Made exact O_s PASS depend on ordered gates through recomputed_value and predeclared acceptance_tolerance; no row can jump from source context to admitted exactness."
+    },
+    {
+      "id": "R2C4",
+      "change": "Kept the current Srivastava-related state as BLOCK/PARTIAL_CONTEXT_ONLY because source row/page, structure identity, pair population, raw sum, normalization, executor trace, recomputed value, and tolerance remain unavailable."
+    }
+  ],
+  "schema_summary": {
+    "field_count": 22,
+    "field_groups": {
+      "source_and_value": ["F01", "F02", "F03"],
+      "structure_identity": ["F04", "F05", "F06", "F07"],
+      "orbital_and_pair_population": ["F08", "F09", "F10", "F11", "F12"],
+      "arithmetic_and_normalization": ["F13", "F14", "F15"],
+      "execution_provenance": ["F16", "F17", "F18", "F19", "F20"],
+      "verification_verdict": ["F21", "F22"]
+    },
+    "admission_rule": "ADMITTED_EXACT requires all F01-F22 predicates to evaluate true and abs_or_rel_error(F03.scalar,F21) <= F22.threshold under the predeclared tolerance policy.",
+    "context_rule": "CONDITIONAL_CONTEXT_PASS requires F01, F02, and F03 predicates to evaluate true; it is not exact O_s and does not authorize structure, pair, arithmetic, or execution claims.",
+    "block_rule": "If any required predicate for a target mode is false or missing, the row status remains BLOCK or PARTIAL_CONTEXT_ONLY and the first failed gate is the diagnostic blocker."
+  },
+  "mode_requirements": {
+    "reported_context": {
+      "required_fields": ["F01", "F02", "F03"],
+      "pass_status": "CONDITIONAL_CONTEXT_PASS",
+      "predicate": "is_stable_identifier(F01) and has_stable_source_locator(F02) and parse_reported_scalar(F03)",
+      "current_status": "BLOCK",
+      "reason": "F02 and F03 are still missing; therefore context-level PASS cannot be asserted."
+    },
+    "candidate_exact_replay": {
+      "required_fields": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20"],
+      "pass_status": "CANDIDATE_EXACT_REPLAY",
+      "predicate": "all required source, value, structure, pair, arithmetic, normalization, basis, software, environment, trace, and precision predicates are true before recomputation",
+      "current_status": "BLOCK",
+      "reason": "Most structure, pair, arithmetic, normalization, and execution fields are absent."
+    },
+    "diagnosed_mismatch": {
+      "required_fields": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20", "F21", "F22"],
+      "pass_status": "DIAGNOSED_MISMATCH",
+      "predicate": "candidate_exact_replay predicates are true and recomputed_value exists and comparison fails under predeclared acceptance_tolerance with first divergent gate recorded",
+      "current_status": "BLOCK",
+      "reason": "No recomputed value or tolerance policy exists."
+    },
+    "admitted_exact": {
+      "required_fields": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20", "F21", "F22"],
+      "pass_status": "ADMITTED_EXACT",
+      "predicate": "all F01-F22 predicates are true and compare(F03.scalar,F21,F22) == PASS",
+      "current_status": "BLOCK",
+      "reason": "The complete proof-carrying witness bundle has not been recovered."
+    }
+  },
+  "inspector_warning_resolution": {
+    "warning": "reported_context.current_status is conditional and must not be shortened to unconditional PASS",
+    "resolution": "Round 2 defines reported_context as CONDITIONAL_CONTEXT_PASS only when F01 source_paper_doi_or_arxiv, F02 source_page_table_figure_row, and F03 reported_scalar_value_and_units_or_dimensionless_status all satisfy their predicates.",
+    "explicit_non_pass": "With the current evidence state, reported_context remains BLOCK because the stable source locator to exact page/table/figure/row and exact scalar parse are missing.",
+    "forbidden_shortcut": "No context-level PASS may be emitted from DOI-only, abstract-only, citation-only, or PI-summary-only evidence.",
+    "audit_predicate": "reported_context_pass := is_stable_identifier(F01) and has_stable_source_locator(F02) and parse_reported_scalar(F03)"
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The A-side 22-field witness contract is now predicate-ready: each field has a target type, required modes, validation predicate, current status, and blocker.",
+      "confidence": 0.88,
+      "new_insight": false,
+      "references": [
+        {"doi": "10.1016/J.COMMATSCI.2015.09.013", "label": "Pizzi et al. 2016"},
+        {"doi": "10.1038/s41597-020-00638-4", "label": "Huber et al. 2020"},
+        {"doi": "10.1093/gigascience/giz095", "label": "Khan et al. 2019"},
+        {"doi": "10.21105/joss.03262", "label": "Halchenko et al. 2021"},
+        {"doi": "10.1039/D5DD00231A", "label": "Janssen et al. 2025"}
+      ],
+      "assumptions": [
+        "Exact reproduction remains the admission target.",
+        "The current project has no mechanical validate.py, so predicates are specified for implementation rather than executed here."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "Context-level PASS is not unconditional; it is conditional on a stable source locator plus exact scalar parsing.",
+      "confidence": 0.93,
+      "new_insight": false,
+      "references": [
+        {"local": "synthesis/inspector_warnings_C2T_S2_R1_round1.md", "label": "Inspector warning registry"}
+      ],
+      "assumptions": [
+        "A stable locator means exact page/table/figure/row or equivalent immutable supplementary-data locator, not only a paper DOI."
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "The present Srivastava-related O_s state remains BLOCK for exact admission and at most partial context until the executable witness fields are supplied.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "references": [
+        {"doi": "10.1063/1.5096042", "label": "Srivastava et al. 2019"}
+      ],
+      "assumptions": [
+        "Round 1 accurately recorded the absence of exact row/page, structure hash/mapping, pair list, raw sum, normalization, executor trace, recomputed value, and tolerance."
+      ]
+    }
+  ],
+  "deepening_1": {
+    "question": "What is the next-layer consequence of making the witness contract executable?",
+    "layer_1": "The baseline table can be validated as state transitions instead of prose: BLOCK -> CONDITIONAL_CONTEXT_PASS -> CANDIDATE_EXACT_REPLAY -> ADMITTED_EXACT or DIAGNOSED_MISMATCH.",
+    "layer_2": "This makes failure informative. A failed row does not merely say O_s is unavailable; it identifies whether the first missing witness is source locator, structure identity, pair population, arithmetic normalization, execution trace, or tolerance comparison.",
+    "layer_3": "The next implementation step is a small validator that reads this CSV schema, checks required fields by mode, and emits the first failed predicate plus the corresponding blocker_if_missing."
+  },
+  "deepening_2": {
+    "question": "Which premise in this round is most likely wrong?",
+    "layer_1": "The weakest premise is that prose-level predicate names are already close enough to executable validation. Some predicates, such as implementation_matches_formula or generated_from_fields, will require project-specific canonicalization code.",
+    "layer_2": "If canonicalization is underspecified, the schema should not be relaxed into manual judgment. It should introduce stricter subfields for canonical structure serialization, pair-list ordering, formula AST comparison, and trace input-output binding.",
+    "layer_3": "Therefore this Round 2 contract is predicate-ready, not yet a verified validator. The scientific status remains BLOCK until the validator and witness bundle both exist."
+  },
+  "forbidden_claims": [
+    "Do not claim exact Srivastava O_s reproduction.",
+    "Do not claim reported_context PASS from DOI-only or citation-only evidence.",
+    "Do not claim admitted_exact unless all F01-F22 predicates pass and recomputed_value matches under predeclared acceptance_tolerance.",
+    "Do not claim material validation from O_s.",
+    "Do not run or endorse graph-vs-overlap residual regression in this round.",
+    "Do not claim graph beats overlap.",
+    "Do not claim exact O_s reproduction is impossible in principle.",
+    "Do not infer missing row/page, structure identity, pair rule/list, N_pair, raw sum, normalization, or executor trace from the final scalar."
+  ]
+}

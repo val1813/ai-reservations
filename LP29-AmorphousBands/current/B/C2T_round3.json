@@ -1,0 +1,587 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 3,
+  "agent": "B",
+  "polaris": "LP29-C2T / provenance-complete external joined table construction",
+  "framework": "Database transaction log plus type-state contract: every joined material row must carry an executable audit record whose states are BLOCK, WARN, or PASS before any downstream material validation is even allowed to start.",
+  "math_object": "A finite-state row audit automaton A(row) over required evidence fields. Schema presence is only a type declaration; PASS requires row-level witness objects for same-sample crosswalk, graph convention lock, external-label independence, and forbidden-control audit.",
+  "findings": [
+    {
+      "id": "F1",
+      "status": "BLOCK",
+      "finding": "Round 2's tests are converted into a minimal executable row-level audit record linked to row_id, but no current candidate row has the witnesses needed for material_validation_allowed=true.",
+      "basis": [
+        "C2T_joined_table_schema.csv declares required joined-table columns but lacks several execution-only audit witnesses.",
+        "C2_material_graph_rows_blocked.csv keeps all five candidate sources material_validation_allowed=false."
+      ],
+      "not_validation": true
+    },
+    {
+      "id": "F2",
+      "status": "BLOCK",
+      "finding": "The same-sample crosswalk cannot be inferred from material or composition names. It must be executed as row-level checks over sample_id_creation_record, structure_id, snapshot_id_or_window, label_provenance_id, controls, and graph-feature source.",
+      "missing_execution_fields": [
+        "sample_id_creation_record",
+        "material_id",
+        "structure_id",
+        "snapshot_id_or_window",
+        "crosswalk_evidence"
+      ],
+      "not_validation": true
+    },
+    {
+      "id": "F3",
+      "status": "BLOCK",
+      "finding": "Graph convention lock requires a pre-label protocol witness. The current schema has G1_* metric columns, but a metric value is not auditable unless graph_convention_provenance_id, graph_cutoff_rule, seed policy, budget normalization, and same-graph identity are attached.",
+      "missing_execution_fields": [
+        "graph_convention_provenance_id",
+        "graph_cutoff_rule",
+        "graph_attack_seed_policy",
+        "graph_budget_normalization_record",
+        "same_graph_identity_record"
+      ],
+      "not_validation": true
+    },
+    {
+      "id": "F4",
+      "status": "BLOCK",
+      "finding": "External-label independence must be mechanically checked per row. A label field or label_provenance_id alone is insufficient because graph-generated, synthetic, same-fit, or target-inverted labels must be blocked.",
+      "required_execution_fields": [
+        "external_label_payload",
+        "is_external_to_graph_proxy",
+        "synthetic_label_flag",
+        "external_label_independence"
+      ],
+      "not_validation": true
+    },
+    {
+      "id": "F5",
+      "status": "WARN",
+      "finding": "forbidden_control_audit exists in the joined-table schema as a required audit field, but Round 3 must define the structured contents of that audit. A string value of pass is not enough.",
+      "required_subchecks": [
+        "onsite_variance_independence",
+        "carrier_density_independence",
+        "mobility_edge_independence",
+        "batch_family_nonleakage",
+        "graph_generated_label_exclusion",
+        "synthetic_label_exclusion",
+        "missingness_not_silent"
+      ],
+      "not_validation": true
+    }
+  ],
+  "strangest_prediction": {
+    "prediction": "The first real failure of C2T will not be a weak graph metric; it will be a row-audit state transition failure where a visually plausible material join remains BLOCK because its sample key was created after label inspection or because carrier density is algebraically tied to the target label.",
+    "testable_consequence": "When the audit artifact is run, rows with complete-looking schema columns will still collapse to BLOCK unless their witness objects prove pre-label sample-key lock, graph protocol lock, and forbidden-control independence.",
+    "material_validation_performed": false
+  },
+  "a_objection": "A will likely object that this adds non-physical bookkeeping rather than new materials insight. The reply is that C2T's current bottleneck is not physics interpretation but provenance type safety: without executable row-state witnesses, any graph-vs-overlap residual claim is indistinguishable from cross-sample or target-derived leakage.",
+  "failed_jumps": [
+    {
+      "source_discipline": "Classical graph residual modeling",
+      "failure": "It assumes rows already denote the same physical sample. In C2T, row identity is the unresolved object, so residual modeling is premature.",
+      "result": "Rejected for this round."
+    },
+    {
+      "source_discipline": "Schema normalization only",
+      "failure": "A normalized table can declare fields but cannot prove that a row-level label, structure, controls, and graph features are independent and same-sample.",
+      "result": "Replaced by a row audit automaton with witness records."
+    }
+  ],
+  "next_plan": {
+    "status": "schema_plus_audit_record_handoff",
+    "steps": [
+      "Define C2T_row_audit_record.json schema linked by row_id without changing any material-validation status.",
+      "Require every candidate row to emit BLOCK, WARN, or PASS for same_sample_crosswalk, graph_convention_lock, external_label_independence, and forbidden_control_row_audit.",
+      "Keep material_validation_allowed=false unless all four execution blocks return PASS and all required joined-table fields have auditable provenance witnesses.",
+      "Run the audit first on the five blocked candidate-source rows only as a mechanical blocker inventory, not as material validation."
+    ],
+    "stop_rule": "If a row lacks row-level evidence, return BLOCK or WARN with missing fields; do not fill or infer the evidence from schema presence."
+  },
+  "literature_needed": {
+    "needed_now": false,
+    "reason": "Round 3 is an executable audit-artifact design step and must not perform material validation or new literature-based validation.",
+    "future_keywords_if_PI_unblocks_sources": [
+      "AOS amorphous oxide same sample Hall transport structure provenance",
+      "Srivastava amorphous oxide orbital overlap SI structures normalization",
+      "Jankousky amorphous oxide raw atomistic structures provenance",
+      "Furubayashi amorphous oxide Hall carrier density measurement conditions"
+    ]
+  },
+  "claims": [
+    {
+      "id": "B3-C1",
+      "statement": "A minimal executable row-level audit artifact for C2T must be a separate witness record linked to row_id, because the current joined-table schema cannot by itself execute same-sample, graph-lock, label-independence, or forbidden-control checks.",
+      "confidence": 0.9,
+      "new_insight": true,
+      "equations": [
+        "material_validation_allowed(row) = PASS_required_fields AND PASS_same_sample_crosswalk AND PASS_graph_convention_lock AND PASS_external_label_independence AND PASS_forbidden_control_row_audit",
+        "schema_present(field) != provenance_valid(field)"
+      ],
+      "references": [
+        "current/B/C2T_round2.json",
+        "synthesis/inspector_B_C2T_round2.md",
+        "current/C2T/artifacts/C2T_joined_table_schema.csv"
+      ],
+      "assumptions": [
+        "No material validation is performed in this round.",
+        "A missing witness cannot be inferred from a field name or a non-empty schema entry."
+      ]
+    },
+    {
+      "id": "B3-C2",
+      "statement": "All current C2T candidate-source rows remain BLOCK or diagnostic-only because the blocked-row artifact lacks raw same-sample structure graph evidence, complete crosswalks, and structured forbidden-control witness records.",
+      "confidence": 0.88,
+      "new_insight": false,
+      "equations": [
+        "current_candidate_rows => material_validation_allowed = false"
+      ],
+      "references": [
+        "current/B/artifacts/C2_material_graph_rows_blocked.csv",
+        "current/C2T/artifacts/C2T_field_blocker_table.csv"
+      ],
+      "assumptions": [
+        "The reviewed blocked-row artifact contains the candidate rows allowed in this B Round 3 input scope.",
+        "No A output or unlisted source inventory is used."
+      ]
+    },
+    {
+      "id": "B3-C3",
+      "statement": "The decisive audit statuses are BLOCK, WARN, and PASS: BLOCK for missing or contradictory required witnesses, WARN for present but incomplete/non-machine-reviewable evidence, and PASS only for explicit row-level witness satisfaction.",
+      "confidence": 0.86,
+      "new_insight": true,
+      "equations": [
+        "BLOCK > WARN > PASS as a conservative gate order for material_validation_allowed"
+      ],
+      "references": [
+        "synthesis/inspector_B_C2T_round2.md"
+      ],
+      "assumptions": [
+        "Manual free-text assertions are not executable unless backed by required subfields."
+      ]
+    }
+  ],
+  "resolved_previous_warnings": {
+    "inspector_round2_decision": "WARN",
+    "resolution_status": "partially_resolved_as_artifact_plan_no_material_validation",
+    "warnings_addressed": [
+      {
+        "warning": "Same-sample crosswalk tests were not directly executable.",
+        "round3_resolution": "Added same_sample_crosswalk execution block with required witness fields, status rules, and BLOCK/WARN/PASS outcomes."
+      },
+      {
+        "warning": "Graph convention lock required fields not present in joined-table schema.",
+        "round3_resolution": "Added graph_convention_lock execution block as a separate row audit witness, including pre-label protocol, L_sym lock, budget-normalized rho, attack-control seed policy, and same-graph identity."
+      },
+      {
+        "warning": "Forbidden-control row audit was a protocol but not table-native.",
+        "round3_resolution": "Added forbidden_control_row_audit structured subchecks and declared that a string pass value is WARN or BLOCK unless subcheck witnesses are present."
+      },
+      {
+        "warning": "Future rows could confuse schema presence with validation.",
+        "round3_resolution": "Made schema presence a required_fields_status input only. It never implies material validation."
+      },
+      {
+        "warning": "Need row-by-row mechanical audit execution fields.",
+        "round3_resolution": "Added executable_artifact_plan.audit_record_minimal_schema with same_sample_crosswalk, graph_convention_lock, external_label_independence, and forbidden_control_row_audit blocks."
+      }
+    ],
+    "unresolved_boundary": "The actual candidate rows still lack evidence; therefore this round resolves the execution design warning but not any material-validation blocker."
+  },
+  "executable_artifact_plan": {
+    "artifact_name": "C2T_row_level_audit_record",
+    "artifact_type": "jsonl_or_csv_with_json_columns",
+    "link_key": "row_id",
+    "purpose": "Mechanically decide whether each joined row is BLOCK, WARN, or PASS before any downstream material validation is allowed.",
+    "material_validation_performed": false,
+    "audit_record_minimal_schema": {
+      "row_id": {
+        "required": true,
+        "status_if_missing": "BLOCK",
+        "rule": "Must uniquely link to one joined-table row. If absent, no audit execution is possible."
+      },
+      "required_joined_fields_presence": {
+        "required": true,
+        "status_if_any_required_field_missing_without_declared_blocker": "BLOCK",
+        "status_if_present_but_provenance_not_machine_reviewable": "WARN",
+        "status_if_all_present_with_provenance_witnesses": "PASS",
+        "rule": "Presence is only a precondition, not validation."
+      },
+      "same_sample_crosswalk": {
+        "required": true,
+        "status_if_missing": "BLOCK",
+        "execution_fields": [
+          "sample_id_creation_record",
+          "material_id",
+          "structure_id",
+          "snapshot_id_or_window",
+          "label_provenance_id",
+          "control_source_ids",
+          "graph_feature_source_ids",
+          "crosswalk_evidence",
+          "cross_source_mismatch_screen"
+        ],
+        "pass_conditions": [
+          "sample_id was created and versioned before label extraction or fitting",
+          "structure, snapshot/window, label, controls, and graph features map through the same sample_id",
+          "material or composition name alone is not used as the identity proof",
+          "cross-source rows have explicit mismatch screening for processing, temperature, carrier density, family, and temporal/sample compatibility"
+        ],
+        "warn_conditions": [
+          "all entities are named but evidence is free text or not machine-reviewable",
+          "declared matched-structure scope exists but mismatch dimensions are incomplete"
+        ],
+        "block_conditions": [
+          "sample_id missing",
+          "sample_id created after label inspection",
+          "identity based only on material name or composition",
+          "structure_id or snapshot_id_or_window missing for graph rows",
+          "label_provenance_id not tied to the same row"
+        ]
+      },
+      "graph_convention_lock": {
+        "required": true,
+        "status_if_missing": "BLOCK",
+        "execution_fields": [
+          "graph_convention_provenance_id",
+          "graph_protocol_timestamp_or_version",
+          "graph_cutoff_rule",
+          "laplacian_convention",
+          "rho_budget_normalization_rule",
+          "attack_gap_protocol",
+          "random_seed_policy",
+          "same_graph_identity_record"
+        ],
+        "pass_conditions": [
+          "graph protocol predates label reading, digitization, or fitting",
+          "G1_lambda2_Lsym uses locked normalized Laplacian L_sym",
+          "G1_rho_A_budget_norm includes raw rho if used plus explicit budget normalization",
+          "G1_attack_gap_lambda2 includes targeted attack, matched random control, removed-budget accounting, and seed/repeat policy",
+          "all G1_* fields are computed from the same structure_id, snapshot_id_or_window, and graph_cutoff_rule"
+        ],
+        "warn_conditions": [
+          "metric values exist but convention witness is incomplete",
+          "protocol is described in prose without timestamp or version",
+          "random seed policy is unspecified for stochastic attack controls"
+        ],
+        "block_conditions": [
+          "graph_convention_provenance_id missing",
+          "graph protocol selected after label inspection",
+          "raw unnormalized rho is used as G1_rho_A_budget_norm",
+          "attack gap lacks matched random control or removed-budget accounting",
+          "G1_* metrics do not share the same graph source"
+        ]
+      },
+      "external_label_independence": {
+        "required": true,
+        "status_if_missing": "BLOCK",
+        "execution_fields": [
+          "external_label_payload",
+          "label_provenance_id",
+          "is_external_to_graph_proxy",
+          "synthetic_label_flag",
+          "label_method",
+          "label_unit",
+          "label_temperature_or_scope",
+          "label_source_type",
+          "graph_proxy_exclusion_evidence"
+        ],
+        "pass_conditions": [
+          "label value, unit, method, temperature/scope, and source row are explicit",
+          "label is external to graph feature generation",
+          "synthetic_label_flag is false for material-validation candidates",
+          "label is not produced by a graph proxy, target fit, or diagnostic synthetic process"
+        ],
+        "warn_conditions": [
+          "label provenance exists but measurement conditions or row id are incomplete",
+          "externality is asserted but not backed by source-type evidence"
+        ],
+        "block_conditions": [
+          "label_provenance_id missing",
+          "external_label_payload missing",
+          "is_external_to_graph_proxy is false or missing",
+          "synthetic_label_flag is true for a claimed material-validation row",
+          "label generated from graph proxy or same target fit"
+        ]
+      },
+      "forbidden_control_row_audit": {
+        "required": true,
+        "status_if_missing": "BLOCK",
+        "execution_fields": [
+          "audit_timestamp_or_version",
+          "auditor_role",
+          "onsite_variance_independence",
+          "carrier_density_independence",
+          "mobility_edge_independence",
+          "batch_family_nonleakage",
+          "graph_generated_label_exclusion",
+          "synthetic_label_exclusion",
+          "missingness_not_silent",
+          "provenance_notes",
+          "derived_row_decision"
+        ],
+        "allowed_subcheck_statuses": [
+          "PASS",
+          "WARN",
+          "BLOCK",
+          "NOT_APPLICABLE_WITH_RATIONALE"
+        ],
+        "pass_conditions": [
+          "every applicable subcheck is PASS",
+          "not-applicable subchecks include explicit rationale",
+          "provenance notes are present for every pass or not-applicable result",
+          "derived_row_decision is computed from subchecks rather than manually asserted"
+        ],
+        "warn_conditions": [
+          "subcheck result is present but provenance note is incomplete",
+          "field is missing with declared non-material blocker and no validation claim",
+          "audit record is free text but conservative row decision remains BLOCK"
+        ],
+        "block_conditions": [
+          "B0_onsite_variance is computed from target Wannier Hamiltonian or target-generating fit",
+          "B0_carrier_density is algebraically inverted from the same Hall or Drude target measurement",
+          "B0_mobility_edge_margin comes from the same spectral fit used as target",
+          "B0_batch_or_family is post-selected on labels or encodes target class",
+          "graph-generated or synthetic labels are claimed as material labels",
+          "required missingness is silent"
+        ]
+      },
+      "row_decision": {
+        "required": true,
+        "derived_rule": "BLOCK if any required execution block is BLOCK; WARN if no block is BLOCK but at least one is WARN; PASS only if all required execution blocks PASS.",
+        "allowed_values": [
+          "BLOCK",
+          "WARN",
+          "PASS"
+        ],
+        "material_validation_gate": "material_validation_allowed may be true only when row_decision is PASS and all joined-table field-level material blockers are false."
+      }
+    },
+    "current_candidate_execution": [
+      {
+        "candidate_source": "Jankousky raw structures",
+        "audit_status": "BLOCK",
+        "blocking_blocks": [
+          "same_sample_crosswalk",
+          "graph_convention_lock",
+          "forbidden_control_row_audit"
+        ],
+        "reason": "No raw structure bundle, snapshot_id/window, graph features, or same-sample label crosswalk."
+      },
+      {
+        "candidate_source": "Srivastava structures",
+        "audit_status": "BLOCK",
+        "blocking_blocks": [
+          "same_sample_crosswalk",
+          "graph_convention_lock"
+        ],
+        "reason": "Baseline context exists only partially; structure-level join and executable fixed-density overlap rule remain incomplete."
+      },
+      {
+        "candidate_source": "Furubayashi transport labels",
+        "audit_status": "BLOCK",
+        "blocking_blocks": [
+          "same_sample_crosswalk",
+          "external_label_independence",
+          "forbidden_control_row_audit"
+        ],
+        "reason": "External label candidate lacks same-sample graph/baseline join and independent carrier-density audit."
+      },
+      {
+        "candidate_source": "Jankousky plus Furubayashi join",
+        "audit_status": "BLOCK",
+        "blocking_blocks": [
+          "same_sample_crosswalk",
+          "graph_convention_lock",
+          "forbidden_control_row_audit"
+        ],
+        "reason": "Cross-source candidate has no auditable crosswalk or mismatch screen."
+      },
+      {
+        "candidate_source": "Srivastava plus Furubayashi join",
+        "audit_status": "BLOCK",
+        "blocking_blocks": [
+          "same_sample_crosswalk",
+          "graph_convention_lock",
+          "external_label_independence",
+          "forbidden_control_row_audit"
+        ],
+        "reason": "No same-sample or fixed-density executable rule plus independent transport-label audit."
+      }
+    ]
+  },
+  "required_fields_status": {
+    "status_logic": {
+      "BLOCK": "Required field or witness is missing, contradictory, target-derived, post-label, or only silently absent.",
+      "WARN": "Field exists or is declared, but evidence is partial, free-text-only, non-machine-reviewable, or cannot yet support a validation claim.",
+      "PASS": "Field exists with row-level provenance witness and passes the relevant execution block.",
+      "schema_presence_rule": "A field listed in C2T_joined_table_schema.csv is not a validation result. Schema presence can at most move a field from BLOCK to WARN when provenance remains incomplete."
+    },
+    "fields": [
+      {
+        "field": "sample_id",
+        "schema_presence": "present",
+        "current_status": "WARN",
+        "missing_for_pass": [
+          "sample_id_creation_record",
+          "same-sample crosswalk witness"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "label_provenance_id",
+        "schema_presence": "present",
+        "current_status": "WARN",
+        "missing_for_pass": [
+          "row-level label payload",
+          "same-sample structure-label mapping"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "structure_or_SI_source",
+        "schema_presence": "present",
+        "current_status": "BLOCK",
+        "missing_for_pass": [
+          "raw coordinates or SI row",
+          "structure_id",
+          "snapshot_id_or_window",
+          "geometry/orbital metadata"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "O_s_or_exact_overlap_baseline",
+        "schema_presence": "present",
+        "current_status": "WARN",
+        "missing_for_pass": [
+          "exact executable normalization",
+          "same-structure mapping"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "B0_onsite_variance",
+        "schema_presence": "present",
+        "current_status": "BLOCK",
+        "missing_for_pass": [
+          "independent Hamiltonian or Wannier provenance",
+          "target-independence witness"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "B0_carrier_density",
+        "schema_presence": "present",
+        "current_status": "WARN",
+        "missing_for_pass": [
+          "independent source audit",
+          "not-inverted-from-target witness",
+          "same-sample crosswalk"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "B0_mobility_edge_margin",
+        "schema_presence": "present",
+        "current_status": "BLOCK",
+        "missing_for_pass": [
+          "method mapping",
+          "independence from target spectral fit"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "B0_finite_size",
+        "schema_presence": "present",
+        "current_status": "WARN",
+        "missing_for_pass": [
+          "num_atoms or snapshot/window metadata for graph row"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "B0_batch_or_family",
+        "schema_presence": "present",
+        "current_status": "WARN",
+        "missing_for_pass": [
+          "pre-label family or batch key",
+          "leakage policy"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "G1_lambda2_Lsym",
+        "schema_presence": "present",
+        "current_status": "BLOCK",
+        "missing_for_pass": [
+          "auditable graph computation",
+          "L_sym convention lock",
+          "same graph source"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "G1_rho_A_budget_norm",
+        "schema_presence": "present",
+        "current_status": "BLOCK",
+        "missing_for_pass": [
+          "auditable graph computation",
+          "weighted adjacency rule",
+          "budget normalization record"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "G1_attack_gap_lambda2",
+        "schema_presence": "present",
+        "current_status": "BLOCK",
+        "missing_for_pass": [
+          "targeted attack protocol",
+          "matched random control",
+          "removed-budget accounting",
+          "seed policy"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "external_Hall_Drude_Wannier_spectral_label",
+        "schema_presence": "present",
+        "current_status": "WARN",
+        "missing_for_pass": [
+          "external_label_payload",
+          "source row",
+          "method/unit/temperature",
+          "graph-proxy exclusion witness"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "forbidden_control_audit",
+        "schema_presence": "present",
+        "current_status": "WARN",
+        "missing_for_pass": [
+          "structured per-subcheck results",
+          "provenance notes",
+          "derived row decision"
+        ],
+        "material_validation_allowed_now": false
+      },
+      {
+        "field": "material_validation_allowed",
+        "schema_presence": "derived_gate",
+        "current_status": "BLOCK",
+        "missing_for_pass": [
+          "all required fields PASS",
+          "same_sample_crosswalk PASS",
+          "graph_convention_lock PASS",
+          "external_label_independence PASS",
+          "forbidden_control_row_audit PASS"
+        ],
+        "material_validation_allowed_now": false
+      }
+    ],
+    "round3_overall_required_fields_status": "BLOCK",
+    "reason": "The schema and blocker tables are adequate to define an executable audit, but current rows do not contain the required row-level witnesses."
+  }
+}

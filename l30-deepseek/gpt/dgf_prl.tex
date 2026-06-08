@@ -1,0 +1,145 @@
+\documentclass[aps,prl,twocolumn,superscriptaddress,nofootinbib,floatfix]{revtex4-2}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue]{hyperref}
+\begin{document}
+\title{Macrocosmic Decoherence as Archive-Decompression Dynamics}
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+\email{valhuang@kaiwucl.com}
+\date{June 5, 2026}
+\begin{abstract}
+We revise Decoherence Geometry Framework (DGF) around a distinction between flowing and archived information. The accessible quantum variable is $q=N_{\rm accessible}/N_{\rm total}(V)$, the fraction of Planck-scale spatial cells whose interference information remains branch-recombinable. Decoherence is the directed archival process $q\to0$. Mass is not the lost flowing information; it is the archived information $A=1-q$. This resolves the apparent contradiction that decoherence does not make ordinary masses decrease. The Euler residual mass map becomes $m(A)=2m_p\sin(\pi A/2)/\pi$. The direction of decoherence is supplied by a Fokker-Planck drift toward smaller $q$, driven by the receiver capacity of low-mass degrees of freedom. The larger conjecture is an archive-decompression cycle: when local archived information reaches a Planck critical density, the region becomes an empty quantum container and resets toward $q\to1$.
+\end{abstract}
+\maketitle
+
+The macro-world is not classical because quantum mechanics lacks something. It is classical because flowing spatial-interference information has been archived into a locked form. Ordinary environmental decoherence is the laboratory-scale face of this archival process.
+
+Two quantities must be separated:
+\begin{align}
+q&=\text{accessible coherence},\\
+A&=1-q.
+\end{align}
+Decoherence moves $q$ downward and $A$ upward. Mass follows $A$, not $q$. This prevents the false inference that a decohering stone should lose mass.
+
+Partition the support volume $V_S$ of a system $S$ into Planck cells $c\in\mathcal C_S$, with $N_S=|\mathcal C_S|$. Each cell carries an access weight
+\begin{equation}
+a_c=\frac{\mathcal V_c}{\mathcal V_c^{\max}}\in[0,1],
+\end{equation}
+where $\mathcal V_c$ is the local branch-recombination visibility. Define
+\begin{equation}
+\boxed{
+q_S=\frac{1}{N_S}\sum_{c\in\mathcal C_S}a_c,
+\qquad
+A_S=1-q_S.
+}
+\end{equation}
+For composite systems, independent accessibilities multiply:
+\begin{equation}
+q_{\rm comp}=\prod_iq_i^{w_i},
+\qquad \sum_iw_i=1.
+\end{equation}
+
+There is no global pairing between heavy and light systems. Information disperses locally, but low-mass receiver modes have larger unfilled capacity and statistically absorb more flowing coherence. Let $P(q,t)$ be the probability density of accessible coherence. DGF uses
+\begin{equation}
+\boxed{
+\partial_tP(q,t)
+=-\partial_q[\mu(q)P]+\partial_q^2[D(q)P].
+}
+\end{equation}
+For archival, $\mu(q)<0$, so the mean accessible coherence decreases. The drift is set by receiver capacity:
+\begin{equation}
+\mu(q)=-\Gamma(q)\,\partial_AS_{\rm recv}(A),
+\qquad A=1-q.
+\end{equation}
+If the number of receiver states grows with archived information, $\partial_AS_{\rm recv}>0$, then $\mu(q)<0$. This gives a direction without global pairing.
+
+The accessible and archived sectors form
+\begin{equation}
+|\chi\rangle=\sqrt q\,|Q\rangle+\sqrt A\,|C\rangle.
+\end{equation}
+$|Q\rangle$ is flowing quantum access; $|C\rangle$ is archived classical storage. The archived sector occupies normalized arc fraction $A$ on the information half-circle, giving
+\begin{equation}
+\boxed{\theta(A)=\pi A=\pi(1-q).}
+\end{equation}
+No archived information should give no residual mass, so
+\begin{equation}
+R(A)=1-e^{i\pi A}.
+\end{equation}
+Then
+\begin{equation}
+|R(A)|^2=2-2\cos(\pi A)=4\sin^2\left(\frac{\pi A}{2}\right),
+\end{equation}
+and
+\begin{equation}
+\boxed{
+m(A)=\frac{m_p}{\pi}|R(A)|
+=\frac{2m_p}{\pi}\sin\left(\frac{\pi A}{2}\right).
+}
+\end{equation}
+The endpoint is $m_{\max}=2m_p/\pi\simeq14\,\mu{\rm g}$.
+
+\begin{figure}[t]
+\includegraphics[width=\linewidth]{figures/fig4_cosmic_decoherence_order.png}
+\caption{Accessible coherence $q$ decreases as archived information $A=1-q$ grows. Mass follows $A$, not $q$.}
+\label{fig:archive}
+\end{figure}
+
+Let $b_\lambda$ be low-mass receiver modes with spectral density
+\begin{equation}
+J_{\rm recv}(\omega)=\sum_\lambda |g_\lambda|^2\delta(\omega-\omega_\lambda).
+\end{equation}
+The interaction is
+\begin{equation}
+H_{\rm int}=\Lambda(A)V_S\otimes
+\sum_\lambda g_\lambda(b_\lambda+b_\lambda^\dagger).
+\end{equation}
+The system imprint operator is
+\begin{equation}
+V_S=\frac{p^4}{3m_S}.
+\end{equation}
+The receiver mass never appears in the denominator; low-mass receivers enter through $J_{\rm recv}$. In the local Markovian limit one recovers
+\begin{equation}
+\boxed{
+K_{ab}(t)=
+\exp\!\left[
+-\frac{2t_p l_p^4}{\hbar^6}
+\left(\Delta\left\langle\frac{p^4}{3m_S}\right\rangle\right)^2t
+\right].
+}
+\end{equation}
+
+\begin{figure}[t]
+\includegraphics[width=\linewidth]{figures/fig2_dephasing_scale.png}
+\caption{The local GUP kernel is interpreted as the Markovian limit of receiver-mediated archival.}
+\label{fig:kernel}
+\end{figure}
+
+The larger conjecture is local critical cycling:
+\begin{equation}
+q\to0,\quad A\to1
+\quad
+\xrightarrow{\rho_A\sim\rho_p}
+\quad
+q\to1,\quad A\to0.
+\end{equation}
+When archived information reaches a Planck critical density, the region is effectively an empty quantum container: no flowing classical record remains to suppress quantum fluctuations. Local quantum access is restored. This is decompression.
+
+\begin{figure}[t]
+\includegraphics[width=\linewidth]{figures/fig1_mass_map.png}
+\caption{The endpoint formula is unchanged, but the physical variable is archived information $A=1-q$, not flowing coherence $q$.}
+\label{fig:mass}
+\end{figure}
+
+The revised initial hypothesis is coherent, but it creates concrete proof burdens: an experimentally meaningful surrogate for $a_c$; receiver entropy $S_{\rm recv}(A)$ for photons, phonons, gravitons, or other low-mass modes; $J_{\rm recv}(\omega)$ for realistic receiver sectors; the information half-circle beyond the two-sector minimal model; and the Planck critical condition $\rho_A\sim\rho_p$ for decompression.
+
+\begin{acknowledgments}
+The author reports no external funding and no competing interests. Figures and numerical tables were generated with \texttt{scripts/generate\_dgf\_figures.py}; the corresponding CSV files are included in \texttt{data/}.
+\end{acknowledgments}
+
+\begin{thebibliography}{99}
+\bibitem{petruzziello2021} L. Petruzziello and F. Illuminati, Nat. Commun. \textbf{12}, 4449 (2021), doi:10.1038/s41467-021-24711-7.
+\bibitem{alnasrallah2023} E. Al-Nasrallah, S. Das, F. Illuminati, L. Petruzziello, and E. C. Vagenas, Nucl. Phys. B \textbf{992}, 116246 (2023), doi:10.1016/j.nuclphysb.2023.116246.
+\bibitem{arzano2023} M. Arzano, V. D'Esposito, and G. Gubitosi, Commun. Phys. \textbf{6}, 242 (2023).
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,342 @@
+{
+  "framework": {
+    "role": "B_doctor_round2",
+    "round": 2,
+    "north_star": "Can a real same-sample or matched-specimen nickelate packet supply P_oe + B_min before superconducting-output reveal, strongly enough to kill or preserve R_oe?",
+    "decision": "PACKET_NONIDENTIFIABLE_UNLESS_MINIMUM_VALID_DESIGN_IS_MET",
+    "scope_guard": "This is not a universal no-go theorem. B's claim is that current literature montage is non-identifiable and that a near-future packet is valid only if it clears explicit row, batch, axis, lab, probe, calibration, and blinding thresholds.",
+    "canonical_objects": {
+      "P_oe": "(chi_odd - chi_even) / (chi_odd + chi_even), with a pre-frozen signed-denominator floor and censoring rule",
+      "P_oe_L1": "Optional robustness diagnostic using abs(chi_odd)+abs(chi_even) or max-style denominator; it must not be mixed with canonical P_oe.",
+      "B_min": "A pre-output baseline vector for oxygen/vacancy, structure/phase fraction, orbital or ligand-hole proxies, disorder/dephasing, pressure/thermal path, ordinary c-axis coherence, and sample quality.",
+      "output_labels_forbidden_before_residual_call": [
+        "Tc",
+        "zero_resistance",
+        "Meissner",
+        "diamagnetism",
+        "gap",
+        "spin_resonance",
+        "critical_current",
+        "output_trained_labels"
+      ]
+    },
+    "round2_position": "B concedes experimental possibility only for a sealed row-level campaign. B rejects any claim from retrospective literature stitching, unblinded matched specimens, or folds that split technical repeats rather than independent specimen lineages."
+  },
+  "quantified_falsifier": {
+    "what_would_falsify_B": "A packet falsifies B if it demonstrates that P_oe and B_min can be acquired and analyzed as independent pre-output covariates across enough blinded, batch-separated rows to support held-out residual testing.",
+    "hard_minimum_thresholds": {
+      "rows_total_N": 48,
+      "complete_rows_after_censoring_N": 36,
+      "growth_batches_min": 4,
+      "labs_min": 3,
+      "pressure_cells_or_runs_min": 4,
+      "oxygen_or_vacancy_states_min": 3,
+      "pressure_axis_levels_min": 4,
+      "temperature_grid_points_min": 5,
+      "qz_points_per_row_min": 5,
+      "polarization_channels_min": 2,
+      "probe_families_min": 4,
+      "heldout_batches_min": 1,
+      "heldout_labs_min": 1,
+      "negative_controls_min": 3
+    },
+    "required_axes": [
+      {
+        "axis": "batch",
+        "minimum": "At least 4 growth or oxygenation batches; no single batch may contribute more than 40% of complete rows.",
+        "reason": "Prevents sample genealogy from aliasing with P_oe or B_min."
+      },
+      {
+        "axis": "pressure_path",
+        "minimum": "At least 4 independently loaded pressure paths or cells, with pressure medium, hydrostaticity proxy, dwell time, thermal cycling, and unloading/reloading status logged.",
+        "reason": "Pressure path is a treatment variable, not a nuisance label."
+      },
+      {
+        "axis": "oxygen_vacancy",
+        "minimum": "At least 3 quantitatively separated oxygen/vacancy or ligand-hole states, measured before output reveal.",
+        "reason": "Separates odd-even susceptibility from oxygen-driven sample-quality selection."
+      },
+      {
+        "axis": "structure_phase",
+        "minimum": "Per-row structural phase fraction under measurement-relevant pressure and temperature, not nominal ambient structure only.",
+        "reason": "Phase fraction can masquerade as both bilayer response and baseline."
+      },
+      {
+        "axis": "probe_order",
+        "minimum": "At least two counterbalanced probe sequences, with destructive or damage-prone probes placed after P_oe and B_min acquisition or tracked by damage markers.",
+        "reason": "Prevents measurement order from becoming an unmodeled treatment."
+      }
+    ],
+    "required_probe_blocks": {
+      "P_oe_probe": [
+        "normal-state qz-resolved RIXS, neutron, or equivalent susceptibility extraction",
+        "raw S_channel_to_chi_unit archive",
+        "polarization, geometry, self-absorption, monitor normalization, energy resolution, and covariance retained",
+        "pre-frozen denominator floor and censoring rule"
+      ],
+      "B_min_probe": [
+        "oxygen stoichiometry or vacancy proxy not inferred from the same qz spectral fit",
+        "structure and phase fraction under relevant pressure or immediately linked path",
+        "orbital, dz2, rare-earth 5d, ligand-hole, or self-doping proxy",
+        "disorder/dephasing/sample-quality proxy",
+        "ordinary c-axis coherence baseline measured by an independent channel",
+        "pressure and thermal path log"
+      ],
+      "leakage_control_probe": [
+        "blind custodian for superconducting output labels",
+        "timestamped residual-call lock file before label release",
+        "pre-frozen U_miss and censoring logic",
+        "audit trail proving no output-trained labels entered feature selection"
+      ]
+    },
+    "statistical_falsifier": {
+      "primary": "B concedes if the residual claim survives leave-one-batch-out and leave-one-lab-out validation with complete-row N >= 36.",
+      "effect_stability": "The residual sign must be stable in at least 80% of valid held-out folds and must not flip under the pre-registered matrix-element and denominator-floor sensitivity grid.",
+      "permutation_controls": "Residual alignment must disappear under odd/even label permutation, qz-channel permutation, and output-label permutation using the same pipeline.",
+      "missingness_control": "The conclusion must survive the pre-frozen U_miss model and a worst-plausible missingness sensitivity analysis.",
+      "calibration_control": "Raw-to-chi calibration perturbations within declared covariance must not create or erase the residual."
+    },
+    "B_concession_criteria": {
+      "concede_PACKET_FEASIBLE_NOW": [
+        "An accessible existing packet meets complete_rows_after_censoring_N >= 36.",
+        "Rows are same-sample or formally sistered with genealogy, pressure path, oxygen, phase, probe, and blinding logs.",
+        "Raw P_oe calibration and independent B_min measurements are available for audit.",
+        "Superconducting-output labels were sealed before residual call.",
+        "Leave-one-batch-out and leave-one-lab-out tests pass."
+      ],
+      "concede_PACKET_FEASIBLE_NEAR_FUTURE": [
+        "A funded or realistically schedulable campaign can reach rows_total_N >= 48 across at least 4 batches and 3 labs.",
+        "All required P_oe, B_min, leakage-control, and negative-control blocks are specified before measurement.",
+        "At least one pilot batch demonstrates that P_oe extraction and B_min acquisition can be done without sharing qz/c-axis calibration internals.",
+        "A blind-custody protocol is operational before any superconducting-output measurement is released."
+      ],
+      "do_not_concede": [
+        "N < 24 complete rows.",
+        "Only one or two laboratories or one dominant batch supply the rows.",
+        "B_min uses features derived from the same qz/polarization spectral fit that defines P_oe.",
+        "Output labels are already known during row selection, feature selection, calibration tuning, or censoring.",
+        "Matched specimens lack growth, oxygenation, pressure-path, and phase-fraction genealogy."
+      ]
+    }
+  },
+  "nonidentifiability_boundary": {
+    "packet_nonidentifiability_criteria": [
+      {
+        "criterion": "shared_extraction",
+        "nonidentifiable_if": "Any B_min component is computed from the same fitted qz/polarization/form-factor parameters used to estimate chi_odd or chi_even, unless it is explicitly treated as part of P_oe uncertainty rather than an independent baseline."
+      },
+      {
+        "criterion": "unsealed_output",
+        "nonidentifiable_if": "Tc, zero resistance, Meissner, diamagnetism, gap, spin resonance, critical current, or output-trained labels are available before row inclusion, calibration, censoring, feature selection, residual model selection, or residual call."
+      },
+      {
+        "criterion": "batch_lab_aliasing",
+        "nonidentifiable_if": "Batch, lab, pressure cell, probe family, or specimen source predicts P_oe/B_min block membership strongly enough that leave-one-batch-out or leave-one-lab-out validation cannot be run."
+      },
+      {
+        "criterion": "montage_rows",
+        "nonidentifiable_if": "A row combines P_oe from one specimen with B_min or output from a different specimen without same-boule genealogy, shared oxygenation, matched pressure path, and phase-fraction evidence."
+      },
+      {
+        "criterion": "denominator_instability",
+        "nonidentifiable_if": "More than 25% of candidate rows depend on denominator-floor rescue, or residual sign changes when the pre-registered floor varies over the allowed sensitivity grid."
+      },
+      {
+        "criterion": "calibration_contingency",
+        "nonidentifiable_if": "The residual appears only under one raw-to-chi calibration choice and disappears under plausible polarization leakage, self-absorption, geometry, monitor, or matrix-element covariance perturbations."
+      },
+      {
+        "criterion": "small_N_false_precision",
+        "nonidentifiable_if": "Complete blinded rows after censoring are fewer than 24, or fewer than 3 independent batches, or fewer than 2 independent labs."
+      },
+      {
+        "criterion": "missingness_depends_on_output",
+        "nonidentifiable_if": "Missingness, censoring, or sample loss is correlated with output labels or output-proxy knowledge and is not covered by pre-frozen U_miss."
+      }
+    ],
+    "structural_boundary_statement": "The boundary is crossed from hard non-identifiability to testable packet only when P_oe, B_min, calibration, row genealogy, and output blinding are all fixed before residual evaluation, and when independent variation across batch, lab, pressure, oxygen, structure, and probe order prevents a single latent sample-quality axis from explaining the residual.",
+    "near_future_possibility": "A near-future campaign is not structurally impossible if it treats pressure path, oxygen/vacancy state, phase fraction, and calibration as first-class measured variables and if it avoids deriving B_min from the same qz response that defines P_oe.",
+    "structural_impossibility_trigger": "If every feasible P_oe probe necessarily requires the same c-axis/qz/orbital calibration quantities that B_min must independently regress out, then R_oe is structurally non-identifiable for this packet class. Round 2 cannot prove that universal trigger from the allowed files; it can only define the audit needed to test it."
+  },
+  "independence_audit": {
+    "P_oe_B_min_independence_audit": {
+      "audit_question": "Can B_min be measured and frozen without importing the fitted odd/even susceptibility extraction state or superconducting-output knowledge?",
+      "pass_requires_all": [
+        "Separate raw data stores for P_oe and B_min before analysis merge.",
+        "Separate analyst teams or locked scripts for P_oe extraction and B_min feature construction.",
+        "A declared forbidden-information list for B_min: chi_odd, chi_even, P_oe, qz-fit residuals, odd/even channel assignment confidence, superconducting-output labels, and post-output sample selection notes.",
+        "A declared forbidden-information list for P_oe extraction: B_min residual outcome, superconducting-output labels, and feature-selection feedback from B_min models.",
+        "Shared metadata limited to specimen genealogy, timestamp, pressure/temperature grid, and predeclared calibration constants.",
+        "Hash-locked raw calibration archive and analysis scripts before label reveal.",
+        "An external blind custodian certifies that output labels were unavailable until residual calls were locked."
+      ],
+      "fail_conditions": [
+        "B_min c-axis coherence is numerically derived from the same qz spectral decomposition used to compute P_oe.",
+        "P_oe censoring thresholds are tuned after inspecting B_min or output correlations.",
+        "Rows are dropped because their eventual superconducting output is known or suspected.",
+        "Lab, instrument, or pressure cell identity is inseparable from P_oe versus B_min block acquisition.",
+        "Matrix-element corrections are adjusted using structural or orbital features that are later treated as independent B_min covariates without covariance propagation."
+      ],
+      "P_oe_B_min_independence_rating": {
+        "green": "No shared fitted parameters; only predeclared metadata shared; raw covariance propagated; output labels sealed.",
+        "yellow": "Some shared calibration constants or pressure metadata, but no shared fitted qz/c-axis state and sensitivity analysis covers the overlap.",
+        "red": "B_min and P_oe reuse the same fitted qz/c-axis/orbital state, or output knowledge enters before residual lock."
+      },
+      "B_min_independence_threshold": "At least 80% of complete rows must be green; no red rows may enter the primary residual test. Yellow rows may enter only a secondary sensitivity analysis."
+    },
+    "P_oe_definition_audit": {
+      "pass": "Canonical P_oe and any P_oe_L1 diagnostic are stored as separate fields with separate censoring flags.",
+      "fail": "A stabilized denominator is silently substituted for canonical P_oe or compared directly to prior P_oe claims."
+    },
+    "B_min_minimality_audit": {
+      "pass": "B_min includes only pre-output, predeclared variables needed to block ordinary oxygen, structure, orbital, disorder, pressure, c-axis, and sample-quality explanations.",
+      "fail": "B_min expands after label reveal or includes output-proxy variables selected because they improve residual alignment."
+    }
+  },
+  "minimum_valid_design": {
+    "classification": "minimum_design_for_B_concession",
+    "row_unit": "Same crystal under one logged pressure/thermal path, or a formally sistered specimen set from the same boule/growth and oxygenation batch with documented splitting, matched pressure path, phase-fraction check, and probe-order log.",
+    "N_and_batch_thresholds": {
+      "target_rows_total": 64,
+      "hard_minimum_rows_total": 48,
+      "hard_minimum_complete_rows_after_censoring": 36,
+      "gray_zone_complete_rows": "24 to 35",
+      "invalid_complete_rows": "<24",
+      "growth_batches_min": 4,
+      "labs_min": 3,
+      "max_complete_rows_from_one_batch_fraction": 0.40,
+      "max_complete_rows_from_one_lab_fraction": 0.50
+    },
+    "probe_order": [
+      "Assign row IDs, genealogy, pressure-path plan, output-blinding custodian, U_miss, censoring, denominator floor, and analysis hashes.",
+      "Acquire non-output B_min blocks that are least destructive: oxygen/vacancy proxy, ambient and in situ structure where possible, sample quality, disorder/dephasing.",
+      "Load pressure path and log pressure medium, hydrostaticity proxy, dwell time, pressure gradient, thermal cycling, and damage checks.",
+      "Acquire normal-state P_oe raw channels on the frozen temperature, qz, polarization, and form-factor grid.",
+      "Acquire independent ordinary c-axis coherence and orbital/ligand-hole/self-doping proxies without using fitted P_oe states.",
+      "Lock P_oe, B_min, U_miss, censoring, calibration covariance, and residual-call scripts.",
+      "Only then release or measure superconducting-output labels for validation."
+    ],
+    "minimum_axes_per_complete_row": [
+      "specimen_genealogy_id",
+      "growth_batch_id",
+      "oxygenation_batch_or_vacancy_state",
+      "pressure_cell_or_run_id",
+      "lab_id",
+      "probe_sequence_id",
+      "temperature_grid_id",
+      "qz_grid_id",
+      "polarization_grid_id",
+      "phase_fraction_state",
+      "output_blinding_status"
+    ],
+    "required_controls": [
+      "leave_one_batch_out_validation",
+      "leave_one_lab_out_validation",
+      "odd_even_label_permutation",
+      "qz_channel_permutation",
+      "output_label_permutation",
+      "denominator_floor_sensitivity",
+      "matrix_element_covariance_sensitivity",
+      "missingness_U_miss_sensitivity",
+      "yellow_row_exclusion_sensitivity"
+    ],
+    "lab_independence_rule": "Labs count as independent only if they do not share the same analyst for P_oe and B_min extraction, do not reuse a single calibration pipeline without covariance audit, and contribute rows from at least two different batch or pressure-path lineages.",
+    "probe_independence_rule": "Probe families count as independent only if their raw observables are not downstream transforms of the same qz/polarization spectral fit and if destructive or damage-prone effects are logged before the next probe block."
+  },
+  "gray_zone": {
+    "small_N_gray_zone_definition": "A packet with 24 to 35 complete blinded rows after censoring, at least 3 batches, and at least 2 labs is neither valid for preserving/killing R_oe nor dead by design. It can be used only as a pilot to estimate variance, denominator censoring rate, calibration sensitivity, and feasibility of the full campaign.",
+    "allowed_claims_in_gray_zone": [
+      "pilot feasibility",
+      "calibration variance estimate",
+      "row-loss and censoring-rate estimate",
+      "which axes are practically coupled",
+      "whether full N >= 36 complete rows is realistic"
+    ],
+    "forbidden_claims_in_gray_zone": [
+      "R_oe survives",
+      "R_oe is killed",
+      "P_oe is independent of B_min",
+      "C_phi is validated",
+      "the packet is decision-grade"
+    ],
+    "gray_zone_exit_to_valid": [
+      "Increase complete blinded rows to >=36.",
+      "Reach at least 4 growth or oxygenation batches.",
+      "Reach at least 3 labs.",
+      "Pass independence audit with >=80% green rows and zero red primary rows.",
+      "Demonstrate leave-one-batch-out and leave-one-lab-out validation."
+    ],
+    "gray_zone_exit_to_nonidentifiable": [
+      "Complete blinded rows remain <24 after two realistic acquisition batches.",
+      "Denominator-floor rescue exceeds 25% of rows.",
+      "P_oe and B_min cannot be separated without shared fitted qz/c-axis/orbital states.",
+      "Output labels cannot be kept sealed during row selection or calibration.",
+      "Batch/lab/probe identity remains aliased with the target residual."
+    ]
+  },
+  "claims": [
+    {
+      "claim": "Current literature assembly remains non-identifiable because no complete leakage-clean same-sample or blinded matched-specimen P_oe + B_min packet was identified in the allowed state files.",
+      "status": "supported_by_allowed_round1_state",
+      "strength": "strong_for_literature_montage"
+    },
+    {
+      "claim": "A valid packet requires at least 36 complete blinded rows after censoring, with 48 total target rows, 4 batches, 3 labs, and validation that holds out batch and lab lineages.",
+      "status": "B_round2_threshold",
+      "strength": "decision_rule_not_literature_fact"
+    },
+    {
+      "claim": "Rows below 24 complete blinded specimens are non-identifiable for R_oe because crossfit cannot distinguish residual physics from batch, lab, pressure-cell, or calibration effects.",
+      "status": "B_round2_threshold",
+      "strength": "decision_rule"
+    },
+    {
+      "claim": "Rows from 24 to 35 complete blinded specimens define a small-N gray zone that can guide campaign design but cannot kill or preserve R_oe.",
+      "status": "B_round2_boundary",
+      "strength": "decision_rule"
+    },
+    {
+      "claim": "B_min independence fails if B_min reuses fitted qz/c-axis/orbital states from the P_oe extraction pipeline or if superconducting-output knowledge enters any pre-residual decision.",
+      "status": "core_nonidentifiability_boundary",
+      "strength": "strong"
+    },
+    {
+      "claim": "B should concede PACKET_FEASIBLE_NEAR_FUTURE if a sealed campaign can operationally satisfy the minimum valid design and a pilot proves that P_oe extraction and B_min acquisition can remain information-separated.",
+      "status": "B_concession_rule",
+      "strength": "conditional"
+    },
+    {
+      "claim": "B should concede PACKET_FEASIBLE_NOW only if an already accessible dataset meets the same thresholds with raw calibration, genealogy, blinding, and held-out validation intact.",
+      "status": "B_concession_rule",
+      "strength": "conditional"
+    },
+    {
+      "claim": "This round does not prove structural impossibility of all future campaigns; it defines the audit that would expose such impossibility if every feasible B_min baseline necessarily shares the P_oe extraction state.",
+      "status": "scope_guard",
+      "strength": "important_boundary"
+    }
+  ],
+  "inspector_check": {
+    "json_validity": "intended_valid_json",
+    "required_fields_present": [
+      "framework",
+      "quantified_falsifier",
+      "nonidentifiability_boundary",
+      "independence_audit",
+      "minimum_valid_design",
+      "gray_zone",
+      "claims",
+      "inspector_check"
+    ],
+    "A_independence": "Did not read current-CphiPacket/A or any A output. This file uses only the user-allowed plan, B round1, inspector_B_round1, and PI synthesis inputs.",
+    "P_oe_definition_guard": "Canonical P_oe is kept as signed-sum denominator with censoring/floor rules; P_oe_L1 is named only as a separate robustness diagnostic.",
+    "B_min_independence_guard": "Separate scripts alone are declared insufficient; independence requires forbidden-information lists, raw-store separation, analyst/script locking, covariance propagation, and output blinding.",
+    "falsifier_quantified": true,
+    "N_batch_axes_lab_probe_thresholds_defined": true,
+    "B_concession_criteria_defined": true,
+    "packet_nonidentifiability_criteria_defined": true,
+    "P_oe_B_min_independence_audit_defined": true,
+    "small_N_gray_zone_defined": true,
+    "main_residual_risk": "The numeric thresholds are B's decision-grade protocol thresholds, not empirically optimized power calculations. A later statistician/inspector should stress-test N=36/48 against measured variance once pilot data exist."
+  }
+}

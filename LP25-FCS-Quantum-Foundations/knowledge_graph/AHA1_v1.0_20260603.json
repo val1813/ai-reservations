@@ -1,0 +1,77 @@
+{
+  "project": "LP25-AHA1",
+  "name": "Power-law hopping NESS coherence decay universality",
+  "version": "v1.0",
+  "date": "2026-06-03",
+  "conclusion_type": "有边界-第二个独立标度指数β(α)确立",
+  "nodes": [
+    {
+      "id": "beta_alpha",
+      "label": "β(α)=a/α+b",
+      "type": "scaling_exponent",
+      "n_data": 125
+    },
+    {
+      "id": "pure_imaginary",
+      "label": "C_{i≠j}纯虚定理",
+      "type": "structural_theorem",
+      "generalization_of": "Bhat-Znidaric PRB 2025"
+    },
+    {
+      "id": "beta_mu_anti",
+      "label": "β-μ反相关",
+      "type": "empirical_relation",
+      "dβ_dμ": "<0"
+    },
+    {
+      "id": "firewall_universality",
+      "label": "β对Δf精确普适",
+      "type": "universality_test",
+      "n_data": 60,
+      "delta_beta": "<7%"
+    },
+    {
+      "id": "crossover",
+      "label": "β穿越1在α=1.39(早于μ穿越1.5)",
+      "type": "crossover"
+    }
+  ],
+  "edges": [
+    {
+      "from": "beta_alpha",
+      "to": "beta_mu_anti",
+      "relation": "enables"
+    },
+    {
+      "from": "beta_alpha",
+      "to": "crossover",
+      "relation": "predicts"
+    },
+    {
+      "from": "pure_imaginary",
+      "to": "beta_alpha",
+      "relation": "prerequisite"
+    },
+    {
+      "from": "firewall_universality",
+      "to": "beta_alpha",
+      "relation": "validates"
+    },
+    {
+      "from": "beta_mu_anti",
+      "to": "crossover",
+      "relation": "explains"
+    }
+  ],
+  "prior_art": [
+    "Dhawan et al. PRB 110, L081403 (2024)",
+    "Sarkar et al. PRB 109, 165408 (2024)",
+    "Bhat & Znidaric PRB 111, 174306 (2025)",
+    "Costa et al. arXiv:2504.00188v3 (2025)"
+  ],
+  "killed_by": null,
+  "cross_links": [
+    "LP25-S0 (FCS-quantum isomorphism)",
+    "LP18 (NoisyFreeFermionTransport)"
+  ]
+}

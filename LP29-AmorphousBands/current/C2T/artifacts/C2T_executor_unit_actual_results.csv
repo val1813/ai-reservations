@@ -1,0 +1,3 @@
+row_id,candidate_source,required_joined_fields_presence_status,same_sample_crosswalk_status,graph_convention_lock_status,external_label_independence_status,forbidden_control_row_audit_status,OI_Srivastava_reproduction_status,row_decision,material_validation_allowed
+C2T-AUDIT-9001,executor synthetic pass unit,PASS,PASS,PASS,PASS,PASS,NOT_APPLICABLE,PASS,true
+C2T-AUDIT-9002,executor synthetic warn unit,WARN,PASS,PASS,PASS,PASS,NOT_APPLICABLE,WARN,false

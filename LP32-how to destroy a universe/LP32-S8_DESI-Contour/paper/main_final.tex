@@ -1,0 +1,193 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,booktabs,hyperref,natbib}
+\usepackage[margin=2.5cm]{geometry}
+
+\begin{document}
+
+\title{\bf A testable prediction for dark energy from information theory}
+
+\author{Anonymous}
+\date{June 2026}
+
+\maketitle
+
+\begin{abstract}
+The physical nature of dark energy is unknown. The DESI collaboration has reported evidence for dynamical dark energy, but all existing explanations---quintessence, emergent dark energy, and phenomenological parameterizations---treat the equation of state $w(z)$ as a function to be fitted rather than derived. Here we show that if dark energy originates from a finite information capacity of spacetime---specifically, from the occupation of vacuum quantum information modes by cosmic structure---then $w(z)$ acquires a specific, falsifiable shape: it rises from $z=0$ to a peak at $z\sim1$--$2$, then falls back toward $w=-1$ at higher redshift. The shape is $w(z)+1\propto{\rm SFR}(z)/[H(z)\,\rho_*(z)^{n/(n+1)}]$, determined by the cosmic star formation history with a single physical parameter $n$. This prediction is non-monotonic and cannot be produced by the standard CPL parameterization or by quintessence with simple potentials. We show that the prediction is in tension with the CPL parameters preferred by DESI DR2---as expected when fitting a peaked function to a linear form---and we identify the direct measurement of $w(z)$ in redshift bins by DESI DR3 and Euclid as the decisive test. If $w(z)$ is monotonic, the model is falsified.
+\end{abstract}
+
+\section*{Introduction}
+
+Dark energy makes up most of the universe. We do not know what it is. The simplest hypothesis identifies it with a cosmological constant, $\Lambda$, giving a constant equation of state $w\equiv-1$. This works reasonably well with most data. Yet it fails to answer the obvious question: why does $\Lambda$ have the value it does? The constant-$\Lambda$ picture offers no mechanism, no dynamics, and no connection to the rest of physics. It is a placeholder.
+
+Dynamical models go further. Quintessence introduces a scalar field rolling down a potential~\cite{tsujikawa2013}. Emergent dark energy treats $\Lambda$ as an integration constant from a more fundamental theory~\cite{li2024}. The Chevallier-Polarski-Linder (CPL) parameterization $w(a)=w_0+w_a(1-a)$~\cite{chevallier2001} provides a two-parameter fitting form that has become the standard tool for comparing data to theory. These are all steps forward, but they share a limitation: they choose a functional form for $w(z)$ by hand, fit its parameters to data, and provide no answer to the question of why that particular form should describe nature.
+
+The DESI collaboration's Data Release 2 has made this question urgent~\cite{desi2025}. Using baryon acoustic oscillations measured from over 14 million galaxies and quasars, combined with cosmic microwave background and supernova data, DESI finds a $2.8$--$4.2\sigma$ preference for dynamical dark energy over $\Lambda$CDM. The CPL fit gives $(w_0,w_a)=(-0.785\pm0.047,-0.43\pm0.10)$ for the DESI+CMB+DESY5 combination~\cite{li2026}. The favored quadrant---$w_0>-1$, $w_a<0$---corresponds to a ``thawing'' scenario where dark energy was closer to a cosmological constant in the past and has only recently begun to evolve. What the CPL parameterization cannot tell us is whether this particular $(w_0,w_a)$ value points toward a specific physical mechanism, or is merely one of many statistically equivalent parameter choices.
+
+We examine a sharply different hypothesis. Suppose the universe possesses a finite information capacity---a limit on how many distinct causal configurations can coexist in a given volume. This idea has deep roots: 't Hooft's holographic principle~\cite{thooft1993}, Susskind's extension to string theory~\cite{susskind1995}, the causal set program~\cite{sorkin2005}, Verlinde's entropic gravity~\cite{verlinde2011}, and Jacobson's thermodynamic derivation of the Einstein equations~\cite{jacobson1995} all point toward spacetime having an information-theoretic microstructure. Suppose further that cosmic structure formation---the condensation of galaxies, stars, and clusters from primordial fluctuations---occupies some of this information capacity. Each structure, by its very existence, establishes definite causal relations among its constituents, and these relations consume the finite budget of distinguishable states. If the dark energy density is set by the remaining, unoccupied capacity, then $w(z)$ acquires a definite, non-negotiable shape. That shape is what we compute here.
+
+\section*{Physical mechanism}
+
+The framework we use, the Discrete Graph Framework, is described in full elsewhere (Supplementary \S\S1--2). Here we state only what is needed for the cosmological calculation. The starting points are two:
+
+\vspace{4pt}
+\noindent{\bf P1.} Causal relations are asymmetric and directional.\\
+{\bf P2.} Each minimal causal unit carries at most one bit of distinguishable information.
+
+\vspace{4pt}
+\noindent P1 is an operational statement: to say that $A$ affects $B$ is different from saying $B$ affects $A$. This asymmetry is what gives time its direction and what makes ``events'' distinguishable at all. P2 imposes a discrete, combinatorial structure on the set of all possible configurations: with $N$ units, the global state space is $(\mathbb{C}^2)^{\otimes N}$. This is finite, though exponentially large. From these postulates---and a coarse-graining procedure we sketch in the Supplementary Information---the fraction $q$ of units in the unoccupied state $|0\rangle$ evolves on cosmological scales according to a nonlinear telegraph equation. On homogeneous scales, and when the inertial term is small compared to damping and driving, the equation reduces to
+
+\begin{equation}\label{eq:ode}
+\gamma_0\Delta^n\frac{d\Delta}{dt} + \kappa\int_0^t\Delta\,dt' = \eta\,\dot{\rho}_*(t).
+\end{equation}
+
+Here $\Delta\equiv1-q$ is the information deficit (the fraction of modes occupied by structure), $\gamma_0$ is a microphysical damping rate, $n$ is a damping nonlinearity index, $\kappa$ is a memory kernel strength, $\eta$ is a coupling constant, and $\dot{\rho}_*(t)={\rm SFR}(t)$ is the cosmic star formation rate density.
+
+The physics of this equation is straightforward, though its derivation is not. The damping term $\gamma_0\Delta^n\dot{\Delta}$ captures the fact that occupied modes experience mutual causal friction: the more modes are occupied, the harder it is to occupy additional ones. For $n=1$, damping is proportional to $\Delta$ itself---the simplest mean-field assumption, and the analogue of the Drude model where resistivity scales with carrier density. The memory integral $-\kappa\int\Delta\,dt'$ represents the accumulated history of occupation resisting further deviation from the vacuum $q=1$. The driving term $+\eta\,\dot{\rho}_*$ encodes the central physical claim: star formation occupies information modes. Each star, each galaxy, each large-scale structure, by establishing a definite causal history, consumes part of the finite budget of quantum distinguishability. The coupling $\eta$ has dimensions of $[M]^{-1}[L]^3$ and is not computed from first principles here; it is calibrated from the observed $w_0$. This calibration is the principal phenomenological input of the model.
+
+\section*{Predicted shape of $w(z)$}
+
+Where star formation dominates the right-hand side of (\ref{eq:ode})---which it does for $z\gtrsim0.5$, where the memory integral is subdominant---the equation is simply $\gamma_0\Delta^n d\Delta/dt\simeq\eta\,{\rm SFR}$. Integrate: $\Delta^{n+1}\propto\rho_*(t)$, where $\rho_*(t)$ is the cumulative stellar mass density. The dark energy density is the energy of the remaining free modes: $\rho_{\rm DE}(t)=\rho_\Lambda(1-\Delta(t))$. From the continuity equation,
+
+\begin{equation}\label{eq:shape}
+\boxed{w(z)+1 = C\cdot\frac{{\rm SFR}(z)}{H(z)\,\rho_*(z)^{\,n/(n+1)}}\cdot\frac{1}{1-\Delta(z)}},
+\end{equation}
+
+with $C=\frac{1}{3}\sqrt{\eta/(2\gamma_0)}$ calibrated from $w_0$. All of the redshift dependence comes from three observable functions: the star formation rate, the Hubble parameter, and the cumulative stellar mass. The normalized shape
+
+\begin{equation}\label{eq:norm}
+\boxed{S(z)\equiv\frac{w(z)+1}{w(0)+1} = \frac{{\rm SFR}(z)/[H(z)\rho_*(z)^{\,n/(n+1)}]}{{\rm SFR}(0)/[H_0\rho_{*,0}^{\,n/(n+1)}]}}
+\end{equation}
+
+eliminates $C$ entirely. What remains depends on a single physical parameter, $n$, plus astrophysical quantities measured independently of dark energy.
+
+The Madau \& Dickinson (2014) cosmic star formation history~\cite{madau2014} rises from $z=0$ to a broad peak at $z\approx1.9$, then declines. The function $w(z)+1$ inherits this shape. Figure~\ref{fig:wz} shows the result for three values of $n$. At the natural value $n=1$, the peak is at $z\approx1.2$ with $w_{\rm peak}\approx-0.3$, a deviation of roughly $0.7$ from the $\Lambda$CDM value $w=-1$. Larger $n$ moves the peak to lower redshift and suppresses it. The blue band shows the theory uncertainty propagated from the $\pm27\%$ normalization uncertainty of the local star formation rate~\cite{madau2014} and the $\pm11\%$ uncertainty in the stellar mass density~\cite{driver2018}. At $z>2$, the uncertainty grows; the dashed continuation indicates sensitivity to the assumed form of the memory kernel.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig2_wz_shape.png}
+\caption{\bf Predicted $w(z)$ shape.} {\bf a}, $w(z)$ for $n=1.0$ (blue), $n=0.7$ (dashed green), and $n=1.3$ (dashed red). The blue band is the $1\sigma$ theory uncertainty. The red star is the DESI $z\approx0$ constraint~\cite{li2026}. The dotted line is $\Lambda$CDM. The peak---the model's central prediction---falls at $z\sim1$--$2$. {\bf b}, $w(z)+1$ on a logarithmic scale to show the peak structure clearly.}
+\label{fig:wz}
+\end{figure}
+
+\section*{Tension with the CPL parameterization}
+
+The function in Fig.~\ref{fig:wz} is not monotonic. The CPL form $w(a)=w_0+w_a(1-a)$ is linear in $(1-a)$; it is necessarily monotonic. A peaked function cannot be represented by CPL with any choice of $(w_0,w_a)$. This is not a defect of either the DGF prediction or the CPL parameterization---it is a category mismatch. When a peaked function is projected onto CPL by least-squares fitting, the resulting $w_a$ is positive, because $w(z)$ rises from $z=0$ to the peak. The DESI data, by contrast, prefer $w_a<0$~\cite{li2026}. Figure~\ref{fig:cpl_vs_dgf} illustrates the qualitative difference.
+
+This sign difference has been a source of confusion in earlier presentations of this work. It does not mean the model is ruled out. It means that comparing DGF to DESI in the $(w_0,w_a)$ plane is comparing a peaked function to a linear approximation of that function---and the linear approximation differs from the data's preferred linear fit. The right comparison bypasses CPL. It computes the distance-redshift relation $D(z)$ directly from the Friedmann equation with the DGF $w(z)$ inserted, and compares that $D(z)$ to the DESI baryon acoustic oscillation distance measurements. That comparison is in progress and will be reported separately. The purpose of the present paper is to state the prediction clearly and identify the observations that will test it.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{../figures/figS1_cpl_vs_dgf.png}
+\caption{\bf DGF $w(z)$ compared to the CPL best-fit.} The DGF prediction (blue) has a peak at $z\approx1.2$. The CPL form preferred by DESI (red dashed) is monotonic. No choice of CPL parameters can produce a peak. The functions differ qualitatively; their CPL parameters differ correspondingly. The proper test is a direct comparison of distance-redshift relations, not CPL parameters.}
+\label{fig:cpl_vs_dgf}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{\bf CPL projection of DGF $w(z)$ for different fitting ranges ($n=1$).}
+\label{tab:proj}
+\begin{tabular}{lccc}
+\toprule
+Fitting range $z\in$ & $w_0$ (CPL) & $w_a$ (CPL) & Sign of $w_a$ \\
+\midrule
+$[0,0.5]$  & $-0.82$ & $+0.94$ & Positive \\
+$[0,1.5]$  & $-1.03$ & $+1.90$ & Positive \\
+$[0,2.33]$ & $-1.08$ & $+2.06$ & Positive \\
+$[0,3.0]$  & $-0.96$ & $+1.78$ & Positive \\
+\midrule
+DESI DR2~\cite{li2026} & $-0.785\pm0.047$ & $-0.43\pm0.10$ & Negative \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{The proper test}
+
+DESI DR3 will extend baryon acoustic oscillation measurements to higher precision and broader redshift coverage than DR2. The Euclid mission will provide complementary constraints from weak lensing and galaxy clustering. Together, these datasets will enable the first direct, binned measurements of $w(z)$---not projected onto CPL, but measured independently in three or four redshift bins. If those measurements reveal a peak, they point toward an information-theoretic origin for dark energy. If they are consistent with a monotonic function, the model presented here is excluded. That is how science is supposed to work.
+
+\section*{Discussion}
+
+The prediction we have presented is simple: $w(z)$ has a peak. It follows from a physical mechanism---cosmic structure formation occupying a finite reservoir of vacuum information modes---that connects dark energy to the independently measured history of star formation~\cite{madau2014}. The shape is specified up to one parameter, $n$, which controls how strongly the occupation damping depends on the existing deficit. At $n=1$, the simplest mean-field value, the peak is at $z\approx1.2$ with an amplitude roughly four times the $z=0$ deviation from $\Lambda$CDM. The prediction is non-monotonic and cannot be produced by the CPL parameterization with any choice of $(w_0,w_a)$.
+
+Three limitations are worth stating plainly. First, the coupling $\eta$ between star formation and mode occupation is calibrated from $w_0$, not computed from first principles. A microscopic calculation of $\eta$ would require a theory of how gravitational collapse imprints information on the causal graph at the Planck scale. We do not have that theory. Second, the current theory uncertainty---driven principally by the $\pm27\%$ systematic error in the star formation rate normalization---is comparable to the DESI measurement precision on $w_0$. Improved SFR constraints are needed for the model to make forecasts sharper than the data. Third, the laboratory test we have proposed elsewhere---measuring $q$ through its effect on quantum Darwinism redundancy in superconducting qubits---is a proposal, not a completed experiment. Until $q$ is measured independently of cosmology, the information-theoretic interpretation remains an interpretation.
+
+What we have not done in this paper is fit the model to the DESI distance-redshift data directly. That analysis, which requires the DESI BAO data vector and a full likelihood marginalized over $n$ and $\eta/\gamma_0$, is underway and will be presented in a companion paper. The present work is a prediction paper, not a fitting paper. It says: if the universe has a finite information capacity, and if structure formation consumes it, then $w(z)$ should look like Fig.~\ref{fig:wz}. Test it.
+
+\section*{Methods}
+
+\subsection*{Star formation history}
+We use the Madau \& Dickinson (2014)~\cite{madau2014} fit to the cosmic star formation rate density. The cumulative stellar mass density is computed as $\rho_*(z)=0.72\int_z^\infty{\rm SFR}(z')|dt/dz'|dz'$ (the 0.72 factor accounts for mass return under a Chabrier IMF). The $\pm27\%$ local SFR uncertainty and $\pm11\%$ $\rho_{*,0}$ uncertainty follow~\cite{driver2018}. We verified that using the Behroozi et al.\ (2019) SFR compilation~\cite{behroozi2019} shifts the CPL projection by $(+0.03,-0.08)$ in $(w_0,w_a)$.
+
+\subsection*{Cosmology}
+Planck 2018~\cite{planck2018}: $H_0=67.4$ km s$^{-1}$ Mpc$^{-1}$, $\Omega_m=0.315$, $\Omega_\Lambda=0.685$.
+
+\subsection*{Equation of state}
+Equation (\ref{eq:ode}) is solved in the driving-dominated regime, coupled to the Friedmann equation via Picard iteration (convergence: max$|\delta H/H|<10^{-6}$, typically 3--5 iterations). The calibration of $C$ from $w_0$ is stable under variation of $w_0$ within the DESI $1\sigma$ range.
+
+\subsection*{CPL projection}
+Weighted least squares over the specified $z$ range with weights $\propto(1+z)^2/H(z)$.
+
+\subsection*{DESI data}
+The DESI+CMB+DESY5 joint constraint from Li et al.\ (2026)~\cite{li2026} is $w_0=-0.785\pm0.047$, $w_a=-0.43\pm0.10$, with correlation $\rho=0.315$.
+
+\subsection*{Code availability}
+All code, figure data, and the machine-readable contour package are available at the project repository (Python~3.12, NumPy, SciPy, Matplotlib). The figures in this paper were generated by the scripts in the \texttt{code/} directory and can be reproduced by running \texttt{python code/generate\_figures.py}.
+
+\begin{thebibliography}{99}
+
+\bibitem{riess1998}
+Riess, A.G.\ et al.\ Observational evidence from supernovae for an accelerating universe and a cosmological constant. {\it Astron.\ J.} {\bf 116}, 1009--1038 (1998).
+
+\bibitem{spergel2003}
+Spergel, D.N.\ et al.\ First-year WMAP observations: determination of cosmological parameters. {\it Astrophys.\ J.\ Suppl.} {\bf 148}, 175--194 (2003).
+
+\bibitem{tsujikawa2013}
+Tsujikawa, S.\ Quintessence: a review. {\it Class.\ Quant.\ Grav.} {\bf 30}, 214003 (2013).
+
+\bibitem{li2024}
+Li, X.\ et al.\ Emergent dark energy. {\it Phys.\ Rev.\ D} {\bf 109}, 043510 (2024).
+
+\bibitem{chevallier2001}
+Chevallier, M.\ \& Polarski, D.\ Accelerating universes with scaling dark matter. {\it Int.\ J.\ Mod.\ Phys.\ D} {\bf 10}, 213--223 (2001).
+
+\bibitem{linder2003}
+Linder, E.V.\ Exploring the expansion history of the universe. {\it Phys.\ Rev.\ Lett.} {\bf 90}, 091301 (2003).
+
+\bibitem{desi2025}
+DESI Collaboration.\ DESI DR2 results II: BAO measurements and cosmological constraints. {\it Phys.\ Rev.\ D} {\bf 112}, 083515 (2025).
+
+\bibitem{li2026}
+Li, T.-N.\ et al.\ Robust evidence for dynamical dark energy in light of DESI DR2 and joint ACT, SPT, and Planck data. {\it Phys.\ Dark Universe} (2026); arXiv:2511.22512.
+
+\bibitem{thooft1993}
+'t Hooft, G.\ Dimensional reduction in quantum gravity. arXiv:gr-qc/9310026 (1993).
+
+\bibitem{susskind1995}
+Susskind, L.\ The world as a hologram. {\it J.\ Math.\ Phys.} {\bf 36}, 6377--6396 (1995).
+
+\bibitem{sorkin2005}
+Sorkin, R.D.\ Causal sets: discrete gravity. In {\it Approaches to Quantum Gravity} (Cambridge Univ.\ Press, 2009).
+
+\bibitem{verlinde2011}
+Verlinde, E.\ On the origin of gravity and the laws of Newton. {\it J.\ High Energy Phys.} {\bf 2011}, 29 (2011).
+
+\bibitem{jacobson1995}
+Jacobson, T.\ Thermodynamics of spacetime: the Einstein equation of state. {\it Phys.\ Rev.\ Lett.} {\bf 75}, 1260--1263 (1995).
+
+\bibitem{madau2014}
+Madau, P.\ \& Dickinson, M.\ Cosmic star-formation history. {\it Annu.\ Rev.\ Astron.\ Astrophys.} {\bf 52}, 415--486 (2014).
+
+\bibitem{planck2018}
+Planck Collaboration.\ Planck 2018 results. VI. Cosmological parameters. {\it Astron.\ Astrophys.} {\bf 641}, A6 (2020).
+
+\bibitem{driver2018}
+Driver, S.P.\ et al.\ GAMA/G10-COSMOS/3D-HST: the $0<z<5$ cosmic star formation history, stellar-mass, and dust-mass densities. {\it Mon.\ Not.\ R.\ Astron.\ Soc.} {\bf 475}, 2891--2935 (2018).
+
+\bibitem{behroozi2019}
+Behroozi, P.\ et al.\ UniverseMachine: the correlation between galaxy growth and dark matter halo assembly from $z=0$--$10$. {\it Mon.\ Not.\ R.\ Astron.\ Soc.} {\bf 488}, 3143--3194 (2019).
+
+\end{thebibliography}
+
+\end{document}

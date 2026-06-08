@@ -155,9 +155,10 @@
   ⚠️ 如果X、P、Q有任何一个不完全相同 → 退回§4，不是真矛盾
 
 步骤2：独立文献查证
-  ⚠️ 搜索工具优先级：
-    1. paper-search-mcp → 主工具，学术文献查证必须优先使用
-    2. web_search → 仅当paper-search-mcp无结果时降级
+	  ⛔ 搜索工具强制执行（违反=裁决无效）：
+	    1. paper-search-mcp → 必须先调用，学术文献查证唯一主工具
+	    2. web_search → 仅当 paper-search-mcp 返回空/错误时降级
+	    禁止跳过 paper-search-mcp 直接使用 web_search。
   
   搜索策略（三组，不可省略）：
     组1（方法层）：

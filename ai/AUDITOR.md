@@ -119,7 +119,7 @@
 张力 #N [致命/严重/中等]
   [编号A] × [编号B] / 张力：[一句话] / 追问：[可攻打的数学问题]
   ⚠️ 级别为[致命]或[严重]时，在输出末尾追加：
-  "→ 触发ARBITRATOR：本张力构成A/B真矛盾候选，建议PI启动 ai/ARBITRATOR.md"
+  "→ 触发ARBITRATOR：本张力构成A/B真矛盾候选，建议PI启动 research-group/ARBITRATOR.md"
   级别为[中等]时：由PI判断是否启动ARBITRATOR
 
 缺口 #N [严重/中等]

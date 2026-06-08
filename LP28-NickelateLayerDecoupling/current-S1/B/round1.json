@@ -1,0 +1,196 @@
+{
+  "project": "LP28-S1",
+  "round": 1,
+  "agent": "B",
+  "polaris": "Can I_phi be pre-registered from input-side spectroscopy, structure, and dephasing variables independently of bulk superconducting output?",
+  "framework": "Information leakage plus network observability. Treat I_phi as an encoder f_P0(X_pre) with a frozen protocol P0, where X_pre contains only same-sample input-side measurements made before bulk superconducting output Y is inspected.",
+  "findings": "The predictor/outcome split becomes sharp if I_phi is handled as a zero-leakage code: raw inputs X_pre may enter the encoder, but bulk outputs Y must not enter formula choice, normalization, sample exclusion, threshold choice, or hyperparameter tuning. Under this rule, I_phi is not validated; it is only an auditable pre-registration candidate. The non-circular test is whether an independent auditor can recompute the exact I_phi labels from time-stamped input files while Y remains sealed.",
+  "math_object": {
+    "name": "Zero-leakage causal encoder with an input-side observability Gramian",
+    "objects": [
+      "X_pre = {S_dz2, W_c, g_struct, Gamma_phi, D_dis}",
+      "Y = {Tc, zero_resistance, shielding, Meissner_fraction, Jc, bulk_phase_stiffness}",
+      "P0 = frozen codebook specifying transforms, frequency windows, normalizations, missing-data rules, and thresholds before Y is opened",
+      "I_phi = f_P0(X_pre)",
+      "Leakage criterion: L_Y_to_P0 = I(Y; P0 | X_pre, calendar_order) must be treated as zero by design, not estimated after the fact",
+      "Observability criterion: C_phi is computed from the rank/condition of an input-side transfer matrix mapping interlayer perturbations to optical/spectroscopic/dephasing responses, not from superconducting response"
+    ],
+    "deeper_structure": "This is the noninterference condition from secure computation translated into experimental design: changing sealed output Y while holding X_pre fixed must not change the computed I_phi. The deeper network layer is observability: a phase-bus readiness variable is admissible only if the input probes make the interlayer channel observable before bulk superconducting output is declared."
+  },
+  "id": "B1",
+  "claim": "I_phi can be non-circular only as a frozen input-side encoder; any output-dependent threshold or tuning creates information leakage.",
+  "equations": [
+    {
+      "label": "F1_candidate_encoder",
+      "expression": "Ez2*Cphi/(kBT + hbar*Gphi + Efloor)",
+      "description": "Provisional dimensionless readiness index if Ez2, kBT, hbar*Gphi, and Efloor are all energy scales and Cphi is dimensionless.",
+      "variables": {
+        "Ez2": "input-side dz2 interlayer spectral-weight or energy proxy",
+        "Cphi": "input-side observability/connectivity factor, dimensionless",
+        "kBT": "thermal energy at the pre-registered measurement temperature",
+        "hbar": "reduced Planck constant",
+        "Gphi": "input-side dephasing rate",
+        "Efloor": "disorder or structural energy floor"
+      },
+      "units": "dimensionless",
+      "limit_var": "Gphi",
+      "limits": [
+        {
+          "variable": "Gphi",
+          "to": "oo",
+          "expected": "0",
+          "desc": "complete dephasing destroys the readiness index"
+        }
+      ],
+      "numerical_test": {
+        "substitutions": {
+          "Ez2": 20.0,
+          "Cphi": 0.4,
+          "kBT": 5.0,
+          "hbar": 1.0,
+          "Gphi": 10.0,
+          "Efloor": 5.0
+        },
+        "expected_range": [
+          0.1,
+          1.0
+        ]
+      }
+    },
+    {
+      "label": "F2_blind_leakage_audit",
+      "expression": "Ifrozen - Irecomputed",
+      "description": "Audit residual; pass requires exact equality between frozen labels and labels recomputed from sealed input files before output unblinding.",
+      "variables": {
+        "Ifrozen": "I_phi labels deposited before bulk-output unblinding",
+        "Irecomputed": "labels recomputed by an auditor from X_pre and P0"
+      },
+      "units": "dimensionless"
+    }
+  ],
+  "strangest_prediction": {
+    "statement": "A lower-dz2-weight nickelate sample can outrank a higher-dz2-weight sample if it has a better input-side observability/connectivity factor and a lower independently measured dephasing scale. The ordering is therefore not monotone in dz2 spectral weight alone.",
+    "specific_system": "Same RP nickelate family and same sample batch where multiple films or crystals span apical-O geometry, c-axis optical response, and interlayer dz2 spectral weight without using bulk superconducting labels during index construction.",
+    "observables": [
+      "S_dz2: resonant ARPES or polarization-dependent XAS/RIXS proxy for interlayer dz2 channel weight",
+      "W_c: c-axis optical spectral weight integrated over a pre-registered normal-state window",
+      "g_struct: apical-O or layer-spacing structural metric from diffraction/STEM refined before output unblinding",
+      "Gamma_phi: normal-state dephasing/scattering scale from THz conductivity, pump-probe phase-memory decay, or quantum oscillation/optical linewidth if available, measured above the superconducting-output declaration regime",
+      "C_phi: dimensionless observability score from the pre-registered transfer matrix using S_dz2, W_c, g_struct, and Gamma_phi"
+    ],
+    "pass_fail": {
+      "protocol_pass": "Before measuring or opening Tc, shielding, zero resistance, critical current, or bulk phase stiffness, the lab deposits P0, raw X_pre files, missing-data rules, and I_phi labels. A blind auditor recomputes identical I_phi labels from X_pre alone.",
+      "protocol_fail": "Any coefficient, threshold, sample exclusion, frequency window, or normalization is chosen after seeing Tc, shielding, zero resistance, critical current, or bulk phase stiffness.",
+      "physics_pass": "Among samples with comparable S_dz2, the sample with lower Gamma_phi and higher C_phi receives higher pre-registered I_phi; if bulk output is later inspected, this ordering is tested as a prediction rather than used to define the index.",
+      "physics_fail": "I_phi collapses to a monotone relabeling of dz2 weight or c-axis coherence already known in the literature, or only becomes useful after retuning against the superconducting phase boundary."
+    }
+  },
+  "failed_jumps": [
+    {
+      "jump": "Use error-correcting-code distance as I_phi directly",
+      "reason": "No clean mapping from physical dephasing in nickelates to a discrete correctable error set without inventing unmeasured syndrome variables."
+    },
+    {
+      "jump": "Use Granger causality from phase diagrams",
+      "reason": "Phase diagrams already contain output chronology and would invite posterior thresholding; it does not enforce same-sample pre-registration."
+    },
+    {
+      "jump": "Use control-theory controllability alone",
+      "reason": "The experiment observes an existing material rather than actuating all hidden interlayer states; observability is the sharper requirement for an input-side index."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The decisive S1 criterion is noninterference: holding X_pre fixed, changing sealed bulk output Y must not change I_phi, thresholds, or inclusion rules.",
+      "confidence": 0.78,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1_candidate_encoder",
+          "expression": "Ez2*Cphi/(kBT + hbar*Gphi + Efloor)",
+          "description": "Frozen input-side encoder candidate; not validated as a predictor.",
+          "variables": {
+            "Ez2": "input-side dz2 channel proxy",
+            "Cphi": "input-side observability/connectivity factor",
+            "kBT": "thermal energy",
+            "hbar": "reduced Planck constant",
+            "Gphi": "input-side dephasing rate",
+            "Efloor": "disorder or structural energy floor"
+          },
+          "units": "dimensionless",
+          "limit_var": "Gphi",
+          "limits": [
+            {
+              "variable": "Gphi",
+              "to": "oo",
+              "expected": "0",
+              "desc": "complete dephasing limit"
+            }
+          ]
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "X_pre files are time-stamped and sealed before bulk superconducting output is opened.",
+        "P0 fixes all transforms, windows, weights, thresholds, and missing-data rules before output inspection.",
+        "Gamma_phi is measured from normal-state or otherwise input-side dephasing data, not inferred from superconducting stiffness or transition width."
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "C_phi should be treated as an input-side network observability score, not as observed bulk phase coherence.",
+      "confidence": 0.62,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3_observability_score",
+          "expression": "sigma_min/(sigma_min + sigma_ref)",
+          "description": "Dimensionless stability score from the smallest singular value of the pre-registered input-side transfer matrix.",
+          "variables": {
+            "sigma_min": "smallest singular value of the input-side transfer matrix after fixed normalization",
+            "sigma_ref": "pre-registered reference scale preventing singular blow-up"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {
+              "variable": "sigma_min",
+              "to": "0",
+              "expected": "0",
+              "desc": "unobservable interlayer channel"
+            }
+          ],
+          "limit_var": "sigma_min"
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "The transfer matrix uses only pre-output observables such as S_dz2, W_c, structure, and Gamma_phi.",
+        "Normalization of rows and singular values is frozen before output unblinding.",
+        "C_phi is not allowed to include Josephson-like bulk phase stiffness."
+      ]
+    }
+  ],
+  "assumptions": [
+    "Same-sample input measurements are feasible before bulk superconducting output declaration.",
+    "Normal-state or input-side dephasing measurements can be separated operationally from bulk superconducting output variables.",
+    "The experiment can maintain a blind data workflow with sealed output labels.",
+    "The goal is a non-circular protocol, not validation of I_phi."
+  ],
+  "weakest_point": "Gamma_phi is the most fragile variable: many experimentally accessible linewidths mix ordinary scattering, disorder, and incipient superconducting fluctuations. If Gamma_phi cannot be measured without borrowing bulk phase-stiffness or transition information, the candidate I_phi fails the S1 split.",
+  "next_plan": "Round 2 should stress-test the observability construction: define the exact transfer-matrix rows, units, normalization, and missing-data rules, then ask whether any row secretly encodes superconducting output. A second route should test whether a minimal preregistration packet can be specified for three blind samples before unblinding Y.",
+  "literature_needed": [
+    "RP nickelate c-axis optical conductivity normal-state spectral weight",
+    "nickelate dz2 pz dz2 hybridization ARPES RIXS XAS apical oxygen structure",
+    "nickelate THz conductivity scattering rate dephasing normal state",
+    "pre-registration blinded analysis materials superconductivity phase diagram",
+    "network observability Gramian transfer matrix experimental condensed matter",
+    "information leakage noninterference predictor outcome circularity causal inference"
+  ],
+  "inspector_check": {
+    "formula": "I_phi = Ez2*Cphi/(kBT + hbar*Gphi + Efloor); all denominator terms must be energies and Cphi dimensionless.",
+    "direction": "Increasing Ez2 or Cphi raises I_phi; increasing Gphi, temperature energy, or Efloor lowers I_phi.",
+    "data": "No bulk superconducting output data used in this B Round 1 construction.",
+    "assumptions": "P0 and X_pre are sealed before output unblinding; Cphi is an input-side observability score."
+  }
+}

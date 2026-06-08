@@ -1,0 +1,1 @@
+更大声张：非晶 band-like transport 不是 graph 新机制，而是随机介质传播算子的信息保真相变。mobility edge、Ioffe-Regel、percolation、In-s graph 只是压缩投影；被杀死的前提是深层原理的推论：单一投影不能保真，跨尺度冗余才能在无序中保留可传播谱。类比分布式记忆：扰动后表征仍可解码。可检验观测：Hall/Drude/Wannier/linewidth 标签中，控制 mobility-edge、Ioffe-Regel、Srivastava overlap 后，spectral radius+lambda2+高介数损伤预测残差；高介数边削弱损失大于随机削弱。

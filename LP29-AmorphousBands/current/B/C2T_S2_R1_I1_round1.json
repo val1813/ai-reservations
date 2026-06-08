@@ -1,0 +1,212 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": "LP29-C2T-S2-R1-I1 / Round 1",
+  "agent": "B",
+  "role": "independent B doctor",
+  "task": "Design adversarial no-silent-upgrade test matrix for executable O_s baseline-admission validator; no implementation.",
+  "framework": {
+    "name": "Proof-carrying observable firewall",
+    "source_contracts_used": [
+      "current/A/artifacts/S2_R1_validator_payload_schema_round3.json",
+      "current/A/artifacts/S2_R1_A_expected_cases_round3.csv",
+      "current/B/artifacts/S2_R1_transition_oracle_round3.csv"
+    ],
+    "core_mapping": {
+      "source_context_gate": ["F01", "F02", "F03"],
+      "replay_candidate_gate": ["F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20"],
+      "final_comparison_gate": ["F21", "F22"],
+      "oracle_predicates": ["P0_LOCATOR_REPORTED_CONTEXT", "P1_STRUCTURE_BOUND_CONTEXT", "P2_PAIR_POLICY_BOUND_ATTEMPT", "P3_RAW_SUM_BOUND_ATTEMPT", "P4_NORMALIZATION_BOUND_ATTEMPT", "P5_EXECUTOR_TRACE_BOUND_ATTEMPT", "P8_MODE_TRANSITION_GUARD"]
+    },
+    "adversarial_axis": "Every test is a tempting overclaim where a validator might promote evidence because it looks familiar, numerically close, high-quality, or source-localized, even though the required proof tuple is incomplete or internally failed."
+  },
+  "test_philosophy": [
+    "Terminal status must be predicate-derived, not intent-derived: target_mode cannot promote a payload unless every required predicate for that target passes.",
+    "Source localization is useful only for reported_context. It is not an exact O_s witness and cannot bypass structure, pair, arithmetic, execution, recomputation, and tolerance predicates.",
+    "Numeric closeness is admissible only after complete provenance and a predeclared tolerance. Closeness before F04-F22 is evidence-shaped noise.",
+    "Executor quality is not executor provenance. A named workflow, clean code style, reputable software, or narrative reproducibility must not replace digest-bearing trace and bound inputs/outputs.",
+    "Mismatch is also proof-carrying. A validator may diagnose mismatch only when the replay tuple is complete enough to locate the failed predicate or failed final comparison; missing replay fields remain BLOCK."
+  ],
+  "adversarial_cases": [
+    {
+      "case_id": "I1_LOCATOR_ONLY_TO_CONTEXT",
+      "payload_defect": "F02 exact locator exists, but F01 stable identifier and F03 parseable reported scalar are absent.",
+      "attempted_upgrade": "Treat exact page/table/row locator as enough for reported_context.",
+      "expected_status": "BLOCK",
+      "first_failed_predicate": "F01/P0_LOCATOR_REPORTED_CONTEXT",
+      "why_this_catches_overclaim": "A locator without a stable bibliographic anchor and scalar cannot establish what value is being localized."
+    },
+    {
+      "case_id": "I1_SCALAR_ONLY_TO_CONTEXT",
+      "payload_defect": "F03-like reported scalar exists without F01 stable source or F02 exact locator.",
+      "attempted_upgrade": "Treat a numeric O_s value as a reported_context pass.",
+      "expected_status": "BLOCK",
+      "first_failed_predicate": "F01/P0_LOCATOR_REPORTED_CONTEXT",
+      "why_this_catches_overclaim": "Directly exercises G01_no_scalar_only_exactness and prevents scalar-only evidence from becoming any non-BLOCK terminal state."
+    },
+    {
+      "case_id": "I1_DOI_PLUS_SCALAR_NO_LOCATOR",
+      "payload_defect": "F01 and F03 pass, but F02 exact page/table/figure/row locator is missing.",
+      "attempted_upgrade": "Treat citation plus scalar as source-localized context.",
+      "expected_status": "BLOCK",
+      "first_failed_predicate": "F02/P0_LOCATOR_REPORTED_CONTEXT",
+      "why_this_catches_overclaim": "Forces the validator to require stable source position, not just bibliography and value."
+    },
+    {
+      "case_id": "I1_CONTEXT_ONLY_TO_EXACT",
+      "payload_defect": "F01-F03 pass, but F04-F22 are absent.",
+      "attempted_upgrade": "Promote CONDITIONAL_CONTEXT_PASS to ADMITTED_EXACT because the source context is complete.",
+      "expected_status": "CONDITIONAL_CONTEXT_PASS",
+      "first_failed_predicate": "F04/P1_STRUCTURE_BOUND_CONTEXT for exact target",
+      "why_this_catches_overclaim": "Separates reported scalar localization from exact observable replay."
+    },
+    {
+      "case_id": "I1_NUMERIC_CLOSENESS_CONTEXT_TO_EXACT",
+      "payload_defect": "F01-F03 pass and an unproven numeric value is close to reported_scalar, but F04-F20 provenance and F22 predeclared tolerance are missing.",
+      "attempted_upgrade": "Promote by numeric closeness alone.",
+      "expected_status": "BLOCK",
+      "first_failed_predicate": "P8_MODE_TRANSITION_GUARD",
+      "why_this_catches_overclaim": "Catches validators that compare numbers before proving same structure, same pair set, same arithmetic, and predeclared tolerance."
+    },
+    {
+      "case_id": "I1_EXECUTOR_QUALITY_ONLY_TO_EXACT",
+      "payload_defect": "Good software metadata or clean workflow narrative exists, but F16-F20 are incomplete and F04-F15/F21-F22 are absent or unbound.",
+      "attempted_upgrade": "Treat executor quality as replay provenance.",
+      "expected_status": "BLOCK",
+      "first_failed_predicate": "P8_MODE_TRANSITION_GUARD",
+      "why_this_catches_overclaim": "Prevents reputable tools, version strings, or narrative reproducibility from replacing digest-bearing proof objects."
+    },
+    {
+      "case_id": "I1_REPLAY_READY_NO_RECOMPUTE",
+      "payload_defect": "F01-F20 pass, but F21 recomputed_value and F22 acceptance_tolerance are missing.",
+      "attempted_upgrade": "Declare exactness or mismatch before final replay comparison.",
+      "expected_status": "CANDIDATE_EXACT_REPLAY",
+      "first_failed_predicate": "F21 for admitted_exact/diagnosed_mismatch",
+      "why_this_catches_overclaim": "Ensures replay readiness is terminally distinct from admitted exactness and mismatch."
+    },
+    {
+      "case_id": "I1_FULL_EXACT_MATCH",
+      "payload_defect": "No defect: F01-F22 pass and recomputed_value agrees with reported_scalar under predeclared tolerance.",
+      "attempted_upgrade": "None; positive control for exact admission.",
+      "expected_status": "ADMITTED_EXACT",
+      "first_failed_predicate": "NONE",
+      "why_this_catches_overclaim": "Shows the validator is not merely conservative; exactness is admitted only when the full proof tuple and comparison pass."
+    },
+    {
+      "case_id": "I1_COMPLETE_FINAL_VALUE_MISMATCH",
+      "payload_defect": "F01-F22 are present and provenance predicates pass, but recomputed_value fails the F22 predeclared comparison.",
+      "attempted_upgrade": "Treat near-complete provenance as exact despite failed comparison.",
+      "expected_status": "DIAGNOSED_MISMATCH",
+      "first_failed_predicate": "F21/F22 final comparison",
+      "why_this_catches_overclaim": "Prevents full payload completeness from overriding the actual scalar disagreement."
+    },
+    {
+      "case_id": "I1_STRUCTURE_MAPPING_MISMATCH_WITH_GOOD_TRACE",
+      "payload_defect": "Most replay fields are present, but F07 same_structure_mapping_rule fails or maps to a different configuration.",
+      "attempted_upgrade": "Use good pair/arithmetic/executor trace to compensate for failed structure identity.",
+      "expected_status": "DIAGNOSED_MISMATCH",
+      "first_failed_predicate": "F07/P1_STRUCTURE_BOUND_CONTEXT",
+      "why_this_catches_overclaim": "More downstream proof objects cannot repair a failed upstream identity predicate."
+    },
+    {
+      "case_id": "I1_PAIR_CARDINALITY_MISMATCH_NUMERIC_CLOSE",
+      "payload_defect": "Pair list/hash and N_pair disagree, while final scalar is numerically close to reported_scalar.",
+      "attempted_upgrade": "Accept exactness because the final value is close.",
+      "expected_status": "DIAGNOSED_MISMATCH",
+      "first_failed_predicate": "F12/P2_PAIR_POLICY_BOUND_ATTEMPT",
+      "why_this_catches_overclaim": "Forces pair population integrity to dominate post hoc scalar closeness."
+    },
+    {
+      "case_id": "I1_CURRENT_SRIVASTAVA_EXACT_BLOCK",
+      "payload_defect": "Current Srivastava-related exact O_s summary/citation lacks the complete proof-carrying witness tuple.",
+      "attempted_upgrade": "Admit exact Srivastava O_s from familiarity, citation, or summary-level context.",
+      "expected_status": "BLOCK",
+      "first_failed_predicate": "F02 or F04 depending on available context; G04_current_srivastava_exact_block",
+      "why_this_catches_overclaim": "Hard regression guard: current Srivastava exact O_s remains blocked until full F01-F22 witness is supplied."
+    }
+  ],
+  "no_silent_upgrade_rules": [
+    {
+      "rule_id": "NSU-01",
+      "rule": "F03 alone is always BLOCK for every target mode; it cannot become PARTIAL_CONTEXT_ONLY, CONDITIONAL_CONTEXT_PASS, CANDIDATE_EXACT_REPLAY, DIAGNOSED_MISMATCH, or ADMITTED_EXACT."
+    },
+    {
+      "rule_id": "NSU-02",
+      "rule": "F01 without F02 and F03 is BLOCK for reported_context."
+    },
+    {
+      "rule_id": "NSU-03",
+      "rule": "F01-F03 may yield CONDITIONAL_CONTEXT_PASS only for reported_context; this status carries zero exact replay credit."
+    },
+    {
+      "rule_id": "NSU-04",
+      "rule": "candidate_exact_replay requires all F01-F20 predicates; any missing or false field blocks the candidate replay target."
+    },
+    {
+      "rule_id": "NSU-05",
+      "rule": "ADMITTED_EXACT requires all F01-F22 predicates plus a passing predeclared comparison; numeric closeness without F22 is BLOCK or CANDIDATE_EXACT_REPLAY, never exact."
+    },
+    {
+      "rule_id": "NSU-06",
+      "rule": "DIAGNOSED_MISMATCH requires a complete replay bundle and a failed predeclared comparison or failed replay predicate; missing replay fields are BLOCK, not mismatch."
+    },
+    {
+      "rule_id": "NSU-07",
+      "rule": "Executor quality, software reputation, narrative provenance, or clean code pointers do not replace F18-F20 digest-bearing reproducibility and cannot promote target mode."
+    },
+    {
+      "rule_id": "NSU-08",
+      "rule": "A downstream pass cannot override an upstream failed predicate: failed structure identity, pair cardinality, raw sum, normalization, or trace binding must stop exact admission."
+    },
+    {
+      "rule_id": "NSU-09",
+      "rule": "Current Srivastava exact O_s remains BLOCK unless the full F01-F22 proof-carrying witness tuple is supplied and passes."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "The adversarial matrix covers locator-only, scalar-only, context-only, numeric-closeness, executor-quality-only, full-exact, and mismatch cases required by the task.",
+      "confidence": 0.94,
+      "new_insight": true,
+      "basis": ["schema F01-F22", "expected cases round3", "transition oracle P0-P8"]
+    },
+    {
+      "id": "C2",
+      "statement": "No terminal exact admission is permitted unless source context, structure identity, pair population, arithmetic, execution provenance, recomputed value, and predeclared tolerance all pass.",
+      "confidence": 0.96,
+      "new_insight": false,
+      "basis": ["target_mode admitted_exact", "transition guard G03", "transition guard G04"]
+    },
+    {
+      "id": "C3",
+      "statement": "Mismatch diagnosis must be treated as proof-carrying rather than as a fallback label for incomplete payloads.",
+      "confidence": 0.9,
+      "new_insight": true,
+      "basis": ["G05_mismatch_requires_complete_replay", "oracle mismatch rows"]
+    }
+  ],
+  "deepening_1": {
+    "question": "Is there a deeper mathematical structure behind the no-silent-upgrade matrix?",
+    "answer": "Yes. The validator is a monotone proof-lattice with non-substitutable coordinates. Evidence can move upward only by adding the exact missing proof object; it cannot move diagonally by substituting scalar closeness for provenance, executor quality for trace binding, or source context for replay.",
+    "operational_consequence": "Tests should not only remove fields; they should add tempting irrelevant evidence and verify that the first missing or failed required predicate still dominates status."
+  },
+  "deepening_2": {
+    "question": "Does the borrowed structure have a next-level generalization?",
+    "answer": "The matrix should behave like a typed state machine with forbidden coercions. reported_context, candidate_exact_replay, diagnosed_mismatch, and admitted_exact are not fuzzy confidence bins; they are different types whose constructors require specific proof tuples.",
+    "operational_consequence": "The executable validator should expose first_failed_predicate and should reject any implementation path that computes terminal status from total evidence count, confidence score, target intent, or numeric distance before type-specific constructors are satisfied."
+  },
+  "forbidden_claims": [
+    "exact Srivastava O_s reproduced",
+    "material validation",
+    "graph-vs-overlap residual regression",
+    "graph beats overlap",
+    "exact O_s impossible in principle",
+    "numeric closeness is sufficient for exact admission",
+    "executor quality is sufficient for exact admission",
+    "context-only evidence is exact O_s evidence"
+  ],
+  "output_artifacts": [
+    "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\C2T_S2_R1_I1_round1.json",
+    "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\B\\artifacts\\I1_adversarial_test_matrix_round1.csv"
+  ]
+}

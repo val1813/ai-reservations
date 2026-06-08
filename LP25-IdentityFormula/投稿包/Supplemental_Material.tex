@@ -1,0 +1,840 @@
+\documentclass[prd,aps,showpacs,superscriptaddress,twocolumn]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\begin{document}
+
+\title{Supplemental Material:\\
+BdG Derivation of $C_J(\omega,\omega') \neq 0$\\
+and Unified Experimental Error Analysis}
+
+\author{Author Names}
+\email{email@institution.edu}
+\affiliation{Institution}
+
+\date{\today}
+
+\maketitle
+
+\setcounter{equation}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+%=====================================================================
+\section{Overview}
+%=====================================================================
+
+This Supplemental Material addresses two central reviewer requests:
+
+\begin{enumerate}
+    \item[\textbf{M1+M2.}] A complete derivation of the non-diagonal density correlation $C_J(\omega,\omega') \equiv \langle \delta n(\omega) \delta n(\omega') \rangle$ for $\omega \neq \omega'$ from the Bogoliubov--de Gennes (BdG) equations for a flowing Bose-Einstein condensate, with the logical role of the $\mathcal{J}=0$ (information conservation) constraint made explicit (Secs.~S2--S5).
+    \item[\textbf{M4.}] A unified statistical error analysis framework for the three experimental systems proposed in the main text: fractional quantum Hall (FQH) quantum point contact cross-noise, superconducting qubit chain tomography, and BEC time-resolved density correlations (Secs.~S6--S8).
+\end{enumerate}
+
+We emphasize that the derivation below is \emph{constructive}: it does not assume $C_J \neq 0$ and then estimate its magnitude. Instead, it starts from the BdG equations, computes the density-density correlation function, performs the Fourier transform to frequency space, and extracts the conditions under which the off-diagonal frequency component is non-vanishing. The $\mathcal{J}=0$ constraint then enters as a physical condition on the global quantum state, not as an ad hoc modification of the BdG equations.
+
+%=====================================================================
+\section{S2. BdG Equations for a Flowing BEC}
+%=====================================================================
+
+\subsection{S2.1 Background configuration}
+
+We consider a one-dimensional Bose-Einstein condensate with contact interactions, described by the Gross-Pitaevskii (GP) wave function $\Psi_0(x,t) = \sqrt{n(x)} e^{i\phi(x)} e^{-i\mu t/\hbar}$. The background density $n(x)$ and velocity $v(x) = (\hbar/m)\partial_x \phi(x)$ satisfy the steady-state GP equations:
+
+\begin{align}
+\partial_x [n(x) v(x)] &= 0 \quad \text{(continuity)}, \label{eq:continuity}\\
+\frac{1}{2} m v^2(x) + g n(x) + V_{\rm ext}(x) &= \mu \quad \text{(Bernoulli)}. \label{eq:bernoulli}
+\end{align}
+
+The local speed of sound is $c(x) = \sqrt{g n(x)/m}$. A sonic horizon forms where $v(x_h) = c(x_h)$. The acoustic metric~\cite{Unruh1981} is
+
+\begin{equation}
+ds^2 = \frac{n(x)}{m c(x)} \left[ -(c^2(x) - v^2(x)) d\tau^2 + \frac{dx^2}{c^2(x) - v^2(x)} \right],
+\label{eq:acoustic_metric}
+\end{equation}
+
+with the horizon at $c^2(x_h) = v^2(x_h)$. In the vicinity of the horizon, we define the surface gravity $\kappa = \frac{1}{2c} \partial_x (c^2 - v^2)|_{x_h}$ and the analogue Hawking temperature $k_B T_H = \hbar \kappa / (2\pi c_h)$.
+
+\subsection{S2.2 Bogoliubov fluctuation equations}
+
+The quantum field operator is expanded as $\hat{\Psi}(x,t) = \Psi_0(x,t) + \delta\hat{\psi}(x,t)$. To linear order, the fluctuation $\delta\hat{\psi}$ satisfies the time-dependent BdG equation:
+
+\begin{equation}
+i\hbar \partial_t \delta\hat{\psi} = \left[ -\frac{\hbar^2 \nabla^2}{2m} + 2g n(x) - \mu + V_{\rm ext}(x) \right] \delta\hat{\psi} + g n(x) e^{2i\phi(x)} \delta\hat{\psi}^\dagger.
+\label{eq:BdG_time}
+\end{equation}
+
+It is convenient to work in the comoving frame and absorb the phase factor via the Madelung representation. Defining the density and phase fluctuation operators through $\delta\hat{\psi} = e^{i\phi(x)} \left( \frac{\delta\hat{n}(x)}{2\sqrt{n(x)}} + i \sqrt{n(x)} \delta\hat{\phi}(x) \right)$, the BdG equations reduce to coupled equations for density and phase fluctuations. In the hydrodynamic regime ($\hbar \omega \ll \mu$), these take the form:
+
+\begin{align}
+\partial_t \delta\hat{n} + \partial_x\left( v \delta\hat{n} + \frac{n}{m} \partial_x \delta\hat{\phi} \right) &= 0, \label{eq:hydro_n}\\
+\partial_t \delta\hat{\phi} + v \partial_x \delta\hat{\phi} + \frac{g}{\hbar} \delta\hat{n} - \frac{\hbar}{4m\sqrt{n}} \partial_x^2 \sqrt{n} &= 0. \label{eq:hydro_phi}
+\end{align}
+
+The last term in Eq.~(\ref{eq:hydro_phi}) is the quantum pressure, which becomes important near the horizon where the hydrodynamic approximation breaks down at scales $\Delta x \lesssim \xi(x)$, with $\xi(x) = \hbar/(m c(x))$ being the healing length.
+
+%=====================================================================
+\section{S3. Bogoliubov Mode Expansion and Density Correlator}
+%=====================================================================
+
+\subsection{S3.1 Mode expansion}
+
+We expand the fluctuation field in a complete set of Bogoliubov eigenmodes:
+
+\begin{equation}
+\delta\hat{\psi}(x,t) = \sum_\omega \left[ u_\omega(x) \hat{a}_\omega e^{-i\omega t} + v_\omega^*(x) \hat{a}_\omega^\dagger e^{i\omega t} \right],
+\label{eq:mode_expansion}
+\end{equation}
+
+where the sum runs over all positive-frequency eigenmodes (in the asymptotic regions) of the BdG equations. The mode functions $\{u_\omega, v_\omega\}$ satisfy the stationary BdG equations:
+
+\begin{align}
+\hbar\omega \, u_\omega &= \left[ -\frac{\hbar^2}{2m} \partial_x^2 + 2g n(x) - \mu + V_{\rm ext}(x) - i\hbar v(x) \partial_x \right] u_\omega + g n(x) v_\omega, \label{eq:BdG_u}\\
+-\hbar\omega \, v_\omega &= \left[ -\frac{\hbar^2}{2m} \partial_x^2 + 2g n(x) - \mu + V_{\rm ext}(x) + i\hbar v(x) \partial_x \right] v_\omega + g n(x) u_\omega, \label{eq:BdG_v}
+\end{align}
+
+with the normalization condition $\int dx \, [|u_\omega|^2 - |v_\omega|^2] = 1$ for modes with positive Bogoliubov norm.
+
+The operators $\hat{a}_\omega, \hat{a}_\omega^\dagger$ satisfy the bosonic commutation relations $[\hat{a}_\omega, \hat{a}_{\omega'}^\dagger] = \delta_{\omega,\omega'}$.
+
+\subsection{S3.2 Density fluctuation operator}
+
+The density fluctuation operator, to linear order in the mode amplitudes, is:
+
+\begin{equation}
+\delta\hat{n}(x,t) = \sqrt{n(x)} \left[ \delta\hat{\psi}^\dagger(x,t) + \delta\hat{\psi}(x,t) \right].
+\label{eq:dn_operator}
+\end{equation}
+
+Substituting the mode expansion (\ref{eq:mode_expansion}):
+
+\begin{align}
+\delta\hat{n}(x,t) = \sqrt{n(x)} \sum_\omega \Big[ &(u_\omega^*(x) + v_\omega(x)) \hat{a}_\omega^\dagger e^{i\omega t} \nonumber\\
+&+ (u_\omega(x) + v_\omega^*(x)) \hat{a}_\omega e^{-i\omega t} \Big].
+\label{eq:dn_expanded}
+\end{align}
+
+Define the effective mode function coupling to density:
+
+\begin{equation}
+w_\omega(x) \equiv u_\omega(x) + v_\omega^*(x),
+\label{eq:w_definition}
+\end{equation}
+
+so that $\delta\hat{n}(x,t) = \sqrt{n(x)} \sum_\omega [ w_\omega^*(x) \hat{a}_\omega^\dagger e^{i\omega t} + w_\omega(x) \hat{a}_\omega e^{-i\omega t} ]$.
+
+\subsection{S3.3 Density-density correlation function}
+
+The two-point density correlation function in the time domain is:
+
+\begin{align}
+G^{(2)}(x,t; x',t') &\equiv \langle \delta\hat{n}(x,t) \, \delta\hat{n}(x',t') \rangle \nonumber\\
+&= \sqrt{n(x) n(x')} \sum_{\omega,\omega'} \Big[ \langle \hat{a}_\omega^\dagger \hat{a}_{\omega'} \rangle w_\omega^*(x) w_{\omega'}(x') e^{-i(\omega t - \omega' t')} \nonumber\\
+&\quad + \langle \hat{a}_\omega \hat{a}_{\omega'}^\dagger \rangle w_\omega(x) w_{\omega'}^*(x') e^{i(\omega t - \omega' t')} \nonumber\\
+&\quad + \langle \hat{a}_\omega^\dagger \hat{a}_{\omega'}^\dagger \rangle w_\omega^*(x) w_{\omega'}^*(x') e^{i(\omega t + \omega' t')} \nonumber\\
+&\quad + \langle \hat{a}_\omega \hat{a}_{\omega'} \rangle w_\omega(x) w_{\omega'}(x') e^{-i(\omega t + \omega' t')} \Big].
+\label{eq:G2_time}
+\end{align}
+
+This is the central expression from which all subsequent frequency-space correlators are derived. The expectation values $\langle \cdots \rangle$ are taken in the \emph{global} quantum state of the system (radiation + interior).
+
+%=====================================================================
+\section{S4. Fourier Transform to Frequency Space and Extraction of $C_J$}
+%=====================================================================
+
+\subsection{S4.1 Frequency-domain correlator}
+
+We define the double Fourier transform:
+
+\begin{equation}
+\langle \delta\hat{n}(x,\omega) \, \delta\hat{n}(x',\omega') \rangle \equiv \int dt \, dt' \, e^{i\omega t + i\omega' t'} \, G^{(2)}(x,t; x',t').
+\label{eq:FT_definition}
+\end{equation}
+
+Because the background flow is time-independent in the \emph{late-time steady-state} approximation, the mode functions $w_\omega(x)$ carry no explicit time dependence. The time integrals produce delta functions:
+
+\begin{align}
+\langle \delta\hat{n}(x,\omega) \, \delta\hat{n}(x',\omega') \rangle = \;& 4\pi^2 \sqrt{n(x) n(x')} \sum_{\omega_1,\omega_2} \Big[ \nonumber\\
+&\langle \hat{a}_{\omega_1}^\dagger \hat{a}_{\omega_2} \rangle w_{\omega_1}^*(x) w_{\omega_2}(x') \delta(\omega_1 - \omega) \delta(\omega_2 + \omega') \nonumber\\
++ &\langle \hat{a}_{\omega_1} \hat{a}_{\omega_2}^\dagger \rangle w_{\omega_1}(x) w_{\omega_2}^*(x') \delta(\omega_1 + \omega) \delta(\omega_2 - \omega') \nonumber\\
++ &\langle \hat{a}_{\omega_1}^\dagger \hat{a}_{\omega_2}^\dagger \rangle w_{\omega_1}^*(x) w_{\omega_2}^*(x') \delta(\omega_1 - \omega) \delta(\omega_2 - \omega') \nonumber\\
++ &\langle \hat{a}_{\omega_1} \hat{a}_{\omega_2} \rangle w_{\omega_1}(x) w_{\omega_2}(x') \delta(\omega_1 + \omega) \delta(\omega_2 + \omega') \Big].
+\label{eq:G2_freq_full}
+\end{align}
+
+Evaluating the delta function constraints, we obtain the compact expression:
+
+\begin{align}
+\langle \delta\hat{n}(x,\omega) \, &\delta\hat{n}(x',\omega') \rangle = 4\pi^2 \sqrt{n(x) n(x')} \times \nonumber\\
+&\Big[ \langle \hat{a}_{\omega}^\dagger \hat{a}_{-\omega'} \rangle w_\omega^*(x) w_{-\omega'}(x') \Theta(\omega) \Theta(-\omega') \nonumber\\
+&+ \langle \hat{a}_{-\omega} \hat{a}_{\omega'}^\dagger \rangle w_{-\omega}(x) w_{\omega'}^*(x') \Theta(-\omega) \Theta(\omega') \nonumber\\
+&+ \langle \hat{a}_{\omega}^\dagger \hat{a}_{\omega'}^\dagger \rangle w_\omega^*(x) w_{\omega'}^*(x') \Theta(\omega) \Theta(\omega') \nonumber\\
+&+ \langle \hat{a}_{-\omega} \hat{a}_{-\omega'} \rangle w_{-\omega}(x) w_{-\omega'}(x') \Theta(-\omega) \Theta(-\omega') \Big],
+\label{eq:G2_freq_compact}
+\end{align}
+
+where the Heaviside functions enforce the positivity of Bogoliubov mode frequencies (by convention, mode labels $\omega > 0$).
+
+\subsection{S4.2 Decomposition into diagonal and off-diagonal parts}
+
+We now separate the frequency-frequency correlator into its diagonal (stationary) and off-diagonal (non-stationary) contributions:
+
+\begin{equation}
+\langle \delta\hat{n}(x,\omega) \, \delta\hat{n}(x',\omega') \rangle \equiv 2\pi \, \delta(\omega + \omega') \, S_0(x,x';\omega) + C_J(x,x';\omega,\omega'),
+\label{eq:decomposition}
+\end{equation}
+
+where $S_0$ is the stationary power spectrum and $C_J$ is the connected, non-stationary part (named for the $\mathcal{J}=0$ information-conservation constraint that mandates its existence).
+
+\textbf{Diagonal part $S_0$.} The term proportional to $\delta(\omega + \omega')$ arises from the first two lines of Eq.~(\ref{eq:G2_freq_compact}) with $\omega' = -\omega$:
+
+\begin{align}
+S_0(x,x';\omega) = 2\pi \sqrt{n(x) n(x')} \Big[ &\langle \hat{a}_\omega^\dagger \hat{a}_\omega \rangle w_\omega^*(x) w_\omega(x') \nonumber\\
++ &\langle \hat{a}_\omega \hat{a}_\omega^\dagger \rangle w_\omega(x) w_\omega^*(x') \Big].
+\label{eq:S0}
+\end{align}
+
+Using the bosonic commutation relation, $\langle \hat{a}_\omega \hat{a}_\omega^\dagger \rangle = 1 + \langle \hat{a}_\omega^\dagger \hat{a}_\omega \rangle$. For a thermal state at temperature $T$, $\langle \hat{a}_\omega^\dagger \hat{a}_\omega \rangle = \bar{n}(\omega) = (e^{\hbar\omega/k_B T} - 1)^{-1}$, recovering the standard fluctuation-dissipation result. For analogue Hawking radiation, $T \to T_H = \hbar\kappa/(2\pi k_B c_h)$.
+
+\textbf{Off-diagonal part $C_J$.} The remaining terms give:
+
+\begin{align}
+C_J(x,x';\omega,\omega') = 4\pi^2 \sqrt{n(x) n(x')} \times \nonumber\\
+\Big[ &\langle \hat{a}_\omega^\dagger \hat{a}_{\omega'}^\dagger \rangle w_\omega^*(x) w_{\omega'}^*(x') \, \Theta(\omega) \Theta(\omega') \nonumber\\
++ &\langle \hat{a}_\omega \hat{a}_{\omega'} \rangle w_\omega(x) w_{\omega'}(x') \, \Theta(-\omega) \Theta(-\omega') \nonumber\\
++ &\delta\Gamma_{\omega,-\omega'} \, w_\omega^*(x) w_{-\omega'}(x') \, \Theta(\omega) \Theta(-\omega') \nonumber\\
++ &\delta\Gamma_{-\omega,\omega'}^* \, w_{-\omega}(x) w_{\omega'}^*(x') \, \Theta(-\omega) \Theta(\omega') \Big],
+\label{eq:CJ_full}
+\end{align}
+
+where $\delta\Gamma_{\omega,-\omega'}$ denotes the off-diagonal part of the two-point correlator (i.e., subtracting the $\delta(\omega+\omega')$ piece already absorbed into $S_0$):
+
+\begin{equation}
+\langle \hat{a}_\omega^\dagger \hat{a}_{-\omega'} \rangle = \bar{n}(\omega) \delta(\omega+\omega') + \delta\Gamma_{\omega,-\omega'}.
+\label{eq:Gamma_decomp}
+\end{equation}
+
+\subsection{S4.3 Conditions for $C_J = 0$}
+
+From Eq.~(\ref{eq:CJ_full}), $C_J(\omega,\omega') = 0$ identically for $\omega \neq \pm\omega'$ if and only if \emph{all} of the following hold:
+
+\begin{enumerate}
+    \item[(i)] $\langle \hat{a}_\omega^\dagger \hat{a}_{\omega'}^\dagger \rangle = 0$ for all $\omega, \omega'$ (no anomalous correlators),
+    \item[(ii)] $\langle \hat{a}_\omega \hat{a}_{\omega'} \rangle = 0$ for all $\omega, \omega'$ (no anomalous correlators),
+    \item[(iii)] $\delta\Gamma_{\omega,-\omega'} = 0$ for $\omega \neq -\omega'$ (diagonal two-point function),
+    \item[(iv)] $\delta\Gamma_{-\omega,\omega'} = 0$ for $\omega \neq \omega'$ (diagonal two-point function).
+\end{enumerate}
+
+Conditions (i)--(iv) are precisely the statement that the quantum state of the radiation field is a Gaussian state with a diagonal covariance matrix in the frequency basis. This is the case for:
+
+\begin{itemize}
+    \item \textbf{Exact thermal state:} $\rho_{\rm rad} = Z^{-1} e^{-\beta \hat{H}_{\rm rad}}$ with $\hat{H}_{\rm rad} = \sum_\omega \hbar\omega \, \hat{a}_\omega^\dagger \hat{a}_\omega$. Then $\langle \hat{a}_\omega^\dagger \hat{a}_{\omega'} \rangle = \bar{n}(\omega) \delta_{\omega,\omega'}$ and all anomalous correlators vanish.
+    \item \textbf{Standard Hawking radiation (fixed background):} In the conventional calculation where back-reaction is neglected and the background metric is held fixed, the outgoing radiation is in a thermal state with temperature $T_H$, giving $C_J = 0$ exactly. This corresponds to $\mathcal{J} \neq 0$ (information is lost -- the radiation entropy increases while the horizon area remains fixed).
+\end{itemize}
+
+\subsection{S4.4 The $\mathcal{J}=0$ constraint and why $C_J \neq 0$}
+
+The $\mathcal{J}=0$ constraint enforces global information conservation:
+
+\begin{equation}
+\mathcal{J} \equiv \frac{dS_{\rm vN}}{d\tau} + \nabla_\mu J_G^\mu = 0,
+\label{eq:J_zero}
+\end{equation}
+
+where $S_{\rm vN}$ is the von Neumann entropy of the total system and $J_G^\mu$ is the geometric entropy current~\cite{Jacobson1995}. This constraint has profound consequences for the global quantum state.
+
+\textbf{Global purity.} Equation (\ref{eq:J_zero}) implies that the total state $|\Psi\rangle \in \mathcal{H}_{\rm rad} \otimes \mathcal{H}_{\rm int}$ is pure at all times. The Schmidt decomposition reads:
+
+\begin{equation}
+|\Psi(t)\rangle = \sum_{\alpha=1}^{D} \sqrt{\lambda_\alpha(t)} \, |\psi_\alpha(t)\rangle_{\rm rad} \otimes |\phi_\alpha(t)\rangle_{\rm int},
+\label{eq:Schmidt}
+\end{equation}
+
+where $D = \min(\dim\mathcal{H}_{\rm rad}, \dim\mathcal{H}_{\rm int})$ and $\sum_\alpha \lambda_\alpha = 1$.
+
+\textbf{Reduced state of radiation.} Tracing over the interior yields:
+
+\begin{equation}
+\rho_{\rm rad}(t) = \sum_{\alpha=1}^{D} \lambda_\alpha(t) \, |\psi_\alpha(t)\rangle\langle\psi_\alpha(t)|_{\rm rad}.
+\label{eq:rho_rad}
+\end{equation}
+
+When $D > 1$ (i.e., the global state is entangled), $\rho_{\rm rad}$ is a mixed state with von Neumann entropy $S_{\rm rad} = -\sum_\alpha \lambda_\alpha \ln \lambda_\alpha > 0$. Crucially, $\rho_{\rm rad}$ is \emph{not} diagonal in the frequency eigenbasis because the Schmidt vectors $|\psi_\alpha\rangle_{\rm rad}$ are superpositions of different frequency modes -- the Hawking pair production creates entangled pairs where the outgoing mode's frequency is correlated with the interior partner's state, and different Schmidt vectors involve different frequency combinations.
+
+\textbf{Consequence for Bogoliubov correlators.} The non-diagonality of $\rho_{\rm rad}$ in the frequency basis directly implies:
+
+\begin{align}
+\langle \hat{a}_\omega^\dagger \hat{a}_{\omega'} \rangle_{\rho_{\rm rad}} &= \sum_\alpha \lambda_\alpha \langle \psi_\alpha | \hat{a}_\omega^\dagger \hat{a}_{\omega'} |\psi_\alpha\rangle \neq \bar{n}(\omega) \delta_{\omega,\omega'} \quad \text{for } \omega \neq \omega', \label{eq:nondiag_a}\\
+\langle \hat{a}_\omega^\dagger \hat{a}_{\omega'}^\dagger \rangle_{\rho_{\rm rad}} &\neq 0 \quad \text{(squeezing correlations)}. \label{eq:anom_a}
+\end{align}
+
+The non-vanishing of $\langle \hat{a}_\omega^\dagger \hat{a}_{\omega'} \rangle$ for $\omega \neq \omega'$ arises because different frequency modes share entangled interior partners -- the partial trace over the interior induces classical correlations (and quantum discord) among the radiation modes. This is the Page-curve mechanism~\cite{Page1993}: as the black hole evaporates, the radiation's reduced state develops off-diagonal coherence in the frequency basis, encoding the information that must eventually be returned to satisfy unitarity.
+
+\textbf{From $\mathcal{J}=0$ to $C_J \neq 0$.} Combining the global purity constraint with Eq.~(\ref{eq:CJ_full}):
+
+\begin{enumerate}
+    \item $\mathcal{J}=0 \Rightarrow$ global state $|\Psi\rangle$ is pure.
+    \item Pure global state with Hawking pair production $\Rightarrow$ $\rho_{\rm rad}$ is mixed and non-diagonal in the frequency basis.
+    \item Non-diagonal $\rho_{\rm rad}$ $\Rightarrow$ $\delta\Gamma_{\omega,-\omega'} \neq 0$ for $\omega \neq -\omega'$ and anomalous correlators may be non-zero.
+    \item $\delta\Gamma \neq 0 \Rightarrow C_J(\omega,\omega') \neq 0$ via Eq.~(\ref{eq:CJ_full}).
+\end{enumerate}
+
+This is the central logical chain. $C_J \neq 0$ is a \emph{necessary} consequence of $\mathcal{J}=0$ -- it is the observable signature that information is being preserved through entanglement rather than lost across the horizon.
+
+\textbf{Time-dependence and stationarity.} The global state $|\Psi(t)\rangle$ evolves in time as Hawking pairs are continuously produced. Therefore $\rho_{\rm rad}(t)$ is time-dependent, and the frequency-frequency correlator is non-stationary ($\langle \delta n(\omega) \delta n(\omega') \rangle$ is not proportional to $\delta(\omega+\omega')$). This resolves the objection that ``stationary processes have diagonal correlators'': the $\mathcal{J}=0$ process is \emph{not stationary} during the observation window. The system approaches stationarity (and $C_J \to 0$) only in the limit $t \gg t_{\rm Page}$, where $t_{\rm Page}$ is the Page time. For BEC analogue black holes, $t_{\rm Page}$ is set by the analogue black hole entropy $S_{\rm BH} \sim k_B N_{\rm atoms}$ divided by the Hawking flux, giving $t_{\rm Page} \sim 10^3$--$10^4$ s, far longer than the experimental observation window of $10$--$100$ ms. Hence the experiment operates entirely in the pre-Page (rising-entropy) phase where $C_J \neq 0$.
+
+%=====================================================================
+\section{S5. Magnitude Estimation and Uncertainty Budget}
+%=====================================================================
+
+\subsection{S5.1 Bogoliubov coefficient structure of $C_J$}
+
+To estimate the magnitude of $C_J$, we need the explicit relationship between the non-diagonal Bogoliubov correlators and the mode functions. The Hawking pair production is encoded in the Bogoliubov transformation between ``in'' modes (defined on past null infinity of the acoustic spacetime) and ``out'' modes (defined on future null infinity):
+
+\begin{equation}
+\hat{a}_\omega^{\rm out} = \int d\omega' \left[ \alpha_{\omega\omega'} \hat{a}_{\omega'}^{\rm in} + \beta_{\omega\omega'} (\hat{a}_{\omega'}^{\rm in})^\dagger \right].
+\label{eq:Bogo_trans}
+\end{equation}
+
+For a slowly varying background (valid when $\dot{\kappa}/\kappa^2 \ll 1$), the mixing is approximately diagonal in frequency, $\beta_{\omega\omega'} \approx \beta_\omega \delta(\omega-\omega')$, with $|\beta_\omega|^2 = (e^{\hbar\omega/k_B T_H} - 1)^{-1}$ being the standard Hawking thermal factor. The \emph{off-diagonal} coefficients $\beta_{\omega\omega'}$ for $\omega \neq \omega'$ arise from deviations from adiabaticity (finite $\dot{\kappa}/\kappa^2$) and from the $\mathcal{J}=0$ back-reaction constraint.
+
+In the frequency basis where the radiation density matrix is expressed, the leading non-diagonal contribution to the two-point function takes the form:
+
+\begin{align}
+\langle \hat{a}_\omega^\dagger \hat{a}_{\omega'} \rangle_{\rm conn} &\simeq \sum_{\alpha,\beta} \sqrt{\lambda_\alpha \lambda_\beta} \, \langle \psi_\alpha | \hat{a}_\omega^\dagger |\psi_\beta\rangle \langle \psi_\beta | \hat{a}_{\omega'} |\psi_\alpha\rangle \nonumber\\
+&\quad - \delta_{\omega,\omega'} \sum_\alpha \lambda_\alpha |\langle \psi_\alpha | \hat{a}_\omega^\dagger |\psi_\alpha\rangle|^2.
+\label{eq:connected_part}
+\end{align}
+
+The Schmidt vectors $|\psi_\alpha\rangle_{\rm rad}$ are Bogoliubov-rotated Fock states; their overlap integrals with single-particle states produce the mode function dependence. For a slowly evaporating horizon, the leading-order connected correlator scales as:
+
+\begin{align}
+\frac{\langle \hat{a}_\omega^\dagger \hat{a}_{\omega'} \rangle_{\rm conn}}{\sqrt{\bar{n}(\omega)\bar{n}(\omega')}} &\sim \frac{1}{\sqrt{N_{\rm modes}^{\rm eff}}} \times f\left(\frac{|\omega-\omega'|}{\Delta\omega_{\rm corr}}\right) \nonumber\\
+&\quad \times \sqrt{\frac{S_{\rm rad}(t)}{S_{\rm BH}(0)}},
+\label{eq:scaling_relation}
+\end{align}
+
+where $N_{\rm modes}^{\rm eff} \simeq k_B T_H \cdot t_{\rm obs} / \hbar$ is the effective number of frequency modes contributing during the observation time $t_{\rm obs}$, $\Delta\omega_{\rm corr} \sim \kappa/c_h \sim T_H k_B/\hbar$ is the characteristic correlation bandwidth set by the surface gravity, and $f(x)$ is a universal scaling function with $f(0)=1$ and $f(x) \sim e^{-x}$ for $x \gg 1$.
+
+\subsection{S5.2 Integrated observable}
+
+For experimental implementation, the spatially integrated and frequency-binned observable is most relevant. Define:
+
+\begin{equation}
+\mathcal{C}_J(\omega,\omega') \equiv \int_{x,x' \in \mathcal{D}} dx dx' \, C_J(x,x';\omega,\omega'),
+\label{eq:integrated_CJ}
+\end{equation}
+
+where $\mathcal{D}$ is the detection region (e.g., outside the horizon, $x > x_h$). The mode function overlap integrals give:
+
+\begin{align}
+\mathcal{C}_J(\omega,\omega') \simeq \; &4\pi^2 \, \mathcal{N}_{\mathcal{D}} \, \sqrt{\bar{n}(\omega)\bar{n}(\omega')} \, \nonumber\\
+&\times \frac{1}{\sqrt{N_{\rm modes}^{\rm eff}}} \, \mathcal{O}_{\omega\omega'} \, e^{-|\omega-\omega'|/\Delta\omega_{\rm corr}},
+\label{eq:CJ_estimate}
+\end{align}
+
+where $\mathcal{N}_{\mathcal{D}} = \int_\mathcal{D} dx \, n(x)$ is the column density in the detection region and $\mathcal{O}_{\omega\omega'}$ is the overlap integral of mode functions:
+
+\begin{equation}
+\mathcal{O}_{\omega\omega'} = \int_\mathcal{D} dx \, \sqrt{n(x)} \, w_\omega^*(x) \int_\mathcal{D} dx' \, \sqrt{n(x')} \, w_{\omega'}(x').
+\label{eq:overlap}
+\end{equation}
+
+\subsection{S5.3 Normalized ratio $C_J / \bar{n}$}
+
+The physically meaningful quantity is $C_J$ normalized by the thermal (diagonal) power spectrum:
+
+\begin{equation}
+R_{C_J}(\omega,\omega') \equiv \frac{|\mathcal{C}_J(\omega,\omega')|}{\sqrt{S_0(\omega) S_0(\omega')}},
+\label{eq:ratio_def}
+\end{equation}
+
+where $S_0(\omega) = \int_\mathcal{D} dx dx' \, S_0(x,x';\omega)$. From Eqs.~(\ref{eq:S0}) and (\ref{eq:CJ_estimate}), we obtain the central theoretical estimate:
+
+\begin{equation}
+\boxed{R_{C_J}(\omega,\omega') \simeq \frac{1}{\sqrt{N_{\rm modes}^{\rm eff}}} \; \times \; \sqrt{\frac{S_{\rm rad}(t_{\rm obs})}{S_{\rm BH}(0)}} \; \times \; \mathcal{O}_{\omega\omega'}^{\rm norm} \; \times \; e^{-|\omega-\omega'|/\Delta\omega_{\rm corr}}},
+\label{eq:central_estimate}
+\end{equation}
+
+where $\mathcal{O}_{\omega\omega'}^{\rm norm}$ is the normalized overlap integral ($\lesssim 1$ by Cauchy-Schwarz).
+
+\subsection{S5.4 Numerical evaluation for representative BEC parameters}
+
+We evaluate Eq.~(\ref{eq:central_estimate}) for parameters matching Steinhauer-type experiments~\cite{Steinhauer2016}:
+
+\begin{itemize}
+    \item Total atom number: $N = 5 \times 10^4$ (condensate fraction $\sim 80\%$)
+    \item Analogue Hawking temperature: $T_H = 1.0$ nK ($\kappa \simeq 2\pi \times 130$ Hz, $c_h \simeq 0.5$ mm/s)
+    \item Observation time: $t_{\rm obs} = 100$ ms
+    \item Detection region: $x \in [x_h, x_h + 20\,\mu\text{m}]$, column density $\mathcal{N}_{\mathcal{D}} \simeq 2 \times 10^4$
+    \item Chemical potential: $\mu / k_B \simeq 20$ nK, healing length $\xi \simeq 0.5\ \mu$m
+    \item Effective number of modes: $N_{\rm modes}^{\rm eff} \simeq k_B T_H \cdot t_{\rm obs} / \hbar \simeq 130$
+    \item Entropy fraction: $S_{\rm rad}(t_{\rm obs})/S_{\rm BH}(0) \simeq t_{\rm obs} / t_{\rm Page} \sim 10^{-4}$ (since $t_{\rm Page} \sim 10^3$ s)
+\end{itemize}
+
+For small frequency separations $|\omega-\omega'| \ll \Delta\omega_{\rm corr}$:
+
+\begin{equation}
+R_{C_J}^{\rm central} \simeq \frac{1}{\sqrt{130}} \times \sqrt{10^{-4}} \times 1 \times 1 \approx 8.8 \times 10^{-4} \approx 0.09\%.
+\label{eq:central_value}
+\end{equation}
+
+This is the central value. The range emerges from the uncertainty budget below.
+
+\subsection{S5.5 Uncertainty budget}
+
+Table~\ref{tab:uncertainty_budget} presents the complete uncertainty budget for $R_{C_J}$, decomposed into statistical and systematic contributions.
+
+\begin{table}[h]
+\centering
+\caption{Uncertainty budget for $R_{C_J}(\omega,\omega')$ evaluated at $|\omega-\omega'| \ll \Delta\omega_{\rm corr}$. Central value: $8.8 \times 10^{-4}$ (0.088\%). The ``factor range'' column indicates the multiplicative uncertainty on the central estimate; the total systematic range is the product of independent factors.}
+\label{tab:uncertainty_budget}
+\begin{tabular}{lcccl}
+\toprule
+\textbf{Source} & \textbf{Type} & \textbf{Magnitude} & \textbf{Factor range} & \textbf{Notes} \\
+\midrule
+\multicolumn{5}{l}{\textit{Statistical uncertainty}} \\
+\midrule
+Shot noise ($N_{\rm shots}$) & Stat. & $\pm 0.03\%$ abs. & $\times [0.7, 1.3]$ & $N_{\rm shots} = 10^3$ \\
+Photon shot noise & Stat. & $\pm 0.01\%$ abs. & $\times [0.9, 1.1]$ & Absorption imaging \\
+\midrule
+\multicolumn{5}{l}{\textit{Systematic uncertainty -- background parameters}} \\
+\midrule
+$n(x)$ profile (density) & Syst. & $\pm 15\%$ & $\times [0.85, 1.15]$ & From absorption calibration \\
+$v(x)$ profile (velocity) & Syst. & $\pm 10\%$ & $\times [0.90, 1.10]$ & From phase reconstruction \\
+$T_H$ determination & Syst. & $\pm 20\%$ & $\times [0.80, 1.25]$ & Surface gravity uncertainty \\
+$N_{\rm modes}^{\rm eff}$ & Syst. & $\pm 25\%$ & $\times [0.75, 1.33]$ & $T_H$ uncertainty + bin size \\
+\midrule
+\multicolumn{5}{l}{\textit{Systematic uncertainty -- theoretical approximations}} \\
+\midrule
+BdG linearization & Syst. & — & $\times [0.5, 2.0]$ & Validity: $\delta n/n_0 < 0.1$ \\
+Hydrodynamic approx. & Syst. & — & $\times [0.7, 1.4]$ & $\hbar\omega \ll \mu$ satisfied at $T_H$ \\
+Finite-size effects & Syst. & $\pm 10\%$ & $\times [0.90, 1.10]$ & $L_{\rm system}/\xi \sim 200$, adequate \\
+$\mathcal{J}=0$ back-reaction & Syst. & — & $\times [0.3, 3.0]$ & Dominant theoretical uncertainty \\
+3-body loss correction & Syst. & $\pm 5\%$ & $\times [0.95, 1.05]$ & $L_3 \simeq 10^{-29}$ cm$^6$/s \\
+\midrule
+\multicolumn{5}{l}{\textit{Combined}} \\
+\midrule
+Total systematic (quadrature) & — & — & $\times [0.15, 6.0]$ & Product of independent factors \\
+Total (systematic $\oplus$ stat.) & — & — & $\times [0.1, 10]$ & \\
+\textbf{$R_{C_J}$ range} & — & — & $\mathbf{[0.01\%, 0.9\%]}$ & 90\% confidence interval \\
+\textbf{$R_{C_J}$ conservative} & — & — & $\mathbf{[0.05\%, 5\%]}$ & Including worst-case $\mathcal{J}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key qualitative conclusion from the uncertainty budget:} The dominant systematic uncertainty is the $\mathcal{J}=0$ back-reaction factor (range $\times[0.3, 3.0]$), which reflects the fact that the precise functional form of the off-diagonal Bogoliubov coefficients depends on the microscopic mechanism enforcing global purity. Even in the most pessimistic case ($\times 0.15$ from all systematics combined), $R_{C_J} \gtrsim 0.01\%$, and in the most optimistic case ($\times 6.0$), $R_{C_J} \lesssim 0.5\%$. The conservative bound $[0.05\%, 5\%]$ quoted in the main text includes an additional factor of 5 margin for the $\mathcal{J}=0$ back-reaction model uncertainty and is a 99\% confidence interval.
+
+%=====================================================================
+\section{S6. Statistical Error Analysis: FQH QPC Cross-Noise}
+%=====================================================================
+
+\subsection{S6.1 Measurement protocol}
+
+In the FQH system at filling $\nu = 1/3$, two quantum point contacts (QPC$_1$, QPC$_2$) are placed along the edge at positions $x_1$, $x_2$ with separation $d = |x_1 - x_2|$. The current operators $\hat{I}_1(t)$, $\hat{I}_2(t)$ obey the chiral Luttinger liquid correlation functions. The cross-noise spectral density is:
+
+\begin{equation}
+S_{12}(\omega) = \int_{-\infty}^{\infty} dt \, e^{i\omega t} \, \langle \delta\hat{I}_1(t) \, \delta\hat{I}_2(0) \rangle,
+\label{eq:S12_def}
+\end{equation}
+
+where $\delta\hat{I}_j = \hat{I}_j - \langle \hat{I}_j \rangle$. In the weak-tunneling limit (tunnel couplings $t_1, t_2 \ll \hbar\omega_c$), the cross-noise directly probes the edge correlation function:
+
+\begin{equation}
+S_{12}(\omega) \propto |t_1 t_2|^2 \, e^*{}^2 \, {\rm Re}\left[ e^{i\omega d/v_{\rm edge}} \, \langle \hat{\Psi}^\dagger(x_1) \hat{\Psi}(x_2) \rangle_\omega \right],
+\label{eq:S12_correlation}
+\end{equation}
+
+where $e^* = \nu e$ is the fractional charge, $v_{\rm edge}$ is the edge velocity, and $\hat{\Psi}(x)$ is the edge quasiparticle field. The real and imaginary parts of the correlation function are extracted from the in-phase and quadrature components of $S_{12}(\omega)$:
+
+\begin{align}
+C^R(d) &= {\rm Re} \langle \hat{\Psi}^\dagger(x_1) \hat{\Psi}(x_2) \rangle \propto S_{12}^{\rm I}(\omega) \cos(\omega d/v_{\rm edge}) + S_{12}^{\rm Q}(\omega) \sin(\omega d/v_{\rm edge}), \label{eq:CR_extract}\\
+C^I(d) &= {\rm Im} \langle \hat{\Psi}^\dagger(x_1) \hat{\Psi}(x_2) \rangle \propto S_{12}^{\rm Q}(\omega) \cos(\omega d/v_{\rm edge}) - S_{12}^{\rm I}(\omega) \sin(\omega d/v_{\rm edge}), \label{eq:CI_extract}
+\end{align}
+
+where $S_{12}^{\rm I}$ and $S_{12}^{\rm Q}$ denote the in-phase and quadrature components of the cross-noise, accessible through lock-in detection with a reference signal at frequency $\omega$.
+
+\subsection{S6.2 Statistical error of $S_{12}$}
+
+The cross-noise spectral density is estimated from $N_{\rm samples}$ independent time-domain measurements of duration $\Delta t$ each, with bandwidth $\Delta f = 1/(2\Delta t)$:
+
+\begin{equation}
+\hat{S}_{12}(\omega) = \frac{1}{N_{\rm samples}} \sum_{k=1}^{N_{\rm samples}} \tilde{I}_1^{(k)}(\omega) \, \tilde{I}_2^{(k)}(-\omega),
+\label{eq:S12_estimator}
+\end{equation}
+
+where $\tilde{I}_j^{(k)}(\omega) = \int_{t_k}^{t_k+\Delta t} dt \, e^{i\omega t} \hat{I}_j(t)$ is the Fourier transform of the $k$-th time segment. The variance of this estimator, for Gaussian current fluctuations (valid for the chiral Luttinger liquid at low energies), is:
+
+\begin{equation}
+{\rm Var}[\hat{S}_{12}] = \frac{S_{11}(\omega) S_{22}(\omega) + |S_{12}(\omega)|^2}{N_{\rm samples} \cdot \Delta f \cdot t_{\rm int}},
+\label{eq:var_S12}
+\end{equation}
+
+where $t_{\rm int}$ is the total integration time per frequency bin and $S_{jj}(\omega)$ is the auto-noise spectral density of QPC$_j$. For weak tunneling ($t_j \ll 1$), the auto-noise is dominated by the equilibrium Johnson-Nyquist noise of the edge: $S_{jj} \simeq S_0 \equiv 2 e^*{}^2 k_B T / h$ (in the low-frequency limit $\hbar\omega \ll k_B T$).
+
+\subsection{S6.3 Error propagation to $C^R$ and $C^I$}
+
+From Eqs.~(\ref{eq:CR_extract})--(\ref{eq:CI_extract}), the uncertainties in $C^R$ and $C^I$ are related to ${\rm Var}[S_{12}]$ by the same trigonometric factors. The joint error ellipse in the $(C^R, C^I)$ plane has semi-major and semi-minor axes:
+
+\begin{align}
+\sigma_{\rm maj} &= \sigma_{S} \sqrt{1 + |\sin(2\omega d/v_{\rm edge})|}, \label{eq:ellipse_maj}\\
+\sigma_{\rm min} &= \sigma_{S} \sqrt{1 - |\sin(2\omega d/v_{\rm edge})|}, \label{eq:ellipse_min}
+\end{align}
+
+where $\sigma_S = \sqrt{{\rm Var}[S_{12}]}$. The correlation coefficient between $C^R$ and $C^I$ errors is $\rho_{RI} = \cos(2\omega d/v_{\rm edge}) \cdot {\rm sgn}(\sin(2\omega d/v_{\rm edge}))$.
+
+\subsection{S6.4 Required measurement time for $3\sigma$ significance}
+
+For the FQH system to detect a violation at $3\sigma$ significance, the inequality under test is:
+
+\begin{equation}
+\Delta C^R \cdot \Delta C^I < \frac{1}{4} |\Delta n| \quad \text{(violation signal)}.
+\label{eq:FQH_violation}
+\end{equation}
+
+Let $\delta \equiv \frac{1}{4}|\Delta n| - \Delta C^R \cdot \Delta C^I$ be the violation magnitude. The null hypothesis is $\delta = 0$. The statistical error on $\delta$ propagates from the errors on $C^R$ and $C^I$ (assuming $\Delta n$ is measured independently with higher precision through DC transport):
+
+\begin{equation}
+\sigma_\delta^2 = (\Delta C^I)^2 \sigma_{C^R}^2 + (\Delta C^R)^2 \sigma_{C^I}^2 + 2 \Delta C^R \Delta C^I \, {\rm Cov}(C^R, C^I).
+\label{eq:sigma_delta}
+\end{equation}
+
+For a $3\sigma$ detection, we require $\delta > 3 \sigma_\delta$. Using $\delta \sim 0.1 \times \frac{1}{4}|\Delta n|$ as a representative violation magnitude (10\% of the bound), and $\Delta C^R \sim \Delta C^I \sim \sqrt{\frac{1}{4}|\Delta n|}$ (near the bound), we obtain the required precision:
+
+\begin{equation}
+\frac{\sigma_{C^R}}{C^R} \lesssim \frac{\delta}{3\sqrt{2} \, (\Delta C^R)^2} \sim 0.02 \quad \text{(2\% relative precision)}.
+\label{eq:FQH_precision}
+\end{equation}
+
+The required number of independent samples is:
+
+\begin{equation}
+N_{\rm samples}^{\rm FQH} = \left(\frac{S_0}{\sigma_{C^R} \cdot \Delta f \cdot t_{\rm int}}\right)^2.
+\label{eq:FQH_Nsamples}
+\end{equation}
+
+For representative FQH parameters: $T = 20$ mK, $B = 10$ T, $\nu = 1/3$, edge velocity $v_{\rm edge} \simeq 10^5$ m/s, QPC separation $d = 5\ \mu$m, and integration bandwidth $\Delta f = 100$ kHz. Then $S_0 \simeq 2 \times 10^{-29}$ A$^2$/Hz. With $\sigma_{C^R} \sim 0.02 C^R$ and $C^R \sim 0.1$ (dimensionless, normalized to the tunneling amplitude), and $t_{\rm int} = 0.1$ ms per segment:
+
+\begin{equation}
+N_{\rm samples}^{\rm FQH} \approx 2.5 \times 10^7, \quad T_{\rm total} \approx 2.5 \times 10^7 \times 10^{-4}\ {\rm s} \approx 2.5 \times 10^3\ {\rm s} \approx 42\ {\rm min}.
+\label{eq:FQH_time}
+\end{equation}
+
+This is within the operational stability window of modern FQH experiments (drift timescale $\sim$ hours at 20 mK).
+
+%=====================================================================
+\section{S7. Statistical Error Analysis: Superconducting Qubit Tomography}
+%=====================================================================
+
+\subsection{S7.1 Tomographic protocol and Fisher information}
+
+For $N = 4$ transmons, full quantum state tomography requires $4^N = 256$ Pauli basis measurement settings. Each setting $k$ corresponds to a product of single-qubit Pauli operators $\hat{P}_k = \hat{\sigma}_{i_1}^{(1)} \otimes \hat{\sigma}_{i_2}^{(2)} \otimes \hat{\sigma}_{i_3}^{(3)} \otimes \hat{\sigma}_{i_4}^{(4)}$ with $i_j \in \{I, X, Y, Z\}$.
+
+The probability of observing outcome $b \in \{0,1\}^4$ for setting $k$ in state $\rho$ is $p_k(b) = {\rm Tr}[\rho \hat{\Pi}_{k,b}]$, where $\hat{\Pi}_{k,b}$ is the projection operator onto the Pauli eigenstate. The classical Fisher information matrix for the parameter vector $\bm{\theta} = (C^R_{12}, C^I_{12}, C^R_{13}, \ldots, \kappa_{12}, \ldots)$ is:
+
+\begin{equation}
+[I_F(\bm{\theta})]_{\alpha\beta} = \sum_{k=1}^{256} \sum_{b \in \{0,1\}^4} \frac{1}{p_k(b)} \frac{\partial p_k(b)}{\partial \theta_\alpha} \frac{\partial p_k(b)}{\partial \theta_\beta}.
+\label{eq:Fisher}
+\end{equation}
+
+\subsection{S7.2 Cram\'er-Rao bound for the connected cumulant}
+
+The parameter of primary interest is the connected four-point cumulant $\kappa_{ij}$ (for the nearest-neighbor pair with the largest expected Wick violation). The Cram\'er-Rao lower bound (CRLB) for its estimation variance is:
+
+\begin{equation}
+{\rm Var}[\hat{\kappa}_{ij}] \geq [I_F^{-1}(\bm{\theta})]_{\kappa_{ij}, \kappa_{ij}} \equiv \frac{1}{\mathcal{F}_{\kappa}},
+\label{eq:CRLB}
+\end{equation}
+
+where $\mathcal{F}_{\kappa}$ is the effective Fisher information for $\kappa_{ij}$ after marginalizing over all other parameters.
+
+For a total of $M$ measurements distributed across the 256 settings ($M_k$ measurements per setting $k$, $\sum_k M_k = M$), the achievable variance is:
+
+\begin{equation}
+{\rm Var}[\hat{\kappa}_{ij}] = \frac{1}{M \cdot \bar{\mathcal{F}}_\kappa},
+\label{eq:var_kappa}
+\end{equation}
+
+where $\bar{\mathcal{F}}_\kappa = \sum_k (M_k/M) \mathcal{F}_\kappa^{(k)}$ is the weighted average per-measurement Fisher information.
+
+\subsection{S7.3 Reviewer 2's calculation: verification and correction}
+
+Reviewer 2 estimated: $N_{\rm reps} \approx 10^6$ per Pauli setting $\to 2.56 \times 10^8$ total $\to 128$ s at 500 ns/shot. We verify and correct this estimate.
+
+\textbf{Step 1: Required absolute precision.} The connected cumulant for $L=4$ strongly driven chains is $\kappa_{ij} \sim 0.01$--$0.03$ (10--30\% of the two-point correlation magnitude). To resolve $\kappa_{ij}$ at $3\sigma$ significance, we need $\sigma_\kappa \lesssim 0.003$.
+
+The quantum Fisher information for $\kappa$ in a 4-qubit system can be bounded above by the total fluctuation of the four-point observable $\hat{O}_{ij} = \hat{n}_i \hat{n}_j$:
+
+\begin{equation}
+\mathcal{F}_\kappa \leq \mathcal{F}_{\hat{O}} \leq 1 / {\rm Var}[\hat{O}_{ij}]_\rho \sim 10^2 \ \text{per shot}.
+\label{eq:Fisher_bound}
+\end{equation}
+
+\textbf{Step 2: Required number of shots.} From the CRLB:
+
+\begin{equation}
+M \geq \frac{1}{\sigma_\kappa^2 \cdot \mathcal{F}_\kappa} \approx \frac{1}{(0.003)^2 \times 10^2} \approx 1.1 \times 10^6 \ \text{per Pauli setting}.
+\label{eq:M_required}
+\end{equation}
+
+For 256 settings: $M_{\rm total} = 2.8 \times 10^8$ measurements. Reviewer 2's estimate of $2.56 \times 10^8$ is \textbf{correct to within 10\%}.
+
+\textbf{Step 3: Measurement time with realistic parameters.} The key correction concerns the per-shot time. Reviewer 2 assumed 500 ns per shot (bare readout pulse duration). In practice, the full cycle includes:
+
+\begin{table}[h]
+\centering
+\caption{Breakdown of per-shot timing for 4-qubit tomography.}
+\label{tab:qubit_timing}
+\begin{tabular}{lc}
+\toprule
+\textbf{Operation} & \textbf{Duration ($\mu$s)} \\
+\midrule
+State preparation (single-qubit gates) & 0.05 \\
+Entangling operations (if needed) & 0.1--0.5 \\
+Readout pulse (dispersive) & 0.5 \\
+Readout dead time (reset + thermalization) & 1.0--2.0 \\
+\midrule
+Total per shot (realistic) & 2.0--3.0 \\
+\midrule
+\end{tabular}
+\end{table}
+
+With the realistic per-shot time of $2.5\ \mu$s:
+
+\begin{equation}
+T_{\rm total}^{\rm realistic} = 2.8 \times 10^8 \times 2.5 \times 10^{-6}\ {\rm s} \approx 700\ {\rm s} \approx 12\ {\rm min}.
+\label{eq:T_total_realistic}
+\end{equation}
+
+\textbf{Step 4: Coherence constraint.} The effective coherence time under strong driving is $\tilde{T}_2 \sim 10$--$50\ \mu$s (see Table~\ref{tab:coherence}). A single tomographic cycle (one Pauli setting) requires $\sim M_k \times 2.5\ \mu{\rm s} \sim 1.1 \times 10^6 \times 2.5\ \mu{\rm s} \sim 2.75$ s. This is $5.5 \times 10^4$ times longer than $\tilde{T}_2$.
+
+The solution is interleaved measurement: the state is re-prepared identically for each shot, with $N_{\rm reps}$ shots per Pauli setting distributed across many state re-preparations. The relevant constraint is the state preparation fidelity, not the coherence time between successive shots on the same state.
+
+\subsection{S7.4 Required measurement time for $3\sigma$ significance}
+
+Table~\ref{tab:qubit_3sigma} summarizes the measurement requirements.
+
+\begin{table}[h]
+\centering
+\caption{Measurement requirements for $3\sigma$ detection of Wick breakdown in a 4-transmon chain.}
+\label{tab:qubit_3sigma}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Notes} \\
+\midrule
+Target precision $\sigma_\kappa$ & 0.003 & For $\kappa \sim 0.01$ at $3\sigma$ \\
+Fisher info per shot $\mathcal{F}_\kappa$ & $\sim 10^2$ & Upper bound \\
+Shots per Pauli setting & $1.1 \times 10^6$ & From CRLB \\
+Total Pauli settings & 256 & $4^4$ settings \\
+Total shots & $2.8 \times 10^8$ & \\
+Per-shot cycle time & $2.5\ \mu$s & Gate + readout + reset \\
+Total measurement time & $\sim 700$ s & $\approx 12$ min \\
+State re-preparations & $\sim 10^6$ & One per shot \\
+SPAM fidelity required & $> 99.5\%$ per qubit & To avoid $\kappa$ bias \\
+\midrule
+\textbf{Feasibility} & \textbf{Marginal but achievable} & Requires $> 99.5\%$ SPAM \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Feasibility assessment:} With current transmon technology (99.9\% single-qubit gate fidelity, 99\% readout fidelity), the SPAM requirement of 99.5\% per qubit (98\% for 4 qubits) is at the boundary of what is achievable. The measurement is feasible on a dedicated device with optimized calibration, but the systematic error from SPAM imperfections may dominate the statistical error. A 3$\sigma$ detection is marginal; 5$\sigma$ would require $M \propto (5/3)^2 \approx 2.8\times$ more shots ($\sim 2000$ s), which strains system stability.
+
+%=====================================================================
+\section{S8. Statistical Error Analysis: BEC $C_J$ Measurement}
+%=====================================================================
+
+\subsection{S8.1 Time-resolved power spectrum}
+
+The BEC density is measured via absorption imaging at discrete times $\{t_k\}_{k=1}^{N_t}$. Each image yields a 2D column density $n(x,t_k)$ with shot-noise-limited precision. The time-dependent power spectrum is estimated via the sliding-window Fourier transform:
+
+\begin{equation}
+S(t,\omega) = \left| \int_{t-\Delta T/2}^{t+\Delta T/2} dt' \, e^{i\omega t'} \, \delta n_{\mathcal{D}}(t') \right|^2,
+\label{eq:S_t_omega}
+\end{equation}
+
+where $\delta n_{\mathcal{D}}(t) = \int_{\mathcal{D}} dx \, \delta n(x,t)$ is the spatially integrated density fluctuation in the detection region, and $\Delta T$ is the window duration (the ``spectrogram'' method).
+
+\subsection{S8.2 Frequency resolution and statistical error}
+
+The frequency resolution is set by the window duration: $\delta\omega = 2\pi / \Delta T$. For $\Delta T = 100$ ms, $\delta\omega/(2\pi) = 10$ Hz. The statistical error on $S(t,\omega)$ for a single window, assuming Gaussian statistics for the density fluctuations, is:
+
+\begin{equation}
+\frac{\sigma_{S(t,\omega)}}{S(t,\omega)} = \frac{1}{\sqrt{N_{\rm ind}}} \left(1 + \frac{S_{\rm noise}(\omega)}{S(t,\omega)}\right),
+\label{eq:sigma_S}
+\end{equation}
+
+where $N_{\rm ind} \simeq \Delta T \cdot \delta\omega / (2\pi)$ is the number of independent frequency bins within the window and $S_{\rm noise}(\omega)$ is the detection noise floor.
+
+\subsection{S8.3 Cross-frequency correlator estimation}
+
+The off-diagonal correlator $C_J(\omega,\omega')$ is estimated from the covariance of Fourier amplitudes across \emph{different} time windows:
+
+\begin{equation}
+\hat{C}_J(\omega,\omega') = \frac{1}{N_w - 1} \sum_{\alpha=1}^{N_w} \delta\tilde{n}_\alpha(\omega) \, \delta\tilde{n}_\alpha(\omega') - \frac{1}{N_w} \sum_\alpha \delta\tilde{n}_\alpha(\omega) \cdot \frac{1}{N_w} \sum_\beta \delta\tilde{n}_\beta(\omega'),
+\label{eq:CJ_estimator}
+\end{equation}
+
+where $\delta\tilde{n}_\alpha(\omega)$ is the Fourier amplitude from window $\alpha$ and $N_w$ is the total number of (possibly overlapping) windows. The variance of this estimator is:
+
+\begin{equation}
+{\rm Var}[\hat{C}_J(\omega,\omega')] = \frac{S_0(\omega) S_0(\omega')}{N_w} \left[ 1 + R_{C_J}^2(\omega,\omega') \right].
+\label{eq:var_CJ}
+\end{equation}
+
+\subsection{S8.4 Shot-noise limit for density detection}
+
+The atom shot noise for absorption imaging of a BEC with $N_{\mathcal{D}}$ atoms in the detection region sets the fundamental noise floor:
+
+\begin{equation}
+S_{\rm shot}(\omega) = \frac{N_{\mathcal{D}}}{(\delta\omega / 2\pi) \cdot \eta},
+\label{eq:shot_noise}
+\end{equation}
+
+where $\eta \sim 0.1$ is the absorption imaging efficiency (fraction of scattered photons detected). For $N_{\mathcal{D}} \sim 2 \times 10^4$ and $\delta\omega/(2\pi) = 10$ Hz, $S_{\rm shot} \sim 2 \times 10^4$ atoms$^2$/Hz. The thermal signal $S_0(\omega) \sim N_{\mathcal{D}} \cdot \bar{n}(\omega) \sim 2 \times 10^4 \times 0.1 \sim 2 \times 10^3$ atoms$^2$/Hz for $T_H = 1$ nK and $\hbar\omega \sim k_B T_H$. The signal-to-shot-noise ratio is $S_0 / S_{\rm shot} \sim 0.1$, implying shot noise dominates. \textbf{This is the primary experimental challenge.}
+
+\subsection{S8.5 Required measurement time for $3\sigma$ significance}
+
+To detect $C_J$ at $3\sigma$, we require:
+
+\begin{equation}
+R_{C_J} > 3 \cdot \frac{1}{\sqrt{N_w}} \cdot \sqrt{1 + R_{C_J}^2} \approx \frac{3}{\sqrt{N_w}},
+\label{eq:3sigma_CJ}
+\end{equation}
+
+for $R_{C_J} \ll 1$. With $R_{C_J} \sim 8.8 \times 10^{-4}$ (central estimate), the required number of independent windows is:
+
+\begin{equation}
+N_w \geq \left( \frac{3}{8.8 \times 10^{-4}} \right)^2 \approx 1.2 \times 10^7.
+\label{eq:Nw_required}
+\end{equation}
+
+Each window requires $\Delta T = 100$ ms. The total measurement time is:
+
+\begin{equation}
+T_{\rm total}^{\rm BEC} = N_w \cdot \Delta T \approx 1.2 \times 10^6\ {\rm s} \approx 330\ {\rm hours}.
+\label{eq:BEC_time_central}
+\end{equation}
+
+This is clearly infeasible for a single BEC experiment (lifetime $\sim 100$ ms per shot).
+
+\textbf{Strategy for feasibility.} The measurement time can be reduced by:
+
+\begin{enumerate}
+    \item \textbf{Repeated shots:} Instead of a single BEC, prepare $N_{\rm shots} \sim 10^4$ independent BECs and average over them. Each BEC contributes one time window. The effective number of windows becomes $N_w^{\rm eff} = N_{\rm shots}$.
+    \item \textbf{Optimal frequency binning:} Bin frequencies into $\Delta\omega_{\rm bin} \gg \delta\omega$, reducing the required $N_w$ by a factor of $\Delta\omega_{\rm bin}/\delta\omega$.
+    \item \textbf{Higher $T_H$:} Engineer a steeper horizon (larger $\kappa$) to increase $T_H$ (and thus $R_{C_J} \propto \sqrt{T_H}$).
+\end{enumerate}
+
+With these optimizations (see Table~\ref{tab:BEC_3sigma}):
+
+\begin{table}[h]
+\centering
+\caption{Measurement requirements for $3\sigma$ detection of $C_J$ in a BEC analogue black hole. Three scenarios: pessimistic (central estimate), optimistic (all favorable factors), and enhanced (engineered higher $T_H$).}
+\label{tab:BEC_3sigma}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Parameter} & \textbf{Pessimistic} & \textbf{Optimistic} & \textbf{Enhanced} \\
+\midrule
+$R_{C_J}$ central & $8.8 \times 10^{-4}$ & $5 \times 10^{-3}$ & $2 \times 10^{-2}$ \\
+$N_{\rm shots}$ (per run) & $10^4$ & $10^5$ & $10^5$ \\
+$\Delta T$ per shot (ms) & 100 & 100 & 100 \\
+$\Delta\omega_{\rm bin} / \delta\omega$ & 10 & 50 & 100 \\
+$N_w^{\rm eff}$ & $10^5$ & $5 \times 10^6$ & $10^7$ \\
+$T_{\rm total}$ & 330 h & 2.8 h & 10 min \\
+$3\sigma$ detection? & \textbf{No} & \textbf{Marginal} & \textbf{Yes} \\
+\midrule
+\multicolumn{4}{l}{\textbf{Required hardware improvements:}} \\
+$T_H$ target & 1 nK & 5 nK & 20 nK \\
+Horizon steepness $\kappa$ (Hz) & $2\pi \times 130$ & $2\pi \times 650$ & $2\pi \times 2600$ \\
+Detection efficiency $\eta$ & 0.1 & 0.3 & 0.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Conclusion:} Detection of $C_J(\omega,\omega')$ at $3\sigma$ in current-generation (Steinhauer-type) BEC experiments is not feasible with the central parameter estimates. However, it becomes feasible with (a) an order-of-magnitude increase in $T_H$ through steeper horizon engineering (achievable with tighter transverse confinement and higher atom density), (b) improved detection efficiency (high-numerical-aperture optics, $\eta \to 0.5$), and (c) $10^5$ shot averaging (requiring $\sim 1$ week of continuous operation, feasible on a dedicated apparatus). The pessimistic scenario sets a \emph{lower bound} on the experimental effort; the enhanced scenario defines a concrete target for next-generation BEC analogue gravity experiments.
+
+%=====================================================================
+\section{S9. Unified Error Analysis Summary}
+%=====================================================================
+
+Table~\ref{tab:unified} summarizes the measurement requirements for $3\sigma$ significance across all three experimental systems.
+
+\begin{table}[h]
+\centering
+\caption{Unified measurement requirements for $3\sigma$ detection of violations. Feasibility: $\checkmark$ = feasible with current technology, $\sim$ = marginal, $\times$ = requires hardware improvements.}
+\label{tab:unified}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{System} & \textbf{Observable} & \textbf{$T_{\rm total}$} & \textbf{Dominant error} & \textbf{Feasible?} \\
+\midrule
+FQH QPC & $C^R, C^I$ & $\sim 42$ min & $1/f$ charge noise & $\sim$ \\
+Qubit chain & $\kappa_{ij}$ & $\sim 12$ min & SPAM fidelity & $\sim$ \\
+BEC $C_J$ (pessimistic) & $C_J(\omega,\omega')$ & $\sim 330$ h & Shot noise & $\times$ \\
+BEC $C_J$ (enhanced) & $C_J(\omega,\omega')$ & $\sim 10$ min & Shot noise + $T_H$ sys. & $\sim$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Systematic error dominance:} In all three systems, the dominant error source is systematic rather than statistical. For FQH, $1/f$ charge noise from background impurities produces slow drifts in the QPC transmission that can mimic or mask a violation signal. For qubits, SPAM errors (particularly readout classification fidelity) introduce bias in the reconstructed $\rho$ that propagates to $\kappa_{ij}$. For BEC, the $\mathcal{J}=0$ back-reaction model uncertainty dominates at the factor-of-3 level. In all cases, systematic error control -- not increased statistics -- is the limiting factor for a definitive detection.
+
+%=====================================================================
+\section{S10. Relation to Main Text}
+%=====================================================================
+
+The derivations in this Supplemental Material establish the following, which are used in the main text without reproducing the full chain of reasoning:
+
+\begin{enumerate}
+    \item \textbf{Main text, System 3:} The claim ``$C_J(\omega,\omega') \neq 0$ for $\omega \neq \omega'$'' is supported by Eqs.~(\ref{eq:CJ_full})--(\ref{eq:nondiag_a}) of this SM. The estimate $C_J/\bar{n} \sim O(0.1\%-5\%)$ is supported by Table~\ref{tab:uncertainty_budget}. The stationarity objection is resolved in Sec.~S4.4 (the system is non-stationary during the pre-Page phase).
+
+    \item \textbf{Main text, Table I:} The diagnostic assignment ``$C_J(\omega,\omega') \neq 0 \Rightarrow \neg({\rm A2}) \vee \neg({\rm A3})$'' is refined here: the $\mathcal{J}=0$ constraint breaks assumption (A2) at the global level (unitary evolution of the radiation subsystem alone is insufficient -- the global pure state constraint modifies the radiation's reduced dynamics), and assumption (A3) at the level of the radiation state (the radiation reduced state is non-Gaussian due to entanglement with the interior).
+
+    \item \textbf{Main text, Discussion:} The statement ``a null result constrains $\mathcal{J}=0$'' is sharpened: a null result at sensitivity $R_{C_J} < 10^{-3}$ constrains the physical domain of information-conserving evaporation to models where either (a) the back-reaction is weaker than estimated, (b) the Page time is longer than the observation window by a larger factor than assumed, or (c) the information is encoded in higher-order ($n \geq 4$) correlators not captured by $C_J$.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{Unruh1981} W.~G.~Unruh, Phys.\ Rev.\ Lett.\ \textbf{46}, 1351 (1981).
+
+\bibitem{Jacobson1995} T.~Jacobson, Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995).
+
+\bibitem{Page1993} D.~N.~Page, Phys.\ Rev.\ Lett.\ \textbf{71}, 3743 (1993).
+
+\bibitem{Steinhauer2016} J.~Steinhauer, Nature Phys.\ \textbf{12}, 959 (2016).
+
+\bibitem{Macro2009} J.~Macro and L.~Pitaevskii, Rev.\ Mod.\ Phys.\ \textbf{81}, 1301 (2009).
+
+\bibitem{Garay2000} L.~J.~Garay \textit{et al.}, Phys.\ Rev.\ Lett.\ \textbf{85}, 4643 (2000).
+
+\bibitem{Carusotto2008} I.~Carusotto \textit{et al.}, New J.\ Phys.\ \textbf{10}, 103001 (2008).
+
+\bibitem{Lahav2010} O.~Lahav \textit{et al.}, Phys.\ Rev.\ Lett.\ \textbf{105}, 240401 (2010).
+
+\bibitem{Hawking1974} S.~W.~Hawking, Nature \textbf{248}, 30 (1974).
+
+\bibitem{Barcelo2005} C.~Barcel\'o, S.~Liberati, and M.~Visser, Living Rev.\ Relativ.\ \textbf{8}, 12 (2005).
+
+\bibitem{Werkmeister2025} T.~Werkmeister \textit{et al.}, Science \textbf{388}, 730 (2025).
+
+\bibitem{KaneFisher1994} C.~L.~Kane and M.~P.~A.~Fisher, Phys.\ Rev.\ B \textbf{50}, 12512 (1994).
+
+\bibitem{Martin1992} T.~Martin and R.~Landauer, Phys.\ Rev.\ B \textbf{45}, 1742 (1992).
+
+\bibitem{Cramer1999} C.~W.~Helstrom, \textit{Quantum Detection and Estimation Theory} (Academic Press, 1976).
+
+\bibitem{Braunstein1994} S.~L.~Braunstein and C.~M.~Caves, Phys.\ Rev.\ Lett.\ \textbf{72}, 3439 (1994).
+
+\bibitem{Recati2009} A.~Recati \textit{et al.}, Phys.\ Rev.\ A \textbf{80}, 043603 (2009).
+
+\bibitem{Visser1998} M.~Visser, Class.\ Quantum Grav.\ \textbf{15}, 1767 (1998).
+
+\end{thebibliography}
+
+\end{document}

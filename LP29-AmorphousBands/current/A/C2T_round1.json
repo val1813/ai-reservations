@@ -1,0 +1,371 @@
+{
+  "project": "LP29-AmorphousBands",
+  "round": 1,
+  "agent": "A",
+  "polaris": "LP29-C2T / provenance-complete external joined table construction",
+  "framework": {
+    "name": "provenance-first same-sample external validation",
+    "decision_rule": "A row is usable for material validation only if every required_join_field is populated from auditable DOI/table/figure/SI/local-artifact provenance and all baseline, controls, graph features, and external labels refer to the same sample, structure, or explicitly declared snapshot/window.",
+    "required_fields": [
+      "sample_id",
+      "label_provenance_id",
+      "structure_or_SI_source",
+      "O_s_or_exact_overlap_baseline",
+      "B0_onsite_variance",
+      "B0_carrier_density",
+      "B0_mobility_edge_margin",
+      "B0_finite_size",
+      "B0_batch_or_family",
+      "G1_lambda2_Lsym",
+      "G1_rho_A_budget_norm",
+      "G1_attack_gap_lambda2",
+      "external_Hall_Drude_Wannier_spectral_label",
+      "forbidden_control_audit"
+    ],
+    "material_validation_gate": "material_validation_allowed=true is forbidden unless at least one provenance-complete same-sample joined row exists.",
+    "scope_boundary": "C2T is an empirical validation prerequisite for C2, not a new material-mechanism claim."
+  },
+  "findings": {
+    "bottom_line": "blocked: no provenance-complete same-sample joined rows were found in public literature, local A-side artifacts, or already extracted C2T artifacts.",
+    "srivastava_2019": {
+      "doi": "10.1063/1.5096042",
+      "title": "Electronic structure and transport in amorphous metal oxide and amorphous metal oxynitride semiconductors",
+      "usable_now": "baseline_context_only",
+      "positive_evidence": [
+        "MCP full-text read confirms the paper defines orbital-overlap integral from structural information and reports Table II pair-count, average-distance, OI, and pairs*OI/volume values for a-IGZO and a-ZnON rows.",
+        "Local A artifact C2_Srivastava_baseline_rows.csv contains four source rows with sample_id, source_row_id, DOI, material formula, cell_volume_m3, reported OI_norm, pair_cutoff_A=4, kernel description, and m_eff_over_m0."
+      ],
+      "blocking_evidence": [
+        "structure_id is empty for the local baseline rows.",
+        "num_atoms is empty for the local baseline rows.",
+        "OI_raw_sum is empty and exact executable SI normalization is not reproduced.",
+        "No same-sample B0 onsite variance, carrier-density audit, mobility-edge margin, or G1 graph metrics are joined to these rows.",
+        "The m_eff values are internal calculated labels/baseline context, not an independent external graph-validation label."
+      ],
+      "verdict": "Srivastava provides the nearest must-beat orbital-overlap baseline, but it does not provide a provenance-complete joined row for C2T."
+    },
+    "jankousky_2025_2026": {
+      "doi": "10.1038/s41567-025-03099-x",
+      "title": "Effective bands and band-like electron transport in amorphous solids",
+      "usable_now": "candidate_context_only",
+      "positive_evidence": [
+        "MCP metadata and full-text read confirm a first-principles a-In2O3 effective-band/transport framework with random-structure ensemble, QSGW subset, effective mass, spectral broadening, disorder-limited mobility, mean-free-path estimates, and SI figures.",
+        "The paper has structure-like ensemble provenance internally: 1500 random 40-atom structures and 100 QSGW structures are described."
+      ],
+      "blocking_evidence": [
+        "The accessible text does not expose a row-level raw structure bundle with stable structure_id values ready for our graph construction.",
+        "No Srivastava-style O_s baseline is joined to the same structures.",
+        "No C2 G1 graph metrics are computed under the locked graph rule.",
+        "The reported transport/effective-band outputs are ensemble/model outputs, not a C2T row table with all required fields and forbidden-control audit."
+      ],
+      "verdict": "Jankousky is a strong candidate source for future rows if raw structures/SI and row-level labels can be extracted, but it is not provenance-complete for C2T Round 1."
+    },
+    "furubayashi_2019": {
+      "doi": "10.1186/s11671-019-2948-4",
+      "title": "New Insights on Factors Limiting the Carrier Transport in Very Thin Amorphous Sn-Doped In2O3 Films with High Hall Mobility",
+      "usable_now": "external_transport_candidate_only",
+      "positive_evidence": [
+        "MCP CrossRef/PMC/EuropePMC search confirms an open record for a-ITO films with film thickness, mass density, Hall mobility, carrier-density/mean-free-path context, and transport-limiting factors.",
+        "Local A artifact A1_Furubayashi2019_digitized_transport_schema.csv defines candidate columns such as t_nm, rho_ohm_cm, n_H_cm3, mu_H_cm2_Vs, density_g_cm3, roughness_nm, tau_fs, l_Drude_nm, kF_l, and target_independence_status."
+      ],
+      "blocking_evidence": [
+        "The local schema has no completed numeric per-sample row beyond F2019_TODO.",
+        "No stable same-sample structure_id or structure_or_SI_source is joined.",
+        "No Srivastava O_s baseline or G1 graph metrics are available for the same samples.",
+        "Hall mobility, carrier density, conductivity/resistivity require forbidden-control leakage audit before any label/control use."
+      ],
+      "verdict": "Furubayashi can supply candidate transport labels after digitization, but it cannot currently close any required C2T row."
+    },
+    "jang_2022": {
+      "doi": "10.1002/9781119715641.ch11",
+      "title": "Control of Carrier Concentrations in AOSs and Application to Bulk-Accumulation TFTs",
+      "usable_now": "literature_candidate_only",
+      "positive_evidence": [
+        "MCP CrossRef search confirms the AOS carrier-concentration chapter by Suhui Lee and Jin Jang.",
+        "The source is relevant to AOS carrier-density and TFT transport context."
+      ],
+      "blocking_evidence": [
+        "MCP could not retrieve a readable PDF text for this DOI in this run.",
+        "No local A-side row-level numeric extraction, sample_id, structure_or_SI_source, Srivastava baseline, or G1 graph metrics are present.",
+        "No same-sample external label row can be assembled from the available evidence."
+      ],
+      "verdict": "Jang remains candidate-only; it does not provide a provenance-complete C2T row in Round 1."
+    },
+    "required_field_status": {
+      "sample_id": "partial: Srivastava baseline rows have stable sample_id values, but candidate transport sources do not yet have complete row ids.",
+      "label_provenance_id": "partial: Srivastava source_row_id plus DOI exists; Furubayashi/Jankousky/Jang need row-level table/figure/SI ids.",
+      "structure_or_SI_source": "blocked: no auditable structure bundle or stable structure_id is joined to a complete candidate row.",
+      "O_s_or_exact_overlap_baseline": "partial: reported Srivastava OI_norm exists, but exact executable normalization and OI_raw_sum remain incomplete.",
+      "B0_onsite_variance": "blocked: no independent same-sample Hamiltonian/Wannier onsite-variance source.",
+      "B0_carrier_density": "partial: Furubayashi can likely provide candidate carrier-density labels/controls after digitization, but no same-sample crosswalk exists.",
+      "B0_mobility_edge_margin": "blocked: no row-level method/source mapping to graph or baseline rows.",
+      "B0_finite_size": "partial: Srivastava has cell volumes and Jankousky describes 40-atom random structures, but no joined finite-size descriptor for a complete row.",
+      "B0_batch_or_family": "partial: DOI/material-family keys exist but do not establish sample identity.",
+      "G1_lambda2_Lsym": "blocked: no real material graph computed from auditable same-sample structures.",
+      "G1_rho_A_budget_norm": "blocked: no locked graph construction on auditable material structures.",
+      "G1_attack_gap_lambda2": "blocked: no attack metric can be computed without graph rows.",
+      "external_Hall_Drude_Wannier_spectral_label": "partial: Srivastava m_eff and Jankousky/Furubayashi transport/spectral labels are context or candidates, not joined external validation labels.",
+      "forbidden_control_audit": "blocked: rules exist, but no complete candidate row exists to audit."
+    }
+  },
+  "weakest_link": {
+    "primary": "structure_or_SI_source plus stable structure_id is missing for every candidate validation row.",
+    "secondary": [
+      "Srivastava exact executable O_s normalization is not reproduced.",
+      "G1 graph features cannot be computed without auditable raw structures.",
+      "External transport/spectral labels are not joined to the same samples as baseline and graph features.",
+      "Forbidden-control audit cannot run because no complete row exists."
+    ],
+    "consequence": "The current evidence can only support a blocked provenance table, not material validation."
+  },
+  "next_plan": [
+    "Reproduce Srivastava O_s exactly: obtain SI/formula details, implement the normalization, populate OI_raw_sum, and verify the four reported OI_norm values.",
+    "Create a row-to-structure crosswalk for Srivastava and/or Jankousky: structure_id, structure_or_SI_source, num_atoms/snapshot size, DOI/SI path, and versioned local file path.",
+    "Digitize Furubayashi rows only with table/figure point ids, units, measurement conditions, and target-independence status; do not use Hall-derived quantities as controls for Hall-mobility targets without audit.",
+    "For Jankousky, locate whether the Nature Physics article or associated repository exposes raw 40-atom structures or computed row-level spectral labels; if not, keep candidate_only.",
+    "For Jang, only promote from candidate_only after readable row-level numeric labels and structure/sample provenance are obtained.",
+    "Assemble a C2T blocked provenance table before attempting material validation; set material_validation_allowed=false for every incomplete row."
+  ],
+  "literature_needed": [
+    {
+      "priority": "L0",
+      "query": "Srivastava 2019 10.1063/1.5096042 supplementary information orbital overlap integral Mathematica Slater type orbital normalization",
+      "reason": "Needed to reproduce exact O_s normalization and OI_raw_sum."
+    },
+    {
+      "priority": "L0",
+      "query": "Jankousky 2025 effective bands amorphous solids In2O3 supplementary data random structures repository QSGW",
+      "reason": "Needed to determine whether stable raw structure ids and row-level spectral labels are available."
+    },
+    {
+      "priority": "L1",
+      "query": "Furubayashi 2019 amorphous Sn-doped In2O3 Hall mobility carrier density table thickness density supplementary data",
+      "reason": "Needed to digitize external transport candidate rows with provenance."
+    },
+    {
+      "priority": "L1",
+      "query": "Jang AOS carrier concentration bulk accumulation TFT Hall carrier density mobility sample table supplementary",
+      "reason": "Needed to see whether Jang can provide row-level external labels rather than review context."
+    },
+    {
+      "priority": "L1",
+      "query": "amorphous In2O3 raw structures transport effective mass Hall mobility same sample supplementary data",
+      "reason": "Potential alternate source if named candidates cannot close same-sample rows."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C2T-A-R1-C1",
+      "statement": "No provenance-complete same-sample C2T joined row is currently available from Srivastava 2019, Jankousky 2025/2026, Furubayashi 2019, Jang 2022, or local A-side artifacts.",
+      "confidence": 0.86,
+      "new_insight": false,
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        },
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2025/2026"
+        },
+        {
+          "doi": "10.1186/s11671-019-2948-4",
+          "label": "Furubayashi et al. 2019"
+        },
+        {
+          "doi": "10.1002/9781119715641.ch11",
+          "label": "Lee and Jang 2022"
+        }
+      ],
+      "assumptions": [
+        "Only A-side local artifacts and public/MCP-readable sources were considered.",
+        "B outputs were not read.",
+        "A C2T row requires all required_join_fields, not merely a subset of labels or baseline fields."
+      ],
+      "equations": []
+    },
+    {
+      "id": "C2T-A-R1-C2",
+      "statement": "Srivastava 2019 is sufficient as baseline context but insufficient as a reproduced same-sample O_s baseline for material validation.",
+      "confidence": 0.82,
+      "new_insight": false,
+      "references": [
+        {
+          "doi": "10.1063/1.5096042",
+          "label": "Srivastava et al. 2019"
+        },
+        {
+          "path": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\C2_Srivastava_baseline_rows.csv",
+          "label": "A-side Srivastava baseline rows"
+        }
+      ],
+      "assumptions": [
+        "Reported OI_norm without executable normalization is candidate baseline evidence, not reproduced baseline evidence.",
+        "m_eff_over_m0 from the same computational study is not an independent external validation label for graph residual claims."
+      ],
+      "equations": [
+        {
+          "label": "Srivastava_OI_norm_reported",
+          "expression": "sum(N_pair_ij*S_ij)/V",
+          "variables": {
+            "N_pair_ij": "number_of_metal_cation_pairs_of_type_ij_within_cutoff",
+            "S_ij": "Mulliken_STO_pair_overlap_integral_at_average_pair_distance",
+            "V": "cell_volume"
+          },
+          "units": "angstrom**-3",
+          "limits": [
+            {
+              "variable": "V",
+              "to": "oo",
+              "expected": "finite_pair_density_limit_required",
+              "desc": "Raw pair sums cannot be compared across volumes without density normalization."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "a_IGZO_1114_reported": 0.02966,
+              "a_IGZO_2217_reported": 0.02669,
+              "a_ZnON_21_reported": 0.06231,
+              "a_ZnON_11_reported": 0.06693
+            },
+            "expected_range": [
+              0.02,
+              0.07
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "C2T-A-R1-C3",
+      "statement": "Jankousky 2025/2026 is a high-value candidate for raw structure/spectral-label extraction, but the MCP-readable evidence does not expose a ready C2T row table.",
+      "confidence": 0.78,
+      "new_insight": false,
+      "references": [
+        {
+          "doi": "10.1038/s41567-025-03099-x",
+          "label": "Jankousky et al. 2025/2026"
+        }
+      ],
+      "assumptions": [
+        "A candidate source is not promoted unless stable row ids and provenance for raw structures or SI rows are available.",
+        "Ensemble-averaged QSGW mobility/effective-band quantities cannot substitute for same-sample joined rows."
+      ],
+      "equations": [
+        {
+          "label": "Jankousky_mobility",
+          "expression": "abs(e)*tau/m_eff",
+          "variables": {
+            "e": "elementary_charge",
+            "tau": "relaxation_time_from_linewidth",
+            "m_eff": "effective_mass"
+          },
+          "units": "m**2/(V*s)",
+          "limits": [
+            {
+              "variable": "tau",
+              "to": "0",
+              "expected": "0",
+              "desc": "Mobility vanishes with zero relaxation time."
+            }
+          ],
+          "numerical_test": {
+            "substitutions": {
+              "m_eff_over_m0": 0.2,
+              "reported_mobility_cm2_Vs": 13
+            },
+            "expected_range": [
+              5,
+              30
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "tool_self_check": {
+    "paper_search_mcp_required": true,
+    "group_1_core_claim_dedup": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "amorphous oxide semiconductor orbital overlap effective mass Srivastava 2019 2023 2024 2025",
+        "Srivastava Nahas Bhowmick Gaur Electronic structure transport amorphous metal oxide oxynitride semiconductors 10.1063/1.5096042"
+      ],
+      "websearch_fallback": false,
+      "result": "Srivastava 2019 found; no paper found that already provides the C2T provenance-complete joined table."
+    },
+    "group_2_framework_blind_spot": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "same sample amorphous oxide semiconductor structure transport effective mass Hall carrier density mobility edge 2022 2023 2024 2025",
+        "Jankousky effective bands amorphous semiconductors Nature Physics 2025 2026 amorphous oxide"
+      ],
+      "websearch_fallback": false,
+      "result": "Jankousky found as effective-band candidate; same-sample C2T joined rows not found."
+    },
+    "group_3_counterexample_negative": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "amorphous oxide semiconductor orbital overlap failure criticism counterexample transport effective mass"
+      ],
+      "websearch_fallback": false,
+      "result": "No fatal counterexample to the C2T table-construction task found; main negative result is data incompleteness."
+    },
+    "group_4_data_availability": {
+      "tool": "paper-search-mcp",
+      "queries": [
+        "amorphous oxide semiconductor Hall carrier density effective mass mobility edge measurement experiment data",
+        "Furubayashi amorphous oxide semiconductor Hall mobility carrier density transport 2019 In2O3",
+        "Jang amorphous oxide semiconductor Hall mobility carrier density effective mass transport amorphous In2O3 IGZO"
+      ],
+      "websearch_fallback": false,
+      "result": "Furubayashi, Jankousky, and Jang candidates found, but none close all required fields."
+    },
+    "targeted_reads": [
+      {
+        "tool": "paper-search-mcp.read_semantic_paper",
+        "identifier": "DOI:10.1063/1.5096042",
+        "status": "success"
+      },
+      {
+        "tool": "paper-search-mcp.read_semantic_paper",
+        "identifier": "DOI:10.1038/s41567-025-03099-x",
+        "status": "success"
+      },
+      {
+        "tool": "paper-search-mcp.read_semantic_paper",
+        "identifier": "DOI:10.1186/s11671-019-2948-4",
+        "status": "failed_stream_ended; compensated by PMC and EuropePMC MCP metadata search"
+      },
+      {
+        "tool": "paper-search-mcp.read_semantic_paper",
+        "identifier": "DOI:10.1002/9781119715641.ch11",
+        "status": "failed_no_pdf_url; CrossRef MCP metadata retained"
+      }
+    ],
+    "local_files_read": [
+      "D:\\Claude\\ai-reservations\\AGENTS.md",
+      "D:\\Claude\\ai-reservations\\ai\\CLAUDE.md",
+      "D:\\Claude\\ai-reservations\\ai\\A_AGENT.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\project\\Phase清单.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\plan\\当前状态.md",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\plan\\研究计划.md",
+      "D:\\Claude\\ai-reservations\\knowledge_graph\\LP29-AmorphousBands_C2_v1_20260604.json",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\C2T\\artifacts\\C2T_joined_table_schema.csv",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\C2T\\artifacts\\C2T_source_inventory.csv",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\C2T\\artifacts\\C2T_field_blocker_table.csv",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\C2_Srivastava_baseline_rows.csv",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\A1_Furubayashi2019_digitized_transport_schema.csv",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\C2_join_schema.csv",
+      "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\artifacts\\C2_forbidden_controls_rules.csv"
+    ],
+    "forbidden_read_check": {
+      "b_outputs_read": false,
+      "note": "No file under current/B was opened. The string current/B/artifacts/C2_material_graph_rows_blocked.csv appeared only inside the required C2T_source_inventory input."
+    },
+    "json_strictness": {
+      "markdown_written": false,
+      "intended_output_file": "D:\\Claude\\ai-reservations\\LP29-AmorphousBands\\current\\A\\C2T_round1.json"
+    }
+  }
+}

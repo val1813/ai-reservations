@@ -1,0 +1,88 @@
+{
+  "课题": "LP17-CMB-Quantum",
+  "版本": "v3",
+  "日期": "2026-06-02",
+  "结论类型": "证伪-三路径全关",
+  "节点": [
+    {
+      "id": "K1",
+      "label": "tau_dec >> H^{-1}: decoherence freezes at horizon crossing",
+      "type": "result",
+      "math_object": "decoherence_rate",
+      "supports": [],
+      "status": "confirmed"
+    },
+    {
+      "id": "K2",
+      "label": "N_eff(l) = l x l_max: effective environmental DOF per mode",
+      "type": "result",
+      "math_object": "angular_momentum_selection_rule",
+      "supports": [],
+      "status": "confirmed"
+    },
+    {
+      "id": "K3",
+      "label": "S_ent(CMB low-l, background) ~ 10^{-3} bits",
+      "type": "result",
+      "math_object": "entanglement_entropy",
+      "supports": [],
+      "status": "confirmed"
+    },
+    {
+      "id": "K4",
+      "label": "Quantum decoherence H0 contribution < 10^{-71} km/s/Mpc (Zurek)",
+      "type": "result",
+      "math_object": "decoherence_upper_bound",
+      "supports": ["K1"],
+      "status": "confirmed"
+    },
+    {
+      "id": "K5",
+      "label": "Page-Wootters H0 contribution < 0.01 km/s/Mpc",
+      "type": "result",
+      "math_object": "Ozawa_inequality",
+      "supports": ["K3"],
+      "status": "confirmed"
+    },
+    {
+      "id": "K6",
+      "label": "Pantheon+ 1587 SNe: H0 flat ~73 at all z, holographic sigmoid falsified",
+      "type": "result",
+      "math_object": "H0_z_dependence",
+      "supports": [],
+      "status": "confirmed"
+    },
+    {
+      "id": "K7",
+      "label": "Hubble tension: step-like between probes, not continuous within probes",
+      "type": "result",
+      "math_object": "H0_discrepancy_structure",
+      "supports": ["K6"],
+      "status": "confirmed"
+    },
+    {
+      "id": "F1",
+      "label": "Quantum bispectrum: killed by double-exponential suppression epsilon x exp(-2r) ~ 10^{-68}",
+      "type": "failed_hypothesis",
+      "math_object": "bispectrum_phase",
+      "supports": [],
+      "status": "closed"
+    },
+    {
+      "id": "F2",
+      "label": "Holographic sigmoid H0(R): killed by Pantheon+ flat H0(z_max)",
+      "type": "failed_hypothesis",
+      "math_object": "holographic_screen_truncation",
+      "supports": [],
+      "status": "closed"
+    },
+    {
+      "id": "F3",
+      "label": "Original LP17 hypothesis: l<30 quantum relic -> H0 shift",
+      "type": "failed_hypothesis",
+      "math_object": "CMB_quantum_decoherence",
+      "supports": [],
+      "status": "closed"
+    }
+  ]
+}
