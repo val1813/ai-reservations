@@ -317,18 +317,19 @@ def analyze_flow(results, d_target=3):
     print(f"\n=== Flow Analysis ===")
     print(f"Steps: {len(results)}")
 
-    # b1 density scaling: b1/N ~ N^{-gamma}
-    # If gamma > 0: b1 irrelevant in IR → continuum limit possible
+    # b1 density scaling: b1/N ~ N^{gamma}
+    # gamma = d(log b1_dens)/d(log N)
+    # If gamma < 0: b1 density decreases with scale → b1 IR-irrelevant → continuum limit viable
     if len(Ns) >= 2:
         log_N = np.log(Ns)
         log_b1 = np.log(b1_dens + 1e-30)
-        gamma, _, r, _, _ = stats.linregress(log_N, log_b1)
+        gamma, _, r, p_value, _ = stats.linregress(log_N, log_b1)
         analysis['b1_scaling_exponent'] = gamma
-        print(f"b1 density scaling: b1/N ~ N^{-gamma:.3f} (R2={r**2:.3f})")
-        if gamma > 0:
-            print(f"  -> b1 IR-irrelevant (continuum limit viable)")
+        print(f"b1 density scaling: b1/N ~ N^{gamma:+.3f} (R2={r**2:.3f}, p={p_value:.2f})")
+        if gamma < 0:
+            print(f"  -> b1 IR-irrelevant (continuum limit viable, but check R2 and p)")
         else:
-            print(f"  -> b1 IR-relevant WARNING (continuum limit may not exist)")
+            print(f"  -> b1 IR-relevant (continuum limit may not exist)")
 
     # Spectral dimension convergence
     valid_ds = ds_vals[~np.isnan(ds_vals)]
