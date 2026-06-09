@@ -1,0 +1,376 @@
+\documentclass[aps,prd,onecolumn]{revtex4-2}
+\usepackage{amsmath,amssymb,booktabs,graphicx}
+
+\begin{document}
+
+\title{Supplemental Material: A Quantum Many-Body Theory of Information Dark Energy}
+
+\maketitle
+
+This Supplemental Material provides the complete derivations, detailed calculations, and systematic uncertainty analyses that support the results presented in the main text. Section references of the form ``\S X'' refer to sections of the main text unless otherwise specified.
+
+\section{Complete Derivation of the Complex Langevin Equation}
+
+\subsection{Lindblad master equation}
+
+Each qubit $i$ in the ensemble obeys the Lindblad master equation in the mean-field approximation:
+
+\begin{equation}
+\frac{d\rho^{(i)}}{dt} = -\frac{i}{\hbar}[H_{\rm MF}^{(i)}, \rho^{(i)}] + \gamma\left(\sigma_-\rho^{(i)}\sigma_+ - \frac{1}{2}\{\sigma_+\sigma_-, \rho^{(i)}\}\right),
+\label{sm:lindblad}
+\end{equation}
+
+where $H_{\rm MF}^{(i)} = \frac{1}{2}\Delta E_{\rm eff}\,\sigma_z^{(i)} + \eta f(t)\sigma_x^{(i)}$, $\sigma_\pm = (\sigma_x \pm i\sigma_y)/2$, and $\Delta E_{\rm eff} = \Delta E_0 + 2g(1-2|\mathcal{A}|^2)$. The Lindblad operators $L = \sqrt{2\gamma}\,\sigma_-$ describe relaxation from the excited state $|1\rangle$ to the ground state $|0\rangle$ at rate $\gamma$, representing decoherence from the environment.\footnote{With the conventional Lindblad operator $L = \sqrt{\gamma}\,\sigma_-$, the damping rate in the equation for $\langle\sigma_-\rangle$ would be $\gamma/2$. Throughout this paper we absorb the factor of 2 by defining $L = \sqrt{2\gamma}\,\sigma_-$, making $- \gamma \mathcal{A}$ the damping term directly. The numerical value $\gamma/H_0 = 10$ is the $T_2$ dephasing rate, not the $T_1$ relaxation rate. This convention does not affect any conclusions.} This is the standard open quantum systems formalism; see Breuer \& Petruccione (2002) for a comprehensive treatment.
+
+\subsection{Equation for $\langle\sigma_-\rangle$}
+
+Using $\langle\sigma_-\rangle = {\rm Tr}(\sigma_-\rho)$ and the commutation relations $[\sigma_z, \sigma_-] = -2\sigma_-$, $[\sigma_x, \sigma_-] = -i\sigma_z$, we obtain:
+
+\begin{equation}
+\frac{d\langle\sigma_-\rangle}{dt} = -\frac{i}{\hbar}\Delta E_{\rm eff}\langle\sigma_-\rangle - \gamma\langle\sigma_-\rangle + i\frac{\eta f(t)}{\hbar}\langle\sigma_z\rangle.
+\label{sm:sigma_minus}
+\end{equation}
+
+This equation is exact within the mean-field approximation. The term proportional to $\langle\sigma_z\rangle$ arises from the commutator $[\sigma_x, \sigma_-] = -i\sigma_z$ in the drive Hamiltonian.
+
+\subsection{Gaussian decoupling and the Langevin equation}
+
+To close the equation, we use the Gaussian decoupling approximation:
+\begin{equation}
+\langle\sigma_z\sigma_-\rangle \approx \langle\sigma_z\rangle\langle\sigma_-\rangle.
+\label{sm:gaussian}
+\end{equation}
+This approximation is exact in the $N \to \infty$ limit (mean-field theory) and has $1/N$ corrections of $O(1/N)$. For cosmological ensembles with $N \gg 10^{80}$, these corrections are entirely negligible. The justification follows from the all-to-all coupling in Eq.~(1) of the main text: the $1/N$ normalization of the Ising term ensures that fluctuations scale as $1/\sqrt{N}$ and connected correlation functions scale as $1/N$.
+
+Identifying $\mathcal{A} = \langle\sigma_-\rangle$, $|\mathcal{A}|^2 = \langle\sigma_+\rangle\langle\sigma_-\rangle$ (consistent with the Gaussian approximation), and $\langle\sigma_z\rangle = 1 - 2|\mathcal{A}|^2$, Eq.~\eqref{sm:sigma_minus} becomes:
+
+\begin{equation}
+\frac{d\mathcal{A}}{dt} = -\frac{i}{\hbar}\Delta E_{\rm eff}\,\mathcal{A} - \gamma\mathcal{A} + i\frac{\eta f(t)}{\hbar}(1-2|\mathcal{A}|^2).
+\label{sm:pre_langevin}
+\end{equation}
+
+Now substitute the effective energy gap. From the mean-field analysis:
+\begin{equation}
+\Delta E_{\rm eff} = \Delta E_0 + 2g(1-2|\mathcal{A}|^2) = (\Delta E_0 + 2g) - 4g|\mathcal{A}|^2 = 4g\left(\frac{\Delta E_0 + 2g}{4g} - |\mathcal{A}|^2\right) = 4g(a_c^2 - |\mathcal{A}|^2),
+\label{sm:deltaE_expanded}
+\end{equation}
+where $a_c^2 = (\Delta E_0 + 2g)/(4g)$ is the equilibrium critical fraction defined in Eq.~(3) of the main text.
+
+Defining the coupling frequency $\Omega_c \equiv 4g/\hbar$ and the rescaled drive amplitude $\tilde{\eta} \equiv \eta/\hbar$, we obtain the central dynamical equation:
+
+\begin{equation}
+\boxed{\frac{d\mathcal{A}}{dt} = -i\Omega_c(a_c^2 - |\mathcal{A}|^2)\mathcal{A} - \gamma\mathcal{A} + i\tilde{\eta}f(t)(1-2|\mathcal{A}|^2)}.
+\label{sm:langevin_final}
+\end{equation}
+
+This is Eq.~(5) of the main text. We emphasize that the factor $(1-2|\mathcal{A}|^2) = \langle\sigma_z\rangle$ in the drive term is \textbf{not} absorbed into $\tilde{\eta}$---it is a state-dependent factor that provides self-limiting feedback and is essential for the correct dynamics. Earlier versions of this work that absorbed this factor into a constant $\eta$ were mathematically inconsistent away from the critical point; the present version corrects that error.
+
+\subsection{Comparison with simplified form}
+
+For reference, we note that the simplified Langevin equation used in earlier treatments,
+\begin{equation}
+\frac{d\mathcal{A}}{dt} = -i\omega_0\left(1 - \frac{|\mathcal{A}|^2}{a_c^2}\right)\mathcal{A} - \gamma\mathcal{A} + \eta f(t),
+\label{sm:old_langevin}
+\end{equation}
+is recovered from Eq.~\eqref{sm:langevin_final} only under two approximations: (i) the coherent frequency $\Omega_c$ is replaced by $\omega_0/a_c^2$, which holds only when $\Omega_c a_c^2 = \omega_0$ (equivalently $2g = \hbar\omega_0(a_c^2 - 1/2)^{-1}$); and (ii) the $\langle\sigma_z\rangle$ factor and the $i$ in the drive term are absorbed into a redefined constant $\eta$, which is valid only when $(1-2|\mathcal{A}|^2)$ is approximately constant over the redshift range of interest. Neither approximation holds in general. In the symmetric case $(\Delta E_0 = 0, \omega_0 = 0, a_c^2 = 1/2)$, the simplified form Eq.~\eqref{sm:old_langevin} would have a vanishing coherent term ($\omega_0 = 0$), which is physically incorrect---the Ising coupling $g$ provides the coherent dynamics even when $\Delta E_0 = 0$. Equation~\eqref{sm:langevin_final} correctly captures this.
+
+\section{Derivation of the Dynamical Critical Fraction}
+
+\subsection{Equilibrium $a_c^2$ (T=0)}
+
+At $T=0$, the self-consistency condition for the mean-field magnetization $m = N^{-1}\sum_i\langle\sigma_z^{(i)}\rangle$ is:
+\begin{equation}
+m = -\mathrm{sgn}(\Delta E_0 + 2gm).
+\label{sm:mf_condition}
+\end{equation}
+Using $m = 1 - 2|\mathcal{A}|^2$, the condition $\Delta E_{\rm eff} = \Delta E_0 + 2g(1-2|\mathcal{A}|^2) = 0$ gives the equilibrium critical fraction:
+\begin{equation}
+|\mathcal{A}|^2_{\rm crit} \equiv a_{c,\rm eq}^2 = \frac{\Delta E_0 + 2g}{4g} = \frac{1}{2} + \frac{\Delta E_0}{4g}.
+\label{sm:ac2_eq}
+\end{equation}
+For the symmetric case $\Delta E_0 = 0$ (degenerate bare states), $a_{c,\rm eq}^2 = 1/2$. This value is a property of the Hamiltonian parameters $(\Delta E_0, g)$ and is independent of the driving and damping.
+
+\subsection{Steady-state condition for the driven-dissipative system}
+
+In the driven-dissipative regime, the steady-state determination fraction $|\mathcal{A}|^2_{\rm ss}$ is determined by the balance of driving, damping, and coherent evolution. Setting $d\mathcal{A}/dt = 0$ in Eq.~\eqref{sm:langevin_final}:
+
+\begin{equation}
+i\Omega_c(a_c^2 - |\mathcal{A}|^2_{\rm ss})\mathcal{A}_{\rm ss} + \gamma\mathcal{A}_{\rm ss} = i\tilde{\eta}f(1-2|\mathcal{A}|^2_{\rm ss}).
+\label{sm:steady_complex}
+\end{equation}
+
+Taking the squared modulus of both sides:
+\begin{equation}
+\left[\Omega_c^2(a_c^2 - |\mathcal{A}|^2_{\rm ss})^2 + \gamma^2\right]|\mathcal{A}|^2_{\rm ss} = \tilde{\eta}^2 f^2 (1-2|\mathcal{A}|^2_{\rm ss})^2.
+\label{sm:steady_cubic}
+\end{equation}
+
+This is a cubic equation in $x \equiv |\mathcal{A}|^2_{\rm ss}$. We now analyze its structure.
+
+\subsection{Structure of the steady-state cubic}
+
+Define $x \equiv |\mathcal{A}|^2_{\rm ss}$ and write Eq.~\eqref{sm:steady_cubic} as:
+\begin{equation}
+\Omega_c^2(a_c^2 - x)^2 x + \gamma^2 x = \tilde{\eta}^2 f^2 (1-2x)^2.
+\label{sm:cubic_expanded}
+\end{equation}
+
+Key observations:
+
+(1) \textbf{Weak driving limit} ($\tilde{\eta}f \ll \gamma$): $x \approx \tilde{\eta}^2 f^2 / \gamma^2 \ll 1$. The determination fraction is small when structure formation is weak.
+
+(2) \textbf{Strong driving limit} ($\tilde{\eta}f \gg \gamma$): The right-hand side $\tilde{\eta}^2 f^2 (1-2x)^2$ must be balanced by the left-hand side. For $x$ to approach $a_c^2 = 1/2$ from below, the term $\Omega_c^2(a_c^2 - x)^2 x$ becomes small, and balance requires $\gamma^2 x \approx \tilde{\eta}^2 f^2 (1-2x)^2$. As $x \to 1/2$, the right-hand side $\to 0$, while the left-hand side $\to \gamma^2/2 > 0$. Therefore, \textbf{the steady state can approach but never reach $x = 1/2$}.
+
+(3) \textbf{Impossibility of steady state at the critical point}: At $x = a_c^2 = 1/2$, Eq.~\eqref{sm:cubic_expanded} reduces to $\gamma^2/2 = 0$, which cannot be satisfied for any $\gamma > 0$. This proves that the system \textbf{cannot be in steady state exactly at the critical point}. The crossing is necessarily a time-dependent phenomenon.
+
+\subsection{Dynamical crossing condition}
+
+Since the steady state cannot sit at $|\mathcal{A}|^2 = a_c^2$, the phantom crossing (if it occurs) must be a dynamical process: as $f(t)$ evolves with cosmic time, $|\mathcal{A}(t)|^2$ tracks the changing steady state, passing through $a_c^2$ when the driving is sufficiently strong. The condition for crossing is that the time-dependent solution passes through $x = a_c^2$, which requires:
+
+\begin{equation}
+\left.\frac{d|\mathcal{A}|^2}{dt}\right|_{x=a_c^2} = 2\,\mathrm{Re}(\mathcal{A}^* \dot{\mathcal{A}}) \neq 0.
+\end{equation}
+
+At $x = a_c^2$, the coherent term vanishes ($\Omega_c(a_c^2 - x) = 0$), and Eq.~\eqref{sm:langevin_final} gives $\dot{\mathcal{A}} = -\gamma\mathcal{A} + i\tilde{\eta}f(t)(1-2a_c^2)$. For the symmetric case ($a_c^2 = 1/2$), the drive term also vanishes (since $1-2a_c^2 = 0$), so $\dot{\mathcal{A}} = -\gamma\mathcal{A}$, and the system simply decays through the critical point. For $a_c^2 \neq 1/2$, the drive term contributes and can push the system across.
+
+Whether crossing actually occurs depends on the amplitude and time-dependence of $f(t)$. A necessary (but not sufficient) condition is that the steady-state solution $x_{\rm ss}$ at the peak of $f(t)$ exceeds $a_c^2$. From Eq.~\eqref{sm:cubic_expanded}, approximating near $x \approx a_c^2$:
+\begin{equation}
+x_{\rm ss}^{\rm max} \approx a_c^2 - \frac{\gamma^2 a_c^2}{\tilde{\eta}^2 f_{\rm max}^2 (1-2a_c^2)^2 + \Omega_c^2 a_c^2 + \gamma^2} \cdot \delta,
+\label{sm:xmax}
+\end{equation}
+where $\delta$ is a small positive offset. For driving to push $x_{\rm ss} > a_c^2$, we need $(1-2a_c^2) \neq 0$, meaning the non-symmetric case is required for steady-state crossing, or the crossing must occur as a transient during the time evolution.
+
+\subsection{Limiting cases of the dynamical correction}
+
+\begin{itemize}
+\item $\gamma \to 0$: $x_{\rm ss} \to a_c^2$ from below (for $a_c^2 = 1/2$) or crosses $a_c^2$ (for $a_c^2 \neq 1/2$). Recovers the equilibrium result when the drive is quasi-static.
+\item $\gamma \gg \Omega_c$: The coherent term is negligible. Eq.~\eqref{sm:cubic_expanded} reduces to $\gamma^2 x \approx \tilde{\eta}^2 f^2 (1-2x)^2$, which is regular everywhere. The ODE does not become singular---the earlier concern about $a_c^2 \to 0$ divergence is resolved by the corrected equation where the coherent frequency is $\Omega_c(a_c^2 - x)$ rather than $(\omega_0/a_c^2)(a_c^2 - x)$.
+\item $\gamma \ll \Omega_c$: The coherent term dominates, and $x_{\rm ss}$ is close to the equilibrium $a_c^2$ when $f$ is sufficiently strong.
+\end{itemize}
+
+\subsection{Effective $a_c^2$ in the $w(z)$ observable}
+
+The parameter $a_c^2$ appearing in the $w(z)$ relation (Eq.~(7) of the main text) is the effective critical fraction that incorporates the driven-dissipative renormalization. For the symmetric case ($\Delta E_0 = 0$), the Hamiltonian value is $a_c^2 = 1/2$, but the effective value inferred from $w(z)$ fits can differ from $1/2$ due to: (i) the $\kappa$--$a_c^2$ degeneracy in Eq.~(7) of the main text; (ii) the dynamical renormalization of $|\mathcal{A}|^2_{\rm ss}$ by the driving function; and (iii) the use of the linear $w+1$ expansion. The values $a_c^2 \approx 0.15$ (SFR driver) and $a_c^2 \approx 0.28$ ($\mathcal{P}_{\rm coll}$ driver) reported in the main text Section 5.4 and Table~\ref{tab:drivers} below are effective, data-constrained values, not direct measurements of the Hamiltonian $a_c^2 = 1/2$.
+
+\section{Gravitational Collapse Power: Full Calculation}
+
+\subsection{Power spectrum and $\sigma(M)$}
+
+The variance of density fluctuations on mass scale $M$ is:
+\begin{equation}
+\sigma^2(M) = \int_0^\infty \frac{dk}{k} \, \frac{k^3 P(k)}{2\pi^2} \, W^2(kR),
+\label{sm:sigma}
+\end{equation}
+where $R = (3M/4\pi\bar{\rho}_m)^{1/3}$, $W(x) = 3(\sin x - x\cos x)/x^3$ is the top-hat window function, and $P(k)$ is the linear matter power spectrum at $z=0$. We use the Eisenstein-Hu (1998) transfer function with Planck 2018 cosmological parameters ($\Omega_m = 0.315$, $\Omega_\Lambda = 0.685$, $\Omega_b = 0.049$, $h = 0.674$, $n_s = 0.965$, $\sigma_8 = 0.811$).
+
+\subsection{Halo mass function}
+
+The Sheth-Tormen (1999) multiplicity function is:
+\begin{equation}
+\nu f(\nu) = A\sqrt{\frac{2q\nu^2}{\pi}}\left[1 + (q\nu^2)^{-p}\right]\exp(-q\nu^2/2),
+\label{sm:mult}
+\end{equation}
+with $\nu = \delta_c(z)/\sigma(M)$, $\delta_c(z) = 1.686/D_+(z)$, $A = 0.322$, $q = 0.707$, $p = 0.3$. The halo mass function is $dn/dM = (\bar{\rho}_m/M^2) \nu f(\nu) |d\ln\sigma/d\ln M|$.
+
+\subsection{Halo formation rate (extended Press-Schechter)}
+
+The formation rate $\Gamma(M,z)$ is computed via the extended Press-Schechter (EPS) formalism \cite{Lacey:1993,Sasaki:1994}. The standard EPS expression for the formation rate of halos of mass $M$ at redshift $z$ is:
+\begin{equation}
+\Gamma(M,z) = \int_M^\infty dM' \, \frac{dn}{dM'} \cdot \frac{d}{dt}\left[\mathrm{erfc}\left(\frac{\delta_c(z) - \delta_c(z_0)}{\sqrt{2(\sigma^2(M) - \sigma^2(M'))}}\right)\right],
+\label{sm:eps_full}
+\end{equation}
+where $z_0$ is the observation redshift. For our purposes, following the Sasaki (1994) parameterization, we use the approximate form:
+\begin{equation}
+\Gamma(M,z) \approx \frac{dn}{dM} \cdot \frac{d\delta_c}{dz} \cdot \frac{dz}{dt} \cdot \frac{1}{\sigma^2}\left|\frac{d\sigma^2}{dM}\right|,
+\label{sm:formation_rate}
+\end{equation}
+which captures the leading-order scaling: the halo collapse rate is proportional to the mass function $dn/dM$ times the rate of change of the collapse threshold $\delta_c(z)$ with cosmic time, weighted by the inverse variance of density fluctuations. This parameterization is standard in the literature (see Sasaki 1994, Eq.~(13); Lacey \& Cole 1993, Eq.~(2.12)). The factor $|d\sigma^2/dM|/\sigma^2$ accounts for the mass-dependence of the collapse threshold crossing rate.
+
+\subsection{Collapse power density}
+
+\begin{equation}
+\mathcal{P}_{\rm coll}(z) = \int_{M_{\rm min}}^{M_{\rm max}} dM \, \Gamma(M,z) \cdot E_{\rm bind}(M,z),
+\label{sm:pcoll_int}
+\end{equation}
+with $E_{\rm bind} = \frac{3}{5}GM^2/R_{\rm vir}$, $R_{\rm vir} = [3M/(4\pi\Delta_{\rm vir}\rho_c)]^{1/3}$, $\Delta_{\rm vir} \approx 200$, $\rho_c(z) = 3H^2(z)/8\pi G$. We take $M_{\rm min} = 10^8 M_\odot$ and $M_{\rm max} = 10^{16} M_\odot$ as fiducial values. For the systematic uncertainty band, $M_{\rm min}$ is varied between $10^6 M_\odot$ and $10^{12} M_\odot$ (a range of 6 orders of magnitude, chosen to bracket plausible dark matter microphysics scenarios; the full $\sim 14$ orders of magnitude theoretical uncertainty in $M_{\rm min}$ is noted in the main text but the $\mathcal{P}_{\rm coll}$ integral converges for $M_{\rm min} \lesssim 10^6 M_\odot$ due to the $M^{5/3}$ weighting of $E_{\rm bind}$, making the extreme low-mass cutoff irrelevant for the integral).
+
+\subsection{Normalization}
+
+The driving function is $f(t) = \mathcal{P}_{\rm coll}(z(t))/\mathcal{P}_{\rm coll}(0)$. The normalization at $z=0$ ensures $f(0)=1$; the overall amplitude is absorbed into $\tilde{\eta}$.
+
+\subsection{Systematic uncertainty band}
+
+Figure~1 shows the $w(z)$ prediction band. The band width at $z < 1.5$ is $\Delta w \sim 0.1$--$0.2$, comparable to current DESI statistical uncertainties.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\textwidth]{../fig_pcoll_band.pdf}
+\caption{Systematic uncertainty band for the $\mathcal{P}_{\rm coll}$-driven model. The central curve uses the Sheth-Tormen halo mass function with $M_{\rm min}=10^8 M_\odot$. The shaded band spans the variation from using Press-Schechter and Tinker mass functions and varying $M_{\rm min}$ between $10^6 M_\odot$ and $10^{12} M_\odot$. DESI DR2 binned constraints from Li (2025) and Pang (2025) are overplotted for comparison. The band width $\Delta w \sim 0.1$--$0.2$ is comparable to DESI statistical uncertainties.}
+\label{sm:fig_band}
+\end{figure}
+
+\section{Comparison of Drivers: $\mathcal{P}_{\rm coll}$ vs. SFR}
+
+Table~1 compares the normalized driving functions. The factor-of-2 variation between halo mass function variants at $z=2$ (Tinker: 7.67 vs.\ Sheth-Tormen: 3.88) is the dominant systematic uncertainty in the driving function at high redshift. Given the DESI error bar $\Delta w = \pm 0.35$ at $z=2.0$, this variation does not qualitatively change the model predictions but must be accounted for in quantitative forecasts.
+
+\begin{table}[h]
+\centering
+\caption{Normalized driving functions at key redshifts. The factor-of-2 variation between Tinker and Sheth-Tormen at $z=2$ is the largest systematic uncertainty.}
+\begin{tabular}{lccccc}
+\toprule
+Driver & $z=0$ & $z=0.5$ & $z=1.0$ & $z=2.0$ & Peak $z$ \\
+\midrule
+$\mathcal{P}_{\rm coll}$ (Sheth-Tormen) & 1.00 & 2.47 & 4.22 & 3.88 & 1.44 \\
+$\mathcal{P}_{\rm coll}$ (Press-Schechter) & 1.00 & 2.31 & 3.72 & 2.93 & 1.52 \\
+$\mathcal{P}_{\rm coll}$ (Tinker) & 1.00 & 2.14 & 4.89 & 7.67 & 1.98 \\
+SFR (Madau-Dickinson 2014) & 1.00 & 2.92 & 5.79 & 8.81 & 1.89 \\
+SFR (Behroozi+ 2019) & 1.00 & 2.41 & 4.12 & 5.02 & 2.10 \\
+SFR (Driver+ 2018) & 1.00 & 3.11 & 5.93 & 7.22 & 1.55 \\
+\bottomrule
+\end{tabular}
+\label{sm:tab_drivers}
+\end{table}
+
+\section{Best-Fit $w(z)$ for Each Parameter Set}
+
+Table~2 provides the best-fit parameters and per-bin $\chi^2$ contributions. \textbf{Key finding:} The SFR driver produces phantom crossing ($w < -1$ at $z=1.25$), while the $\mathcal{P}_{\rm coll}$ driver yields $w(z) > -1$ at all DESI bins with $w(z)$ approaching $-1$ near the structure formation peak. Both drivers improve over $\Lambda$CDM. The $\chi^2$ values should be interpreted as indicative only (see caveats in main text \S5).
+
+The breakdown of $\Lambda$CDM $\chi^2 = 5.69$ by bin is: $z=0.25$: 5.44; $z=0.75$: 0.11; $z=1.25$: 0.05; $z=2.00$: 0.08. Thus 96\% of the $\Lambda$CDM $\chi^2$ penalty comes from a single data point at $z=0.25$. The model's $\Delta\chi^2 \approx 5$ is therefore driven almost entirely by fitting this one bin.
+
+\begin{table}[h]
+\centering
+\caption{Best-fit parameters and binned $w(z)$ predictions. $\Lambda$CDM shown for comparison. No formal error estimates on best-fit parameters are reported due to the small number of data points (4) and the acknowledged $\kappa$--$a_c^2$ degeneracy.}
+\begin{tabular}{lccccc}
+\toprule
+ & $\mathcal{P}_{\rm coll}$ & SFR (MD14) & $\Lambda$CDM & DESI $\pm$ \\
+\midrule
+$\Omega_c/H_0$ & 20 & 10 & --- & --- \\
+$\gamma/H_0$ & 10 & 10 & --- & --- \\
+$\tilde{\eta}/H_0$ & 2.0 & 1.0 & --- & --- \\
+$a_c^2$ (effective) & 0.28 & 0.15 & --- & --- \\
+\midrule
+$w(z=0.25)$ & $-0.79$ & $-0.79$ & $-1.00$ & $-0.72 \pm 0.12$ \\
+$w(z=0.75)$ & $-0.91$ & $-0.88$ & $-1.00$ & $-0.95 \pm 0.15$ \\
+$w(z=1.25)$ & $-0.91$ & $-1.01$ & $-1.00$ & $-1.05 \pm 0.22$ \\
+$w(z=2.00)$ & $-0.80$ & $-0.90$ & $-1.00$ & $-0.90 \pm 0.35$ \\
+\midrule
+$\chi^2$ & 0.95 & 0.52 & 5.69 & --- \\
+dof & 2 & 2 & 4 & --- \\
+\bottomrule
+\end{tabular}
+\label{sm:tab_results}
+\end{table}
+
+\section{Validity of the Linear $w+1$ Expansion}
+
+The formula $w(z)+1 = \kappa(a_c^2 - |\mathcal{A}(z)|^2)$ is a first-order Taylor expansion of a more general relation $w+1 = F(|\mathcal{A}|^2)$ about the critical point, with $F(a_c^2) = 0$. Table~3 shows the range of $|\mathcal{A}|^2/a_c^2$ for the best-fit parameters.
+
+\begin{table}[h]
+\centering
+\caption{Range of $|\mathcal{A}|^2/a_c^2$ for the $\mathcal{P}_{\rm coll}$-driven best fit. The expansion is most accurate near $z \sim 1$ where $|\mathcal{A}|^2/a_c^2 \sim 0.85$ ($||\mathcal{A}|^2/a_c^2 - 1| = 0.15$) and becomes marginal at $z=0$ ($||\mathcal{A}|^2/a_c^2 - 1| = 0.99$) and at $z > 2$.}
+\begin{tabular}{lccccc}
+\toprule
+ & $z=0$ & $z=0.5$ & $z=1.0$ & $z=2.0$ & $z=3.0$ \\
+\midrule
+$|\mathcal{A}|^2/a_c^2$ & 0.01 & 0.26 & 0.85 & 0.78 & 0.31 \\
+\bottomrule
+\end{tabular}
+\label{sm:tab_range}
+\end{table}
+
+The expansion is valid ($||\mathcal{A}|^2/a_c^2 - 1| \ll 1$) near the crossing redshift ($z \sim 1$), but becomes marginal at $z=0$ and $z=2$. The CPL fit over $0 < z < 5$ partially compensates for the non-linearity at the extremes. A fully nonlinear treatment of $F(|\mathcal{A}|^2)$ is left to future work; the linear approximation captures the essential sign change of $w+1$ at the critical point while remaining analytically tractable.
+
+\section{The Landauer Assumption: Detailed Discussion}
+
+\subsection{Standard Landauer principle}
+
+Landauer (1961) proved that erasing one bit of information in a system in contact with a thermal bath at temperature $T$ dissipates a minimum energy $k_B T \ln 2$. The proof assumes: (a) the system Hamiltonian is bounded from below, (b) the dynamics are Markovian and satisfy detailed balance, and (c) the erasure protocol is quasi-static.
+
+\subsection{Violations in self-gravitating systems}
+
+Gravitational collapse violates all three assumptions:
+\begin{enumerate}
+\item \textbf{Negative heat capacity.} Self-gravitating systems have $C_V < 0$: as they lose energy (become more bound), their velocity dispersion increases, so they grow hotter. The concept of a heat bath at fixed temperature $T$ is ill-defined.
+\item \textbf{Unbounded Hamiltonian.} The gravitational $N$-body potential is not bounded below---there is no ground state. This invalidates the quasi-static erasure assumption.
+\item \textbf{Non-Markovian relaxation.} Violent relaxation (Lynden-Bell 1967) is a collisionless, phase-mixing process that is inherently non-Markovian. The fluctuation-dissipation theorem does not hold.
+\end{enumerate}
+
+\subsection{Status in this work}
+
+We treat the Landauer bridge $\dot{\mathcal{I}} = \mathcal{P}_{\rm coll}/k_B T_{\rm eff}$ as a working hypothesis, not an established result. The model can function without it: $\mathcal{P}_{\rm coll}(z)$ (or SFR$(z)$) can be used directly as the driving function $f(t)$, with the information-theoretic interpretation serving as physical motivation rather than logical necessity. If future work (e.g., from the AdS/CFT or holographic entropy communities) provides a rigorous derivation of the information-energy relation for gravitational collapse, the bridge becomes a theorem. If future work refutes it, the phenomenological model stands or falls on its own merits.
+
+\section{Quantum Simulation Protocol (Proposed)}
+
+\subsection{Hardware requirements}
+
+\begin{itemize}
+\item $N = 3$--$5$ superconducting transmon qubits with all-to-all capacitive coupling
+\item Independent microwave drive lines for each qubit ($XY$ control)
+\item Tunable qubit-qubit coupling ($ZZ$ interaction) implementing the Ising term
+\item Engineered dissipation via a cold resistor or parametric pumping ($T_1$ control)
+\item FPGA-based feedback for real-time mean-field update (optional, for $N > 3$)
+\end{itemize}
+
+\subsection{Protocol}
+
+\begin{enumerate}
+\item Initialize all qubits in $|0\rangle^{\otimes N}$ (undetermined state).
+\item Apply global Ising coupling $g\sum_{i<j}\sigma_z^{(i)}\sigma_z^{(j)}$ with tunable strength.
+\item Apply time-dependent drive $\tilde{\eta} f(t)$ with $f(t)$ following the cosmological $\mathcal{P}_{\rm coll}(z(t))$ profile, compressed to $\sim 100$ ns.
+\item Measure $\langle\sigma_z^{(i)}\rangle$ for each qubit via dispersive readout.
+\item Compute $|\mathcal{A}|^2 = (1 - \langle\sigma_z\rangle)/2$.
+\item Scan $\tilde{\eta}$ and identify the critical drive strength $\tilde{\eta}_c$ at which $|\mathcal{A}|^2$ crosses $a_c^2$.
+\item Compare measured $a_c^2$ with the theoretical prediction $a_c^2 = 1/2$ (symmetric case).
+\end{enumerate}
+
+\subsection{Expected signal}
+
+For $N=3$ and $\gamma/\Omega_c \sim 0.5$, the theory predicts $a_c^2 = 1/2$ (Hamiltonian value) and a smooth crossover at $\tilde{\eta}_c \approx \gamma/(2f_{\rm max}|1-2a_c^2|)$. For the symmetric case ($a_c^2 = 1/2$), the steady-state cannot sit at the critical point, so the crossing must be observed as a transient during the drive sweep. The finite-size rounding of the transition scales as $\Delta \tilde{\eta}/\tilde{\eta}_c \sim N^{-1/2} \sim 0.6$, so a sharp transition is not expected at $N=3$. The qualitative signature---$|\mathcal{A}|^2$ increasing monotonically with $\tilde{\eta}$ and crossing $1/2$---is the observable target.
+
+\begin{thebibliography}{99}
+
+\bibitem{Lacey:1993}
+C.~Lacey and S.~Cole, Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{262}, 627 (1993).
+
+\bibitem{Sasaki:1994}
+S.~Sasaki, Publ.\ Astron.\ Soc.\ Japan \textbf{46}, 427 (1994).
+
+\bibitem{Breuer:2002}
+H.-P.~Breuer and F.~Petruccione, \textit{The Theory of Open Quantum Systems} (Oxford University Press, 2002).
+
+\bibitem{Salathe:2015}
+Y.~Salathe et al., Phys.\ Rev.\ X \textbf{5}, 021027 (2015).
+
+\bibitem{Barends:2016}
+R.~Barends et al., Nature \textbf{534}, 222 (2016).
+
+\bibitem{LyndenBell:1967}
+D.~Lynden-Bell, Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{136}, 101 (1967).
+
+\bibitem{Landauer:1961}
+R.~Landauer, IBM J.\ Res.\ Dev.\ \textbf{5}, 183 (1961).
+
+\bibitem{Sheth:1999}
+R.~K.~Sheth and G.~Tormen, Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{308}, 119 (1999).
+
+\bibitem{Eisenstein:1998}
+D.~J.~Eisenstein and W.~Hu, Astrophys.\ J.\ \textbf{496}, 605 (1998).
+
+\bibitem{Tinker:2008}
+J.~Tinker et al., Astrophys.\ J.\ \textbf{688}, 709 (2008).
+
+\bibitem{Madau:2014}
+P.~Madau and M.~Dickinson, Ann.\ Rev.\ Astron.\ Astrophys.\ \textbf{52}, 415 (2014).
+
+\bibitem{Behroozi:2019}
+P.~Behroozi et al., Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{488}, 3142 (2019).
+
+\bibitem{Driver:2018}
+S.~P.~Driver et al., Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{475}, 2891 (2018).
+
+\bibitem{Gough:2025}
+M.~P.~Gough, Entropy \textbf{27}, 110 (2025).
+
+\end{thebibliography}
+
+\end{document}

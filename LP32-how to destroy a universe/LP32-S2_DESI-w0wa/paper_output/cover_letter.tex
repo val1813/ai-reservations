@@ -1,0 +1,29 @@
+\documentclass[12pt]{letter}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{hyperref}
+
+\address{Independent Researcher\\Nanjing, China}
+\signature{Huang Zhongchang}
+
+\begin{document}
+
+\begin{letter}{Editor\\Physical Review D}
+
+\opening{Dear Editor,}
+
+We submit the revised manuscript ``A Quantum Many-Body Theory of Information Dark Energy'' for consideration in Physical Review D. This revision addresses all issues raised in the referee report, with particular attention to correcting the Langevin equation derivation and reconciling the two driver variants. We confirm that this manuscript has not been published previously, is not under consideration elsewhere, and that all authors have approved the submission. We suggest the following referees who have relevant expertise and no conflicts of interest: Eric Linder (dark energy phenomenology, UC Berkeley), Wayne Hu (phantom crossing theory, University of Chicago), and an expert in quantum many-body theory (Dicke model/Ising model, open quantum systems).
+
+\textbf{What this paper does.} Gough [Entropy 27, 110 (2025)] recently identified an empirical correlation between the cosmic star formation history and the dark energy equation of state favored by DESI DR2---but no microscopic theory was available. We provide that theory. Dark energy, we propose, emerges from a driven-dissipative ensemble of cosmic two-level systems (qubits), each representing a quantum of information capacity. Gravitational collapse processes information by determining qubits from $|0\rangle$ to $|1\rangle$. The collective dynamics follow a complex Langevin equation derived from the Lindblad master equation, $d\mathcal{A}/dt = -i\Omega_c(a_c^2 - |\mathcal{A}|^2)\mathcal{A} - \gamma\mathcal{A} + i\tilde{\eta}f(t)(1-2|\mathcal{A}|^2)$, where the factor $(1-2|\mathcal{A}|^2) = \langle\sigma_z\rangle$ provides self-limiting feedback essential to the dynamics. The phantom crossing ($w$ crossing $-1$) occurs when the determined fraction passes through the critical value $a_c^2$, derived from the Curie-Weiss mean-field theory of the $N$-qubit transverse Ising model.
+
+\textbf{What is new.} (1) A microscopic theory for Gough's empirical finding---the first to provide a dynamical equation derived from the Lindblad master equation, a Hamiltonian, and parameters ($\Omega_c$, $\gamma$) cosmologically calibrated against DESI data, with $a_c^2 = 1/2$ derived from the symmetric limit of the Hamiltonian. (2) The phantom crossing mechanism as an energy-gap sign flip in the qubit ensemble, conceptually distinct from prior mechanisms (Hu 2005, quintom, DM-DE interaction). (3) The driving function computed from gravitational collapse power using standard cosmological inputs (halo model, linear power spectrum, Planck 2018 parameters)---less phenomenologically dependent than the SFR driver but still relying on $N$-body calibrated quantities. (4) A proposed analog quantum simulation on 3--5 qubit chips as a future test of the dynamical crossing mechanism.
+
+\textbf{What changed in revision.} This revision corrects a significant error in the original submission. The Langevin equation previously omitted the $\langle\sigma_z\rangle = 1-2|\mathcal{A}|^2$ factor in the drive term and the factor of $i$ (rotation in the complex plane), rendering it valid only at the critical point. The corrected equation (Eq.~(5)) now properly includes both factors, making it consistent with the Lindblad derivation for all $|\mathcal{A}|^2$. We have also restructured the narrative to honestly present both driver variants: the SFR driver (phenomenological baseline, directly from Gough's finding) produces phantom crossing, while the $\mathcal{P}_{\rm coll}$ driver (first-principles refinement) yields $w(z) > -1$ at all observed redshifts but approaching $-1$. The truth likely lies between the two. Both improve over $\Lambda$CDM at the $\sim 2\sigma$ level. We acknowledge that: (i) the $\Delta\chi^2$ is indicative only, driven primarily by a single DESI binned data point at $z=0.25$, and not based on the official DESI DR2 likelihood; (ii) $\Omega_c$ and $\gamma$ have no formal error estimates due to the small number of data points (4); (iii) the CPL-extrapolated $w_0$ calibration is model-dependent; (iv) the linear $w+1$ expansion is marginal at low and high $z$; and (v) the Landauer-principle assumption for self-gravitating systems remains a working hypothesis, not an established result. The Supplemental Material now contains complete algebraic derivations, cross-referenced from the main text, and the main text includes explicit discussions of the high-redshift $\Lambda$CDM recovery, single-point $\chi^2$ dominance, and quantitative DR3 forecasts.
+
+\textbf{Why PRD.} The paper provides a new theoretical framework (quantum many-body theory applied to dark energy) with honest scoping. It does not claim a detection (the evidence is $\sim 2\sigma$, indicative), it explicitly discusses the weakest assumption (Landauer's principle for self-gravitating systems), and it engages thoroughly with prior art (Gough 2025, Hu 2005, Martineau \& Brandenberger 2005, Zhao et al.\ 2009). We believe this combination of theoretical novelty and transparent limitation acknowledgment is appropriate for PRD.
+
+\textbf{Relation to prior work.} This paper is explicitly positioned as the microscopic theory for Gough's empirical finding, not as a paradigm invention. All relevant prior art is cited and distinguished in the main text, including Hu (2005), Feng et al. (2005), Martineau \& Brandenberger (2005), Zhao et al. (2009), and Mishra (2026). The DGF internal note has been removed; its essential content (the distinction between constructive and destructive determination encoded in the complex phase) is now included directly in the main text.
+
+\closing{Sincerely,}
+
+\end{letter}
+\end{document}

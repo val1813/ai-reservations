@@ -1,0 +1,16 @@
+{
+  "target_journal": "PRD (Physical Review D)",
+  "documentclass": "revtex4-2, aps, prd, twocolumn",
+  "paper_type": "research",
+  "output_language": "English",
+  "build_mode": "rewrite_existing",
+  "target_word_count": 3500,
+  "abstract_word_limit": 150,
+  "input_files": {
+    "main": "paper/main.tex",
+    "sm": "paper/sm.tex",
+    "cover_letter": "paper/cover_letter.tex"
+  },
+  "research_context": "LP32-S2: DGF信息容量→DESI DR2动态暗能量",
+  "core_claim": "Quantum many-body qubit ensemble with complex Langevin dynamics produces phantom-crossing w(z) matching DESI DR2"
+}

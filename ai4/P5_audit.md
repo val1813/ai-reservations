@@ -27,17 +27,29 @@
 [ ] ⛔ 数据非随机生成/经验复用?
 ```
 
-## §3 LaTeX编译 — ⛔ 三份全部编译
+## §3 LaTeX编译 — ⛔ 三份全部编译 (每份2遍)
 
 ```
-[ ] 编译 main.tex → paper_output/final_paper/paper.pdf
-[ ] 编译 supplemental_material.tex → paper_output/final_paper/supplemental_material.pdf
-[ ] 编译 cover_letter.tex → paper_output/final_paper/cover_letter.pdf
-[ ] 三份均编译无错误? → 通过
-[ ] 任一份编译有Warning? → 检查是否影响排版
-[ ] 任一份编译失败? → ⛔ 阻断,修复后重试
-[ ] 图表正确嵌入PDF?
-[ ] 引用和交叉引用正确解析? (正文+SM各自独立编译)
+⛔ 引用解析需要2遍编译。只跑1遍→引用序号全部为[?]。
+
+每份.tex文件执行完整序列:
+  [ ] pdflatex [file].tex        (第1遍: 生成.aux, 引用暂为[?])
+  [ ] bibtex [file]               (解析引用, 生成.bbl)
+      (如果使用\bibitem而非.bib → 跳过bibtex, 直接pdflatex第2遍)
+  [ ] pdflatex [file].tex        (第2遍: 引用正确显示)
+  [ ] pdflatex [file].tex        (第3遍: 交叉引用+页码+目录稳定)
+
+三份文件独立执行:
+  [ ] main.tex: pdflatex→bibtex→pdflatex→pdflatex → paper.pdf
+  [ ] supplemental_material.tex: 同上 → supplemental_material.pdf
+  [ ] cover_letter.tex: pdflatex→pdflatex → cover_letter.pdf (通常无引用)
+
+编译后验证:
+  [ ] 三份均编译无错误? → 通过
+  [ ] grep "Citation.*undefined" 或 "[?]" → 引用未解析,⛔阻断
+  [ ] 任一份编译有Warning? → 检查是否影响排版
+  [ ] 图表正确嵌入PDF?
+  [ ] 交叉引用(\\ref{})正确解析?
 ```
 
 ⛔ 三个PDF缺一不可。投稿时大多数期刊要求SM和CoverLetter也是PDF格式。

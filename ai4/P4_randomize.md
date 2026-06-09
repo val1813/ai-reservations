@@ -321,3 +321,137 @@ Figure/Table caption (另有格式)
 itemize/enumerate内容 (列表格式固定)
 Abstract (单独处理: L总词数 + N句子数(4-7) + Break在第几句后转折)
 ```
+
+### §7a. 公式段落特殊处理 (物理/数学论文)
+
+物理数学论文公式密集。随机化前必须先分类:
+
+**步骤1: 计算每段的公式占比**
+
+对每段执行(用Python或手工):
+```python
+import re
+# 去掉display equations和inline math后统计文本长度
+text_only = re.sub(r'\$\$.*?\$\$', '', paragraph, flags=re.DOTALL)  # display eq
+text_only = re.sub(r'\$[^$]+\$', '', text_only)  # inline math
+text_only = re.sub(r'\\begin\{equation\}.*?\\end\{equation\}', '', text_only, flags=re.DOTALL)
+text_only = re.sub(r'\\begin\{align\}.*?\\end\{align\}', '', text_only, flags=re.DOTALL)
+formula_ratio = 1 - len(text_only) / len(paragraph)
+```
+
+**步骤2: 按公式占比分级处理**
+
+```
+Type T (文本主导, formula_ratio < 0.3):
+  → 完整14维随机化,正常处理
+  S计数: 按text_only的句号/问号/感叹号计数
+
+Type M (混合, 0.3 ≤ formula_ratio < 0.6):
+  → 降级为6维: [T, V, E, C, R, B] (去掉S/K/W/D/F/L/H)
+  保留叙事结构参数,放弃句长和密度参数
+  句长不再约束——公式自然打破均匀性
+
+Type E (公式主导, formula_ratio ≥ 0.6):
+  → 最少2维: [T, V]
+  只控制段落模板和语气色彩。其余参数不约束。
+  这类段落的"人类感"来自公式本身的不规则性。
+
+Theorem/Proof block: 不参与随机化,完全保持原样。
+```
+
+**步骤3: 全局约束调整**
+
+公式段落多的论文,全局约束相应放宽:
+- S值只统计Type T段落 (公式段落的S本就不受控)
+- W值只统计Type T段落
+- 方差约束: 如果Type T段落<全文50% → S std>2.0即可 (原2.5),W std>3.0即可 (原4.0)
+
+**步骤4: 执行**
+
+生成Blueprint前先对全文每段分类。Blueprint只包含Type T和M的参数,Type E标注"E级:仅[T,V]"。
+
+---
+
+## §8 去AI词汇 — ⛔ 替换清单
+
+随机化管结构统计,词汇层面由本节管。以下词汇和句式已学被检测器识别,
+Phase 4逐段重写时必须替换。
+
+### 8a. 禁止连接词/过渡词 (用更人类化的方式替代)
+
+| 禁止 | 原因 | 替代 |
+|------|------|------|
+| Moreover, Furthermore, | AI高频,均匀分布 | 偶尔用Also/Beyond this,更多时候省略直接陈述 |
+| Nevertheless, Nonetheless, | AI最爱转折 | However(1段最多1次)或用具体对比句 |
+| In conclusion, | AI标准收尾 | 直接陈述结论,不用前缀 |
+| Firstly... Secondly... Finally... | AI穷举模板 | 不对称表达: "One factor is... Another... The third..." |
+| It is worth noting that | AI标志句 | 删除,直接写内容 |
+| It should be emphasized that | 同上 | 删除,直接写内容 |
+| plays a crucial/important role | AI空洞强调 | 用具体机制替代:"enables X by providing Y" |
+| has garnered significant attention | AI文献综述套话 | 不写"受关注",写具体为什么重要 |
+| In this paper, we... / This paper presents... | AI论文开头模板(允许用1次在Abstract) | 正文中最多出现1次,其余省略直接论述 |
+| As mentioned above / As discussed earlier | AI自我引用套话 | 直接用"Section X showed that..."或省略 |
+
+### 8b. 禁止hedging措辞 (GPTZero已专门训练识别)
+
+```
+⛔ 绝对禁止:
+  "We should be candid about..."
+  "It remains an open question whether..."
+  "We leave this for future work."
+  "Further investigation is warranted."
+  "Future studies should..."
+  "This warrants further investigation."
+
+替代: 具体化。不说"有待未来研究",说"当前数据在X条件下不适用,扩展到X需要Y工具"。
+```
+
+### 8c. 禁止句式结构 (AI pattern,非词汇)
+
+```
+⛔ "Not X; it is Y" 或 "X is not Y; rather, it is Z" → 全文≤1次
+⛔ 分号对仗: "Star does A; Chain does B; Cyclic does C" → 全文≤1次
+⛔ 穷举: "spanning A, B, C, and D" / "including X, Y, and Z" → 全文≤1次
+⛔ 连续2句相同主语-谓语结构: "X shows... Y demonstrates..." → 改写
+⛔ 每个段落以However/Thus/Therefore开头 → 不超过全文20%段落
+```
+
+### 8d. 连接词密度硬限
+
+```
+全文连接词密度: ≤4个/1000词 (AI通常8-15个/1000词)
+连接词必须集中在2-3个关键转折处,其余段落零连接词
+检查: 全文C值总和 ≤ 段落数×0.8
+```
+
+### 8e. 不确定性表达多样性
+
+如果必须使用"不确定"表述,不能重复同一写法:
+
+| 可用 | 例子 |
+|------|------|
+| 数据层面 | "The data suggest X but the sample size limits..." |
+| 机制层面 | "We cannot explain why the optimum is at 0.02..." |
+| 范围层面 | "Whether this holds beyond N=7 we have not tested." |
+| 隐式(不说uncertain) | "The connection is formal at best." |
+
+全文V=3出现2-3次,必须来自不同子类。连续2次同一子类→重写。
+
+### 8f. Abstract特殊规则
+
+```
+禁止: "Here we present..." / "In this work, we demonstrate..."
+替代: 直接陈述。 "X is shown to Y." 而不是 "In this paper, we show X does Y."
+
+禁止: contribution list三条完全等长平行
+替代: 长度刻意不等(一条1句,一条3句,一条2句)
+
+禁止: 最后一句安全收尾 ("These results open new avenues...")
+替代: 具体期待或直接停
+```
+
+### 8g. 执行
+
+逐段重写时(Phase 4 §5 Step 6),每段写完后检查上述清单。命中→重写该段。
+全文完成后→用Phase清单 Phase 4f做终检。
+

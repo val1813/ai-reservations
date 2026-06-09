@@ -1,0 +1,10 @@
+parameter,value,uncertainty
+N_E1,500,
+p_E1,0.7,
+slope_b,0.68117208,0.13374809
+intercept_a,2.23462890,
+R2,0.59033296,
+slope_b_constrained,3.66027098,0.25687177
+c2_median,0.64226315,
+c2_mean,0.64555838,
+c2_std,0.18788880,

@@ -1,0 +1,97 @@
+\documentclass[aps,pra,onecolumn]{revtex4-2}
+\usepackage{amsmath,amssymb,booktabs}
+\begin{document}
+
+\title{Supplemental Material: Capacity-Normalized Bound on Non-Markovian Backflow}
+
+\maketitle
+
+\section{Complete Proof with Domain Conditions}
+
+\subsection{Definitions}
+
+$N_S$, $N_E$: total qubits in system $S$ and environment $E$. The pointer basis $\{|0\rangle,|1\rangle\}$ is einselected by $H_{\rm int}$ [Eq.~(1), main text]. $q_S = N_S^{-1}\sum_{i\in S}\langle 0|\rho_i|0\rangle$, $q_E$ defined analogously. $C_F \equiv N_E q_E$ is the forward transfer capacity. $N_{\rm back}$ is the number of backflow events ($E \to S$ determination transfers). $\mathcal{R} \equiv N_{\rm back}/C_F$ is the capacity-normalized backflow ratio.
+
+\subsection{Proof}
+
+\textbf{Step 1: Forward capacity.} The Lindblad jump $L_{S\to E}=|1\rangle\langle 1|_S\otimes|1\rangle\langle 0|_E$ toggles an $E$-qubit from $|0\rangle$ to $|1\rangle$ when the source $S$-qubit is $|1\rangle$. An $E$-qubit already at $|1\rangle$ is unaffected. The forward transfer capacity---the maximum number of $E$-qubits that can receive determination---is therefore $C_F = N_E q_E$, the number of initially undetermined $E$-qubits.
+
+\textbf{Step 2: Backflow bound.} Backflow events toggle $S$-qubits from $|0\rangle$ to $|1\rangle$ via $L_{E\to S}$. Since no reverse channel exists (neither $H_{\rm int}$ nor any Lindblad operator contains $|0\rangle\langle 1|$), each $S$-qubit can toggle at most once. The total number of $S$-qubits that can be toggled during backflow is bounded by the number of initially undetermined $S$-qubits: $N_{\rm back} \leq N_S q_S$.
+
+\textbf{Step 3: Ratio bound.} $\mathcal{R} \equiv N_{\rm back}/C_F \leq N_S q_S/(N_E q_E)$. For $N_S = N_E$: $\mathcal{R} \leq q_S/q_E$. $\square$
+
+\subsection{Domain conditions}
+
+The bound requires:
+\begin{enumerate}
+\item $q_E > 0$. If $q_E = 0$, all $E$-qubits are initially determined, $C_F = 0$, and $\mathcal{R}$ is undefined. Physically: no forward transfer is possible, so the question of backflow relative to forward capacity is ill-posed.
+\item $N_S, N_E \geq 1$ (non-empty system and environment).
+\item The pointer basis is binary with unidirectional dynamics ($|0\rangle\langle 1|$ absent from $H_{\rm int}$ and all Lindblad operators).
+\end{enumerate}
+
+The bound is non-trivial ($\mathcal{R} < 1$) when $N_S q_S < N_E q_E$. For equal sizes, this is $q_S < q_E$.
+
+\subsection{Why $\mathcal{R}$ is not the actual reflux fraction}
+
+The actual fraction of forward-transfer events that reverse is $f_{\rm reflux} \equiv N_{\rm back}/N_F$, where $N_F$ is the actual number of forward transfer events ($N_F \leq C_F$). Since $N_F \leq C_F$, we have:
+\begin{equation}
+f_{\rm reflux} = \frac{N_{\rm back}}{N_F} \geq \frac{N_{\rm back}}{C_F} = \mathcal{R}.
+\end{equation}
+
+The inequality direction means that a bound on $\mathcal{R}$ does \textbf{not} provide an upper bound on $f_{\rm reflux}$---it provides a lower bound. To obtain an upper bound on $f_{\rm reflux}$, one would need a lower bound on $N_F$, which requires dynamical assumptions beyond the counting argument (e.g., a minimum number of applied forward gates).
+
+We define $\mathcal{R}$ as the quantity of interest because it admits a strict combinatorial upper bound. The physical interpretation of $\mathcal{R}$ is: ``backflow events per unit of forward capacity.'' This is a meaningful quantity for systems where the forward capacity is the relevant scale---e.g., a quantum device with a fixed number of preparation-measurement cycles.
+
+\section{Physical Origin of $L_{S\to E}$}
+
+The jump operator $L_{S\to E}=|1\rangle\langle 1|_S\otimes|1\rangle\langle 0|_E$ describes a conditional excitation. When the source qubit is $|1\rangle$ and the target is $|0\rangle$, the target flips. In quantum optical terms, this is a resonant Jaynes-Cummings interaction $H_{\rm transf} = g(\sigma_+^{(S)}\sigma_-^{(E)} + {\rm h.c.})$ combined with dispersive measurement that projects the source onto the pointer basis. After tracing over the mediating mode in the Born-Markov limit, one obtains the effective jump operator $L$.
+
+The operator contains $|1\rangle\langle 0|$ but not $|0\rangle\langle 1|$. This asymmetry has an energetic origin: the $|1\rangle$ state is well-separated from $|0\rangle$ by an energy gap $\Delta E$, so spontaneous emission $|1\rangle \to |0\rangle$ is suppressed by the Boltzmann factor $e^{-\Delta E/k_B T} \ll 1$ when $k_B T \ll \Delta E$. This is the same energy asymmetry noted in the main text---the absence of a $|0\rangle\langle 1|$ term in $L$ reflects $\Delta E \gg k_B T$, under which spontaneous de-determination is exponentially suppressed.
+
+\section{Relation to the MSV Entropic Bound}
+
+Megier, Smirne, and Vacchini (MSV)~\cite{Megier:2021} proved that non-Markovian backflow is bounded by the Holevo skew divergence between the joint system-environment state and the product of marginals. Their bound takes the form:
+\begin{equation}
+I_\mu(t,s) \leq \kappa\Big(\sqrt[4]{S_\mu(\varrho(s), \varrho_S(s) \otimes \varrho_E(s))} + \cdots\Big)
+\end{equation}
+where $S_\mu$ is the Holevo skew divergence. This bound applies to any CPTP dynamics and requires reconstruction of $\varrho_{SE}$, $\varrho_S$, and $\varrho_E$ via quantum state tomography.
+
+Our bound $\mathcal{R} \leq q_S/q_E$ is narrower in domain (requires unidirectional Lindblad structure) but operationally simpler: $q_S$ and $q_E$ are projective measurement averages, accessible without full tomography. The two bounds are complementary---MSV for dynamical generality, ours for operational accessibility.
+
+\textbf{Key difference:} MSV bounds the actual information backflow $I_\mu(t,s)$ from above. Our counting argument bounds $\mathcal{R} = N_{\rm back}/C_F$, which is a capacity-normalized event count, not an information-theoretic quantity. The MSV bound constrains \textit{how much} information flows back; ours constrains \textit{how many} backflow events can occur relative to the forward capacity. The connection between the two---mapping event counts to information-theoretic quantities---requires a channel model linking toggle events to bits of transmitted information, which the unidirectional $L$ operator provides.
+
+\section{Gate-Level Considerations for Implementation}
+
+While the bound follows logically from the model assumptions, implementing the unidirectional $L$ operator on physical hardware involves practical considerations that determine whether a violation can be distinguished from gate error.
+
+\subsection{Stinespring implementation}
+
+The Lindblad jump $L_{S\to E} = |1\rangle\langle 1|_S \otimes |1\rangle\langle 0|_E$ can be implemented via Stinespring dilation on $\{S, E, \text{ancilla}\}$: a Toffoli gate controlled by $\{S, \text{ancilla}\}$ targeting $E$, with the ancilla encoding whether $E$ is $|0\rangle$. On superconducting hardware, the Toffoli decomposes into 6 CNOTs plus single-qubit gates~\cite{Shende:2009}. With CNOT fidelity $\sim 99.7\%$, a single Stinespring block has fidelity $\approx 98.2\%$.
+
+For a protocol with $k$ Stinespring blocks (covering both forward and backflow phases), the cumulative gate fidelity is $(0.982)^k$. For $k=18$ (9 forward + 9 backflow on a $3 \times 3$ all-to-all system), this is $\approx 72\%$. The $\sim 28\%$ gate failure probability contributes to the systematic uncertainty on $\mathcal{R}$. Failures can produce both false positives (a gate misfire creates a spurious toggle) and false negatives (a gate fails to fire, missing a legitimate transfer). A detailed error propagation model is required to translate gate fidelity into an uncertainty on $\mathcal{R}$; this depends on the specific hardware implementation.
+
+\subsection{Cross-resonance alternative}
+
+A lower-depth approach uses the native $ZZ$ interaction on fixed-frequency transmons: a cross-resonance pulse $CR(\theta)$ on $\{S, E\}$ can implement a controlled rotation conditioned on $S$ being in $|1\rangle$. This reduces the effective two-qubit gate depth from 6 CNOTs to $\sim 2$ cross-resonance pulses per block. Prior independent characterization of the $|1\rangle$-conditional Rabi frequency (via standard randomized benchmarking on the same qubits) provides the gate fidelity without circular dependence on the bound measurement.
+
+\subsection{Distinguishing gate error from bound violation}
+
+If a measured $\mathcal{R}$ exceeds $q_S/q_E$, three explanations are possible: (a) gate error (a qubit toggled twice), (b) $T_1$ decay inflating the apparent $q_S$, or (c) violation of the finite-capacity hypothesis. Independent gate characterization---interleaved randomized benchmarking on the same qubits before and after the protocol---can bound the gate-error contribution. If the excess $\mathcal{R}$ exceeds the $3\sigma$ upper limit from gate characterization and the $T_1$ correction $\delta \sim \tau_{\rm prot}/T_1$, the finite-capacity hypothesis is excluded.
+
+A clean test of the hypothesis would use bidirectional interactions (gates that allow $|0\rangle \to |1\rangle$ and $|1\rangle \to |0\rangle$), where standard quantum mechanics permits higher $\mathcal{R}$ than the finite-capacity bound. This requires a different gate set and is left to future work.
+
+\begin{thebibliography}{2}
+
+\bibitem{Megier:2021}
+N.~Megier, A.~Smirne, and B.~Vacchini,
+Entropic bounds on information backflow,
+Phys.\ Rev.\ Lett.\ \textbf{127}, 030401 (2021).
+
+\bibitem{Shende:2009}
+V.~V.~Shende and I.~L.~Markov,
+On the CNOT-cost of Toffoli gates,
+Quantum Inf.\ Comput.\ \textbf{9}, 461 (2009).
+
+\end{thebibliography}
+
+\end{document}

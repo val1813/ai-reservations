@@ -1,0 +1,50 @@
+{
+  "project": "LP36",
+  "title": "W：因果历史累积结构",
+  "contributor": {
+    "orcid": "anonymous",
+    "github": "anonymous",
+    "name": "匿名贡献者"
+  },
+  "date": "2026-06-08",
+  "status": "有边界收官",
+  "conclusion_type": "理论假说（未取得实质性实验突破）",
+  "rounds": 4,
+  "experiments": 2,
+  "cold_audit": "三员一致：实验存在方法论致命漏洞，建议拒稿",
+  "core_claims": [
+    {
+      "id": "K-W1",
+      "claim": "β₁ = 因果Hasse图团复形1维Betti数 = E-V+b₀",
+      "fidelity": 0.85,
+      "verified_by": "A博士Theorem 7数学证明 + 960次MC数值确认"
+    },
+    {
+      "id": "K-W2",
+      "claim": "因果聚类性增强b₁存活",
+      "fidelity": 0.40,
+      "verified_by": "工作假设非推导；MC结果绑定代码实现"
+    },
+    {
+      "id": "K-W3",
+      "claim": "dim(W)=d^{b₁}候选形式（toric code类比下）",
+      "fidelity": 0.50,
+      "verified_by": "Kitaev/Bachmann定理跨域翻译；d_causal自由参数"
+    }
+  ],
+  "testable_predictions": 5,
+  "predictions_tested": 0,
+  "fatal_flaws": [
+    "CMB 'signal' was analytic multiplication, not injection-recovery",
+    "b₁ constancy is algebraic inevitability (b₁=E-V+b₀), not physical discovery",
+    "N_R/N_F dead code: propagation does not enter reset",
+    "Two experiments have zero logical connection",
+    "nside=32 too coarse for CMB Betti analysis"
+  ],
+  "remaining_assets": [
+    "A+B dual-path convergence on β₁ as W carrier",
+    "Theorem 7+8 (Hasse clique complex homology properties)",
+    "5 designed but unexecuted Planck-testable predictions",
+    "dim(W)=d^{b₁} candidate form with proper citations"
+  ]
+}

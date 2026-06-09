@@ -1,0 +1,39 @@
+{
+  "project": "LP35-Causal-Glass",
+  "status": "archived",
+  "date": "2026-06-08",
+  "contributor": {"github": "anonymous", "orcid": "anonymous"},
+  "nodes": [
+    {"id": "K-CG1", "label": "AG热激活证伪", "type": "rigorous", "confidence": 9,
+     "desc": "N_coop在AG指数中精确抵消->tau_alpha=tau_0。热激活所有变体不能为C[G]产生冻结"},
+    {"id": "K-CG2", "label": "C[G]非遍历性", "type": "verified", "confidence": 8,
+     "desc": "AB双路径独立验证。自旋玻璃CK框架+跨学科七类比"},
+    {"id": "K-CG3", "label": "DESI DR2 binned w(z)", "type": "data", "confidence": 6,
+     "desc": "3链54K样本。w非单调86.5%。z=0.87 phantom最深(-1.483)"},
+    {"id": "K-CG4", "label": "Pantheon+低z确认", "type": "data", "confidence": 5,
+     "desc": "1624 SNe。z<0.1 mu残差=-0.003+/-0.008。低z w->-1独立确认"},
+    {"id": "K-CG5", "label": "Phi_q序参量", "type": "hypothesis", "confidence": 4,
+     "desc": "Phi_q=|dH/dt|/H^2=1/n。穿越z=0.63。Phantom dip在Phi_q~1.13"},
+    {"id": "K-CG6", "label": "反转假设", "type": "framework", "confidence": 3,
+     "desc": "方向自洽但物理内容缺失。应力未定义。不可证伪"},
+    {"id": "K-CG7", "label": "统一框架", "type": "falsified", "confidence": 2,
+     "desc": "声张保真度0.10。循环论证。降级为观测笔记"},
+    {"id": "K-CG8", "label": "She(2007)先发", "type": "prior_art", "confidence": 7,
+     "desc": "landscape->glass->Lambda 19年前已发表。必须引用"},
+    {"id": "K-CG9", "label": "tau_explore未推导", "type": "root_cause", "confidence": 10,
+     "desc": "理论不可证伪的根因。所有REVIEWER Reject的共同原因"}
+  ],
+  "edges": [
+    {"from": "K-CG1", "to": "K-CG2", "label": "supports"},
+    {"from": "K-CG2", "to": "K-CG5", "label": "motivates"},
+    {"from": "K-CG5", "to": "K-CG6", "label": "enables"},
+    {"from": "K-CG6", "to": "K-CG7", "label": "generalizes_to"},
+    {"from": "K-CG9", "to": "K-CG5", "label": "blocks"},
+    {"from": "K-CG9", "to": "K-CG6", "label": "blocks"},
+    {"from": "K-CG8", "to": "K-CG5", "label": "prior_to"},
+    {"from": "K-CG3", "to": "K-CG6", "label": "constrains"},
+    {"from": "K-CG4", "to": "K-CG6", "label": "constrains"}
+  ],
+  "revival_condition": "Euclid DR1 (2026.10) OR tau_explore first-principles derivation",
+  "legacy": "AG thermal falsification is a rigorous mathematical result. Will constrain all thermal-activation dark energy models once Euclid confirms phantom dip."
+}

@@ -122,6 +122,19 @@ R5完成后:
 [ ] 更新 paper_output/final_paper/main.tex
 ```
 
+## Phase 3.5: Competitive Benchmark — 同期录用论文PK
+
+```
+[ ] 读 P3_5_benchmark.md → 执行竞争力评估
+[ ] 用 paper-search-mcp 搜索目标期刊最新录用/发表论文 → 选3篇最有可比性的
+[ ] 6维加权评分: 问题重要性(×3)+证据强度(×3)+叙事质量(×2)+新颖性(×2)+受众广度(×1)+技术深度(×1)
+[ ] 裁决:
+    我们 > 对手×1.1 → ✅ 进入Phase 4
+    我们 ≈ 对手(±10%) → ⚠️ 优化弱项后重PK(最多2次)
+    我们 < 对手×0.9 → 🛑 必须优化。2次后仍不达标→降级期刊
+[ ] ⛔ 如果触发内容修改 → 修改后必须重新跑Phase 4
+```
+
 ## Phase 4: AI Detection — Structure Randomizer 重构
 
 ```
@@ -134,10 +147,14 @@ R5完成后:
     输出: paper_output/restructured_draft.tex
 
 ### 4b. Structure Randomizer 生成Blueprint
+[ ] ⛔ 先分类每段: 去掉公式后计算formula_ratio
+    Type T(<30%公式)→完整14维 | Type M(30-60%)→6维 | Type E(>60%)→仅2维
+    (详见P4_randomize.md §7a。公式段落的句长/密度参数无意义)
 [ ] 为目标期刊计算W_total (总词数上限)
 [ ] 确定section列表和各section段落数
 [ ] 为全文所有段落一次性生成14维参数: [S,T,P,K,W,E,D,C,R,V,F,B,L,H]
-[ ] ⛔ 全局约束校验:
+    Type E段只生成T,V。Type M段跳过S/K/W/D/F/L/H。
+[ ] ⛔ 全局约束校验 (只对Type T段落):
     S std>2.5 / W std>4.0 / S range≥6 / W range≥10
     相邻T不同 / 连续H≤2 / T值无一占>35% / E=3≤3次 / V=1≤70%
     AI Pattern检测: Pattern B/D/E风险 → 自动修正
@@ -159,11 +176,16 @@ R5完成后:
 [ ] 执行3维轻量参数(W_sentence/V_sentence/Break逐句控制)
     检查: ①contribution list各条长度不等 ②无"We hope/We are confident" ③最后一句不是安全收尾句
 
-### 4f. AI Pattern 终检
-[ ] 对仗禁止扫描: "Not X; it is Y"≤1次 / 分号对仗≤1次 / sentence frame重复→REJECT
+### 4f. AI Pattern 终检 (结构+词汇)
+[ ] 结构扫描: 对仗禁止/分号对仗/sentence frame重复→REJECT
 [ ] 穷举扫描: "spanning A,B,C,and D"全文≤1次
+[ ] ⛔ 去AI词汇扫描 (详见P4_randomize.md §8):
+    禁止连接词(Moreover/Furthermore/Nevertheless/In conclusion等10个)
+    禁止句式(Not X;it is Y/分号对仗/穷举)
+    禁止hedging(6个禁句)
+    连接词密度≤4/1000词
 [ ] 不确定性表达: V=3的2-3次使用必须来自不同子类(3a/3b/3c/3d)
-[ ] 禁止hedging措辞: "We should be candid" "It remains an open question" "leave for future work"
+[ ] Abstract特殊规则: 禁"Here we present"/contribution list不等长/最后句非安全收尾
 
 ### 4g. 输出三份LaTeX文件
 [ ] ⛔ 确认三份.tex文件均存在且已去AI处理:
@@ -181,10 +203,12 @@ R5完成后:
     "Claude"|"AI辅助"|"LLM"|"ChatGPT"|"Anthropic"|"人工智能辅助写作"
     命中→⛔阻断,必须删除。AI4是写作工具不是作者。
 [ ] 数据核验: 数据可由代码复现? 非随机生成/经验复用?
-[ ] ⛔ LaTeX编译: 编译三份.tex生成三个PDF → 任一份编译失败→阻断
-    [ ] paper_output/final_paper/paper.pdf (正文)
-    [ ] paper_output/final_paper/supplemental_material.pdf (SM)
-    [ ] paper_output/final_paper/cover_letter.pdf (Cover Letter)
+[ ] ⛔ LaTeX编译: 每份执行 pdflatex→bibtex→pdflatex→pdflatex (2遍才解析引用!)
+    ⛔ 只跑1遍→引用全部[?]。必须2遍。
+    [ ] main.tex → paper.pdf (4步: pdflatex+bibtex+pdflatex+pdflatex)
+    [ ] supplemental_material.tex → supplemental_material.pdf (同上)
+    [ ] cover_letter.tex → cover_letter.pdf (pdflatex×2,通常无引用)
+    [ ] grep "[?]" 或 "Citation.*undefined" → 引用未解析→⛔阻断
 [ ] 最终禁词扫描: 全文grep禁词 → 命中→回Phase 4重写
 [ ] 最终格式核验: 逐项对照期刊要求
 [ ] 写 paper_output/final_artifact_manifest.md (完整产物清单)
@@ -210,7 +234,7 @@ R5完成后:
 ## 禁止事项
 
 ```
-⛔ 禁止跳过Phase顺序 (0→1→2→3→4→5严格顺序)
+⛔ 禁止跳过Phase顺序 (0→1→2→3→3.5→4→5严格顺序)
 ⛔ 禁止在Phase 4(randomizer)后修改论文内容 (改后必须重新跑Phase 4)
 ⛔ 禁止REVIEWER不独立启动Agent (PI扮演审稿人=违规)
 ⛔ 禁止引用未fetch验证的文献

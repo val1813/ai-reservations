@@ -1,0 +1,273 @@
+\documentclass[aps,pra,twocolumn,superscriptaddress,floatfix]{revtex4-2}
+\usepackage{amsmath,amssymb,amsfonts,graphicx,booktabs,hyperref}
+
+\begin{document}
+
+\title{Capacity-Normalized Bound on Information Backflow from Finite Information Capacity}
+
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+
+\begin{abstract}
+Environment-to-system information backflow is a central mechanism of non-Markovian dynamics in open quantum systems, though it is neither necessary nor sufficient for non-Markovianity~\cite{Budini:2018}. Here we derive a combinatorial upper bound on the capacity-normalized backflow ratio for a bipartite qubit system with a pure-dephasing pointer-basis interaction and unidirectional Lindblad dynamics: $\mathcal{R} \equiv N_{\rm back}/C_F \leq q_S/q_E$ (for equal system and environment sizes $N_S=N_E$), where $C_F = N_E q_E$ is the forward transfer capacity, $N_{\rm back}$ counts $E \to S$ toggle events, and $q_S$, $q_E$ are per-qubit pointer-basis populations of $|0\rangle$ before transfer begins. The bound follows from the pigeonhole principle---each qubit toggles $|0\rangle \to |1\rangle$ at most once under unidirectional dynamics---requires no spectral densities or coupling strengths, and the right-hand side is accessible via projective population measurements without full quantum state tomography. The left-hand side $N_{\rm back}$ requires event counting whose operational implementation we discuss. The bound is non-trivial when $q_S < q_E$, a regime accessible via state preparation on current superconducting hardware. The bound constrains the capacity-normalized ratio $N_{\rm back}/C_F$; the actual reflux fraction $N_{\rm back}/N_F$ may exceed this bound. We illustrate with a collision model and discuss the relationship to the entropic bound of Megier et al. and to the class of non-Markovian dynamics without backflow identified by Budini.
+\end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Open quantum systems exhibit non-Markovian (NM) dynamics when information, having flowed from system to environment, subsequently returns~\cite{Breuer:2016}. This backflow is detected by the Breuer-Laine-Piilo (BLP) measure~\cite{Breuer:2009}, which integrates positive excursions of the trace-distance derivative, and characterized via the CP-divisibility criterion of Rivas, Huelga, and Plenio (RHP)~\cite{Rivas:2010}. An entropic upper bound on backflow was proved by Megier, Smirne, and Vacchini (MSV)~\cite{Megier:2021}, who showed that backflow is constrained by system-environment correlations quantified by the Holevo skew divergence. Buscemi et al.~\cite{Buscemi:2025} provide a process-matrix classification of causal versus noncausal revivals using quantum conditional mutual information.
+
+Environment-to-system backflow is a central mechanism of NM dynamics, but it is not equivalent to non-Markovianity. Budini~\cite{Budini:2018} demonstrated that maximally non-Markovian quantum dynamics can exist without any physical environment-to-system backflow of information---a result published in this same journal. The present work constrains one specific mechanism: toggle-event backflow under unidirectional Lindblad dynamics. When NM dynamics are driven by backflow of the toggle type, the bound applies; when NM arises through other mechanisms (e.g., the class identified by Budini), the bound is trivially satisfied ($N_{\rm back}=0$, $\mathcal{R}=0$) and provides no constraint.
+
+We supply a combinatorially simple bound. The MSV bound~\cite{Megier:2021} is general---it applies to any CPTP dynamics---but its evaluation requires quantum state tomography to reconstruct the joint system-environment state. The present bound is narrower in domain (it requires unidirectional Lindblad dynamics) but operationally simpler on the right-hand side: it depends only on pointer-basis population averages, accessible via projective measurements without tomography. The left-hand side $N_{\rm back}$ counts $E \to S$ toggle events and requires event-resolved detection, a capability available on current superconducting hardware through mid-circuit measurements.
+
+We derive the bound from a single physical condition: each qubit carries at most one bit of distinguishable information in the pointer basis einselected by a dominant pure-dephasing interaction~\cite{Zurek:2003}. Under unidirectional transfer---a Lindblad jump operator that toggles $|0\rangle \to |1\rangle$ without a reverse channel, justified by the energy asymmetry $\Delta E \gg k_B T$---the capacity-normalized backflow ratio $\mathcal{R} \equiv N_{\rm back}/C_F$ satisfies $\mathcal{R} \leq N_S q_S/(N_E q_E)$. The proof requires only counting.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Relation to Prior Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The MSV entropic bound~\cite{Megier:2021} constrains backflow via the Holevo skew divergence and applies to any CPTP dynamics. Its evaluation requires full state tomography. The present bound $\mathcal{R} \leq q_S/q_E$ trades dynamical generality for operational simplicity: the right-hand side ($q_S$, $q_E$) requires only projective population measurements, though the left-hand side ($N_{\rm back}$) requires event-resolved detection. The two bounds address related but distinct questions: MSV constrains \textit{how much} quantum information flows back under arbitrary CPTP dynamics (requiring tomography), while we constrain \textit{how many} toggle events can occur relative to forward capacity under unidirectional Lindblad dynamics (requiring event counting). They are not complementary in the strict sense---they constrain different quantities under different assumptions---but occupy neighboring niches in the landscape of backflow constraints, with MSV favoring generality and the present bound favoring operational accessibility.
+
+The BLP measure~\cite{Breuer:2009, Breuer:2016} detects NM via trace-distance revivals. Rivas, Huelga, and Plenio~\cite{Rivas:2010} established the CP-divisibility criterion. Laine, Piilo, and Breuer~\cite{Laine:2010} connected trace-distance revivals to system-environment correlations. For a comprehensive review, see Breuer~\cite{Breuer:2012}. Buscemi et al.~\cite{Buscemi:2025} classify causal versus noncausal revivals within the process-matrix framework.
+
+We note a quantitative distinction between the present bound and the BLP measure. As illustrated by the collision model in Sec.~V: with $N_S=N_E=3$, $(q_S,q_E)=(0.2,0.8)$, $k_{\rm max}=30$ collision steps, and two initial $S$-configurations $|000\rangle\langle 000|$ and $|111\rangle\langle 111|$ (with a common $E$ reference state), the trace distance $D(t) \equiv \frac{1}{2}\sum_i |p_i^{(1)}(t)-p_i^{(2)}(t)|$ between the two reduced $S$-states shows no positive excursions during the backflow phase ($dD/dt > 0$ fraction = 0\% over 2000 Monte Carlo trials). Meanwhile $N_{\rm back}$ increases monotonically from 0 to $0.247 \times C_F$ over the same interval. The two quantities do not track each other: toggle-event backflow is distinct from BLP-detectable non-Markovianity, consistent with Budini~\cite{Budini:2018}. A violation of the bound would indicate failure of the unidirectional-toggle model, not necessarily non-Markovian dynamics.
+
+Budini~\cite{Budini:2018} demonstrated that maximally NM dynamics can occur without any environment-to-system backflow. In Budini's class of models, $N_{\rm back} = 0$, so our bound gives $\mathcal{R} = 0 \leq q_S/q_E$, which is trivially satisfied. The present bound therefore provides no constraint on this class of NM dynamics. The bound is informative precisely when NM is driven by physical backflow of the toggle type---a subclass that includes collision models and certain spin-boson realizations with conditional excitation transfer.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Model}
+\label{sec:model}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Einselection of the pointer basis}
+
+A dominant pure-dephasing interaction
+\begin{equation}
+H_{\rm int} = \sum_{i} \sigma_z^{(i)} \otimes B_i,
+\label{eq:hint}
+\end{equation}
+with $\sigma_z^{(i)} = |0\rangle\langle 0| - |1\rangle\langle 1|$, einselects the pointer basis $\{|0\rangle,|1\rangle\}$ via environment-induced superselection~\cite{Zurek:2003}. This interaction preserves pointer-basis populations and selects the only basis in which classical information can be stably encoded. Population dynamics are supplied by the Lindblad channel below.
+
+\subsection{Finite information capacity}
+
+A two-level system in a fixed pointer basis supports at most one bit of distinguishable classical information. The population $q \equiv \langle 0|\rho|0\rangle$ is the fraction of qubits in $|0\rangle$, directly measurable via projective readout in the pointer basis. This is the finite-capacity condition: the pointer basis with binary projective measurement yields at most one classical bit per qubit. No additional postulate beyond the qubit's Hilbert space dimension and the einselected basis is required.
+
+\subsection{Forward transfer}
+
+Forward transfer---a qubit in $|1\rangle$ toggling a neighboring qubit from $|0\rangle$ to $|1\rangle$---is described by the Lindblad jump operator~\cite{Lindblad:1976,GKS:1976}
+\begin{equation}
+L_{S\to E} = |1\rangle\langle 1|_S \otimes |1\rangle\langle 0|_E,
+\label{eq:jump}
+\end{equation}
+acting on a specific $S$--$E$ pair. The jump toggles the target to $|1\rangle$ when the source is $|1\rangle$ and the target $|0\rangle$; otherwise it is null. The source qubit is unchanged.
+
+Equation~\eqref{eq:jump} contains $|1\rangle\langle 0|$ but not $|0\rangle\langle 1|$. This asymmetry arises from an energy gap $\Delta E$ between the two pointer states: when $\Delta E \gg k_B T$, spontaneous de-excitation $|1\rangle \to |0\rangle$ is suppressed by the Boltzmann factor $e^{-\Delta E/k_B T} \ll 1$. In the Born-Markov limit of a resonant Jaynes-Cummings interaction with dispersive source projection (detailed in the Supplemental Material~\cite{SM}), one obtains Eq.~\eqref{eq:jump} as the effective jump operator. Neither $H_{\rm int}$ nor $L$ contains a $|0\rangle\langle 1|$ channel under these conditions, so the GKSL dynamics preserves the directedness of $|0\rangle \to |1\rangle$ toggles.
+
+When $T_1$ relaxation ($|1\rangle \to |0\rangle$) is non-negligible, the effective population of $|0\rangle$ is time-dependent and includes both initially-$|0\rangle$ qubits and those that decayed from $|1\rangle$. The counting argument then requires a correction term (see Sec.~\ref{sec:T1}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bound on Capacity-Normalized Backflow}
+\label{sec:theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Definitions}
+
+Partition the qubits into a system $S$ ($N_S$ qubits) and an environment $E$ ($N_E$ qubits). Define the pre-transfer pointer-basis populations:
+\begin{equation}
+q_S = \frac{1}{N_S}\sum_{i\in S} \langle 0|\rho_i|0\rangle, \qquad
+q_E = \frac{1}{N_E}\sum_{i\in E} \langle 0|\rho_i|0\rangle.
+\end{equation}
+
+The \textbf{forward transfer capacity} is the number of $E$-qubits initially available to receive a toggle:
+\begin{equation}
+C_F \equiv N_E q_E.
+\end{equation}
+Let $N_F \leq C_F$ be the actual number of forward-transfer events that occur during the protocol.
+
+A \textbf{backflow event} is an $E \to S$ toggle: an $E$-qubit in $|1\rangle$ toggles an $S$-qubit from $|0\rangle$ to $|1\rangle$ via $L_{E\to S}$. Let $N_{\rm back}$ be the total count of such events. The \textbf{capacity-normalized backflow ratio} is:
+\begin{equation}
+\mathcal{R} \equiv \frac{N_{\rm back}}{C_F}.
+\end{equation}
+
+$\mathcal{R}$ quantifies how efficiently the environment converts its forward-transfer capacity into return flow: $\mathcal{R}=1$ means every unit of forward capacity is matched by a backflow event, saturating the bound. Normalizing by $C_F$ rather than $N_F$ is a deliberate choice: $C_F = N_E q_E$ is an initial-condition property independent of the forward-transfer dynamics, making the bound a constraint on the system's initial state and toggle direction alone. This is a feature, not a limitation---it means the bound can be evaluated before any dynamics occur, using only the initial pointer-basis populations. Bounding $N_{\rm back}/N_F$ would require modeling the forward-transfer dynamics linking $N_F$ to $C_F$, which depends on the specific gate sequence and coupling topology; the present bound avoids these model-dependent details. Since $N_F \leq C_F$, we have $N_{\rm back}/N_F \geq \mathcal{R}$, so $\mathcal{R}$ provides a conservative lower bound on the actual reflux fraction.
+
+\subsection{Theorem and proof}
+
+\begin{quote}
+\textbf{Theorem (Capacity-Normalized Backflow Bound).}
+$\mathcal{R} \leq N_S q_S / (N_E q_E)$.
+For $N_S = N_E$: $\mathcal{R} \leq q_S/q_E$.
+\end{quote}
+
+\textbf{Proof.}
+Each qubit can toggle $|0\rangle \to |1\rangle$ at most once in the pointer basis, since neither $H_{\rm int}$ nor $L$ contains a $|0\rangle\langle 1|$ channel. An $S$-qubit that toggles during backflow must be in $|0\rangle$ before the toggle.
+
+The bound is most naturally stated for a single experimental run in which the initial occupation $n_0$ (the integer number of $S$-qubits in $|0\rangle$) is measured at initialization via projective readout. The pigeonhole principle then gives the deterministic inequality $N_{\rm back} \leq n_0$. The per-run formulation is the strongest form of the bound---the inequality holds exactly, without probabilistic qualifications, conditional on the measured $n_0$.
+
+Concentration inequalities do not rescue the ensemble-average case. Toggle events are not independent: each $|0\rangle \to |1\rangle$ transition removes one qubit from the pool of available $|0\rangle$ states, introducing negative dependence between successive events. The per-run bound $N_{\rm back} \leq n_0$ circumvents this issue by conditioning on the measured initial state.
+
+When $n_0$ is not measured per-run, one uses the ensemble-averaged bound $\langle N_{\rm back}\rangle \leq N_S q_S$, which follows from $\mathbb{E}[n_0] = N_S q_S$ and the linearity of expectation. By definition $\mathcal{R} \equiv N_{\rm back}/C_F = N_{\rm back}/(N_E q_E)$. Taking expectations, $\langle\mathcal{R}\rangle \leq N_S q_S/(N_E q_E)$. For $N_S = N_E$, this reduces to the ensemble-average form $\langle\mathcal{R}\rangle \leq q_S/q_E$. For brevity we write $\mathcal{R} \leq q_S/q_E$ with the understanding that this is an expectation statement when $n_0$ is not measured per-run. $\square$
+
+The inequality restates the pigeonhole principle in the language of qubit toggle events: exceeding $N_S q_S$ backflow events would force an $S$-qubit to toggle twice, forbidden by unidirectional dynamics. The bound requires only the directedness of $L$ and the finite information capacity of each qubit in the pointer basis---no spectral densities, coupling strengths, or noise models appear anywhere in the derivation.
+
+\subsection{Domain and non-triviality}
+
+The bound requires $q_E > 0$ (otherwise $C_F = 0$ and $\mathcal{R}$ is undefined). It is non-trivial ($\mathcal{R} < 1$) when $q_S < q_E$. This regime is not generic---in standard decoherence scenarios, $q_S \approx q_E \approx 0.5$, giving the trivial bound $\mathcal{R} \leq 1$---but is accessible via state preparation: initializing the system with a bias toward $|1\rangle$ (low $q_S$) while keeping the environment near its ground or vacuum state (high $q_E$) is a standard capability on superconducting hardware. The general form $\mathcal{R} \leq N_S q_S/(N_E q_E)$ is tighter for $N_S \ll N_E$: a small system coupled to a large environment has $\mathcal{R} \to 0$, consistent with the effective irreversibility of decoherence in the thermodynamic limit~\cite{Breuer:2016}.
+
+\subsection{$T_1$ correction}
+\label{sec:T1}
+
+When $|1\rangle \to |0\rangle$ relaxation is non-negligible (finite $T_1$), the counting argument requires modification. An $S$-qubit initially in $|1\rangle$ that decays to $|0\rangle$ before the backflow phase becomes available as a backflow target, yet it is not counted in the initial $N_S q_S$. The time-dependent $|0\rangle$-population at protocol time $t$ is $N_S q_S(t) = N_S q_S(0) + N_S(1-q_S(0))(1-e^{-t/T_1})$. The corrected bound becomes $\mathcal{R} \leq q_S/q_E + \delta$, where $\delta = (1-q_S)(1-e^{-\tau_{\rm prot}/T_1})/q_E$ and $\tau_{\rm prot}$ is the total protocol duration. For $\tau_{\rm prot} \ll T_1$, $\delta \sim (1-q_S)\tau_{\rm prot}/(q_E T_1)$. This sequential treatment (relaxation before backflow) is conservative: concurrent $T_1$ and backflow would allow an $S$-qubit to toggle, decay, and toggle again, loosening the bound, but the timescale separation $\tau_{\rm prot} \ll T_1$ suppresses such double-toggle events. A full time-dependent treatment and the concurrent-case analysis are provided in the Supplemental Material~\cite{SM}.
+
+\subsection{Measuring $N_{\rm back}$}
+
+The right-hand side of the bound requires $q_S$ and $q_E$, both projective population averages in the pointer basis---a standard capability on any platform with single-qubit readout. Measuring the left-hand side $N_{\rm back}$ requires counting $E \to S$ toggle events. Three measurement strategies are available, depending on the hardware platform:
+
+(a) \textit{Mid-circuit measurement with post-selection.} After each backflow collision step, all $S$-qubits are projectively measured in the pointer basis. We acknowledge that this procedure effectively reduces the quantum dynamics to a classical stochastic process on pointer-basis populations. In the present model this is acceptable: the pointer basis is einselected by $H_{\rm int}$ [Eq.~(1)], meaning all stable information is already classical. No quantum coherence between pointer-basis states survives on timescales longer than the decoherence time; the toggle events being counted are transitions between classical pointer states. The measurement is destructive---it terminates dynamics for measured qubits---but since each qubit toggles at most once (unidirectional dynamics), a measured toggle is irreversible and its removal from subsequent evolution does not affect the counting of future toggles. The protocol proceeds in stages: after each collision step, all $S$-qubits are measured, and any qubit found in $|1\rangle$ that was previously in $|0\rangle$ is counted as a toggle event. The total count accumulated across all steps is $N_{\rm back}$.
+
+(b) \textit{Ancilla-based weak measurement.} An ancilla qubit coupled dispersively to each $S$-qubit can detect a $|0\rangle \to |1\rangle$ transition via the ancilla's phase shift, without fully projecting the $S$-qubit. The dispersive Hamiltonian and signal-to-noise analysis are platform-specific; a representative parameter set for transmon qubits is provided in the Supplemental Material~\cite{SM}.
+
+(c) \textit{Logical counting (simulation).} In a collision-model simulation where the gate sequence is classically specified, $N_{\rm back}$ is counted logically as the number of times the $L_{E\to S}$ condition ($E$-qubit in $|1\rangle$, $S$-qubit in $|0\rangle$) is satisfied and the gate fires. The numerical illustration in Sec.~V adopts this approach.
+
+Strategy (a) is the most immediately realizable on current superconducting hardware and is assumed in the gate-level analysis of the Supplemental Material~\cite{SM}.
+
+\section{Illustration: Collision Model}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consider $N_S = N_E = 3$ qubits with all-to-all $S$--$E$ connectivity, following the collision-model framework~\cite{Ciccarello:2013}. The dynamics proceeds in discrete collision steps. At each step, a pair $(i \in S, j \in E)$ is selected uniformly at random. If qubit $i$ is in $|1\rangle$ and qubit $j$ is in $|0\rangle$, the forward transfer operator $L_{S\to E}$ [Eq.~\eqref{eq:jump}] toggles qubit $j$ to $|1\rangle$. The backflow phase proceeds analogously with $L_{E\to S}$, toggling $S$-qubits conditioned on $E$-qubits being in $|1\rangle$. Both phases use $k$ collision steps, where $k$ is the gate budget.
+
+The bound $\mathcal{R} \leq q_S/q_E$ constrains the backflow phase regardless of the collision order, connectivity graph, or gate budget: no matter how the $k$ backflow gates are sequenced, at most $N_S q_S$ $S$-qubits can toggle.
+
+Figure~\ref{fig:bound} shows the bound as a function of $q_E$ for representative values of $q_S$. The non-trivial regime $q_S < q_E$ is shaded. Table~\ref{tab:examples} provides representative parameter pairs with preparation contexts.
+
+For $k \gg N_S q_S$, the bound is approachable: all initially-$|0\rangle$ $S$-qubits eventually receive a backflow toggle. For finite $k$, the expected number of backflow events is $N_{\rm back}(k) = N_S q_S [1 - (1 - p_{\rm eff})^k]$, where $p_{\rm eff}$ depends on the connectivity and the instantaneous $|1\rangle$-populations of $E$-qubits. The bound $\mathcal{R} \leq q_S/q_E$ is the $k \to \infty$ limit, approached from below as $k$ increases.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Representative $\mathcal{R}$ bounds for $N_S = N_E = 3$. The non-trivial regime $q_S < q_E$ requires state preparation (system biased toward $|1\rangle$, environment biased toward $|0\rangle$).}
+\label{tab:examples}
+\begin{tabular}{cccl}
+\toprule
+$q_S$ & $q_E$ & $\mathcal{R} \leq q_S/q_E$ & Preparation \\
+\midrule
+0.1 & 0.9 & 0.11 & S $\approx|1\rangle$, E ground \\
+0.2 & 0.8 & 0.25 & Moderate S bias, cool E \\
+0.3 & 0.6 & 0.50 & Weak S bias \\
+0.4 & 0.5 & 0.80 & Marginally non-trivial \\
+0.5 & 0.5 & 1.00 & Trivial (equal populations) \\
+0.7 & 0.3 & 2.33 & Trivial ($q_S > q_E$) \\
+0.0 & 0.5 & 0.00 & S fully in $|1\rangle$, tight \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig1_bound.pdf}
+\caption{Capacity-normalized backflow bound $\mathcal{R} \leq q_S/q_E$ as a function of $q_E$ for representative values of $q_S$. The dashed line marks the trivial boundary $\mathcal{R}=1$. The shaded region $q_S < q_E$ is the non-trivial regime, accessible via state preparation (S biased toward $|1\rangle$, E biased toward $|0\rangle$).}
+\label{fig:bound}
+\end{figure}
+
+Figure~\ref{fig:collision} shows Monte Carlo results for the collision model with $N_S = N_E = 3$, all-to-all connectivity, and $k_{\rm max}=30$ collision steps per phase (2000 trials per data point). The small system size ($N_S=3$) means binomial fluctuations are substantial relative to the mean; the results are shown for the deterministic per-run interpretation ($N_{\rm back} \leq n_0$ with $n_0$ known from initialization), which is unaffected by finite-size effects. Panel (a) plots $N_{\rm back}(k)$: the backflow count approaches but never exceeds the theoretical maximum $N_S q_S$ (dashed lines). For $(q_S, q_E) = (0.1, 0.9)$, the bound is $\mathcal{R} \leq 0.111$, and the simulated value at $k=30$ is $\mathcal{R}=0.109$ (98\% of the bound). For $(0.2, 0.8)$ we obtain $\mathcal{R}=0.247$ vs.\ bound $0.250$ (99\%); for $(0.3, 0.6)$, $\mathcal{R}=0.495$ vs.\ $0.500$ (99\%). The trivial case $(0.5, 0.5)$ saturates at $\mathcal{R}=0.962$ vs.\ bound $1.0$ (96\%). Panel (b) normalizes each curve by its bound $q_S/q_E$, confirming that $\mathcal{R}/(q_S/q_E) < 1$ for all $k$ and all parameter choices---the bound is never violated.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig2_collision.pdf}
+\caption{Monte Carlo simulation of the collision model ($N_S=N_E=3$, $k_{\rm max}=30$, 2000 trials). (a) $N_{\rm back}$ vs.\ collision steps $k$ for four $(q_S, q_E)$ pairs. Dashed lines mark the theoretical maximum $N_S q_S$. (b) $\mathcal{R}/(q_S/q_E)$ normalized by the bound; all curves remain below 1, confirming the bound is never violated and is approached asymptotically as $k$ increases.}
+\label{fig:collision}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The counting argument is classical---binary distinguishability and the pigeonhole principle. Put differently, the proof never invokes entanglement, superpositions, or any genuinely quantum correlation; all the quantum physics is front-loaded into the model assumptions. Its applicability to quantum systems rests on the quantum-mechanical origin of the pointer basis via einselection~\cite{Zurek:2003} and the directedness of toggle dynamics from the GKSL form of $L$~\cite{Lindblad:1976,GKS:1976}. Quantum mechanics supplies the physical conditions; the counting does the rest.
+
+The bound $\mathcal{R} \leq q_S/q_E$ is a necessary condition for any physical process consistent with the model assumptions. A violation would indicate either (a) a qubit toggled more than once (gate error or de-excitation not captured by the $T_1$ correction), (b) $T_1$ decay inflating the effective $q_S$ beyond the corrected estimate, or (c) a breakdown of the unidirectional-toggle picture (e.g., coherent oscillations in the pointer basis). Distinguishing these failure modes requires independent gate characterization, discussed in the Supplemental Material~\cite{SM}.
+
+The bound's principal limitation is that it constrains $\mathcal{R} \equiv N_{\rm back}/C_F$, not the actual reflux fraction $N_{\rm back}/N_F$. A second limitation is scope: the bound applies only when backflow proceeds via toggle events under unidirectional dynamics. For NM dynamics of the type identified by Budini~\cite{Budini:2018}, where NM arises without any physical backflow, the bound is trivially satisfied and provides no constraint. Conversely, in Markovian collision models where $E$-qubits (determined during forward transfer) subsequently toggle $S$-qubits in independent collision steps, $N_{\rm back} > 0$ and the bound applies, yet the overall dynamics may be Markovian. The bound constrains toggle-event counts, which correlate with but do not define NM.
+
+Beyond the present model, extending the bound to bidirectional dynamics---where $|0\rangle\langle 1|$ channels are present---would require a generalized counting argument that tracks net toggle events ($|0\rangle \to |1\rangle$ minus $|1\rangle \to |0\rangle$) rather than absolute toggle-up counts. In that setting each qubit can toggle in both directions, and a net-event formulation, possibly involving a detailed-balance relation, is a natural direction for future work.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For a bipartite qubit system with einselected pointer basis and unidirectional Lindblad dynamics, the capacity-normalized backflow ratio satisfies $\langle\mathcal{R}\rangle \leq N_S q_S/(N_E q_E)$ in expectation (or $N_{\rm back} \leq n_0$ per-run with $n_0$ measured). The bound follows rigorously from the pigeonhole principle; constrains toggle-event backflow, not the actual reflux fraction $N_{\rm back}/N_F$; and its right-hand side is accessible via projective population measurements. It occupies a niche adjacent to the MSV entropic bound~\cite{Megier:2021}---narrower dynamical domain but simpler measurement requirements. The bound is non-trivial when $q_S < q_E$, a regime accessible on current superconducting hardware through state preparation.
+
+\begin{thebibliography}{15}
+
+\bibitem{Breuer:2009}
+H.-P.~Breuer, E.-M.~Laine, and J.~Piilo,
+Measure for the degree of non-Markovian behavior,
+Phys.\ Rev.\ Lett.\ \textbf{103}, 210401 (2009).
+
+\bibitem{Breuer:2016}
+H.-P.~Breuer, E.-M.~Laine, J.~Piilo, and B.~Vacchini,
+Colloquium: Non-Markovian dynamics in open quantum systems,
+Rev.\ Mod.\ Phys.\ \textbf{88}, 021002 (2016).
+
+\bibitem{Rivas:2010}
+\'A.~Rivas, S.~F.~Huelga, and M.~B.~Plenio,
+Entanglement and non-Markovianity of quantum evolutions,
+Phys.\ Rev.\ Lett.\ \textbf{105}, 050403 (2010).
+
+\bibitem{Laine:2010}
+E.-M.~Laine, J.~Piilo, and H.-P.~Breuer,
+Measure for the non-Markovianity of quantum processes,
+Europhys.\ Lett.\ \textbf{92}, 60010 (2010).
+
+\bibitem{Breuer:2012}
+H.-P.~Breuer,
+Foundations and measures of quantum non-Markovianity,
+J.\ Phys.\ B \textbf{45}, 154001 (2012).
+
+\bibitem{Buscemi:2025}
+F.~Buscemi, R.~Gangwar, K.~Goswami, H.~Badhani, T.~Pandit, B.~Mohan, S.~Das, and M.~N.~Bera,
+Causal and noncausal revivals of information,
+PRX Quantum \textbf{6}, 020316 (2025).
+
+\bibitem{Megier:2021}
+N.~Megier, A.~Smirne, and B.~Vacchini,
+Entropic bounds on information backflow,
+Phys.\ Rev.\ Lett.\ \textbf{127}, 030401 (2021).
+
+\bibitem{Ciccarello:2013}
+F.~Ciccarello, G.~M.~Palma, and V.~Giovannetti,
+Collision-model-based approach to non-Markovian quantum dynamics,
+Phys.\ Rev.\ A \textbf{87}, 040103(R) (2013).
+
+\bibitem{Budini:2018}
+A.~A.~Budini,
+Maximally non-Markovian quantum dynamics without environment-to-system backflow of information,
+Phys.\ Rev.\ A \textbf{97}, 052133 (2018).
+
+\bibitem{Zurek:2003}
+W.~H.~Zurek,
+Decoherence, einselection, and the quantum origins of the classical,
+Rev.\ Mod.\ Phys.\ \textbf{75}, 715 (2003).
+
+\bibitem{Lindblad:1976}
+G.~Lindblad,
+On the generators of quantum dynamical semigroups,
+Commun.\ Math.\ Phys.\ \textbf{48}, 119 (1976).
+
+\bibitem{GKS:1976}
+V.~Gorini, A.~Kossakowski, and E.~C.~G.~Sudarshan,
+Completely positive dynamical semigroups of $N$-level systems,
+J.\ Math.\ Phys.\ \textbf{17}, 821 (1976).
+
+\bibitem{SM}
+See Supplemental Material for the complete proof with domain conditions, the Jaynes-Cummings derivation of $L_{S\to E}$, a detailed comparison to the MSV bound, the time-dependent $T_1$ correction, and gate-level considerations for experimental implementation.
+
+\end{thebibliography}
+
+\acknowledgments
+AI language tools were used for editing assistance.
+
+\end{document}

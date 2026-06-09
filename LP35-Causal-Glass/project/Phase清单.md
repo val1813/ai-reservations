@@ -51,8 +51,9 @@
 - [✅] FINAL_CLOSURE.md — 最终综合+遗留子命题S1-S5+先发声明
 
 ### GATE 1.5补深挖 + 数据验证
-- [✅] A博士补深挖: 3方向×≥2层 — AG证伪→Quench唯一+WKB~10^{-17}无冷冻+全息不可绕过
-- [✅] B博士公开数据验证: 7数据集+P2(DESI DR2 chains)最高可行性+含Python检验代码
+- [✅] A博士补深挖: 条件通过(结构完整, 2高+3中+2轻缺陷) — inspector_A_deepdrill.md
+- [✅] B博士公开数据验证: 3⛔(4-bin非3-bin+CPL代码bug+未讨论数据致命信号)+7⚠️ — inspector_B_dataver.md
+- [⏳] DESI DR2 全量数据下载中 (chain.2.txt ~83% @ 50KB/s, 仍需~5min)
 
 ## Phase 1: T_c + Δq 严格定义
 
@@ -83,6 +84,19 @@
 - [ ] 收官 (GATE2-7)
 
 ---
+
+### GATE 1.5补深挖 + 数据验证 + 统一框架
+- [✅] A博士补深挖: 条件通过
+- [✅] B博士公开数据验证: 3Block+7Warn
+- [✅] 反转假设: INSPECTOR确认方向自洽，物理内容缺失
+- [✅] 统一框架: INSPECTOR判声张保真度0.10
+
+## 收官
+- [✅] PI最终综合 -> CLOSURE.md
+- [✅] REVIEWER x3 (全部判Reject)
+- [✅] 北极星队列: 归档，Euclid DR1复活条件
+- [✅] Phase清单: 全部完成
+- [✅] 项目状态: 归档
 
 ## 禁止事项
 

@@ -1,0 +1,33 @@
+\documentclass[12pt]{letter}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{hyperref}
+
+\address{Independent Researcher\\Nanjing, China}
+\signature{Huang Zhongchang}
+
+\begin{document}
+
+\begin{letter}{Editor\\Physical Review A}
+
+\opening{Dear Editor,}
+
+We submit ``Capacity-Normalized Bound on Information Backflow from Finite Information Capacity'' for consideration as an Article in Physical Review A.
+
+\textbf{What is new.}
+The core selling point of this work is \textit{operational accessibility without tomography}. Existing backflow bounds require full quantum state tomography of the joint system-environment state---a measurement whose cost scales exponentially in system size. Our bound $\mathcal{R} \equiv N_{\rm back}/C_F \leq q_S/q_E$ requires only projective population measurements on its right-hand side: $q_S$ and $q_E$ are single-qubit $\langle 0|\rho|0\rangle$ expectation values, accessible on any superconducting platform with standard readout. No spectral densities, no coupling strengths, no noise spectroscopy, no tomography.
+
+The price for this operational simplicity is a restricted dynamical domain: the bound applies to toggle-event backflow under unidirectional Lindblad dynamics, an idealization valid when pointer-state energy separation satisfies $\Delta E \gg k_B T$ (e.g., $\sim$5~GHz transmon qubits at $\sim$15~mK). The left-hand side $N_{\rm back}$ requires event counting via mid-circuit measurements, a capability now standard on IBM and Google hardware. We provide a deterministic per-run formulation ($N_{\rm back} \leq n_0$, where $n_0$ is the measured initial $|0\rangle$-count) that requires no concentration inequalities and is directly testable.
+
+The Megier--Smirne--Vacchini entropic bound [PRL 127, 030401 (2021)] applies to any CPTP dynamics but requires full tomography; Budini [PRA 97, 052133 (2018)] showed that maximally non-Markovian dynamics can exist without backflow. Our bound occupies the complementary niche: narrower domain, dramatically simpler measurement, immediately testable.
+
+\textbf{Why PRA.}
+This result belongs to the foundations of open quantum systems, for which Physical Review A has long been the central venue. The non-Markovianity measures and operational characterizations that followed the foundational BLP--RHP papers have been developed primarily in PRA (including Budini's demonstration of non-Markovianity without backflow, PRA 97, 052133, 2018). The present work contributes to this tradition: a combinatorially derived, operationally accessible bound that complements the existing entropic and divisibility-based characterizations.
+
+Our contribution occupies a distinct niche: first combinatorial bound on toggle-event backflow under unidirectional dynamics, right-hand side accessible via projective measurements only, deterministic per-run formulation that requires no concentration inequalities.
+
+Suggested referees: Bassano Vacchini (non-Markovian dynamics), \'A.\ Rivas (CP-divisibility), Dariusz Chru\'sci\'nski (open quantum systems), Adri\'an Budini (NM without backflow).
+
+\closing{Sincerely,}
+
+\end{letter}
+\end{document}

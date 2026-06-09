@@ -1,0 +1,11 @@
+{
+  "target_journal": "PRA",
+  "paper_type": "research",
+  "language": "English",
+  "mode": "rewrite_existing",
+  "depth": "pro",
+  "source_dir": "../prl",
+  "main_file": "pra_main.tex",
+  "sm_file": "pra_sm.tex",
+  "cover_letter_file": "cover_letter_pra.tex"
+}

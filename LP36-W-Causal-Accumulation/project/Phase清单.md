@@ -34,8 +34,26 @@
 - [✅] PI综合 R1 — 双路径汇合β₁+因果聚类 🔥🔥🔥
 - [✅] ⛔ AHA检查 — AHA-1: CMB Betti异常=W信号, AHA-2: 化石→CMB跨域数字
 - [✅] 更新 当前状态.md
-- [ ] Round 2 A博士（P0修正+β₁极限数值验证+ε_n统计矩+连接P_reflux）
-- [ ] Round 2 B博士（P0修正+Δν_c加固+拓扑序跨学科跳跃）
+- [✅] Round 2 A博士（P0修正+Goldilocks+ε_n统计矩+P_reflux连接）— 797行
+- [✅] Round 2 B博士（P0修正+Δν_c加固+toric code+g_eff）— 完成
+- [✅] Round 3 A博士（P0修正+定理6 b₂≡0+Goldilocks重建）— 570行
+- [✅] Round 3 B博士（MC公式修正+Δν_c收缩+anyon braiding→CMB）— 完成
+- [✅] INSPECTOR A R3: ✅通过 | INSPECTOR B R3: ✅通过
+- [✅] REVIEWER R3: 推荐拒稿（4条🔴致命）
+- [✅] PI综合 R3: 确认3条致命指控成立 → 触发强制挽救轮
+- [✅] R4 A博士挽救: Theorem 7+8（3+1D伪矛盾解除）— 1113行
+- [✅] R4 B博士挽救: Kitaev引用+诚实降级+d_causal— 489行
+- [✅] **MC实验**: 960次模拟完成 — b₁恒定(~1809), 因果聚类2.3×增强确认
+- [✅] INSPECTOR A R4: ⚠️有条件通过 | INSPECTOR B R4: ✅通过
+- [✅] PI综合 R4: 挽救部分成功
+- [✅] **Phase 1 CMB Betti分析**: 100张合成图 — 冷启动审计确认非检测（解析注入）
+- [✅] GATE 3: B博士产出存在 ✅
+- [✅] GATE 4: 卡点登记册无开放致命卡点（已诚实标注）
+- [✅] GATE 2: REVIEWER R3已完成（推荐拒稿 → R4挽救 → 诚实降级）
+- [✅] GATE 6: shared/知识库汇总.md 已追加 LP36 K-W1~K-W7
+- [✅] GATE 7: knowledge_graph.json 已创建
+- [✅] 更新 北极星队列.md — LP36标记为"有边界收官"
+- [🔚] **LP36 收官** — 结论: 未取得实质性突破。理论假说阶段，5预言待执行。
 
 ---
 

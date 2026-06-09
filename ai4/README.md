@@ -36,6 +36,7 @@ Phase 0: Intake — 收稿+配置
   ├── Phase 1: PaperSpine Build — motivation驱动写论文
   ├── Phase 2: Scientific Review — R1-R5恶意审稿人循环
   ├── Phase 3: Journal Format — 目标期刊格式化
+  ├── Phase 3.5: Competitive Benchmark — 同期录用论文PK
   ├── Phase 4: AI Detection — structure-randomizer重构
   └── Phase 5: Final Audit — 完整性验证+输出
 ```
@@ -47,7 +48,7 @@ Phase 0: Intake — 收稿+配置
 ## ⛔ 全局硬规则
 
 ```
-1. 顺序不可变: Phase 0→1→2→3→4→5 严格顺序。前一步未完成禁止进入下一步。
+1. 顺序不可变: Phase 0→1→2→3→3.5→4→5 严格顺序。前一步未完成禁止进入下一步。
 2. 审稿人独立: 每轮REVIEWER必须用Agent工具启动独立实例,禁止PI扮演审稿人。
 3. 数据优先: 能用实际数据+py验证的→优先跑。可验未验=不可检验。
 4. 禁词阻断: 全流程禁止"原则上可能""待未来实验"等。见ai/PI.md §0.5。
@@ -73,6 +74,7 @@ Phase 0: Intake — 收稿+配置
 | `P1_build.md` | PaperSpine build: motivation+rationale+引用库 | ≤300 |
 | `P2_review.md` | 5轮恶意审稿人循环 | ≤250 |
 | `P3_format.md` | 期刊格式化(PRL/PRD/Nature等) | ≤200 |
+| `P3_5_benchmark.md` | 同期录用论文PK(6维加权对比) | ≤200 |
 | `P4_randomize.md` | structure-randomizer 14维参数+全局约束 | ≤350 |
 | `P5_audit.md` | 完整性验证+最终检查 | ≤150 |
 | `journal_configs/` | 各期刊配置(格式/字数/章节要求) | 每文件≤100 |

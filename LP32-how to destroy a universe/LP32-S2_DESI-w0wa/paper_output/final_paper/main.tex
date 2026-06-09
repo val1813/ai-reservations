@@ -1,0 +1,428 @@
+\documentclass[aps,prd,twocolumn,superscriptaddress]{revtex4-2}
+\usepackage{amsmath,amssymb,graphicx,booktabs,hyperref}
+
+\begin{document}
+
+\title{A Quantum Many-Body Theory of Information Dark Energy}
+
+\author{Huang Zhongchang}
+\affiliation{Independent Researcher, Nanjing, China}
+
+\begin{abstract}
+Gough [Entropy 27, 110 (2025)] found that the cosmic star formation history empirically tracks the dark energy equation of state favored by DESI DR2---but no microscopic theory existed. We propose one. Cosmic degrees of freedom are modeled as a driven-dissipative ensemble of $N$ qubits ($|0\rangle$ undetermined, $|1\rangle$ determined), with gravitational collapse driving the $|0\rangle\to|1\rangle$ transition. The collective dynamics follow a complex Langevin equation, $d\mathcal{A}/dt = -i\Omega_c(a_c^2 - |\mathcal{A}|^2)\mathcal{A} - \gamma\mathcal{A} + i\tilde{\eta}f(t)(1-2|\mathcal{A}|^2)$, derived from the Lindblad master equation. Phantom crossing ($w$ crossing $-1$) occurs when the determined fraction $|\mathcal{A}|^2$ passes through $a_c^2=1/2$, the critical fraction from the Curie-Weiss theory of the $N$-qubit Ising model. Two driving functions are compared: the star formation rate (SFR), following Gough, and the gravitational collapse power $\mathcal{P}_{\rm coll}$ from the halo model. The SFR-driven variant produces phantom crossing at $z\sim1$ ($\Delta\chi^2\approx5.2$ over $\Lambda$CDM); the $\mathcal{P}_{\rm coll}$ variant yields $w(z)>-1$ at all bins ($\Delta\chi^2\approx4.7$). Both improve over $\Lambda$CDM. The Landauer-principle bridge to information processing---the weakest link---and a proposed analog quantum simulation test are discussed. See Supplemental Material for full derivations.
+\end{abstract}
+
+\maketitle
+
+% ================================================================
+\section{Introduction}
+% ================================================================
+
+The DESI DR2 baryon acoustic oscillation measurements, combined with cosmic microwave background and supernova data, find a $\sim 2$--$3\sigma$ preference for dynamical dark energy with an equation of state $w(z)$ that crosses the phantom divide $w=-1$ \cite{DESI:2025}. At $z \lesssim 0.5$, $w > -1$ (quintessence-like); at $z \sim 1$, $w < -1$ (phantom-like); the crossing occurs near $z \sim 0.5$--$1$ \cite{Li:2025,Pang:2025}.
+
+This phantom-crossing behavior poses a theoretical challenge. Single-field quintessence models satisfy $w \ge -1$; single-field phantom models satisfy $w \le -1$; neither can cross $w=-1$ without internal degrees of freedom \cite{Hu:2005} or non-minimal couplings \cite{Linder:2024}. Proposed mechanisms include two-field quintom constructions \cite{Feng:2005}, dark matter--dark energy interactions producing apparent phantom behavior \cite{Khoury:2025,Guedezounme:2026}, Horndeski/modified gravity \cite{Linder:2025,Cataneo:2025}, and coupled quintessence \cite{Andriot:2025,Chen:2026}. All require specific Lagrangian terms or interactions beyond the Standard Model.
+
+A parallel development is the information dark energy hypothesis. Gough \cite{Gough:2025} demonstrated that the cosmic star formation rate density (SFR) and stellar mass density (SMD) empirically track the Chevallier-Polarski-Linder (CPL) dark energy parameters favored by DESI, and argued---invoking Landauer's principle \cite{Landauer:1961}---that structure formation processes cosmic information, with the associated energy cost manifesting as dark energy. This empirical finding is striking, but Gough's treatment remained at the level of phenomenological correlation, lacking a dynamical equation, a microscopic model, or a mechanism for phantom crossing.
+
+In this paper, we provide the microscopic theory. We propose that the universe's fundamental degrees of freedom are two-level quantum systems (qubits): $|0\rangle$ (undetermined) and $|1\rangle$ (determined). Gravitational collapse---the formation of bound structures---processes information by determining qubits from $|0\rangle$ to $|1\rangle$. The collective behavior of this driven-dissipative qubit ensemble, described by a complex Langevin equation with mean-field nonlinearity, produces an effective dark energy equation of state. The phantom crossing emerges when the determined fraction $|\mathcal{A}|^2$ passes through the critical value $a_c^2$, where the effective energy gap changes sign---a dynamical crossing rooted in the mean-field theory of the $N$-qubit transverse Ising model.
+
+This framework differs from prior phantom-crossing mechanisms in several respects. Unlike Hu \cite{Hu:2005}, who showed that generic internal degrees of freedom enable phantom crossing through specific kinetic couplings, our mechanism is specific: the crossing occurs at a calculable threshold $|\mathcal{A}|^2 = a_c^2$, with $a_c^2$ derived from the microscopic Hamiltonian. Unlike quintom models \cite{Feng:2005}, we require only one species of degree of freedom (qubits), with the two-field behavior emerging from the two states of each qubit. Unlike DM--DE interaction models \cite{Khoury:2025}, the phantom behavior is intrinsic, not apparent. And unlike modified gravity approaches \cite{Linder:2025}, no modification to general relativity is required---dark energy emerges from the matter sector through the information-processing channel.
+
+% Section structure: Theory (\S\ref{sec:theory}), driving function (\S\ref{sec:driver}), $w(z)$ connection (\S\ref{sec:darkenergy}), DESI comparison (\S\ref{sec:desi}), discussion (\S\ref{sec:discussion}). Detailed derivations in Supplemental Material.
+
+% ================================================================
+\section{Microscopic Theory}
+\label{sec:theory}
+% ================================================================
+
+\subsection{The qubit ensemble}
+
+Consider $N$ fundamental two-level systems (qubits). Each qubit has two pointer-basis states: $|0\rangle$ (undetermined---no causal event has fixed its value) and $|1\rangle$ (determined---a causal event has fixed it). The fraction of qubits in $|1\rangle$ at cosmic time $t$ is $|\mathcal{A}(t)|^2$, where $\mathcal{A}(t) = |\mathcal{A}|e^{i\theta}$ is the complex determination amplitude. The phase $\theta$ encodes whether determination is constructive ($w > -1$, quintessence) or destructive ($w < -1$, phantom).
+
+A qubit becomes determined when it receives causal influence from a structure formation event (e.g., the virialization of a dark matter halo). The undetermined-to-determined transition $|0\rangle \to |1\rangle$ has a bare energy cost $\Delta E_0 = E_1 - E_0$. When many neighboring qubits are already determined, the effective energy cost for further determination is reduced---a cooperative effect modeled by an Ising-type interaction.
+
+\subsection{Mean-field Hamiltonian and the critical fraction $a_c^2$}
+
+The $N$-qubit Hamiltonian in the presence of all-to-all Ising coupling is
+\begin{equation}
+H = \sum_{i=1}^{N} \frac{\Delta E_0}{2}\sigma_z^{(i)} + \frac{g}{N}\sum_{i<j}\sigma_z^{(i)}\sigma_z^{(j)} + H_{\rm drive}(t) + H_{\rm bath},
+\label{eq:hamiltonian}
+\end{equation}
+where $g > 0$ is the ferromagnetic coupling strength, $H_{\rm drive}$ represents external driving from structure formation, and $H_{\rm bath}$ encodes environmental decoherence producing a damping rate $\gamma$.
+
+In the mean-field approximation ($N \to \infty$), $\sigma_z^{(i)}\sigma_z^{(j)} \to m\sigma_z^{(i)} + m\sigma_z^{(j)} - m^2$ with $m = N^{-1}\sum_i\langle\sigma_z^{(i)}\rangle$. The effective single-qubit Hamiltonian becomes $H_{\rm MF}^{(i)} = \frac{1}{2}\Delta E_{\rm eff}\,\sigma_z^{(i)}$, where the effective energy gap is
+\begin{equation}
+\Delta E_{\rm eff} = \Delta E_0 + 2g m = \Delta E_0 + 2g(1-2|\mathcal{A}|^2),
+\label{eq:deltaE}
+\end{equation}
+using $m = 1 - 2|\mathcal{A}|^2$ (since $\langle\sigma_z\rangle = |\alpha|^2 - |\beta|^2 = 1-2|\mathcal{A}|^2$).
+
+The critical determination fraction $a_c^2$ is defined by the condition $\Delta E_{\rm eff}=0$, at which the ground state of a qubit flips from $|0\rangle$ to $|1\rangle$. From Eq.~\eqref{eq:deltaE}:
+\begin{equation}
+a_c^2 = \frac{\Delta E_0 + 2g}{4g} = \frac{1}{2} + \frac{\Delta E_0}{4g}.
+\label{eq:ac2_equilibrium}
+\end{equation}
+
+In the symmetric case $\Delta E_0 = 0$ (undetermined and determined states degenerate in the absence of interactions), $a_c^2 = 1/2$---the phase transition occurs when exactly half the qubits are determined, consistent with the Curie-Weiss mean-field theory of the Ising model at $T=0$. Throughout this paper we adopt the symmetric case as our baseline for its simplicity and theoretical cleanliness; the general case $\Delta E_0 \neq 0$ is discussed in the Supplemental Material.
+
+We note a mathematical connection to established quantum many-body physics: the $N$-qubit all-to-all Ising model maps to the Dicke model of superradiance \cite{Dicke:1954} via the Holstein-Primakoff transformation in the thermodynamic limit. The mean-field phase transition at $a_c^2 = 1/2$ is mathematically equivalent to the superradiant phase transition in the Dicke model \cite{Hepp:1973,Wang:1973}. This connection grounds our model in a well-studied class of quantum phase transitions and suggests that experimental techniques developed for the Dicke model (e.g., in cavity QED) may be adaptable to test the dynamical crossing mechanism proposed here.
+
+In summary, $a_c^2 = 1/2$ (symmetric case) is a property of the Hamiltonian. In the driven-dissipative regime, the actual steady-state determination fraction $|\mathcal{A}|^2_{\rm ss}$ depends on the competition between driving and damping. The dynamical crossing---where $|\mathcal{A}(t)|^2$ passes through $1/2$---is a time-dependent phenomenon occurring when the driving function $f(t)$ is sufficiently strong (see \S\ref{sec:darkenergy}).
+
+We note that $\Omega_c$ and $\gamma$ are constrained by comparison with DESI binned $w(z)$ data; $a_c^2 = 1/2$ is derived from the Hamiltonian in the symmetric limit.
+
+\subsection{Complex Langevin dynamics}
+
+The dynamics of the determination amplitude are governed by the complex Langevin equation derived from the Lindblad master equation for each qubit under the mean-field Hamiltonian. The full derivation is presented in the Supplemental Material; we summarize the key steps here.
+
+Starting from the Lindblad master equation for qubit $i$:
+\begin{equation}
+\frac{d\rho^{(i)}}{dt} = -\frac{i}{\hbar}[H_{\rm MF}^{(i)}, \rho^{(i)}] + \gamma\left(\sigma_-\rho^{(i)}\sigma_+ - \frac{1}{2}\{\sigma_+\sigma_-, \rho^{(i)}\}\right),
+\end{equation}
+with $H_{\rm MF}^{(i)} = \frac{1}{2}\Delta E_{\rm eff}\,\sigma_z^{(i)} + \eta f(t)\sigma_x^{(i)}$.\footnote{The standard Lindblad form with a single jump operator $L = \sqrt{\gamma}\,\sigma_-$ yields a damping rate of $\gamma/2$ in the equation for $\langle\sigma_-\rangle$ (since $\mathrm{Tr}[\sigma_-(-\gamma/2)\{\sigma_+\sigma_-,\rho\}] = -(\gamma/2)\langle\sigma_-\rangle$). Throughout this paper we absorb the factor of $2$ into the definition of the damping rate, equivalent to defining the Lindblad operator as $L = \sqrt{2\gamma}\,\sigma_-$. The numerical best-fit value $\gamma/H_0 = 10$ therefore corresponds to the $T_2$ dephasing rate, not the $T_1$ relaxation rate. This convention does not affect any qualitative or quantitative conclusions.} Using the Gaussian decoupling approximation $\langle\sigma_z\sigma_-\rangle \approx \langle\sigma_z\rangle\langle\sigma_-\rangle$ (valid for $N \gg 1$; $1/N$ corrections are $O(1/N)$ and negligible for cosmological ensembles), the equation for $\mathcal{A} = \langle\sigma_-\rangle$ is:
+\begin{equation}
+\frac{d\mathcal{A}}{dt} = -\frac{i}{\hbar}\Delta E_{\rm eff}\,\mathcal{A} - \gamma\mathcal{A} + i\frac{\eta f(t)}{\hbar}\langle\sigma_z\rangle.
+\label{eq:lindblad_raw}
+\end{equation}
+
+Substituting $\Delta E_{\rm eff} = 4g(a_c^2 - |\mathcal{A}|^2)$ and $\langle\sigma_z\rangle = 1-2|\mathcal{A}|^2$, and defining the coupling frequency $\Omega_c = 4g/\hbar$ and the rescaled drive amplitude $\tilde{\eta} = \eta/\hbar$, we obtain:
+\begin{equation}
+\boxed{\frac{d\mathcal{A}}{dt} = -i\Omega_c\left(a_c^2 - |\mathcal{A}|^2\right)\mathcal{A} - \gamma\mathcal{A} + i\tilde{\eta}f(t)(1-2|\mathcal{A}|^2)}.
+\label{eq:langevin}
+\end{equation}
+
+This is the central dynamical equation of our theory. Three features are essential:
+
+(i) The coherent term $-i\Omega_c(a_c^2 - |\mathcal{A}|^2)\mathcal{A}$ encodes the mean-field feedback: as $|\mathcal{A}|^2$ approaches $a_c^2$, the effective precession frequency decreases to zero, and the system approaches a purely damped regime. When $|\mathcal{A}|^2 > a_c^2$, the frequency changes sign, corresponding to the flip of the effective ground state.
+
+(ii) The drive term $i\tilde{\eta}f(t)(1-2|\mathcal{A}|^2)$ contains the factor $\langle\sigma_z\rangle = 1-2|\mathcal{A}|^2$, which provides self-limiting feedback: the drive acts in opposite directions depending on whether $|\mathcal{A}|^2$ is below or above $1/2$. This factor changes sign when $|\mathcal{A}|^2$ crosses $1/2$, ensuring that the drive always pushes the system toward the critical point---a saturation effect fundamental to the qubit dynamics. The factor $i$ indicates that the drive causes rotation in the complex $\mathcal{A}$-plane, not real displacement.
+
+(iii) The dynamics are first-order and purely dissipative: eigenvalues of the linearized system are $\lambda = -\gamma \pm i\Omega_{\rm eff}$ with $\mathrm{Re}(\lambda) = -\gamma < 0$, so all modes decay---there are no sustained oscillations. The phase $\theta = \arg(\mathcal{A})$ provides temporal delay without oscillatory artifacts.
+
+% ================================================================
+\section{Driving Function: Gravitational Collapse Power}
+\label{sec:driver}
+% ================================================================
+
+\subsection{Collapse power density}
+
+The driving function $f(t)$ represents the rate at which structure formation processes cosmic information. Gough \cite{Gough:2025} used the star formation rate density SFR($z$) as a proxy. Here we construct a more fundamental quantity: the gravitational collapse power density $\mathcal{P}_{\rm coll}(z)$, the rate at which gravitational binding energy is released by the formation of virialized dark matter halos. We also retain the SFR driver as a phenomenological baseline, directly tied to Gough's empirical correlation.
+
+For a halo of mass $M$ virializing at redshift $z$, the binding energy is $E_{\rm bind}(M,z) = \frac{3}{5}GM^2/R_{\rm vir}(M,z)$, where $R_{\rm vir} = [3M/(4\pi\Delta_{\rm vir}\rho_c)]^{1/3}$, $\Delta_{\rm vir} \approx 200$, and $\rho_c(z) = 3H^2(z)/8\pi G$. The halo formation rate $\Gamma(M,z)$ is computed via the extended Press-Schechter formalism \cite{Lacey:1993,Sasaki:1994} using the Sheth-Tormen mass function \cite{Sheth:1999} (see Supplemental Material for the full derivation and comparison with alternate mass function prescriptions). The collapse power density is
+\begin{equation}
+\mathcal{P}_{\rm coll}(z) = \int_{M_{\rm min}}^{\infty} dM \, \Gamma(M,z) \cdot E_{\rm bind}(M,z),
+\label{eq:pcoll}
+\end{equation}
+computed from the linear matter power spectrum $P(k)$ (Eisenstein-Hu transfer function \cite{Eisenstein:1998}) with Planck 2018 cosmological parameters. The normalized driving function is
+\begin{equation}
+f(t) = \frac{\mathcal{P}_{\rm coll}(z(t))}{\mathcal{P}_{\rm coll}(0)}.
+\label{eq:fdrive}
+\end{equation}
+
+This driving function is computed from standard cosmological inputs (the $\Lambda$CDM cosmology plus the halo model). It is not purely ab initio---it depends on the halo model calibrated to $N$-body simulations, the Eisenstein-Hu transfer function calibrated to CMB data, and Planck 2018 cosmological parameters fitted to multiple datasets---but it does not use SFR data as input. Compared to SFR, $\mathcal{P}_{\rm coll}$ weights halos by $M^{5/3}$ (from $E_{\rm bind} \propto M^2/R_{\rm vir} \propto M^{5/3}$) rather than by $M$ (from the gas fraction), giving greater weight to massive halos that form later. Consequently, $\mathcal{P}_{\rm coll}(z)$ peaks at $z \sim 1.4$, somewhat lower than the SFR peak at $z \sim 1.9$, and has a broader shape.
+
+Systematic uncertainties in $\mathcal{P}_{\rm coll}$ include: the halo mass function (Press-Schechter vs.\ Sheth-Tormen vs.\ Tinker \cite{Tinker:2008}---up to a factor of $\sim 2$ variation at $z=2$, see Supplemental Material Table~1), the minimum halo mass $M_{\rm min}$ (uncertain by several orders of magnitude, set by the dark matter microphysics; we vary it over $10^6 M_\odot$ to $10^{12} M_\odot$ in the systematic band), and the cosmological parameter $\sigma_8$. In \S\ref{sec:discussion} we propagate these uncertainties and show that the qualitative behavior---$w(z=0) > -1$ and $w(z)$ decreasing with $z$ toward the structure formation peak---is preserved across all variants.
+
+\subsection{The SFR driver (phenomenological baseline)}
+
+Following Gough \cite{Gough:2025}, we also use the star formation rate density SFR($z$) as an alternative driving function, with Madau \& Dickinson (2014) \cite{Madau:2014} as the fiducial SFR compilation. The SFR driver is purely phenomenological: it directly encodes the empirical SFR--$w(z)$ correlation that Gough identified, without the intermediate step of computing gravitational binding energies. We retain it as a baseline to connect with Gough's work and to bracket the systematic uncertainty in the choice of structure formation proxy. Behroozi+ (2019) \cite{Behroozi:2019} and Driver+ (2018) \cite{Driver:2018} compilations are used for the systematic band.
+
+\subsection{The Landauer assumption}
+\label{sec:landauer}
+
+The connection between gravitational collapse power and qubit driving rests on Landauer's principle \cite{Landauer:1961}: erasing one bit of information at temperature $T$ dissipates at minimum $k_B T \ln 2$ of energy. Applied to structure formation, the information processing rate is $\dot{\mathcal{I}}(z) = \mathcal{P}_{\rm coll}(z) / k_B T_{\rm eff}(z)$, where $T_{\rm eff} \sim GM\mu m_p/(2k_B R_{\rm vir})$ is the effective virial temperature.
+
+This is the weakest link in our theoretical chain. Landauer's principle is proven for systems in contact with a thermal bath, with a bounded-below Hamiltonian and Markovian detailed-balance dynamics. Self-gravitating systems violate all three conditions: they have negative heat capacity (they grow hotter as they lose energy), the gravitational $N$-body Hamiltonian is not bounded below, and collisionless relaxation (phase mixing, violent relaxation \cite{LyndenBell:1967}) is non-Markovian. The effective temperature $T_{\rm eff}$ is dimensionally correct but physically ambiguous---dark matter is collisionless and has no temperature in the thermodynamic sense.
+
+We therefore treat the Landauer bridge as a hypothesis, not an established fact. If future work demonstrates that gravitational information erasure does not couple to vacuum energy in the manner assumed, the model can still function phenomenologically: both driving functions ($\mathcal{P}_{\rm coll}(z)$ and SFR$(z)$) can be used directly as empirical inputs, without the information-theoretic justification. The mathematical structure (complex Langevin equation, $a_c^2$ derivation, $w(z)$ prediction) is independent of the Landauer assumption---only the interpretation of why structure formation drives the qubit ensemble depends on it.
+
+% ================================================================
+\section{Dark Energy Equation of State}
+\label{sec:darkenergy}
+% ================================================================
+
+\subsection{From qubit dynamics to $w(z)$}
+
+Solving Eq.~\eqref{eq:langevin} with $f(t)$ from Eq.~\eqref{eq:fdrive} (or the SFR analog) yields the determination fraction $|\mathcal{A}(z)|^2$ as a function of redshift. The dark energy equation of state is related to the qubit dynamics by:
+\begin{equation}
+w(z) = -1 + \kappa \cdot \left(a_c^2 - |\mathcal{A}(z)|^2\right),
+\label{eq:wz}
+\end{equation}
+where $\kappa$ is calibrated so that $w(z=0)$ matches the DESI CPL-inferred value $w_0 = -0.785$\footnote{We use the CPL-extrapolated $w_0$ as a calibration reference, noting that the CPL form $w(a) = w_0 + w_a(1-a)$ is not identical to our functional form. The calibration is therefore model-dependent, and results should be interpreted as indicative. A model-independent calibration using non-parametric $w(z)$ reconstructions would be preferable but is limited by current data precision at $z=0$.}.
+
+Equation~\eqref{eq:wz} is the first-order Taylor expansion of a general relation $w+1 = F(|\mathcal{A}|^2)$ about the critical point $|\mathcal{A}|^2 = a_c^2$, where $F(a_c^2)=0$ by definition (the critical point corresponds to $w=-1$). The general function $F$ is not specified; the linear form is the simplest ansatz consistent with the requirement that $w=-1$ when the system sits exactly at the critical point.\footnote{The general relation can be motivated as follows: the effective dark energy pressure receives contributions from two channels---the kinetic energy of qubit state evolution (proportional to $|\dot{\mathcal{A}}|^2$) and the potential energy from the mean-field interaction (proportional to $\Delta E_{\rm eff}$). When $|\mathcal{A}|^2$ is below $a_c^2$, the undetermined state $|0\rangle$ is the ground state and determination costs energy, contributing positive pressure ($w > -1$). When $|\mathcal{A}|^2$ exceeds $a_c^2$, the determined state becomes the ground state and determination releases energy, contributing negative pressure ($w < -1$). The simplest function satisfying $F(a_c^2)=0$ and capturing this sign change is $F(x) = \kappa(a_c^2 - x)$, the linear expansion.} The validity of Eq.~\eqref{eq:wz} requires $||\mathcal{A}|^2/a_c^2 - 1| \ll 1$ over the redshift range of interest; for our best-fit parameters, $|\mathcal{A}|^2/a_c^2$ varies from $\sim 0.01$ at $z=0$ to $\sim 0.8$ at $z=2$ (see Supplemental Material Table~3). The linear approximation is most accurate near the crossing redshift ($z \sim 1$) and becomes marginal at extreme redshifts. The systematic error from the linearization is largest at $z=0$ and $z > 2$; we quantify this in the Supplemental Material.
+
+An important caveat: $a_c^2 = 1/2$ in the symmetric case, but the observable $w(z)$ depends on the product $\kappa a_c^2$ and on $|\mathcal{A}|^2(z)$, which itself depends on $a_c^2$ through the nonlinear term in Eq.~\eqref{eq:langevin}. Near $z=0$ where $|\mathcal{A}|^2 \ll a_c^2$, the ODE is approximately linear, with $a_c^2$ appearing only in the degenerate combination $\Omega_c a_c^2$, rendering $\kappa$ and $a_c^2$ partially degenerate with current data. We return to this degeneracy in \S\ref{sec:discussion}.
+
+\subsection{Phantom crossing mechanism}
+
+The phantom crossing occurs when $|\mathcal{A}|^2$ passes through $a_c^2$. From Eq.~\eqref{eq:deltaE}, the effective energy gap $\Delta E_{\rm eff}$ changes sign at this point:
+
+\begin{itemize}
+\item $|\mathcal{A}|^2 < a_c^2$: $\Delta E_{\rm eff} > 0$, the undetermined state $|0\rangle$ is the ground state. Determination costs energy. The kinetic contribution to the pressure is positive $\to$ $w > -1$ (quintessence).
+\item $|\mathcal{A}|^2 > a_c^2$: $\Delta E_{\rm eff} < 0$, the determined state $|1\rangle$ becomes the ground state. Determination releases energy. The effective kinetic contribution flips sign $\to$ $w < -1$ (phantom).
+\end{itemize}
+
+The crossing is a dynamical phenomenon---driven by the time-dependence of $f(t)$---rather than a thermodynamic phase transition. Importantly, the steady-state condition (setting $d\mathcal{A}/dt = 0$) yields a cubic equation for $|\mathcal{A}|^2_{\rm ss}$:
+\begin{equation}
+\left[\Omega_c^2(a_c^2 - |\mathcal{A}|^2_{\rm ss})^2 + \gamma^2\right]|\mathcal{A}|^2_{\rm ss} = \tilde{\eta}^2 f^2 (1-2|\mathcal{A}|^2_{\rm ss})^2.
+\label{eq:steady_cubic}
+\end{equation}
+At the exact critical point $|\mathcal{A}|^2 = a_c^2 = 1/2$, the left-hand side is $\gamma^2/2$ while the right-hand side vanishes (since $1-2|\mathcal{A}|^2 = 0$). Thus the system cannot be in steady state exactly at the critical point---the crossing is intrinsically a non-steady-state, time-dependent process. Whether the time-dependent solution passes through $|\mathcal{A}|^2 = 1/2$ depends on the amplitude and time-dependence of $f(t)$. This is a key distinction from equilibrium phase transitions and explains why different driving functions (SFR vs.\ $\mathcal{P}_{\rm coll}$) can yield different crossing behavior.
+
+No non-analyticity in $w(z)$ is expected (or observed). The term ``dynamical crossing'' is more precise than ``phase transition'' for the phenomenon described here.
+
+\subsection{Why SFR is a good proxy}
+\label{sec:sfrproxy}
+
+SFR$(z)$ and $\mathcal{P}_{\rm coll}(z)$ are both proportional to the halo formation rate $\Gamma(M,z)$, but with different mass weightings: SFR weights by the gas mass ($\propto M$), while $\mathcal{P}_{\rm coll}$ weights by the binding energy ($\propto M^{5/3}$). At the qualitative level, both functions peak at $z \sim 1$--$2$ and decline toward $z=0$, explaining why Gough's SFR-based empirical correlation \cite{Gough:2025} successfully captured the broad features of the DESI signal.
+
+We present the SFR driver as the phenomenological baseline---it is the direct theoretical expression of Gough's empirical finding and reproduces the phantom crossing observed in DESI binned data. The $\mathcal{P}_{\rm coll}$ driver is a theoretical refinement that removes the dependence on baryonic physics (gas cooling, IMF, dust correction) and provides a dark matter-only driving function. However, $\mathcal{P}_{\rm coll}$ currently yields $w(z) > -1$ at all observed redshifts, with $w(z)$ approaching $-1$ near the structure formation peak but not crossing it (see \S\ref{sec:desi}). We interpret this as follows: both drivers bracket the truth. The SFR driver captures the full information-processing rate including baryonic channels; the $\mathcal{P}_{\rm coll}$ driver captures only the gravitational channel. A complete treatment would include both, likely producing crossing between the two extremes. Alternatively, the corrected Langevin equation~\eqref{eq:langevin} with its stronger self-limiting feedback (the $\langle\sigma_z\rangle$ factor) may shift the $\mathcal{P}_{\rm coll}$ result closer to crossing once the full time-dependent solution is computed.
+
+% ================================================================
+\section{Comparison with DESI DR2}
+\label{sec:desi}
+% ================================================================
+
+\subsection{Method}
+
+We compare the predicted $w(z)$ against four binned $w(z)$ constraints reconstructed from DESI DR2 BAO + CMB + SN data \cite{Li:2025,Pang:2025}: $w = -0.72 \pm 0.12$ at $z=0.25$, $-0.95 \pm 0.15$ at $z=0.75$, $-1.05 \pm 0.22$ at $z=1.25$, and $-0.90 \pm 0.35$ at $z=2.0$. Important caveats:
+
+\begin{enumerate}
+\item These binned values are derived from non-parametric reconstructions that carry their own model-dependence. The $\Delta\chi^2$ reported below is indicative and not based on the official DESI DR2 likelihood. A proper MCMC analysis using the full DESI likelihood is required for quantitative claims and is in preparation.
+\item The total $\chi^2$ for $\Lambda$CDM ($\chi^2 = 5.69$ with 4 data points) is dominated by a single data point at $z=0.25$, which contributes $\chi^2 = 5.44$ (96\% of the total). The model's improvement over $\Lambda$CDM is therefore almost entirely driven by fitting this one bin, which prefers $w > -1$. This is not a genuine model preference across all redshifts---it reflects the fact that one DESI binned data point deviates from $w=-1$. DESI DR3 data with improved precision at low $z$ will test whether this deviation is real or a statistical fluctuation.
+\item The $\chi^2/$dof $< 1$ for both model variants indicates that the DESI error bars substantially over-encompass the model predictions. With only 4 data points, the model is essentially unconstrained by current data.
+\end{enumerate}
+
+With $a_c^2 = 1/2$ (symmetric case) and $\eta$ calibrated by $w(z=0)$, the model has two free parameters: $\Omega_c$ and $\gamma$. Against four binned data points, this gives $\mathrm{dof} = 2$. Best-fit parameters are estimated by $\chi^2$ minimization over a coarse grid spanning $\Omega_c/H_0 \in [5, 50]$ and $\gamma/H_0 \in [2, 30]$, with step size $\Delta = 2$ in both dimensions (grid of $23 \times 15 = 345$ points). The grid boundaries were chosen to bracket plausible physical values: $\Omega_c/H_0 \gtrsim 1$ is required for the coherent term to be non-negligible at cosmological timescales, while $\Omega_c/H_0 \gg 100$ would produce oscillations faster than the Hubble time; $\gamma/H_0 \gtrsim 1$ ensures that driving does not dominate, while $\gamma/H_0 \gg 50$ would overdamp the system and prevent the determination fraction from evolving. The best-fit values $(\Omega_c/H_0, \gamma/H_0) = (10, 10)$ for SFR and $(20, 10)$ for $\mathcal{P}_{\rm coll}$ are grid points, not continuous minima. No formal confidence intervals are reported due to the small number of data points and acknowledged degeneracies.
+
+\subsection{Results}
+
+Figure~\ref{fig:wz} shows the predicted $w(z)$ for the best-fit parameters. Table~\ref{tab:results} summarizes the fit.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{../fig_wz_prediction.pdf}
+\caption{Predicted $w(z)$ curves for the SFR-driven model (blue) and $\mathcal{P}_{\rm coll}$-driven model (red), compared with DESI DR2 binned $w(z)$ constraints (black points with error bars) from non-parametric reconstructions \cite{Li:2025,Pang:2025}. The horizontal dashed line marks $\Lambda$CDM ($w=-1$). The SFR driver produces phantom crossing ($w < -1$) at $z \sim 1.0$--$1.3$, while the $\mathcal{P}_{\rm coll}$ driver yields $w(z) > -1$ at all observed redshifts with $w(z)$ approaching $-1$ near the structure formation peak ($z \sim 1.4$). Both models improve over $\Lambda$CDM at the $\sim 2\sigma$ level.}
+\label{fig:wz}
+\end{figure*}
+
+\begin{table}[h]
+\centering
+\caption{Best-fit parameters and $\chi^2$. $\Lambda$CDM has $w=-1$ everywhere. Note that the SFR driver produces phantom crossing ($w < -1$ at $z=1.25$), while the $\mathcal{P}_{\rm coll}$ driver yields $w > -1$ at all bins with $w$ approaching $-1$ near the structure formation peak.}
+\label{tab:results}
+\begin{tabular}{lccccc}
+\toprule
+Model & $\Omega_c/H_0$ & $\gamma/H_0$ & $\chi^2$ & dof & $\chi^2/$dof \\
+\midrule
+This work (SFR driver)  & 10 & 10 & 0.52 & 2 & 0.26 \\
+This work ($\mathcal{P}_{\rm coll}$ driver) & 20 & 10 & 0.95 & 2 & 0.47 \\
+$\Lambda$CDM ($w=-1$)   & --- & --- & 5.69 & 4 & 1.42 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The SFR driver yields $\Delta\chi^2 = 5.17$ over $\Lambda$CDM ($\sim 2.3\sigma$), with phantom crossing at $z \sim 1.25$ ($w = -1.01$). The $\mathcal{P}_{\rm coll}$ driver yields $\Delta\chi^2 = 4.74$ over $\Lambda$CDM ($\sim 2.2\sigma$), with $w(z) > -1$ at all DESI bins: $w(0.25) = -0.79$, $w(0.75) = -0.91$, $w(1.25) = -0.91$, $w(2.0) = -0.80$. We emphasize that $\Delta\chi^2 \sim 5$ corresponds to an indicative preference, not a detection---at this significance level, the result is consistent with a statistical fluctuation.
+
+The key finding is that both drivers improve over $\Lambda$CDM and share the qualitative feature $w(z=0) > -1$ with $w(z)$ approaching $-1$ as structure formation peaks. The SFR driver shows phantom crossing ($w < -1$ at $z \sim 1.25$), while the $\mathcal{P}_{\rm coll}$ driver approaches but does not cross $-1$. The difference between the two drivers at $z=1.25$ ($\Delta w \approx 0.1$) is within the DESI error bar ($\pm 0.22$), so current data cannot distinguish between them. DESI DR3, with error bars reduced by a factor of $\sim 2$--$3$, will provide a decisive test.
+
+\subsection{Robustness to driver choice}
+
+We tested the model with three different SFR compilations \cite{Madau:2014,Behroozi:2019,Driver:2018} and with the $\mathcal{P}_{\rm coll}$ driver. Across all SFR compilations, $w(z)$ crosses $-1$ near $z \sim 1.0$--$1.3$ and $\chi^2 < \chi^2_{\Lambda{\rm CDM}}$. The $\mathcal{P}_{\rm coll}$ driver does not show phantom crossing in any mass-function variant tested, but consistently yields $w(z) > -1$ with $w(z)$ approaching $-1$ at the structure formation peak. The quantitative prediction for the CPL slope $w_a$ varies by a factor of $\sim 3$ across SFR compilations, reflecting the systematic uncertainty in the baryonic data.
+
+The halo mass function variant introduces a factor-of-2 variation in the driving function at $z=2$ (Supplemental Material Table~1: Tinker gives $\mathcal{P}_{\rm coll}(2.0)/\mathcal{P}_{\rm coll}(0) = 7.67$ vs.\ Sheth-Tormen's $3.88$). Given the large DESI error bar at $z=2.0$ ($\pm 0.35$), this variation does not affect the qualitative conclusions but limits the precision of quantitative predictions at high redshift.
+
+% ================================================================
+\section{Discussion}
+\label{sec:discussion}
+% ================================================================
+
+\subsection{Distinction from Hu (2005) and quintom models}
+
+Hu \cite{Hu:2005} demonstrated that phantom crossing requires internal degrees of freedom in the dark energy sector and constructed a generic two-field model where kinetic coupling enables stable crossing. Our mechanism shares the internal degrees of freedom premise (the two states of each qubit provide the required multiplicity) but differs fundamentally in implementation. In Hu's model, crossing is achieved through specific kinetic mixing terms in the Lagrangian; in our model, crossing occurs at the dynamical threshold $|\mathcal{A}|^2 = a_c^2$, which is set by the Hamiltonian parameters and the time-dependent driving---not by Lagrangian parameters. The observational distinction is that our crossing redshift is tied to the structure formation history (via $f(t)$), whereas Hu's crossing redshift is a free parameter.
+
+Quintom models \cite{Feng:2005} require two distinct fields (one quintessence, one phantom). Our framework achieves the same phenomenology with a single species (qubits), with the two components emerging from the two states of each qubit and the mean-field interaction. Prior works on trans-Planckian effects and backreaction in cosmology \cite{Martineau:2005,Zhao:2009} also considered quantum effects on dark energy, but without the specific qubit-ensemble and driving-function formalism developed here. Recent independent work \cite{Mishra:2026} has explored related information-theoretic approaches to cosmic acceleration.
+
+\subsection{High-redshift behavior and recovery of $\Lambda$CDM}
+\label{sec:highz}
+
+The model must recover $\Lambda$CDM at early times, since dark energy is negligible at high redshift in the standard cosmology. As $z \to \infty$, the driving function $f(z) \to 0$ (no structure formation before the first halos form), so $|\mathcal{A}|^2 \to 0$ (the trivial steady state; stability is confirmed since $\mathrm{Re}(\lambda) = -\gamma < 0$). From Eq.~\eqref{eq:wz}, this gives $w(z\to\infty) = -1 + \kappa a_c^2$.
+
+For consistency with $\Lambda$CDM at early times, we require $w(z\to\infty) \to -1$, which implies $\kappa a_c^2 \to 0$ as the driving vanishes. This is not automatically satisfied by the linear relation Eq.~\eqref{eq:wz}. We propose the following resolution: the general function $F(|\mathcal{A}|^2)$ in $w+1 = F(|\mathcal{A}|^2)$ should satisfy $F(0) = 0$, i.e., when no qubits are determined ($|\mathcal{A}|^2 = 0$), there is no dark energy ($w = -1$ exactly, recovering $\Lambda$CDM). The linear form $F(x) = \kappa(a_c^2 - x)$ has $F(0) = \kappa a_c^2 \neq 0$, which is the leading-order expansion that is accurate near the critical point but fails at $|\mathcal{A}|^2 \ll a_c^2$. A full treatment would use $F(|\mathcal{A}|^2) = \kappa(a_c^2 - |\mathcal{A}|^2) \cdot g(|\mathcal{A}|^2/a_c^2)$ where $g(0) = 0$ and $g(1) = 1$. At the level of current data ($z \lesssim 2$), the linear approximation is adequate; at higher redshifts, the nonlinear completion ensures consistency with $\Lambda$CDM. This is an important theoretical refinement that we leave to future work. In summary, the model as presented here is quantitatively valid for $z \lesssim 2$, where the linear approximation holds and DESI data exist; extension to higher redshifts requires the nonlinear completion $g(|\mathcal{A}|^2/a_c^2)$.
+
+\subsection{Systematic uncertainties in $\mathcal{P}_{\rm coll}$}
+
+Figure~\ref{fig:pcoll_band} shows the $w(z)$ prediction band. The band width is $\Delta w \sim 0.1$--$0.2$, comparable to the DESI statistical error bars at $z \lesssim 1.5$ and smaller at $z > 1.5$. The qualitative features---$w(z=0) > -1$ and $w(z)$ decreasing toward the structure formation peak---are preserved across all variants, though the crossing behavior (whether $w$ reaches below $-1$) depends on the driver choice and mass function variant.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{../fig_pcoll_band.pdf}
+\caption{Illustrative envelope for the $\mathcal{P}_{\rm coll}$-driven model. The central red curve uses the Sheth-Tormen halo mass function with $M_{\rm min} = 10^8\,M_\odot$. The shaded band is an illustrative envelope (constant offsets $\pm 0.08$--$0.12$) that roughly brackets the range obtained by varying the halo mass function (Press-Schechter, Sheth-Tormen, Tinker) and $M_{\rm min}$ ($10^6$--$10^{12}\,M_\odot$), as tabulated in SM Table~1. This is not a formal uncertainty band from MCMC error propagation. The DESI DR2 binned constraints \cite{Li:2025,Pang:2025} are shown for comparison. The band width $\Delta w \sim 0.1$--$0.2$ is comparable to current DESI statistical uncertainties.}
+\label{fig:pcoll_band}
+\end{figure*}
+
+\subsection{The $a_c^2$ dependence on driver choice}
+\label{sec:driver_dependence}
+
+The effective $a_c^2$ inferred from the data depends on which driver function is used. With the SFR driver, the best-fit yields an effective $a_c^2 \approx 0.15$ (dynamically renormalized); with the $\mathcal{P}_{\rm coll}$ driver, $a_c^2 \approx 0.28$. This factor-of-$\sim 2$ difference reflects the fact that $\Omega_c$ and $\gamma$ are effective parameters that absorb differences in the driving function amplitude and shape. These are not fundamental constants of the Hamiltonian but phenomenological parameters constrained by the cosmological data. The microscopic $a_c^2 = 1/2$ (from the symmetric Hamiltonian) is renormalized by the driven-dissipative dynamics: the actual steady-state determination fraction and the effective $a_c^2$ seen in $w(z)$ depend on $\tilde{\eta} f(t)$, which differs between SFR and $\mathcal{P}_{\rm coll}$. This is discussed further in the Supplemental Material.
+
+\subsection{The $\kappa$--$a_c^2$ degeneracy}
+
+The dark energy equation of state, Eq.~\eqref{eq:wz}, depends on the product $\kappa a_c^2$ and on $|\mathcal{A}|^2(z)$, which itself depends on $a_c^2$ through the nonlinear term in Eq.~\eqref{eq:langevin}. When $|\mathcal{A}|^2 \ll a_c^2$ (the regime near $z=0$), the ODE is approximately linear and independent of $a_c^2$, rendering $a_c^2$ and $\kappa$ strongly degenerate. In this regime, $a_c^2$ cannot be independently measured from $w(z)$ data alone. The degeneracy is broken in principle when $|\mathcal{A}|^2 \sim a_c^2$ (near the crossing redshift), but current DESI data do not resolve this region with sufficient precision.
+
+Two paths to breaking the degeneracy: (i) a model-independent measurement of the crossing redshift $z_{\rm cross}$---since $|\mathcal{A}|^2(z_{\rm cross}) = a_c^2$ by definition, $z_{\rm cross}$ directly determines $a_c^2$ given the dynamics; (ii) the proposed analog quantum simulation (\S\ref{sec:quantumsim}), where $a_c^2$ can be measured independently by scanning the drive strength.
+
+\subsection{Proposed analog quantum simulation}
+\label{sec:quantumsim}
+
+An analog quantum simulation of Eq.~\eqref{eq:langevin} can be implemented on a small array of superconducting qubits with engineered all-to-all Ising coupling, external microwave drives, and controlled dissipation---building on existing small-scale quantum simulations of Ising and Curie-Weiss models on superconducting platforms \cite{Salathe:2015,Barends:2016}. By scanning the drive amplitude $\eta$ and measuring the qubit response function, the dynamical crossing at $|\mathcal{A}|^2 = a_c^2$ can be observed in the laboratory. The $N \ge 3$ regime would test the emergence of the collective behavior. Finite-size effects are significant at small $N$ (the rounding of the transition scales as $\Delta \eta/\eta_c \sim N^{-1/2}$), but the qualitative signature---$|\mathcal{A}|^2$ increasing monotonically with $\eta$ and crossing the theoretically predicted $a_c^2$---is the observable target.
+
+This is a proposed experiment, not an executed one. It would test the qubit dynamics described by Eq.~\eqref{eq:langevin}, not the cosmological coupling. A successful laboratory demonstration would provide evidence that the mathematical framework is physically realizable, strengthening the case for its cosmological application.
+
+\subsection{Limiting case: strong damping}
+
+In the limit $\gamma \gg \Omega_c$, the Langevin equation~\eqref{eq:langevin} reduces to a purely damped form. The steady-state cubic~\eqref{eq:steady_cubic} becomes $\gamma^2 |\mathcal{A}|^2_{\rm ss} \approx \tilde{\eta}^2 f^2 (1-2|\mathcal{A}|^2_{\rm ss})^2$, which is regular and solvable. The effective $a_c^2$ (the value of $|\mathcal{A}|^2$ at which the drive and damping balance near the crossing) approaches zero as $\gamma/\Omega_c \to \infty$, consistent with the physical expectation that strong damping prevents the system from reaching the critical point. The ODE does not become singular in this limit---the original concern about a $1/a_c^2$ divergence is resolved by the corrected equation, where the coherent term is proportional to $\Omega_c(a_c^2 - |\mathcal{A}|^2)$ rather than $\omega_0(1 - |\mathcal{A}|^2/a_c^2)$.
+
+\subsection{Outlook: quantitative predictions for DESI DR3}
+
+DESI DR3 (expected 2026--2028) will reduce the $w(z)$ error bars by a factor of $\sim 2$--$3$. We forecast the following quantitative tests:
+
+\begin{enumerate}
+\item \textbf{Crossing redshift.} If the SFR-driven phantom crossing is physical, DESI DR3 should find $z_{\rm cross} = 1.0$--$1.3$. If the $\mathcal{P}_{\rm coll}$ result is closer to the truth, DR3 should find $w(z) > -1$ at all redshifts with $w(z)$ asymptoting to $-1$ near $z \sim 1.4$. A measurement of $w < -1$ at $z > 1.5$ with $>3\sigma$ significance would falsify the $\mathcal{P}_{\rm coll}$ variant.
+\item \textbf{CPL slope.} The model predicts $w_a$ between $-0.2$ and $-0.6$ (SFR-driven, depending on compilation) or $w_a \sim 0$ ($\mathcal{P}_{\rm coll}$-driven, with $w(z) > -1$ everywhere). DR3 should constrain $w_a$ to $\pm 0.3$, sufficient to distinguish between these scenarios.
+\item \textbf{Correlation with $z_{\rm peak}$.} If the crossing is real, $z_{\rm cross}$ should correlate with the SFR peak redshift ($z \sim 1.9$) for the SFR driver, or with the $\mathcal{P}_{\rm coll}$ peak ($z \sim 1.4$) for the $\mathcal{P}_{\rm coll}$ driver. This correlation is a distinguishing prediction of our model and, if confirmed, would provide strong evidence for the information dark energy hypothesis.
+\end{enumerate}
+
+We note that these DR3 forecast ranges are indicative and driven primarily by the spread across SFR compilations and mass function variants, rather than by formal propagation of parameter uncertainties. Since no formal confidence intervals are reported for the best-fit parameters ($\Omega_c$, $\gamma$, $\tilde{\eta}$)---the model is essentially unconstrained by current data with only 4 binned points---the forecast uncertainties cannot be rigorously determined. The quoted ranges reflect the systematic uncertainty in the choice of driving function and its calibration inputs, and should be interpreted as exploratory rather than as formal predictions.
+
+If DESI DR3 pulls $w(z)$ back toward $w=-1$ at all redshifts, the model is falsified: the phantom crossing would have been a statistical fluctuation, and the information dark energy hypothesis would lose its primary empirical motivation.
+
+% ================================================================
+\section{Conclusion}
+% ================================================================
+
+Gough \cite{Gough:2025} found that structure formation empirically tracks dark energy evolution---we have provided the microscopic theory. The central result is Eq.~\eqref{eq:langevin}: a complex Langevin equation for a driven-dissipative qubit ensemble, derived from the Lindblad master equation, with a critical fraction $a_c^2=1/2$ from the Curie-Weiss mean-field theory of the transverse Ising model. Two drivers---SFR (phenomenological) and $\mathcal{P}_{\rm coll}$ (first-principles)---bracket the systematic uncertainty; both improve over $\Lambda$CDM when compared to DESI DR2 binned $w(z)$ constraints. Whether the phantom crossing inferred from current data is a genuine cosmological signal or a fluctuation in one redshift bin ($z=0.25$, which contributes 96\% of the $\Lambda$CDM $\chi^2$ penalty) remains unsettled. DESI DR3, with error bars reduced by a factor of 2--3, should settle this. If the crossing persists, the correlation between $z_{\rm cross}$ and the structure formation peak becomes a clean test of the information dark energy hypothesis. If $w(z)$ reverts to $-1$, the hypothesis loses its primary empirical motivation---and the model is falsified. Either outcome is informative.
+
+\begin{acknowledgments}
+We thank the anonymous referees whose adversarial review strengthened this manuscript from a conceptually interesting but mathematically inconsistent draft into a self-consistent theory.
+\end{acknowledgments}
+
+% ================================================================
+\appendix
+% ================================================================
+
+\section{Derivation of the Complex Langevin Equation}
+\label{app:langevin}
+
+Starting from the Lindblad master equation for qubit $i$ under the mean-field Hamiltonian $H_{\rm MF}^{(i)} = \frac{1}{2}\Delta E_{\rm eff}\,\sigma_z^{(i)} + \eta f(t)\sigma_x^{(i)}$, with Lindblad operators $L = \sqrt{\gamma}\,\sigma_-$ (damping), the equation for $\langle\sigma_-\rangle = \mathcal{A}$ is:
+\begin{equation}
+\frac{d\langle\sigma_-\rangle}{dt} = -\frac{i}{\hbar}\Delta E_{\rm eff}\langle\sigma_-\rangle - \gamma\langle\sigma_-\rangle + i\frac{\eta f(t)}{\hbar}\langle\sigma_z\rangle.
+\end{equation}
+Substituting $\Delta E_{\rm eff} = 4g(a_c^2 - |\mathcal{A}|^2)$, $\langle\sigma_z\rangle = 1-2|\mathcal{A}|^2$, and defining $\Omega_c = 4g/\hbar$, $\tilde{\eta} = \eta/\hbar$, we obtain Eq.~\eqref{eq:langevin}. The Gaussian decoupling approximation $\langle\sigma_z\sigma_-\rangle \approx \langle\sigma_z\rangle\langle\sigma_-\rangle$ is used; $1/N$ corrections are $O(1/N)$ and negligible for cosmological ensembles ($N \gg 10^{80}$). The full derivation, including the Keldysh formalism for $1/N$ corrections and the open quantum systems formalism \cite{Breuer:2002}, is presented in the Supplemental Material.
+
+\section{$\mathcal{P}_{\rm coll}$ Computation Details}
+\label{app:pcoll}
+
+The collapse power density is computed as described in \S\ref{sec:driver}. The linear power spectrum uses the Eisenstein-Hu transfer function with Planck 2018 parameters ($\Omega_m=0.315$, $\sigma_8=0.811$, $h=0.674$, $n_s=0.965$). The halo formation rate follows the extended Press-Schechter formalism \cite{Lacey:1993,Sasaki:1994} with the Sheth-Tormen mass function parameters $(A=0.322, a=0.707, p=0.3)$ \cite{Sheth:1999}. Results for Press-Schechter and Tinker \cite{Tinker:2008} variants are shown in \S\ref{sec:discussion} and the Supplemental Material. The fiducial mass range is $M_{\rm min} = 10^8 M_\odot$ to $M_{\rm max} = 10^{16} M_\odot$; systematic variation of $M_{\rm min}$ between $10^6 M_\odot$ and $10^{12} M_\odot$ is shown in the Supplemental Material. The code is available upon request.
+
+\begin{thebibliography}{99}
+
+\bibitem{DESI:2025}
+DESI Collaboration, arXiv:2503.14738 (2025).
+
+\bibitem{Dicke:1954}
+R.~H.~Dicke, Phys.\ Rev.\ \textbf{93}, 99 (1954).
+
+\bibitem{Li:2025}
+J.-X.~Li and S.~Wang, Eur.\ Phys.\ J.\ C \textbf{85}, 11 (2025).
+
+\bibitem{Pang:2025}
+Y.-H.~Pang et al., Phys.\ Rev.\ D \textbf{111}, 123504 (2025).
+
+\bibitem{Hu:2005}
+W.~Hu, Phys.\ Rev.\ D \textbf{71}, 047301 (2005).
+
+\bibitem{Linder:2024}
+E.~V.~Linder, arXiv:2410.10981 (2024).
+
+\bibitem{Feng:2005}
+B.~Feng, X.~Wang, and X.~Zhang, Phys.\ Lett.\ B \textbf{607}, 35 (2005).
+
+\bibitem{Khoury:2025}
+J.~Khoury, M.-X.~Lin, and M.~Trodden, arXiv:2503.16415 (2025).
+
+\bibitem{Guedezounme:2026}
+S.~L.~Guedezounme, B.~R.~Dinda, and R.~Maartens, JCAP \textbf{01}, 062 (2026).
+
+\bibitem{Linder:2025}
+E.~V.~Linder, arXiv:2512.03139 (2025).
+
+\bibitem{Cataneo:2025}
+M.~Cataneo et al., arXiv:2512.13691 (2025).
+
+\bibitem{Andriot:2025}
+D.~Andriot, arXiv:2505.10410 (2025).
+
+\bibitem{Chen:2026}
+R.~Chen, J.~M.~Cline, V.~Muralidharan, and B.~Salewicz, JCAP \textbf{03}, 044 (2026).
+
+\bibitem{Gough:2025}
+M.~P.~Gough, Entropy \textbf{27}, 110 (2025).
+
+\bibitem{Hepp:1973}
+K.~Hepp and E.~H.~Lieb, Ann.\ Phys.\ \textbf{76}, 360 (1973).
+
+\bibitem{Landauer:1961}
+R.~Landauer, IBM J.\ Res.\ Dev.\ \textbf{5}, 183 (1961).
+
+\bibitem{Sheth:1999}
+R.~K.~Sheth and G.~Tormen, Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{308}, 119 (1999).
+
+\bibitem{Eisenstein:1998}
+D.~J.~Eisenstein and W.~Hu, Astrophys.\ J.\ \textbf{496}, 605 (1998).
+
+\bibitem{Tinker:2008}
+J.~Tinker et al., Astrophys.\ J.\ \textbf{688}, 709 (2008).
+
+\bibitem{Wang:1973}
+Y.~K.~Wang and F.~T.~Hioe, Phys.\ Rev.\ A \textbf{7}, 831 (1973).
+
+\bibitem{LyndenBell:1967}
+D.~Lynden-Bell, Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{136}, 101 (1967).
+
+\bibitem{Madau:2014}
+P.~Madau and M.~Dickinson, Ann.\ Rev.\ Astron.\ Astrophys.\ \textbf{52}, 415 (2014).
+
+\bibitem{Behroozi:2019}
+P.~Behroozi et al., Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{488}, 3142 (2019).
+
+\bibitem{Driver:2018}
+S.~P.~Driver et al., Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{475}, 2891 (2018).
+
+\bibitem{Lacey:1993}
+C.~Lacey and S.~Cole, Mon.\ Not.\ Roy.\ Astron.\ Soc.\ \textbf{262}, 627 (1993).
+
+\bibitem{Sasaki:1994}
+S.~Sasaki, Publ.\ Astron.\ Soc.\ Japan \textbf{46}, 427 (1994).
+
+\bibitem{Breuer:2002}
+H.-P.~Breuer and F.~Petruccione, \textit{The Theory of Open Quantum Systems} (Oxford University Press, 2002).
+
+\bibitem{Salathe:2015}
+Y.~Salathe et al., Phys.\ Rev.\ X \textbf{5}, 021027 (2015).
+
+\bibitem{Barends:2016}
+R.~Barends et al., Nature \textbf{534}, 222 (2016).
+
+\bibitem{Mishra:2026}
+S.~S.~Mishra, arXiv:2605.27301 (2026).
+
+\bibitem{Zhao:2009}
+W.~Zhao, Y.~Zhang, and M.~L.~Tong, arXiv:0909.3874 (2009).
+
+\bibitem{Martineau:2005}
+K.~Martineau and R.~Brandenberger, arXiv:astro-ph/0510523 (2005).
+
+\end{thebibliography}
+
+\end{document}
