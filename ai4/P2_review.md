@@ -1,7 +1,8 @@
-# P2: Scientific Review — R1-R5 恶意审稿人循环
+# P2: Scientific Review — R1-R5 技术审稿循环
 
-> 角色: 模拟真实期刊审稿流程。5轮恶意审稿人,每轮独立Agent实例。
-> 核心原则: 审稿人找问题→修改→再审→再改→直至FATAL清零
+> 角色: 模拟真实期刊审稿流程。5轮技术审稿人,每轮独立Agent实例。
+> 核心原则: 审稿人找**技术问题**(逻辑/数学/证据/一致性)→修改→再审→再改→直至FATAL清零
+> ⛔ 审稿人只审技术正确性,不审写作语气,不审"是否足够诚实/谦虚"
 > 输入: paper_output/final_paper/main.tex (初稿)
 > 输出: 5轮审稿报告 + 5轮修改记录 + 修改后的稿件
 
@@ -12,7 +13,20 @@
 每轮使用独立Agent实例。传入内容: **三份材料全部传入**,不含推导背景。
 
 ```
-审稿人角色: [目标期刊] 匿名审稿人,根本性怀疑立场
+审稿人角色: [目标期刊] 匿名审稿人,技术准确性审查立场
+  ⛔ 审稿人审什么(4项):
+    1. 逻辑正确性: 推导链是否完整? 极限情况是否退化正确?
+    2. 数学正确性: 定理陈述是否精确? 条件是否完整?
+    3. 证据充分性: 声称是否有数据/推导/引用支撑?
+    4. 三份材料交叉一致性: 正文=SM=CoverLetter?
+
+  ⛔ 审稿人不审什么(5项):
+    1. 不审写作语气 —— 论文"听起来是否自信"不是审稿范围
+    2. 不审诚实度 —— "作者是否足够谦虚"不是审稿范围。只审声称是否被证据支撑
+    3. 不审叙事张力 —— "读起来是否有推进力"由Phase 2b的叙事审查负责
+    4. 不要求添加自我贬低 —— 禁止建议"作者应更强调这是初步结果"
+    5. 不要求在每个段落重复限制条件 —— 限制条件集中在Scope/Limitations section即可
+
 审稿标准: 该期刊实际接受标准
 ⛔ 审稿范围(三份必须全部审):
   1. 论文正文 (paper_output/final_paper/main.tex)
@@ -23,6 +37,28 @@
   - 检查正文声称是否有SM数据支撑
   - 检查SM推导是否自洽且与正文一致
   - 检查Cover Letter声称是否与正文/SM吻合(无夸大)
+```
+
+### §1b. ⛔ 审稿人输出规范
+
+审稿报告不得包含以下类型意见（这些不是技术问题，是语气问题，由Phase 2b处理）:
+
+```
+禁止的审稿意见:
+  ✗ "作者应更强调这是初步结果"
+  ✗ "应增加更多关于局限性的讨论" (除非当前局限性陈述有事实错误)
+  ✗ "论文读起来过于自信"
+  ✗ "作者应更谦虚地陈述发现"
+  ✗ "应反复提醒读者这是限制条件"
+
+允许的审稿意见:
+  ✓ "Theorem X的条件(i)未陈述完整,缺少对零模的处理"
+  ✓ "第Y段的声称'Z'与SM数据矛盾"
+  ✓ "Cover Letter声称'W'在正文中无对应证据"
+  ✓ "推导Step 3未考虑量纲不一致的情况"
+  ✓ "引用[A]的内容与原文不符(已fetch验证)"
+
+原则: 审稿人指出的是"哪里错了/缺了什么",不是"态度应该如何"。
 ```
 
 ---
@@ -72,6 +108,7 @@ PI读审稿报告 → 每个问题标注严重级别:
 ```
 用Agent工具启动独立FIX Agent:
   传入: 三份材料(正文+SM+CoverLetter) + 审稿报告(分正文/SM/CoverLetter标注FATAL/MAJOR)
+       + ⛔ paper_output/author_voice_card.md
   输出: paper_output/fix_R[N].md + 修改后的三份文件
 
 ⛔ 修复规则:
@@ -80,6 +117,7 @@ PI读审稿报告 → 每个问题标注严重级别:
   - Cover Letter声称必须与正文/SM一致(不能夸大,不能遗漏限制条件)
   - 优先用实际数据+py脚本验证
   - 不能为了回避审稿意见而降低声称强度
+  - ⛔ 遵守§4b-bis的Voice保护规则 (读取author_voice_card.md)
 ```
 
 ### Step 5: INSPECTOR校对
@@ -89,6 +127,20 @@ PI读审稿报告 → 每个问题标注严重级别:
   检查修改处: 量纲/方向/量级/循环论证
   输出: paper_output/inspect_R[N].md
   有阻断→FIX Agent必须再次修改
+
+⛔ 每轮Voice退化检查 (新增 — 防止5轮累积削平):
+  INSPECTOR额外检查:
+    [ ] 本轮FIX修改是否删除了审美判断句?
+    [ ] 本轮FIX修改是否弱化了信念梯度? (Level A→B/C?)
+    [ ] 本轮FIX修改是否删除了人格化特征? (口语短句/第一人称/比喻?)
+    [ ] 本轮FIX修改是否修匀了段落长度? (极短段被扩展? 极长段被拆分?)
+    [ ] 本轮FIX修改是否扩散了限制条件? (在非修正段落添加hedging?)
+
+  命中任一项 → 标注"Voice退化" → FIX Agent必须在本轮内恢复
+  ⛔ Voice退化不能累积到下轮。每轮必须独立通过Voice检查。
+  如果FIX Agent无法同时满足"修正技术问题"和"保持Voice" →
+    在fix报告中标注冲突,由PI裁决。PI优先保持技术正确性,
+    但要求FIX Agent在保持正确性的前提下寻找不破坏Voice的替代修改。
 ```
 
 ### Step 6: 更新稿件 + 检查停止条件
@@ -207,6 +259,32 @@ Q4. 引用完整性
   - 文字绕过: 不能只改措辞回避审稿意见
   - 降级绕过: 不能把"我们证明了X"改成"我们猜测X可能成立"来回应质疑
   - 添加新声称: 不能在修复中引入未经AB验证的新科学声称
+
+⛔ Voice保护规则 (新增 — 防止FIX Agent削平作者人格):
+  - 禁止删除审美判断句: 不能以"太主观"为由删除 "ugly but works" / "I find this" 类句子
+  - 禁止弱化信念梯度: 
+    Level A (断言) → 不能改成 Level B/C (hedged)
+    如果技术修正需要添加条件 → "Under C, X holds." NOT "X may hold under C."
+  - 禁止删除人格化特征: 口语短句/第一人称/读者对话/比喻 → 不是不正式,是Voice
+  - 禁止修匀段落长度:
+    如果某段本来是≤2句(快速带过) → 不要因为"不够详细"而扩展
+    如果某段本来是≥8句(作者在意) → 不要因为"太长"而拆分
+  - 禁止扩散限制条件: 技术修正只在修正点添加条件,不扩散到其他段落
+```
+
+### 4b-bis. ⛔ FIX Agent 启动前提
+
+```
+FIX Agent启动时必须:
+  [ ] 读取 paper_output/author_voice_card.md
+  [ ] 确认理解Voice Card的5个维度
+  [ ] 确认理解: 哪些段落是作者"最在意"的(不允许大幅删除/重写)
+  [ ] 确认理解: 哪些句子是审美判断/人格化特征(不允许以"不正式"为由删除)
+
+FIX Agent修改规则:
+  优先修改非Voice段落(一般技术段落)
+  如果必须修改Voice段落 → 保持Voice特征,只修正技术内容
+  如果修改会破坏Voice特征 → 在fix报告中标注冲突,由PI裁决
 ```
 
 ### 4c. 多Agent加速 (R3起可选)
@@ -332,4 +410,91 @@ R4: 精细审稿 → 检查边界情况和次要声称(CEP:0 FATAL)
 R5: 终审 → 模拟真实审稿人最后通读(CEP:0 FATAL)
 
 预期趋势: FATAL数逐轮递减。如果R3后FATAL反增→说明修复引入了新问题→暂停,检查修复质量。
+```
+
+---
+
+## §7 ⛔ 防御性语言禁令 — 自我贬低黑名单
+
+> 以下语言模式已被确认为"过度对齐到对抗审稿信号"的症状。
+> 它们对技术内容零贡献,但会系统性降低论文说服力。
+> FIX Agent和PI在每次修改后必须grep全文扫描。命中→删除或改写为中性技术陈述。
+
+### 7a. 自我贬低句 (直接删除,不需要替代)
+
+```
+⛔ "It may be nothing." / "It may be an accident." / "It may be a coincidence."
+⛔ "We tried to derive it. We couldn't."
+⛔ "That does not make it correct."
+⛔ "Not even close."
+⛔ "It isn't one."
+⛔ "We have nothing to add here except to mark the gap."
+⛔ "What is missing is not small."
+⛔ "We do not see a path from here to there."
+⛔ "That is not surprising." / "That is reassuring but not surprising."
+⛔ "I was initially unsure..." / "We were initially unsure..."
+⛔ "It would be dishonest to claim otherwise."
+⛔ "Honesty about where a method breaks is more useful than pretending it doesn't."
+```
+
+### 7b. 过度谦虚句 (改写为中性技术陈述)
+
+```
+⛔ "The result is not surprising; the value is in making the steps explicit."
+   → "Proposition X establishes Y under conditions A, B, C."
+
+⛔ "What we prove is weaker than what one might want; what we claim is only what we prove."
+   → "Proposition X shows Y. The proof assumes A, B, C."
+
+⛔ "This is a consistency check, not a new theorem."
+   → "Gleason-type results give the normal probability representation on H^2_+(S)."
+
+⛔ "We cannot stress that enough."
+   → 删除。如果确实需要强调条件,在定理陈述中精确列出即可。
+
+⛔ "The answer is conditional."
+   → 删除。定理条件已在定理陈述中列出,无需额外标注"有条件"。
+
+⛔ "Whether [X] is useful is for the reader to judge."
+   → 删除。读者不需要被告知"你可以自己判断"。
+```
+
+### 7c. 规则: 每个技术限制只陈述一次
+
+```
+⛔ 禁止的症状: 同一个限制条件在正文中出现≥3次
+   (如:"这不适用于相互作用理论"在Intro/Results/Discussion各说一次)
+
+正确做法:
+  1. 限制条件在它第一次出现的段落完整陈述
+  2. 后续提到时用简短回指: "as noted in Sec.X" (最多5个词)
+  3. 所有限制条件汇总到 Discussion §Scope and limitations (一个section,一次说清)
+```
+
+### 7d. FIX Agent修改规则补充
+
+```
+⛔ FIX Agent在修改论文时:
+  - 修正技术错误 → ✅
+  - 补充遗漏的条件 → ✅  
+  - 添加自我贬低句来"显得诚实" → ⛔ 禁止
+  - 在每个段落重复限制条件 → ⛔ 禁止
+  - 降低声称强度来回避审稿意见 → ⛔ 禁止(已有规则,重申)
+  - 把技术问题改成"我们不知道"/"我们没做出来" → ⛔ 禁止
+  
+  如果审稿人指出"X条件未说明":
+    → 在定理陈述处精确添加X条件 (✅ 技术修正)
+    → 不要在全文每个段落说"本文结果是条件性的" (⛔ 防御性扩散)
+```
+
+### 7e. 执行
+
+```
+PI在每轮FIX Agent修改后, grep全文扫描§7a和§7b中的黑名单短语:
+  [ ] grep "may be nothing\|Not even close\|We couldn't\|It isn't one\|would be dishonest"
+  [ ] grep "not surprising\|weaker than what one might\|consistency check, not"
+  [ ] grep "for the reader to judge\|cannot stress that enough\|answer is conditional"
+  
+  命中 → FIX Agent必须删除/改写该句
+  同一限制条件出现≥3次 → 保留第一次,其余改为≤5词回指或删除
 ```

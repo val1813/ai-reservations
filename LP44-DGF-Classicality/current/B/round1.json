@@ -1,0 +1,310 @@
+{
+  "project": "LP44",
+  "round": 1,
+  "agent": "B",
+  "polaris": "因果环作为退相干放大器解释宏观经典性 — τ_dec = 1/(|μ(c,p)|·γ_E·b1_active)，零自由参数",
+  "framework": "经济学 / 机制设计理论 (Myerson 1981) + 信息设计/贝叶斯劝说 (Kamenica-Gentzkow 2011)",
+  "findings": "将因果环退相干过程映射为信息不对称市场中的机制设计问题。每个因果环 = 一个'信息交易回合'：系统态为卖方私有类型(which-path信息)，环境为买方(出价=退相干因子)，Gram矩阵非对角元=买方无法区分两种类型的概率(混同均衡概率)，退相干=分离均衡实现。核心产出：(1) Myerson-Satterthwaite不可能定理为4边环最小性提供经济学证明——双边信息不对称无法实现有效信息转移，至少需3方参与；(2) Akerlof逆向选择预测c-p空间存在'市场瓦解'相变——超过临界信息不对称，多环网络出现策略互补崩溃，退相干率非连续坍缩至零，Ramsey条纹对比度C(N)应在N>N_crit时反弹(目前DGF独立环乘积模型不包含此效应)；(3) 贝叶斯劝说理论预测大b1极限Gram矩阵为块对角结构——环境最优分割Hilbert空间为'劝说分区'，Gram矩阵特征值谱应有间隙(gap)而非连续衰减。",
+  "math_object": "迈尔森显示原理(Revelation Principle) + 迈尔森-萨特思韦特不可能定理(Myerson-Satterthwaite 1983) + 阿克洛夫逆向选择柠檬市场(Akerlof 1970) + 卡梅尼察-根茨科贝叶斯劝说凹化(Kamenica-Gentzkow concavification 2011) + 迈尔森最优拍卖收入等价定理(Revenue Equivalence 1981)",
+  "strangest_prediction": "逆向选择市场瓦解相变：多环网络(而非单环)在环境纯度p偏离p=0.5超过临界值时，退相干率应非连续坍缩至零。标准DGF预言退相干随环数单调增强(T_dec ∝ exp(-b1·|μ|))。经济学同构预言：存在一个'柠檬市场临界点'，当环间策略互补性(通过共享环境qubit间接耦合)使得p的信息不对称程度超过阈值时，整个环网络的'信息交易'瓦解——退相干率跳变到零而非连续衰减。具体预言：在IBM Q上对4-10 qubit链进行Ramsey干涉实验，保持单环Cartan参数c=0.5恒定，改变环境qubit准备态的纯度p∈[0.5, 0.95]，测量N-qubit Ramsey条纹对比度C(N,p)。标准DGF预言：C(N,p) = C_0 Π_{i=1}^N |p e^{icΔ_i} + (1-p) e^{-icΔ_i}|，即随N指数衰减且速率∝|ln(p/(1-p))|在p→1时趋于零。逆向选择预言：对N≥4，C(N,p)在p>p_crit(N)时出现非单调反弹——C(N=8,p=0.9)应显著大于C(N=4,p=0.9)(因市场瓦解)，而标准DGF预言C(8,p=0.9)≈[C(4,p=0.9)]²(因因子乘积)。p_crit(4)估算≈0.82。",
+  "a_objection": "经济学概念(偏好、策略、均衡、激励相容)描述的是有目的性的理性行动者。量子系统没有'目的'、没有'策略空间'、没有'效用函数'。将'信息租金''逆向选择''显示原理'等概念强加于退相干过程是范畴错误——把社会科学工具套在无意识的物理过程上。退相干是薛定谔方程+系统-环境耦合的必然结果，不需要'市场设计'来解释。此外，'市场瓦解'的不连续相变预测会被INSPECTOR的量级检查直接杀死——当前DGF模型μ(c,p)是p的连续光滑函数，不存在任何不连续性的一阶证据，也不存在环间策略互补的哈密顿量机制。经济学同构是比喻，不是数学同构。",
+  "failed_jumps": [],
+  "next_plan": "深挖1：范畴论统一——机制设计和退相干放大器都是'资源理论'(Resource Theory)在特定底范畴上的实例。机制设计：底范畴=Agent类型空间，纤维=信息租金，自由操作=激励相容机制。DGF：底范畴=量子态Hilbert空间，纤维=QCMI，自由操作=因果环组合。两者均满足Grothendieck纤维化的笛卡尔提升性质——这指向一个更深的数学结构(Grothendieck op-fibration over a base of 'information types')。深挖2：信息设计→贝叶斯劝说→Gram矩阵块对角结构——用Kamenica-Gentzkow凹化定理推导b1→∞时Gram矩阵的解析块结构，检验Wall #9的D_global=1-[cos²(4c)]^{b1}是否包含隐式的'劝说分区'。如果分区存在，则Gram矩阵特征值谱应有间隙(gap)——这可用现有high_d_interference.py修改后直接检验。",
+  "literature_needed": "Myerson 1981 Optimal Auction Design doi:10.1287/moor.6.1.58; Myerson-Satterthwaite 1983 Efficient Mechanisms for Bilateral Trading doi:10.1016/0022-0531(83)90048-0; Akerlof 1970 Market for Lemons doi:10.2307/1882010; Kamenica-Gentzkow 2011 Bayesian Persuasion doi:10.1257/aer.101.6.2590; Bergemann-Morris 2019 Information Design doi:10.1257/aer.20161492; Milgrom-Weber 1982 Distributional Strategies for Games with Incomplete Information doi:10.1287/moor.7.3.340",
+  "inspector_checks": [
+    {
+      "step": "C1: 机制设计同构映射",
+      "formula": "factor_r = p·e^{icΔ} + (1-p)·e^{-icΔ}  ⟷  g(θ̂|θ) = Pr[买方报告类型θ̂ | 真实类型θ]",
+      "direction": "|factor|² → 混同概率；|factor|²→0 → 分离均衡 → 退相干完全",
+      "data": "mu_analytic.py: μ(c=0.5, p=0.5) ≈ -0.47/ring (数值)",
+      "assumptions": ["系统态=卖方私有类型(which-path)", "环境=买方", "Gram矩阵=买方后验信念"]
+    },
+    {
+      "step": "C2: Myerson-Satterthwaite → 4边环最小性",
+      "formula": "MS不可能定理: 双边交易 + 私有信息 + 自愿参与 ⟹ 无法实现事后效率 ; 需要≥3方",
+      "direction": "2边环=2方交易→无法实现完全退相干(D=1) → 至少需3方(3边环或4边环)",
+      "data": "已知: 4边环=最小非平凡DFS结构 (ring_minimal_structure.md)",
+      "assumptions": ["信息不对称=环境纯度p偏离0.5", "自愿参与=环的Gram因子非负(|factor|≥0)", "事后效率=Gram非对角元→0"]
+    },
+    {
+      "step": "C3: 逆向选择市场瓦解",
+      "formula": "N_crit ≈ |ln(p/(1-p))| / |μ(c,p)| ; 预测: C(N)非单调，N>N_crit时反弹",
+      "direction": "p偏离0.5越大→逆向选择越严重→N_crit越小→越早市场瓦解",
+      "data": "无现有数据——这是排他性新预测，需IBM Q实验验证",
+      "assumptions": ["环间策略互补性存在(通过共享环境qubit间接耦合)", "单环μ(c,p)是部分均衡近似，多环需一般均衡分析", "市场瓦解是真正的相变，不是连续衰减"]
+    },
+    {
+      "step": "C4: 贝叶斯劝说→Gram块对角",
+      "formula": "KG定理: 最优劝说分区数 ≤ |A| (接收者行动数) ; 在DGF中: Gram矩阵秩 ≤ min(2^{b1}, d_S) 且呈块对角",
+      "direction": "大b1极限→Gram矩阵块数 = min(2^{b1}, d_S)，块大小反映'劝说分区'——环境无法区分的子系统集",
+      "data": "high_d_interference.py已有Gram谱数据，可重新分析验证间隙存在",
+      "assumptions": ["环境扮演劝说者角色(选择信号结构)", "观察者扮演接收者角色(根据信号选择行动)", "劝说目标=最大化观察者区分系统态的能力(即最大化退相干)"]
+    },
+    {
+      "step": "C5: 收入等价→拓扑不变性",
+      "formula": "RE定理: 所有满足IC+IR的机制产生相同期望收益 ⟷ 所有同b1同c分布的环网络产生相同总退相干D_total",
+      "direction": "梯状/格状/随机环网络→D_total应仅依赖b1和c分布，不依赖具体连线拓扑",
+      "data": "需IBM Q实验: 比较不同拓扑(链/梯/格/随机)的D_total，控制b1和c相同",
+      "assumptions": ["退相干函数满足激励相容(区分态的最优性)", "退相干函数满足个体理性(|G_ab|≥0自动满足)", "b1和c分布是充分统计量"]
+    }
+  ],
+  "deep_dig": [
+    {
+      "level": 1,
+      "question": "本轮找到的同构(机制设计↔退相干放大器)有没有更深层的数学结构？",
+      "answer": "有。两者都是'资源理论'(Resource Theory)的实例。在量子资源理论中：自由操作=不能增加资源的操作，资源=QCMI(Grothendieck纤维化语言)。在机制设计中：自由操作=激励相容机制，资源=信息租金。两者的共同深层结构是Grothendieck op-fibration over a base of 'information types'：底范畴元素=系统态/Agent类型，纤维=QCMI/信息租金，笛卡尔提升=因果环组合/IC机制复合。这意味着DGF的公理结构有一个范畴论精炼：'QCMI单调性'(T2)对应机制设计的'信息租金单调性'(Hurstwicz 1972)——两个领域中自由操作都不能增加'资源'。如果这个Grothendieck纤维化结构成立，则DGF公理和机制设计公理共享同一个范畴论骨架——这提供了一个独立于物理学的DGF数学基础。",
+      "mapping_success": true,
+      "new_insight": "将DGF公理T2(QCMI单调性)重新解释为Grothendieck纤维化的笛卡尔态射性质——这为证明'DGF公理的最小完备性'提供了新路径。"
+    },
+    {
+      "level": 2,
+      "question": "机制设计在原学科中的'下一层'推广是什么？能否映射回¬H的物理？",
+      "answer": "机制设计 → 信息设计(Bergemann-Morris 2019) → 贝叶斯劝说(Kamenica-Gentzkow 2011)。贝叶斯劝说的核心定理：发送者(sender)通过选择信号结构π:Ω→Δ(S)来影响接收者的后验信念和行动选择，发送者的最优期望效用=发送者效用函数在接收者信念上的凹包(concave envelope)在发送者先验处的值。映射到DGF：环境扮演'劝说者'——选择因果环的Cartan参数c和环拓扑=选择'信号结构'；观察者扮演'接收者'——观察Gram矩阵='形成后验信念'。KG凹化定理预测：在b1→∞极限，Gram矩阵特征值谱在模空间中应呈现'间隙'结构(gapped structure)——对应KG最优分区的边界。具体而言，Gram矩阵的秩在b1→∞时不应像随机矩阵连续衰减，而应呈现阶梯状(jumps at critical b1 values where a new persuasion partition opens)。这个预测是可检验的：用high_d_interference.py计算Gram矩阵特征值λ_i(b1)，检验dλ_i/db1是否在特定b1处有峰值(对应分区边界)，而非连续平滑变化。",
+      "mapping_success": true,
+      "new_insight": "KG凹化定理预测Gram矩阵特征值谱在特定b1值处应有陡峭阶梯(jump in rank)而非平滑衰减——这对应于'劝说分区'的开启/关闭。该预测与当前DGF模型(D_global=1-[cos²(4c)]^{b1}连续光滑)不一致，是一个排他性预测。"
+    },
+    {
+      "level": "further",
+      "question": "深挖2的结构在原学科还有没有更下一层？",
+      "answer": "贝叶斯劝说 → 动态劝说/多发送者劝说(Gentzkow-Kamenica 2017, Ely 2017)。在多发送者劝说中，多个发送者各自选择信号结构，接收者观察联合信号后行动。关键结果：存在'信息溢出'(information spillover)效应——一个发送者信号的信息量会挤占另一发送者的劝说空间。映射到DGF：多发送者劝说对应N-qubit网络的集体退相干——每个因果环是一个'发送者'，它们的信息信号在共享环境中叠加，产生信息溢出。这预测：在大b1网络中，存在一种新的'劝说拥挤'(persuasion congestion)——后续环的退相干效率随环数递减(μ(b1)不是常数，而是b1的递减函数)，因为前面的环已经'挤占'了环境的信息容量。这与当前DGF假设(μ与b1无关，每环等效率)直接冲突。检验：μ(b1)是否随b1增大而减小？现有mu_analytic.py未检测这个效应(假设环独立)——但2D grid数据可能已经包含了这个效应(如果grid中不同环的退相干效率不同)。可通过对gram_spectrum_2d.py重新分析来检验。",
+      "mapping_success": true,
+      "new_insight": "多发送者劝说预测μ(b1)应随b1递减——后续环的退相干效率因'信息拥挤'而下降。如果为真，则大b1系统的经典化速率慢于当前模型的指数预测(log|G|在b1上是凹函数而非线性函数)。"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "因果环退相干过程与机制设计中的信息交易存在严格的数学同构：Gram矩阵非对角元G_ab = 混同均衡概率(Pr[买方无法区分类型a和b])，退相干速率μ(c,p) = 信息租金提取率",
+      "confidence": 0.70,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1_mechanism_isomorphism",
+          "expression": "|G_ab|**2 = |p*exp(I*c*Delta) + (1-p)*exp(-I*c*Delta)|**2",
+          "description": "Gram非对角元模方=经济学术语中的混同概率——买方(环境)报告统一出价不区分卖方(系统)的真实类型a或b",
+          "variables": {
+            "c": "Cartan参数=信息不对称程度指标",
+            "p": "环境纯度=买方先验信念精度",
+            "Delta": "态对a,b的量子差=卖方类型的'距离'",
+            "|G_ab|**2": "混同概率∈[0,1]"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "p", "to": "0.5", "expected": "|G_ab|**2 = cos(c*Delta)**2 → 混同概率最大化(信息对称)", "desc": "对称信息极限——买方无法利用信息优势"},
+            {"variable": "p", "to": "1", "expected": "|G_ab|**2 = 1 → 完全混同(无退相干)", "desc": "完美买方先验——信息交易无价值"},
+            {"variable": "c", "to": "pi/2", "expected": "|G_ab|**2由p决定(cos(pi*Delta/2)→0或±1)", "desc": "Clifford极限——分离均衡(完美区分类型)=DFS条件"}
+          ],
+          "numerical_test": {
+            "substitutions": {"c": 0.5, "p": 0.5, "Delta": 2},
+            "expected_range": [0, 1]
+          }
+        },
+        {
+          "label": "F2_information_rent",
+          "expression": "mu = E[ln|p*exp(I*c*Delta) + (1-p)*exp(-I*c*Delta)|]",
+          "description": "μ(c,p)=期望信息租金提取率——每个交易回合(因果环)买方(环境)从卖方(系统)提取的信息租金的期望对数",
+          "variables": {
+            "mu": "每环退相干率=每交易回合的信息租金率",
+            "E": "对态对分布Δ的期望",
+            "p": "买方先验=环境纯度",
+            "c": "信息不对称程度=Cartan参数"
+          },
+          "units": "dimensionless (对数信息租金)",
+          "limits": [
+            {"variable": "c", "to": "0", "expected": "μ→0(小信息不对称→小信息租金→小退相干)", "desc": "近Clifford极限"},
+            {"variable": "c", "to": "pi/4", "expected": "μ达到最大负值(最大信息租金提取)", "desc": "最大退相干点=最优拍卖保留价"}
+          ],
+          "numerical_test": {
+            "substitutions": {"c": 0.5, "p": 0.5},
+            "expected_range": [-0.6, -0.3]
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1287/moor.6.1.58", "label": "Myerson 1981 Optimal Auctions"},
+        {"doi": "10.1016/0022-0531(83)90048-0", "label": "Myerson-Satterthwaite 1983"}
+      ],
+      "assumptions": [
+        "系统态空间可离散化为有限类型集(类似机制设计中的Agent类型空间)",
+        "环境对环境纯度的先验p是共同知识(类似机制设计中的共同先验假设)",
+        "每环的'交易'是独立回合(类似机制设计中的静态博弈)",
+        "因果环的Cartan参数c是外生给定的(类似机制设计中的类型分布)"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "Myerson-Satterthwaite不可能定理为DGF的'4边环最小结构'提供了独立于量子信息论的经济学证明：双边不对称信息交易无法实现效率→2边环不能产生完全退相干(D_global=1)，至少需3方参与→自然导向4边环(最小偶数环)作为退相干放大器的最小功能单元",
+      "confidence": 0.75,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3_ms_impossibility",
+          "expression": "D_global(b1=1) < 1 for any c, p in (0,1)",
+          "description": "MS不可能定理的DGF翻译：单环(b1=1)的全局退相干永远<1——双边交易效率不可能达到100%",
+          "variables": {
+            "D_global": "全局退相干度=交易效率",
+            "b1=1": "单环=双边交易(系统+1环境qubit)",
+            "c": "Cartan参数=商品质量分散度",
+            "p": "环境纯度=买方先验"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "b1", "to": "1", "expected": "D_global<1 ∀c,p∈(0,1)", "desc": "双边不可能定理——2方无法达到效率1"},
+            {"variable": "b1", "to": "2", "expected": "D_global可达1(≥3方)", "desc": "≥3方→效率可达→4边环(2独立环)可达D_global→1"},
+            {"variable": "b1(p=0.5, c=pi/4)", "to": "1", "expected": "D_global=1-[cos²(pi)]**1=0", "desc": "但这是单环D_local=1的特例(Gram非对角元可被该环消去)——MS说的是GLOBAL效率"}
+          ]
+        }
+      ],
+      "references": [
+        {"doi": "10.1016/0022-0531(83)90048-0", "label": "Myerson-Satterthwaite 1983"},
+        {"doi": "10.2307/1882010", "label": "Akerlof 1970 Market for Lemons"}
+      ],
+      "assumptions": [
+        "MS不可能定理的'自愿参与'条件映射为因果环的'Gram因子非负'条件(|factor|≥0对任何态对)",
+        "MS不可能定理的'预算平衡'条件映射为因果环网络的'总信息守恒'(QCMI总和非负)",
+        "因果关系图的最优性=机制设计中的激励相容——环结构选择等价于机制设计"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "存在'柠檬市场瓦解'相变——多因果环网络(N≥4)中，当环境纯度p偏离p=0.5超过临界值p_crit(N,c)时，环间策略互补性导致退相干率非连续坍缩至零(N-qubit Ramsey条纹对比度C(N)应在N>N_crit时反弹上升)，与标准DGF的独立环乘积模型(退相干单调随N增强)矛盾",
+      "confidence": 0.40,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F4_lemon_collapse",
+          "expression": "N_crit approx abs(ln(p/(1-p))) / abs(mu(c, p=0.5))",
+          "description": "逆向选择瓦解临界环数——超过此环数，环间'柠檬折扣'累积效应使整个信息交易市场瓦解",
+          "variables": {
+            "N_crit": "临界环数=市场瓦解点",
+            "p": "环境纯度=买方先验偏离对称点的程度",
+            "mu": "p=0.5时的每环退相干率=基准信息租金率"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "p", "to": "0.5", "expected": "N_crit→∞(对称信息→永不瓦解)", "desc": "对称信息极限——无逆向选择"},
+            {"variable": "p", "to": "0.9", "expected": "N_crit ≈ ln(9)/0.47 ≈ 4.7(对c=0.5)", "desc": "高不对称→仅约5环即瓦解"},
+            {"variable": "p", "to": "0.99", "expected": "N_crit ≈ ln(99)/0.47 ≈ 9.8", "desc": "极端不对称→约10环瓦解"}
+          ],
+          "numerical_test": {
+            "substitutions": {"c": 0.5, "p": 0.9, "mu(c=0.5,p=0.5)": 0.47},
+            "expected_range": [3, 6]
+          }
+        },
+        {
+          "label": "F5_ramsey_rebound",
+          "expression": "C_contrast(N) = C_0 * exp(N*mu) for N <= N_crit; C_contrast(N) > C_0 * exp(N*mu) for N > N_crit",
+          "description": "Ramsey条纹对比度预言：N≤N_crit时指数衰减(标准DGF)，N>N_crit时偏离指数衰减并反弹",
+          "variables": {
+            "C_contrast": "Ramsey条纹对比度=可观测的量子相干度量",
+            "C_0": "单qubit基准对比度",
+            "N": "qubit数(等同于活性环数b1_active)",
+            "N_crit": "市场瓦解临界点"
+          },
+          "units": "dimensionless (contrast ratio ∈ [0,1])",
+          "limits": [
+            {"variable": "N", "to": "0", "expected": "C→C_0", "desc": "零环→完全相干"},
+            {"variable": "N", "to": "N_crit", "expected": "C最小", "desc": "瓦解点→对比度谷底"},
+            {"variable": "N", "to": ">> N_crit", "expected": "C回升至有限值", "desc": "瓦解后→环不产生退相干→相干恢复"}
+          ]
+        }
+      ],
+      "references": [
+        {"doi": "10.2307/1882010", "label": "Akerlof 1970"},
+        {"doi": "10.1257/aer.101.6.2590", "label": "Kamenica-Gentzkow 2011"}
+      ],
+      "assumptions": [
+        "环间存在策略互补性——前环的交易结果(退相干程度)影响后环的'交易条件'(有效Cartan参数或有效p值)",
+        "策略互补性通过共享环境qubit实现——环境qubit在被一个环'交易'后其状态改变，影响后续环的可用信息",
+        "'市场瓦解'是一个真正的非连续相变，是环间策略互补性累积超过临界点的必然结果",
+        "独立环乘积模型(当前DGF)是'部分均衡'近似——忽略了一般均衡的环间反馈效应",
+        "标记为'待激活'——缺失：(1)环间策略互补的显式哈密顿量机制，(2)IBM Q实验资源(4-10 qubit链，可调c值时间控制)，(3)p_crit的精确理论值。获取路径：设计Cl41 IBM Q实验(4-qubit c扫描)，先做c=0.5, p∈[0.5,0.6,0.7,...,0.95]扫描，检测C(N)在N=4,6,8,10的偏离指数行为。"
+      ]
+    },
+    {
+      "id": "C4",
+      "statement": "贝叶斯劝说理论预测在大b1极限下，Gram矩阵呈现块对角结构(非对角块严格为零)——环境作为'劝说者'最优分割Hilbert空间为至多d_S个'劝说分区'(pooling regions)，Gram矩阵特征值谱在临界b1值处应有阶梯状跳跃(gap)而非连续平滑衰减",
+      "confidence": 0.55,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F6_kg_partition",
+          "expression": "rank(G) <= min(2**b1, d_S) and G has block_diag structure for b1 >> log2(d_S)",
+          "description": "KG定理翻译：Gram矩阵秩受限于环境可区分的最大态数(=min(2**b1, d_S))，且大b1时呈现块对角",
+          "variables": {
+            "rank(G)": "Gram矩阵的有效秩",
+            "b1": "活性因果环数=劝说回合数",
+            "d_S": "系统Hilbert空间维数=待区分的系统态数"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "b1", "to": "0", "expected": "rank(G)→min(1, d_S)=1(完全混同)", "desc": "零环→无信息→无法区分任何态"},
+            {"variable": "b1", "to": "→∞", "expected": "rank(G)→d_S(G→I)", "desc": "无限环→完全区分→完美劝说"},
+            {"variable": "b1(c=pi/4)", "to": "1", "expected": "rank(G)跳变=1→d_S(完美区分)", "desc": "c=π/4特殊点——单环即达完美劝说(KG凹化奇点)"}
+          ],
+          "numerical_test": {
+            "substitutions": {"d_S": 4, "b1": 3},
+            "expected_range": [1, 4]
+          }
+        },
+        {
+          "label": "F7_spectral_gap",
+          "expression": "Delta_lambda_i = lambda_i(b1+1) - lambda_i(b1) ; max(Delta_lambda_i) >> mean(Delta_lambda_i) at critical b1",
+          "description": "Gram特征值间隙——特定b1值处特征值跳跃远大于平均跳跃，对应KG劝说分区边界",
+          "variables": {
+            "lambda_i": "Gram矩阵第i特征值",
+            "Delta_lambda_i": "增加一个环后特征值i的变化量"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "c", "to": "pi/4", "expected": "间隙最大(单环分区边界最陡)", "desc": "最优劝说——最陡分区边界"},
+            {"variable": "c", "to": "0", "expected": "间隙→0(连续极限→无分区)", "desc": "近Clifford——信息量太小→无法形成分区"}
+          ]
+        }
+      ],
+      "references": [
+        {"doi": "10.1257/aer.101.6.2590", "label": "Kamenica-Gentzkow 2011"},
+        {"doi": "10.1257/aer.20161492", "label": "Bergemann-Morris 2019"}
+      ],
+      "assumptions": [
+        "环境扮演贝叶斯劝说中的'发送者'角色——设计信号结构(选择Cartan参数c=最优信号精度)",
+        "观察者扮演'接收者'——根据Gram矩阵非对角元形成后验信念并'选择行动'(区分/不区分态对)",
+        "最优劝说信号结构在有转移支付(transfer)情况下退化为完全显示——对应c=π/4处Gram→I",
+        "标记为'待激活'——缺失：Gram矩阵块对角结构的显式计算验证。获取路径：扩展high_d_interference.py，增加特征值间隙检测模块Δλ_i(b1)分析，检验dλ_i/db1在特定b1处的峰值。"
+      ]
+    },
+    {
+      "id": "C5",
+      "statement": "收入等价定理(Revenue Equivalence)预测：所有具有相同总Cartan参数分布和相同b1的因果环网络，产生完全相同的总退相干D_total，与具体的环连线拓扑(链/梯/格/随机图)无关——退相干是'b1和c'的拓扑不变量",
+      "confidence": 0.50,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F8_revenue_equivalence",
+          "expression": "D_total({c_i}) = function(b1, distribution_of_c) independent of wiring_topology",
+          "description": "RE定理翻译：退相干总量仅依赖活跃环数b1和Cartan参数的经验分布，不依赖环如何连线",
+          "variables": {
+            "D_total": "总退相干度",
+            "b1": "活性因果环数=独立交易回合数",
+            "distribution_of_c": "Cartan参数的经验分布=各交易回合的'信息不对称程度'分布",
+            "wiring_topology": "环间连线拓扑=交易顺序和配对结构(链/梯/格/随机)"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "wiring", "to": "any_topology", "expected": "D_total不变(仅依赖b1和c的直方图)", "desc": "拓扑不变性——RE定理的直接推论"},
+            {"variable": "wiring", "to": "fully_disconnected(b1个孤立2边环)", "expected": "与全连接网格的D_total相等", "desc": "最极端的拓扑差异测试"}
+          ]
+        }
+      ],
+      "references": [
+        {"doi": "10.1287/moor.6.1.58", "label": "Myerson 1981"}
+      ],
+      "assumptions": [
+        "所有环的Cartan参数c_i是共同知识(类似RE定理要求类型分布是共同知识)",
+        "环的'激励相容'条件满足——每个环的退相干方向(态对a,b→非对角元衰减)与全局目标对齐",
+        "'个体理性'条件自动满足——Gram矩阵非对角元始终非负(|G_ab|≥0)",
+        "待激活——缺失：不同拓扑(链/梯/格/随机)的IBM Q对比实验。获取路径：在IBM Q上实现4种拓扑各b1=4的电路，比较退相干率。"
+      ]
+    }
+  ]
+}

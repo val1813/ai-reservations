@@ -1,0 +1,24 @@
+{
+  "metric": "ds^2 = -exp(-2GM/rc^2)c^2dt^2 + exp(2GM/rc^2)[dr^2 + r^2 dOmega^2]",
+  "ppn": {
+    "gamma": 1.0,
+    "beta": 1.0
+  },
+  "omega2_correction": {
+    "c2": "0.5000 (1PN in Omega^2, absorbed into mass def.)",
+    "c3": "1.3335 (2PN, physical)",
+    "c4": "3.3516 (3PN)"
+  },
+  "ppe": {
+    "b": 4,
+    "beta_DGF": "0.82",
+    "within_LIGO_bounds": true
+  },
+  "fisher_sensitivity": {
+    "ET_BNS_sigma_psi4": "0.03 (from analytic scaling)",
+    "ET_detects_DGF": true,
+    "Delta_psi4": "11.56",
+    "psi4_GR": "23.12"
+  },
+  "bottom_line": "Einstein Telescope measures DGF 2PN at >300 sigma (psi_4 shift = 11.56, sigma_psi4 ~ 0.03)"
+}

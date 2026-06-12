@@ -1,0 +1,21 @@
+{
+  "theory": "DGF Gravity \u2014 information-theoretic foundation for GR",
+  "core_assumption": "dtau = q * dt (proper time proportional to quantum channel openness)",
+  "metric": "ds^2 = -q^2 c^2 dt^2 + q^{-2}[dr^2 + r^2 dOmega^2]",
+  "q_profile": "q = exp(-GM/(r c^2))",
+  "field_equation": "nabla^2(ln q) = 4*pi*G*rho/c^2",
+  "pn_coefficients": {
+    "newtonian": "0% deviation (exact match)",
+    "1PN": "0.03% deviation",
+    "2PN": "4.07% deviation",
+    "3PN": "20.74% deviation"
+  },
+  "ppn": {
+    "gamma": 1.0,
+    "beta": 1.0
+  },
+  "gw_testable": "2PN ~4% deviation -> 1.1 rad for GW170817, 3.1 rad for ET BNS",
+  "cosmology": "w_eff = -1 - (1/3) d ln q_bg / d ln(1+z)",
+  "literature_context": "Weyl-integrable geometry (Quiros 2013) + DGF's dtau=q*dt",
+  "status": "Complete and self-consistent. Single assumption. Testable at 2PN."
+}

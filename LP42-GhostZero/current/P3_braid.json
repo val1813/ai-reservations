@@ -1,0 +1,160 @@
+{
+  "mathematical_fact": "P_3(S^2) ≅ Z_2",
+  "physical_setup": "3 independent Cartan edges, each with axis n̂_j ∈ S^2",
+  "ghost_configuration": "all n̂_j = +x̂, p=0.5, QCMI=0",
+  "c_values": [
+    0.39269908169872414,
+    0.39269908169872414,
+    0.39269908169872414
+  ],
+  "n_steps_per_path": 2000,
+  "paths": {
+    "Trivial loop (all axes at +x̂)": {
+      "name": "Trivial loop (all axes at +x̂)",
+      "distinct": false,
+      "closed": true,
+      "at_ghost_endpoints": true,
+      "real_purification": {
+        "berry_phase_rad": -0.0,
+        "berry_phase_is_zero": true,
+        "berry_phase_is_pi": false,
+        "berry_phase_per_edge_rad": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "qcmi_maximum": -0.0,
+        "qcmi_at_endpoints": [
+          -0.0,
+          -0.0
+        ],
+        "f_total_sq_at_endpoints": [
+          1.0,
+          1.0
+        ]
+      },
+      "spin_coherent_purification": {
+        "berry_phase_rad": -0.0,
+        "berry_phase_is_zero": true,
+        "berry_phase_is_pi": false,
+        "berry_phase_per_edge_rad": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "solid_angles_enclosed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gamma_theoretical_from_solid_angle": 0.0
+      },
+      "solid_angles_enclosed": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "Rigid 2π rotation about ẑ (π₁(SO(3)) ge": {
+      "name": "Rigid 2π rotation about ẑ (π₁(SO(3)) generator)",
+      "distinct": true,
+      "closed": true,
+      "at_ghost_endpoints": true,
+      "real_purification": {
+        "berry_phase_rad": -0.0,
+        "berry_phase_is_zero": true,
+        "berry_phase_is_pi": false,
+        "berry_phase_per_edge_rad": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "qcmi_maximum": 2.079439669278086,
+        "qcmi_at_endpoints": [
+          9.99999998922529e-09,
+          9.99999998922529e-09
+        ],
+        "f_total_sq_at_endpoints": [
+          0.9999999900000001,
+          0.9999999900000001
+        ]
+      },
+      "spin_coherent_purification": {
+        "berry_phase_rad": -3.1415926535897922,
+        "berry_phase_is_zero": false,
+        "berry_phase_is_pi": true,
+        "berry_phase_per_edge_rad": [
+          -3.1415926535897927,
+          3.141592653589793,
+          -3.141592653589791
+        ],
+        "solid_angles_enclosed": [
+          6.283185307179585,
+          6.283185307179585,
+          6.2831853071795845
+        ],
+        "gamma_theoretical_from_solid_angle": 9.424777960769378
+      },
+      "solid_angles_enclosed": [
+        6.283185307179585,
+        6.283185307179585,
+        6.2831853071795845
+      ]
+    },
+    "Full twist of 2 axes about fixed n̂_0=+x": {
+      "name": "Full twist of 2 axes about fixed n̂_0=+x̂",
+      "distinct": true,
+      "closed": true,
+      "at_ghost_endpoints": true,
+      "real_purification": {
+        "berry_phase_rad": -0.0,
+        "berry_phase_is_zero": true,
+        "berry_phase_is_pi": false,
+        "berry_phase_per_edge_rad": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "qcmi_maximum": 1.0000000433314504e-08,
+        "qcmi_at_endpoints": [
+          9.99999998922529e-09,
+          9.99999998922529e-09
+        ],
+        "f_total_sq_at_endpoints": [
+          0.9999999900000001,
+          0.9999999900000001
+        ]
+      },
+      "spin_coherent_purification": {
+        "berry_phase_rad": -3.141587478123153e-08,
+        "berry_phase_is_zero": false,
+        "berry_phase_is_pi": false,
+        "berry_phase_per_edge_rad": [
+          -0.0,
+          -1.5707937390763996e-08,
+          -1.570793739066299e-08
+        ],
+        "solid_angles_enclosed": [
+          0.0,
+          3.141587478078138e-08,
+          3.141587478113347e-08
+        ],
+        "gamma_theoretical_from_solid_angle": 3.1415874780957424e-08
+      },
+      "solid_angles_enclosed": [
+        0.0,
+        3.141587478078138e-08,
+        3.141587478113347e-08
+      ]
+    }
+  },
+  "key_findings": {
+    "real_purification_berry_phase": 0.0,
+    "real_purification_is_topological": true,
+    "spin_coherent_berry_phase": "π (mod 2π)",
+    "spin_coherent_is_topological": true,
+    "z2_action_observable": false,
+    "z2_action_observable_reason": "Real purification has vanishing Berry connection (A=0). The Z_2 action is NOT observable as a Berry phase. With the full spin-coherent purification, γ=π and the Z_2 action IS observable as a sign flip.",
+    "qcmi_behavior": "QCMI = 0 at endpoints (ghost configuration). QCMI > 0 during the path (axes not all at +x̂). Maximum QCMI depends on c_j values and the maximum deviation of axes from +x̂ along the path."
+  }
+}

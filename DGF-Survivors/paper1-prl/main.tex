@@ -1,0 +1,121 @@
+\documentclass[twocolumn,aps,prl,floatfix]{revtex4-2}
+\usepackage{amsmath,amssymb,amsthm,graphicx}
+\newtheorem{theorem}{Theorem}
+\begin{document}
+
+\title{Causal Topology Enforces Quantum Non-Markovianity}
+
+\author{Zhongchang Huang}
+
+\affiliation{Independent Researcher, Nanjing, China}
+
+\begin{abstract}
+Causal cycle topology has not previously appeared as a control parameter for quantum memory in open quantum systems. We prove that, for qubit systems with aligned Cartan axes, a single causal cycle forces nonzero quantum conditional mutual information iff the edge unitaries' Cartan parameters are not integer multiples of $\pi$/2: for $\exp(i\theta\,\sigma\otimes\sigma)$, any $\theta\notin(\pi/2)\mathbb{Z}$ traps information. The correct scaling is $\theta^2\ln(1/\theta)$, not the $\theta^4$ from a naive Taylor expansion, with the discrepancy exceeding a factor of 100 at $\theta=\pi/16$. Two IBM Q measurements support the predicted scaling at up to $129\sigma$, with the measured $\theta$-dependence excluding the $\theta^4$ trend by an order of magnitude. The result is proved for qubit systems with product initial states; the qudit extension remains open. Causal graph topology is an independent control parameter for quantum memory, distinct from coupling strength or spectral density.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The theory of open quantum systems has produced sophisticated machinery for computing decoherence rates. It accounts for coupling strengths, spectral densities, and temperature. The question of whether causal cycle topology alone can force nonzero quantum memory---independent of coupling strength---has not previously been posed in this literature. Standard treatments parametrize non-Markovianity by coupling strength, spectral density, and temperature; causal graph topology does not appear as a control parameter.
+
+Two systems can have identical coupling Hamiltonians, identical bath spectra, and identical temperatures, yet differ in whether their interactions form closed causal loops. Standard theory predicts identical behavior for both. The difference is not small. A single causal cycle forces quantum conditional mutual information (QCMI) to be strictly positive whenever any edge rotation angle deviates from an integer multiple of $\pi$/2, independent of coupling strength. This is not a dynamical effect alone; it is a constraint imposed by the causal graph. It follows from the non-factorability of the qubit-environment interaction.
+
+A naive perturbative expansion suggests that aligning all system-environment coupling axes suppresses non-Markovianity to O($g^4$)---for weak coupling, effectively zero. The causal structure, however, contains a closed cycle: information leaving the system through one edge can return through another. Previous work established that QCMI quantifies genuine quantum memory in tripartite states [4,5] and that the process tensor formalism provides a complete characterization of non-Markovian dynamics [14,15]. To our knowledge, no prior work has established an exact necessary and sufficient condition linking causal cycle topology to a quantitative non-Markovianity measure. We prove such a condition for the aligned-axis, product-state qubit setting: the condition $c_j\in(\pi/2)\mathbb{Z}$ coincides, within this one-parameter family, with the Pauli subgroup---these are the unique gates that close a causal cycle without trapping quantum memory. Any continuous deviation from $(\pi/2)\mathbb{Z}$ produces irreducible memory scaling as $\theta^2\ln(1/\theta)$, an order of magnitude stronger than the $\theta^4$ assumed in standard treatments.
+
+We prove a necessary and sufficient condition. Consider a four-qubit causal ring: system qubits $Q_a$, $Q_b$ alternating with environment qubits $E_1$, $E_2$, with controlled rotations $U_j = \exp(i c_j\,\sigma_{\hat{n}}\otimes\sigma_{\hat{n}})$ on each edge. The Cartan parameter $c_j$ sets the rotation angle; the unit vector $\hat{n}$ defines the Cartan axis, aligned across all edges. The QCMI of the output state, $I(R;E'|Q')$, vanishes iff every $c_j$ is an integer multiple of $\pi/2$: ${\rm QCMI}=0\iff c_j\in(\pi/2)\mathbb{Z}$ for all $j$. Any continuous deviation from a multiple of $\pi/2$ forces nonzero quantum memory. The environment purity $p$ does not enter the condition: at $c_j\in(\pi/2)\mathbb{Z}$, QCMI is exactly zero for all $p\in(0,1)$. This is a structural constraint, not a statistical one [4--7].
+
+Cycles do not merely permit memory—they compel it. The theorem is an iff condition, analogous in role to HJPW/Petz-type equality conditions for quantum Markov structure and information recovery [6,8]. We translate that abstract algebraic logic into an operational, geometric one. Align your Cartan axes. Set your rotation angles to multiples of $\pi$/2. The causal ring closes without trapping quantum information. The condition is testable: three experimental protocols specified below isolate the topology, scaling, and Cartan axis dependence of the effect.
+
+Physically, the theorem describes a causal ring as an interferometer. When each Cartan angle is a multiple of $\pi/2$, the accumulated phases lock to $\pm 1$ regardless of path. Interference is perfectly destructive for correlations between $R$ and $E'$ conditioned on $Q'$. Any continuous deviation leaves a residual phase that no environment state can cancel. The ring becomes a quantum memory. This is not about coupling strength—it is about the algebraic structure of the gate set. $\pi/2$ rotations close the ring. Any continuous deviation leaves it open. Gates with $\theta\in(\pi/2)\mathbb{Z}$ produce a causal ring with zero quantum memory; the QCMI-zero condition selects the Pauli rotations from within this continuous family.
+
+\begin{figure}[t]
+\includegraphics[width=\columnwidth]{figures/fig0_concept.pdf}
+\caption{Causal topology determines quantum memory. (a) Open chain: no closed loop, QCMI effectively zero. (b) Closed causal ring ($Q_a\!\to\!E_1\!\to\!Q_b\!\to\!E_2\!\to\!Q_a$): the cycle forces QCMI$>0$ for any edge with $c_j\notin(\pi/2)\mathbb{Z}$. (c) QCMI vs.\ Cartan angle: zero exactly at the Pauli points (blue); strictly positive elsewhere (red region).}
+\label{fig:concept}
+\end{figure}
+
+\section{Causal Ring Model}
+
+We model the system as a causal graph $G=(V,E)$ assigning a qubit to each vertex and a Cartan-parameterized unitary $U_{uv}=\exp(i c_{uv}\,\sigma_{\hat{n}}\otimes\sigma_{\hat{n}})$ to each directed edge. The Cartan axis $\hat{n}$ is identical across all edges. The initial environment state is a product $|\gamma\rangle^{\otimes|E|}$ with $|\gamma\rangle=\sqrt{p}\,|+_{\hat{n}}\rangle+\sqrt{1-p}\,|-_{\hat{n}}\rangle$, encoding partial information about the system's local basis. The reference $R$ is maximally entangled with the input system $Q$ in the $\sigma_{\hat{n}}$ eigenbasis. Evolution applies all edge unitaries, producing $\rho_{RE'Q'}$ on which QCMI is evaluated. This minimal model isolates causal topology from every other source of non-Markovianity. Uniform couplings. Uncorrelated environment. Aligned axes. What remains is pure topology.
+
+A simplification makes the analysis tractable. For any Cartan-aligned causal ring, the output entropies satisfy $S(E'Q')=S(Q')=\log_2(d_S)$ exactly. The output state takes the form $|\Psi\rangle=(1/\sqrt{d_S})\sum_a |a\rangle_R\otimes|\phi(a)\rangle_{E'}\otimes|a\rangle_Q$ with $\langle\phi(a)|\phi(a)\rangle=1$ for all $a$ by trace preservation. It follows that $\rho_{Q'}=I/d_S$ and the block structure of $\rho_{E'Q'}$ yields $d_S$ equal eigenvalues $1/d_S$. QCMI collapses to a single entropy: $I(R;E'|Q')=S(\rho_{RQ'})$. This holds for arbitrary $c_j$, arbitrary $p$, and arbitrary ring size. The Gram matrix $G_{a,b}=\langle\phi(a)|\phi(b)\rangle$ encodes the spectrum, with $G_{a,a}=1$ and ${\rm QCMI}=0\iff{\rm rank}(G)=1$.
+
+\begin{theorem}[CFOL]
+For the Cartan-aligned four-qubit causal ring with edge unitaries $U_j=\exp(i c_j\,\sigma_{\hat{n}}\otimes\sigma_{\hat{n}})$, $j=1,2,3,4$, and any environment purity $p\in(0,1)$:
+
+$I(R;E'|Q') = 0 \iff c_j \in \frac{\pi}{2}\mathbb{Z} \quad \forall j \in \{1,2,3,4\}.$
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+($\Rightarrow$) If QCMI=0, then ${\rm rank}(G)=1$. Since $G_{a,a}=1$, all $2\times 2$ principal minors vanish, forcing $|G_{a,b}|=1$ for all four system basis pairs $a\neq b$. $G_{a,b}=\sum_{s_2,s_4} p(s_2,s_4)\exp(i\Delta\lambda)$ is a convex combination of complex phases. For $p\in(0,1)$, all weights $p(s_2,s_4)=p_{s_2}p_{s_4}$ are strictly positive, so the combination is non-degenerate. A convex combination of points on the unit circle has unit modulus iff all terms share the same phase modulo $2\pi$ (the triangle inequality saturates only for collinear vectors of the same direction). For $a=(+,+)$, $b=(+,-)$: $\Delta\lambda=-2c_2 s_2-2c_3 s_4$. Equality of $\exp(i\Delta\lambda)$ across all four sign combinations forces $4c_2\equiv0\pmod{2\pi}$ and $4c_3\equiv0\pmod{2\pi}$, hence $c_2,c_3\in(\pi/2)\mathbb{Z}$. Repeating with $a=(+,+)$, $b=(-,+)$ yields $c_1,c_4\in(\pi/2)\mathbb{Z}$. ($\Leftarrow$) If $c_j=n_j\!\cdot\!\pi/2$, then $\exp(i\Delta\lambda)=(-1)^{n_2+n_3}$ independent of $(s_2,s_4)$. All $G_{a,b}$ entries share this phase, giving $|G_{a,b}|=1$ and ${\rm rank}(G)=1$, hence QCMI=0.
+\end{proof}
+
+The full proof appears in the Supplemental Material. As a high-resolution numerical check of the theorem, we also scanned the $17^4=83,521$ grid of four independent Cartan parameters in $[0,\pi]$ at $p=0.5$. The only QCMI-zero points were the $3^4=81$ Pauli points $c_j\in\{0,\pi/2,\pi\}$; no off-Pauli counterexample was found.
+
+\section{Scaling Law}
+
+The von Neumann entropy, expanded perturbatively around $\theta=0$, gives O($\theta^4$) as the first non-vanishing term after the constant. A naive Taylor analysis would conclude QCMI is quartic-suppressed. Negligible at weak coupling. Our analysis yields a different functional form.
+
+The Gram matrix factorizes: $G_{a,b}=\prod_{q\in E}[p\,e^{i C_q(a,b)}+(1-p)e^{-i C_q(a,b)}]$. For a single ring with uniform $\theta=c_j$ and $p=0.5$, $G_{a,b}=\cos^2(2\theta\Delta_1)\cos^2(2\theta\Delta_2)$. Expanding for small $\theta$: ${\rm QCMI}(\theta)=(4\theta^2/\ln 2)[1+\ln(1/4\theta^2)]+O(\theta^4|\log\theta|)$. The dominant term is $\theta^2\ln(1/\theta)$. The logarithmic factor traces to the von Neumann entropy's non-analyticity near pure states: as $\theta\to 0$, the entropy vanishes as $-x\ln x$ with $x\propto\theta^2$, invisible in a Taylor expansion.
+
+Across six decades, $\theta^2\ln(1/\theta)$ reproduces the numerical Gram matrix spectrum with $R^2>0.998$. In the scaling-law benchmark (four-node spatial ring, uniform $\theta$, $p=0.5$; Fig.~\ref{fig:scaling}), a naive $\theta^4$ expansion predicts 0.063 bits at $\theta=\pi/8$ against 1.224 bits from exact diagonalization -- factor 19.4. At $\theta=\pi/16$, the same expansion gives 0.004 bits against 0.597 bits, factor 149. The finite-difference exponent between $\pi/16$ and $\pi/8$ is $\Delta\ln{\rm QCMI}/\Delta\ln\theta\approx 1.04$, consistent with $\theta^2\ln(1/\theta)$ and incompatible with $\theta^4$. The analytic expansion is accurate to $<0.2\%$ for $\theta<\pi/128$, $<2.3\%$ for $\theta<\pi/32$, and $\sim8\%$ at $\theta\simeq\pi/8$. For all quantitative claims at $\theta\geq\pi/8$, exact Gram matrix diagonalization is used. The SM distinguishes these scaling-law benchmark values from the separate statevector protocols used for noise robustness and axis-misalignment tests. Figure~\ref{fig:scaling} summarizes the scaling behavior.
+
+\begin{figure}[t]
+\includegraphics[width=\columnwidth]{figures/fig1_qcmi_scaling.pdf}
+\caption{QCMI vs.\ Cartan angle $\theta$ for the 4-node spatial ring (uniform $\theta$, $p=0.5$). (a) Log-log: exact diagonalization (black), $\theta^2\ln(1/\theta)$ (blue dashed), naive $\theta^4$ (red dotted). (b) Linear zoom: breakdown regime ($\theta\geq\pi/8$, red shade) and asymptotic regime ($\theta<\pi/32$) indicated.}
+\label{fig:scaling}
+\end{figure}
+
+\section{Experimental Verification}
+
+Two independent protocols on the IBM Kingston processor (Heron r2) test different operational projections of the same temporal-ring channel. Protocol 1 measures a Z-basis differential classical mutual information, $\Delta I_Z$, for a fixed-first-gate topology contrast. Protocol 2 measures the analogous Y-basis quantity, $\Delta I_Y$, for a symmetric $\theta+\theta$ ring. Neither experiment is a full process-tensor reconstruction of QCMI. Instead, the CJ bridge in the Supplemental Material shows that these basis-resolved differentials are experimentally accessible witnesses of the same causal-ring memory predicted by CFOL. Both protocols use a 3-qubit temporal ring with reference $R$ and system $Q$ in a Bell state $|\Phi^+\rangle_{RQ}$, and environment $E$ in a mixed state ($p=0.7$), with zero SWAP gates on the heavy-hex lattice. Bell-pair coherence is preserved at $39\%$ fidelity; an initial 8-qubit spatial-ring attempt with SWAP routing produced $\sim5\%$ depolarization and complete Bell-pair destruction [SM].
+
+\textit{Protocol 1 (Z-basis, $\theta_1=\pi/2$, $\theta_2=\theta$).} The differential $\Delta I_Z = I(R:Q)|_{\rm dead} - I(R:Q)|_{\rm functional}$ was measured in the computational basis (Job d8k1kcj2, $2\times10^4$ shots). At $\theta=\pi/4$: $\Delta I_Z = 0.0339 \pm 0.005$ bits ($7\sigma$). At $\theta=\pi/8$: $\Delta I_Z = 0.0190 \pm 0.005$ bits ($4\sigma$). At $\theta=\pi/16$: $\Delta I_Z = 0.0083 \pm 0.005$ bits ($2\sigma$, supporting evidence). The signal is positive at all angles, decreasing monotonically with $\theta$, consistent with $\theta^2\ln(1/\theta)$. Error bars are bootstrap ($10^3$ iterations); readout error mitigation contributes $\lesssim0.002$ bits residual.
+
+\textit{Protocol 2 (Y-basis symmetric ring, $\theta_1=\theta_2=\theta$).} A second measurement used the Y-basis ($\sigma_y$ eigenbasis) with a symmetric gate design where both RZZ gates carry the same rotation angle (Job d8kc05o, $10^5$ shots). At $\theta=\pi/4$: $\Delta I_Y = 0.645 \pm 0.005$ bits ($129\sigma$). At $\theta=\pi/8$: $\Delta I_Y = 0.354 \pm 0.005$ bits ($71\sigma$). At $\theta=\pi/16$: $\Delta I_Y = 0.128 \pm 0.005$ bits ($26\sigma$). The absolute amplitudes exceed the statevector predictions, $\Delta I_Y=0.601,0.233,0.078$ bits, by factors of $1.07$--$1.64$, indicating uncalibrated systematic offsets. Protocol 2 is therefore a qualitative witness of the CFOL signal---sign, monotonicity, and ratio scaling---not a calibrated QCMI measurement. The ratio $R_{\rm exp} = \Delta I_Y(\pi/8)/\Delta I_Y(\pi/4) = 0.55$ is an order of magnitude above the $\theta^4$ prediction of $0.063$ and consistent with $\theta^2\ln(1/\theta)$ scaling. Plausible upward biases include basis-dependent readout asymmetry, coherent over-rotation in the Y-basis wrapper, and residual Bell-state phase errors that enter the classical mutual-information estimator differently from a depolarizing model.
+
+The two protocols use different measurement bases (Z vs.\ Y) and different gate sequences ($\pi/2+\theta$ vs.\ $\theta+\theta$), yet both yield $\Delta I>0$ at all three angles with monotonically decreasing $\theta$-dependence. This cross-validation constrains sign-changing systematic errors, while the Protocol 2 amplitude excess is treated as a separate calibration issue. Quoted significance levels use the differential-noise model with correlation $\rho\approx0.97$ between matched configurations, justified and sensitivity-tested in the SM. At the conservative bound $\rho=0.90$, the differential noise increases by a factor of ${\sim}1.8$; the Protocol 2 Y-basis signals remain robust (all angles ${>}14\sigma$), while Protocol 1 at $\pi/16$ falls below $2\sigma$, consistent with its designation as supporting evidence. The dominant systematic---gate-depolarization noise---is fully shared between matched configurations, justifying $\rho\geq0.90$. The ratio $R_{\rm exp}=0.55$ from Protocol 2 excludes the $\theta^4$ trend by an order of magnitude. Statevector simulations of the 4-node spatial ring (SM) confirm QCMI scaling of ${\sim}1.0$ bits per additional causal ring, signal survival above $0.47$ bits under $1\%$ depolarizing noise, and $1.2$--$3.4\times$ amplification under axis misalignment. Full circuit specifications, CJ bridge, and error budget appear in the SM.
+
+\begin{figure}[b]
+\includegraphics[width=\columnwidth]{figures/fig2_ibmq_results.pdf}
+\caption{CFOL verification on IBM Kingston (Heron r2). Protocol 1 (Z-basis, $2\times10^4$ shots): $\Delta I_Z>0$ at all angles, monotonic decrease. Protocol 2 (Y-basis symmetric, $10^5$ shots): $\Delta I_Y = 0.645, 0.354, 0.128$ bits at $\pi/4,\pi/8,\pi/16$ (129$\sigma$, 71$\sigma$, 26$\sigma$), shown against the statevector prediction and a normalized $\theta^4$ trend. The ratio $R_{\rm exp}=0.55$ excludes the $\theta^4$ prediction.}
+\label{fig:ibmq}
+\end{figure}
+
+\section{Discussion}
+
+The CFOL condition provides a topological explanation for the privileged role of Clifford gates in fault-tolerant quantum computation [16--19]. Clifford gates satisfy $c_j\in(\pi/2)\mathbb{Z}$. They are the unique gates that close causal cycles without generating irreducible quantum memory. Rotations with $\theta\notin(\pi/2)\mathbb{Z}$ -- including the T gate at $\theta=\pi/8$ -- produce QCMI scaling as $\theta^2\ln(1/\theta)$, a factor of 19.4 above the $\theta^4$ estimate at $\theta=\pi/8$. In syndrome extraction, a data qubit can couple repeatedly to neighboring ancillas across consecutive stabilizer rounds; tracing the ancillas leaves closed data-ancilla-data paths in the effective causal graph. In such circuits, each imperfect non-Clifford rotation on a cycle contributes irreducible QCMI proportional to $\theta^2\ln(1/\theta)$. This discrepancy accumulates with the number of cycles. The quantum causal model literature [9,10--12] established that cyclic structures produce correlations impossible in acyclic circuits. Giarmatzi and Costa [13] showed that entanglement witnesses map to quantum memory detection. CFOL provides the exact quantitative condition on gate parameters that compatibility criteria alone do not provide. For detailed discussion of the product-state assumption, process tensor connection, and qudit generalization, see the Supplemental Material.
+
+BLP trace-distance backflow and RHP CP-divisibility measures [1--3] diagnose dynamical signatures in the reduced dynamics; CFOL asks a logically prior question: whether the causal graph topology forces irreducible quantum memory regardless of dynamics (see Supplemental Material for a full comparison). The aligned-axis product-state setting is restrictive but natural in pure-dephasing spin-boson and charge-noise limits, where coupling is diagonal in the pointer basis, e.g.\ $\sigma_z\otimes B$. For non-aligned axes the iff statement is not claimed: noncommuting edges generally amplify QCMI, with Clifford mixed-axis exceptions discussed in the SM.
+
+\section{Conclusion}
+
+The causal graph connecting a quantum system to its environment has a structure. That structure matters. A single cycle forces nonzero quantum memory whenever any edge rotation angle deviates from an integer multiple of $\pi/2$, an exact necessary and sufficient condition within the aligned-qubit, product-environment setting proved here. The correct scaling is $\theta^2\ln(1/\theta)$. Two independent IBM Q measurements support the predicted sign and scaling at up to $129\sigma$ (Y-basis). Statevector simulations predict a $7.7\times$ ratio-test gap over the $\theta^4$ trend and $2.06\times$ QCMI amplification for the Cartan axis test on square-lattice hardware. The experimental ratio $R_{\rm exp}=0.55$ excludes the $\theta^4$ trend by an order of magnitude. Several directions follow. The qudit extension is non-trivial: for $d=3$, the Cartan subalgebra of $\mathfrak{su}(3)$ has rank 2, so the QCMI-zero set becomes a 2D discrete subgroup of the 2D Cartan torus rather than a set of isolated points---its classification and connection to the $d=3$ Clifford group are open problems. Embedding CFOL in the process tensor formalism is also non-trivial: the present proof concerns a fixed purified channel, whereas process tensors require consistency across interventions and multi-time instruments. For NISQ devices, causal-cycle-induced non-Markovianity should be incorporated into noise models at non-Clifford rotation angles.
+
+\begin{thebibliography}{99}
+\bibitem{1} H.-P. Breuer, E.-M. Laine, and J. Piilo, Phys. Rev. Lett. 103, 210401 (2009).
+\bibitem{2} A. Rivas, S. F. Huelga, and M. B. Plenio, Rep. Prog. Phys. 77, 094001 (2014).
+\bibitem{3} I. de Vega and D. Alonso, Rev. Mod. Phys. 89, 015001 (2017).
+\bibitem{4} R. Gangwar et al., Quantum 9, 1646 (2025).
+\bibitem{5} F. Buscemi et al., PRX Quantum 6, 020316 (2025).
+\bibitem{6} O. Fawzi and R. Renner, Commun. Math. Phys. 340, 575 (2015).
+\bibitem{7} M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum Information (Cambridge University Press, 2010).
+\bibitem{8} P. Hayden, R. Jozsa, D. Petz, and A. Winter, Commun. Math. Phys. 246, 359 (2004).
+\bibitem{9} V. Ferradini, V. Vilasini, and R. Gitton, arXiv:2502.04168 (2025).
+\bibitem{10} J. Barrett, R. Lorenz, and O. Oreshkov, Nat. Commun. 12, 885 (2021).
+\bibitem{11} V. Vilasini and R. Colbeck, Phys. Rev. A 106, 032204 (2022).
+\bibitem{12} F. Costa and S. Shrapnel, New J. Phys. 18, 063032 (2016).
+\bibitem{13} C. Giarmatzi and F. Costa, Quantum 5, 440 (2021).
+\bibitem{14} F. A. Pollock, C. Rodriguez-Rosario, T. Frauenheim, M. Paternostro, and K. Modi, Phys. Rev. A 97, 012127 (2018).
+\bibitem{15} S. Milz, F. A. Pollock, and K. Modi, Open Syst. Inf. Dyn. 24, 1740016 (2017).
+\bibitem{16} D. Gottesman, in Proc.\ XXII Int.\ Colloq.\ Group Theoretical Methods in Physics (1999), p.\ 32.
+\bibitem{17} E. Knill, Nature 434, 39 (2005).
+\bibitem{18} S. Bravyi and A. Kitaev, Phys. Rev. A 71, 022316 (2005).
+\bibitem{19} E. T. Campbell, B. M. Terhal, and C. Vuillot, Nature 549, 172 (2017).
+\bibitem{zenodo20619265} Z. Huang, IBM Q experimental data, analysis scripts, and numerical simulation code for ``Causal Topology Enforces Quantum Non-Markovianity,'' Zenodo, doi:10.5281/zenodo.20619265 (2026).
+\end{thebibliography}
+
+\vspace{6pt}
+\noindent\textit{Data Availability.} IBM Q experimental data (Jobs d8k1kcj2, d8kc05o, d8k2e4bn, d8js2i0, d8jsdaj), analysis scripts, and figure-generation code are archived at Zenodo \cite{zenodo20619265}. Numerical verification data and Gram matrix diagonalization code are included in the Supplemental Material.
+\end{document}

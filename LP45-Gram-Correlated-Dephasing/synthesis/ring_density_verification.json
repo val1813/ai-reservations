@@ -1,0 +1,14 @@
+{
+  "status": "ALL_PASS",
+  "n_pass": 7,
+  "n_total": 7,
+  "results": {
+    "test0_greens": true,
+    "test1_uniform_mc": true,
+    "test2_uniform_quad": true,
+    "test3_shell": true,
+    "test4_multishell": true,
+    "test5_1r_vs_1r2": true,
+    "test6_precise": true
+  }
+}

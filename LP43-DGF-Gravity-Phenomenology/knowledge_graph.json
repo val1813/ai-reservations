@@ -1,0 +1,49 @@
+{
+  "theory": "DGF Gravity",
+  "date": "2026-06-10",
+  "core_assumption": "dtau = q * dt",
+  "derived_quantities": {
+    "metric": "ds^2 = -q^2 c^2 dt^2 + q^{-2}[dr^2 + r^2 dOmega^2]",
+    "q_profile": "q = exp(-GM/(r c^2))",
+    "field_equation": "nabla^2(ln q) = 4*pi*G*rho/c^2"
+  },
+  "predictions": {
+    "ppn": {"gamma": 1.0, "beta": 1.0},
+    "pn_1PN": "0.03% deviation from GR",
+    "pn_2PN": "4.07% deviation from GR",
+    "gw_phase_GW170817": "0.67 rad",
+    "gw_phase_ET_BNS": "1.9 rad",
+    "ppe_beta_b4": 0.030,
+    "cosmology_w_eff": "-1 (LambdaCDM-like, tiny corrections)"
+  },
+  "literature_context": {
+    "weyl_geometry": "Quiros et al. 2013, GRG 45, 489",
+    "jordan_frame": "Dicke 1962, Phys. Rev. 125, 2163",
+    "palatini_formalism": "Almeida et al. 2014",
+    "jacobson_thermodynamics": "Jacobson 1995, PRL 75, 1260"
+  },
+  "dgf_unique_contributions": [
+    "CFOL theorem: causal topology -> QCMI",
+    "eta_0 = 1/(8 ln 2): causal ring minimum QCMI",
+    "QCMI -> decoherence mapping",
+    "q = exp(-Phi/c^2): gravity as quantum channel fraction",
+    "dtau = q * dt: information proper time"
+  ],
+  "review_history": {
+    "rounds": 6,
+    "key_errors_found_and_fixed": [
+      "Binding energy sign error",
+      "Omega^2 missing c^2 factor",
+      "GW phase integration factor",
+      "Invalid coordinate transformation claim",
+      "Overclaimed metric derivation"
+    ],
+    "surviving_claims": [
+      "q = exp(-GM/rc^2) from RG flow",
+      "Metric ds^2 = -q^2 dt^2 + q^{-2} dx^2 from symmetry + dtau=q*dt",
+      "1PN matches GR to 0.03%",
+      "2PN deviates 4.07%",
+      "GW phase predictions"
+    ]
+  }
+}

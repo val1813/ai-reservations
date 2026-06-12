@@ -1,0 +1,16 @@
+{
+  "ppe": {
+    "b": 4,
+    "beta_DGF": "0.030",
+    "ET_detectable": true
+  },
+  "gw_phase": {
+    "GW170817": "0.67 rad",
+    "ET_BNS": "1.9 rad",
+    "LISA_EMRI": "3100 rad"
+  },
+  "cosmology": {
+    "w_eff_formula": "-1 - (1/3) d ln q_bg/d ln(1+z)",
+    "G_eff": "G/q_bg(z)",
+    "q_bg_today": "0.999980",
+    "BBN_safe": 

@@ -1,0 +1,451 @@
+{
+  "project": "LP42-GhostZero",
+  "round": 2,
+  "agent": "A",
+  "polaris": "\u5e7d\u7075\u96f6\u70b9\u5b8c\u6574\u5206\u7c7b\u2014\u2014Morse\u6307\u6570\u8ba1\u7b97 + \u5206\u5c42Morse\u7406\u8bba\u8fde\u63a5 + \u7ea0\u7f20\u521d\u6001\u5206\u6790",
+  "ma1_morse_indices": {
+    "analytical_ghost": {
+      "analytical_formula": "\u03bb_j(normal) = (1-cos(4c_j))/(2 ln 2)",
+      "note": "Two identical eigenvalues per edge (S\u00b2 has 2 tangent directions)",
+      "range": "[0, 1/ln(2)]",
+      "max_at": "c = \u03c0/4 (cos(4c) = -1)",
+      "min_at": "c \u2192 0 or \u03c0/2 (cos(4c) = 1)",
+      "verification_data": [
+        {
+          "c": 0.01,
+          "lambda_predicted": 0.0005770010767236376,
+          "cos4c": 0.9992001066609779
+        },
+        {
+          "c": 0.09162085930499456,
+          "lambda_predicted": 0.047902364881718056,
+          "cos4c": 0.9335932216801668
+        },
+        {
+          "c": 0.17324171860998913,
+          "lambda_predicted": 0.16637584987784748,
+          "cos4c": 0.7693540974878106
+        },
+        {
+          "c": 0.2548625779149837,
+          "lambda_predicted": 0.3434809715395132,
+          "cos4c": 0.5238342660027913
+        },
+        {
+          "c": 0.33648343721997825,
+          "lambda_predicted": 0.5605069312879873,
+          "cos4c": 0.22297240178684918
+        },
+        {
+          "c": 0.41810429652497283,
+          "lambda_predicted": 0.7945253745894795,
+          "cos4c": -0.10144604656006408
+        },
+        {
+          "c": 0.49972515582996735,
+          "lambda_predicted": 1.0208127253258095,
+          "cos4c": -0.41514692487859745
+        },
+        {
+          "c": 0.581346015134962,
+          "lambda_predicted": 1.2154621817014328,
+          "cos4c": -0.6849883686471759
+        },
+        {
+          "c": 0.6629668744399565,
+          "lambda_predicted": 1.3579094215921086,
+          "cos4c": -0.8824621740647124
+        },
+        {
+          "c": 0.744587733744951,
+          "lambda_predicted": 1.4331051816638172,
+          "cos4c": -0.9867056322322463
+        },
+        {
+          "c": 0.8262085930499456,
+          "lambda_predicted": 1.4331051816638172,
+          "cos4c": -0.9867056322322462
+        },
+        {
+          "c": 0.9078294523549402,
+          "lambda_predicted": 1.3579094215921086,
+          "cos4c": -0.8824621740647124
+        },
+        {
+          "c": 0.9894503116599347,
+          "lambda_predicted": 1.2154621817014326,
+          "cos4c": -0.6849883686471758
+        },
+        {
+          "c": 1.0710711709649292,
+          "lambda_predicted": 1.0208127253258097,
+          "cos4c": -0.41514692487859767
+        },
+        {
+          "c": 1.152692030269924,
+          "lambda_predicted": 0.794525374589479,
+          "cos4c": -0.10144604656006344
+        },
+        {
+          "c": 1.2343128895749185,
+          "lambda_predicted": 0.5605069312879871,
+          "cos4c": 0.22297240178684957
+        },
+        {
+          "c": 1.315933748879913,
+          "lambda_predicted": 0.343480971539513,
+          "cos4c": 0.5238342660027915
+        },
+        {
+          "c": 1.3975546081849075,
+          "lambda_predicted": 0.16637584987784748,
+          "cos4c": 0.7693540974878106
+        },
+        {
+          "c": 1.479175467489902,
+          "lambda_predicted": 0.04790236488171814,
+          "cos4c": 0.9335932216801667
+        },
+        {
+          "c": 1.5607963267948965,
+          "lambda_predicted": 0.0005770010767236376,
+          "cos4c": 0.9992001066609779
+        }
+      ]
+    },
+    "analytical_clifford": {
+      "analytical_formula": "\u03bb_j^Clifford = 32 p_eff,j (1-p_eff,j) / ln 2",
+      "note": "One eigenvalue per edge (Cartan angle direction)",
+      "range": "[0, 8/ln(2)]",
+      "max_at": "p_eff = 1/2 \u2192 \u03bb_max \u2248 11.54",
+      "min_at": "p_eff \u2192 0 or 1 \u2192 \u03bb_min \u2192 0 (ghost-Clifford suture)",
+      "verification_data": [
+        {
+          "p": 0.05,
+          "p_eff": 0.04999999999999999,
+          "lambda_predicted": 2.1928964621512237
+        },
+        {
+          "p": 0.1,
+          "p_eff": 0.09999999999999998,
+          "lambda_predicted": 4.154961717760214
+        },
+        {
+          "p": 0.15,
+          "p_eff": 0.15000000000000002,
+          "lambda_predicted": 5.886195766826971
+        },
+        {
+          "p": 0.2,
+          "p_eff": 0.2,
+          "lambda_predicted": 7.386598609351494
+        },
+        {
+          "p": 0.25,
+          "p_eff": 0.25,
+          "lambda_predicted": 8.656170245333781
+        },
+        {
+          "p": 0.3,
+          "p_eff": 0.3,
+          "lambda_predicted": 9.694910674773833
+        },
+        {
+          "p": 0.35,
+          "p_eff": 0.35,
+          "lambda_predicted": 10.502819897671653
+        },
+        {
+          "p": 0.39999999999999997,
+          "p_eff": 0.39999999999999997,
+          "lambda_predicted": 11.07989791402724
+        },
+        {
+          "p": 0.44999999999999996,
+          "p_eff": 0.44999999999999996,
+          "lambda_predicted": 11.42614472384059
+        },
+        {
+          "p": 0.49999999999999994,
+          "p_eff": 0.49999999999999994,
+          "lambda_predicted": 11.541560327111707
+        },
+        {
+          "p": 0.5499999999999999,
+          "p_eff": 0.5499999999999999,
+          "lambda_predicted": 11.42614472384059
+        },
+        {
+          "p": 0.6,
+          "p_eff": 0.6,
+          "lambda_predicted": 11.079897914027239
+        },
+        {
+          "p": 0.65,
+          "p_eff": 0.65,
+          "lambda_predicted": 10.502819897671653
+        },
+        {
+          "p": 0.7,
+          "p_eff": 0.7,
+          "lambda_predicted": 9.694910674773835
+        },
+        {
+          "p": 0.75,
+          "p_eff": 0.75,
+          "lambda_predicted": 8.656170245333781
+        },
+        {
+          "p": 0.7999999999999999,
+          "p_eff": 0.7999999999999999,
+          "lambda_predicted": 7.386598609351494
+        },
+        {
+          "p": 0.85,
+          "p_eff": 0.85,
+          "lambda_predicted": 5.886195766826971
+        },
+        {
+          "p": 0.9,
+          "p_eff": 0.9,
+          "lambda_predicted": 4.154961717760214
+        },
+        {
+          "p": 0.95,
+          "p_eff": 0.95,
+          "lambda_predicted": 2.1928964621512264
+        }
+      ]
+    },
+    "numerical_ghost_sample": {
+      "p": 0.5,
+      "c": 0.7853981633974483,
+      "morse_index": 0,
+      "eigenvalues_full": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        3.2872920228223115,
+        15.00905981225908,
+        15.009059812259087,
+        15.009059812259087,
+        15.009059812259087,
+        15.009059812259093,
+        15.009059812259093,
+        15.009059812259098,
+        219.86672312660488
+      ],
+      "n_zero_modes": 4
+    },
+    "numerical_clifford_sample": {
+      "p": 0.5,
+      "c_config": "[pi/2]*4",
+      "morse_index": 0,
+      "eigenvalues_full": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        56.036239541555375,
+        56.036239541555375,
+        56.036239541555375,
+        56.036239541555375
+      ],
+      "n_zero_modes": 9
+    },
+    "morse_index_vs_c": [
+      {
+        "c": 0.001,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 0.0014889507565870302
+      },
+      {
+        "c": 0.0835682277260472,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 7.302237695075647
+      },
+      {
+        "c": 0.1661364554520944,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 26.317317717963963
+      },
+      {
+        "c": 0.2487046831781416,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 54.18884585079593
+      },
+      {
+        "c": 0.3312729109041888,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 87.70219001509969
+      },
+      {
+        "c": 0.413841138630236,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 123.28854277990175
+      },
+      {
+        "c": 0.4964093663562832,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 157.2907754459951
+      },
+      {
+        "c": 0.5789775940823304,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 186.2799356848494
+      },
+      {
+        "c": 0.6615458218083776,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 207.36436529953517
+      },
+      {
+        "c": 0.7441140495344248,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 218.4543024584092
+      },
+      {
+        "c": 0.826682277260472,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 218.4543024584092
+      },
+      {
+        "c": 0.9092505049865193,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 207.36436529953517
+      },
+      {
+        "c": 0.9918187327125664,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 186.2799356848494
+      },
+      {
+        "c": 1.0743869604386136,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 157.2907754459951
+      },
+      {
+        "c": 1.1569551881646607,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 123.28854277990175
+      },
+      {
+        "c": 1.239523415890708,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 87.70219001509969
+      },
+      {
+        "c": 1.3220916436167551,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 54.18884585079593
+      },
+      {
+        "c": 1.4046598713428022,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 26.317317717963963
+      },
+      {
+        "c": 1.4872280990688496,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 7.302237695075647
+      },
+      {
+        "c": 1.5697963267948967,
+        "morse_index": 0,
+        "lambda_min": 0.0,
+        "lambda_max": 0.0014889507565870302
+      }
+    ]
+  },
+  "ma2_goresky_macpherson": {
+    "stratification_data": {
+      "Z_ghost_codim": 7,
+      "Z_clifford_codim": 4,
+      "Z_mixed_codim_k1": 7,
+      "Z_mixed_codim_k2": 6,
+      "Z_mixed_codim_k3": 5,
+      "normal_link_Z_ghost": {
+        "description": "S^{2|E|-2} = S^6 for |E|=4",
+        "homology": "H_0 = Z, H_6 = Z, others 0",
+        "physical_meaning": "The link is a 6-sphere: to escape Z_B, must satisfy 8 codimension constraints, but one is p-redundant"
+      },
+      "normal_link_Z_clifford": {
+        "description": "S^{|E|-1} = S^3 for |E|=4",
+        "homology": "H_0 = Z, H_3 = Z, others 0",
+        "physical_meaning": "Only need to tune |E|=4 Cartan angles away from Clifford values"
+      },
+      "suture_topology": {
+        "c0_suture": "At c=0 for ghost edge, dimension jumps by 2 (axis freedom) \u2192 stratum refinement needed",
+        "p_boundary": "At p=0 or 1, r\u20d7 = \u00b1z\u0302 \u2192 ghost condition n\u0302=\u00b1z\u0302 is highly constrained \u2192 reduced dimension",
+        "whitney_condition_B": "Needs verification at c=0 suture \u2014 normal slice to lower stratum must be homeomorphic along upper stratum"
+      }
+    },
+    "suture_points": [
+      {
+        "type": "near_c0_suture",
+        "p": 0.3,
+        "morse_index": 0
+      },
+      {
+        "type": "near_c0_suture",
+        "p": 0.5,
+        "morse_index": 0
+      },
+      {
+        "type": "near_c0_suture",
+        "p": 0.7,
+        "morse_index": 0
+      },
+      {
+        "type": "p_boundary_suture",
+        "p": 0.001,
+        "morse_index": 1
+      },
+      {
+        "type": "p_boundary_suture",
+        "p": 0.999,
+        "morse_index": 1
+      }
+    ]
+  },
+  "ma3_literature": "See \u00a7-1 in round2.json for full literature synthesis",
+  "ma4_entangled_ghost": {
+    "bell_pair": {
+      "p_eff": 0.5,
+      "why": "Each env qubit is maximally mixed (rho=I/2), so <sigma_n> = 0 for all n, thus p_eff = (1+0)/2 = 1/2",
+      "consequence": "Ghost condition p_eff \u2208 {0,1} IMPOSSIBLE. Only Clifford zeros survive.",
+      "clifford_zeros_remain": true,
+      "ghost_zeros_destroyed": true
+    },
+    "general_entangled": {
+      "analysis": "For ANY entangled env state where individual env qubits are not pure, p_eff < 1 \u2192 ghost condition violated",
+      "exception": "If env is in a SIMULTANEOUS eigenstate of all \u03c3_n\u0302\u2c7c, AND the state is product across env qubits, ghost zeros exist. This requires product structure \u2014 entanglement destroys this.",
+      "mixed_entangled": "For a mixed entangled env state (e.g., Werner state), the situation is even worse: individual qubits are mixed, p_eff\u22600,1"
+    }
+  }
+}

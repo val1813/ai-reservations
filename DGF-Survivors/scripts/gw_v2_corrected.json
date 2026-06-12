@@ -1,0 +1,19 @@
+{
+  "binding_energy_match": "Newtonian: EXACT (-eps/2 for both DGF and GR)",
+  "pn_coefficients": {
+    "e1_GR": "-0.7507",
+    "e1_DGF": "-0.7510",
+    "e1_ratio": "1.0003",
+    "e2_GR": "-3.2773",
+    "e2_DGF": "-3.4103",
+    "e2_ratio": "1.0406"
+  },
+  "phase_shift_2PN": {
+    "psi_4_GR": "23.12",
+    "psi_4_DGF": "23.54",
+    "delta_pct": "1.8"
+  },
+  "error_fixed": "Sign error in dt/dtau formula (A-R^2*Omega^2, not -A+R^2*Omega^2)",
+  "error_impact": "Previous 3x Newtonian claim was wrong. Newtonian matches GR exactly.",
+  "bottom_line": "DGF deviates from GR at 1PN in binding energy (detectable with ET BNS)"
+}

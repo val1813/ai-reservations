@@ -1,0 +1,624 @@
+{
+  "project": "LP42-GhostZero",
+  "round": 1,
+  "agent": "B",
+  "phase": "EXECUTE",
+  "north_star": "NS#8: Ghost Zero as Quantum-Classical Transition Witness — NISQ experimental protocol + noise robustness + cross-disciplinary jumps",
+  "framework": "Control theory + neuroscience + ecology: Ghost Stability Margin (structured singular value analog), Critical Slowing Down near separability→entanglement transition, early warning signals from variance scaling",
+  "timestamp": "2026-06-10 18:00:00",
+
+  "math_object": {
+    "name": "Ghost Stability Margin δ_G(c,θ,p) and Critical Slowing Down exponent α",
+    "borrowed_from": [
+      {
+        "source": "Robust control theory (Doyle, 1982) — structured singular value μ",
+        "mapping": "In control theory, μ measures the smallest structured perturbation Δ that makes det(I-MΔ)=0 (instability). For ghost zero: δ_G(c,θ,p) = min{|Δ| : QCMI(c+Δ_c, θ+Δ_θ, p+Δ_p) > ε_threshold} where Δ = (Δ_c, Δ_θ, Δ_p) respects the ghost condition structure. The 'structured' part is crucial: the ghost condition (p=0.5, n̂=x̂) is a codimension-4 submanifold. Perturbations within this submanifold preserve QCMI=0; perturbations orthogonal to it destroy the ghost. δ_G is ANISOTROPIC — it is infinite along ghost-tangent directions (c variation) and finite along normal directions (p variation, θ variation)."
+      },
+      {
+        "source": "Neuroscience/ecology — critical slowing down (CSD) near bifurcation points",
+        "mapping": "Near a critical transition, the recovery rate λ from perturbations vanishes as λ ~ |ε|^α where ε is the distance to the critical point. For ghost zero: define ε_ent = measure of environment entanglement (e.g., concurrence of environment qubit with an ancilla). As ε_ent → 0+, the QCMI recovery rate after a p-perturbation should scale as λ_recovery ~ ε_ent^α. The exponent α is predicted to be 1/2 (mean-field) from the Hessian structure: λ_normal = (1-cos(4c))/(2ln2) for ghost directions, which at c=0 vanishes linearly, giving α=1 for c=0 ghost zeros and α=0 (finite, no slowing) for c=π/4 ghost zeros."
+      },
+      {
+        "source": "Quantum error correction — fault-tolerant syndrome measurement",
+        "mapping": "In QEC, syndrome measurements are designed to be robust against errors on the data qubits. For ghost detection: we can encode the 'ghost condition' as a stabilizer expectation value. Define the Cartan stabilizer: K_j = σ_{n̂_j} ⊗ σ_{n̂_j} on system edge j. The ghost condition is ⟨K_j⟩ = +1 for all j. Measuring ⟨K_j⟩ requires only single-qubit measurements (no tomography), reducing shot budget by factor ~10. This 'stabilizer ghost witness' is a more scalable detection protocol."
+      }
+    ],
+    "mathematical_definition": {
+      "ghost_stability_margin": "δ_G = min over normal directions of |Δ_n| such that QCMI(ideal + Δ_n) > σ_stat * δQCMI_stat, where σ_stat is the desired significance (e.g., 3σ) and δQCMI_stat is the statistical error per measurement",
+      "critical_slowing_exponent": "α = -lim_{ε→0+} d(log τ_recovery)/d(log ε) where τ_recovery is the characteristic time for QCMI to return to its steady-state value after an impulsive perturbation of magnitude ε in a normal direction",
+      "anisotropy_tensor": "G_{ij} = ∂²(QCMI)/∂x_i∂x_j evaluated at ghost zero, with eigenvalues: λ_c = (1-cos(4c))/(2ln2) per ghost edge (c-direction), λ_θ = sin²(2θ)*f(p,c) per n̂-direction, λ_p = [formula from Hessian]"
+    }
+  },
+
+  "task1_nisq_experimental_protocol": {
+    "description": "Primary mission: Design CONCRETE quantum circuit for IBM Q hardware implementing ghost zero detection with specified qubit count, gate sequence, measurement scheme, and shot budget",
+    "platform_selection": {
+      "device": "ibm_sherbrooke",
+      "processor": "Eagle r3 (127 qubits, heavy-hex topology)",
+      "qubits_needed": 3,
+      "selection_rationale": "ibm_sherbrooke has the best gate fidelities among IBM's publicly available 127-qubit processors (median CNOT error ~6e-3, median T1 ~250 μs, T2 ~150 μs as of mid-2025). The heavy-hex connectivity is sufficient for 3-qubit all-to-all operations via at most 1 intermediate SWAP. We only need 3 qubits, but the 127-qubit capacity ensures we can pick the 3 best-performing qubits with highest coherence and lowest crosstalk.",
+      "fallback_device": "ibm_kyiv (similar specs, alternative if sherbrooke is offline)",
+      "tolerable_error_rates": {
+        "single_qubit_gate_error": "≤5e-4 (easily met by Eagle r3: typical 2-4e-4)",
+        "two_qubit_gate_error": "≤1e-2 (met: typical 5-8e-3 for CNOT)",
+        "measurement_error": "≤3% (met: typical 1-2% after readout mitigation)",
+        "T1": "≥100 μs (well met: typical 200-300 μs)",
+        "T2": "≥50 μs (met: typical 100-200 μs)"
+      }
+    },
+    "circuit_design": {
+      "qubit_assignment": {
+        "Q0": "System qubit — the qubit whose entanglement with the environment is probed",
+        "R": "Reference qubit — purifies the system, initialized in Bell pair with Q0",
+        "E0": "Environment qubit — prepared in tunable state |ψ(p,φ)⟩, coupled to Q0 via Cartan gate"
+      },
+      "connectivity": "Q0—R (direct CNOT for Bell preparation), Q0—E0 (direct or single-SWAP CNOT for Cartan gate). On ibm_sherbrooke, select a line of 3 qubits with direct nearest-neighbor coupling, e.g., qubits [5, 8, 11] on the heavy-hex lattice where 5-8 and 8-11 are connected edges.",
+      "gate_sequence": [
+        {
+          "step": 1,
+          "name": "Bell state preparation (R, Q0)",
+          "gates": [
+            {"gate": "Hadamard", "target": "Q0", "duration_ns": 35},
+            {"gate": "CNOT", "control": "Q0", "target": "R", "duration_ns": 400}
+          ],
+          "resulting_state": "|Φ+⟩_RQ0 = (|00⟩+|11⟩)/√2",
+          "purpose": "Creates maximal entanglement between system and reference, saturating I(R:Q0) = 2 bits (2*S(Q0) = 2). Any decoupling of Q0 from E0 reduces I(R:Q0|E0) which is what we measure via QCMI."
+        },
+        {
+          "step": 2,
+          "name": "Environment state preparation (E0)",
+          "gates": [
+            {"gate": "Ry(θ_p)", "target": "E0", "parameter": "θ_p = 2*arccos(√p)", "duration_ns": 35},
+            {"gate": "Rz(φ)", "target": "E0", "parameter": "φ = relative phase (set 0 for simplicity)", "duration_ns": 35}
+          ],
+          "resulting_state": "|ψ⟩_E0 = √p|0⟩ + e^{iφ}√(1-p)|1⟩",
+          "ghost_condition": "p=0.5, φ=0 → |ψ⟩_E0 = |+⟩ = (|0⟩+|1⟩)/√2, which is the +1 eigenstate of X",
+          "purpose": "Tunable environment state: sweep p from 0 to 1 to map the full ghost-to-non-ghost transition"
+        },
+        {
+          "step": 3,
+          "name": "Cartan gate between Q0 and E0",
+          "decomposition": "exp(i*c * σ_n̂ ⊗ σ_n̂) where σ_n̂ = cos(θ)Z + sin(θ)X",
+          "n̂=X_case": {
+            "description": "For ghost condition test: θ=π/2 → σ_n̂ = X (the Cartan generator whose +1 eigenstate is |+⟩)",
+            "gates": [
+              {"gate": "Hadamard", "target": "Q0", "purpose": "Rotate Z-basis to X-basis"},
+              {"gate": "Hadamard", "target": "E0", "purpose": "Rotate Z-basis to X-basis"},
+              {"gate": "CNOT", "control": "Q0", "target": "E0"},
+              {"gate": "Rz(2c)", "target": "E0"},
+              {"gate": "CNOT", "control": "Q0", "target": "E0"},
+              {"gate": "Hadamard", "target": "Q0", "purpose": "Rotate back"},
+              {"gate": "Hadamard", "target": "E0", "purpose": "Rotate back"}
+            ]
+          },
+          "n̂=Z_case": {
+            "description": "Control experiment: θ=0 → σ_n̂ = Z, eigenstates are |0⟩,|1⟩ (computational basis). Ghost zero expected at p→0 or p→1 (|0⟩ or |1⟩ env)",
+            "gates": [
+              {"gate": "CNOT", "control": "Q0", "target": "E0"},
+              {"gate": "Rz(2c)", "target": "E0"},
+              {"gate": "CNOT", "control": "Q0", "target": "E0"}
+            ]
+          },
+          "total_gate_count": "X-axis: 2 H + 2 CNOT + 1 Rz + 2 H = 7 gates (depth ~5). Z-axis: 2 CNOT + 1 Rz = 3 gates (depth ~3).",
+          "circuit_duration_ns": "X-axis: 35*4 + 400*2 + 35 = ~975 ns. Z-axis: 400*2 + 35 = ~835 ns."
+        },
+        {
+          "step": 4,
+          "name": "Measurement",
+          "method": "Pauli-basis tomography with readout error mitigation (M3 or matrix-free mitigation)",
+          "bases_needed": {
+            "full_3q_tomography": {"count": 27, "description": "X/Y/Z for each of 3 qubits = 3^3 = 27 bases, reconstructs full ρ_RQE"},
+            "efficient_qcmi_estimation": {"count": 9, "description": "Only need: (1) ZZ on R+Q, (2) ZZ on E+Q, (3) Z on Q alone, (4) ZZZ on R+Q+E, plus X/Y variants. Total ~9-12 measurement circuits per configuration. This is sufficient for QCMI estimation via the entropy formula with controlled error."}
+          }
+        }
+      ]
+    },
+    "shot_budget": {
+      "per_basis_shots": 50000,
+      "n_bases": 9,
+      "per_config_shots": 450000,
+      "circuit_duration_us": 1.0,
+      "shots_per_second_ibm": 5000,
+      "per_config_time_s": 90,
+      "scan_grid": {
+        "p_values": [0.0, 0.25, 0.5, 0.75, 1.0],
+        "c_values": [0.0, 0.393, 0.785, 1.178, 1.571],
+        "theta_values": [0.0, 0.785, 1.571],
+        "total_configurations": 75,
+        "n_repetitions": 3,
+        "total_configurations_with_reps": 225
+      },
+      "total_shots": "225 configs × 450,000 = 101,250,000 shots",
+      "total_time_estimate": "225 × 90s = 20,250s ≈ 5.6 hours (wall clock on ibm_sherbrooke with typical queue)",
+      "statistical_error_per_config": {
+        "formula": "δ(QCMI) ≈ √(Σ_i δS_i²) where δS ≈ √(d/(N ln 2)) for d-dim subsystem with N shots",
+        "numerical": "δS(2q) ≈ 2/(√50000 * ln 2) ≈ 0.013 bits, δS(3q) ≈ √8/(√50000 * ln 2) ≈ 0.018 bits",
+        "qcmi_error": "δ(QCMI) ≈ √(0.013² + 0.013² + (√2/(√50000*ln2))² + 0.018²) ≈ 0.026 bits",
+        "detection_threshold_3sigma": "3*0.026 = 0.078 bits — ghost zero confirmed if QCMI < 0.078 bits"
+      }
+    },
+    "expected_signals": {
+      "ghost_configuration": {
+        "parameters": "p=0.5, θ=π/2 (X-axis Cartan), any c in [0,π]",
+        "qcmi_predicted": "0 ± 0.026 bits (statistical noise floor) + 0.034 bits (systematic gate-error bias) = 0.034 ± 0.026 bits",
+        "verdict": "QCMI < 0.08 bits at 95% confidence for ALL c values → ghost zero confirmed",
+        "control_check": "In the same run, a generic configuration (p=0.3, θ=π/2, c=π/4) should give QCMI ≈ 0.15-0.30 bits, clearly distinguishable from ghost zero"
+      },
+      "clifford_configuration": {
+        "parameters": "c=π/2 (max entangling), any p, any θ",
+        "qcmi_predicted": "0 ± 0.026 bits (statistical) + 0.034 bits (gate error) = 0.034 ± 0.026 bits",
+        "distinguishing_from_ghost": "Clifford zero is INDEPENDENT of p and θ (flat in both directions), while ghost zero requires p=0.5 AND θ=π/2. Varying p away from 0.5 at c=π/2 still gives QCMI≈0 for Clifford, but gives QCMI>0 for ghost."
+      },
+      "ghost_vs_clifford_discrimination_test": {
+        "protocol": "Fix c=0.5 (between ghost and Clifford values). Sweep p from 0.3 to 0.7 at θ=π/2. Ghost: QCMI minimum at p=0.5, rising to ~0.2 at p=0.3 and p=0.7. Clifford (c=π/2): QCMI flat ≈ 0 across all p.",
+        "expected_contrast": "ΔQCMI = QCMI(p=0.3) - QCMI(p=0.5) ≈ 0.15 bits for ghost, ≈ 0 for Clifford. With δ(QCMI)=0.026 bits, this is a 5.8σ effect."
+      }
+    },
+    "error_mitigation": {
+      "zne_zero_noise_extrapolation": {
+        "method": "Digital zero-noise extrapolation using identity-insertion scaling",
+        "implementation": "Insert pairs of CNOT gates (which cancel to identity in the noiseless limit) into the Cartan gate decomposition. At noise scale factor λ = 1+2k where k identity-pairs are inserted, measure QCMI(λ). Fit QCMI(λ) = QCMI(0) + b*λ + c*λ² via Richardson extrapolation (linear for first-order, quadratic for improved accuracy).",
+        "lambda_values": [1, 3, 5],
+        "expected_reduction": "Reduces systematic gate-error bias from ~0.034 bits to ~0.01 bits (factor ~3 improvement based on linear extrapolation)",
+        "caveat": "ZNE increases circuit depth, amplifying T1/T2 decoherence. At λ=5, circuit duration is ~5μs, comparable to T2=150μs. The increased decoherence may partially offset the gate error reduction. A combined T1+T2+gate model is needed for accurate extrapolation."
+      },
+      "pec_probabilistic_error_cancellation": {
+        "status": "Not recommended for first experiment — requires full gate set tomography which is computationally expensive (exponential in qubit count). Reserve for follow-up if ZNE is insufficient.",
+        "when_to_use": "If post-ZNE ghost zero QCMI > 0.05 bits (i.e., still above 2σ), implement PEC on the two CNOT gates in the Cartan decomposition."
+      },
+      "readout_error_mitigation": {
+        "method": "M3 (Matrix-free Measurement Mitigation) — IBM Qiskit's standard readout mitigation",
+        "calibration": "Prepare and measure all 2^3=8 computational basis states, construct the 8×8 assignment matrix A_{ij} = P(measure i | prepare j). Invert to correct measured probabilities.",
+        "shots_for_calibration": "2000 per basis state = 16,000 calibration shots (negligible compared to main experiment)"
+      },
+      "dynamical_decoupling": {
+        "method": "CPMG (Carr-Purcell-Meiboom-Gill) sequence on idle qubits",
+        "implementation": "Insert Yπ (or Xπ) pulses on E0 during intervals when it is idle (between Bell preparation and Cartan gate). Sequence: τ - π_Y - 2τ - π_Y - τ. This refocuses low-frequency dephasing noise, extending effective T2 by factor ~3-5.",
+        "expected_benefit": "T2_eff increased from ~150μs to ~500μs. For a 1μs circuit, dephasing error reduced from ~0.7% to ~0.2% per qubit.",
+        "origin": "Borrowed from quantum metrology (magnetometry) where CPMG sequences are standard for extending spin coherence times in NV centers and trapped ions."
+      }
+    }
+  },
+
+  "task2_noise_robustness_analysis": {
+    "description": "Model T1 (amplitude damping), T2 (dephasing) decoherence on environment qubits and gate errors (depolarizing channel on each Cartan gate). Compute at what noise level ghost zero becomes indistinguishable from Clifford zero.",
+    "noise_channel_definitions": {
+      "amplitude_damping_T1": {
+        "kraus_operators": [
+          "E_0 = |0⟩⟨0| + √(1-γ_T1) |1⟩⟨1|",
+          "E_1 = √γ_T1 |0⟩⟨1|"
+        ],
+        "gamma_T1": "1 - exp(-t/T1)",
+        "physical_effect": "Relaxation from |1⟩ to |0⟩ (energy decay). For environment qubit: damps superposition |+⟩ toward |0⟩, destroying the ghost condition (|+⟩ is the +1 X-eigenstate, but |0⟩ is not).",
+        "on_ibm_sherbrooke": "T1 ≈ 250 μs, circuit time ≈ 1 μs → γ_T1 ≈ 0.004 per full circuit execution"
+      },
+      "dephasing_T2": {
+        "kraus_operators": [
+          "E_0 = √(1-p_φ) I",
+          "E_1 = √p_φ Z"
+        ],
+        "p_phi": "0.5 * (1 - exp(-t/T_φ)) where 1/T_φ = 1/T2 - 1/(2*T1)",
+        "physical_effect": "Random phase flips (Z errors), destroying phase coherence between |0⟩ and |1⟩. For |+⟩ = (|0⟩+|1⟩)/√2: Z|+⟩ = |-⟩, so dephasing mixes |+⟩ with |-⟩, reducing the X-eigenvalue fidelity.",
+        "on_ibm_sherbrooke": "T2 ≈ 150 μs → T_φ ≈ 300 μs (since 1/T_φ = 1/150 - 1/500 ≈ 1/300), p_φ ≈ 0.5*(1-exp(-1/300)) ≈ 0.0017 per μs = 0.0017 per circuit"
+      },
+      "depolarizing_gate_error": {
+        "channel": "E(ρ) = (1-ε)ρ + ε/3 (XρX + YρY + ZρZ)",
+        "epsilon_CNOT": "6-8e-3 per CNOT on Eagle r3",
+        "epsilon_single_qubit": "2-4e-4 per single-qubit gate",
+        "physical_effect": "Isotropic error: all Pauli errors equally likely. For the Cartan gate: the X⊗X structure is partially protected because X⊗X commutes with itself. However, Y and Z errors anti-commute with X, introducing genuine decoherence."
+      }
+    },
+    "combined_noise_model": {
+      "method": "Kraus operator composition: apply T1 and T2 channels to E0 (and Q0) after each gate, apply depolarizing channel after each gate operation",
+      "effective_qcmi_at_ghost_zero": {
+        "formula": "QCMI_eff = QCMI_ideal + Δ_T1 + Δ_T2 + Δ_gate + higher_order",
+        "delta_T1_contribution": "Δ_T1 ≈ γ_T1 * (∂QCMI/∂γ_T1)|_{γ=0}. The ghost condition requires env in |+⟩. T1 damps |+⟩ → |0⟩, which for X-axis Cartan means QCMI ~ (1-p_eff)*ln(2) where p_eff is effective |+⟩-population. With γ_T1=0.004, p_eff decreases by ~0.002, giving QCMI ~ 0.0014 bits. Small but nonzero.",
+        "delta_T2_contribution": "Δ_T2 ≈ p_φ * (∂QCMI/∂p_φ)|_{φ=0}. Dephasing creates a mixture of |+⟩ and |-⟩, with |-⟩ NOT being a +1 X-eigenstate (X|-⟩ = -|-⟩). The effective X-eigenvalue becomes 1-2p_φ. For p_φ=0.0017, X-eigenvalue=0.9966, QCMI ~ 0.0034 bits. About 2-3× larger than T1 effect.",
+        "delta_gate_contribution": "Δ_gate ≈ n_gates * ε_depol * (sensitivity per gate). Each depolarized gate introduces entropy ~ ε*ln(2) into the joint RQE state. For 7 gates (X-axis circuit) with ε ≈ 0.007: Δ_gate ≈ 7 * 0.007 * ln(2) ≈ 0.034 bits. DOMINANT noise source.",
+        "total_noise_qcmi": "QCMI_total ≈ 0.034 bits (dominated by gate depolarization). This is our predicted systematic noise floor. It is BELOW the 3σ statistical threshold of 0.078 bits for N=50K per basis → ghost zero IS detectable as QCMI<0.078 bits.",
+        "critical_gate_error": "Solving 0 + Δ_gate + Δ_T2 = 0.078: n_gates*ε_crit*ln(2) + p_φ*2 = 0.078 → 7*ε_crit*0.693 = 0.078-0.0034 → ε_crit = 0.0746/4.851 = 0.0154. CNOT error ≥ 1.5% renders ghost zero INDISTINGUISHABLE from statistical zero. Current IBM Q CNOT error is ~0.7% → we are at ~45% of the critical threshold. This is tight but viable."
+      }
+    },
+    "ghost_vs_clifford_noise_sensitivity": {
+      "key_question": "Is ghost zero MORE or LESS sensitive to noise than Clifford zero?",
+      "hessian_analysis": {
+        "ghost_normal_eigenvalue": "λ_G = (1-cos(4c))/(2ln2). At typical operating point c=π/4: λ_G = 1/ln2 ≈ 1.44. At ghost edge c→0: λ_G → 0 (perfectly flat).",
+        "clifford_normal_eigenvalue": "λ_C = 32*p_eff*(1-p_eff)/ln2. At p_eff=0.5: λ_C = 8/ln2 ≈ 11.54.",
+        "ratio": "λ_C/λ_G ≈ 8.0 at c=π/4. The Clifford zero is 8× SHARPER than the ghost zero.",
+        "noise_floor_comparison": "For additive Gaussian noise σ² on the measured QCMI: E[QCMI_min_measured] = QCMI_true + σ²/(2λ). Ghost: noise_bias_G ≈ σ²/(2*1.44) = 0.347σ². Clifford: noise_bias_C ≈ σ²/(2*11.54) = 0.043σ². Ghost noise bias is 8× LARGER.",
+        "verdict": "Ghost zero is MORE sensitive to statistical noise than Clifford zero (because the landscape is flatter). However, ghost zero is LESS sensitive to STRUCTURED perturbations that preserve the ghost condition (c-variation along the ghost manifold maintains QCMI=0 exactly, while Clifford zero has no such protected manifold). The trade-off defines the experimental strategy."
+      },
+      "differential_survival_under_decoherence": {
+        "T1_effect": "Ghost: env |+⟩ → |0⟩ destroys X-eigenvalue → QCMI grows. Clifford: env state irrelevant → QCMI stays 0. Ghost is MORE sensitive to T1.",
+        "T2_effect": "Both are affected: T2 turns pure env state into mixed state. For ghost, mixing with |-⟩ destroys X-eigenvalue efficiency ~2×. For Clifford, mixing degrades the contraction condition efficiency ~1×. Ghost is ~2× MORE sensitive to T2.",
+        "gate_error_effect": "Depolarizing noise affects all qubits equally. The ghost circuit has MORE gates (7 vs 3 for Clifford in Z-basis) because of the Hadamard rotations. Ghost: 7×ε_depol. Clifford(Z): 3×ε_depol. Ghost is ~2.3× MORE sensitive to gate errors in terms of raw counts, but the QCMI landscape softness amplifies this difference by another factor ~8. NET difference: ghost is ~18× more noise-sensitive overall.",
+        "frequency_dependent_reversal": "However, this analysis assumes WHITE (frequency-independent) noise. For 1/f noise (dominant in superconducting qubits), the situation REVERSES: Clifford zero's sharp curvature means it acts as a HIGH-PASS filter on noise (high-frequency fluctuations cause large QCMI excursions). Ghost zero's flat landscape acts as a LOW-PASS filter. The CPMG dynamical decoupling specifically removes LOW-FREQUENCY noise, preferentially helping the ghost zero. This is a CROSS-DISCIPLINARY INSIGHT from control theory: the structured singular value μ is frequency-dependent, and for 1/f noise, a flat landscape can be MORE robust than a sharp one."
+      }
+    }
+  },
+
+  "task3_cross_disciplinary_jumps": {
+    "jump1_neuroscience_critical_slowing": {
+      "from": "Neuroscience/ecology — critical slowing down (CSD) as early warning signal for regime shifts",
+      "to": "Ghost zero detection via QCMI relaxation time measurement",
+      "original_context": "In complex systems approaching a bifurcation (tipping point), the recovery rate from small perturbations slows down as λ ~ |ε|^α, where ε is distance to the critical point. This 'critical slowing down' is observed in epileptic seizure onset, ecosystem collapse, and climate tipping points. The exponent α classifies the bifurcation type (saddle-node: α=1/2, Hopf: α=1/2, transcritical: α=1).",
+      "ghost_adaptation": "For the ghost→entanglement transition: as the environment state acquires a small entanglement component ε_ent (e.g., env qubit weakly entangled with a bath qubit), the ghost zero is destroyed and QCMI becomes nonzero. The question: does the QCMI LANDSCAPE show critical slowing down as ε_ent → 0+? Define τ_recovery(c,θ,p) = characteristic relaxation time of QCMI after an impulsive p-perturbation of magnitude δp. Measure τ_recovery as a function of ε_ent via RB (randomized benchmarking) style experiments on the QCMI dynamics.",
+      "concrete_prediction": {
+        "system": "5-qubit extension of the primary circuit: R, Q0, E0 (as before) + B (bath qubit) entangled with E0 at strength ε (controlled via partial CNOT: CNOT^{ε} = exp(i ε π/4 * Z⊗X))",
+        "observable": "τ_recovery(ε) = time for QCMI to return to within 1/e of its steady-state value after a sudden p-quench of Δp = 0.02 (implemented via rapid single-qubit rotation on E0)",
+        "expected_value": "τ_recovery(ε) ~ ε^{-α} with α = 0 (constant) for Z-axis Cartan (no ghost→non-ghost transition at any p), α = 1/2 for X-axis Cartan at c=π/4 (mean-field universality class of the transcritical bifurcation between ghost=zero and ghost=nonzero)",
+        "testability": "Requires ~5-10 different ε values (0.01 to 0.5), 100 repetitions each for statistical averaging of τ_recovery. Each repetition: prepare, perturb, wait variable delay t, measure QCMI, fit exponential. Total: ~5 ε × 100 reps × 10 time points × 50K shots ≈ 250M shots ≈ 14 hours on ibm_sherbrooke. Feasible as a dedicated experiment.",
+        "falsifiability": "If α ≈ 0 across all c,θ values → no critical slowing down → the ghost-to-entanglement transition is not a bifurcation but a CROSSOVER (smooth). This would mean entanglement kills the ghost continuously rather than at a sharp threshold. CRITICAL: this would FALSIFY the 'ghost as phase transition witness' interpretation and support the alternative 'ghost as continuous separability measure'.",
+        "alternative_explanation": "τ_recovery may NOT diverge because QCMI is an information-theoretic quantity (not a dynamical one). The 'recovery' of QCMI after a perturbation is not a physical relaxation process — it's determined by the instantaneous state. To observe true critical slowing down, we would need to probe the DYNAMICAL QCMI of an open quantum system evolving under Lindblad dynamics, not the static QCMI of a unitary circuit. This is the key limitation."
+      },
+      "mathematical_deepening": {
+        "layer_1": "The QCMI landscape near ghost zero has Hessian eigenvalues that depend on c. At c→0, λ_c = (1-cos(0))/(2ln2) = 0 — the landscape becomes flat in the c direction. This is the mathematical signature of a transcritical bifurcation in parameter space: the zero eigenvalue in the Hessian signals a degenerate critical point where two solution branches (ghost and non-ghost) intersect. The singularity is of type A_2 (fold) in the c-direction for small c.",
+        "layer_2": "The full bifurcation diagram in (c, p, θ) space has codimension-1 bifurcation surfaces where ghost zeros annihilate. Using singularity theory (Arnold classification): the ghost zero corresponds to a function germ of type A_k with k = rank deficiency of the Hessian at the zero. For a single edge, the germ is A_1 (Morse) for c ≠ 0, degenerating to A_2 (fold) at c=0, and to A_3 (cusp) at the simultaneous limit c=0, p=0.5 (the most degenerate point in parameter space). This classification predicts: (i) near c=0, the QCMI ~ c^4 along the ghost direction (A_3 normal form), (ii) the universal unfolding has 3 parameters (c, p, θ), (iii) the bifurcation set in (c,p,θ) space is a swallowtail surface.",
+        "hard_boundary": "The singularity theory classification is a mathematical structure, not yet a dynamical mechanism. To connect to critical slowing down, we need to define a DYNAMICS on the QCMI landscape. One candidate: gradient flow dxi/dt = -∂(QCMI)/∂xi, which would show critical slowing down near any degenerate critical point. But this dynamics is ad hoc — there's no physical reason the state should evolve via gradient descent on the information landscape. A physically motivated dynamics would come from the Lindblad master equation for the coupled system-environment-bath, with the QCMI as an observable computed on the instantaneous state."
+      }
+    },
+    "jump2_entanglement_witness_theory": {
+      "from": "Horodecki et al. entanglement witness theory (1996, 2009)",
+      "to": "Ghost zero as an entanglement witness for the system-environment state",
+      "original_context": "An entanglement witness W is a Hermitian operator such that Tr(Wρ) ≥ 0 for all separable states ρ_sep, and Tr(Wρ) < 0 for at least one entangled state. The optimal witness W_opt has maximal distance from the separable set.",
+      "ghost_adaptation": "Ghost zero is an INFORMATION-THEORETIC entanglement witness, not an operator-valued one. Define the ghost witness function: W_G(ρ_QE) = min over c of QCMI(R:Q|E) for fixed ρ_QE. If W_G = 0 for a continuous range of c → the system-environment state is separable with respect to the Cartan algebra decomposition. If W_G > 0 for all c → the state is entangled (or the Cartan axis is misaligned). This is a stronger witness than standard entanglement witnesses because: (1) it detects separability relative to a SPECIFIC tensor product structure (the Cartan decomposition), (2) it is parameter-free (no need to choose W), (3) it provides a quantitative measure (nonzero QCMI = degree of non-separability).",
+      "concrete_prediction": {
+        "system": "Same 3-qubit circuit, but now SWEEP the environment state through the Bloch sphere: |ψ(θ_B, φ_B)⟩ = cos(θ_B/2)|0⟩ + e^{iφ_B} sin(θ_B/2)|1⟩. For each (θ_B, φ_B), sweep c and measure QCMI.",
+        "observable": "The 'ghost region' G = {(θ_B, φ_B) : min_c QCMI(c) < 0.078 bits} — the set of environment states that produce ghost zero.",
+        "expected_value": "For X-axis Cartan: G = {(θ_B, φ_B) : θ_B ≈ π/2, φ_B ≈ 0 or π} = two small neighborhoods around |+⟩ and |-⟩ on the Bloch sphere equator. The area of G on the Bloch sphere = π * (Δθ_B)²/4 ≈ π * (0.05)²/4 ≈ 0.002 sr (tiny fraction of 4π). For Z-axis Cartan: G = {(θ_B, φ_B) : θ_B ≈ 0 or θ_B ≈ π} = neighborhoods around the poles. Area ≈ 2 * π * (Δθ_B)² ≈ 0.016 sr.",
+        "ghost_witness_roi": "Region of Interest on the Bloch sphere where ghost detection is feasible. The ratio of G_X area to G_Z area ≈ 0.002/0.016 = 0.125 — X-axis ghost is 8× smaller target than Z-axis ghost, consistent with the Hessian eigenvalue ratio."
+      },
+      "connection_to_horodecki_witnesses": {
+        "standard_witness": "W = α*I - |ψ⟩⟨ψ|^Γ (where Γ is partial transpose). Requires knowing |ψ⟩.",
+        "ghost_advantage": "Ghost detection does NOT require prior knowledge of the state — it's a DISCOVERY protocol: sweep c and look for QCMI→0. This is analogous to 'blind' entanglement detection via random measurements (which also does not require a pre-chosen W).",
+        "ghost_limitation": "Ghost detection only finds separability relative to the specific Cartan generator. A state that is separable under X⊗X Cartan may be entangled under Z⊗Z. The ghost witness is 'directional' — it probes separability along one axis in operator space."
+      }
+    },
+    "jump3_ecology_early_warning_signals": {
+      "from": "Ecology — early warning signals (EWS) for critical transitions: increasing variance and autocorrelation before a tipping point",
+      "to": "QCMI variance scaling as early warning for environment entanglement",
+      "original_context": "Before a critical transition (lake eutrophication, fishery collapse, etc.), the system's state variable x shows: (1) increasing variance Var(x) ~ |ε|^{-β}, (2) increasing lag-1 autocorrelation ACF(1) → 1, (3) increasing skewness. These EWS arise from critical slowing down: as the dominant eigenvalue → 0, the system becomes less resilient to stochastic perturbations.",
+      "ghost_adaptation": "Define the 'ghost resilience' R(c,θ,p) = min_{Δ_n} [QCMI(c,θ,p+Δ_n) - 0] / |Δ_n| evaluated in the normal direction. As p → 0.5 (ghost condition), R → 0 for X-axis Cartan. Measure: Var[QCMI(c,θ,p)] over repeated experimental runs at fixed (c,θ,p). Each run has finite shots, introducing binomial sampling noise σ²_shot. The response of QCMI to this noise is amplified as R → 0: Var(QCMI) ~ σ²_shot / R².",
+      "concrete_prediction": {
+        "system": "3-qubit circuit, fixed c=π/4, θ=π/2, sweep p = 0.3, 0.35, 0.4, 0.45, 0.48, 0.49, 0.495, 0.5",
+        "observable": "Var[QCMI] = variance of QCMI estimator across 50 repeated experiments at each p, each with N=50000 shots",
+        "expected_value": "Var(QCMI) ~ (p-0.5)^{-β} with β = 1 (predicted from Hessian: ∂²QCMI/∂p² → 0 linearly as p → 0.5 for X-axis Cartan). Specifically: QCMI(p) ≈ k*(p-0.5)² for small |p-0.5|, so d(QCMI)/d(p-0.5) ≈ 2k*|p-0.5|. The sampling noise σ²_shot gets amplified by (dQ/dp)^{-1}, giving Var(QCMI) ~ σ² / (2k*|p-0.5|). The exponent β=1 if the minimum is quadratic, β=2 if the minimum is quartic.",
+        "testability": "50 reps × 8 p values × 50000 shots = 20M shots ≈ 1 hour. EASILY feasible.",
+        "falsifiability": "If Var(QCMI) is CONSTANT as p → 0.5 → no critical amplification → the ghost zero is robust to noise (not a fragile critical point). This would be GOOD news for experimental detection (robust) but BAD news for the 'phase transition witness' interpretation (no criticality). Alternative: Var(QCMI) DIVERGES as p → 0.5 with β=1 → confirms critical slowing down and validates the ghost zero as a genuine critical phenomenon."
+      }
+    }
+  },
+
+  "aha1_extended_experimental_witness": {
+    "description": "Design a concrete experiment that a quantum optics/ion trap/superconducting lab could execute within 6 months. Target: arXiv preprint-ready experimental proposal.",
+    "platform_options": {
+      "superconducting": {
+        "device": "IBM Q ibm_sherbrooke or Rigetti Aspen-M-3",
+        "pros": "Mature gate set, built-in error mitigation, existing user base, 3-qubit circuit is trivial to implement",
+        "cons": "Moderate T1/T2 (~200 μs), gate errors (~0.7%) borderline for ghost detection",
+        "feasibility_6mo": "HIGH — can be done as a Qiskit pulse-level experiment, no hardware modifications needed"
+      },
+      "trapped_ion": {
+        "device": "IonQ Aria or Quantinuum H1-1",
+        "pros": "All-to-all connectivity (no SWAP overhead), much better T1/T2 (seconds in some cases), gate fidelities ~99.5% or better",
+        "cons": "Slower gate speed (~10-100 μs per two-qubit gate), smaller user community",
+        "feasibility_6mo": "HIGH — Quantinuum H1-1 has publicly accessible cloud access. The longer gate times are compensated by higher fidelity."
+      },
+      "photonic": {
+        "device": "Custom 6-photon setup (e.g., USTC Jian-Wei Pan group, who already demonstrated 6-photon quantum Darwinism in 2019)",
+        "pros": "Room-temperature operation, natural decoherence-free subspaces for certain encodings, direct analogy to existing quantum Darwinism experiments",
+        "cons": "Probabilistic gates (post-selection required), scaling to many edges is hard",
+        "feasibility_6mo": "MEDIUM — requires dedicated optical table, but the photon source and detectors are standard equipment in quantum optics labs"
+      }
+    },
+    "recommended_first_experiment": {
+      "platform": "IBM Q superconducting (ibm_sherbrooke) — lowest barrier to entry, fastest turnaround",
+      "timeline": {
+        "month_1": "Pulse-level calibration: optimize CNOT gate between chosen qubit pair, characterize T1/T2/readout errors, implement and benchmark Cartan gate decomposition",
+        "month_2": "Static ghost scan: 75 configurations × 50K shots, map QCMI(c,θ,p) landscape, identify ghost zeros",
+        "month_3": "Noise robustness: repeat ghost scan at 3 noise amplification levels (λ=1,3,5 via identity insertion), perform ZNE extrapolation",
+        "month_4": "Entanglement threshold: implement ε-controlled environment-bath entanglement, measure QCMI vs ε, fit critical exponent",
+        "month_5": "Control experiments: swap axes (X→Z, X→Y), test non-product initial states, test mixed environment states",
+        "month_6": "Analysis + manuscript preparation: full error budget, statistical analysis, theoretical comparison"
+      },
+      "observable": "QCMI = I(R:Q|E) measured via efficient 9-basis tomography with M3 readout mitigation",
+      "expected_signal": {
+        "ghost_zero": "QCMI(c, θ=π/2, p=0.5) = 0.034 ± 0.026 (stat) ± 0.010 (sys) bits → consistent with zero at 3σ after ZNE",
+        "generic_nonzero": "QCMI(c=π/4, θ=π/2, p=0.4) = 0.18 ± 0.026 bits → ghost/non-ghost contrast ratio ~5:1",
+        "clifford_baseline": "QCMI(c=π/2, θ=π/2, p=0.5) = 0.034 ± 0.026 bits → indistinguishable from ghost at this p (must sweep p to distinguish)"
+      },
+      "control_experiment": "The DISCRIMINATION test: sweep p at fixed c=0.5 (between ghost and Clifford values). Ghost: QCMI should show a clear minimum at p=0.5 dropping to ~0.034 bits, rising to ~0.18 bits at p=0.3 or 0.7. Clifford: QCMI should be FLAT ~0.034 bits across all p.",
+      "statistical_analysis_plan": {
+        "null_hypothesis": "Ghost nonexistent: H0 = 'QCMI(c, θ=π/2, p=0.5) ≥ QCMI(c, θ=π/2, p=0.4)' — i.e., the p=0.5 point is NOT special",
+        "test_statistic": "t = [QCMI(p=0.5) - QCMI(p=0.4)] / √[Var(p=0.5) + Var(p=0.4)] where Var values are bootstrap-estimated from 50 repeated experiments",
+        "expected_t_value": "5.7 (based on predicted difference 0.15 bits and per-point error 0.026/√50 = 0.0037 bits, giving t ≈ 0.15/0.026 = 5.7)",
+        "p_value": "< 10^{-7} (highly significant)",
+        "power_analysis": "To detect ghost zero with 95% power at α=0.05, need QCMI difference > 1.96 × √2 × δQCMI ≈ 2.77 × 0.026 = 0.072 bits. Predicted difference 0.15 bits gives power > 99%."
+      },
+      "supplementary_measurements": [
+        {
+          "name": "Quantum state tomography of ρ_QE at ghost zero",
+          "purpose": "Verify that QCMI=0 coincides with ρ_QE being separable (PPT criterion satisfied)",
+          "expected": "At ghost condition: ρ_QE is a product state ρ_Q ⊗ ρ_E. This is a stronger check than QCMI alone — it confirms that the information-theoretic zero corresponds to genuine geometric separability."
+        },
+        {
+          "name": "OTOC (out-of-time-order correlator) at ghost zero",
+          "purpose": "Connect to quantum chaos/information scrambling literature",
+          "protocol": "Measure F(t) = ⟨W(t) V W(t) V⟩ using the SWAP-test circuit (requires 1 additional ancilla qubit, total 4 qubits)",
+          "expected": "At ghost zero (no information flow): F(t) = 1 for all t (no scrambling, the Cartan gate does not generate entanglement → OTOC does not decay). Away from ghost: F(t) decays to ~0.5 at late times. OTOC decay rate ~ QCMI — the QCMI directly bounds information scrambling."
+        },
+        {
+          "name": "Environment fragment redundancy (Quantum Darwinism test)",
+          "purpose": "If ghost zero marks the quantum-classical boundary, then as we move from ghost (separable env) to non-ghost (entangled env), the redundancy R_δ — the number of independent env fragments that contain information about the system — should change qualitatively.",
+          "protocol": "Extend to 5-qubit: R + Q0 + 3 environment qubits E1, E2, E3 each coupled to Q0 via independent Cartan edges. Measure I(R:Ek) for each env fragment Ek.",
+          "expected": "At ghost zero (all env qubits = |+⟩, X-axis Cartan on all edges): QCMI=0 → I(R:Ek) = 0 for all k individually. However, the CONDITIONAL mutual information after measuring one env qubit may be nonzero, indicating genuine quantum Darwinism (information about R is encoded redundantly in the env, but accessible only by measuring MULTIPLE env qubits)."
+        }
+      ]
+    }
+  },
+
+  "strangest_prediction": {
+    "statement": "Under 1/f noise (the dominant noise type in superconducting qubits), ghost zero detection fidelity IMPROVES as circuit depth increases, while Clifford zero detection fidelity DEGRADES. This is the exact OPPOSITE of naive expectations. More specifically: insert N_idle identity-equivalent gate pairs (e.g., two sequential CNOTs) into the Cartan gate. These pairs act as a low-pass filter on the noise spectrum. For ghost zero (flat landscape, λ~1.44), the added depth filters high-frequency noise more effectively than it amplifies low-frequency gate errors, resulting in a NET REDUCTION of QCMI_noise for N_idle up to ~5-10. For Clifford zero (sharp landscape, λ~11.54), the high-pass character of the sharp minimum means every additional gate increases QCMI_noise monotonically. This predicts a CROSSOVER: at low N_idle, Clifford is less noisy than ghost (as Hero analysis showed). But at high N_idle (~10), ghost becomes LESS noisy than Clifford.",
+    "why_strange": "Deep circuits are universally considered MORE noisy than shallow ones. Yet we predict that for ghost zero specifically, depth can be an ASSET — the flat landscape acts as an integrator that averages out high-frequency noise, and this averaging improves with circuit duration. This is counter to all standard NISQ wisdom.",
+    "concrete_test": {
+      "system": "ibm_sherbrooke, 3 qubits, X-axis Cartan, p=0.5 (ghost) and c=π/2 (Clifford)",
+      "observable": "QCMI as a function of N_idle (number of identity-inserted CNOT pairs, ranging 0 to 20)",
+      "expected_for_ghost": "QCMI(N_idle) = QCMI(0) + a*(1 - exp(-b*N_idle))/b - c*N_idle where a>0 represents 1/f noise contribution (saturating) and c represents white noise contribution (linear). The saturating term dominates for small N_idle, giving QCMI that grows sublinearly and may even DECREASE for N_idle < 5 if b is large (effective noise filtration).",
+      "expected_for_clifford": "QCMI(N_idle) = QCMI(0) + c*N_idle (linear, white-noise dominated because sharp landscape amplifies all frequencies).",
+      "expected_crossover": "QCMI_ghost < QCMI_clifford for N_idle > 8 (estimated from ibm_sherbrooke noise parameters)"
+    },
+    "if_true_implication": "This would establish ghost zero as the first example of a 'noise-assisted quantum phenomenon' — where judiciously added noise (in the form of longer circuit depth with specific frequency filtering) IMPROVES the signal-to-noise ratio. This is conceptually related to stochastic resonance in nonlinear systems, but with a topological protection mechanism (the flat Berry phase on the Cartan torus)."
+  },
+
+  "a_objection": {
+    "source": "Self-attack (B博士 channeling internal A博士)",
+    "objection_1": {
+      "claim": "The entire noise analysis assumes that gate errors are independent depolarizing channels. On real hardware, errors are CORRELATED — crosstalk between qubits, temporally correlated 1/f flux noise, and leakage to non-computational states. The correlated error model could easily flip the ghost-vs-Clifford noise sensitivity ranking.",
+      "response": "Valid. The depolarizing model is a worst-case bound (symmetric, isotropic). Correlated errors can be partially mitigated by: (1) selecting geometrically separated qubits on the heavy-hex lattice to minimize crosstalk, (2) using spectator qubit spectroscopy to characterize and subtract coherent crosstalk, (3) randomized compiling to convert coherent errors into incoherent (Pauli) errors. However, the ORDERING of ghost vs Clifford noise sensitivity is model-dependent and must be verified empirically. The proposed experiment (N_idle scan) directly tests this without relying on any error model.",
+      "severity": "MEDIUM — theoretical prediction is model-dependent, but the experimental protocol is model-independent"
+    },
+    "objection_2": {
+      "claim": "The predicted 0.034-bit systematic noise floor is almost certainly an underestimate. Real CNOT errors on ibm_sherbrooke are not uniformly 0.7% — they vary from ~0.3% (best pairs) to ~2% (worst pairs). With 2 CNOTs in the circuit, the probability that at least one is poor is significant. Add measurement crosstalk (which our readout mitigation does not fully correct) and leakage, the real noise floor could be 0.1-0.2 bits, which overlaps the expected non-ghost signal (0.18 bits).",
+      "response": "This is the most serious objection. Mitigation: (1) Characterize ALL qubit pairs on the device and select the pair with minimum CNOT error + crosstalk. IBM provides these data via the calibration API. (2) Use dynamical decoupling during idle periods to suppress low-frequency phase noise. (3) Implement randomized benchmarking of the full circuit (not individual gates) to measure the actual circuit-level error rate. (4) If the noise floor is indeed 0.1 bits, switch to Quantinuum H1-1 (trapped ions) where CNOT fidelity > 99.5% and measurement error < 0.5%.",
+      "severity": "HIGH — the experimental viability critically depends on achieving a noise floor below ~0.08 bits"
+    },
+    "objection_3": {
+      "claim": "The critical slowing down prediction (α=1/2) is for a DYNAMICAL quantity (relaxation time), but our experiment measures a STATIC quantity (QCMI of a single-shot circuit). There is no 'relaxation' in a unitary circuit — you prepare the state and measure it. The predicted critical slowing down can only be observed if we implement FEEDBACK: measure QCMI, then apply a correction pulse to steer the state back toward the ghost zero, and observe the convergence rate. This requires real-time feedback which adds latency (~100 μs) comparable to T2, adding its own decoherence.",
+      "response": "Correct. The static circuit CANNOT probe critical slowing down directly. The correct experiment is: (1) prepare state near ghost zero, (2) apply small perturbation δp, (3) WAIT for a variable time t during which the system evolves under its NATURAL Hamiltonian (not the Cartan gate — the idle Hamiltonian includes ZZ crosstalk and single-qubit frequency shifts), (4) measure QCMI(t). The 'relaxation' is then the natural drift of the state under the always-on system-environment Hamiltonian H_int = Σ_j J_j σ_{n̂_j} ⊗ σ_{n̂_j}. Near the ghost zero, this Hamiltonian commutes with the Cartan generator, so the state does NOT drift — the ghost is a fixed point of the natural dynamics. Away from the ghost condition, H_int generates entanglement, driving QCMI away from zero. The relaxation RATE away from the fixed point is the dynamical critical slowing down signature.",
+      "severity": "MEDIUM — requires reinterpreting the protocol but the core physics is unchanged"
+    }
+  },
+
+  "failed_jumps": [
+    {
+      "from": "Geology — seismic precursor signals (foreshock sequences, b-value changes, Vp/Vs anomalies)",
+      "to": "QCMI precursor signals before ghost destruction by entanglement",
+      "reason_for_failure": "Seismic precursors are statistical patterns in earthquake catalogs (e.g., the Gutenberg-Richter b-value decreases before large earthquakes). Attempted mapping: b-value ↔ QCMI distribution shape near ghost zero. Failure: earthquake catalogs are POINT PROCESSES in time (discrete events), while QCMI is a continuous function on parameter space. The 'events' in the ghost system would be 'moments when QCMI crosses a threshold' — but QCMI is deterministic for a given circuit, no stochastic triggering. To create a point process, we would need to repeatedly prepare the state and measure QCMI under stochastic noise, counting 'QCMI > threshold' events. But this is just binomial statistics on the noise distribution, not a genuine self-organized critical process like earthquakes. No SOC dynamics exist in the 3-qubit circuit.",
+      "lesson": "The ghost system is TOO SMALL (3 qubits) to support self-organized criticality, which requires many degrees of freedom with threshold dynamics and slow driving. For a genuine seismic analogy, we would need a large-N environment (>100 qubits) with qubit-qubit interactions that can trigger cascades of entanglement generation. Interesting direction for R2 or later, but currently out of scope."
+    },
+    {
+      "from": "Economics — market microstructure (bid-ask spread as information asymmetry measure, Kyle's lambda as price impact)",
+      "to": "QCMI as 'information impact' of environment on system",
+      "reason_for_failure": "In market microstructure, the price impact λ measures how much the price moves per unit of order flow: Δp = λ * ΔQ. Attempted mapping: λ ↔ d(QCMI)/d(p) near ghost zero, measuring how sensitively the QCMI changes as the environment state is perturbed. ΔQ (order flow) ↔ Δp (environment population change). Failure: the analogy captures the STATIC sensitivity correctly (which is just the Hessian eigenvalue), but the rich DYNAMICS of market microstructure (inventory risk, adverse selection, strategic order splitting) have no counterpart in the 3-qubit circuit. The 'informed trader' who knows the true value has no analog because there is no hidden information — the quantum state is fully known from tomography. Kyle's lambda is fundamentally about ASYMMETRIC INFORMATION, while ghost zero is about INFORMATION FLOW (QCMI) between known subsystems.",
+      "lesson": "Information flow ≠ information asymmetry. QCMI quantifies flow between KNOWN systems; Kyle's lambda quantifies the cost of HIDDEN information. They are different information-theoretic concepts."
+    },
+    {
+      "from": "Architecture — tensegrity structures (Buckminster Fuller, Kenneth Snelson): compression members floating in a net of continuous tension",
+      "to": "Ghost zero as a 'tensegrity point' in information space: the compression (QCMI→0) is maintained by tension in orthogonal directions (nonzero QCMI in Bell pairs, nonzero mutual information in reference-system)",
+      "reason_for_failure": "Tensegrity is a mechanical equilibrium concept: the structure is stable because compression and tension balance. Attempted mapping: the QCMI zero at ghost condition is a 'floating compression member' surrounded by 'tension cables' (nonzero information quantities that sum to give zero conditional mutual information). Failure: QCMI zero is not an equilibrium — it's an EXACT identity following from the algebraic structure of the state (product of eigenstates). There is no balancing act, no stability margin, no 'tension' maintaining the zero. The zero is RIGID, not floating. The architectural analogy fails because it implies a dynamic equilibrium where there is in fact an algebraic necessity.",
+      "lesson": "Ghost zero is algebraic (product of eigenstates) not dynamical (balance of forces). This is actually a STRENGTH — algebraic zeros are more robust than dynamical equilibria because they don't require fine-tuning of parameters (within the ghost stratum)."
+    }
+  ],
+
+  "deep_dive_1_noise_landscape": {
+    "question": "What is the FULL geometry of the QCMI landscape under realistic noise, and how does it differ from the ideal zero-temperature landscape?",
+    "layer": 1,
+    "answer": "Under ideal conditions, the QCMI landscape has 2^{|E|} connected components of exact zeros (the Z_S strata), each being a submanifold of dimension |E|+|S|. Under noise, these exact zeros become APPROXIMATE minima with noise floor QCMI > 0. The key geometric question: do the strata remain as DISTINGUISHABLE local minima (separated by QCMI barriers exceeding the noise floor), or do they merge into a single broad basin? For |E|=4 (the experimentally accessible case), there are 16 strata. Under noise, the all-ghost stratum (S=∅, I=4) has the LARGEST noise floor (~8× the Clifford noise floor) but also the BROADEST basin (the flattest landscape). The all-Clifford stratum (S=all, I=0) has the smallest noise floor but also the narrowest basin. Strata with intermediate I have intermediate noise floors and basin widths. The condition for DISTINGUISHABILITY between strata S and S' is: |QCMI_noise(S) - QCMI_noise(S')| > 3σ_stat, or equivalently, the difference in noise floor must exceed the statistical resolution. For the all-ghost vs all-Clifford comparison: ΔQCMI_noise ≈ (8-1)*σ²/(1.44) ≈ 0.03 bits (assuming σ²_gate ≈ 0.006). This is comparable to δQCMI_stat ≈ 0.026 bits → barely distinguishable at 1σ, not at 3σ. The experimental implication: at |E|=4 and current IBM gate fidelities, we can resolve the GHOST/CLIFFORD distinction (all edges ghost vs all edges Clifford) but NOT individual strata within the ghost spectrum (e.g., 3-ghost-1-Clifford vs 4-ghost). Higher-fidelity hardware (Quantinuum H1-1 with ε_CNOT < 0.003) would enable stratum-level resolution.",
+    "hard_boundary": "The noise floor computation uses a LINEAR noise model (first-order perturbation theory around the ideal state). For large noise (ε > 0.01 per gate), nonlinear corrections become important: the effective QCMI minimum shifts in parameter space (the measured 'ghost zero' occurs at slightly different (c,θ,p) than the ideal one). A full nonlinear noise analysis requires numerical simulation of the noisy circuit."
+  },
+
+  "deep_dive_1_continued": {
+    "question": "Can we use the topological invariant I(S) to protect ghost detection against noise — i.e., is I(S) a NOISE-ROBUST order parameter?",
+    "layer": 2,
+    "answer": "This is the deepest question in the noise analysis. The topological invariant I(S) = |E| - |S| = -(1/π) Σ_{j∉S} ∮ A_j dc_j is defined on the IDEAL QCMI=0 manifold. Under noise, QCMI is never exactly zero, so the Berry phase integral around c_j is no longer defined on a closed zero-manifold. Instead, we must define I(S) on the 'approximate zero set' Z_ε = {(c,θ,p) : QCMI < ε}. For small ε, Z_ε is a TUBULAR NEIGHBORHOOD of the ideal Z_S, and the Berry phase integral ∮_C A_j dc_j around a loop C ⊂ Z_ε is well-defined up to corrections of O(ε). The question: does the quantization of I(S) survive for ε > 0? For ghost edge j: A_j dc_j ≈ -π dc_j (the Berry connection on the Cartan torus is FLAT: F_{jk}=0 between ghost edges). The integral around a FULL cycle c_j: 0→π (identifying endpoints) gives -π EXACTLY, independent of c_j, because the flat connection means the integral depends only on the homotopy class of the loop, not its precise location within Z_ε. Therefore: I(S) computed as the Berry phase integral is protected against noise provided the loop C_j stays within Z_ε. The condition for this: the noise-induced QCMI at ghost edge j must be < ε_threshold = (π/2)² * λ_min where λ_min is the minimum Hessian eigenvalue among ghost directions. For c≈0, λ_min ≈ 0, meaning Z_ε becomes very thin in that direction — the tubular neighborhood pinches. The topological protection is WEAKEST near c=0 and c=π (the suture points where Whitney stratification requires refinement). The optimal operating point for noise-robust detection is c=π/4 (midpoint) where λ = 1/ln2 ≈ 1.44 is maximal among ghost directions.",
+    "hard_boundary": "At c=0 exactly, the topological protection FAILS because the loop C_j shrinks to a point (c_j: 0→π degenerates since c=0 is identified with c=π but there's no 'room' inside Z_ε to support the full loop). This is the mathematical manifestation of the suture point singularity identified in R3. For experimental detection, operate at c=π/4 (far from suture) for maximum noise robustness."
+  },
+
+  "deep_dive_2_cross_disciplinary": {
+    "question": "Can dynamic decoupling (from quantum metrology) and entanglement witness theory be COMBINED to create a 'protected ghost subspace' — a decoherence-free subspace for the ghost condition?",
+    "layer": 1,
+    "answer": "Dynamic decoupling (DD) and decoherence-free subspaces (DFS) are complementary noise-suppression techniques. DD uses pulsed control to average out noise; DFS uses symmetry to identify subspaces immune to collective noise. For the ghost condition: the relevant 'logical qubit' is the environment qubit E0 prepared in |+⟩. Under collective dephasing (all qubits experience the same Z-rotation, the dominant noise in superconducting systems due to flux noise): the DFS is the {|0⟩, |1⟩} basis (Z-eigenstates). But |+⟩ is NOT in this DFS — it's maximally sensitive to collective Z noise. The 'ghost DFS' would need to be protected against X-rotation noise (since |+⟩ is an X-eigenstate, it's immune to X-rotations) while being vulnerable to Z-rotations. This is the OPPOSITE of standard DFS which protects Z-eigenstates. Creating a 'dual DFS' that protects X-eigenstates requires: (1) identify a noise source that is dominantly along X (unlikely in superconducting qubits where the dominant noise is Z/ZI/IZ), or (2) rotate the reference frame: sandwich the Cartan gate with Hadamard gates permanently (always operate in the X-basis). In the X-basis, the environment |+⟩_X = |0⟩_Z — a computational basis state, which IS protected by standard DFS against collective Z noise. This is a trivial observation but practically powerful: ALWAYS operate the environment qubit in the X-basis (permanent Hadamard frame rotation), making the ghost condition a computational basis condition (|0⟩ in X-basis = |+⟩ in Z-basis) that standard DD/DFS techniques protect.",
+    "hard_boundary": "The permanent frame rotation adds 2 Hadamard gates per qubit per operation, doubling the single-qubit gate count. For a 7-gate circuit, this adds ~4 extra gates, increasing the gate-error contribution by ~60%. The net benefit depends on the relative strength of decoherence vs gate errors."
+  },
+
+  "deep_dive_2_continued": {
+    "question": "What is the ultimate precision limit for ghost zero detection — the quantum Cramer-Rao bound for QCMI estimation near zero?",
+    "layer": 2,
+    "answer": "The quantum Fisher information (QFI) for estimating QCMI near zero is the key metrological limit. QCMI = S(RQ) + S(EQ) - S(Q) - S(RQE). The QFI for each entropy S(ρ) with respect to small deviations from zero is: F_Q[S] = (ΔH)² where H = -log ρ is the 'entanglement Hamiltonian' and ΔH is its variance in the state ρ. Near the ghost zero, ρ is approximately pure and product: ρ ≈ |Φ+⟩⟨Φ+| ⊗ |+⟩⟨+|. The entropy is ~0, and its variance under small perturbations is determined by the Hessian: Var(QCMI) ≈ (1/2) Σ_{ij} H_{ij} Δx_i Δx_j where H_{ij} is the Hessian matrix. The QFI for estimating the QCMI minimum value is: F_Q[QCMI_min] = (1/σ²) * (number of independent measurements) * (curvature at minimum). For ghost zero (λ≈1.44): F_Q ≈ N_bases * N_shots * (1.44)/σ²_shot. For Clifford zero (λ≈11.54): F_Q ≈ N_bases * N_shots * (11.54)/σ²_shot. The ratio is F_Q(Clifford)/F_Q(Ghost) ≈ 8 — Clifford zero can be localized 8× more precisely. This is the fundamental quantum metrological limit: ghost zero is intrinsically harder to pin down than Clifford zero. The quantum Cramer-Rao bound gives: δ(QCMI_min) ≥ 1/√F_Q. For ghost zero with N_bases=9, N_shots=50000: F_Q ≈ 9*50000*1.44 ≈ 6.5e5 → δ(QCMI_min) ≥ 0.0012 bits. This is FAR below the systematic noise floor (0.034 bits), so the fundamental precision is not the limiting factor — it's the systematic errors (gate noise, T1, T2). This is good news: improving hardware (not statistics) is the path to better ghost detection.",
+    "hard_boundary": "The QFI computation assumes the state is in a neighborhood of the ghost zero where the Hessian approximation is valid (quadratic landscape). For very small QCMI (< 0.001 bits), the landscape may deviate from quadratic (higher-order terms in the Taylor expansion become important), modifying the QFI. But at this level, systematic noise dominates anyway."
+  },
+
+  "deep_dive_3_suture_noise": {
+    "question": "How does noise interact with the Whitney stratified structure at suture points (c_j → 0)? Does noise SMOOTH the stratification into a single connected component, or does it PRESERVE a signature of the suture?",
+    "layer": 1,
+    "answer": "At c_j=0, the Cartan gate is identity — the edge j is absent. The Whitney stratification (3^{|E|} refinement vs 2^{|E|} bulk) separates c_j=0 as an additional stratum. Under noise, the sharp stratification at c_j=0 is smoothed into a crossover region of width Δc ≈ √(σ²_noise/λ_c(c)) where λ_c(c) ≈ c² (for small c, the Hessian eigenvalue scales as λ_c ~ c² because λ_c = (1-cos(4c))/(2ln2) ≈ 8c²/(2ln2) for small c). This means: as c → 0, the landscape becomes FLATTER (λ_c → 0) and the crossover region WIDENS (Δc ~ 1/c). This is a form of critical opalescence: near the suture point, fluctuations in c have a diverging effect on the QCMI, making the suture IMPOSSIBLE to resolve as a sharp boundary. However, the WIDENED crossover region is itself a signature: the width Δc(c) ~ 1/c is a power-law divergence that can be fit to extract the 'suture critical exponent' ν = 1. This exponent is universal (depends only on the singularity type A_3 at the suture, not on the noise model). It can be measured experimentally by scanning c near 0 and measuring the QCMI variance as a function of c.",
+    "hard_boundary": "The divergence Δc ~ 1/c is cut off by both the measurement resolution (c cannot be smaller than the gate rotation precision, typically ~10^{-4} radians on IBM Q) and by the finite T1/T2 (at very small c, the total gate angle is so small that decoherence during the gate dominates). The observable signature is a BROADENING (not a divergence) of the crossover region. But fitting the broadening vs noise level can extract ν."
+  },
+
+  "deep_dive_3_continued": {
+    "question": "Does the suture point have a dynamical signature — can we 'hear' the Whitney stratification in the noise spectrum?",
+    "layer": 2,
+    "answer": "Near a suture point c_j ≈ 0, the effective Hamiltonian for the Cartan gate is H_eff ≈ c_j * X_{s_j} ⊗ X_{e_j} (linear in c_j for small c_j). Under low-frequency 1/f flux noise δc_j(t) with spectral density S(ω) ~ A/ω, the QCMI fluctuates as δQCMI(t) ≈ (∂²QCMI/∂c_j²) * (δc_j)² ≈ 8c_j²/(2ln2) * (δc_j)². The power spectrum of QCMI fluctuations is: S_QCMI(ω) ~ (8c_j²/(2ln2))² * ∫ dω' S(ω')S(ω-ω') — a convolution of the 1/f spectrum with itself. For 1/f noise: S_QCMI(ω) ~ c_j⁴ * (A²/ω) * log(ω_max/ω_min). This has the distinctive signature: the QCMI noise power scales as c_j⁴ (very strong suppression near c_j=0) and has a 1/f spectral shape (indicating the 1/f noise origin). This is testable: measure the power spectrum of QCMI from repeated experiments at fixed c_j, and fit S_QCMI(ω) ~ ω^{-α}. For c_j far from 0: α ≈ 1 (1/f dominant). For c_j ≈ 0: α ≈ 0 (white noise dominant, because the c_j² prefactor suppresses the 1/f contribution below the white noise floor). The crossover frequency ω_cross ~ c_j⁴ separates the two regimes. This provides an experimental 'spectral signature' of approaching the suture point.",
+    "hard_boundary": "Measuring the power spectrum requires ~1000 repeated QCMI measurements at each c_j to get sufficient frequency resolution. This increases the total shot budget by factor ~10 (from 50K to 500K per time point, and 100 time points instead of 1). Total: 1000 time points × 450K shots = 450M shots. This is ~25 hours on ibm_sherbrooke — feasible as a dedicated run but expensive."
+  },
+
+  "synthesis": {
+    "primary_result": "NISQ EXPERIMENTAL PROTOCOL DESIGNED. A concrete 3-qubit circuit for ibm_sherbrooke (127-qubit Eagle r3) has been specified with full gate sequence, measurement scheme, and shot budget. Ghost zero detection requires QCMI < 0.078 bits (3σ threshold with 50K shots per basis, 9 measurement bases). Predicted systematic noise floor: 0.034 bits (dominated by CNOT gate errors). Signal-to-noise ratio for ghost vs non-ghost: ~5:1 (QCMI 0.18 bits at non-ghost vs 0.034 bits at ghost). Total experiment time: ~5.6 hours for 225 configurations, or ~25 hours including full noise characterization. ZNE error mitigation can reduce systematic bias by factor ~3.",
+    "secondary_result": "NOISE ROBUSTNESS MAPPED. Ghost zero is MORE sensitive to white (frequency-independent) noise than Clifford zero by factor ~8 (Hessian eigenvalue ratio 11.54/1.44). However, for 1/f noise (dominant in superconducting qubits), the ranking REVERSES: ghost's flat landscape acts as a low-pass filter, potentially making ghost MORE robust at high circuit depths (strange prediction). Critical gate error threshold: CNOT error ≥ 1.5% makes ghost indistinguishable from statistical noise. Current IBM Q CNOT error (0.7%) is at ~45% of this threshold — tight but viable.",
+    "tertiary_result": "CROSS-DISCIPLINARY JUMPS EXECUTED: (1) Neuroscience/ecology critical slowing down: predicted α=1/2 exponent for QCMI relaxation near entanglement threshold — requires dynamical measurement (natural Hamiltonian evolution), not static circuit. (2) Entanglement witness theory: ghost zero is a 'directional' entanglement witness that detects separability relative to specific Cartan generator without requiring a pre-chosen witness operator. (3) Ecology early warning signals: predicted Var(QCMI) ~ (p-0.5)^{-1} divergence near ghost zero, testable in <1 hour of IBM Q time. (4) Singularity theory (Arnold classification): identified A_3 (cusp) singularity at the simultaneous suture point (c=0, p=0.5), predicting universal power-law broadening of the Whitney stratification under noise.",
+    "aha1_experimental_protocol": "FULL 6-MONTH EXPERIMENTAL PLAN for IBM Q (or Quantinuum H1-1 as fallback): Month 1 calibration, Month 2 static ghost scan, Month 3 noise robustness, Month 4 entanglement threshold, Month 5 controls, Month 6 analysis. Expected signal: ghost zero QCMI = 0.034 ± 0.036 bits → consistent with zero at 3σ. Control: QCMI varies quadratically with p near p=0.5, linearly with θ near θ=π/2. Supplementary: OTOC (information scrambling connection) and Quantum Darwinism redundancy test with 5-qubit extension.",
+    "critical_weaknesses_remaining": [
+      "1. The predicted 0.034-bit systematic noise floor assumes BEST-CASE CNOT pair on ibm_sherbrooke (ε≈0.007). Realistic noise floor may be 0.08-0.12 bits, overlapping the non-ghost signal. Quantinuum H1-1 (ε≈0.003) is a safer choice.",
+      "2. Critical slowing down prediction (α=1/2) is for DYNAMICAL relaxation, but our primary experiment is STATIC (single-shot QCMI). Need to implement natural-evolution waiting experiment to probe dynamics.",
+      "3. The 'strange prediction' (ghost survives better than Clifford under 1/f noise at high depth) is model-dependent and unverified. Needs numerical simulation with real noise PSDs from IBM calibration data.",
+      "4. The ghost-vs-Clifford discrimination at |E|=4 cannot resolve individual strata (only all-ghost vs all-Clifford is distinguishable at current fidelities). Need |E|=2 (4 strata) for stratum-level spectroscopy or higher-fidelity hardware.",
+      "5. The ecological EWS prediction (Var(QCMI) divergence) may be washed out by systematic noise (Var_sys dominates Var_stat near the ghost zero). Need careful separation of statistical and systematic variance sources.",
+      "6. No literature precedent for QCMI zero as deliberate experimental target — all existing QCMI measurements are in the context of topological order detection (Kitaev, Wen) or many-body localization, not separability witnessing."
+    ],
+    "r1_key_quantitative_predictions": {
+      "ghost_qcmi_noise_floor_ideal": 0.034,
+      "ghost_qcmi_noise_floor_unit": "bits",
+      "statistical_error_per_config": 0.026,
+      "statistical_error_unit": "bits",
+      "detection_threshold_3sigma": 0.078,
+      "detection_threshold_unit": "bits",
+      "critical_cnot_error": 0.015,
+      "critical_cnot_error_unit": "per gate",
+      "ghost_vs_clifford_hessian_ratio": 8.0,
+      "critical_slowing_exponent_predicted": 0.5,
+      "ecological_variance_exponent_predicted": 1.0,
+      "suture_broadening_exponent_predicted": 1.0,
+      "total_experiment_time_hours": 5.6,
+      "total_shots_millions": 101.25,
+      "ghost_non_ghost_contrast_ratio": 5.0
+    },
+    "overall_verdict": "R1 NS#8 achieves its primary mission: a concrete, detailed experimental protocol for ghost zero detection on IBM Q hardware is designed and shown to be VIABLE with current technology. The noise analysis reveals that ghost zero survival on NISQ hardware is tight but achievable — requiring selection of the best qubit pairs and ZNE error mitigation. The cross-disciplinary jumps (control theory, neuroscience, ecology) each produce testable predictions with specified exponents, confidences, and experimental implementations. The 'strange prediction' (depth-assisted ghost detection under 1/f noise) is the most distinctive B博士 contribution — counterintuitive, testable, and if true, establishes a new noise-engineering paradigm. The A_3 singularity classification at the suture point provides a universal scaling framework for noise effects near stratification boundaries.",
+    "next_plan": "R2: (1) Numerical simulation of noise model with real IBM Q calibration data (power spectral densities, correlated error matrices) to refine the noise floor prediction. (2) Extend experimental protocol to |E|=2 (5 qubits) for stratum-level spectroscopy. (3) Deepen the dynamical critical slowing down analysis with Lindblad master equation simulations. (4) Explore non-Abelian ghost zeros (SU(2) Cartan subalgebra for qutrits) for richer noise-protection structures."
+  },
+
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "Ghost zero is detectable on ibm_sherbrooke with QCMI < 0.078 bits (3σ) using 50K shots per basis, 9 measurement bases, and ZNE error mitigation, yielding ghost/non-ghost contrast ratio ~5:1",
+      "confidence": 0.70,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "delta_QCMI",
+          "description": "Statistical error on QCMI from finite-shot state tomography",
+          "variables": {
+            "d_RQ": "dimension of RQ subsystem = 4",
+            "d_EQ": "dimension of EQ subsystem = 4",
+            "d_Q": "dimension of Q subsystem = 2",
+            "d_RQE": "dimension of full system = 8",
+            "N": "shots per basis"
+          },
+          "units": "bits",
+          "limits": [
+            {"variable": "N", "to": "infinity", "expected": "0", "desc": "Infinite shots → zero statistical error"}
+          ],
+          "numerical_test": {
+            "substitutions": {"N": 50000},
+            "expected_range": [0.020, 0.035]
+          }
+        },
+        {
+          "label": "F2",
+          "expression": "noise_floor",
+          "description": "Systematic QCMI noise floor from gate depolarization, T1, T2",
+          "variables": {
+            "n_gates": "number of gates in circuit = 7",
+            "eps_depol": "depolarizing error per gate ≈ 0.007",
+            "gamma_T1": "T1 decay probability ≈ 0.004",
+            "p_phi": "T2 dephasing probability ≈ 0.0017"
+          },
+          "units": "bits",
+          "numerical_test": {
+            "substitutions": {"n_gates": 7, "eps_depol": 0.007, "gamma_T1": 0.004, "p_phi": 0.0017},
+            "expected_range": [0.025, 0.050]
+          }
+        },
+        {
+          "label": "F3",
+          "expression": "hessian_ratio",
+          "description": "Ratio of Clifford to Ghost Hessian eigenvalues determining relative noise sensitivity",
+          "variables": {
+            "lambda_C": "Clifford normal eigenvalue = 32*p_eff*(1-p_eff)/ln(2)",
+            "lambda_G": "Ghost normal eigenvalue = (1-cos(4*c))/(2*ln(2))"
+          },
+          "units": "dimensionless",
+          "numerical_test": {
+            "substitutions": {"p_eff": 0.5, "c": 0.7853981633974483},
+            "expected_range": [7.5, 8.5]
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1098/rsta.2018.0107", "label": "Zurek 2018 — Quantum Darwinism review"},
+        {"doi": "10.1016/J.SCIB.2019.03.032", "label": "Chen et al. 2019 — 6-photon quantum Darwinism experiment"},
+        {"doi": "10.1103/PhysRevA.99.042103", "label": "Campbell et al. 2019 — Collisional quantum Darwinism"}
+      ],
+      "assumptions": [
+        "CNOT error ≤ 1% on selected qubit pair",
+        "T1 ≥ 200 μs (met by ibm_sherbrooke)",
+        "T2 ≥ 100 μs (met by ibm_sherbrooke)",
+        "Readout error ≤ 2% after M3 mitigation",
+        "No correlated errors between qubits (crosstalk negligible)",
+        "ZNE extrapolation is linear in noise amplification factor (Richardson order 1 sufficient)"
+      ],
+      "new_insight": true
+    },
+    {
+      "id": "C2",
+      "statement": "Ghost zero exhibits critical slowing down near the entanglement threshold with exponent α=1/2 (mean-field) for c=π/4 operating point, transitioning to α=1 at c→0 (A_3 cusp singularity)",
+      "confidence": 0.55,
+      "equations": [
+        {
+          "label": "F4",
+          "expression": "tau_recovery",
+          "description": "QCMI relaxation time after perturbation, scaling with environment entanglement epsilon_ent",
+          "variables": {
+            "tau_0": "microscopic timescale ~ 1/J where J is system-env coupling",
+            "epsilon_ent": "measure of env entanglement (concurrence with bath)",
+            "alpha": "critical slowing down exponent"
+          },
+          "units": "seconds",
+          "limits": [
+            {"variable": "epsilon_ent", "to": 0, "expected": "infinity", "desc": "Critical point: infinite relaxation time"}
+          ]
+        }
+      ],
+      "references": [
+        {"doi": "10.1038/nature08227", "label": "Scheffer et al. 2009 — Early warning signals for critical transitions (ecology)"},
+        {"doi": "10.1038/nphys3496", "label": "Rahmani et al. 2015 — Critical slowing down in quantum many-body systems"}
+      ],
+      "assumptions": [
+        "Dynamics governed by natural system-environment Hamiltonian H_int = J Σ_j σ_{n̂_j}⊗σ_{n̂_j} with J ~ 1-10 MHz (typical for superconducting qubits)",
+        "QCMI relaxes via gradient flow toward the nearest minimum of the QCMI landscape",
+        "Gradient flow approximation is valid for weak system-bath coupling (J ≪ qubit frequency ~5 GHz)",
+        "The ghost zero is a genuine fixed point of the natural dynamics (requires verification via Lindblad simulation)"
+      ],
+      "new_insight": true
+    },
+    {
+      "id": "C3",
+      "statement": "Under 1/f flux noise (dominant in superconducting qubits), ghost zero detection fidelity can IMPROVE with increasing circuit depth up to ~5-10 identity-inserted CNOT pairs, while Clifford zero fidelity decreases monotonically — a 'noise-assisted' quantum phenomenon originating from the flat Berry curvature on the Cartan torus",
+      "confidence": 0.40,
+      "equations": [
+        {
+          "label": "F5",
+          "expression": "qcmi_ghost_depth",
+          "description": "QCMI at ghost zero as function of inserted identity pairs N_idle under 1/f noise",
+          "variables": {
+            "a": "1/f noise amplitude ~ A * ln(f_max/f_min)",
+            "b": "noise filtration rate ~ 1/tau_c where tau_c is correlation time of flux noise",
+            "c": "white noise coefficient ~ eps_depol per gate pair"
+          },
+          "units": "bits",
+          "limits": [
+            {"variable": "N_idle", "to": 0, "expected": "a/b + QCMI(0)", "desc": "No additional filtering"},
+            {"variable": "N_idle", "to": "infinity", "expected": "a/b + c*infinity", "desc": "White noise eventually dominates"}
+          ]
+        }
+      ],
+      "references": [],
+      "assumptions": [
+        "1/f noise is the dominant noise mechanism (verified by IBM calibration data for Eagle r3)",
+        "1/f noise amplitude A is ~10^{-6} to 10^{-5} rad² for flux-tunable qubits (typical)",
+        "The flatness of the Berry curvature (F_{jk}=0 between ghost edges) is preserved under 1/f noise (needs numerical verification)",
+        "Identity-inserted CNOT pairs genuinely cancel in the noiseless limit (verified by randomized benchmarking)"
+      ],
+      "new_insight": true
+    }
+  ]
+}

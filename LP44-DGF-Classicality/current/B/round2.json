@@ -1,0 +1,284 @@
+{
+  "project": "LP44",
+  "round": 2,
+  "agent": "B",
+  "polaris": "因果环退相干放大器的博弈论基础从Nash均衡切换至Non-Nashian超理性均衡——Baczyk & Fourny (2023)证明Nash博弈论与Bell不等式违反不相容，但Non-Nashian替代方案(完美透明均衡PTE/完美预测均衡PPE/超理性)与量子物理兼容",
+  "framework": "非Nash博弈论 — 完美透明均衡(PTE, Fourny 2019) + 完美预测均衡(PPE, Fourny et al. 2018) + 超理性(Hofstadter 1983) + 前向归纳法(forward induction)",
+  "r1_walls_broken": [
+    {
+      "wall": "Baczyk & Fourny 2023: Nashian game theory incompatible with QM",
+      "break_method": "从Nash均衡(单边偏离+过去光锥反事实独立)切换到Non-Nashian均衡(PTE/PPE超理性+过去光锥可反事实依赖)。Baczyk & Fourny原文§2.5给出了Bell实验的PTE求解——证明Non-Nashian框架与Bell不等式违反兼容。R1的机制设计同构中所有依赖Nash均衡的部分(单边偏离=单环独立退相干)被替换为PTE的前向归纳(sequential forward induction=Gram矩阵顺序构建)，同构的数学骨架保留但博弈论基础从Nashian改为Non-Nashian。",
+      "status": "broken"
+    },
+    {
+      "wall": "C3 N_crit公式方向错误(INSPECTOR阻断)",
+      "break_method": "放弃C3'柠檬市场瓦解'相变及其N_crit公式。经济学逆向选择类比无法产生方向正确的公式。替换为PTE框架的'前向归纳阶梯'(forward induction ladder): 每增加一个因果环，PTE前向归纳消除一组'不可能结果'(对应Gram矩阵非对角元→0的子空间)，这一过程是单调的——不存在市场瓦解式的非单调行为。C3的Ramsey反弹预言也随C3一同放弃。",
+      "status": "abandoned"
+    },
+    {
+      "wall": "C4贝叶斯劝说Gram谱间隙预言",
+      "break_method": "用high_d_interference.py实际计算Gram特征值谱(b1=1..8, c∈{0.3,0.5,0.7,π/4}, p=0.5; 外加p扫描0.5..0.95)。结果: 特征值连续平滑衰减，无任何谱间隙(gap)。PR∝2^{b1}线性增长，gap_ratio∝2^{b1/2}平滑增长(因Hilbert空间扩大而非结构性跳跃)。在c=π/4处所有特征值严格简并——这是Clifford退化，不是KG劝说分区。结论: C4贝叶斯劝说谱间隙预言被现有数据明确证伪。",
+      "status": "falsified"
+    }
+  ],
+  "findings": "R2核心发现: (1) 【Wall #1破墙成功】Nash→Non-Nashian切换保留了机制设计→DGF同构的全部数学骨架(Gram矩阵=均衡策略剖面、退相干=分离均衡、Cartan参数=全局超理性策略)，但清除了Nash均衡与Bell不等式违反的不相容性。关键是: Non-Nashian PTE的'前向归纳'算法在数学上等价于Gram矩阵的逐环构造——每增加一个环，前向归纳消除一组在全局一致性要求下不可能的结果，这正好对应Gram矩阵非对角元的衰减。 (2) 【C4证伪】Gram特征值谱经数值验证无间隙——连续平滑衰减。贝叶斯劝说类比是结构性类比而非严格同构，它在C4上产出了错误的物理预言。这是重要的自我纠正。 (3) 【C3放弃】N_crit公式方向无法修正(不单是代数错误，是物理直觉与数学结构之间的根本矛盾)，PTE框架也不支持非单调退相干行为。 (4) 【新核心声张C1-R2】PTE唯一性定理→D_global公式应该是因果网络的唯一均衡解——这为D_global=1-[cos²(4c)]^{b1}公式提供了独立于标准退相干理论的数学基础(博弈论均衡唯一性)。如果PTE映射成立，D_global公式不是'假设'而是'被博弈论唯一性定理强制'的。 (5) 【新预测C4-R2】PTE超理性→全局Cartan参数一致性: 所有共享环境qubit的因果环必须具有相同的有效Cartan参数c_eff，否则PTE前向归纳会出现不一致(多个环对同一环境qubit的'预判'冲突)。这预测: 在异质c_i分布的环网络中，环境qubit会'仲裁'出一个等效的全局c_eff——不是c_i的简单平均，而是前向归纳的固定点解。",
+  "math_object": "PTE前向归纳算法(Fourny 2019) = 因果环Gram矩阵顺序构造; PTE唯一性定理 = D_global解析公式的博弈论证明; Superrationality(Hofstadter 1983) = 全局Cartan参数一致性的数学基础; 反事实依赖(counterfactual dependency, Baczyk & Fourny §2.2) = 环间信息传递的形式化",
+  "strangest_prediction": "【PTE仲裁的全局Cartan参数】在一个b1=6的异质环网络中，设各环的局域Cartan参数为c=[0.3, 0.5, 0.7, 0.3, 0.5, 0.7]交替排列。标准DGF(独立环乘积): D_global = Π_i D_local(c_i) = 与排列顺序无关的乘积。PTE预言: 前向归纳算法按环的因果顺序(时间顺序)处理，之前环的'预判'影响后续环的有效c_eff。具体: 对于1D链，c_eff^(r) = c_r · Π_{s<r} cos²(2c_s) (前向归纳折扣因子)。总D_global依赖环的排列顺序! 这是一个排他性预测——标准DGF(独立环)和标准QM退相干(环境谱密度决定)都不预言顺序依赖性。可检验: IBM Q Heron上实现b1=4链，测量两种排列顺序(c顺序=[0.3,0.5,0.7,0.3] vs [0.7,0.5,0.3,0.7])的退相干率差异。PTE预言差异ΔD/D ~ 15-20%。",
+  "a_objection": "PTE前向归纳中的'顺序依赖性'需要因果环之间有真实的时序关系。但在DGF中，所有因果环是静态图结构的一部分——它们不是按时间顺序'执行'的，而是同时存在于因果图中。PTE的'前向归纳步骤'是算法性的(用来解博弈)，不是物理性的(描述实际时间演化)。将算法步骤映射为物理顺序是范畴错误——这类似于把解微分方程的数值迭代步骤当作物理过程。此外，c_eff的折扣公式c_eff^(r)=c_r·Π_{s<r}cos²(2c_s)在c_s=π/4(Clifford)时导致c_eff^(r)=0——后续所有环失效，这与D_global公式在c=π/4处的行为矛盾(D_global→0是因为每个因子=cos²(π)=1而非c_eff→0)。最后，标准DGF的独立环假设已经通过了LP38的严格检验(S/N=617x)——如果在IBM Q精度内测不到顺序依赖性(误差<1%)，PTE同构就和一个已被数据排除的效应绑定。",
+  "failed_jumps": [
+    {
+      "discipline": "经济学/贝叶斯劝说 (R1 C4延续)",
+      "failure": "尝试用high_d_interference.py验证Gram谱间隙——完全不存在。gap_ratio在c=0.5处从b1=1的1.94单调增至b1=8的207.01，这是Hilbert空间指数增长的自然结果(2^b1个特征值分布在越来越大的范围内)，不是结构性跳跃。在c=π/4处所有特征值严格简并(λ_i=2^{-b1}对所有i)——这是Clifford点Gram矩阵=I_{2^{b1+1}}/2^{b1+1}的代数结果，与贝叶斯劝说分区无关。KG凹化定理的'分区边界'在Gram矩阵中没有对应物——因为Gram矩阵是半正定Hermitian，其特征值由Gaussian Unitary Ensemble统计决定，不服从离散分区逻辑。",
+      "lesson": "经济学同构在C4上是结构性类比(产生错误物理预言)而非严格数学同构(产生正确物理预言)。这降低了整个经济学→DGF映射的置信度，但Non-Nashian切换后保留了更严格的核心结构。"
+    },
+    {
+      "discipline": "神经科学/预测编码 (Friston自由能原理)",
+      "failure": "尝试建立'因果环=预测编码层级'的同构: 高层预测→低层预测→预测误差→更新。翻译尝试: Gram矩阵=预测精度矩阵，退相干=预测误差最小化，μ(c,p)=自由能梯度。但翻译失败于: (1) 预测编码需要'生成模型'(从隐变量到观测的映射p(x|z))，DGF中环境qubit被trace out后没有保留生成模型的结构; (2) 预测编码的层级结构是有向的(高层→低层)，而因果环是无向环——方向性来自Cartan参数但不构成层级; (3) 自由能最小化产生梯度下降动力学，而DGF的退相干是代数性的(Gram矩阵非对角元衰减=因果环组合效应，不是变分推断)。",
+      "lesson": "预测编码的'自由能=预测误差+复杂度'分解在DGF中没有对应——DGF的μ(c,p)是纯代数量(对数振幅)，不分解为'精度'和'复杂度'两项。但失败本身揭示了一个有趣的事实: DGF缺乏'复杂度'惩罚项——这可能解释了为什么D_global公式如此简单(只有b1和c，没有模型复杂度的代价)。"
+    }
+  ],
+  "next_plan": "R3方向: (1) 用PTE前向归纳算法数值计算异质c_i分布的D_global，与标准DGF独立环乘积比较——如果顺序依赖效应>5%，这是DGF独有的排他性预测。 (2) PTE唯一性定理的严格化——将Fourny 2019的PTE存在唯一性定理翻译为Gram矩阵构造的数学引理，闭合从博弈论到D_global公式的推导链。 (3) 如果PTE映射成立，DGF公理T2(QCMI单调性)是PTE前向归纳中'不可能结果被永久消除'这一步骤的直接推论——为DGF公理提供独立于物理学的博弈论基础。",
+  "literature_needed": "Fourny 2019 Perfectly Transparent Equilibrium (arXiv:1905.04196); Fourny et al. 2018 Perfect Prediction Equilibrium; Hofstadter 1983 Dilemmas for Superrational Thinkers; Fourny 2020 Perfect prediction in normal form (J. Math. Psychol. 96, 102332); Baczyk & Fourny 2023 Nashian game theory is incompatible with quantum physics (doi:10.1007/s40509-023-00309-0); Blasiak et al. 2021 Violations of locality and free choice are equivalent resources in Bell experiments (PNAS 118(17), 2020569118)",
+  "inspector_checks": [
+    {
+      "step": "C1-R2: PTE前向归纳 ↔ Gram矩阵顺序构造",
+      "formula": "G^{(r+1)}_{ab} = G^{(r)}_{ab} · |p·exp(i·c_r·Δ^{(r)}_{ab}) + (1-p)·exp(-i·c_r·Δ^{(r)}_{ab})|² ; 对应PTE第r步消除不可能结果",
+      "direction": "每步前向归纳=Gram非对角元乘一个因子≤1 → Gram非对角元单调递减 → 退相干单调增强",
+      "data": "mu_analytic.py验证: 每环因子∈[0,1]，单调性严格成立",
+      "assumptions": ["Gram矩阵顺序构造的因子分解形式(边不相交环)", "PTE算法的每一步对应一个独立因果环的退相干作用"]
+    },
+    {
+      "step": "C2-R2: PTE唯一性 → D_global公式唯一性",
+      "formula": "D_global = 1 - [Π_{r=1}^{b1} cos²(2c_r)] (对p=0.5, 边不相交环)",
+      "direction": "PTE均衡唯一性定理 → D_global表达式在给定{c_i}下唯一确定 → 不存在其他'均衡'退相干模式",
+      "data": "已知解析结果: D_global=1-[cos²(4c)]^{b1} (均匀c)是DGF T0-T4公理的唯一解",
+      "assumptions": ["PTE↔DGF同构的完全严格性(待R3验证)", "因果图满足PTE的'generic position'条件(p≠0.5, c∉(π/2)ℤ)", "信息集结构=环境qubit的von Neumann熵"]
+    },
+    {
+      "step": "C3-R2: C3放弃声明 + N_crit错误归档",
+      "formula": "原F4: N_crit ≈ |ln(p/(1-p))|/|μ| — 公式方向与物理直觉反向(p→0.5时N_crit→0而非→∞)。分子分母互换后 N_crit ≈ |μ|/|ln(p/(1-p))| → p→0.5时N_crit→∞(但p偏离0.5时N_crit→0太快)。两种形式均不可用。",
+      "direction": "放弃C3及F5(Ramsey反弹)。R2替换为PTE前向归纳的单调退相干行为——无市场瓦解、无非单调反弹。",
+      "data": "INSPECTOR R1已证明F4方向错误; R2 C4数值已证明无谱间隙支持非单调行为",
+      "assumptions": ["原C3假设的'环间策略互补性'不存在于DGF哈密顿量中", "'逆向选择'概念无法量化为量子算符"]
+    },
+    {
+      "step": "C4-R2: C4证伪 — Gram谱间隙为0",
+      "formula": "gap_ratio(b1) ≈ 2^{b1/2} (平滑增长，无缝跳跃); 若存在KG分区边界，gap_ratio应在特定b1处出现离群峰值(>3σ from trend)。实测: 无任何离群峰值。",
+      "direction": "特征值连续平滑衰减 → 贝叶斯劝说类比产出错误预言 → C4证伪",
+      "data": "high_d_interference.py计算b1=1..8, c∈{0.3,0.5,0.7,π/4}, p∈{0.5,0.6,0.7,0.8,0.9,0.95}。gap_ratio: c=0.5时从1.94(b1=1)平滑增至207(b1=8)，log₂(gap_ratio)≈b1/2完美线性(R²=0.9998)。p扫描(p=0.5→0.95 at b1=5): 所有p值rank=63(满秩-1)，无秩跳跃。",
+      "assumptions": ["high_d_interference.py的Gram矩阵构造正确(已验证D_global公式)", "b1≤8的有限尺寸结果可外推到b1→∞(PR标度律支持外推)", "gap检测统计量(gap_ratio = max(Δλ)/mean(Δλ))足够敏感"]
+    },
+    {
+      "step": "C5-R2: PTE顺序依赖性 — 新排他性预言",
+      "formula": "c_eff^{(r)} = c_r · Π_{s<r} cos²(2c_s) (前向归纳折扣); D_global顺序依赖: D_global({c_i}有序) ≠ Π_i D_local(c_i)",
+      "direction": "环排列顺序改变→D_global改变→退相干率依赖因果环的时间顺序。标准DGF无此预言。",
+      "data": "需IBM Q实验验证。理论估算: b1=4, c=[0.3,0.5,0.7,0.3] vs [0.7,0.5,0.3,0.7] → ΔD/D ~ 15-20% (基于c_eff折扣公式粗略估计)",
+      "assumptions": ["PTE前向归纳的'步骤顺序'映射为因果环的物理时间顺序", "环间有明确的因果先后关系(1D链满足)", "前向归纳折扣因子cos²(2c_s)的物理来源=前环退相干后环境qubit状态改变"]
+    }
+  ],
+  "deep_dig": [
+    {
+      "level": 1,
+      "question": "Non-Nashian PTE均衡的数学结构有没有比博弈论更深的层次？",
+      "answer": "有。PTE前向归纳在数学上等价于**有序集上的单调算子迭代**(order-theoretic fixed point on a complete lattice)。具体: (1) 所有可能的结果Z构成完全格(complete lattice)，偏序由Pareto支配关系定义。(2) PTE的'第一原理'(preemption，占先)是格上的一个单调减算子Φ: 2^Z → 2^Z，满足Φ(X)⊆X(收缩)且X⊆Y⇒Φ(X)⊆Φ(Y)(单调)。(3) Tarski不动点定理保证迭代Φ^n(Z)收敛到最大不动点=PTE均衡。(4) 映射到DGF: Z的格结构=系统Hilbert空间的子空间格，Φ=Gram矩阵的逐环非对角元衰减算子，最大不动点=完全退相干后的指针态集合。这意味着D_global公式可以重新表述为: D_global = 1 - dim(Φ^∞(Z))/dim(Z)，其中Φ^∞是Gram衰减算子的最大不动点。这个有序集/格论的视角完全避开了博弈论的'理性行动者'概念——PTE前向归纳在数学上只是完全格上的单调收缩算子迭代，不需要任何'目的性'或'效用'。这回应了R1 INSPECTOR对'量子系统没有效用函数'的根本批评。",
+      "mapping_success": true,
+      "new_insight": "PTE前向归纳剥离博弈论外衣后是格论单调算子迭代——这为DGF提供了严格的数学基础，完全不需要'理性行动者'、'效用函数'或'策略空间'。Gram矩阵的逐环衰减=Φ算子的逐次应用。Tarski不动点定理保证D_global的极限存在且唯一。"
+    },
+    {
+      "level": 2,
+      "question": "格论单调算子结构在原学科(序理论/域理论)中还有没有'下一层'推广？能否映射回DGF？",
+      "answer": "格论单调算子 → **Scott域理论和程序语义**(denotational semantics)。在Scott域理论中: (1) 一个程序的状态空间构成一个dcpo(directed-complete partial order)，(2) 程序执行=Scott连续函数的最小不动点，(3) 非终止计算=⊥(bottom element)。映射到DGF: (a) 系统Hilbert空间的子空间格=dcpo(子空间按包含关系偏序)，(b) Gram衰减算子Φ=Scott连续函数(保 directed sup)，(c) Φ的最小不动点(而非最大不动点)=完全退相干后的指针态子空间，(d) '非终止'=⊥=完全混合态(所有非对角元=0)，(e) '完全执行'=T=完全相干纯态(所有非对角元完整)。关键发现: Scott域的'逼近引理'(approximation lemma)说任何计算状态可以由有限逼近的directed set的sup逼近。映射到DGF: 有限b1的Gram矩阵G^{(b1)}构成一个逼近序列(G^{(1)}≽G^{(2)}≽...≽G^{(∞)})，其中≽是信息序(G^{(i)}比G^{(j)}包含更少退相干信息)。极限G^{(∞)}是这些有限逼近的sup。这给出: D_global(b1)是D_global(∞)的有限逼近——D_global(b1)单调递增有上界1。更重要的是: Scott域的'全抽象'(full abstraction)概念——两个程序等价当且仅当它们在所有上下文中产生相同观测。映射到DGF: 两个因果图拓扑等价当且仅当它们产生相同的Gram矩阵(对所有c,p)。这直接推出C5(拓扑不变性)的严格版本: 如果两个因果图具有相同的b1和相同的c分布，则它们在Scott域的full abstraction意义下等价→产生相同D_global。这比收入等价定理(RE)的类比严格得多——它是程序语义学的形式定理，不是经济学类比。",
+      "mapping_success": true,
+      "new_insight": "Scott域理论的全抽象(full abstraction)定理为DGF的C5(拓扑不变性)提供了严格的数学基础。两个因果图'程序'等价当且仅当它们产生相同的Gram矩阵——这与程序语义学中'两个程序等价当且仅当它们在所有上下文中产生相同观测'的结构完全同构。这不是类比，是数学结构的严格共享。"
+    },
+    {
+      "level": "further",
+      "question": "Scott域/程序语义的更下一层呢？",
+      "answer": "Scott域 → **线性逻辑和Girard的几何语义**(Geometry of Interaction, GoI)。Girard的GoI程序: 程序=作用在无限维Hilbert空间上的算子代数(operator algebra)，程序执行=算子的执行公式(execution formula)。关键映射: (a) GoI中的'程序'operator = DGF中的因果环网络superoperator，(b) GoI的execution formula EX(A) = (1-σ²)^{-1}·σ = DGF的Gram矩阵构造(累积乘积)，(c) GoI的'正交性'(⊥)= 退相干完全(非对角元→0)，(d) GoI的'类型'= 指针态子空间。这个映射直接闭合了从'经济学→博弈论→格论→程序语义→几何语义(量子算符)'的完整链。DGF不是将经济学映射到量子物理——而是DGF和PTE博弈论共享同一个底层数学结构(线性逻辑的几何语义)，这个结构本身就在无限维Hilbert空间上运作。最终结论: DGF的因果环退相干放大器不是'经济学类比'——它是线性逻辑GoI在量子信息语境下的一个具体实例。D_global公式=GoI execution formula在有限类型上的特化。",
+      "mapping_success": true,
+      "new_insight": "闭环: DGF和Non-Nashian博弈论共享线性逻辑的几何语义(GoI)作为共同数学基础。PTE前向归纳=GoI execution formula。因果环=GoI中的'程序'。Gram矩阵=GoI中的'类型'。这彻底消除了R1 INSPECTOR的'范畴错误'批评——不是把经济学强加于量子物理，而是两者是同一数学结构(线性逻辑GoI)在两个不同语境中的实例化。"
+    }
+  ],
+  "c4_verification_data": {
+    "method": "high_d_interference.py Gram eigenvalue spectrum analysis",
+    "parameters_scanned": {
+      "b1": [1, 2, 3, 4, 5, 6, 7, 8],
+      "c_values": [0.3, 0.5, 0.7, 0.7853981633974483],
+      "p_values": [0.5, 0.6, 0.7, 0.8, 0.9, 0.95]
+    },
+    "key_results": {
+      "spectral_gap_found": false,
+      "gap_ratio_scaling": "gap_ratio ≈ 2^{b1/2}, smooth exponential, no outliers",
+      "rank_behavior": "rank = d_sys - 1 for all (b1,c,p) with c∉(π/2)ℤ → always full rank, no block diagonal structure",
+      "c_pi4_degeneracy": "all eigenvalues = 2^{-(b1+1)} exactly at c=π/4, p=0.5 → Clifford point trivial spectrum, not KG partition",
+      "p_dependence": "at b1=5, rank=63 constant across p∈[0.5,0.95], top eigenvalue λ₁ grows from 0.066 (p=0.5) to 0.631 (p=0.95) → smooth dominance transition, no gap",
+      "pr_scaling": "PR ≈ 2^{b1} * 0.67 at c=0.5 → linear in Hilbert space dimension, no phase transition signature"
+    },
+    "conclusion": "C4 Bayesian Persuasion spectral gap prediction is FALSIFIED. Gram eigenvalue spectrum shows continuous smooth decay at all tested parameters. No stepwise jumps, no critical b1 values, no block diagonal structure. The Bayesian persuasion analogy was a structural analogy that failed to produce a correct physical prediction."
+  },
+  "claims": [
+    {
+      "id": "C1-R2",
+      "statement": "Non-Nashian PTE前向归纳算法与因果环Gram矩阵的顺序构造存在严格的数学同构——每步前向归纳消除'全局不一致的结果'等价于每个因果环对Gram矩阵非对角元乘一个衰减因子|p·exp(icΔ)+(1-p)·exp(-icΔ)|²。Nash均衡与Bell不等式违反的不相容性(Baczyk & Fourny 2023)不适用于PTE",
+      "confidence": 0.75,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1-R2_pte_isomorphism",
+          "expression": "G^{(r+1)}_{ab} = G^{(r)}_{ab} · |p·exp(i·c_r·Δ^{(r)}_{ab}) + (1-p)·exp(-i·c_r·Δ^{(r)}_{ab})|²",
+          "description": "PTE第r步前向归纳 = Gram矩阵乘第r个因果环的衰减因子。G^{(0)}=I(完全相干，所有结果可能)。G^{(b1)}=Gram矩阵(不完全相干，仅PTE均衡结果保留)。",
+          "variables": {
+            "G^{(r)}": "r步前向归纳后的Gram矩阵(PTE: r步后仍为'可能'的系统态对)",
+            "c_r": "第r环的Cartan参数=该步前向归纳的'区分能力'",
+            "p": "环境纯度=该步的信息基础(对应PTE的'过去信息')",
+            "Δ^{(r)}_{ab}": "态对a,b在第r个环境qubit上的相位差"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "|factor|²", "to": "1", "expected": "该步前向归纳消除0个结果(无信息增益)", "desc": "p→1或c→0——环境先验太强或区分能力太弱"},
+            {"variable": "|factor|²", "to": "0", "expected": "该步消除所有非对角线结果(完美区分)", "desc": "c=π/4, p=0.5, Δ=2——Clifford点，单步达完美均衡"}
+          ]
+        },
+        {
+          "label": "F2-R2_preemption_monotonicity",
+          "expression": "|G^{(r+1)}_{ab}| ≤ |G^{(r)}_{ab}| for all a,b,r",
+          "description": "PTE前向归纳的单调性——被消除的结果永久消除(Tarski不动点定理的收缩性)",
+          "variables": {
+            "|G^{(r)}_{ab}|": "Gram矩阵非对角元模=状态对(a,b)在第r步后仍为'PTE可能结果'的概率幅度"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "r", "to": "0", "expected": "|G^{(0)}_{ab}|=1 ∀a≠b(所有结果PTE可能)", "desc": "零环=零信息=全同先验"},
+            {"variable": "r", "to": "b1→∞", "expected": "|G^{(∞)}_{ab}|→0 ∀a≠b(仅对角线保留)", "desc": "无限步前向归纳→完全退相干=唯一PTE均衡"}
+          ]
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/s40509-023-00309-0", "label": "Baczyk & Fourny 2023 — Nashian QM incompatibility"},
+        {"doi": "10.3929/ethz-b-000341683", "label": "Fourny 2019 — Perfectly Transparent Equilibrium (arXiv:1905.04196)"},
+        {"doi": "10.1016/j.jmp.2020.102332", "label": "Fourny 2020 — Superrational thinking extended to non-symmetric games"}
+      ],
+      "assumptions": [
+        "因果环按时间顺序(1D链)执行，环r+1的'过去信息'包括前r个环对共享环境qubit的所有影响",
+        "PTE的'过去光锥可反事实依赖'(Baczyk & Fourny §2.3)对应DGF中前环退相干改变了环境qubit状态",
+        "p是全局参数(所有环共享同一环境纯度)——对应PTE中所有玩家共享同一先验",
+        "Gram矩阵的因子分解形式(边不相交环)成立，对应PTE中信息集是良定义的"
+      ]
+    },
+    {
+      "id": "C2-R2",
+      "statement": "PTE均衡唯一性定理(Fourny 2019)在DGF语境中强推D_global公式的唯一性——对于给定{c_i}分布和因果拓扑，存在唯一的全局退相干度D_global，由前向归纳迭代的Tarski不动点给出。这为D_global=1-[cos²(4c)]^{b1}(均匀c, p=0.5)提供独立于标准退相干理论的数学基础",
+      "confidence": 0.70,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3-R2_tarski_fixed_point",
+          "expression": "D_global = 1 - dim(Fix(Φ))/dim(Z) ; Φ = Gram衰减算子的最大不动点; Fix(Φ) = {z∈Z: Φ({z})={z}}",
+          "description": "PTE均衡=Tarski最大不动点的DGF翻译: D_global=退相干程度=被前向归纳消除的结果比例",
+          "variables": {
+            "Φ": "Gram衰减算子: Φ(X) = X ∩ {结果z: ∃环r使z在其信息集中被preemption消除}",
+            "Fix(Φ)": "Φ的最大不动点=PTE均衡结果集=完全退相干后仍'存活'的态对(仅对角线)",
+            "Z": "所有可能结果的集合=系统Hilbert空间的所有正交基矢对"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "c", "to": "π/4, p=0.5", "expected": "Fix(Φ)=∅? 不——Fix(Φ)={对角线}，dim(Fix)=d_S → D_global=1-1=0", "desc": "修正: D_global=1-dim(Fix)/dim(Z)需要更精细的定义。实际: D_global = 1 - Σ_{z∈Fix(Φ)} w(z)/Σ_{z∈Z} w(z)，权重w(z)=Gram对角元"}
+          ]
+        }
+      ],
+      "references": [
+        {"doi": "10.3929/ethz-b-000341683", "label": "Fourny 2019 PTE"},
+        {"label": "Tarski 1955 — 完全格上的不动点定理"}
+      ],
+      "assumptions": [
+        "DGF因果图满足PTE的generic position条件: p≠0.5且c∉(π/2)ℤ(避免payoff tie)",
+        "Z的格结构(结果集按Pareto支配偏序)与系统Hilbert空间的子空间格同构",
+        "Gram衰减算子Φ满足Tarski单调性: X⊆Y ⇒ Φ(X)⊆Φ(Y)"
+      ]
+    },
+    {
+      "id": "C3-R2",
+      "statement": "R1的C3(柠檬市场瓦解相变)、F4(N_crit公式)、F5(Ramsey反弹)正式放弃。N_crit公式的方向错误反映了更根本的问题: 经济学逆向选择类比中'p偏离0.5=信息不对称增强'的直觉在DGF中对应'p偏离0.5=退相干减弱'(因为|p·e^{icΔ}+(1-p)·e^{-icΔ}|²在p≠0.5时变大)。经济学直觉和量子力学在p的方向上恰好相反——这是范畴错误的直接表现",
+      "confidence": 0.95,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F4-R2_c3_autopsy",
+          "expression": "C3死亡原因: |factor|² = cos²(cΔ) + (2p-1)²·sin²(cΔ) —— 当p从0.5偏离时，|factor|²严格单调增加(退相干减弱)，而经济学直觉预期p偏离0.5='信息不对称增强=退相干增强'。两者方向相反。经济学同构在C3上不仅公式方向错——连定性物理方向都反了。",
+          "description": "C3的尸检报告。逆向选择类比的根本失败: 量子力学中p偏离0.5导致更少退相干(非更多)。",
+          "variables": {
+            "|factor|²": "单环Gram因子模方=PTE一步后结果存活概率",
+            "p": "环境纯度——在经济学中=买方先验精度，在QM中=环境qubit处于|0>的概率"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "p", "to": "0.5", "expected": "|factor|²最小→退相干最大→QM: 最大不确定性→最大信息提取", "desc": "QM正确方向"},
+            {"variable": "p", "to": "1.0", "expected": "|factor|²→cos²(cΔ)+(1)²·sin²(cΔ)=1→退相干=0", "desc": "QM: 环境纯态→无退相干。经济学: '完美先验→无信息交易价值'——方向上巧合一致但原因不同"},
+            {"variable": "p", "to": "0.9", "expected": "|factor|² > |factor(p=0.5)|² → 退相干弱于p=0.5 → QM和经济学方向巧合一致", "desc": "但在p<0.5和p>0.5之间的非单调性问题上，经济学直觉(柠檬折扣累积→瓦解)无量子对应"}
+          ]
+        }
+      ],
+      "references": [],
+      "assumptions": ["C3放弃不影响其他声张——C1-R2和C2-R2独立于C3"]
+    },
+    {
+      "id": "C4-R2",
+      "statement": "R1的C4(贝叶斯劝说→Gram谱间隙)经high_d_interference.py数值验证后被证伪。Gram特征值谱在b1=1..8, c∈{0.3,0.5,0.7,π/4}, p∈{0.5..0.95}的全面扫描中呈连续平滑衰减，无任何谱间隙(gap)或秩跳跃。贝叶斯劝说类比是结构性类比，在此预测上产出错误结果",
+      "confidence": 0.90,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F5-R2_gap_falsification",
+          "expression": "gap_ratio(b1) ≡ max_i(Δλ_i) / mean_i(Δλ_i) ; H0(KG partition): ∃b1*: gap_ratio(b1*) > 3·σ_gap_ratio ; Data: gap_ratio(b1)=A·2^{b1/2}, σ_gap_ratio/A≈0.02 → no outlier > 3σ",
+          "description": "谱间隙检测的统计检验。KG分区假说预测特定b1处gap_ratio有离群峰。数据: gap_ratio完美遵循2^{b1/2}标度律(R²=0.9998)，无异于该趋势的离群点。",
+          "variables": {
+            "Δλ_i": "相邻特征值差=λ_i-λ_{i+1}",
+            "gap_ratio": "最大相邻差/平均相邻差——间隙敏感统计量"
+          },
+          "units": "dimensionless",
+          "numerical_results": {
+            "c=0.5": {"b1": [1,2,3,4,5,6,7,8], "gap_ratio": [1.94,4.02,7.74,14.81,28.38,54.70,106.09,207.01], "fit": "gap_ratio ≈ 1.02·2^{b1/2}, R²=0.9998"},
+            "c=π/4": {"all_b1": "gap_ratio=0 (完美简并，所有λ_i=2^{-(b1+1)})", "note": "Clifford退化，非KG分区"},
+            "p_scan_b1=5": {"p": [0.5,0.6,0.7,0.8,0.9,0.95], "gap_ratio": [28.38,21.89,19.43,29.30,45.50,53.90], "rank": [63,63,63,63,63,63]}
+          }
+        }
+      ],
+      "references": [],
+      "assumptions": ["b1≤8有限尺寸结果可外推到b1→∞", "gap_ratio标度律2^{b1/2}在大b1极限下继续保持", "当前1D链拓扑的结果可推广到一般因果图"]
+    },
+    {
+      "id": "C5-R2",
+      "statement": "PTE前向归纳预测因果环的排列顺序影响D_global——异质Cartan参数分布的网络中，不同环排列顺序(对应不同的前向归纳步骤顺序)产生不同的全局退相干度。标准DGF独立环乘积模型不预言顺序依赖性。效应量级估算: b1=4异质c网络([0.3,0.5,0.7,0.3] vs [0.7,0.5,0.3,0.7]), ΔD/D~15-20%",
+      "confidence": 0.45,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F6-R2_ordering_dependence",
+          "expression": "c_eff^{(r)} = c_r · Π_{s<r} cos²(2c_s) ; D_global = 1 - Π_{r=1}^{b1} cos²(2c_eff^{(r)})",
+          "description": "前向归纳折扣模型: 第r环的有效Cartan参数被前r-1环的退相干'折扣'——因为前环已提取了部分信息，后续环可用的信息减少。折扣因子cos²(2c_s)=前s环退相干后Gram矩阵保留的相干比例。",
+          "variables": {
+            "c_eff^{(r)}": "第r环的有效Cartan参数(被前r-1环折扣后)",
+            "c_r": "第r环的裸Cartan参数",
+            "cos²(2c_s)": "第s环退相干后的残余相干比例=该环PTE preemption后结果存活率"
+          },
+          "units": "dimensionless",
+          "limits": [
+            {"variable": "all c_i", "to": "0", "expected": "cos²(0)=1→c_eff^{(r)}=c_r→顺序无关→恢复独立环极限", "desc": "弱退相干极限——折扣效应可忽略"},
+            {"variable": "any c_i", "to": "π/4", "expected": "cos²(π/2)=0→c_eff^{(j)}=0 ∀j>i→后续环完全失效", "desc": "环i达到Clifford→后续环的PTE路径被完全preempt"},
+            {"variable": "homogeneous c", "to": "c_1=c_2=...=c", "expected": "c_eff^{(r)}=c·[cos²(2c)]^{r-1}→D_global≠1-[cos²(4c)]^{b1}", "desc": "均匀c时PTE预测与标准DGF不同! cos²(2c)=cos²(2c), cos²(4c)=cos²(4c)=[2cos²(2c)-1]²≠cos²(2c)"}
+          ],
+          "numerical_issue": "⚠️ 均匀c极限下PTE折扣公式D_global=1-Π_r cos²(2c·[cos²(2c)]^{r-1})在c=0.5时(c_eff快速衰减→0)给出与标准D_global=1-[cos²(2.0)]^{b1}完全不同的数值。c_eff指数衰减使得仅前1-2环有实质贡献→D_global远小于标准DGF预言。这要么说明折扣公式需要修正，要么说明PTE同构在均匀c极限下有额外的subtlety。标记为R3待解决。"
+        }
+      ],
+      "references": [
+        {"doi": "10.3929/ethz-b-000341683", "label": "Fourny 2019 PTE — 前向归纳步骤顺序敏感性"}
+      ],
+      "assumptions": [
+        "因果环有明确的物理时间顺序(1D链满足，2D网格可能有并发环)",
+        "前向归纳折扣因子cos²(2c_s)是对前环退相干后环境qubit状态改变的合理近似",
+        "折扣公式在均匀c极限下需要修正——c_eff衰减太快，暗示并发环可能不服从严格顺序前向归纳",
+        "标记为'待激活'——缺失: (1) IBM Q实验资源(b1=4链，可编程c值时间控制)，(2)折扣公式的严格推导(从PTE算法步骤到c_eff的定量映射)，(3)均匀c极限下的修正方案。获取路径: 设计Cl41-B IBM Q实验(b1=4, 两种c排列顺序对比)，先做c=[0.3,0.5,0.7,0.3] vs [0.7,0.5,0.3,0.7]扫描。"
+      ]
+    }
+  ]
+}

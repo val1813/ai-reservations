@@ -1,0 +1,363 @@
+{
+  "project": "LP42-GhostZero",
+  "north_star": "NS#2: Critical Scaling Universality Class",
+  "round": 1,
+  "agent": "A",
+  "polaris": "临界标度普适类 — Hessian→标度指数解析推导 + 普适类归属 + 有限尺寸标度预测",
+  "framework": "学院派物理学家(A博士) — 精确的微分几何+信息论+统计力学三方交叉。R1核心任务: 从Hessian谱解析推导标度指数, 解释为何观测指数~1.65-1.75而非2.0, 判定普适类归属, 预测有限尺寸标度行为。",
+
+  "§0_framework_declaration": {
+    "choice": "学院派物理学家(A博士) — 从第一性原理出发的解析推导框架。QCMI的标度指数不从数值拟合获取, 而从其定义函数H₂(二元熵)在幽灵零点附近的解析展开严格推导。方法论: (1)在Z_B法坐标中展开QCMI到leading log精度, (2)识别有效指数α_eff=2+1/log ε的机制, (3)通过解析延拓和鞍点分析确定log修正的普适性, (4)推导有限|E|的标度修正形式。",
+    "key_question_reframing": "原问题'β_p=1.72, γ_θ=1.75, α~1.65是三个不同的还是同一个普适指数'需要重新构思。如果指数是effective而非universal, 则问题转化为: (a)底层普适函数形式是什么? (b)有效指数的有限范围偏差如何计算? (c)什么量才是真正的普适量?",
+    "epistemic_stance": "核心结论修正了北极星#2的原假设。标度指数~1.65-1.75不是新的普适类——它们是同一个普适函数形式QCMI ~ -dist² log(dist²)在不同距离范围的有效幂律拟合值。真正的普适量是函数形式本身(源自二元熵的log奇点)和系数比(由Hessian本征值决定)。这类似于4-state Potts模型中log修正掩盖了leading power-law——但此处log修正更大(leading log而非sub-leading), 因为H₂的导数在零点对数发散。"
+  },
+
+  "§1_PRIMARY_hessian_to_scaling": {
+    "status": "完成——从Hessian谱到标度指数的完整解析推导链。核心发现: 观测指数~1.65-1.75不是真正的临界指数, 而是leading-log函数形式的有效幂律拟合值。",
+
+    "1_1_qcmi_expansion_near_ZB": {
+      "setup": "在幽灵零点Z_B上, QCMI=0。在法方向坐标x上展开。对于单一边(后推广到|E|边), 取p_eff=1分支(n̂ = +r⃗(p))。",
+      "normal_coordinate": "定义角偏离θ: n̂·r⃗ = cos θ。p_eff = cos²(θ/2) = 1 - θ²/4 + O(θ⁴)。",
+      "gram_factor_expansion": {
+        "step1": "δ ≡ p_eff(1-p_eff) = (1-θ²/4)(θ²/4) + O(θ⁴) = θ²/4 + O(θ⁴)。注意: δ在p_eff=1和p_eff=0两侧对称(因为p_eff→1-p_eff对换θ²不变)。",
+        "step2": "F = 1 - 2δ(1-cos(4c)) = 1 - (θ²/2)(1-cos(4c)) + O(θ⁴)。",
+        "step3": "对于|E|条边: |f_total|² = Π_{j=1}^{|E|} F_j = 1 - (θ²/2) Σ_j (1-cos(4c_j)) + O(θ⁴)。",
+        "step4": "定义 ε ≡ 1 - |f_total|² = (θ²/2) Σ_j (1-cos(4c_j)) + O(θ⁴)。在Z_B附近ε ≪ 1。"
+      },
+      "qcmi_binary_entropy": {
+        "exact": "QCMI = H₂((1-|f_total|)/2)。对|f_total| = 1-ε+O(ε²): (1-|f_total|)/2 = ε/2 + O(ε²)。",
+        "expansion_H2": "H₂(x) = -x log₂ x - (1-x) log₂(1-x)。对小x: log₂(1-x) = -x/ln 2 - x²/(2 ln 2) - x³/(3 ln 2) - ...。代入: H₂(x) = -x log₂ x + x/ln 2 - x²/(2 ln 2) - x³/(6 ln 2) + O(x⁴)。",
+        "with_x_eq_eps_over_2": "QCMI = -(ε/2) log₂(ε/2) + ε/(2 ln 2) - ε²/(8 ln 2) - ε³/(48 ln 2) + O(ε⁴)。展开对数项: -(ε/2) log₂(ε/2) = -(ε/2)(log₂ ε - 1) = -(ε/2) log₂ ε + ε/2。",
+        "leading_form": "QCMI(ε) = -(1/(2 ln 2)) ε ln ε + [1/2 + 1/(2 ln 2)] ε - [1/(8 ln 2)] ε² + O(ε³, ε² log ε)。其中log₂ ε = ln ε / ln 2已转换。记作: QCMI(ε) = -A ε ln ε + B ε - C ε² + O(ε³), 其中A = 1/(2 ln 2) ≈ 0.721, B = 1/2 + 1/(2 ln 2) ≈ 1.221, C = 1/(8 ln 2) ≈ 0.180。"
+      }
+    },
+
+    "1_2_why_not_quadratic": {
+      "hessian_expectation": "标准Morse-Bott理论: 在非退化临界子流形Z_B上, QCMI在法方向上是二次型——QCMI ≈ (1/2) Σ λ_i x_i² ∝ dist²。这预测指数=2。",
+      "observed": "β_p=1.72 (R²=0.997), γ_θ=1.75 (R²=0.999), α~1.65。都不是2。",
+      "three_hypotheses": {
+        "H_a_higher_order": "高阶Taylor项(x⁴等)在数值扫描范围内不可忽略→有效指数<2。分析: x⁴项相对于x²项的比值随x增大而增大, 导致log-log拟合的有效斜率偏离2。",
+        "H_b_log_factor": "二元熵的log奇点产生-log ε因子——这是主导机制。QCMI = -A ε ln ε + ..., 其中ε ∝ dist²。因此QCMI = -A(dist²) ln(dist²) + ... = -2A(dist²) ln(dist) + ...。这不是纯幂律dist^α, 而有一个log因子→log-log图有曲率→拟合出的有效指数取决于拟合范围。",
+        "H_c_position_dependent_hessian": "Hessian本征值λ(c) = (1-cos(4c))/(2ln 2)依赖于沿Z_B的位置参数c。当c→0时λ→0→回复力消失→更高阶项主导。"
+      },
+      "verdict": "主因为H_b(log因子), 辅因为H_c(位置依赖Hessian在c→0处退化)。H_a是H_b和H_c的表现而非独立原因。",
+      "proof_Hb_dominates": {
+        "step1": "将QCMI用ε(法距离的二次函数)表达: QCMI = -A ε ln ε + B ε + O(ε²)。",
+        "step2": "ε = Σ_j λ_j(c_j) x_j² + O(x⁴), 其中x_j是法坐标, λ_j(c_j) = (1-cos(4c_j))/(2ln 2)是Hessian本征值。",
+        "step3": "QCMI(x) = -A [Σ λ_j x_j²] ln[Σ λ_j x_j²] + B [Σ λ_j x_j²] + O(x⁴ ln x)。",
+        "step4": "沿单一法方向x: QCMI(x) = -Aλ x² ln(λ x²) + Bλ x² + O(x⁴ ln x) = -2Aλ x² ln x - Aλ x² ln λ + Bλ x² + O(x⁴ ln x)。",
+        "step5_effective_exponent": "定义α_eff(x) ≡ d ln QCMI / d ln x。计算: α_eff = [2Aλ x ln x + Aλ x + 2Aλ x ln x + Aλ x ln λ - Bλ x + ...] / [-2Aλ x ln x - Aλ x ln λ + Bλ x + ...] × 简化。主导项: α_eff ≈ (2x ln x + x) / (x ln x) = 2 + 1/ln x。由于ln x < 0 (对x < 1), α_eff < 2。",
+        "explicit_alpha_eff": "α_eff = 2 + [1 + ln λ - B/A + O(x² ln x)] / [ln x + (ln λ)/2 - B/(2A) + O(x²)] ≈ 2 + 1/ln x + O(1/(ln x)²)。其中主导修正项为2 + 1/ln x。注意: 这是对x的导数——而x是法坐标(角度偏离或p偏离)。",
+        "matching_observed": "β_p=1.72 → 1/ln x_p ≈ -0.28 → ln x_p ≈ -3.57 → x_p ≈ 0.028 (p扫描的典型最近距离~0.03)。γ_θ=1.75 → 1/ln x_θ ≈ -0.25 → ln x_θ ≈ -4.0 → x_θ ≈ 0.018 (θ扫描的典型最近距离~0.02 rad≈1.2°)。α=1.65 → 1/ln x ≈ -0.35 → ln x ≈ -2.86 → x ≈ 0.057 (组合扫描的典型最近距离~0.06)。这些距离量级完全合理——数值扫描无法无限逼近幽灵零点(受限于QCMI的统计误差~10⁻³)。"
+      }
+    },
+
+    "1_3_same_or_different_exponents": {
+      "answer": "三个指数测量的是同一个普适函数形式QCMI ~ -dist² log(dist²)在三个不同距离范围的有效斜率。",
+      "reasoning": {
+        "functional_form": "QCMI在Z_B附近的主导项是-ε ln ε, 其中ε是法坐标的二次型。这一函数形式对任何法方向都相同(各向同性, 除了Hessian本征值λ的缩放)。",
+        "isotropy": "沿任何法方向x: QCMI(x) = -A λ x² ln(λ x²) + ... = -2Aλ x² ln x - Aλ x² ln λ + ...。主要各向异性来自λ因子(每个方向的Hessian本征值不同), 但函数形式-const·x² ln x对任何方向都是相同的。",
+        "different_ranges": "β_p, γ_θ, α分别在不同扫描协议下测得: β_p固定n̂扫描p, γ_θ固定p扫描n̂, α在组合参数空间中寻找最近距离。三种扫描覆盖的距离范围不同(因为各方向λ不同→相同QCMI值对应不同几何距离→拟合的x范围不同)→有效指数不同。",
+        "prediction": "如果能在同一距离范围(例如x∈[10⁻⁴, 10⁻²])沿不同方向做幂律拟合, 应得到彼此一致的α_eff(差异在统计误差内)。",
+        "quantitative_check": "三个指数1.72, 1.75, 1.65的分布宽度~0.1, 对应1/|ln x|的差异约0.035→|ln x|的差异约3-5→x的差异约因子20-150。这对应于不同方向Hessian本征值λ的差异被QCMI阈值截断后的自然结果——方向越'硬'(λ越大→QCMI增长越快→可在更远距离处测量→α_eff更小), 方向越'软'(λ越小→必须更靠近零点才能达到可测QCMI→α_eff更接近2)。"
+      }
+    },
+
+    "1_4_universality_analysis": {
+      "what_is_universal": [
+        "函数形式QCMI ~ -ε ln ε (对任何包含二元熵的信息量在幽灵零点附近都成立)",
+        "ε与法坐标的二次关系ε = Σ λ_j x_j² (Morse-Bott非退化条件保证)",
+        "系数比B/A = (1/2+1/(2ln2))/(1/(2ln2)) = ln 2 + 1 ≈ 1.693 (纯数, 来自log₂→ln转换和归一化)"
+      ],
+      "what_is_not_universal": [
+        "有效指数α_eff = 2 + 1/ln x —— 依赖于拟合范围, 非普适",
+        "Hessian本征值λ_j(c) = (1-cos(4c_j))/(2ln 2) —— 依赖于沿Z_B的位置c_j",
+        "扫描协议决定的具体数值1.65/1.72/1.75"
+      ],
+      "true_universal_quantity": "定义QCMI的标度函数(scaling function)而非标度指数: QCMI/|x|² = -Aλ ln|x| - Aλ ln λ + Bλ + O(x² ln|x|)。以QCMI/x²对ln x作图应得到一条直线, 斜率为-Aλ, 截距包含λ的贡献。这是普适的标度形式。λ_j(c_j)是方向依赖的'度量因子'(metric factor), 类似于共形场论中的共形维数——它们不是普适的, 但函数形式(对数)是普适的。"
+    },
+
+    "1_5_anharmonic_correction": {
+      "leading_correction_sources": {
+        "source1_eps_squared": "来自H₂的-ε²项: -C ε² = -C (Σ λ_j x_j²)² = -Cλ²x⁴ (单方向)。这给出x⁴项→log-log图中产生曲率。修正量级: (C/A) ε / |ln ε|。对小ε (10⁻⁴-10⁻²): 修正~10⁻⁴到10⁻²/(4-9)~10⁻⁵到10⁻³, 可忽略。",
+        "source2_higher_order_gram": "ε本身的高阶展开: ε = (θ²/2) Σ (1-cos(4c)) - (θ⁴/8) Σ (1-cos(4c))² + ...。修正量级: ε_corr/ε_leading ~ θ² ~ x²。这是x⁴量级, 同样在log-log图中产生曲率。",
+        "source3_position_dependent_hessian": "当c_j→0时, λ_j = (1-cos(4c_j))/(2ln 2) ≈ 8c_j²/(2ln 2) ~ c_j² → 0。在此极限下, 二次项消失, 需要展开到x⁴。这定义了沿Z_B的'退化点'——在这些点附近, 有效指数从~2+1/ln x过渡到~4+1/ln x (如果ε∝x⁴而非x²)。这可以在数值上被检测为沿不同c值的不同拟合指数。"
+      },
+      "degenerate_point_analysis": {
+        "setup": "在c_j=0 (mod π/2)处, 1-cos(4c_j)=0 → ε在θ²阶为零 → 需要展开到θ⁴。",
+        "expansion_at_c0": "对c=0: F = 1 - (θ²/2)(1-cos(0)) - ... = 1 - 0 + ...。实际上1-cos(4c)=1-cos(0)=0, 但cos(4c)的展开: 1-cos(4c)=1-(1-8c²+32c⁴/3-...)=8c²-32c⁴/3+...。当c=0: 1-cos(4c)=0精确。但c=0也是Clifford点(0∈(π/2)ℤ)→此时F=1对任意θ(因为sin²(2·0)=0→p_eff的调制消失)。实际上c=0既是ghost部分(Z_B)也是Clifford部分(Z_A) —— 这是缝合点。",
+        "near_c0": "对c≈0但非零: λ≈4c²/ln 2 (for small c)。此时QCMI ~ -A·4c²/ln 2·θ² ln θ²。即QCMI ~ c²θ² ln θ。沿θ方向的指数仍受log修正为2+1/ln θ。沿c方向的指数(从c=0出发): ε ~ c²θ², QCMI ~ -c²θ² ln(c²θ²) ~ -c²θ² ln c (在固定小θ下)。此时沿c方向: QCMI ~ -c² ln c, α_eff(c)=2+1/ln c。形式与之前相同。",
+        "conclusion": "即使c→0, 函数形式QCMI ~ -dist² log(dist²)保持不变(只要c,θ都不精确为零)。缝合点c=0的'退化'是表观的——Hessian本征值变为零, 但这是因为在该点QCMI=0由Clifford机制而非ghost机制保证。在缝合一侧(小c), ghost的标度仍由-ε ln ε主导。"
+      }
+    }
+  },
+
+  "§2_SECONDARY_universality_class_literature": {
+    "status": "完成——定向文献搜索确认: 标准临界现象普适类中不存在指数1.65-1.75的已知类。对数修正标度(exponents modified by multiplicative logarithms)是已知现象, 但QCMI的leading-log标度在量子信息论文献中无先例。",
+
+    "2_1_standard_universality_classes": {
+      "3D_Ising": {"exponents": "β≈0.326, ν≈0.630, γ≈1.237", "verdict": "不匹配——全部远小于1.65"},
+      "mean_field": {"exponents": "β=1/2, ν=1/2, γ=1", "verdict": "不匹配——全部小于1"},
+      "XY_model": {"exponents": "ν≈0.671, η≈0.038", "verdict": "不匹配"},
+      "Anderson_localization_3D": {"exponents": "ν≈1.5-1.6 (转移点)", "verdict": "1.5-1.6接近但此ν是关联长度指数(非标度维度指数), 物理内容不同"},
+      "directed_percolation": {"exponents": "β≈0.73-0.81, ν_∥≈1.73, ν_⟂≈1.10", "verdict": "ν_∥≈1.73接近1.72但这是时间方向的关联长度指数——物理上对应于时间标度, 不是QCMI-距离标度。类比不成立因为DP描述非平衡相变→序参量可正可负, 而QCMI非负→最小值为零而非symmetry breaking。"},
+      "random_field_Ising": {"exponents": "α≈0 (log specific heat), ν≈1.0-1.4", "verdict": "不匹配"},
+      "verdict_summary": "没有标准普适类的指数集合匹配(1.65-1.75范围内的单个指数)。更重要的是, QCMI的标度在概念上与传统临界现象有根本区别: (1) QCMI≥0全局, 无对称破缺, (2) '临界点'是一整个子流形Z_B(非孤立点), (3) 标度来自信息论函数的log奇点而非关联长度发散。"
+    },
+
+    "2_2_logarithmic_corrections_in_literature": {
+      "key_references": [
+        {
+          "ref": "Kenna, Johnston, Janke 2006 (PRL 97, 155702) — 'Self-Consistent Scaling Theory for Logarithmic Correction Exponents'",
+          "relevance": "建立了对数修正指数的标度关系理论。典型案例: 4-state Potts模型在d=2有对数修正(比热~ln|t|^{-0.8}), uniaxial dipolar ferromagnets在d_c=3有对数修正。关键洞察: 对数修正指数满足标度关系, 类似于标准临界指数的标度关系。",
+          "connection_to_QCMI": "差异在于: QCMI的对数修正是LEADING(log ε乘以ε)而非sub-leading(ε乘以ln ε)。在Potts模型中, leading行为是|t|^{-α}(α是正常临界指数), log是乘性修正。QCMI中log在leading阶——因为H₂(x) ~ -x ln x中ln x与x同一阶。这意味着QCMI的'对数修正'是主项, 而非修正。这是定性不同的标度行为, 不归属于已知的对数修正普适类。"
+        },
+        {
+          "ref": "Kenna 2012 — 'Universal scaling relations for logarithmic-correction exponents' (doi:10.1142/9789814417891_0001)",
+          "relevance": "综述对数修正指数的标度关系。强调对数修正在上临界维度和某些marginal算子存在时出现。",
+          "connection_to_QCMI": "QCMI的log修正在任何维度(|E|任意)都存在——不是因为上临界维度或marginal算子, 而是因为信息量的定义函数H₂本身在零点有log奇点。这是结构性的(structural log), 非涌现性的(emergent log from fluctuations)。这是QCMI标度与标准临界标度之间的根本区别。"
+        },
+        {
+          "ref": "Tozar 2025 (arXiv:2511.19860) — 'Universal Critical Scaling of the Non-Hermitian Skin Effect under Disorder'",
+          "relevance": "非厄米趋肤效应的临界指数ν≈1.50, β≈0.65。确认了非厄米系统的普适类与厄米系统不同。",
+          "connection_to_QCMI": "数值接近1.50但物理机制完全不同(非厄米→趋肤模局域化 vs 幺正→信息量零点)。不构成普适类归属。"
+        },
+        {
+          "ref": "Perković, Dahmen, Sethna 1999 (PRB 59, 6106) — 'Disorder-Induced Critical Phenomena in Hysteresis'",
+          "relevance": "随机场Ising模型的磁滞回线临界现象, 指数通过ε展开计算(上临界维度d_c=6)。",
+          "connection_to_QCMI": "方法论参考: ε展开可以系统计算临界指数。但QCMI没有空间维度d的概念——参数流形维度M=3|E|+1不是物理空间而是参数空间。不存在'大参数空间维度极限'的ε展开。"
+        }
+      ],
+      "verdict": "QCMI的leading-log标度(QCMI ~ -ε ln ε)在已知的临界现象和量子信息论文献中均无精确对应。这定义了新的标度类型: '信息熵诱导的对数标度'(entropy-induced logarithmic scaling)——标度的对数因子不是来自涨落(fluctuations)或marginal算子, 而是来自信息量定义函数H₂的数学结构。这是结构性(structural)标度行为, 非涌现性(emergent)相变。"
+    },
+
+    "2_3_qcmi_landscape_vs_standard_criticality": {
+      "fundamental_differences": {
+        "order_parameter_sign": "标准临界现象: 序参量在T_c两侧改变符号(m→-m)。QCMI: QCMI≥0全局, 最小值为零, 没有'负值相'。这消除了通常的symmetry-breaking范式。",
+        "critical_point_dimension": "标准临界现象: T=T_c是一个点(或在多参数空间中是一个余维1曲面)。QCMI: Z_B是一个余维2|E|-1(高余维数!)的子流形——'临界集'是正维数的。",
+        "divergence_origin": "标准临界现象: 指数来自关联长度ξ~|t|^{-ν}的发散。QCMI: 没有关联长度的概念——QCMI是单点(非关联)量子信息量。标度来自H₂在零点附近的函数形式。",
+        "universality_mechanism": "标准临界现象: 普适类由空间维度+对称性决定(RG不动点)。QCMI: 标度形式由H₂的数学恒等式决定(非RG)——对所有参数值、所有|E|、所有c严格相同。这是kinematic普适性(来自信息论函数的代数性质)而非dynamic普适性(来自重整化群)。"
+      },
+      "new_category_proposal": "建议将QCMI的标度归为'信息论运动学标度'(information-theoretic kinematic scaling)——标度形式由信息量的定义函数决定, 不依赖于底层物理系统的动力学细节。这一类别可能包含其他量子信息量(互信息、纠缠熵、discord)在各自零点附近的标度行为——这些量在零点附近同样有leading-log行为。"
+    }
+  },
+
+  "§3_TERTIARY_finite_size_scaling": {
+    "status": "完成——推导了α_eff(|E|)的显式表达式, 预测α_eff随|E|增大而减小, 修正形式为1/log|E|而非幂律。",
+
+    "3_1_dependence_on_E": {
+      "epsilon_scaling_with_E": "ε = (θ²/2) Σ_{j=1}^{|E|} (1-cos(4c_j))。对随机c_j(均匀分布): ⟨1-cos(4c)⟩_c = 1。对固定c_j: Σ_{j} (1-cos(4c_j)) = |E|·⟨1-cos(4c)⟩。因此ε ∝ |E|(在固定θ和c分布下)。",
+      "hessian_dependence": "Hessian本征值λ_j = (1-cos(4c_j))/(2ln 2)。总Hessian迹: Tr(H_normal) = Σ_j 2λ_j(每个j贡献2个法方向, θ和φ) + λ_p(p方向) = (2/(2ln 2)) Σ_j (1-cos(4c_j)) + λ_p。正比于|E|。",
+      "effective_exponent_E_dependence": {
+        "fixed_geometric_distance": "在固定法坐标x(例如固定θ=0.01 rad)和固定c_j分布下: ε = (θ²/2)·|E|·1 = |E|θ²/2。α_eff(|E|) = 2 + 1/ln(|E|θ²/2)。",
+        "fixed_qcmi_threshold": "更实际的情况: 数值扫描设定QCMI阈值(最小可分辨QCMI≈10⁻³ bits)。达到该QCMI所需的最小距离x_min取决于|E|: QCMI ≈ -A·|E|θ²/2·ln(|E|θ²/2) → 对于较大|E|, 更小的θ就能达到相同QCMI→扫描的θ范围更接近零点→α_eff更接近2。两种竞争效应: (a) ε ∝ |E| → 更大|E| → 更大ε → α_eff更小; (b) 更大|E| → 可探测更小θ → ε变小 → α_eff更接近2。",
+        "resolution": "效应(a)是固定θ下的趋势; 效应(b)是固定QCMI灵敏度下的趋势。真实实验/数值中, 通常固定QCMI分辨率, 此时α_eff(|E|)的行为是非单调的——先因(b)而增加(更小θ), 后因较大的|E|时ε~1而偏离小ε展开。需要完整数值计算。"
+      }
+    },
+
+    "3_2_finite_size_scaling_form": {
+      "derivation": "在固定物理分辨率(即固定最小可测θ_min)下: α(|E|) = 2 + 1/[ln|E| + ln(θ_min²·⟨1-cos(4c)⟩/2)]。定义特征尺度|E|_0 = 2/(θ_min²·⟨1-cos(4c)⟩)。则α(|E|) = 2 + 1/[ln(|E|/|E|_0)]。",
+      "large_E_behavior": "对|E| ≫ |E|_0: ln(|E|/|E|_0) = ln|E| - ln|E|_0。α(|E|) = 2 + 1/ln|E| - ln|E|_0/(ln|E|)² + O(1/(ln|E|)³)。主导修正为1/ln|E|——这是对数修正, 远慢于任何幂律修正1/|E|^ω。",
+      "not_power_law_correction": "原假设α(|E|) = α_∞ + A/|E|^ω是错误的函数形式。正确形式为α(|E|) = α_∞ + 1/ln(|E|/|E|_0)。这意味着: (1) 有限尺寸效应非常大——即使|E|=100, 1/ln(100)≈0.22, α_eff≈1.78而非2。(2) 不存在'大|E|极限下的快速收敛'——修正以对数方式缓慢衰减。(3) ω不是良定义的指数——不存在标度函数F(|E|/ξ)使得数据collapse到单一曲线上(用power-law修正形式)。",
+      "correct_scaling_variable": "正确的标度变量是ε = |E|θ²·⟨1-cos(4c)⟩/2。以QCMI/ε对ln ε作图, 所有不同|E|和θ的数据应collapse到同一曲线上。这是标度函数检验——验证底层函数形式确实是-ε ln ε。"
+    },
+
+    "3_3_numerical_predictions": {
+      "prediction_1_decreasing_alpha_with_E": {
+        "statement": "在固定θ扫描范围下, α_eff应随|E|增大而减小。对b₁=1(|E|=4): α≈1.65(已有)。对b₁=2(|E|=8): α应<1.65(预计~1.55-1.60)。对b₁=4(|E|=16): α应更小(~1.45-1.55)。",
+        "test_protocol": "在相同θ和p扫描范围内, 对不同|E|(4,8,16)拟合QCMI vs距离的幂律指数。应观察到系统性的α下降。",
+        "caveat": "随着|E|增大, QCMI_max也增大(∝log₂(3)×|E|? 实际受环结构限制), 扫描的动态范围变化→需要仔细做范围匹配。"
+      },
+      "prediction_2_collapse_to_scaling_function": {
+        "statement": "以QCMI/(|E|θ²)为y轴, 以ln(|E|θ²)为x轴, 所有不同|E|和θ的数据应collapse到同一曲线y = -(A/2) x + (B/2 - A ln 2/2)。",
+        "derivation": "QCMI ≈ -(1/(2ln2))·|E|θ²/2·ln(|E|θ²/2) + (1/2+1/(2ln2))·|E|θ²/2。QCMI/(|E|θ²) = -(1/(4ln2))·ln(|E|θ²) + (1/(4ln2))·ln 2 + 1/4 + 1/(4ln2) = -(1/(4ln2))·ln(|E|θ²) + const。",
+        "slope": "-(1/(4ln2)) ≈ -0.361。截距: ln 2/(4ln2) + 1/4 + 1/(4ln2) = 1/4 + (1+ln 2)/(4ln 2) ≈ 0.636。",
+        "test_protocol": "对b₁=1,2,4(|E|=4,8,16)和多个θ值计算QCMI, 做collapse图。如果collapse成功→证实底层标度函数为-ε ln ε。如果collapse失败→需要其他机制(例如环间关联、Gram矩阵秩>1)。"
+      },
+      "prediction_3_log_correction_universality": {
+        "statement": "标度函数形式QCMI = -A ε ln ε + B ε (其中ε = Σ λ_j x_j²)对所有|E|、所有c_j分布通用。改变图拓扑(从b₁=1环到b₁=2环到链图)不改变函数形式, 只改变λ_j的具体值。",
+        "test_protocol": "对不同图拓扑(单环, 双环, 链)重复标度假定。函数形式应相同, 仅系数λ依赖于图的Laplacian或基的Gram矩阵。"
+      }
+    }
+  },
+
+  "§4_deep_dig_layers": {
+
+    "deep_dig_1_logarithmic_singularity_origin": {
+      "layer1_question": "H₂(x)在x=0的log奇点从何而来? 为什么von Neumann熵也有类似行为?",
+      "layer1_answer": "H₂(x) = -x log x - (1-x) log(1-x)。第一项-x log x在x=0处的导数∂_x(-x log x) = -log x - 1 → +∞。这一发散源于Shannon熵的定义: 事件概率p→0时, 其信息量-log p → +∞, 但加权后-p log p → 0(因为p比log p更快→0)。然而p log p的导数-log p仍发散。von Neumann熵S(ρ) = -Tr(ρ log ρ)有相同的数学结构: 当ρ的一个本征值→0时(其他本征值→1, 纯态极限), S(ρ) ~ -λ ln λ。因此任何基于熵的量子信息量在纯态极限附近都会有leading-log标度。QCMI作为条件互信息=von Neumann熵的组合, 在幽灵零点(纯态/乘积态极限)处继承了这一结构。",
+      "layer2_question": "这是否意味着所有量子信息量(纠缠熵、互信息、discord)在各自零点附近都有相同的-ε ln ε标度?",
+      "layer2_answer": "是的——只要信息量是von Neumann熵的多项式组合且在零点处满足:(a)信息量≥0, (b)零点对应纯态/乘积态极限, (c)信息量在零点处可微。纠缠熵在纯态极限处S(ρ_A) ~ -λ ln λ (λ是约化密度矩阵的最小本征值), 同样有leading-log标度。互信息I(A:B)在两子系统乘积态极限处有相同结构。量子discord在经典-量子态极限处也应有-ε ln ε标度。这意味着'信息熵诱导的对数标度'可能是一个跨信息量的普适现象——QCMI只是第一个被分析的例子。这扩展了北极星#3(幽灵零点推广到其他信息量)的理论基础。",
+      "layer2_hard_boundary": "上述论证假设信息量的零点是Morse-Bott非退化的(法空间上二次型)。对于更复杂的零点结构(例如拓扑相边界上的纠缠熵), 零点可能不是正则临界子流形——需要逐例验证。"
+    },
+
+    "deep_dig_2_RG_connection": {
+      "layer1_question": "QCMI的标度行为能否被重整化群(RG)语言描述? 如果可以, 相关的RG算子和本征值是什么?",
+      "layer1_answer": "可以尝试。将QCMI视为作用量(action)或自由能(free energy)的类比: QCMI ≥ 0类似自由能≥基态能, Z_B类似基态流形。在Z_B附近展开: QCMI = Σ_j λ_j(c) x_j² - A (Σ λ_j x_j²) ln(Σ λ_j x_j²) + ...。这类似于Landau-Ginzburg自由能但多了-log项。定义'有效哈密顿量': H_eff = Σ_j λ_j x_j² —— 标准Gaussian理论(有|E|+1个质量为零的模, 2|E|个质量>0的模)。-log项扮演'熵修正'——来自对参数空间(而非热涨落)的积分测度。RG解释: -ε ln ε项来自参数空间中'粗粒化'的熵贡献——当我们粗粒化法坐标x时, 对应的ε(x)分布产生-log修正。这不是通常的Wilson RG(在动量空间中积分快模), 而是'参数空间粗粒化'(在信息景观上积分)。两种RG框架不同。",
+      "layer2_question": "是否有定义在参数流形上的场论, 其有效作用量包含-log项?",
+      "layer2_answer": "是的——这类似于Liouville场论或log-CFT中的结构。在log-CFT中, 关联函数包含log因子因为能量-动量张量的Jordan块结构。QCMI的-log ε可以形式地理解为: 存在一个'对数算符'(logarithmic operator) O_log在Z_B上取值使得⟨O_log⟩ ~ ln ε。具体地, 定义O_log = δ²QCMI/δε²|_{ε→0} —— 这个'响应函数'在ε→0处对数发散。在RG语言中, 这意味着存在一个marginal算子具有对数相关——类似于2D XY模型中的Kosterlitz-Thouless跃迁(在那里, 旋节关联函数有对数修正)。但差异在于: KT跃迁的对数来自vortex-antivortex对的熵, 而QCMI的对数来自二元熵的数学定义——前者是physical log, 后者是structural log。",
+      "layer2_hard_boundary": "能否将QCMI写成真正的(2+ε)维场论中的有效势, 使得-log ε作为Feynman图的圈图修正自然出现? 这需要将参数空间维度(3|E|+1)解释为某种'物理维度'——这在当前框架中是不自然的。标记为长期方向(连接QCMI到非平衡统计场论)。"
+    },
+
+    "deep_dig_3_experimental_signature": {
+      "layer1_question": "-ε ln ε标度是否有可在NISQ实验中检验的独特信号?",
+      "layer1_answer": "有。关键信号: QCMI(x)与x²之间的关系不是纯线性的——QCMI/x²对ln x是线性关系。在实验中, 沿p方向扫描QCMI, 作QCMI/(p-p_ghost)² vs ln|p-p_ghost|图, 应得到一条斜率为-Aλ_p的直线。这是区分-ε ln ε标度与纯幂律ε^α标度的决定性检验——后者在QCMI/x² vs ln x图中表现为指数衰减/增长(取决于α>,=,<2), 而非直线。具体预测参数: 斜率 = -λ_p/(2ln2) ≈ -0.721λ_p, 截距 ≈ (1/2+1/(2ln2)-ln λ_p/(2ln2))λ_p。",
+      "layer2_question": "对IBM Q实验, 需要什么精度才能从纯幂律区分出-ε ln ε标度?",
+      "layer2_answer": "设测量QCMI的统计误差为δQ≈0.03 bits(3 qubit, 50000 shots, 9 bases, 见B博士NS#8估算)。要区分-ε ln ε与ε^α (纯幂律), 需要在至少3个decade的ε范围内(例如ε∈[10⁻³, 10⁻¹])测量QCMI。对于ε∈[0.001, 0.001×10=0.01, 0.001×100=0.1], QCMI范围: ε=0.001→QCMI≈0.005 bits(可能低于噪声地板), ε=0.01→QCMI≈0.03 bits(在噪声边缘), ε=0.1→QCMI≈0.12 bits(可测)。这只有约1.5 decade的有效范围——不足以区分-ε ln ε与ε^1.7(两者在这范围内差别在δQ范围内)。需要提高信噪比(更多qubits用于QCMI估计, 或更高保真度门)。实际可行方案: b₁=2(8边, 9 qubit包括参考), Quantinuum H1-2(更高保真度), 在2-3 decade范围内测量→可区分log标度与幂律。",
+      "layer2_hard_boundary": "3-qubit IBM实验可能无法区分标度函数形式——只能确认QCMI在幽灵零点附近减小。验证标度函数需要更高保真度硬件(Quantinuum)或更大系统。"
+    }
+  },
+
+  "claims": [
+    {
+      "id": "C1-NS2-R1",
+      "statement": "(Log标度机制) QCMI在幽灵零点Z_B附近的标度行为由二元熵H₂的log奇点主导: QCMI = -A ε ln ε + B ε + O(ε²), 其中ε = Σ_j λ_j x_j²是法坐标x的二次型, λ_j = (1-cos(4c_j))/(2ln 2)是Hessian本征值, A = 1/(2 ln 2), B = 1/2 + 1/(2 ln 2)。观测指数1.65-1.75不是真正的临界指数, 而是这一函数形式在有限范围内做纯幂律拟合的有效指数。",
+      "confidence": 0.92,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "NS2-1a",
+          "expression": "QCMI(ε) = -(1/(2 ln 2)) ε ln ε + (1/2 + 1/(2 ln 2)) ε - (1/(8 ln 2)) ε² + O(ε³)",
+          "description": "QCMI作为ε=1-|f_total|²函数的完整渐近展开。主导项-ε ln ε来自H₂(x)在x→0⁺的-log x奇点。",
+          "variables": {"ε": "1-|f_total|², 法坐标的二次型", "A": "1/(2ln2)≈0.721", "B": "1/2+1/(2ln2)≈1.221", "C": "1/(8ln2)≈0.180"}
+        },
+        {
+          "label": "NS2-1b",
+          "expression": "α_eff = d ln QCMI / d ln x = 2 + 1/ln x + O(1/(ln x)²)",
+          "description": "有效幂律指数。对x<1, ln x<0, α_eff<2。α_eff在x→0⁺时趋向2(从下方)。在典型数值扫描范围x∈[0.01,0.1]内, α_eff≈1.57-1.86。",
+          "variables": {"x": "法方向坐标(角偏离θ或p偏离δp)", "α_eff": "在给定x范围内拟合幂律QCMI∝x^α得到的表观指数"}
+        },
+        {
+          "label": "NS2-1c",
+          "expression": "1/ln x_p ≈ -0.28 (β_p=1.72), 1/ln x_θ ≈ -0.25 (γ_θ=1.75), 1/ln x_comb ≈ -0.35 (α=1.65)",
+          "description": "三个观测指数的反推最近距离。β_p和γ_θ扫描的距离范围比α扫描更接近零点(因为p和θ方向是受控的一维扫描, 而α是组合多维扫描——后者在更高维参数空间中更难逼近零点)。",
+          "variables": {}
+        }
+      ],
+      "references": [
+        {"label": "R1 §1.4 — Z_B处Hessian解析公式"},
+        {"label": "R2 §1.1 — Z_B处Hessian展开(step4中-log项已出现但未被识别为主因)"},
+        {"label": "R2 MA1 — 数值Hessian在c=π/4处的本征值验证"}
+      ],
+      "assumptions": [
+        "QCMI由简化的单环模型(b₁=1, 对称p, 对齐轴)给出",
+        "ε ≪ 1使得展开合法",
+        "Hessian本征值λ_j在扫描范围内近似常数(即不靠近c=0缝合点)"
+      ],
+      "corrects_previous": "R1-R3将QCMI视为纯二次函数→预测指数=2, 与观测矛盾。此处给出正确的主导项-ε ln ε。"
+    },
+    {
+      "id": "C2-NS2-R1",
+      "statement": "(普适类归属——新类别) QCMI的标度行为不属于任何已知的临界现象普适类。它定义了一个新类别: '信息熵诱导的对数标度'(entropy-induced logarithmic scaling)。该标度的对数因子不是来自涨落或RG流, 而是来自信息量定义函数(Shannon/von Neumann熵)的内在log奇点。标度函数形式QCMI = -A ε ln ε + B ε是kinematic(运动学的)——对所有|E|、c值、图拓扑严格相同。真正的普适量是函数形式(非指数值)和系数比B/A = ln 2 + 1 ≈ 1.693。",
+      "confidence": 0.88,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "NS2-2a",
+          "expression": "B/A = (1/2+1/(2ln2))/(1/(2ln2)) = ln 2 + 1 ≈ 1.693",
+          "description": "普适系数比——独立于|E|, c_j, 图拓扑。可从QCMI/(|E|θ²) vs ln(|E|θ²)图的截距/斜率比中提取。",
+          "variables": {}
+        },
+        {
+          "label": "NS2-2b",
+          "expression": "QCMI/ε = -A ln ε + B + O(ε) ≡ universal scaling function",
+          "description": "以QCMI/ε为y轴, ln ε为x轴——所有系统(|E|任意, c任意)应collapse到同一直线。这是标度函数普适性的操作定义。",
+          "variables": {"ε": "1-|f_total|², 标度变量"}
+        }
+      ],
+      "references": [
+        {"label": "Kenna-Johnston-Janke 2006 — 对数修正指数的标度关系(概念参考)"},
+        {"label": "R1 §3.1 — Z(QCMI=0)的乘积分解→ε的二次型结构"}
+      ],
+      "assumptions": ["QCMI由H₂函数给出(对b₁=1环严格, 对一般b₁可能需修正)"]
+    },
+    {
+      "id": "C3-NS2-R1",
+      "statement": "(有限尺寸标度形式) α_eff对|E|的依赖不是α_∞ + A/|E|^ω(幂律修正), 而是α(|E|) = 2 + 1/[ln|E| + ln(θ²_min·⟨1-cos(4c)⟩/2)]。主导修正为1/ln|E|——对数衰减, 远慢于任何幂律。在实验可及的|E|范围内(|E|≤100), α_eff永远无法接近其渐近值2——因为1/ln(100)≈0.22。可检验预测: (1) α_eff随|E|增大而系统性地减小(固定θ范围), (2) QCMI/ε vs ln ε的数据collapse对所有|E|成立。",
+      "confidence": 0.85,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "NS2-3a",
+          "expression": "ε = (|E|θ²/2)·⟨1-cos(4c)⟩_c, α_eff(|E|) = 2 + 1/ln(|E|θ²⟨1-cos(4c)⟩/2)",
+          "description": "α_eff对|E|的显式依赖。注意双对数修正——这是QCMI标度的独特特征。",
+          "variables": {"θ": "法方向角偏离(固定扫描范围)", "⟨1-cos(4c)⟩": "对c_j的系综平均(均匀分布=1)"}
+        },
+        {
+          "label": "NS2-3b",
+          "expression": "α_eff(|E|) − 2 = 1/ln|E| − ln(|E|_0)/(ln|E|)² + O(1/(ln|E|)³)",
+          "description": "大|E|展开——主导修正1/ln|E|(非幂律)。|E|_0 = 2/(θ²_min·⟨1-cos(4c)⟩)是特征边数。",
+          "variables": {}
+        },
+        {
+          "label": "NS2-3c",
+          "expression": "QCMI/(|E|θ²) = −(1/(4ln2))·ln(|E|θ²) + const, const = 1/4 + (1+ln2)/(4ln2) ≈ 0.636",
+          "description": "标度函数collapse预测——所有不同|E|的数据在以QCMI/(|E|θ²) vs ln(|E|θ²)为坐标时应落在同一直线上, 斜率为-1/(4ln2)≈-0.361。",
+          "variables": {}
+        }
+      ],
+      "references": [
+        {"label": "R1 §1.3-1.5 — Hessian本征值对|E|的依赖"},
+        {"label": "B博士R1(R2) — b₁=1,2数值扫描数据(待分析是否满足collapse)"}
+      ],
+      "assumptions": [
+        "所有边独立(无环间Gram矩阵交叉项)",
+        "c_j值在扫描范围内固定(非沿Z_B自由参数)",
+        "ε ≪ 1使得展开合法(即|E|θ² ≪ 1 → 对|E|>~100在θ≈0.01时可能violated)"
+      ],
+      "testable": true
+    },
+    {
+      "id": "C4-NS2-R1",
+      "statement": "(普适标度推广——所有量子信息量) 任何由von Neumann熵的多项式组合定义的量子信息量, 在纯态/乘积态极限(信息量→0)附近, 其leading标度行为必定是Q ~ -ε ln ε(其中ε是法坐标的二次型)。这包括: 纠缠熵(ε=最小约化密度矩阵本征值), 互信息(ε=乘积态偏离度量), 量子discord(ε=经典-量子态偏离度量)。QCMI是这一普适类的第一个被系统分析的例子。",
+      "confidence": 0.82,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "NS2-4a",
+          "expression": "S(ρ) = −λ_min ln λ_min − (1−λ_min) ln(1−λ_min) + Σ_{i>1} (−λ_i ln λ_i), 但near pure state λ_min→0主导: S ~ −λ_min ln λ_min",
+          "description": "von Neumann熵在纯态极限(λ_min→0⁺)的leading行为。与H₂且有相同的-ε ln ε结构。",
+          "variables": {"λ_min": "约化密度矩阵的最小本征值"}
+        },
+        {
+          "label": "NS2-4b",
+          "expression": "I(A:B) = S(ρ_A) + S(ρ_B) − S(ρ_{AB}). 在乘积态极限: ρ_{AB}≈ρ_A⊗ρ_B+δρ, I ~ Tr(δρ log δρ) ~ −ε ln ε",
+          "description": "互信息在乘积态极限的标度——与QCMI相同结构。暗示QCMI零点附近的标度是一个更广泛的现象。",
+          "variables": {}
+        }
+      ],
+      "references": [
+        {"label": "LP42 北极星#3 — 幽灵零点推广到其他量子信息量(互信息/纠缠熵/discord)"},
+        {"label": "Ohya-Petz 1993 — Quantum Entropy and Its Use (von Neumann熵的解析性)"}
+      ],
+      "assumptions": [
+        "信息量零点处Morse-Bott非退化(法空间二次型)",
+        "零点对应纯态/乘积态极限(通用假设, 需逐信息量验证)"
+      ]
+    }
+  ],
+
+  "strongest_conclusion": "NS#2 R1的最强结论——对三个标度指数(β_p=1.72, γ_θ=1.75, α~1.65)的谜题给出了统一的解析答案: 它们不是三个不同的普适指数, 也不是同一普适指数的三种测量误差, 而是同一个普适函数形式QCMI = -A ε ln ε + B ε + ... 在三个不同距离范围的有效幂律拟合值。有效指数α_eff = 2 + 1/ln x(其中x是到Z_B的法距离)永远小于2, 并且随距离范围变化。这一机制的核心是二元熵H₂(x)在x→0⁺处的log奇点——它使得QCMI在幽灵零点附近的展开展开不是纯二次型, 而是'对数修饰的二次型'(logarithmically-dressed quadratic form)。真正的普适量不是标度指数本身, 而是标度函数形式和系数比B/A=ln 2+1≈1.693。这定义了一个新的标度类别——'信息熵诱导的对数标度'——区别于传统临界现象中由涨落或RG驱动的标度行为。有限尺寸修正为1/ln|E|(对数缓慢衰减), 而非通常的1/|E|^ω(幂律)。三个可检验的数值预测: (1) α_eff随|E|增大而系统减小, (2) QCMI/ε vs ln ε的数据collapse, (3) QCMI/x² vs ln x的线性关系。",
+
+  "weakest_link": "三个弱点: (1) 推导假设了所有边对称且独立的简化模型(b₁=1环, 相同p和c_j)。一般网络(不同c_j、环间关联)的修正尚未计算——特别是Gram矩阵的交叉项(∂²|f_total|²/∂c_j∂c_k)可能产生新的标度方向。需要B博士数值验证。(2) ε的定义ε=1-|f_total|²在一般网络中可能不是法坐标的简单二次型——Gram矩阵的非对角元在展开中贡献交叉项, 使二次型的对角线化更复杂。(3) 当|E|较大时(>~50), ε在实验可及距离范围内不再≪1, 小ε展开失效——大|E|的标度需要完整H₂函数的数值计算, 不能仅靠渐近展开。",
+
+  "子命题候选": [
+    {
+      "id": "S1-NS2",
+      "statement": "对一般|E|条边的非对称网络(不同c_j, 非对齐轴)推导完整的ε展开——包括环间Gram交叉项。验证标度函数collapse对一般网络的适用性。",
+      "type": "A型(解析)"
+    },
+    {
+      "id": "S2-NS2",
+      "statement": "数值验证: b₁=1,2,4(|E|=4,8,16)的QCMI/ε vs ln ε数据collapse。确认斜率-1/(4ln2)和截距0.636。这是对leading-log标度的决定性检验。",
+      "type": "B型(数值)"
+    },
+    {
+      "id": "S3-NS2",
+      "statement": "纠缠熵和互信息在各自零点附近的leading-log标度验证——确认'信息熵诱导的对数标度'是跨信息量的普适现象。",
+      "type": "A+B型"
+    }
+  ],
+
+  "next_plan": "建议B博士执行: (1) b₁=1(|E|=4)的高分辨率θ扫描, 在3+ decade的θ范围内(10⁻⁴到10⁻¹)测量QCMI, 作QCMI/θ² vs ln θ图→验证线性关系。这是最直接的检验。(2) b₁=2(|E|=8)的扫描, 与b₁=1数据比较→验证α_eff(|E|)的1/ln|E|预测。(3) 若collapse成立, 这将成为NS#2的核心论文骨架——标度函数形式的普适性提供了一个干净的结果。建议PI综合时考虑: NS#2的叙事从'找普适指数'调整为'揭示对数修饰标度的普适函数形式'。"
+}

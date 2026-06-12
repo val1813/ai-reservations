@@ -1,0 +1,275 @@
+{
+  "project": "LP47",
+  "round": "salvage",
+  "agent": "B",
+  "polaris": "量子环拓扑的QCMI标度律 [UPDATED from 北极星漂移W5]",
+  "status": "SALVAGE_COMPLETED — 框架诊断+非零信号发现+修正路径",
+
+  "executive_summary": "挽救轮完成三项任务：(1)独立数值审计确认n=5 cluster环+H-mix单比特微扰下QCMI恒为零——这是数学恒等式，不是数值近似。A博士的α≈0.244和R²>0.9999来自有bug代码。(2)系统性搜索发现CCZ门和多比特H-mix可产生非零QCMI信号——CCZ(0,2,4)在k=1分划上产生0.500 bits的显著信号。(3)CS框架的根本错误被精确定位：部分迹(partial trace)≠编织闭合(braid closure)。在对cluster编织β=σ₁σ₂σ₃σ₄进行正确的编织闭合(关闭所有B股)后，L_{0j}为平凡2分量链环(lk=0)，而非B博士原声称的Hopf链环。这意味着CS理论正确应用时预言QCMI=0，与数值一致。",
+
+  "findings": {
+    "F1_qcmi_zero_proof": {
+      "statement": "n-qubit cluster环+H-mix单比特微扰下，QCMI(A={0}:C={j≠0}|B=rest)恒等于零——对所有θ、所有j≠0、所有n≥3。",
+      "proof_type": "数学恒等式，非数值近似",
+      "proof_summary": "关键步骤：(1)⟨C_n|H_0|C_n⟩=0（正交性）；(2)∀j≠0, ρ_j(θ)=I/2（不变）；(3)ρ_0(θ)=I/2+cH（仅qubit 0改变）；(4)ρ_{0,j}(θ)=I/4+(cH⊗I)/2（乘积结构）；(5)I(0:j)=S(ρ_0)+S(ρ_j)-S(ρ_{0,j})=S(ρ_0)+ln2-(S(ρ_0)+ln2)=0。QED。",
+      "numerical_verification": {
+        "n_range": [5, 6, 7],
+        "theta_range": [0.0, 0.05, 0.10, 0.15, 0.20],
+        "max_qcmi_deviation_nats": 8.88e-16,
+        "max_qcmi_deviation_bits": 1.28e-15,
+        "partitions_tested": ["k=1(A={0},C={1})", "k=2(A={0},C={2})"],
+        "verdict": "QCMI=0以数值精度确认，与解析证明完全一致"
+      },
+      "consequence_for_A": "A博士声称的α≈0.244和R²>0.9999不可复现。独立计算显示真实QCMI恒为零。A博士的numerical_test数据（delta_qcmi_at_010=0.02407 bits与公式0.244×θ²×ln(1/θ)预测的0.00558 bits之间的4.31倍矛盾）源于同一个根本bug：代码计算的不是QCMI而是其他量。",
+      "likely_bug_hypothesis": "A博士的ΔQCMI(θ=0.10)≈0.02407 bits恰好等于ΔS(ρ_0)=ln2-S(ρ_0(θ))=0.6931-0.6446=0.0485 nats≈0.070 bits的一半(自然对数vs比特差异)。0.02407/ln(2)=0.03472 nats，与S(ρ_0(0))-S(ρ_0(0.10))=0.04854 nats有约40%差异——可能来自不同对数底使用或partial trace中的qubit编号偏移。确切bug需审查A的源代码才能确定。"
+    },
+
+    "F2_nonzero_qcmi_discovered": {
+      "statement": "CCZ门和多比特H-mix可打破cluster环的QCMI=0恒等式。发现非零信号。",
+      "results_table": [
+        {
+          "perturbation": "CCZ(0,2,4)",
+          "state": "n=5 cluster ring",
+          "partition": "k=1 (A={0},C={1},B={2,3,4})",
+          "QCMI_nats": 0.3466,
+          "QCMI_bits": 0.5000,
+          "significance": "最大信号——CCZ作用于A={0}和两个B-qubit{2,4}"
+        },
+        {
+          "perturbation": "CCZ(0,1,2)",
+          "state": "n=5 cluster ring",
+          "partition": "k=1 (A={0},C={1},B={2,3,4})",
+          "QCMI_nats": 0.2158,
+          "QCMI_bits": 0.3113,
+          "significance": "CCZ连接A={0}和C={1}——直接产生A-C关联"
+        },
+        {
+          "perturbation": "CCZ(1,2,3)",
+          "state": "n=5 cluster ring",
+          "partition": "k=1 (A={0},C={1},B={2,3,4})",
+          "QCMI_nats": 0.1308,
+          "QCMI_bits": 0.1887,
+          "significance": "CCZ仅作用于B-qubit——仍产生A-C关联(通过CZ环传播)"
+        },
+        {
+          "perturbation": "Multi-Hmix on [0,1], θ=0.15",
+          "state": "n=5 cluster ring",
+          "partition": "k=1 (A={0},C={1},B={2,3,4})",
+          "QCMI_nats": 0.1069,
+          "QCMI_bits": 0.1542,
+          "significance": "双比特H-mix——同时扰动A和C产生直接关联"
+        },
+        {
+          "perturbation": "Multi-Hmix on [0,1,2], θ=0.15",
+          "state": "n=5 cluster ring",
+          "partition": "k=1 (A={0},C={1},B={2,3,4})",
+          "QCMI_nats": 0.0096,
+          "QCMI_bits": 0.0138,
+          "significance": "三比特H-mix——QCMI(k=1)=QCMI(k=2)，对称化"
+        },
+        {
+          "perturbation": "Multi-Hmix on [0,1,2], θ=0.15",
+          "state": "n=5 cluster ring",
+          "partition": "k=2 (A={0},C={2},B={1,3,4})",
+          "QCMI_nats": 0.0096,
+          "QCMI_bits": 0.0138,
+          "significance": "罕见k=2非零信号——三比特H-mix打破了单比特H-mix的QCMI=0恒等式"
+        },
+        {
+          "perturbation": "H-mix θ=0.10 on W-state",
+          "state": "n=5 W-state",
+          "partition": "k=1",
+          "DeltaQCMI_nats": -0.0641,
+          "DeltaQCMI_bits": -0.0925,
+          "significance": "非稳定子初态——W态的ΔQCMI非零且为负值"
+        },
+        {
+          "perturbation": "H-mix θ=0.10 on linear_cluster",
+          "state": "n=5 linear cluster",
+          "partition": "k=1",
+          "DeltaQCMI_nats": -0.0485,
+          "DeltaQCMI_bits": -0.0700,
+          "significance": "线性cluster(非环)的ΔQCMI也非零——表明环拓扑的特殊性"
+        }
+      ],
+      "pattern_analysis": {
+        "pattern_1": "CCZ作用于包含qubit 0和qubit C的三元组时，QCMI(k=1)最大。这是CCZ的3-qubit纠缠直接创造A-C条件依赖。",
+        "pattern_2": "CCZ仅作用于B-qubit时，QCMI仍有非零值——这是通过cluster环的CZ边传播的非局域效应。",
+        "pattern_3": "CCZ在k=2(对跖)分划上始终给出QCMI=0——对跖分划的QCMI=0比相邻分划更稳健。",
+        "pattern_4": "三比特H-mix打破了k=2的QCMI=0恒等式——这是唯一观测到对跖QCMI≠0的微扰类型。",
+        "pattern_5": "非稳定子初态(W-state, linear cluster)在单比特H-mix下产生非零ΔQCMI——cluster环的QCMI=0是稳定子态的特权性质。"
+      },
+      "implication_for_CS": "非零QCMI信号的发现为CS框架提供了新的检验机会。如果CS框架能正确预测CCZ(0,2,4)在k=1分划上的QCMI值，则框架的核心机制(编织表示→QCMI)可能仍然有效——只是原基准(单比特H-mix+cluster)的选择有问题。"
+    },
+
+    "F3_cs_framework_diagnosis": {
+      "primary_error": "部分迹(partial trace) ≠ 编织闭合(braid closure)",
+      "error_detail": {
+        "what_B_claimed": "对n=5 cluster编织β=σ₁σ₂σ₃σ₄，分划A={0},C={2},B={1,3,4}时，子编织L_{0,2}为Hopf链环(lk=±1)。",
+        "what_is_correct": "编织闭合操作：将B股{1,3,4}在编织两端标识(闭合)，得到剩余股{0,2}构成的链环L_{0,2}。在β=σ₁σ₂σ₃σ₄中：\n- 股0仅与股1在σ₁处交叉一次\n- 股2与股1在σ₁处交叉、与股3在σ₂处交叉\n- 当股{1,3,4}全部闭合后：股0的唯一次交叉(与股1)随股1的闭合而消失；股0不再与任何人交叉→成为平凡unknot\n- 股2与股1和股3的交叉也随这些股的闭合而消失→成为平凡unknot\n- L_{0,2} = 平凡2分量链环（两unknot，不相链）→ lk=0",
+        "why_B_got_it_wrong": "B博士在计算连接数时没有执行编织闭合操作。他直接检查了原始编织词β中股0和股2的相对交叉——但编织闭合会消除涉及B股的交叉。这是编织理论的基本操作：子链环的拓扑由编织闭包决定，而非原始编织词中股之间的直接交叉。",
+        "corrected_lk": "lk(L_{0,j})=0对所有j≠0。因此CS框架修正后的预言为QCMI=0——与数值审计完全一致。"
+      },
+
+      "secondary_error": "C_phys=3.68不能从CS第一原理导出",
+      "secondary_detail": "W4审计已详细证明：(1)CS Wilson圈期望值给出纯θ²标度，不含ln(1/θ)因子；(2)γ(θ)=ln(D)来自总量子维数(真空TEE)，不在任何Wilson圈期望值中出现；(3)即使强行在每个θ处拟合C_phys，得到θ依赖值9.85-29.92，与3.68差了2.7-8.1倍。结论：C_phys不是普适常数，B博士的F3函数形式θ²×γ(θ)没有CS第一原理基础。",
+
+      "tertiary_issue": "函数形式不相容",
+      "tertiary_detail": "CS理论(Kontsevich积分, Vassiliev不变量)是h=2πiθ的形式幂级数。所有有限阶截断给出θ的整数幂(θ², θ⁴, ...)。ln(1/θ)因子不能从有限阶形式幂级数中产生——它需要无穷级数重求和(非微扰效应)。这意味着即使在不涉及部分迹vs编织闭合的其他系统中，B博士的θ²ln(1/θ)函数形式也无法从CS微扰展开中导出。"
+    },
+
+    "F4_corrected_cs_framework": {
+      "what_survives": [
+        {
+          "item": "编织分类(circuit→braid word mapping)",
+          "status": "有效——量子线路到编织词的映射是良定义的数学构造",
+          "limitation": "仅提供离散拓扑分类(cluster=半扭转编织, GHZ=恒等编织)，不提供连续QCMI值"
+        },
+        {
+          "item": "连接数作为电路复杂度度量",
+          "status": "有效——lk(L_{ij})正确计数qubit i和j之间的CZ门数目",
+          "limitation": "仅适用于原始编织词，不适用于子编织闭合后的链环"
+        },
+        {
+          "item": "子编织结构预测哪些分划有QCMI结构",
+          "status": "部分有效——当lk经过正确编织闭合计算后为0时，QCMI确实为0",
+          "limitation": "lk=0→QCMI=0正确(平凡预测)。lk≠0→QCMI≠0的逆方向在稳定子态上不成立(因为部分迹消除了编织闭合保留的拓扑结构)"
+        }
+      ],
+      "what_must_be_abandoned": [
+        "F3的定量预言公式：QCMI = I_0 + C_phys × |lk|² × f(n,k) × θ² × γ(θ)",
+        "C_phys = 3.68作为普适常数",
+        "θ²ln(1/θ)函数形式作为CS推导结果(它最多是现象学ansatz)",
+        "部分迹↔编织闭合的等价性假设(A1)"
+      ],
+      "new_path_forward": {
+        "proposal": "将CS框架重新定位为'量子电路拓扑分类器'而非'QCMI预测器'",
+        "concrete_steps": [
+          "Step 1: 对给定的量子电路，计算其编织表示β∈B_n",
+          "Step 2: 对给定的QCMI分划(A,C,B)，计算子编织的编织闭合L_AC(正确执行编织闭合)",
+          "Step 3: 计算L_AC的拓扑不变量(lk, v_2, Jones多项式)——这些是精确的拓扑量",
+          "Step 4: 将拓扑量与QCMI的关系视为现象学校准问题而非理论推导问题",
+          "Step 5: 用CCZ非零数据点重新校准——验证编织表示是否为QCMI提供了有预测力的结构"
+        ],
+        "testable_prediction": "对CCZ(0,2,4)在n=5 cluster环上：编织表示中CCZ对应3股编织(braid on strands {0,2,4})。计算L_{0,1}^{CCZ}(子编织闭包)的Jones多项式，展开到θ²阶。若该系数与0.3466 nats(数值QCMI)在量级上一致，则CS映射的结构部分(编织类型→QCMI是否有非零值→QCMI的量级阶)可能正确。"
+      }
+    },
+
+    "F5_walls_resolution": {
+      "W1_AB_sign_contradiction": {
+        "original": "A预测ΔQCMI<0，B预测ΔQCMI>0——符号矛盾",
+        "resolution": "双方都错。真实ΔQCMI=0。符号矛盾成为无意义问题。",
+        "status": "RESOLVED_BY_FALSIFICATION"
+      },
+      "W2_A_formula_numerical_inconsistency": {
+        "original": "公式0.244×θ²×ln(1/θ)预测0.00558 bits，numerical_test报告0.02407 bits——4.31倍矛盾",
+        "resolution": "确认bug。独立审计显示QCMI=0。两个值都是代码错误的产物。",
+        "status": "RESOLVED_BUG_CONFIRMED"
+      },
+      "W3_n_dependence_contradiction": {
+        "original": "A说n不变，B说n依赖~1/n",
+        "resolution": "QCMI=0对所有n——没有n依赖性可争论。",
+        "status": "MOOT"
+      },
+      "W4_B_calibration_dependency": {
+        "original": "C_phys=3.68来自已废弃的R2控制论框架",
+        "resolution": "C_phys本身无法从CS第一原理导出（W4审计）。即使校准数据可靠，函数形式θ²×γ(θ)与CS的θ²定性不相容。C_phys被拆除。",
+        "status": "CONFIRMED_AND_ESCALATED"
+      },
+      "W5_polaris_drift": {
+        "original": "北极星'质量是因果环锁住信息的宏观表现'与实际研究内容无关",
+        "resolution": "已更新为'量子环拓扑的QCMI标度律'。",
+        "status": "FIXED"
+      },
+      "W6_perturbation_expansion_validity": {
+        "original": "von Neumann熵在秩变化点的微扰展开合法性未验证",
+        "resolution": "因QCMI=0为恒等式，微扰展开问题不相关。",
+        "status": "MOOT"
+      }
+    },
+
+    "F6_ccz_braid_analysis": {
+      "question": "CCZ门在编织表示中对应什么？能否用CS理论预测CCZ产生的QCMI？",
+      "analysis": {
+        "CCZ_in_braid_theory": "CCZ门(3-qubit受控相位门)在编织理论中没有直接对应——标准编织群B_n的生成元σ_i仅作用于相邻两股(对应2-qubit门)。CCZ是真正的3-qubit门，需要量子编织(braid on 3 strands simultaneously)或编织群在更高维表示中的推广。这意味着B博士的编织框架在遇到CCZ时需要扩展。",
+        "practical_approach": "CCZ可以分解为CZ+单比特门的组合：CCZ(0,1,2) = [CZ(0,1)⊗I₂] · [I₂⊗CZ(1,2)] · T_gate序列。在编织表示中，这对应额外交叉的序列。但ACZ(0,2,4)涉及非相邻qubit 0,2,4，在标准编织表示中需要SWAP重排——这会在编织词中引入大量额外生成元。",
+        "bottom_line": "CS编织框架目前无法处理CCZ扰动(需要3-qubit门编织表示或非相邻相互作用)。这是框架的技术局限而非概念失效。"
+      }
+    }
+  },
+
+  "numerical_raw_data": {
+    "verification_method": "Python3 + numpy + scipy, exact diagonalization on 2^n Hilbert space",
+    "confirmation_qcmi_zero": {
+      "n5_cluster_Hmix_theta010_k1_QCMI_nats": 3.33e-16,
+      "n5_cluster_Hmix_theta010_k2_QCMI_nats": 3.33e-16,
+      "n6_cluster_Hmix_theta010_k1_QCMI_nats": -5.55e-16,
+      "n6_cluster_Hmix_theta010_k3_QCMI_nats": -3.33e-16,
+      "n7_cluster_Hmix_theta010_k1_QCMI_nats": -3.33e-16,
+      "n7_cluster_Hmix_theta010_k3_QCMI_nats": -3.33e-16
+    },
+    "nonzero_signals": {
+      "CCZ_024_k1_QCMI_nats": 0.346574,
+      "CCZ_024_k1_QCMI_bits": 0.499999,
+      "CCZ_012_k1_QCMI_nats": 0.215762,
+      "CCZ_012_k1_QCMI_bits": 0.311296,
+      "CCZ_123_k1_QCMI_nats": 0.130812,
+      "CCZ_123_k1_QCMI_bits": 0.188731,
+      "MultiHmix_01_theta015_k1_QCMI_nats": 0.106921,
+      "MultiHmix_012_theta015_k1_QCMI_nats": 0.009596,
+      "MultiHmix_012_theta015_k2_QCMI_nats": 0.009596,
+      "W_state_Hmix_theta010_k1_DeltaQCMI_nats": -0.064076,
+      "LinearCluster_Hmix_theta010_k1_DeltaQCMI_nats": -0.048536
+    }
+  },
+
+  "verification_of_A_bug": {
+    "analytical_proof": "QCMI(0:j|rest) = 0 identically for n-qubit cluster ring under single-qubit H-mix, for all j ≠ 0, all θ, all n ≥ 3.",
+    "what_A_should_have_found": "QCMI = 0 for all tested configurations. No θ²ln(1/θ) scaling. No α coefficient. No non-zero ΔQCMI.",
+    "what_A_reported": "α ≈ 0.244, R² > 0.9999, ΔQCMI(θ=0.10) ≈ 0.02407 bits.",
+    "bug_confirmation": "独立审计(independent_audit_W1W2.md + 本salvage计算)确认A的结果不可复现。真实QCMI=0。",
+    "recommended_A_action": "公开精确对角化源代码(特别是partial_trace, entropy_vn, qcmi函数)。用θ=0 cluster环测试——正确的QCMI(0:1|2,3,4)=0, QCMI(0:2|1,3,4)=0。若θ=0时QCMI≠0，bug在基线计算中。"
+  },
+
+  "salvage_recommendations": {
+    "immediate": [
+      "放弃CS F3的定量预言公式（QCMI = I_0 + C_phys × |lk|² × f × θ² × γ）",
+      "放弃C_phys = 3.68及其所有衍生数值",
+      "放弃'A/B框架独立汇合'叙事——双方均未正确预测QCMI"
+    ],
+    "preserve": [
+      "电路→编织词映射作为离散分类工具（标记不同电路拓扑类）",
+      "编织闭合计算（正确执行后）作为子链环拓扑的数学工具",
+      "W4审计的CS第一原理推导（Δ_CS = 3π²θ²/2）作为正确的CS微扰展开结果"
+    ],
+    "new_direction": [
+      "用CCZ非零QCMI数据重新检验编织表示的预测力——是否编织类型决定QCMI量级？",
+      "研究cluster环+CCZ的θ扫描——CCZ产生的QCMI是否有θ标度律？",
+      "比较cluster环 vs 线性cluster vs W-state在不同微扰下的QCMI——提取初态依赖的系统规律",
+      "如果A博士修正bug后重新计算——比较A的新数值和B的修正CS预言（都从零开始）"
+    ],
+    "publication_strategy": {
+      "salvageable_paper": "Quantum Circuit Topology and Conditional Mutual Information: When Graph States Resist Perturbation",
+      "core_message": "发现cluster环对单比特微扰的QCMI零响应（数学恒等式），以及多比特非Clifford门(CCZ)打破此恒等式的条件。这是干净的量子信息论结果，不依赖任何争议性声称。",
+      "what_to_avoid": "不要提及θ²ln(1/θ)标度律、C_phys校准、CS→QCMI定量映射——这些都是已证明错误或无法独立验证的声称。"
+    }
+  },
+
+  "self_attack": {
+    "attack_1": "CCZ产生的非零QCMI是否也可能是代码bug？",
+    "response_1": "CCZ是离散门(非连续参数)，结果不依赖θ扫描或拟合。CCZ(0,2,4)在k=1分划上QCMI=0.3466 nats≈0.5 bits——恰好为ln2/2。这个简洁数值强烈暗示它来自CCZ门在cluster环上创造的特定纠缠结构，而非数值噪声。交叉验证：改变CCZ作用的qubit三重(0,1,2)→0.2158 nats, (1,2,3)→0.1308 nats——QCMI随三重选择系统性变化，排除了常数偏置假象。",
+    "attack_2": "CS框架在正确执行编织闭合后预言QCMI=0——但这不是'预测'而只是'事后解释'？",
+    "response_2": "确实如此。B博士原始声称的lk=±1→QCMI>0是错的。修正后的lk=0→QCMI=0虽然与数值一致，但这是在看到数值结果后的事后修正。不过，编织闭合的正确执行是独立于QCMI数值的数学操作——可以在不知晓QCMI结果的情况下正确执行。因此修正后的CS预言是'可独立计算的'，只是碰巧与QCMI=0一致。真正的检验是对CCZ扰动：如果CS框架能预测CCZ(0,2,4)的QCMI量级(0.347 nats)，则框架的预测力被恢复。这需要将CCZ纳入编织表示——当前尚未完成。",
+    "attack_3": "如果cluster环不产生非零QCMI，LP47的'因果环信息局域化'整个动机是否悬空？",
+    "response_3": "本salvage发现CCZ和多比特H-mix可以产生非零QCMI——这意味着'信息局域化'现象确实存在，但需要多比特非Clifford操作而非单比特微扰来激活。这改变了问题的物理图像：不是'任何非Clifford微扰都产生QCMI标度'，而是'需要特定类型的多比特纠缠操作来打破稳定子态的QCMI屏障'。这对实验设计有直接影响：测试LP47需要CCZ门或等效的多比特非Clifford资源。",
+    "attack_4": "挽救轮声称找到了非零信号——但这些信号是否有θ标度律？如果没有θ²ln(1/θ)标度，LP47的'标度律'核心宣称仍然悬空。",
+    "response_4": "正确。挽救轮仅搜索了非零信号的存在性，未执行θ扫描来检验标度形式。如果CCZ(0,2,4)的QCMI在连续CCZ^θ参数下展现θ²或θ²ln(1/θ)标度，则标度律可被恢复。但CCZ是一个离散门——要获得连续参数化，需要使用CCZ^θ（对角矩阵diag(1,1,...,e^{-iθ})），其θ标度行为未知。这是下一步工作。"
+  },
+
+  "computational_evidence": {
+    "script_path": "D:\\Claude\\ai-reservations\\LP47-因果环信息局域化\\current\\B\\compute_salvage.py",
+    "audit_script_path": "D:\\Claude\\ai-reservations\\LP47-因果环信息局域化\\synthesis\\audit_qcmi_v2.py",
+    "key_result": "QCMI=0恒等式被两个独立脚本交叉验证。非零信号来自CCZ和多比特H-mix。",
+    "reproducibility": "compute_salvage.py可独立运行，不依赖A博士或B博士的任何代码。"
+  }
+}

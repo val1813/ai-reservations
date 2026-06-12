@@ -1,0 +1,27 @@
+{
+  "review": "Reviewer O",
+  "date": "2026-06-10",
+  "attacks": {
+    "1_b_sensitivity": {
+      "finding": "d2(b) is symmetric about b=2 with d2(b)=d2(2-b). b=2 is a stationary point.",
+      "range_b_1.0_to_3.0": "d2 varies from 2.2324 to -3.8012",
+      "severity": "Medium -- b is tightly constrained by Cassini, so effect is small near b=2"
+    },
+    "2_alpha_sensitivity": {
+      "finding": "d2 varies ~20% across alpha in [0.5, 2.5]",
+      "range": "d2 from -8.6602 to 2.6025",
+      "severity": "Medium -- alpha fully degenerate with G_field"
+    },
+    "3_degeneracy": {
+      "finding": "Found 7 (alpha,b) pairs with d2 within 0.003 of reference",
+      "severity": "High -- single 2PN measurement cannot uniquely determine both alpha and b",
+      "implication": "Different (alpha,b) pairs on a 1D degenerate manifold give identical 2PN"
+    },
+    "4_scale_dependence": {
+      "finding": "Solar-system b(phi~1e-8) is not guaranteed equal to strong-field b(phi~0.1)",
+      "severity": "FATAL -- DGF provides no RG equation for b, no argument for scale invariance",
+      "implication": "The -22.5% prediction assumes b is a universal constant, contradicting DGF's own RG framework"
+    }
+  },
+  "conclusion": "The 2PN prediction is the projection of two empirical parameters (alpha,b) calibrated at solar-system scales, extrapolated to the strong-field regime with the UNJUSTIFIED assumption of scale invariance. The prediction would change if either parameter differs from its solar-system value in the strong field -- a scenario DGF's own RG framework suggests is likely."
+}

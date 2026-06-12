@@ -1,0 +1,32 @@
+{
+  "job_id": "d8kc05o32u0s73f8ipq0",
+  "design": "symmetric temporal ring (theta1=theta2=theta)",
+  "dead_ring": "both gates = identity",
+  "functional_ring": "both gates = RZZ(theta)",
+  "basis": "Y",
+  "shots": 100000,
+  "backend": "ibm_kingston",
+  "results": {
+    "pi/4": {
+      "I_RQ_functional": 0.000732,
+      "I_RQ_dead": 0.6461,
+      "Delta_I_Y": 0.6454
+    },
+    "pi/8": {
+      "I_RQ_functional": 0.297529,
+      "I_RQ_dead": 0.651019,
+      "Delta_I_Y": 0.3535
+    },
+    "pi/16": {
+      "I_RQ_functional": 0.521095,
+      "I_RQ_dead": 0.649058,
+      "Delta_I_Y": 0.128
+    }
+  },
+  "theory_prediction": {
+    "pi/4": 0.601,
+    "pi/8": 0.233,
+    "pi/16": 0.078
+  },
+  "key_finding": "Delta_I_Y decreases with theta, confirming CFOL theta-dependent signal"
+}

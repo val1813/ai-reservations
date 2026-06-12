@@ -1,0 +1,25 @@
+{
+  "wall": "#3 (Micro->Macro RG Flow)",
+  "round": 1,
+  "findings": [
+    "q(r)=exp(-GM/rc^2) is NOT a solution of a standard local Lagrangian field theory",
+    "It CAN be the solution of an entropy-maximization variational principle",
+    "But this requires specifying the energy density functional rho_E[q]",
+    "The simplest rho_E ~ (grad q)^2 leads to UV divergence at r->0",
+    "This divergence needs regularization at Planck scale -- the RG flow",
+    "",
+    "PPN constraints (solar system) are TRIVIALLY satisfied:",
+    "  - q(r_sun) ~ 1 - 2e-6 => screening is automatic",
+    "  - Any alpha(q) with alpha(1)=0 gives gamma=1 exactly",
+    "  - DGF only deviates from GR in strong-field (NS, BH) and cosmology",
+    "",
+    "The path forward has two branches:",
+    "Branch 1 (theory): Derive rho_E[q] from DGF microscopic causal graph",
+    "  -> This IS the RG flow; needs new mathematical tools",
+    "Branch 2 (phenomenology): Parametrize rho_E[q] and constrain with data",
+    "  -> Fit to binary pulsar, EHT, DESI; make predictions for new regimes"
+  ],
+  "wall_nature": "Theoretical structure gap -- q(r) is currently an ansatz, not a derived solution",
+  "wall_penetrability": "Partially penetrable via Branch 2 (phenomenological parametrization)",
+  "next_step": "Parametrize rho_E[q] with 2-3 free functions, constrain with binary pulsar + EHT data"
+}

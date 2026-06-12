@@ -1,0 +1,13 @@
+{
+  "review_date": "2026-06-10",
+  "key_corrections": {
+    "coordinate_artifact_grr_1PN": "CONFIRMED \u2014 grr matches GR at 1PN in area-radius",
+    "g00_2PN_coefficient": "k3 = 133.5530 from Omega^2 fit (not exactly 1/6)",
+    "gw_phase_formula": "Corrected to use k3 from Omega^2 expansion"
+  },
+  "dgf_metrics": {
+    "PPN_beta": "-0.000007",
+    "PPN_gamma": "1.000000",
+    "deviation_from_GR_1PN": "1.15e-10"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "metric_diff": "Delta g00/g00 = (1/6)*phi^3 at 2PN (0PN, 1PN match GR exactly)",
+  "gw_phase": {
+    "formula": "Delta Psi_2PN = (1/6)*v^6 * N_cycles * (3*pi/4)",
+    "GW170817_BNS": "0.01 rad (NOT detectable)",
+    "GW150914_BBH": "0.1 rad (marginal with O4/O5)",
+    "ET_BNS": "2.2 rad (EASILY detectable, >200 sigma)",
+    "LISA_EMRI": "~4000 rad (HUGE signal)"
+  },
+  "ppe": {
+    "b": 4,
+    "beta_DGF": "0.27",
+    "within_LIGO_bounds": true,
+    "detectable_with_ET": true
+  },
+  "ringdown": {
+    "delta_f": "0.31%",
+    "detectable_3G": false
+  },
+  "best_test": "Einstein Telescope BNS inspiral: 2.2 rad phase shift at 2PN",
+  "second_best": "LISA EMRI: 4000 rad cumulative phase shift",
+  "key_advantage": "DGF prediction is PARAMETER-FREE (no free parameters at 2PN)"
+}

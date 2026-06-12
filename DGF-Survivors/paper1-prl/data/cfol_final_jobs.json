@@ -1,0 +1,14 @@
+{
+  "token": "QFAYt1fKqb517eRjoPZvqCh83jtpvZyG3grWQu-7gWYT",
+  "backend": "ibm_kingston",
+  "shots_per_circuit": 100000,
+  "jobs": {
+    "Y_basis": {"job_id": "d8kborbnn5bs738qlerg", "circuits": 6, "total_shots": 600000},
+    "Z_basis": {"job_id": "d8kbp33nn5bs738qlf60", "circuits": 6, "total_shots": 600000}
+  },
+  "circuit_design": "3-qubit temporal ring: R-Q Bell + RZZ(pi/2)+RZZ(theta) on Q-E",
+  "theta_values": ["pi/4", "pi/8", "pi/16"],
+  "ring_types": ["functional", "dead"],
+  "timestamp": "2026-06-10T09:23+08:00",
+  "total_execution_time": "4 minutes"
+}

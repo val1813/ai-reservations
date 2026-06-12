@@ -1,0 +1,221 @@
+{
+  "project": "LP41",
+  "round": 1,
+  "agent": "A",
+  "polaris": "d_eff = f(b₁, K(U)) — 因果图拓扑与非局域纠缠密度的现象学关系",
+  "framework": "量子信息论/张量网络",
+  "timestamp": "2026-06-10T00:00:00Z",
+
+  "findings": "本轮核心发现：(1) 文献查重确认无人发表过 d_eff = f(b₁, K(U)) 这一具体形式，但 Gorard-Dannemann-Freitag (2301.12455) 在多途径因果图上讨论了纠缠熵与非整数维度，是最近先行工作；(2) Bianchi-Livine (2302.05922) 建立了 LQG 自旋网络的体积律/面积律/零律层级，与我们的主张平行但角度不同；(3) MIPT文献提供了最直接的类比框架；(4) b₁=1 单独无法改变渐进标度，需要非局域门密度达到临界值才能产生 d_eff > 3 的可测偏离。关键结论：对于 b₁=1，d_eff 偏离是有限尺度效应，要产生渐进意义上的偏离需要 b₁ 与系统体积同时增长。提出了通过张量网络表示维度重新定义 d_eff 的方案。",
+
+  "weakest_link": "单循环 (b₁=1) 对纠缠熵的贡献在大 L 极限下是次领导的（对数项），无法改变面积律指数。发布前必须解决：(1) 要么承认 b₁=1 的 d_eff 偏离是有限尺度促使的，(2) 要么将主张修改为“当非局域门密度超过临界时，有效维度偏离”而非“在 b₁=1 层面”。建议下轮修正立题表述。",
+
+  "next_plan": "Round 2: (1) 用小型张量网络数值模拟验证 b₁=1 时 d_eff 的有限尺度偏离，计算 d_eff(L) 在 L=4,8,16 时的值；(2) 将立题修正为“非局域门密度驱动的 d_eff 转变”，推导临界密度的解析表达式；(3) 确定是否用 Koh et al. (2023) Nature Physics MIPT 数据做 re-analysis；(4) 读取 Gorard 论文全文确定差异化策略。",
+
+  "literature_needed": "Gorard-Dannemann-Freitag (2301.12455) 全文—确认他们是否已经讨论了 d_eff 与因果图拓扑的关系；Koh et al. (2023) Nature Physics 原始数据—确定是否可用于 DGF 重分析；Movassagh-Shor (1408.1657) —确认面积律违反的幂律指数与系统参数的关系。",
+
+  "search_tool_selfcheck": {
+    "group1": "paper-search-mcp (arxiv+semantic+crossref) — 3次搜索，确认无直接重复",
+    "group2": "paper-search-mcp (arxiv+semantic+crossref) + arxiv单独搜索 — 找到 Gorard、Bianchi、Mukherjee 等关键先行工作",
+    "group3": "paper-search-mcp (arxiv+semantic+crossref) — 未找到反对论文，确认面积律违反已被广泛接受",
+    "group4": "paper-search-mcp (arxiv+google_scholar) — 确认有分散数据但无专用公开数据集"
+  },
+
+  "literature_audit": {
+    "priority_alert": {
+      "paper": "Gorard & Dannemann-Freitag (2023), arXiv:2301.12455",
+      "title": "Axiomatic Quantum Field Theory in Discrete Spacetime via Multiway Causal Structure: The Case of Entanglement Entropies",
+      "overlap": "在多途径因果图上讨论纠缠熵，包括非整数维度因果图的情况，证明了 Sorkin-Johnston 和 branchial graph 纠缠熵的单调关系",
+      "differentiation": "他们关注量子引力基础，不讨论量子电路现象学或 NISQ 硬件验证；未提出 d_eff = f(b₁, K(U)) 形式；未连接到 IBM/Sycamore 数据",
+      "risk": "MEDIUM — 概念空间重叠但具体声张不同"
+    },
+    "parallel_framework": {
+      "paper": "Bianchi & Livine (2023), arXiv:2302.05922",
+      "title": "Loop Quantum Gravity and Quantum Information",
+      "overlap": "建立了自旋网络状态的体积律/面积律/零律层级，主张面积律状态 = 半经典几何，证明了边界自旋纠缠 = 链接纠缠 + 交织子纠缠（可加性定理）",
+      "differentiation": "LQG 框架中 b₁ 对应曲率（闭合回路 holonomy），而 DGF 中 b₁ 对应因果图独立环数；两者可能是同一数学结构的不同表述",
+      "risk": "LOW — 不同理论框架，可互为参考"
+    },
+    "closest_empirical": {
+      "paper": "Koh et al. (2023), Nature Physics, arXiv:2203.04338",
+      "title": "Measurement-induced entanglement phase transition on a superconducting quantum processor with mid-circuit readout",
+      "overlap": "在 14 超导量子比特上实现了纠缠相变，直接观测到体积律和面积律的纠缠熵标度",
+      "differentiation": "MIPT 是测量诱导的，DGF 是因果拓扑诱导的；但数学结构可能是映射关系",
+      "data_reuse": "可重新分析他们的纠缠熵数据，将测量率 p 映射为非局域门密度ρ，检验临界指数是否一致"
+    }
+  },
+
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "b₁=1 时，单循环对纠缠熵的贡献在渐进意义上是次领导的（对数项），不能改变面积律指数；d_eff 偏离是有限尺度效应",
+      "confidence": 0.90,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "S(L) = a*L^2 + b*QCMI_min*log(L/L_0) + O(1)",
+          "variables": {
+            "a": "面积律系数，取决于局域哈密顿量",
+            "b": "循环贡献系数，取决于循环与分割面的交叉几何",
+            "QCMI_min": "η₀ × sin²θ × p(1-p)/(2ln2) ≈ 0.0163 bits (θ=π/4, p=0.5)",
+            "L_0": "累外截断尺度"
+          },
+          "units": "S 在 bits，L 无量纲（以格点间距为单位）",
+          "limits": ["L ≫ 1", "单循环连接对边界", "θ ∈ [0,π/2]", "p ∈ [0,1]"],
+          "numerical_test": {
+            "system": "4×4×4 3D 格子，单循环连接对角",
+            "prediction": "ΔS ≈ 0.016 × log(4) ≈ 0.022 bits",
+            "detectability": "低于当前硬件噪声水平 (~0.1 bits)，单循环无法验证"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/978-3-031-03998-0_9", "label": "Potter-Vasseur 2021 (MIPT review)"},
+        {"doi": "10.1103/PhysRevLett.105.050403", "label": "Rivas-Huelga-Plenio 2010 (non-Markovianity witness)"}
+      ],
+      "assumptions": [
+        "循环是一维拓扑对象（线状的）",
+        "循环与分割面的交叉点数为 O(1)",
+        "系统处于基态或低能激发态"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "真正的 d_eff > 3 需要非局域门密度 ρ_K 达到临界值 ρ_c，且 d_eff 偏离由 b₁^{ind}/V 和 K(U) 共同决定，而非仅由 b₁ 单独决定",
+      "confidence": 0.80,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F2",
+          "expression": "d_eff = 3 + gamma * (K - theta_c)**beta * (b_1**ind / V)**nu * Theta(K - theta_c)",
+          "variables": {
+            "gamma": "非普适系数，取决于网格几何",
+            "K": "平均 Schmidt 强度，K = (1/N_gates)*Σ_i log_2(||U_i^Γ||)",
+            "theta_c": "临界 Schmidt 强度，由局域退相干强度决定",
+            "beta": "秩参数临界指数，预期 ~0.42 (3D 逾渗)",
+            "nu": "相关长度临界指数，预期 ~4/3 (3D 逾渗)",
+            "b_1**ind": "诱导 Betti 数（独立活性循环数）",
+            "V": "系统体积（量子比特数）"
+          },
+          "units": "d_eff 无量纲，K 在 bits，ρ = b₁^{ind}/V 在 1/量子比特",
+          "limits": ["ρ_K ≪ 1 (稀疏循环极限)", "K > θ_c", "大 V 极限"],
+          "numerical_test": {
+            "system": "L×L×L 立方格子，b₁^{ind} = L² (每个面一个独立环)",
+            "prediction": "d_eff = 3 + γ(K-θ_c)^β × L^{-1/3} → 3 当 L→∞",
+            "note": "在此设置下 d_eff 仍然趋于 3，需要 b₁^{ind} ∝ L³ 才能产生非零渐进偏离"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1038/s41567-023-02076-6", "label": "Koh et al. 2023 (MIPT experiment)"},
+        {"doi": "10.1103/PhysRevB.98.174304", "label": "Pal-Lakshminarayan 2018 (entangling power)"}
+      ],
+      "assumptions": [
+        "非局域门分布均匀",
+        "循环之间无相互作用（独立循环假设）",
+        "临界行为属于 3D 经典逾渗普适类"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "临界阈值 θ_c 由局域退相干强度决定：当 K(U) > θ_c 时，单个非局域门产生的 QCMI 超过局域噪声底，使得循环诱导的非马尔可夫性在 NISQ 硬件上可检测",
+      "confidence": 0.75,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3",
+          "expression": "theta_c = (2*ln2 * Delta_min) / (eta_0 * sin(theta)^2 * p*(1-p))",
+          "variables": {
+            "Delta_min": "最小可检测 QCMI (bits)，约 0.01-0.05 对于当前硬件",
+            "eta_0": "1/(8*ln2) ≈ 0.1803",
+            "theta": "门对易参数，控制非对易性强度",
+            "p": "Cartan 失配参数，p≠0.5 时指针基偏离 Cartan 轴"
+          },
+          "units": "θ_c 在 bits（与 K(U) 单位一致）",
+          "limits": ["p ∈ (0,1)", "θ ∈ (0,π/2)", "Δ_min > 0"],
+          "numerical_test": {
+            "optimal_params": "θ=π/4, p=0.5, Δ_min=0.01 bits",
+            "prediction": "θ_c ≈ 0.01 / 0.0163 ≈ 0.61 bits",
+            "physical_meaning": "单门 Schmidt 强度需要 > 0.61 bits 才能产生可检测的 QCMI"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1088/1367-2630/aaafee", "label": "Milz et al. 2018 (entanglement-nonMarkovianity-causality)"},
+        {"doi": "10.1103/PhysRevLett.105.050403", "label": "Rivas-Huelga-Plenio 2010"}
+      ],
+      "assumptions": [
+        "系统噪声主要来自局域退相干（而非全局退相干）",
+        "QCMI 检测受制备测量不确定性限制（量子射影噪声）",
+        "θ_c 仅适用于单循环场景"
+      ]
+    },
+    {
+      "id": "C4",
+      "statement": "将 d_eff 重新定义为“最小张量网络表示维度”（而非纠缠熵标度指数）可以解决 b₁=1 时的渐进困境：单循环使得最小张量网络从 MPS (d_eff=1) 跳变到 PEPS (d_eff=2)",
+      "confidence": 0.70,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F4",
+          "expression": "d_eff(TN) = min{d : exists PEPS in d spatial dim representing state with bond dim chi <= chi_max}",
+          "variables": {
+            "chi_max": "最大允许的联键维度（由硬件或算法限制）",
+            "d_eff(TN)": "张量网络有效维度"
+          },
+          "units": "无量纲",
+          "limits": ["χ_max ∪ N", "状态为纯态"],
+          "numerical_test": {
+            "b_1=0, K=0": "MPS representable → d_eff(TN) = 1",
+            "b_1=1, K>0": "requires PEPS on cylinder → d_eff(TN) = 2",
+            "b_1~L^2, K>θ_c": "requires 3D tensor network → d_eff(TN) = 3",
+            "b_1~L^3, K>>θ_c": "bond dim divergence for fixed d=3 → d_eff(TN) > 3"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/978-3-031-03998-0_9", "label": "Potter-Vasseur 2021"},
+        {"doi": "10.1103/PhysRevLett.133.100402", "label": "Deng et al. 2024 (entanglement QPT)"}
+      ],
+      "assumptions": [
+        "张量网络可以忠实表示目标状态",
+        "最小表示维度是良定义的"
+      ]
+    }
+  ],
+
+  "grounding": {
+    "type": "B",
+    "label": "半成品 + 下一步蓝图",
+    "achieved": [
+      "推导了 b₁=1 时纠缠熵的对数修正形式 S(L) = aL² + b·QCMI₋₁₎₎·log(L)",
+      "确认了 d_eff 偏离的必要条件（非局域门密度达到临界）",
+      "提出了临界阈值 θ_c 的解析表达式",
+      "识别了三个可用于数值验证的具体系统"
+    ],
+    "needed": [
+      "小型张量网络模拟代码（PEPS/MPS，验证 b₁ 与 d_eff(TN) 的关系）",
+      "Koh et al. (2023) 原始数据或等效的 MIPT 数据集",
+      "Gorard 论文全文以确定差异化策略",
+      "确定是否需要将立题从 b₁=1 修改为更一般的非局域门密度表述"
+    ],
+    "concrete_next": "下轮计划：(1) TensorNetwork 模拟 b₁=0,1,4,16 的纠缠熵标度，拟合 d_eff(L)；(2) 如果证实 b₁=1 不能产生渐进偏离，则将立题修改为“非局域门密度临界”而非“b₁=1”；(3) 准备 Koh 数据重分析方案。"
+  },
+
+  "reanalysis_candidate": {
+    "type": "C",
+    "paper_doi": "10.1038/s41567-023-02076-6",
+    "arxiv": "2203.04338",
+    "title": "Measurement-induced entanglement phase transition on a superconducting quantum processor with mid-circuit readout",
+    "figure": "Fig. 2 (entanglement entropy vs measurement rate) + Fig. 3 (data collapse)",
+    "extracted_quantity": "纠缠熵的尺度函数 S(N_sub) 在不同测量率 p 下",
+    "dgf_mapping": "将测量率 p 映射为非局域门密度 1-p（测量 = 解纠缠，非局域门 = 纠缠），将 b₁ 映射为随机电路中的独立循环数",
+    "expected_dgf_value": "在 p < p_c 时，系统处于体积律相，对应 DGF 中 d_eff > 3；在 p > p_c 时，系统处于面积律相，对应 d_eff = 3。预测临界指数ν ≈ 4/3（与原文报告的ν ≈ 1.3 一致）",
+    "feasibility": "高—数据已公开，映射关系明确，但需要原始数据访问权限或从图中提取"
+  },
+
+  "deep_dig_1": "本轮结论的下一层后果：\n层 1: 如果 b₁=1 时 d_eff 偏离仅为有限尺度效应，则 DGF 的“因果拓扑决定有效维度”主张需要重新表述——不是“单循环改变维度”，而是“循环密度达到逾渗阈值时发生维度相变”。这将 DGF 与 MIPT 框架完全对齐，但可能削弱 DGF 的独特性。\n层 2: 如果 DGF 和 MIPT 是同一现象的不同角度，则 DGF 的新颖性在于提供了“因果图”这一更基本的语言，而 MIPT 的“测量”只是实现因果图特定拓扑的一种方式。这可以成为 DGF 的卖点。",
+
+  "deep_dig_2": "本轮依赖的前提中最可能也是错的：\n层 1: “QCMI > 0 必然导致可观测的纠缠熵偏离”——这个跳跃可能不成立。QCMI 是三部分关联信息，而纠缠熵是二部分量。三部分非零 QCMI 可以与二部分纠缠熵无关（例如，某些绑结纠缠态具有 QCMI > 0 但任意二部分均为可分离态）。需要更精确地建立 QCMI → S(A) 的关系。\n层 2: “因果图独立环数 b₁ 是良定义的物理量”——在实际量子电路中，“因果图”取决于电路编译方式（gate scheduling）。同一个物理电路可以有不同的因果图表示，导致 b₁ 不是观测不变量。这是一个潜在的致命问题。"
+}

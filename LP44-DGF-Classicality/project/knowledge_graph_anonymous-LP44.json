@@ -1,0 +1,43 @@
+{
+  "contributor": {
+    "orcid": "anonymous",
+    "github": "anonymous",
+    "name": "匿名贡献者"
+  },
+  "project": "LP44-DGF-Classicality",
+  "date": "2026-06-11",
+  "n_rounds": 3,
+  "status": "收官",
+  "conclusion_type": "核心存活+边际修正+排他性预言建立",
+  "polaris_original": "因果环作为退相干放大器解释宏观经典性: τ_dec=1/(|μ|·γ_E·b1_active), 零自由参数",
+  "polaris_final": "因果环作为退相干放大器: τ_dec=1/(|μ|·b1_active·Γ₀), Γ₀/γ_E≈51需独立标定",
+  "walls_broken": [
+    "b1_active循环论证(独立Hamiltonian→因果图映射)",
+    "排他性可检验预言(Tree vs Ring因果图重连测试)",
+    "Baczyk & Fourny Nash≠QM障碍(PTE/GoI切换)",
+    "R1 T1三层架构致命攻击(诚实承认边界)",
+    "INSPECTOR F1量纲错误(修正)",
+    "INSPECTOR F4方向错误(放弃C3)"
+  ],
+  "key_claims": [
+    "C1: 因果环=退相干放大器, Gram非对角元指数衰减 (0.85)",
+    "C2: τ_dec=1/(|μ|·b1_active·Γ₀), Γ₀/γ_E≈51 (0.70)",
+    "C3: D_global=1-[cos²(4c)]^{b1}=GoI EX(⊗σ)特例 (0.80)",
+    "C4: 因果图重连测试 Tree vs Ring ratio=1+|μ| (0.75, 待实验)",
+    "C5: c=π/4=退相干放大器奇点 (0.80)",
+    "C6: b1_active独立定义 (0.75)"
+  ],
+  "killed_claims": [
+    "零自由参数(Γ₀≠γ_E)",
+    "旧T1 dτ∝Γ_dec(INSPECTOR I-1)",
+    "T1三层架构(AB联合致命攻击)",
+    "C3柠檬市场相变(INSPECTOR F4方向错误)",
+    "C4 Gram谱间隙(high_d_interference.py证伪)"
+  ],
+  "next_polaris_candidates": [
+    "因果图重连测试 IBM Q执行",
+    "GoI数学基础→DGF公理最小完备性证明",
+    "宏b1_active建模→真正解释宏观经典性",
+    "非正交环集非因子化D_global检验"
+  ]
+}

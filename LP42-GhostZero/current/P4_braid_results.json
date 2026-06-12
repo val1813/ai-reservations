@@ -1,0 +1,136 @@
+{
+  "1_Z2_rigid_n4": {
+    "description": "Rigid 2pi rotation of all 4 ghost axes about z\u0302",
+    "raw_sum_rad": 12.566370614359167,
+    "raw_sum_pi": 3.9999999999999982,
+    "berry_total_rad": 6.283185307179581,
+    "berry_total_pi": 1.9999999999999982,
+    "trivial_mod_2pi": true
+  },
+  "2_subsystem_braid_012": {
+    "description": "P_3 Z_2 on ghost axes {0,1,2}, axis 3 stationary",
+    "raw_sum_rad": 9.424777960769376,
+    "raw_sum_pi": 2.9999999999999987,
+    "berry_total_rad": 3.1415926535897896,
+    "berry_total_pi": 0.9999999999999989,
+    "is_pi_mod_2pi": true
+  },
+  "3_partial_braid_A01": {
+    "description": "A_{01} lasso: axis 0 traces circle around axis 1",
+    "geodesic_r_rad": 0.049999999999997054,
+    "berry_per_axis_rad": [
+      6.2792591408701535,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "berry_total_rad": 6.2792591408701535,
+    "berry_total_pi": 1.9987502624489057,
+    "analytical_rad": 0.003926172762073787,
+    "analytical_pi": 0.0012497396050336063,
+    "is_new_generator": true
+  },
+  "4_independent_braids": {
+    "description": "A_{01} x A_{23}: independent lassos on {0,1} and {2,3}",
+    "geodesic_r01_rad": 0.049999999999997054,
+    "geodesic_r23_rad": 0.049999999999997054,
+    "berry_per_axis_rad": [
+      6.2792591408701535,
+      0.0,
+      6.2792591408701535,
+      0.0
+    ],
+    "berry_total_rad": 6.275332974560721,
+    "berry_total_pi": 1.9975005248978117,
+    "berry_A01_rad": 6.2792591408701535,
+    "berry_A23_rad": 6.2792591408701535,
+    "sum_individual_rad": 6.275332974560721,
+    "additive": true,
+    "analytical_rad": 0.007852345524147923
+  },
+  "5_interference": {
+    "description": "Ghost state vs {0,1,2}-braided interference",
+    "ghost_berry_rad": 0.0,
+    "braided_berry_rad": 3.1415926535897896,
+    "delta_berry_rad": 3.1415926535897896,
+    "delta_berry_pi": 0.9999999999999989,
+    "fidelity": 1.837589179357618e-15,
+    "orthogonal": true
+  },
+  "6_all_Z2_subsystems": {
+    "012": {
+      "subsystem": [
+        0,
+        1,
+        2
+      ],
+      "berry_rad": 3.1415926535897896,
+      "berry_pi": 0.9999999999999989
+    },
+    "013": {
+      "subsystem": [
+        0,
+        1,
+        3
+      ],
+      "berry_rad": 3.1415926535897896,
+      "berry_pi": 0.9999999999999989
+    },
+    "023": {
+      "subsystem": [
+        0,
+        2,
+        3
+      ],
+      "berry_rad": 3.1415926535897896,
+      "berry_pi": 0.9999999999999989
+    },
+    "123": {
+      "subsystem": [
+        1,
+        2,
+        3
+      ],
+      "berry_rad": 3.1415926535897896,
+      "berry_pi": 0.9999999999999989
+    }
+  },
+  "7_all_Aij_lassos": {
+    "A_{01}": {
+      "r_ij_rad": 0.049999999999997054,
+      "berry_numerical_rad": 6.2792591408701535,
+      "berry_analytical_rad": 0.003926172762073787,
+      "berry_analytical_pi": 0.0012497396050336063
+    },
+    "A_{02}": {
+      "r_ij_rad": 0.09999999999999945,
+      "berry_numerical_rad": 6.2674904551680095,
+      "berry_analytical_rad": 0.015694877661102887,
+      "berry_analytical_pi": 0.004995834721974179
+    },
+    "A_{03}": {
+      "r_ij_rad": 0.1499999999999988,
+      "berry_numerical_rad": 6.247908665226912,
+      "berry_analytical_rad": 0.035276699063861335,
+      "berry_analytical_pi": 0.011228922063957536
+    },
+    "A_{12}": {
+      "r_ij_rad": 0.049999999999997054,
+      "berry_numerical_rad": 6.2792591408701535,
+      "berry_analytical_rad": 0.003926172762073787,
+      "berry_analytical_pi": 0.0012497396050336063
+    },
+    "A_{13}": {
+      "r_ij_rad": 0.09999999999999945,
+      "berry_numerical_rad": 6.267490455168009,
+      "berry_analytical_rad": 0.015694877661102887,
+      "berry_analytical_pi": 0.004995834721974179
+    },
+    "A_{23}": {
+      "r_ij_rad": 0.049999999999997054,
+      "berry_numerical_rad": 6.2792591408701535,
+      "berry_analytical_rad": 0.003926172762073787,
+      "berry_analytical_pi": 0.0012497396050336063
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "n": 5,
+  "d_sys": 32,
+  "num_classes": 31,
+  "expected_num_classes": 16,
+  "num_classes_match": false,
+  "class_sizes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "unique_class_sizes": {
+    "1": 30,
+    "2": 1
+  },
+  "all_size_2": false,
+  "all_pairs_bitwise_complement": false,
+  "complement_pairs": [
+    {
+      "a": 10,
+      "b": 21,
+      "a_bin": "01010",
+      "b_bin": "10101",
+      "is_complement": true
+    }
+  ],
+  "alternating_state": {
+    "state_idx": 10,
+    "state_binary": "01010",
+    "complement_idx": 21,
+    "complement_binary": "10101",
+    "|G(alt, complement)|": 1.0,
+    "is_perfectly_coherent": true
+  }
+}

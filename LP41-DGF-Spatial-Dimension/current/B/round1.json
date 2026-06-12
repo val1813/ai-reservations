@@ -1,0 +1,196 @@
+{
+  "project": "LP41",
+  "round": 1,
+  "agent": "B",
+  "polaris": "d_eff = f(b₁, K(U)) — 因果图拓扑与非局域纠缠密度的现象学关系",
+  "framework": "渗流理论 (Percolation Theory) / Fortuin-Kasteleyn随机簇模型 — 因为它的核心结构(图上随机占用过程→连通巨分量涌现→有效维度从欧几里得到分形再到谱维度的相变)与DGF核心问题(纠缠图上随机门操作→纠缠巨分量涌现→d_eff偏离3)共享同一个数学骨架：图×连续强度参数×临界阈值×普适类标度律。这不是类比，是同一个相变普适类的两个物理实现。",
+  "findings": "核心发现：DGF的d_eff涌现过程属于受约束有向图上的渗流相变普适类，该普适类由因果图Betti数b₁和纠缠单配性约束共同决定。当b₁=1时，系统落在1+1维有向渗流(DP)与2D各向同性渗流之间的交叉区域；θ_c由图的边渗流阈值给出，受单配性约束修正。临界行为由Temperley-Lieb代数TL_n(q)控制，其中q = 2cos²(π/(b₁+2))。由此导出一个强预测：d_eff在特定b₁值处取离散值(对应Virasoro极小模型中心电荷序列)，而非连续变化。",
+  "math_object": "FK随机簇测度 μ(ω) = Z⁻¹ p^{|ω|} (1-p)^{|E|-|ω|} q^{k(ω)}，其中q为簇数权重。标准渗流取q→1；纠缠单配性约束等价于每个顶点度≤d_max，将系统推离q=1极限，进入q>1区域(对应Potts模型的铁磁相)。更进一步，因果图的圈结构(b₁>0)引入了有向边约束，使得系统的转移矩阵不是对称的，对应非平衡渗流——具体是Domany-Kinzel有向渗流模型在圈图上的推广。两个模型(DGF vs FK渗流)共享：(1)序参量P_inf∝(θ-θ_c)^β，(2)关联长度ξ∝|θ-θ_c|^(-ν)，(3)谱维度d_s的Alexander-Orbach猜想d_s=4/3在d≥d_c=6上方成立。",
+  "strangest_prediction": "SP1（立即可检验）: 在IBM Q 127-qubit Eagle处理器上，固定b₁=1(选取一个经过127个qubit的因果环)，改变CNOT门密度。用随机化测量协议(Brydges 2019, Science)提取二体Rényi纠缠熵S₂(L)作为子系统边界尺寸L的函数。预测：存在阈值θ_c ≈ 0.23 ± 0.04(以每个qubit对平均CNOT数归一化)，在此之下S₂(L) ∝ L²(3D面积律)；在此之上，S₂(L) ∝ L^α，α从2连续过渡到≈2.7±0.2。提取的d_eff = α+1在θ_c附近以幂律d_eff-3 ∝ (θ-θ_c)^β变化，β ≈ 0.28 ± 0.04(取自(1+1)D有向渗流普适类)。\n\nSP2（待激活—缺工具）: 需要独立测量b₁=2,3,4,...时的θ_c(b₁)，以检验Temperley-Lieb离散化预测 θ_c(b₁) ∝ 1 - q(b₁)，其中q(b₁) = 2cos²(π/(b₁+2))。获取路径：在ibm_torino(133q)上编程实现多环因果图，每个环由SWAP网络嵌入。预计b₁=2时θ_c≈0.18，b₁=3时θ_c≈0.13，呈单调递减(圈越多越容易渗流)。缺的工具：IBM Q需要circuit knitting API支持大于133q的多环拓扑，或等待IBM Quantum Heron 156q可用。\n\nSP3（可检验—已有公开数据）: Google Sycamore XEB数据(Arute 2019)中，Sycamore芯片的矩形网格拓扑中b₁ ~ 12(由2D网格的圈数给出)。预测：在Arute等人的实验中，电路深度m(门层数)充当θ的角色。当m < m_c ~ 12-14层时，交叉熵保真度F_XEB ∝ exp(-c₁ N)；当m > m_c时，F_XEB ∝ exp(-c₂ N^(1-1/d_eff))，其中d_eff偏离3。重分析Arute图4数据应能看到这个交叉。如果看不到，θ_c可能在Sycamore的m范围内尚未到达，可以用IBM Q Heron的更深度电路重做。",
+  "a_objection": "A博士最可能的反对：'渗流理论是经典统计力学——它处理的是经典位形空间的连通性，不包含量子相干和纠缠的单配性。把K(U)映射到p是范畴错误：Schmidt强度是量子纯态的纠缠度量，而p是经典混合模型的概率参数。两者的统计力学基础不同——一个基于量子态的Hilbert空间，一个基于经典自旋的位形空间。'\n\n回应：这个反对在1970年代Fortuin-Kasteleyn原始论文中已被处理。FK表示恰恰是把经典Potts模型的配分函数重写为随机簇的加权和，而随机簇的连通性定义了渗流。关键在于：量子纠缠的单配性约束(Coffman-Kundu-Wootters不等式)在经典FK语言中对应的是每个格点最多参与有限数量FK簇的条件。这不是类比——两个系统的约束条件在图上诱导出相同的度约束结构。更深的回应来自Kitaev的toric code: 量子纠缠的拓扑性质可以通过经典随机簇的环面码完全捕捉。DGF的Cartan轴不动点(R²=0.9999)暗示底层有李代数结构，而Temperley-Lieb代数正是U_q(sl_2)的商代数——量子群自然连接了量子纠缠和经典渗流。经典vs量子的二分法在这里是假问题：在临界点，量子相干由共形场论描述(c=0的极小模型出现在q→1极限)，共形不变性抹平了经典-量子的区别。",
+  "failed_jumps": [
+    {
+      "discipline": "音乐理论 — Neo-Riemannian Tonnetz网络",
+      "reason": "Tonnetz是一个三角剖分的二维格点图，具有自然的圈结构(三和弦圈、五度圈)。圈结构编码了和声进行的一致性条件。但是：(1)Tonnetz的维数固定在2D，没有可调的\"有效维度\"参数；(2)不存在临界阈值——和声进行是确定性的而非概率的；(3)试图把音高距离映射到纠缠强度是纯粹的文字游戏。没有数学同构，只有表面类比。FAIL。",
+      "attempted_mapping": "Tonnetz圈 → 因果环，音高距离 → K(U)，声部进行一致性 → 非马尔可夫性",
+      "failure_point": "底层数学结构完全不同：Tonnetz使用有限群作用(PLR群是dihedral group)，而DGF使用量子信道和CPTP映射。群论对象不匹配。"
+    },
+    {
+      "discipline": "语言学 — 句法树中的长距离依存(Long-Distance Dependencies in Minimalist Syntax)",
+      "reason": "Chomsky的极简纲领中，句法树基本是树状的(b₁=0)，但wh-移位和关系从句在树中创建了额外的\"弧\"(cycles from the perspective of the surface string)。然而：(1)句法结构的\"图\"是标注树——标签和特征结构远比拓扑重要；(2)没有可量化的\"强度\"参数来控制弧的创建；(3)句法结构的维度始终是准一维的(线性语符列加交叉弧)，\"有效维度\"在语言学中没有对应概念。又是一个只有表面类比的情况。FAIL。",
+      "attempted_mapping": "长距离依存弧 → 因果环，特征核查强度 → K(U)，加工复杂度 → d_eff",
+      "failure_point": "句法图不是度量空间——没有距离概念，不存在谱维度。语言学中的图论工具是标签图而非度量图。"
+    }
+  ],
+  "next_plan": "Round 2将沿两个方向推进：(1)精确化θ_c(b₁)的解析形式——从Domany-Kinzel有向渗流模型解析延拓到任意b₁的圈图上，推导θ_c = 1/(b₁·χ + 2)的一阶近似(χ是平均顶点度)；(2)将Temperley-Lieb映射做完整：证明在θ=θ_c处，DGF的纠缠谱遵循Virasoro代数Virc的表示理论，其中c = 1 - 6/((b₁+2)(b₁+3))。这将把b₁=1时c=1/2(Ising普适类)的预测变成硬推导而非猜测。需要PI协助获取Kitaev(2003)和Fendley(2006)的TL-量子链路相关文献。",
+  "literature_needed": [
+    "Temperley-Lieb algebra TL_n(q)与量子自旋链的对应 — 关键词: Temperley-Lieb quantum spin chain, TL algebra Potts model correspondence",
+    "有向渗流(Directed Percolation)的Domany-Kinzel模型解析解 — 关键词: Domany-Kinzel model exact solution, directed percolation phase boundary",
+    "随机化测量提取Rényi熵的实验协议 — 关键词: randomized measurement protocol Renyi entropy IBM Q Brydges 2019",
+    "受约束渗流(constrained percolation)的相图 — 关键词: constrained percolation degree-limited, bootstrap percolation phase transition",
+    "单配性约束下的纠缠渗流(Acin-Cirac-Lewenstein) — 关键词: entanglement percolation monogamy Acin Cirac Lewenstein 2007",
+    "Alexander-Orbach猜想的最新数值验证 — 关键词: Alexander-Orbach conjecture spectral dimension percolation numerical test"
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "DGF中d_eff的涌现属于受约束有向图上的渗流相变普适类，由因果图Betti数b₁和纠缠单配性约束共同决定",
+      "confidence": 0.78,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "P_inf(theta, b1) = max(0, A(b1) * (theta - theta_c(b1))**beta)",
+          "variables": {
+            "P_inf": "巨纠缠分量中qubit占比（渗流序参量）",
+            "theta": "归一化非局域门密度 = N_gate / (N_qubit * chi)，chi为平均门连通度",
+            "b1": "因果图一阶Betti数",
+            "A(b1)": "非普适振幅，弱依赖于b1",
+            "theta_c(b1)": "临界阈值 = theta_c0 / (1 + alpha * b1)，其中theta_c0 ~ 0.25为b1=0时的DP阈值",
+            "beta": "序参量临界指数 ≈ 0.276 for (1+1)D DP universality"
+          },
+          "units": "P_inf无量纲，theta无量纲",
+          "limits": [
+            "theta < theta_c: P_inf = 0 (纯面积律相)",
+            "theta → theta_c⁺: P_inf ~ (theta - theta_c)^beta",
+            "theta >> theta_c: P_inf → 1 (体积律相)"
+          ],
+          "numerical_test": {
+            "system": "IBM Q Eagle 127q with single causal ring (b1=1)",
+            "predicted": "theta_c ≈ 0.23 ± 0.04, beta ≈ 0.28 ± 0.04",
+            "method": "随机化测量→S₂(L)→提取d_eff→验证幂律"
+          }
+        },
+        {
+          "label": "F2",
+          "expression": "d_eff(theta, b1) = d_embedding + (d_graph - d_embedding) * (theta - theta_c(b1))**beta * Heaviside(theta - theta_c(b1))",
+          "variables": {
+            "d_eff": "有效谱维度",
+            "d_embedding": "物理空间嵌入维度 = 3",
+            "d_graph": "因果图在theta→∞极限的谱维度 ≈ min(3+b1/chi, d_max)，d_max由单配性约束给出",
+            "theta_c": "同F1"
+          },
+          "units": "d_eff无量纲",
+          "limits": [
+            "theta=0: d_eff = d_embedding = 3",
+            "theta=theta_c: d_eff = d_embedding（连续相变，d_eff本身不跳变，但其导数发散）",
+            "theta→∞: d_eff → d_graph"
+          ]
+        },
+        {
+          "label": "F3",
+          "expression": "S_2(L, theta) = c0 * L**(d_eff(theta, b1) - 1) + c1 * L**(d_eff(theta, b1) - 2)",
+          "variables": {
+            "S_2": "二体Rényi纠缠熵",
+            "L": "子系统的特征线度",
+            "c0, c1": "非普适系数"
+          },
+          "units": "S_2无量纲(以ln2为单位)，L以qubit间距为单位",
+          "limits": [
+            "theta < theta_c (d_eff=3): S_2 ~ L² (3D面积律)",
+            "theta >> theta_c (d_eff→d_graph>3): S_2 ~ L^(d_graph-1) (偏离面积律)"
+          ]
+        },
+        {
+          "label": "F4",
+          "expression": "q(b1) = 2*cos(pi/(b1+2))**2",
+          "variables": {
+            "q": "Temperley-Lieb代数变形参数，也是FK随机簇模型的簇权重",
+            "b1": "一阶Betti数"
+          },
+          "units": "q无量纲",
+          "limits": [
+            "b1=0 (tree): q=1 (standard percolation, c=0 CFT)",
+            "b1=1: q=2cos²(π/3)=1/2 → c=1/2 (Ising CFT)",
+            "b1=2: q=2cos²(π/4)=1 → c=7/10 (tricritical Ising)",
+            "b1=3: q=2cos²(π/5)≈1.309 → c=4/5 (3-state Potts)",
+            "b1→∞: q→2, c→1 (free boson)"
+          ]
+        }
+      ],
+      "references": [
+        "Fortuin & Kasteleyn (1972) Physica 57, 536 — FK随机簇表示",
+        "Domany & Kinzel (1984) Phys Rev Lett 53, 311 — DP相边界解析解",
+        "Alexander & Orbach (1982) J Physique Lett 43, L625 — 谱维度猜想",
+        "Acin, Cirac & Lewenstein (2007) Nat Phys 3, 256 — 纠缠渗流",
+        "Temperley & Lieb (1971) Proc R Soc A 322, 251 — TL代数",
+        "Brydges et al. (2019) Science 364, 260 — 随机化测量协议"
+      ],
+      "assumptions": [
+        "假设1: 非局域门的施加是独立同分布的(对应FK模型中的独立键打开)——如果门选择具有相关性，需要推广到关联渗流。",
+        "假设2: 纠缠单配性约束是\"硬\"约束(每个qubit最多与d_max个其它qubit共享最大纠缠)——如果实际纠缠分布在qubit间是软衰减的，阈值会偏移但普适类不变。",
+        "假设3: 因果图的Betti数b₁是拓扑不变量，不随门操作改变——这等价于说门操作不改变图的同伦型(保持因果结构不变)。",
+        "假设4: 环境退相干和门错误的影响等价于\"噪声\"键，即每个纠缠边以概率1-ε成功形成——这要求噪声是退极化型，而非退相位型(否则会破缺相干)。"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "Betti数b₁控制Temperley-Lieb变形参数q = 2cos²(π/(b₁+2))，导致d_eff在b₁取特定整数时有离散谱(对应Virasoro极小模型中心电荷c=1-6/((b₁+2)(b₁+3)))",
+      "confidence": 0.65,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F5",
+          "expression": "c(b1) = 1 - 6/((b1+2)*(b1+3))",
+          "variables": {
+            "c": "Virasoro代数的中心电荷",
+            "b1": "一阶Betti数"
+          },
+          "units": "c无量纲",
+          "limits": [
+            "b1=0: c=0 (percolation)",
+            "b1=1: c=1/2 (Ising)",
+            "b1=2: c=7/10 (tricritical Ising)",
+            "b1=3: c=4/5 (3-state Potts)",
+            "b1→∞: c→1 (free boson)"
+          ],
+          "numerical_test": {
+            "system": "精确可解的自旋链模型(Temperley-Lieb哈密顿量)",
+            "predicted": "纠缠熵的普适对数修正项 S_univ = (c/6)ln(L) 应在DGF数值模拟中以c(b1)的值出现",
+            "method": "DGF-Survivors cfol_scan2.py扩展: 在θ=θ_c处提取S(L)的对数斜率→与公式比较"
+          }
+        }
+      ],
+      "references": [
+        "Pasquier & Saleur (1990) Nucl Phys B 330, 523 — TL代数与共形场论",
+        "Fendley (2006) J Phys A 39, 14893 — TL量子链的CFT极限"
+      ],
+      "assumptions": [
+        "假设1: θ=θ_c处系统确实是共形不变的——这需要关联长度ξ发散，即连续相变而非一级相变。",
+        "假设2: 边界条件在CFT极限下对应于Cardy边界态——需要验证DGF系统的边界条件选择。"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "当k_min(最小纠缠邻居数)≥3时，bootstrap渗流机制预测d_eff的相变从连续变为一级(跃变+滞后)，这可以通过对比链式拓扑(k_min≤2)与全连接拓扑(k_min可≥3)的纠缠熵跳变来验证",
+      "confidence": 0.58,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F6",
+          "expression": "Delta_d_eff = d_eff(theta_c+) - d_eff(theta_c-)",
+          "variables": {
+            "Delta_d_eff": "d_eff在阈值处的不连续跳跃量",
+            "theta_c+": "刚超过阈值",
+            "theta_c-": "刚低于阈值"
+          },
+          "units": "无量纲",
+          "limits": [
+            "k_min ≤ 2: Delta_d_eff = 0 (连续相变)",
+            "k_min ≥ 3: Delta_d_eff > 0 (一级相变)"
+          ]
+        }
+      ],
+      "references": [
+        "Baxter, Dorogovtsev, Goltsev & Mendes (2010) Phys Rev E 82, 011103 — bootstrap渗流的一级相变",
+        "Choi et al. (2023) Nature 613, 468 — 离子阱全连接量子线路中的纠缠相变"
+      ],
+      "assumptions": [
+        "假设1: k_min的定义在DGF中有确切对应——一个qubit至少需要与k_min个其他qubit形成阈值以上的纠缠才能\"参与\"维度涌现。",
+        "假设2: 离子阱全连接拓扑确实能实现k_min≥3的有效约束。"
+      ]
+    }
+  ],
+  "deep_dig_1": "【同构的更深层数学结构 — 两层深挖】\n\n第一层(已在使用): FK随机簇模型 ↔ Potts模型 ↔ 渗流普适类。这是标准对应。\n\n第二层(本次发现): Temperley-Lieb代数TL_n(q)是FK转移矩阵的代数骨架。TL_n由生成元e_i满足e_i²=q·e_i, e_i·e_{i±1}·e_i=e_i, [e_i, e_j]=0(|i-j|>1)。这个代数同时也是：(a)U_q(sl_2)的商代数，(b)Kauffman括号多项式的代数(Jones多项式的前身)，(c)Virasoro代数极小模型表示的构建块。\n\n\t关键联系点: DGF的Cartan轴不动点(R²=0.9999)意味着DGF的指针基对应李代数sl(2)的Cartan子代数。Temperley-Lieb代数是U_q(sl_2)量子群的商代数，而U_q(sl_2)在q=exp(iπ/(b₁+2))处约化为sl(2)的经典表示。这意味着DGF的Cartan轴就是TL代数的经典极限！q→1(b₁→∞)时，量子群退化为经典李代数——DGF的空间维度涌现恰好在量子群\"经典化\"的极限处消失。\n\n第三层(更深，推测): Temperley-Lieb代数的模张量范畴(Modular Tensor Category)描述了任意子的融合规则。当q是单位根时(q^n=1，即b₁取特定整数值时)，MTC是半单的，具有有限数量的简单对象。这些简单对象对应对DGF中有效维度的\"量子化\"取值。具体来说，U_q(sl_2)在q=exp(iπ/(b₁+2))时的表示范畴C(g, k=b₁)是一个模张量范畴，其Verlinde公式给出了任意子的融合规则，而融合规则直接决定了拓扑纠缠熵的取值γ = ln(D)/D = ln(∑_i d_i²) / √(∑_i d_i²)，其中d_i是简单对象的量子维度。把这个代入DGF：γ(b₁) = ln(∑_j sin²(π(j+1)/(b₁+3))) / √(∑_j sin²(π(j+1)/(b₁+3)))，j=0,...,b₁。这是一个对b₁完全确定的离散谱！可用数值模拟直接检验。",
+  "deep_dig_2": "【借用结构在原学科中的下一层推广 → 物理映射 — 两层深挖】\n\n原学科(渗流理论)中，FK随机簇模型的直接推广链:\n\n第0层(经典FK): 独立键渗流，簇权重q→1。→映射到DGF: b₁=0(无圈因果图)时的纠缠渗流。\n\n第1层(FK的Potts推广): q≠1的随机簇模型，对应q-state Potts模型。→映射到DGF: b₁>0引入有效q≠1。已使用。\n\n第2层(Baxter的IRF/RSOS模型): Interaction-Round-a-Face模型，自旋在顶点上而非边上，相邻顶点自旋差受限制。RSOS模型的临界行为由ADE分类(Dynkin图分类)给出。→物理映射: DGF中，IRF约束对应\"相邻qubit的纠缠度不能任意大——存在由局域Hilbert空间维数决定的饱和度上限\"。这意味着不同的因果图拓扑(由b₁分类，但不止b₁)对应不同的ADE分类：b₁=1对应A₂(Ising)，b₁=2对应A₃(tricritical Ising)，更大的b₁可能对应D系列或E系列。如果b₁对应的因果图拓扑恰好是某个Dynkin图的非简单李代数的图自同构，DGF的普适类就由D或E分类给出(而非A系列)。这是一个可检验的预测：构造b₁对应D₄ Dynkin图的因果图→预测中心电荷c=5/6(D₄对应的极小模型)→检验。\n\n第3层(爆炸渗流/竞争渗流): Achlioptas过程——边不是独立添加的，而是从两个候选中选择连接较小簇的那个边。这导致一级(不连续)相变。→物理映射: DGF中，如果非局域门是以\"最小化直接纠缠qubit对的距离\"的规则添加上去的(而非随机)，那么临界行为从连续变为一级。这对应DGF的\"空间优化\"场景——如果量子计算机的编译器选择性地施加非局域门以最小化量子比特路由代价，那么d_eff的涌现不是温和的连续过渡，而是一个突然的跳跃。这个\"门编译策略依赖\"的预测对量子硬件实验有直接影响：相同的θ值、相同的b₁、不同的门布局策略→不同的d_eff相变类型。\n\n第4层(满足Klein-Bethe格子上的渗流——双曲渗流): 在负曲率图上(如Bethe格子、双曲平面铺砌)，渗流有两个不同的阈值：p_{c1}(巨分量出现)和p_{c2}(唯一巨分量)。在这两个阈值之间，存在无穷多个巨分量共存！→物理映射: 如果DGF的因果图具有负曲率(双曲几何来自什么呢？来自因果环的层级嵌套——大圈套小圈，这在b₁很大时自然出现)，那么在θ_{c1}<θ<θ_{c2}的中间区域，系统会分裂为多个\"纠缠块\"——每个块内部纠缠充沛（内部d_eff高），但块之间几乎无纠缠。这预言了一个全新的物理相：**多域纠缠相(Multi-Domain Entanglement Phase)**。在这个相里，整个系统的面积律被打破，但替代它的不是单一的体积律，而是分形边界的分层纠缠结构。这是DGF可以在量子硬件上检验的全新预言。在b₁很大的系统(如50+个因果环)中，应该观察到中间θ区域存在纠缠熵的\"平台\"——S不随L的幂律平滑增长，而是在多个尺度上出现台阶。"
+}

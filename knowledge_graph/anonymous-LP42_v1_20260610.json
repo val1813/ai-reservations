@@ -1,0 +1,83 @@
+{
+  "contributor": {
+    "github": "anonymous",
+    "orcid": "anonymous",
+    "project": "LP42-GhostZero",
+    "version": "v1.0",
+    "date": "2026-06-10"
+  },
+  "north_star": {
+    "id": 1,
+    "title": "幽灵零点完整分类: QCMI景观的代数几何+Morse理论+拓扑不变量",
+    "status": "completed_R3",
+    "conclusion_type": "突破——I(S)=|E|-|S| Z-值拓扑不变量分类QCMI零点集"
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "key_finding": "Z_B非零维(|E|+1维Morse-Bott临界子流形), 2^{|E|}个Z_S不可约分量, 无Z_C"
+    },
+    {
+      "round": 2,
+      "key_finding": "所有Z_S Morse指数μ=0, Hessian解析公式, 幽灵度γ_S, 纠缠消灭幽灵, b₁=2验证"
+    },
+    {
+      "round": 3,
+      "key_finding": "I(S)拓扑不变量构造(A+B双路径), p边界μ跃变=坐标artifact, 非对齐幽灵不存在, SU(N)推广, 辫群拓扑"
+    }
+  ],
+  "core_claims": [
+    {
+      "id": "C-core-1",
+      "statement": "QCMI零点集=分层代数簇∪_{S⊆{1,...,|E|}} Z_S, 2^{|E|}不可约分量, dim(Z_S)=|E|+|S|",
+      "confidence": 0.95
+    },
+    {
+      "id": "C-core-2",
+      "statement": "I(S)=|E|-|S|是Z-值拓扑不变量(Berry相积分=-π/ghost边), 标记QCMI零点连通分量",
+      "confidence": 0.92
+    },
+    {
+      "id": "C-core-3",
+      "statement": "所有Z_S在内部点Morse指数μ=0——全局极小值子流形, 由Morse-Bott类型(t⁻,t⁰,t⁺)区分",
+      "confidence": 0.94
+    },
+    {
+      "id": "C-core-4",
+      "statement": "幽灵零点=乘积环境初态特权——纠缠初态消灭幽灵零点(A+B双路径汇合)",
+      "confidence": 0.93
+    },
+    {
+      "id": "C-core-5",
+      "statement": "非对齐幽灵零点严格不存在——所有ghost边轴必须共线",
+      "confidence": 0.97
+    },
+    {
+      "id": "C-core-6",
+      "statement": "SU(N)推广: dim(Z_B)=(N-1)|E|, 幽灵在大N极限消失(~1/N)",
+      "confidence": 0.85
+    }
+  ],
+  "sub_propositions": [
+    "S1: I(S)从Morse-Bott多项式直接推导(非Berry相)",
+    "S2: 辫群表示ρ: B_{|E|}(S²)→Aut(H_*(M))显式计算",
+    "S3: Atiyah-Singer指数定理连接I(S)=index(D_S)证明",
+    "S4: p=0边界GM正常Morse数据完整同调计算",
+    "S5: SU(3) qudit QCMI显式数值景观",
+    "S6: QFI增强标度+超Heisenberg实验方案"
+  ],
+  "north_star_queue_entries": [
+    {"id": 1, "name": "幽灵零点完整分类", "score": 9.25, "status": "completed"},
+    {"id": 8, "name": "幽灵零点作为量子-经典过渡探针 (AHA#1)", "score": 8.50, "status": "candidate"},
+    {"id": 11, "name": "Z_C退化存在预测 (AHA#4证伪)", "score": 8.10, "status": "falsified"},
+    {"id": 12, "name": "幽灵谱系拓扑基态简并 (AHA#5)", "score": 7.90, "status": "candidate"},
+    {"id": 9, "name": "QCMI景观作为DL可解模型 (AHA#2)", "score": 7.70, "status": "candidate"},
+    {"id": 10, "name": "物理奇点分层Morse统一方法论 (AHA#3)", "score": 7.55, "status": "candidate"}
+  ],
+  "reviewer_verdict": {
+    "journal": "Nature Physics → PRL (降级建议)",
+    "fatal_issues": ["R2.4 γ_S仅区分|E|+1级别(非2^{|E|}分层)", "R3.9与Rams et al. 2018 (PRX 8, 021022)语境重叠"],
+    "pi_independent_verification": "Rams et al.真实但语境不同; γ_S标注已修正",
+    "recommendation": "修正R2.4+R3.9后投稿PRL"
+  }
+}

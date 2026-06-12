@@ -1,0 +1,35 @@
+{
+  "project": "DGF-Survivors",
+  "lp_number": "LP30-LP40",
+  "target_journal": "PRL",
+  "paper_type": "research",
+  "output_language": "English",
+  "build_mode": "rewrite_existing",
+  "input": {
+    "main_tex": "main.tex",
+    "supplemental_tex": "supplemental.tex",
+    "cover_letter": "cover_letter.txt",
+    "materials_dir": "../",
+    "reference_files": [
+      "01-established-results.md",
+      "06-cfol-sufficiency-calc.md",
+      "07-cfol-inspector-review.md",
+      "13-wall-ab-corrected.md",
+      "12-reviewer-response.md",
+      "19-ibmq-hardware-results.md",
+      "21-experimental-framework.md"
+    ]
+  },
+  "journal_constraints": {
+    "max_words": 3750,
+    "max_abstract_words": 120,
+    "max_refs": 30,
+    "max_figures": 6,
+    "citation_style": "superscript-brackets",
+    "section_style": "no-numbered-headings"
+  },
+  "status": {
+    "phase": "Phase 0",
+    "step": "intake_started"
+  }
+}

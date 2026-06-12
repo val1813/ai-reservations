@@ -1,0 +1,12 @@
+{
+  "round": 2,
+  "branch": "B2 phenomenology",
+  "conclusion": "DGF = GR at all non-cosmological scales accessible to current observations",
+  "testable_predictions_remaining": [
+    "DESI w(z) non-monotonicity (D5, already computed)",
+    "CMB non-Gaussianity (W topological features)",
+    "LIGO ringdown (soft boundary signal in post-merger)"
+  ],
+  "wall_status": "Partially mapped -- RG flow from causal graph to continuum q-field is the critical gap",
+  "recommendation": "Shift to CMB non-Gaussianity as next phenomenological test"
+}

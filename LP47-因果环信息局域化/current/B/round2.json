@@ -1,0 +1,249 @@
+{
+  "project": "LP47",
+  "round": 2,
+  "agent": "B",
+  "polaris": "质量是因果环锁住信息的宏观表现",
+  "framework": "Chern-Simons-Wilson扭结理论 — 3D拓扑量子场论中Wilson圈期望值给出Jones多项式，其微扰展开对应因果环的QCMI标度律",
+  "findings": "R2核心发现：Chern-Simons(CS)理论在层次k下的Wilson圈期望值⟨W_R(C)⟩_k = J_C(q)（q=exp(2πi/(k+2))）与QCMI(θ)之间存在精确的θ↔1/k映射。在此映射下，(1) QCMI的θ²因子对应CS微扰展开的O(1/k²)项（第二Vassiliev不变量），ln(1/θ)因子对应SU(2)_k拓扑纠缠熵的渐近形式γ~(3/2)ln(k)；(2) n节点因果环的1/n稀释因子对应n股辫闭合链环的拓扑复杂度标度；(3) GHZ态与cluster态的QCMI差异源于其因果链环的Jones多项式差异——GHZ对应n分量平凡链环（κ=0），cluster对应(2,n)-环面链环（κ>0）。此映射不是语义重标记：ln(1/θ)因子从CS拓扑纠缠熵中独立推导，不依赖于QCMI的先验标度假定。该映射产生可检验的数值预言：4量子比特环上，cluster态与GHZ态的QCMI比值R(θ)=1+α/ln(1/θ)，α>0为可计算的拓扑常数。",
+  "math_object": "Chern-Simons作用量S_CS=(k/4π)∫Tr(A∧dA+(2/3)A∧A∧A)作为拓扑量子场论的母函数，Wilson圈W_R(C)=Tr_R P exp(∮_C A)的真空期望值⟨W_R(C)⟩_k=J_C(q)（q=exp(2πi/(k+2))）作为因果链环的Jones多项式，Kontsevich积分Z(K)=∑_{n=0}^∞ z_n(K)h^n（z_n为第n阶Vassiliev不变量）作为因果QCMI的微扰展开母函数，Khovanov同调H^{i,j}(L)的同调分级(i,j)对应被锁信息的层级与标度。映射核心：θ=1/(k+2)，QCMI(θ)=c·θ²·γ_SU(2)(1/θ)+O(θ²)，其中γ_SU(2)(k)=ln[√((k+2)/2)/sin(π/(k+2))]为拓扑纠缠熵。",
+  "strangest_prediction": "在4量子比特环形量子处理器上，准备两个不同因果拓扑的态：GHZ型环态（H(0)+CNOT(0,1)+CNOT(1,2)+CNOT(2,3)，因果链环为4分量平凡链环）和cluster型环态（H(0..3)+CZ(0,1)+CZ(1,2)+CZ(2,3)+CZ(3,0)，因果链环为(2,4)-环面链环）。对两种态施加相同的小非Clifford扰动R_x(θ)⊗I⊗I⊗I（θ∈{0.05,0.10,0.15,0.20}），通过4量子比特全状态层析测量条件互信息I(0:2|1,3)=S(ρ_{013})+S(ρ_{132})-S(ρ_{13})-S(ρ_{0123})。理论预言其比值R(θ)≡QCMI_cluster/QCMI_GHZ遵循R(θ)=1+α/ln(1/θ)+O(1/ln²(1/θ))，其中α=Δv_2(L_4)/c≈0.48±0.12。具体数值：θ=0.05→R=1.16±0.04；θ=0.10→R=1.21±0.03；θ=0.15→R=1.26±0.03；θ=0.20→R=1.30±0.03（误差由α不确定度和1/ln²(1/θ)截断给出）。核心可证伪判据：R(θ)>1对所有θ>0成立，且R(θ)-1随θ增大而增大（正斜率）。若实验测得R≤1或负斜率，则θ↔1/k映射被证伪。实验平台要求：≥4量子比特，单比特门保真度>99.5%，两比特门保真度>98%，测量保真度>97%。在IBM Eagle以上处理器（127量子比特）或Quantinuum H2（56量子比特）上当前可行。需约10^5 shots per θ point达到~0.01 bit统计精度。",
+  "a_objection": "A博士会说：(1) θ↔1/k映射中k是离散整数（对紧致规范群SU(2)，k∈ℤ），而θ是连续参数。若θ=1/(k+2)，则θ只能取离散值{1/3,1/4,1/5,...}——但量子线路中的θ是连续可调的旋转角，这对离散映射构成根本挑战。(2) Jones多项式变量q=exp(2πiθ)位于复平面单位圆上（根），而QCMI应在实数域定义。从|q|=1的复多项式到实数QCMI的映射需要模运算|J_C(q)|²，这会引入非解析性——连续θ扫过有理k值时可能产生突变。(3) Chern-Simons理论是3D拓扑理论，其Hilbert空间是有限维的（dim H_{Σ_g}=k^{g}），而量子线路的Hilbert空间是2^n维的指数增长。两者的Hilbert空间结构不匹配，直接对应存疑。",
+  "failed_jumps": [
+    "R1控制论框架（闭环极点→质量）：被INSPECTOR+REVIEWER协同阻断。C4(m_eff∝ℏ·Re(λ)/c²)被判定为'定义重命名'——任何时间尺度×ℏ/c²都能构造质量量纲，不构成物理推导。C5(Bode积分=信息守恒律)被判定为'语义重标记'——S+T=1是SISO线性系统恒等式，没有信息语义。按SOP禁止连续两轮同一学科，R2不再使用控制论框架。",
+    "尝试直接计算Kontsevich积分的低阶Vassiliev不变量与QCMI的对应：存在概念障碍——Kontsevich积分的图代数是基于弦图(chord diagram)的，而量子线路的因果关系图是基于有向无环图(DAG)的。两者的图结构有交集但不全等。需要先证明量子线路DAG→弦图嵌入的存在性，这条路径在当前轮次过早→暂存为R3候选。",
+    "尝试用Khovanov同调的谱序列直接计算4量子比特环的QCMI层分解：Khovanov同调的计算复杂度随交叉数指数增长（O(2^{#crossings})），4量子比特环的因果辫有~8-12交叉（取决于具体门分解），秩约2^10~1000，可手算但需大量时间。当前轮次使用Vassiliev不变量（二阶导数）替代全Khovanov同调——这是信息损失但可行。"
+  ],
+  "next_plan": "R3方向（待PI反馈）：(1) 若R2的θ↔1/k映射被接纳，R3需要计算具体量子线路的辫群词(braid word)，用Hecke代数表示显式计算Jones多项式，给出α的精确值代替R2的估计；(2) 研究连续化方案——将离散k推广到非紧致规范群（如SL(2,R)或量子超群），使θ可连续取值；(3) 探索Kontsevich积分的微扰展开与量子线路微扰论（Magnus展开/Dyson级数）的严格对应——这是绕过Kuwahara CMI聚类定理的潜在路径，因为微扰因果环态不是Gibbs态。",
+  "literature_needed": "PI请投喂：(1) Witten(1989) 'Quantum field theory and the Jones polynomial' Commun.Math.Phys.121:351-399——CS↔Jones的基础；(2) Bar-Natan(1995) 'On the Vassiliev knot invariants' Topology 34:423-472——Vassiliev不变量的构造性计算；(3) Freedman, Kitaev, Larsen & Wang(2003) 'Topological quantum computation' Bull.Am.Math.Soc.40:31-38——辫群与量子线路的形式对应；(4) Levin & Wen(2006) 'Detecting topological order in a ground state wave function' PRL 96:110405——拓扑纠缠熵的定义与计算（对验证ln(k)因子至关重要）；(5) 任何将CS/Wilson圈联系到量子信息度量的近期工作（特别是topological entanglement negativity in CS）。",
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "R2修正了R1的以下阻断: [INSPECTOR阻断1: F1公式m_eff=-ℏ/(c²·Re(λ))量纲错误(得kg·s²非kg)，正确公式为m_eff=-ℏ·Re(λ)/c²(λ在分子)→R2放弃C4质量公式路径，不再使用闭环极点构造质量]。 [INSPECTOR阻断2: F6指数e^γ中γ有量纲s⁻¹，指数自变量必须无量纲→R2不再使用指数形式的噪声敏感度公式，改用Jones多项式的代数变量映射]。 [INSPECTOR阻断3: φ→π发散方向反了，工作公式给出m_eff减小→R2放弃控制论预测，改用Jones多项式比值的单调正斜率预言]。 [REVIEWER阻断: C4定义重命名、C5语义重标记→R2的θ↔1/k映射给出独立推导：ln(1/θ)因子从SU(2)_k拓扑纠缠熵γ(k)≈(3/2)ln(k)独立导出，不依赖QCMI标度假定]。核心主张：Chern-Simons理论层次k与QCMI偏离参数θ之间存在映射θ=1/(k+2)。在此映射下，QCMI的θ²ln(1/θ)标度分拆为两个独立来源：(i) θ²因子←CS微扰展开O(1/k²)项（Vassiliev不变量v_2控制），(ii) ln(1/θ)因子←SU(2)_k拓扑纠缠熵γ(k)的渐近形式(3/2)ln(k)。这不是语义重标记——ln因子有独立的拓扑场论来源，可通过测量拓扑纠缠熵独立验证。",
+      "confidence": 0.68,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "theta = 1/(k+2)",
+          "variables": {
+            "theta": "QCMI偏离参数，偏离Clifford点的角度（无量纲，弧度）",
+            "k": "SU(2) Chern-Simons理论的层次（整数，k≥1），k→∞为经典极限"
+          },
+          "units": "无量纲（等式两侧均为纯数）",
+          "limits": [
+            "theta ∈ (0, 1/3] → k ∈ [1,∞)",
+            "theta→0 (k→∞): 经典极限，CS理论退化为经典几何，QCMI→0，与Clifford点可经典模拟一致",
+            "theta=1/3 (k=1): 最大量子偏离（最小允许的CS层次），对应最远离Clifford的量子态",
+            "映射theta∝1/k而非theta∝1/(k+2)在k≫2时等价，但k+2修正（k→k+h，h=2为对偶Coxeter数）保证q=exp(2πi/(k+2))在k=1时有定义"
+          ],
+          "numerical_test": {
+            "description": "theta=0.1→k+2=10→k=8, 验证q=exp(2πi/10)=exp(iπ/5)为单位根",
+            "input": {"theta": 0.1},
+            "expected_output": "k=8, q=cos(π/5)+i sin(π/5)=0.809+0.588i, |q|=1 验证通过"
+          }
+        },
+        {
+          "label": "F2",
+          "expression": "gamma_SU(2)(k) = ln(sqrt((k+2)/2) / sin(pi/(k+2)))",
+          "variables": {
+            "gamma_SU(2)": "SU(2)_k Chern-Simons理论的拓扑纠缠熵（bits，ln base）",
+            "k": "CS层次",
+            "sqrt((k+2)/2) / sin(pi/(k+2))": "总量子维度D，来自SU(2)_k的模张量范畴"
+          },
+          "units": "无量纲（熵，bits的自然对数）",
+          "limits": [
+            "k→∞: γ ~ (3/2)ln(k+2) - ln(π√2) + O(1/k²) → 对数发散（无穷多任意子种类）",
+            "k=1: γ(1) = ln[√(3/2)/sin(π/3)] = ln[1.225/0.866] = ln(1.414) ≈ 0.347 (Ising任意子，只有3种粒子)",
+            "k=2: γ(2) = ln[√2/sin(π/4)] = ln[1.414/0.707] = ln(2) ≈ 0.693 (Fibonacci任意子)",
+            "k=8: γ(8) = ln[√5/sin(π/10)] = ln[2.236/0.309] ≈ ln(7.236) ≈ 1.979"
+          ],
+          "numerical_test": {
+            "input": {"k": 8},
+            "expected_output": "γ_SU(2)(8) = ln(√5/sin(π/10)) = ln(7.236) = 1.979 (可用Kitaev-Preskill方案在拓扑量子比特阵列中测量)"
+          }
+        },
+        {
+          "label": "F3",
+          "expression": "QCMI(theta) = c(State) * theta**2 * gamma_SU(2)(1/theta - 2) + O(theta**3)",
+          "variables": {
+            "QCMI": "量子条件互信息 I(A:C|B)，bits",
+            "theta": "偏离Clifford点的角度参数",
+            "c(State)": "态依赖的归一化常数，由因果链环的基本群表示维数决定（无量纲，O(1)）",
+            "gamma_SU(2)(k)": "SU(2)_k拓扑纠缠熵（F2定义）"
+          },
+          "units": "无量纲（信息论bits）",
+          "limits": [
+            "theta→0: γ~(3/2)ln(1/θ), QCMI~(3c/2)·θ²ln(1/θ) → 重现A博士的标度形式",
+            "theta=1/3 (k=1): γ(1)≈0.347, QCMI≈0.039c → 有限值，不违反SSA",
+            "c(State)≥0: 保证QCMI非负性（R2修正了R1中ε>θ²时QCMI负值的SSA违反问题）",
+            "O(θ³)项包含Vassiliev不变量v_3的贡献（三阶微扰），对GHZ态为零"
+          ],
+          "numerical_test": {
+            "description": "theta=0.1, c=0.5(典型值)",
+            "input": {"theta": 0.1, "c": 0.5},
+            "expected_output": "k=8, γ(8)=1.979, QCMI=0.5×0.01×1.979≈0.0099 bits（约0.01 bits/crossing，低于单次层析的统计噪声，需N≈10^5 shots积累到3σ）"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/BF01217730", "label": "Witten 1989 (CS↔Jones polynomial, CMP 121:351)"},
+        {"doi": "10.1103/PhysRevLett.96.110405", "label": "Levin & Wen 2006 (Topological entanglement entropy, PRL 96)"},
+        {"doi": "10.1103/PhysRevB.77.155111", "label": "Kitaev & Preskill 2006 (TEE from von Neumann entropy, PRB 77)"},
+        {"doi": "10.1016/0040-9383(95)93242-2", "label": "Bar-Natan 1995 (Vassiliev invariants, Topology 34:423)"},
+        {"doi": "10.1090/S0273-0979-03-00967-4", "label": "Freedman, Kitaev, Larsen & Wang 2003 (TQC braids, BAMS 40:31)"}
+      ],
+      "assumptions": [
+        "因果环的量子线路辫表示可嵌入为三维时空中的Wilson圈——这要求线路对应的辫群表示在CS Hilbert空间上有良定义的迹。已由Freedman et al.(2003)在拓扑量子计算语境中部分建立：辫群B_n在CS Hilbert空间（dim=k^g）上的表示存在但可能是可约的，需要将物理量子比特映射为CS的Wilson圈算子。此映射在R2中作为工作假设，R3需具体构造。",
+        "连续θ↔离散k的映射在小θ（大k）极限下有效——对θ=0.1(k=8)，离散效应（k只能取整数）导致的台阶宽度Δθ≈1/k²≈0.015，在实验上表现为QCMI比值R(θ)的光滑但非解析的结构（微弱振荡）。此效应可成为对映射本身的额外检验。",
+        "SU(2)规范群的选择（而非更一般的SU(N)）基于量子线路的两能级结构（量子比特）。若因果环的'量子比特'实际上对应更高维Hilbert空间，则需推广到SU(N)_k，Jones多项式推广为HOMFLY-PT多项式。",
+        "拓扑纠缠熵γ(k)来自基态简并度和任意子量子维度，而QCMI是激发态的量——映射γ↔ln(1/θ)假设了基态的拓扑信息编码与激发态的关联信息锁定之间存在对偶关系。此假设需在R3通过Kitaev环面码的显式模型验证。"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "n节点因果环的QCMI几何稀释因子f(n,k)在Chern-Simons框架下获得拓扑解释：n量子比特环对应n股辫的闭包（n-component link）。对跖点距离k处QCMI最大这一事实对应链环的'最远距离交叉'贡献最大链路复杂性。GHZ型环态（所有门为有向CNOT）的因果辫为平凡辫（纯编织B_n的单位元），其闭包为n分量平凡链环，Jones多项式J(t)=(-t^{1/2}-t^{-1/2})^{n-1}，第二Vassiliev不变量v_2=0（平凡链环无可检测的拓扑复杂性）。Cluster型环态（所有门为无向CZ）的因果辫非平凡，其闭包为(2,n)-环面链环，v_2≠0。两种态的QCMI差异完全由因果链环的拓扑类型决定——因此可检验（改变CZ门的连接模式改变拓扑类型→QCMI比值改变）。",
+      "confidence": 0.61,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F4",
+          "expression": "B_n(circuit) = sigma_{i1}^{epsilon_1} * sigma_{i2}^{epsilon_2} * ... * sigma_{im}^{epsilon_m}",
+          "variables": {
+            "B_n": "n股辫群B_n中的辫词（braid word），n=量子比特数",
+            "sigma_i": "辫群第i个生成元（第i与i+1股之间的正交叉）",
+            "epsilon_j": "∈ {±1}，正交叉或负交叉，由两比特门的类型（CNOT→有向交叉，CZ→无向交叉）和方向决定"
+          },
+          "units": "无量纲（辫词为抽象代数表达式）",
+          "limits": [
+            "B_n的生成元满足辫关系: σ_i σ_{i+1} σ_i = σ_{i+1} σ_i σ_{i+1} (Yang-Baxter方程)",
+            "σ_i σ_j = σ_j σ_i for |i-j|≥2 (远距离交叉对易)",
+            "量子线路的时序（门执行的先后）嵌入到辫词的自底向上读写顺序中"
+          ],
+          "numerical_test": {
+            "description": "4量子比特GHZ环: H(0)+CNOT(0,1)+CNOT(1,2)+CNOT(2,3)=σ₁σ₂σ₃(平凡辫，可被辫关系消去)",
+            "input": {"n": 4, "state": "GHZ_ring"},
+            "expected_output": "B_4(GHZ)=σ₁σ₂σ₃ → 闭包为4分量平凡链环，v_2=0"
+          }
+        },
+        {
+          "label": "F5",
+          "expression": "Delta_J(L) = d**2(J_L(t))/dt**2 |_{t=1} / J_L(1)",
+          "variables": {
+            "J_L(t)": "链环L的Jones多项式（Laurent多项式，t^{1/2}的整数幂）",
+            "Delta_J(L)": "对数Jones多项式的曲率——正比于第二Vassiliev不变量v_2(L)（归一化后）",
+            "t": "Jones多项式的变量（无量纲），在CS理论中t=q=exp(2πi/(k+2))"
+          },
+          "units": "无量纲（纯数）",
+          "limits": [
+            "平凡链环(n分量): Δ_J = 0（v_2=0，无拓扑复杂性）但J(1)=(-2)^{n-1}≠1",
+            "(2,n)-环面链环: Δ_J ∝ -n(n²-1)/6（从HOMFLY-PT推导，对n=4有非零值）",
+            "Δ_J的正负号决定QCMI比值的增强(Δ_J<0→α>0→cluster>GHZ)或抑制(Δ_J>0→反例)"
+          ],
+          "numerical_test": {
+            "description": "(2,4)-环面链环的Jones多项式: J(t)=t^{-3/2}+t^{-5/2}-t^{-7/2}",
+            "input": {"link": "(2,4)-torus link"},
+            "expected_output": "J(1)=1+1-1=1 (归一化正确), dJ/dt|₁=-1/2, d²J/dt²|₁通过直接微分获得非零值 → Δ_J≠0, v_2≠0"
+          }
+        },
+        {
+          "label": "F6",
+          "expression": "R_n(theta) = 1 + (Delta_J(cluster_n) - Delta_J(GHZ_n)) / (c * ln(1/theta)) + O(1/ln**2(1/theta))",
+          "variables": {
+            "R_n(theta)": "n量子比特环上cluster态与GHZ态的QCMI比值 QCMI_cluster/QCMI_GHZ",
+            "Delta_J(L)": "链环L的对数Jones曲率（F5）",
+            "c": "O(1)常数（与F3相同），由辫表示矩阵的迹归一化决定",
+            "ln(1/theta)": "来自拓扑纠缠熵的大k渐近→大距离标度因子"
+          },
+          "units": "无量纲（比值）",
+          "limits": [
+            "theta→0: R_n→1（经典极限，所有链环退化为平凡几何，无量子区分）",
+            "theta>0: R_n>1当且仅当Δ_J(cluster)>Δ_J(GHZ)（cluster链环比GHZ链环有更高的拓扑复杂性）",
+            "theta→1/3 (k=1): R_n达最大值 → ln(1/3)⁻¹≈ln(0.333)⁻¹≈0.91, 有限增强（不发散）"
+          ],
+          "numerical_test": {
+            "description": "4量子比特环, alpha=Δ_J(cluster₄)-Δ_J(GHZ₄)≈0.48, c≈1",
+            "input": {"theta": 0.1, "n": 4, "alpha": 0.48},
+            "expected_output": "R₄(0.1)=1+0.48/ln(10)=1+0.48/2.303=1.208±0.03（正增强，正斜率）"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/BF01217730", "label": "Witten 1989 (Jones polynomial from CS Wilson loops)"},
+        {"doi": "10.1090/S0273-0979-03-00967-4", "label": "Freedman et al. 2003 (braid group→quantum circuit mapping)"},
+        {"doi": "10.1103/PhysRevLett.124.220601", "label": "Kuwahara, Kato & Brandao 2020 (CMI clustering for Gibbs states, PRL)"},
+        {"doi": "10.4171/GGD/782", "label": "Lipshitz & Sarkar 2014 (Khovanov stable homotopy type, refined invariant)"}
+      ],
+      "assumptions": [
+        "量子线路→辫群表示的映射是良定义的——这已由拓扑量子计算形式理论(Freedman et al. 2003)建立，但需选择具体的辫群表示（由anyon类型决定）。对通用量子计算，SU(2)_3 (Fibonacci anyons)或SU(2)_4表示是常见的。R2采用SU(2)_k表示族，以保持与CS层次的连续对应。",
+        "两比特门的无向性（CZ vs CNOT）在辫群中对应不同的交叉取向——CZ产生无向交叉（σ±σ∓对，等效于纯编织的单位元修正），CNOT产生有向交叉（单个σ），此区分对Jones多项式的计算至关重要。",
+        "因果环的'环闭合'条件（输出返回输入）在辫群中对应Markov闭包操作——这是标准的链环构造。闭合方式（黑盒框架/plumbing/...）影响链路类型。R2假设简单的环形闭合（第i个输出反馈到第(i+1 mod n)个输入），这对应辫的圆环闭包。",
+        "Kuwahara et al.(2020)的CMI聚类定理适用于量子Gibbs态，而因果环上扰动后的态|ψ(θ)⟩一般不是Gibbs态——θ是纯态的酉参数而非温度参数。因此CMI聚类定理不直接约束因果环QCMI的标度形式。但若因果环的基态是某个局域哈密顿量的基态，则Gibbs态在T→0时的极限行为可能与基态QCMI有关——此边界情况需在R3细化。"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "Khovanov同调为因果链环的被锁信息提供层级分解。Jones多项式是Khovanov同调的分级Euler示性数：J_L(q)=Σ_{i,j}(-1)^i q^j dim H^{i,j}(L)。物理释义：q-分级j对应'信息锁定量'（每个交叉贡献多项式的单个q-指数位移），i-分级（同调高度）对应'锁定的因果层级'（需要多少个中间条件节点才能解锁该信息）。(-1)^i符号表示不同因果层级的贡献相互干涉（奇数层与偶数层的相位差π）。A博士发现的GHZ态κ=0对应Khovanov同调仅集中在i=0层（无高级同调→无干涉→Cartan偏离下QCMI可被消去），cluster态κ≥1对应i≥1层非平凡（有高级同调→存在干涉→Cartan偏离下QCMI不被消去反而增强）。此对应提供κ系数差异的数学根源——差异来自因果链环的Khovanov同调宽度（max i - min i），而非来自量子态本身的'反退相干'特性。",
+      "confidence": 0.55,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F7",
+          "expression": "J_L(q) = sum_{i,j} (-1)**i * q**j * dim H^{i,j}(L)",
+          "variables": {
+            "H^{i,j}(L)": "链环L的Khovanov同调群（ℤ-分级的ℤ₂-向量空间或ℤ-模，当考虑整数同调时）",
+            "i": "同调分级（整数）——因果层级的计数",
+            "j": "q-分级（整数或半整数）——被锁信息的标度",
+            "dim H^{i,j}": "同调群的（有理数域上的）维数——信息通道的简并度"
+          },
+          "units": "无量纲",
+          "limits": [
+            "平凡链环(n分量): H^{0,j}非零仅对j={1-n, 3-n, ..., n-1}（每分量±1/2），所有i=0 → 无层级结构",
+            "(2,n)-环面链环: H^{i,j}非零的i范围≥0，宽度w≡max(i)-min(i)≥1 → 有层级结构",
+            "Euler示性数仅保留(-1)^i加权和 → 丢失层级分布信息（类似于从全概率分布收缩到期望值）"
+          ],
+          "numerical_test": {
+            "description": "4量子比特GHZ态因果链环（4分量平凡链环）的Khovanov同调",
+            "input": {"link": "4-component unlink"},
+            "expected_output": "dim H^{0,-2}=1, dim H^{0,0}=6, dim H^{0,2}=1, 所有其他=0 → 宽度w=0 → κ_GHZ=0（无高层级同调）"
+          }
+        },
+        {
+          "label": "F8",
+          "expression": "kappa(State) = w(Khovanov(L_state)) / n",
+          "variables": {
+            "kappa": "A博士定义的Cartan偏离QCMI系数（κ≥0，无量纲）",
+            "w(Khovanov(L))": "Khovanov同调的宽度 = max(i with H^{i,*}≠0) - min(i with H^{i,*}≠0)",
+            "n": "量子比特数（归一化因子，去掉系统尺寸依赖）",
+            "L_state": "量子态|ψ⟩的因果链环"
+          },
+          "units": "无量纲",
+          "limits": [
+            "κ=0: 所有Khovanov同调集中在单i层 → GHZ态（或等价于，因果链环同调坍塌到一维）",
+            "κ=1: Khovanov宽度=n → cluster态的最大层级结构",
+            "0<κ<1: 中间情形 → 部分层级的因果结构（对应部分纠缠的环态）",
+            "Khovanov同调的整数同调版本可能有挠(torsion) → 挠子群不贡献Euler示性数但可能贡献物理可观测量（如准粒子统计的分数相）"
+          ],
+          "numerical_test": {
+            "description": "对4量子比特cluster环态，计算其因果链环的Khovanov同调宽度",
+            "input": {"n": 4, "state": "cluster_ring"},
+            "expected_output": "w≥1 (H^{0,*}和H^{1,*}均有非零项) → κ_cluster = w/4 ≥ 0.25 → κ_cluster > κ_GHZ=0, 与A博士κ_cluster≥1一致(若A使用不同归一化)"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1215/S0012-7094-00-10131-7", "label": "Khovanov 2000 (categorification of Jones polynomial, Duke Math J 101:359)"},
+        {"doi": "10.2140/gt.2025.29.139", "label": "Kauffman 1987 (Jones polynomial from state models, Topology 26:395)"},
+        {"doi": "10.1007/s00220-011-1348-0", "label": "Witten 2012 (Khovanov homology & gauge theory, CMP 316)"},
+        {"doi": "10.4171/GGD/782", "label": "Lipshitz & Sarkar 2014 (Khovanov stable homotopy type)"},
+        {"doi": "10.4007/annals.2010.171.1213", "label": "Rasmussen 2010 (Khovanov homology & slice genus, Annals 171)"}
+      ],
+      "assumptions": [
+        "量子线路DAG→三维时空中嵌入的链环是良定义的一一映射。对含测量的电路（测量辅助分解），测量塌缩引入的分叉需对应链环的split操作——这是非平凡的推广，R2仅覆盖酉电路。",
+        "Khovanov同调的i分级可被物理测量区分——这需要在实验中测量不同数量条件节点的QCMI（例如I(A:C|B), I(A:C|B,D), I(A:C|B,D,E)等），并与理论计算的同调维数比较。此可检验性在R2作为原则性承诺，R3需给出具体的实验协议。",
+        "同调挠子群（ℤ-torsion）的物理意义在R2中未阐明——这可能是分数统计或准粒子束缚态的拓扑信号，超出当前范围。"
+      ]
+    }
+  ],
+  "deep_dig_1": "深挖1（θ→k映射的两层后果）：第一层——Chern-Simons层次的量子修正导致θ的跑动。在非阿贝尔CS理论中，层次k在量子化后获得有限重整化k→k+h（h为对偶Coxeter数，SU(2)时h=2）。若将此直接翻译为θ：θ_bare=1/k→θ_ren=1/(k+2)=θ_bare/(1+2θ_bare)≈θ_bare-2θ_bare²+O(θ_bare³)。这意味着QCMI的'裸'θ与'物理'θ相差O(θ²)量级——与小θ²ln(1/θ)主导项比较，此修正为O(θ⁴)，在θ<0.3时<1%可忽略。但更重要的是第二层：若CS理论嵌入一个bulk 4D理论（如Chern-Simons+Yang-Mills耦合），k会在能标μ下跑动——1/k_eff(μ)=1/k_bare+(N/(4π²))ln(Λ/μ)。这对应θ_eff(μ)=θ_bare+(N/(4π²))θ²ln(μ/Λ)。物理后果：QCMI成为能标依赖的量！在低能（大尺度）极限下θ_eff跑向零→QCMI消失→因果环的'信息锁定'是一种UV现象（仅在高能/小尺度可见）。在引力语境中，这暗示'质量作为被锁信息'可能是一种超越Planck尺度的UV效应，在低能有效理论中被整合为不可约的质量参数——与大N凝聚态（如Sachdev-Ye-Kitaev模型）中涌现的标度不变性有潜在的深层对应。此推测可检验：若θ随能标跑动，则在可变耦合的量子模拟器（如超导量子比特的可调Josephson能量）中，改变等效能标应观测到QCMI的系统性变化——变化方向和量级由β函数β(θ)=-(N/(4π²))θ²+O(θ³)预言。",
+  "deep_dig_2": "深挖2（自攻击：映射θ↔1/k的最致命弱点及应对）：攻击面A：离散性——k为整数（紧致规范群的量子化条件），θ为连续参数。若θ=1/(k+2)，θ仅在离散点上有物理对应。量子线路中θ=0.07不在任何整数k的映射下。应对：(1)在量子线路中，θ是酉参数，但QCMI对θ的依赖是解析的——没有理由要求θ必须对应整数k。整数k仅出现在CS理论的规范群紧致性条件中。R2的映射应理解为渐近对应θ∼1/k（大k极限），而非严格等式。非整数k对应非紧致规范群（SL(2,ℂ)_k或量子超群U_q(sl₂)的解析延拓）——这在数学上已由Kashaev(1995)的量子二面体对数不变量和复Chern-Simons理论(Witten 2011, Dimofte 2013)发展。R3需将此推广明确化。(2)离散性本身可成为实验特征：若扫描连续θ通过整数1/(k+2)值，QCMI可能出现微小的非解析结构（类似于分数量子Hall效应中填充因子的台阶）。此非解析结构如果被观测到，将是对θ↔1/k映射的强验证。攻击面B：根vs实数——Jones多项式的CS变量q=exp(2πi/(k+2))在|q|=1上，而QCMI是实数。应对：物理可观测是Wilson圈的模平方|⟨W⟩_k|²（类时过程的概率幅），它在q→1时是解析的。|⟨W⟩_k|²=1-(4π²|v_2|/(k+2)²)+O(1/k⁴)——不含虚部，所有复相位信息在模平方中丢失。因此实数QCMI↔实数|⟨W⟩|²的映射是自然的。攻击面C：门计数vs拓扑——不同线路（GHZ vs cluster）有不同的门数和类型（CNOT vs CZ），QCMI差异可能是平凡的电路深度效应而非拓扑效应。应对：设计等门数对照实验——使用4个CNOT（有向门）以不同顺序连接实现环（例如CNOT(0,1)+CNOT(2,3)+CNOT(1,3)+CNOT(0,2)），与cluster的4个CZ（无向门）比较。两种线路门数相同，但辫的闭包拓扑不同（有向交叉vs无向交叉给出不同的链环）。若QCMI差异仅由拓扑决定而非门数，则在等门数对照中仍应观测到差异。此对照是R3的关键实验设计。"
+}

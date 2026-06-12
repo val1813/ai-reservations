@@ -1,0 +1,279 @@
+{
+  "parameters": {
+    "cartan_angles": [
+      0.3,
+      0.5,
+      0.7,
+      0.9
+    ],
+    "r_vector": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "n_path": 2000,
+    "ghost_valleys": [
+      "++",
+      "+-",
+      "-+",
+      "--"
+    ],
+    "test_valleys": [
+      "+-",
+      "-+"
+    ],
+    "description": "Monodromy between DIFFERENT ghost valleys (+-)<->(-+) \u2014 the CORRECT Z2 test"
+  },
+  "valley_overlap_matrix": {
+    "valleys": [
+      "++",
+      "+-",
+      "-+",
+      "--"
+    ],
+    "overlap_magnitudes": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthogonal_pairs": [
+      [
+        "++",
+        "+-"
+      ],
+      [
+        "++",
+        "-+"
+      ],
+      [
+        "++",
+        "--"
+      ],
+      [
+        "+-",
+        "-+"
+      ],
+      [
+        "+-",
+        "--"
+      ],
+      [
+        "-+",
+        "--"
+      ]
+    ],
+    "connected_pairs": []
+  },
+  "qcmi_along_exchange_paths": {
+    "eq_antipodal": {
+      "description": "Equatorial antipodal (axes always opposite in xy-plane)",
+      "qcmi_start": -0.0,
+      "qcmi_end": -0.0,
+      "qcmi_max": 8.12328041312004,
+      "t_max": 0.4997498749374687,
+      "qcmi_mean_interior": 2.755645771977784,
+      "min_separation_deg": 179.99999879258172,
+      "symmetry_error": 1.5987211554602254e-14,
+      "n_path_points": 2000
+    },
+    "mer_antipodal": {
+      "description": "Meridional antipodal (axes always opposite in xz-plane)",
+      "qcmi_start": -0.0,
+      "qcmi_end": -0.0,
+      "qcmi_max": 8.123280413120034,
+      "t_max": 0.4997498749374687,
+      "qcmi_mean_interior": 2.7556457719777843,
+      "min_separation_deg": 179.99999879258172,
+      "symmetry_error": 1.2434497875801753e-14,
+      "n_path_points": 2000
+    },
+    "tilted": {
+      "description": "Tilted non-antipodal (z-bump avoids diagonal)",
+      "qcmi_start": -0.0,
+      "qcmi_end": -0.0,
+      "qcmi_max": 8.123283302122937,
+      "t_max": 0.5002501250625312,
+      "qcmi_mean_interior": 2.8173541163571865,
+      "min_separation_deg": 17.4578225509339,
+      "symmetry_error": 1.2434497875801753e-14,
+      "n_path_points": 2000
+    },
+    "half_braid": {
+      "description": "Half-braid (Z2 generator lift)",
+      "qcmi_start": -0.0,
+      "qcmi_end": -0.0,
+      "qcmi_max": 8.123283302122937,
+      "t_max": 0.5002501250625312,
+      "qcmi_mean_interior": 2.8173541163571865,
+      "min_separation_deg": 17.4578225509339,
+      "symmetry_error": 1.2434497875801753e-14,
+      "n_path_points": 2000
+    }
+  },
+  "berry_phases": {
+    "eq_antipodal": {
+      "berry_phase": 0.27305627822500184,
+      "berry_phase_over_pi": 0.08691651284356981,
+      "direct_overlap_magnitude": 0.0,
+      "direct_overlap_phase": 0.0,
+      "direct_overlap_real": 0.0,
+      "direct_overlap_imag": 0.0,
+      "min_overlap_mag": 0.9999985505290983,
+      "mean_overlap_mag": 0.9999985505290995,
+      "n_points": 2000,
+      "is_zero": false,
+      "is_pi": false,
+      "classification": "UNEXPECTED"
+    },
+    "mer_antipodal": {
+      "berry_phase": -2.0372536181694123,
+      "berry_phase_over_pi": -0.6484779673270213,
+      "direct_overlap_magnitude": 0.0,
+      "direct_overlap_phase": 0.0,
+      "direct_overlap_real": 0.0,
+      "direct_overlap_imag": 0.0,
+      "min_overlap_mag": 0.9999984977900304,
+      "mean_overlap_mag": 0.9999986263551652,
+      "n_points": 2000,
+      "is_zero": false,
+      "is_pi": false,
+      "classification": "UNEXPECTED"
+    },
+    "tilted": {
+      "berry_phase": 0.15177163713810102,
+      "berry_phase_over_pi": 0.048310412543356517,
+      "direct_overlap_magnitude": 0.0,
+      "direct_overlap_phase": 0.0,
+      "direct_overlap_real": 0.0,
+      "direct_overlap_imag": 0.0,
+      "min_overlap_mag": 0.9999984555382144,
+      "mean_overlap_mag": 0.9999985781026514,
+      "n_points": 2000,
+      "is_zero": false,
+      "is_pi": false,
+      "classification": "UNEXPECTED"
+    },
+    "half_braid": {
+      "berry_phase": 0.15177163713810096,
+      "berry_phase_over_pi": 0.048310412543356496,
+      "direct_overlap_magnitude": 0.0,
+      "direct_overlap_phase": 0.0,
+      "direct_overlap_real": 0.0,
+      "direct_overlap_imag": 0.0,
+      "min_overlap_mag": 0.9999984555382144,
+      "mean_overlap_mag": 0.9999985781026514,
+      "n_points": 2000,
+      "is_zero": false,
+      "is_pi": false,
+      "classification": "UNEXPECTED"
+    }
+  },
+  "antipodal_transport": {
+    "qcmi_start": -0.0,
+    "qcmi_end": -0.0,
+    "qcmi_max": 1.6151814929316897,
+    "t_max": 0.5002501250625312,
+    "qcmi_at_p_half": 1.6151814929316897,
+    "t_p_half": 0.5002501250625312,
+    "symmetry_error": 1.4432899320127035e-15,
+    "berry_phase": 0.012678763786470313,
+    "berry_phase_over_pi": 0.004035775857822533,
+    "direct_overlap_magnitude": 0.0,
+    "direct_overlap_phase": 0.0,
+    "n_path_points": 2000
+  },
+  "single_axis_transports": {
+    "E0_move_(+-)_to_(--)": {
+      "qcmi_max": 1.6151546071161513,
+      "qcmi_midpoint": 1.615154607116151,
+      "qcmi_start": -0.0,
+      "qcmi_end": -0.0,
+      "berry_phase": 0.012678327613665368,
+      "berry_phase_over_pi": 0.004035637019706634,
+      "moving_axis": "E0",
+      "start_valley": "+-",
+      "end_valley": "--"
+    },
+    "E1_move_(+-)_to_(++)": {
+      "qcmi_max": 6.507615939667502,
+      "qcmi_midpoint": 6.507615939667496,
+      "qcmi_start": -0.0,
+      "qcmi_end": -0.0,
+      "berry_phase": -0.2603717826185541,
+      "berry_phase_over_pi": -0.08287891249078265,
+      "moving_axis": "E1",
+      "start_valley": "+-",
+      "end_valley": "++"
+    },
+    "E0_move_(-+)_to_(++)": {
+      "qcmi_max": 1.6151546071161518,
+      "qcmi_midpoint": 1.6151546071161513,
+      "qcmi_start": -0.0,
+      "qcmi_end": -0.0,
+      "berry_phase": 0.6026323188050251,
+      "berry_phase_over_pi": 0.19182382480950141,
+      "moving_axis": "E0",
+      "start_valley": "-+",
+      "end_valley": "++"
+    },
+    "E1_move_(-+)_to_(--)": {
+      "qcmi_max": 6.507615939667496,
+      "qcmi_midpoint": 6.50761593966749,
+      "qcmi_start": -0.0,
+      "qcmi_end": -0.0,
+      "berry_phase": -1.0185046258765347,
+      "berry_phase_over_pi": -0.32420009154042406,
+      "moving_axis": "E1",
+      "start_valley": "-+",
+      "end_valley": "--"
+    }
+  },
+  "ancilla_analysis": {
+    "reason": "ancilla_basis_orthogonality",
+    "detail": "sqrt(p1*p2)=0 and sqrt((1-p1)(1-p2))=0 for p1=1,p2=0",
+    "is_topological_obstruction": false
+  },
+  "z2_obstruction_analysis": {
+    "z2_action": "GEOMETRIC (Berry=-0.1162*pi, path-dependent)",
+    "is_topological_obstruction": false,
+    "direct_overlap_zero": true,
+    "berry_mean": -0.3651635164170521,
+    "berry_std": 0.9666506246588453,
+    "berry_is_pi": false,
+    "berry_is_zero": false,
+    "qcmi_barrier_min": 8.123280413120034,
+    "qcmi_barrier_max": 8.123283302122937
+  },
+  "conclusions": {
+    "valleys_mutually_orthogonal": true,
+    "reason_for_orthogonality": "ancilla basis: p=1->|0>_A, p=0->|1>_A",
+    "adiabatically_connected": true,
+    "qcmi_barrier_exists": true,
+    "z2_topological_obstruction": false,
+    "berry_phase_mean": -0.3651635164170521,
+    "berry_phase_mean_over_pi": -0.11623515734918463,
+    "z2_verdict": "GEOMETRIC (Berry=-0.1162*pi, path-dependent)",
+    "comparison_with_previous": "Previous test (closed loop ++->++) was trivial by construction. This test (+-)->(-+) is the CORRECT Z2 monodromy test."
+  }
+}

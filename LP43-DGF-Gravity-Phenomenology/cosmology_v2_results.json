@@ -1,0 +1,10 @@
+{
+  "key_insight": "G_eff = G/q -> Omega_DE = 1-q (automatic, no dark energy field needed)",
+  "q0": 0.31499999999999995,
+  "Omega_DE(z=0)": 0.685,
+  "CPL_fit": {
+    "w0": "-1.208",
+    "wa": "0.104"
+  },
+  "H0_DGF": "120.1 km/s/Mpc",
+  "H0_tension_resolved": 

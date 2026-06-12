@@ -1,0 +1,17 @@
+{
+  "M87_mass_kg": 1.2925054999999999e+40,
+  "M87_distance_Mpc": 16.8,
+  "gravitational_radius_m": 9598352991717.354,
+  "GR_shadow_radius_m": 49874505151905.58,
+  "GR_shadow_radius_GM_c2": 5.196152422706632,
+  "GR_angular_diameter_uas": 39.689379534313375,
+  "DGF_shadow_radius_m": 18672244752123.38,
+  "DGF_shadow_radius_GM_c2": 1.9453592473871404,
+  "DGF_angular_diameter_uas": 14.85909096175365,
+  "DGF_critical_radius_m": 9598353269490.686,
+  "DGF_critical_radius_GM_c2": 1.000000028939687,
+  "EHT_measurement_uas": 42.0,
+  "EHT_uncertainty_uas": 3.0,
+  "GR_vs_EHT_sigma": -0.7702068218955418,
+  "DGF_vs_EHT_sigma": -9.046969679415449
+}

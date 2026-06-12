@@ -1,0 +1,22 @@
+{
+  "omega2_coefficients": {
+    "c2": 0.5,
+    "c3": 1.3333333333333333,
+    "c4": 3.375
+  },
+  "binding_energy": {
+    "e1_GR": "-0.7020",
+    "e2_GR": "-5.1338",
+    "e1_DGF": "15476.7398",
+    "e2_DGF": "-196210.2335",
+    "delta_e2_pct": "3821830.5"
+  },
+  "psi4_shift": {
+    "psi4_GR": 23.12,
+    "conservative_fraction": 0.45,
+    "delta_psi4_pct": "1719823.7",
+    "psi4_DGF": "397646.4"
+  },
+  "detectability": {
+    "LIGO_O3_bound": "~50%",
+    "DGF_within_bounds": 

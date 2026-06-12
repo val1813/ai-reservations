@@ -207,9 +207,18 @@ V: V=1或V=2
 ### 5a. 主文 (完整14维)
 
 ```
+Step 0: ⛔ 读取 paper_output/author_voice_card.md → 提取注意力分配
+    - 标记"最在意"段落 → 这些段落S≥8,不参与全局S缩短
+    - 标记"无聊但必要"段落 → 这些段落S≤2,不参与全局S扩展
+    - 标记人格化特征使用位置 → 这些位置保留对应参数弹性
+
 Step 1: 确定section列表和段落数
 Step 2: 为目标期刊计算W_total → 分配各section预算
+    ⛔ Voice Card"最在意"段落不受预算限制 (允许超出平均值3-5倍)
 Step 3: 为所有段落一次性生成14维参数
+    ⛔ "最在意"段落: S下限=8,不参与全局标准差降低
+    ⛔ "无聊但必要"段落: S上限=2,不参与全局标准差提高
+    ⛔ 人格化特征位置: K/V/E参数保持弹性
 Step 4: 全局约束校验 → 不通过整体重新生成
 Step 5: 输出Blueprint (paper_output/blueprint.md)
 Step 6: 按Blueprint逐段重写
@@ -372,10 +381,22 @@ Theorem/Proof block: 不参与随机化,完全保持原样。
 
 ---
 
-## §8 去AI词汇 — ⛔ 替换清单
+## §8 去AI化 — ⛔ 双轨制: 禁止清单 + Voice要求
 
-随机化管结构统计,词汇层面由本节管。以下词汇和句式已学被检测器识别,
-Phase 4逐段重写时必须替换。
+> 旧思路: "禁止AI词汇和句式" → 打地鼠,绕过这个AI换那个
+> 新思路: "禁止底线(8a-8j) + Voice要求(8k)" → 正向注入人类特征,不只是被动回避
+> 
+> 原理: AI检测器做统计假设检验(H0=人写, H1=AI写)。
+>   仅仅是"没有AI特征"还不够——因为你可能只是避开了已知模式。
+>   真正的防御是"有人类特征"——AI检测器对强人类特征的文本误判率极高。
+>   因为检测器在"AI特征缺失"时会倾向于判AI (保守策略),
+>   但在"人类特征存在"时会倾向于判人类。
+> 
+> ⛔ 随机化管结构统计,本节管词汇+风格+人格。
+> ⛔ 8a-8j 是底线(不做什么), 8k 是要求(必须做什么)。
+> ⛔ 8k Voice要求优先于8a-8j 禁止清单: 
+>   如果Voice要求使用某个"像AI"的词但对Voice有贡献 → 保留
+>   (例: "I find this surprising." — 如果Voice Card要求第一人称,保留"I")
 
 ### 8a. 禁止连接词/过渡词 (用更人类化的方式替代)
 
@@ -392,10 +413,10 @@ Phase 4逐段重写时必须替换。
 | In this paper, we... / This paper presents... | AI论文开头模板(允许用1次在Abstract) | 正文中最多出现1次,其余省略直接论述 |
 | As mentioned above / As discussed earlier | AI自我引用套话 | 直接用"Section X showed that..."或省略 |
 
-### 8b. 禁止hedging措辞 (GPTZero已专门训练识别)
+### 8b. 禁止hedging措辞 (GPTZero已专门训练识别) + 防御性语言黑名单
 
 ```
-⛔ 绝对禁止:
+⛔ AI检测器已学习的hedging:
   "We should be candid about..."
   "It remains an open question whether..."
   "We leave this for future work."
@@ -403,7 +424,24 @@ Phase 4逐段重写时必须替换。
   "Future studies should..."
   "This warrants further investigation."
 
+⛔ 防御性自我贬低 (同时破坏AI检测和论文说服力):
+  "It may be nothing." / "It may be an accident." / "It may be a coincidence."
+  "Not a solution. Not even close."
+  "We tried to derive it. We couldn't."
+  "That does not make it correct."
+  "It isn't one."
+  "It would be dishonest to claim otherwise."
+  "What is missing is not small."
+  "We do not see a path from here to there."
+  "We have nothing to add here except to mark the gap."
+  "Whether [X] is useful is for the reader to judge."
+  "We cannot stress that enough."
+  "The result is not surprising."
+  "What we prove is weaker than what one might want."
+  "This is just a consistency check, not a new theorem."
+
 替代: 具体化。不说"有待未来研究",说"当前数据在X条件下不适用,扩展到X需要Y工具"。
+自我贬低句 → 直接删除(不需要替代,因为它们对技术内容无贡献)。
 ```
 
 ### 8c. 禁止句式结构 (AI pattern,非词汇)
@@ -455,3 +493,297 @@ Phase 4逐段重写时必须替换。
 逐段重写时(Phase 4 §5 Step 6),每段写完后检查上述清单。命中→重写该段。
 全文完成后→用Phase清单 Phase 4f做终检。
 
+---
+
+### 8h. AI词汇黑名单 — 整合blader/humanizer 30模式 + UCL语料库研究
+
+> 来源: blader/humanizer (Wikipedia WikiProject AI Cleanup), matsuikentaro1/humanizer_academic,
+> UCL TechSocial 2025 ("Marker Word Explosion" — 2023年后87%增长的AI标志词)
+
+#### 8h-1. 意义膨胀词 (Significance Inflation) — 禁止
+
+```
+这些词在ChatGPT时代爆炸式增长(UCL 2025: 2023年后+87%)。
+⛔ 强标志 (87%增长):
+  intricate, meticulous, meticulously, commendable
+
+⛔ 中标志 (18%增长):
+  notable, pivotal, invaluable, noteworthy, methodically, strategically
+
+替代: 具体化。不说"pivotal",说"X enables Y by...";不说"notable",直接给数字。
+如果论文不是Nature封面级发现 → 禁止用"groundbreaking""landmark""pivotal""paradigm-shifting"
+```
+
+#### 8h-2. AI高频词汇 — 禁止
+
+```
+⛔ AI最爱动词/名词 (来自blader/humanizer pattern #7):
+  "delves into" / "delve into"        → "examines" / "analyzes" / 删除
+  "tapestry"                          → 删除(学术论文不用织物比喻)
+  "landscape" (非地理意义)            → "field" / "context" / "literature"
+  "showcasing" / "showcase"           → "demonstrating" / "showing" / "presenting"
+  "underscoring" / "underscores"      → "emphasizing" / "highlighting that"
+  "highlighting" (分词分析, pattern #3)→ 改写为主动词: "we find" / "the data show"
+  "reflecting" (分词分析)              → "indicating" / 删除
+  "garnered" (如"garnered attention")  → 删除(已在8a覆盖)
+  "burgeoning"                        → "growing" / "increasing"
+  "realm" / "in the realm of"         → "in" / "in the context of"
+
+⛔ AI最爱形容词/副词:
+  "nuanced"                           → "subtle" / 删除(不添加元评价)
+  "crucial" / "critical"              → 仅在"critical temperature"等固定术语中使用
+  "profound"                          → "substantial" / "large" / 具体数字
+  "paramount"                         → "central" / "key"
+```
+
+#### 8h-3. 系词逃避 (Copula Avoidance) — 禁止
+
+```
+AI异常厌恶简单系词"is/are",倾向用更"高级"的替代。这是强检测信号。
+
+⛔ "serves as"   → "is"
+⛔ "boasts"      → "has"
+⛔ "standing as" → "is"
+⛔ "represents" (无表征意义时) → "is"
+⛔ "constitutes" → "is" / "forms"
+
+例外: "represents"在数学/物理中有精确含义("矩阵表示")时保留。
+```
+
+#### 8h-4. 否定对仗 + 三件套 — 禁止
+
+```
+⛔ 否定对仗 (blader pattern #9):
+  "Not only X, but also Y"           → "X and Y"
+  "Not X; rather, it is Y"           → 已在8c覆盖
+
+⛔ 三件套 (blader pattern #10):
+  "X, Y, and Z" 作为三段式列举,且三项结构完全平行 → 改写为不对称
+  例: "efficacy, safety, and tolerability" → "efficacy and safety; tolerability data are also reported"
+```
+
+#### 8h-5. 模糊归因 — 禁止
+
+```
+⛔ "Experts believe..." / "Many researchers argue..." / "It is widely accepted that..."
+⛔ "Studies have shown..." (不加引用) / "Observers have cited..."
+⛔ "The literature suggests..." (不加具体引用)
+
+替代: 具体引用。 "Ref. [X] showed Y." 不引用就不说。
+```
+
+#### 8h-6. 虚假范围 (False Ranges) — 禁止
+
+```
+⛔ 非标量极端值之间的"from X to Y":
+  "from the Big Bang to dark matter"
+  "from quantum mechanics to cosmology"
+  "from renal function to cardiac outcomes"
+
+替代: 直接列出。 "in quantum mechanics, general relativity, and cosmology"
+```
+
+### 8i. 风格层面规则 — 整合blader/humanizer
+
+#### 8i-1. 破折号零容忍
+
+```
+⛔ Em dash (—) / En dash (–) → 零容忍。全文0个。
+   AI文本的em dash使用频率显著高于人类学术写作 (blader pattern #14)。
+替代: 句号、逗号、冒号、括号。
+   "The result—which was unexpected—changed..." → "The result, which was unexpected, changed..."
+```
+
+#### 8i-2. 填充短语 — 禁止
+
+```
+⛔ "In order to"       → "To"
+⛔ "Due to the fact that" → "Because"
+⛔ "In the event that"    → "If"
+⛔ "With regard to"       → "About" / "Regarding"
+⛔ "It is important to note that" → 删除,直接陈述
+⛔ "It should be pointed out that" → 删除
+```
+
+#### 8i-3. 通用结论 — 禁止
+
+```
+⛔ "The future looks bright"
+⛔ "These results open new avenues for research"
+⛔ "Further studies are needed to fully understand..."
+⛔ "This work paves the way for..."
+
+替代: 具体陈述下一个问题是什么,或直接停。
+```
+
+#### 8i-4. 同义词轮换 — 禁止
+
+```
+AI为"词汇多样性"会轮换同义词,但人类在学术写作中倾向术语一致。
+
+⛔ 同一概念换3+个词:
+  "Patients... Participants... Subjects... Individuals..."
+  "Method... Approach... Technique... Framework..."
+
+替代: 锁定术语分类账中的规范形式,始终用同一个词。
+  (与P1_build.md §4术语分类账一致)
+```
+
+### 8j. 学术写作特化规则 — 整合matsuikentaro1/humanizer_academic
+
+> 以下26个模式来自医学/科学论文编辑实际经验,针对学术文本的AI标志词。
+
+#### 8j-1. LLM标志词替换
+
+```
+⛔ "linked to" (因果)     → "associated with" (LLM倾向于用linked)
+⛔ "Beyond [X]" (段首)    → "In addition to [X]"
+⛔ "via"                  → "through" (学术文本中via是AI标志)
+⛔ "where" 作为非地点连接词 → 改写:
+    "...level, where almost daily use..." → "...level, with almost daily use..."
+⛔ "yield" 作为结果动词    → "produced" / "gave" / "resulted in"
+    "did not yield stable estimates" → "failed to produce stable estimates"
+⛔ 过度缩写表达式           → 展开:
+    "fatigue–sleepiness cycle" → "cycle of fatigue and sleepiness"
+```
+
+#### 8j-2. AI不足/过度hedging — 学术文本双重陷阱
+
+```
+AI学术文本的hedging呈现两端极化:
+
+陷阱A — 不足hedging (AI过于自信):
+  ⛔ "may reduce the risk of" → "may help reduce the risk of"
+  ⛔ 当引用不足以支撑因果声称时,却用了因果动词 → 降级为关联动词
+
+陷阱B — 过度hedging (AI过于防御):
+  ⛔ "may suggest... have the potential to confer..."
+  → 保留1-2个hedge词,删除冗余层 (已在8b/8e覆盖)
+```
+
+#### 8j-3. 被AI遗忘的经典学术词汇
+
+```
+AI系统性回避某些经典学术词汇,偏好"现代"替代。适当使用经典词汇增加人类感:
+
+✅ "proportion"     ← AI偏好 "percentage"
+✅ "aim"            ← AI偏好 "goal" / "objective"
+✅ "was assessed"   ← AI偏好 "was evaluated" / "was analyzed"
+✅ "purpose"        ← AI偏好 "goal" / "aim" / "objective"
+✅ "measured"       ← AI偏好 "assessed" / "evaluated" / "quantified"
+```
+
+---
+
+### 8k. 学術去AI化终检清单 (Phase 4f扩充)
+
+在原有Phase清单 Phase 4f终检基础上,增加以下grep:
+
+```
+[ ] 意义膨胀词: grep "pivotal\|groundbreaking\|landmark\|paradigm-shifting\|intricate\|meticulous"
+[ ] AI高频词汇: grep "delve\|tapestry\|landscape\|showcasing\|underscoring\|burgeoning\|realm"
+[ ] 系词逃避:   grep "serves as\|boasts\|standing as\|constitutes"
+[ ] 模糊归因:   grep "Experts believe\|Many researchers\|widely accepted\|Studies have shown"
+[ ] 虚假范围:   grep "from the.*to the.*" (检查非标量配对)
+[ ] 破折号:     grep "—\|–" → 必须0匹配
+[ ] 填充短语:   grep "In order to\|Due to the fact that\|With regard to\|It is important to note"
+[ ] LLM标志词:  grep "linked to\|Beyond\|via\|yield"
+[ ] 否定对仗:   grep "Not only.*but also"
+[ ] 通用结论:   grep "paves the way\|open new avenues\|future studies are needed"
+[ ] 三件套:     检查三项对称列举 (非grep,需阅读扫描)
+
+命中任何 → 重写该段或该句
+```
+
+---
+
+### 8l. ⛔ Voice PRESENCE要求 — 正向人类特征注入
+
+> 这是§8最重要的变化。8a-8k是"不做什么"(底线),本节是"必须做什么"(要求)。
+> 如果Voice特征缺失,即使通过全部禁止清单,论文仍然会读出AI味。
+> 
+> 原理: AI检测器在"没有AI特征但没有人类特征"的gray zone文本上,
+>   倾向于判AI(保守策略)。你必须给检测器一个"这是人类写的"的积极信号。
+
+#### 8l-1. 每段Voice特征要求
+
+```
+每段生成/重写后,必须满足以下至少2项:
+
+[ ] 包含审美判断:
+    "This is ugly but it works."
+    "I find this decomposition cleaner than the standard approach."
+    "The proof of Proposition 4 is the prettiest part of this paper."
+    不在Voice Card标注位置的段落可以用技术判断替代审美判断:
+    "This convergence rate is suboptimal but sufficient for our purpose."
+
+[ ] 包含具体经验/操作细节 (只有真正做过的人才知道):
+    "At N_Sh > 20 the kernel becomes numerically singular in double precision."
+    "We had to switch to quad precision for those points."
+    "The fit converged only after we removed the n=3 outlier."
+
+[ ] 包含对话句 (对读者说话,帮助理解,非防御):
+    "The reader might wonder why we don't simply use X. The reason is..."
+    "At this point one could object that... Let me address this directly."
+
+[ ] 包含意外 (AI不会预测到的下一句):
+    2词段落: "It doesn't."
+    反直觉陈述: "Adding more data made the fit worse."
+    诚实承认: "We don't have a good explanation for this."
+
+[ ] 包含不均匀深度:
+    极短段: ≤2句
+    极长段: ≥8句 (在"最在意"的点上)
+
+⛔ Phase 4逐段重写时,每段写完后检查上述要求。
+  如果某段0项满足 → 该段必须重新注入至少1项Voice特征。
+  如果连续3段都是"客观陈述"无任何Voice特征 → ⛔ 阻断,重新分配Voice特征。
+```
+
+#### 8l-2. Voice特征密度要求
+
+```
+全文级别:
+  [ ] 审美判断句: ≥ section数 (每个section至少1句)
+  [ ] 具体经验/操作细节: ≥ 2处
+  [ ] 对话句: ≥ 1处
+  [ ] 意外句: ≥ 2处 (极短段算1处意外)
+  [ ] 极短段(≤2句): ≥ 2段
+  [ ] 极长段(≥8句): ≥ 1段
+
+⛔ 终检时检查(Phase 4f): 如果任一项为0 → 必须注入
+  这不是"nice to have"。这是PASS/FAIL标准。
+```
+
+#### 8l-3. Voice vs AI禁止 优先级
+
+```
+当Voice要求与AI禁止清单冲突时:
+
+  Voice > AI禁止 (原则上)
+  例: Voice Card要求第一人称 "I find this surprising" → 即使8a禁止某些第一人称句式,保留
+  例: Voice Card要求极短段 "This fails." → 即使8i-2建议禁止短句,保留
+
+  例外: Voice < 防御性语言禁止 (P2_review.md §7)
+  例: "We tried to derive it. We couldn't." → 即使可能被误认为Voice,仍需改写
+      改写为: "A derivation from first principles remains open."
+      (保持坦诚,去掉自我贬低)
+
+  Voice < 技术正确性
+  例: 如果Voice Card要求"X holds"但审稿人证明X在条件C下才成立
+      → 修改为 "Under C, X holds." (保持断言句式+添加条件)
+      不接受降级为 "X may hold under C."
+```
+
+#### 8l-4. Phase 4f Voice PRESENCE终检 (与Phase清单同步)
+
+```
+[ ] 读取 paper_output/author_voice_card.md → 逐项对比终稿
+[ ] 信念梯度 PRESENCE: Level A声称是否仍是断言句式?
+[ ] 审美判断 PRESENCE: 每个section是否有≥1句?
+[ ] 人格化特征 PRESENCE: Voice Card标注的特征是否在指定位置?
+[ ] 注意力分配 PRESENCE: 极短段≥2? 极长段≥1?
+[ ] 禁止项 ABSENCE: "这个人不会说"的短语是否未出现?
+
+⛔ 任一项不满足 → ⛔ 阻断,必须修复后再输出终稿
+```

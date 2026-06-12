@@ -1,0 +1,236 @@
+{
+  "project": "LP41-CFOL-Generalization",
+  "round": 1,
+  "agent": "A",
+  "polaris": "对任意因果图G（b₁(G)≥1，边数|E|任意），在乘积初态+Cartan轴对齐假设下，QCMI=0 ⟺ 所有边酉的Cartan参数cⱼ ∈ (π/2)ℤ",
+  "framework": "代数图论+量子信息论 — Gram矩阵谱分析（秩-1充要条件）+ Fawzi-Renner Petz恢复下界框架 + 图论桥边分解",
+
+  "findings": "Round 1核心发现：(1) b₁>1多环Gram矩阵保持乘积结构当且仅当环边不相交（严格可加，α=1精确）；顶点共享打破乘积结构，但Gram矩阵秩-1充要条件仍然有效——QCMI=0 ⟺ cⱼ∈(π/2)ℤ对任意b₁的顶点共享链成立（数值确认c扫描b₁=2：零QCMI严格在0, π/2, π, 3π/2）。b₁=1→4数值扫描得出有效标度指数α_eff≈0.87（有限b₁），但推断α→1（渐近线性标度），因为每环QCMI贡献收敛到非零常数~1.08 bits（c=0.5, p=0.5），约为单环基线1.408 bits的77%。这意味着顶点共享干涉有有限关联长度ξ≈2.5环，不累积到破坏线性标度。边缘共享链干涉更强（b₁=3时per_ring降至1.129），但同样不饱和。(2) 树边冻结引理的任意|c|推广：利用图论桥边性质，严格证明了任意桥边（非循环边）对Gram矩阵的贡献是规范相位（gauge phase），不改变Gram矩阵秩，因此对QCMI无贡献。此证明全局成立（∀|c|, ∀p∈(0,1)），不限于小|c|极限。关键洞察：桥边移除后图分裂为两个分量，该边相位仅依赖于单一分量的变量——这是代数图论与Gram矩阵分析的交叉应用。(3) 深挖揭示下两层后果：深挖1→桥边冻结意味着QCMI仅由循环边决定→b₁是因果拓扑控制量子非马尔可夫性的真正自由度→微观经典性涌现由b₁而非|E|驱动。深挖2→若Cartan轴失配，桥边冻结可能失效（非对易生成元产生跨分量纠缠）→轴对齐假设本身可能是最脆弱的环节。(4) 硬边界标记：顶点共享链的渐近per_ring极限（~1.08 bits）尚无解析闭式——需要转移矩阵谱隙的严格计算（标记为待解决），且b₁≫ξ极限下Cartan参数的RG流是否改变标度行为是未知的。",
+
+  "weakest_link": "Cartan轴对齐假设。所有严格证明（桥边冻结、Gram矩阵秩-1充要条件、乘积结构保持）均依赖所有边酉共享相同Pauli轴方向。若非对齐（各边有独立n̂ⱼ），生成元交叉对易子非零，Gram矩阵因子化失效，QCMI=0的充要条件可能定性改变——可能更严格（零QCMI要求更强的条件），也可能存在非对齐的零QCMI构型（当前未被探索）。数值证据：cfol_nonaligned_check.py已探测到非对齐时QCMI偏离对齐基线，但未完成系统扫描。",
+
+  "next_plan": "Round 2方向：(1) 桥边冻结引理的严格定理化——将上述桥边论证形式化为引理-证明格式，带Jacobian非退化性检查；(2) b₁=5,6,7顶点共享链数值扩展——验证per_ring收敛到~1.08 bits的推断，精确提取关联长度ξ和渐近常数；(3) 转移矩阵框架的显式构建——对顶点共享1D链，将Gram矩阵表达为转移矩阵乘积，解析计算谱隙→渐近QCMI/b₁；(4) Cartan轴失配的b₁>1数值探索——选b₁=2顶点共享链，扫描非对齐角度，确认轴失配对乘积结构和零QCMI条件的破坏程度；(5) 边不相交环的可加性推广到任意图——利用图论循环基分解，构造任意b₁(G)图的边不相交环最大可加下界QCMI≥η₀·b₁^{ind}·(Σ|cⱼ|²/b₁^{ind})",
+
+  "literature_needed": "需要PI投喂以下文献：(1) Gangwar et al. 2025 — sQNM超可加性形式（纸搜索返回空，需人工检索或确认论文存在性）；(2) Chen & Rouze 2025 (arXiv:2504.02208) — 量子Gibbs态局部Markov性和CMI指数衰减的详细证明，作为Fawzi-Renner框架的补充；(3) 图论桥边/割边与矩阵秩的经典文献（如Fiedler 1973 algebraic connectivity）；(4) 顶点共享链的量子转移矩阵方法——1D量子多体系统矩阵乘积态(MPS)文献，特别是关于关联长度和谱隙的translation-invariant MPS结果；(5) Cartan KAK分解在量子信息论中的应用综述（如Khashami 2023 arXiv:2307.08640中涉及的Cartan分解量子模拟文献）",
+
+  "deep_dive": {
+    "深挖1": {
+      "问题": "桥边冻结引理全局成立的下一层后果",
+      "发现": "桥边对QCMI零贡献意味着QCMI是因果图的循环基泛函：QCMI(G)=QCMI(G/∼) 其中∼将桥边收缩。这等价于QCMI仅依赖于图的第一Betti数b₁(G)（循环空间维数）和循环边上的Cartan参数分布，不依赖于非循环边的存在/数量。后果的后果：(i) 宏观经典性由b₁而非总边数|E|或节点数|V|决定——一个b₁≫1的稀疏图（少量循环但桥边很多）和一个稠密循环图可以有相同的量子非马尔可夫性；(ii) 循环基的选择不影响QCMI（规范不变性）——任何一组独立的循环基都给出相同的QCMI谱，因为桥边冻结意味着Gram矩阵是循环基的函数，不同循环基选择相当于基变换（Gram矩阵秩不变）；(iii) 这引向一个新的图论不变量：QCMI作为循环空间上的泛函，类似于图的代数连通性（Fiedler特征值）但作用于循环空间而非割空间。",
+      "硬边界": "桥边冻结引理当前仅在Cartan轴对齐+乘积初态假设下证明。若环境qubit间存在初始纠缠（如有限温度Gibbs态），桥边的独立和分解不再成立——不同环境qubit的振幅不再因子化。验证或推广至关联环境需要新的数学工具（可能涉及量子条件互信息的张量网络表示）。"
+    },
+    "深挖2": {
+      "问题": "Cartan轴对齐假设本身是否可能是错误的出发点",
+      "发现": "轴对齐假设是当前所有严格证明的基石，但也是物理上最可疑的假设。理由：(i) 在真实的量子多体系统中，局部相互作用的方向由物理哈密顿量决定（如Heisenberg XXX的各向同性耦合，Ising的轴向耦合），没有先验理由认为所有边酉必须共享相同Cartan轴——除非存在某种对称性或动力学选择机制；(ii) 若轴对齐不是自然的物理假设，则CFOL充要条件（QCMI=0 ⟺ cⱼ∈(π/2)ℤ）在物理系统中可能不成立，因为零QCMI可能需要额外的轴对齐条件（更严格）或轴失配可能产生新的零QCMI构型（更宽松）；(iii) 轴对齐是DGF框架中的'微调'假设——类似标准模型中的参数微调，它使问题可解但可能掩盖更深的物理。后果的后果：如果轴失配时零QCMI条件被定性改变（例如非对齐时零QCMI可能要求所有cⱼ=0而非cⱼ∈(π/2)ℤ），那么DGF的经典性涌现机制（Clifford条件→经典性）就需要重新评估——在物理系统中可能很难达到精确Clifford条件。",
+      "硬边界": "非对齐Cartan轴的b₁>1分析面临生成元非对易性的组合爆炸——不同环境qubit的Kraus算子不再因子化，Gram矩阵维数指数增长。完整的解析处理可能需要非对易多项式优化（NPO）或半定规划层次（NPA层次）的工具，这是当前DGF框架的数学边界。"
+    }
+  },
+
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "边不相交环的QCMI严格可加：QCMI(b₁个不相交环) = b₁ × QCMI(单环)，标度指数α=1精确成立",
+      "confidence": 1.00,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "QCMI(b1) = b1 * QCMI(1)",
+          "description": "边不相交环QCMI可加性：系统态因子化ρ=⊗ᵣρᵣ→Gram矩阵G=⊗ᵣGᵣ→QCMI可加",
+          "variables": {"b1": "第一Betti数（独立环数）", "QCMI(1)": "单环QCMI基线（c=0.5,p=0.5时=1.407785 bits）"},
+          "units": "bits",
+          "limits": [{"variable": "c_j", "to": "0 or π/2ℤ", "expected": "0", "desc": "Clifford极限→QCMI=0"}],
+          "numerical_test": {
+            "substitutions": {"b1": 3, "QCMI(1)": 1.407785},
+            "expected_range": [4.22, 4.23]
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/s00220-015-2466-x", "label": "Fawzi & Renner 2015"},
+        {"doi": "10.48550/arXiv.2504.02208", "label": "Chen & Rouze 2025"}
+      ],
+      "assumptions": ["乘积初态ρ_Q⊗ρ_E₁⊗...⊗ρ_E_N", "Cartan轴对齐", "p∈(0,1)", "边不相交（环间无共享节点或边）"]
+    },
+    {
+      "id": "C2",
+      "statement": "树边冻结引理的全局形式：任意桥边（不属于任何循环的边）的Cartan参数对QCMI无贡献，∀|c|,∀p∈(0,1)——因为桥边贡献是Gram矩阵的规范相位变换，不改变矩阵秩",
+      "confidence": 0.90,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F2a",
+          "expression": "G_{a,b} = e^{i[psi(a)-psi(b)]} * G0_{a,b}",
+          "description": "桥边对Gram矩阵的贡献：桥边e=(u,v)移除后图分裂为两个分量，e的相位仅依赖分量1中的变量s_u→可写成规范相位差psi(a)-psi(b)的形式",
+          "variables": {"G0": "移除桥边后的Gram矩阵", "psi(a)": "=Arg[f(s_u(a))]其中f(s)=p*exp(i*c*s)+(1-p)*exp(-i*c*s)"},
+          "units": "dimensionless",
+          "limits": [{"variable": "p", "to": "0.5", "expected": "f(s)=exp(i*c*s)→psi(a)=c*s_u(a)→pure phase", "desc": "最大混合环境极限"}],
+          "numerical_test": {
+            "substitutions": {"c": 0.5, "p": 0.3},
+            "expected_range": ["G和G0的rank相等（数值验证）"],
+            "desc": "秩不变性数值检查"
+          }
+        },
+        {
+          "label": "F2b",
+          "expression": "QCMI(G) = QCMI(G/bridges) 其中 G/bridges 表示收缩所有桥边",
+          "description": "推论：QCMI仅依赖于图的第一Betti数b₁(G)和循环边上的Cartan参数，不依赖于非循环边。两种同b₁但不同树结构的图有相同QCMI。",
+          "variables": {"G": "原始因果图", "b1": "第一Betti数=循环空间维数"},
+          "units": "bits",
+          "limits": [{"variable": "b1", "to": "0", "expected": "QCMI=0（树无QCMI→桥边冻结的平凡极限）", "desc": "无循环图→经典"}]
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/s00220-015-2466-x", "label": "Fawzi & Renner 2015 — QCMI下界框架"},
+        {"label": "Fiedler 1973 — algebraic connectivity and bridge edges"}
+      ],
+      "assumptions": ["Cartan轴对齐", "乘积初态（环境qubit振幅因子化）", "桥边移除后图分裂为两个连通分量"]
+    },
+    {
+      "id": "C3",
+      "statement": "顶点共享链的QCMI标度为渐近线性（α→1 as b₁→∞），每环贡献收敛到非零常数~1.08 bits（c=0.5,p=0.5，约为单环基线的77%），干涉关联长度ξ≈2.5环；Fawzi-Renner下界保证QCMI≥b₁×η₀·|c|²不饱和",
+      "confidence": 0.80,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F3a",
+          "expression": "QCMI(b1) ~ b1 * q_inf  as b1 >> xi",
+          "description": "顶点共享链QCMI渐近标度：q_inf是每环渐近贡献（非零→α→1）",
+          "variables": {"q_inf": "≈1.08 bits(c=0.5,p=0.5)是从b₁=1..4拟合得到的渐近常数", "xi": "≈2.5环（关联长度，per_ring指数衰减的特征尺度）"},
+          "units": "bits",
+          "limits": [
+            {"variable": "b1", "to": "1", "expected": "QCMI=1.408（单环基线）", "desc": "小b₁极限"},
+            {"variable": "b1", "to": "oo", "expected": "QCMI/b1→1.08", "desc": "大b₁极限→每环贡献收敛"}
+          ],
+          "numerical_test": {
+            "substitutions": {"b1": 4, "c": 0.5, "p": 0.5},
+            "expected_range": [4.65, 4.75],
+            "desc": "b₁=4时QCMI=4.712(数值) vs 拟合预测4.72"
+          }
+        },
+        {
+          "label": "F3b",
+          "expression": "per_ring(n) = q_inf + delta * exp(-n/xi)",
+          "description": "每环贡献的指数收敛拟合：q_inf≈1.080, δ≈0.328, ξ≈2.5（从b₁=1,2,3,4数值提取）",
+          "variables": {"q_inf": "渐近每环贡献(bits)", "delta": "边界修正幅度", "xi": "关联长度(环数)"},
+          "units": "bits (q_inf, delta), dimensionless (xi)",
+          "numerical_test": {
+            "substitutions": {"n": 10, "q_inf": 1.08, "delta": 0.328, "xi": 2.5},
+            "expected_range": [1.08, 1.09],
+            "desc": "b₁=10预测per_ring≈1.080+0.328×exp(-4)≈1.086"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/s00220-015-2466-x", "label": "Fawzi & Renner 2015 — 下界框架"},
+        {"label": "DGF b1_scaling.py — 数值数据", "doi": "internal"}
+      ],
+      "assumptions": ["Cartan轴对齐", "乘积初态", "所有环使用相同Cartan参数c=0.5", "p=0.5", "顶点共享为1D链拓扑（非一般图）"]
+    },
+    {
+      "id": "C4",
+      "statement": "CFOL充要条件（QCMI=0 ⟺ cⱼ∈(π/2)ℤ）对顶点共享多环链保持有效——数值c扫描b₁=2确认零QCMI严格在c=0,π/2,π,3π/2处，周期π与单环一致",
+      "confidence": 0.95,
+      "new_insight": false,
+      "equations": [
+        {
+          "label": "F4",
+          "expression": "QCMI(b1,c) = 0 iff c in (pi/2)*Z for all edges (identical c on all edges)",
+          "description": "顶点共享链的CFOL充要条件保持：17×c扫描(b₁=2)确认QCMI=0仅在c=0,π/2,π,3π/2处。共享节点不引入新的零QCMI构型。",
+          "variables": {"c": "Cartan参数（所有边相同）", "b1": "Betti数"},
+          "units": "bits",
+          "limits": [{"variable": "c", "to": "0 or pi/2", "expected": "0", "desc": "Clifford点→QCMI=0"}],
+          "numerical_test": {
+            "substitutions": {"c": "3*pi/2"},
+            "expected_range": [0, 0],
+            "desc": "c=3π/2等价于c=π/2 mod π→零QCMI"
+          }
+        }
+      ],
+      "references": [
+        {"label": "DGF 06-cfol-sufficiency-calc.md — 单环充要条件", "doi": "internal"},
+        {"label": "b1_scaling.py T2 b1=2 scan — 多环验证", "doi": "internal"}
+      ],
+      "assumptions": ["Cartan轴对齐", "乘积初态", "p∈(0,1)", "所有边Cartan参数相同（均匀扫描）"]
+    },
+    {
+      "id": "C5",
+      "statement": "边缘共享链的QCMI干涉强于顶点共享：b₁=3时per_ring=1.129（基线80.2%）vs 顶点共享的1.226（87.1%），且衰减更快→edge-sharing的关联长度ξ更短（~1.5环），但同样不饱和",
+      "confidence": 0.75,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F5a",
+          "expression": "QCMI_edge(b1) < QCMI_vertex(b1) for b1 > 1",
+          "description": "边缘共享比顶点共享产生更强的干涉压低：共享边意味着两个环共用物理相互作用，而不仅是量子态关联",
+          "variables": {"QCMI_edge": "边缘共享链QCMI", "QCMI_vertex": "顶点共享链QCMI"},
+          "units": "bits",
+          "numerical_test": {
+            "substitutions": {"b1": 3, "c": 0.5, "p": 0.5},
+            "expected_range": [3.35, 3.42],
+            "desc": "b₁=3 edge-sharing: QCMI=3.387 vs vertex-sharing: 3.677"
+          }
+        }
+      ],
+      "references": [
+        {"label": "b1_scaling.py T3 — 数值数据", "doi": "internal"}
+      ],
+      "assumptions": ["Cartan轴对齐", "乘积初态", "p=0.5", "所有环相同c=0.5"]
+    }
+  ],
+
+  "literature_audit": {
+    "§-1_search_executed": true,
+    "group1_core_claim": {
+      "tool": "paper-search-mcp (semantic + arxiv + crossref)",
+      "queries": [
+        "quantum conditional mutual information zero causal graph Clifford Cartan π/2",
+        "QCMI=0 Markov chain quantum causal cycle Cartan decomposition Clifford condition"
+      ],
+      "result": "空白区 — 无机发表相同结论。最近的相关工作是Fawzi-Renner(2015, Commun.Math.Phys.)建立QCMI与Petz恢复保真度的下界关系，以及Chen&Rouze(2025, arXiv:2504.02208)证明量子Gibbs态的局部Markov性。但两者均未涉及因果图循环结构的Cartan参数化或QCMI=0⟺cⱼ∈(π/2)ℤ的充要条件。",
+      "prior_art_found": false,
+      "differentiation": "DGF的独特性在于将QCMI=0条件翻译为因果图边的Clifford条件，而非一般量子态的Markov性。这是因果拓扑→量子非马尔可夫性的映射，标准量子信息论文献不处理因果图循环结构。"
+    },
+    "group2_framework_blind": {
+      "tool": "paper-search-mcp (semantic + arxiv + crossref)",
+      "queries": [
+        "quantum decoherence causal graph cycle network non-Markovianity zero detection",
+        "quantum causal graph cycle non-Markovianity information flow Cartan parameters Clifford gates"
+      ],
+      "result": "命中的非Markovianity文献（Li&Guo&Piilo 2020综述, Utagi 2021量子因果关联, Dutta et al. 2017图Laplacian量子态）使用BLP、RHP等迹距离度量，不涉及QCMI和Cartan参数化。因果图方法：量子因果模型（Strasberg 2019, Costa&Shrapnel 2016）主要处理经典因果结构的量子嵌入，不分析因果循环对QCMI的影响。我们的普通物理翻译'因果循环→量子非马尔可夫性→Clifford条件→经典性'在文献中无先例。",
+      "blind_spot": "确认空白区。量子非马尔可夫性社区的关注点在时间域（memory kernel, Lindblad generator），而不在图拓扑域（Betti数、循环基、Cartan参数）。DGF在图拓扑↔量子信息之间建立了新桥梁。"
+    },
+    "group3_counterexample": {
+      "tool": "paper-search-mcp (semantic + arxiv + crossref)",
+      "queries": [
+        "quantum Markov chain failure counterexample conditional mutual information critique limitation",
+        "Fawzi Renner counterexample lower bound tightness"
+      ],
+      "result": "未发现对Fawzi-Renner下界框架的直接反例。Fawzi&Fawzi(2018, J.Phys.A)通过半定规划数值搜索了QCMI下界（relative entropy of recovery）的反例，但针对的是通用量子态而非因果图信道。对DGF框架本身无外部反例——因果图+Cartan参数化是DGF原创，文献中不存在针对性反例。",
+      "counterexample_severity": "无已知致命反例。但注意：Fawzi&Fawzi(2018)发现Fawzi-Renner下界在一般量子态上不是紧的（差距可达数倍）——这与DGF观测一致（η₀下界保守3.8×）",
+      "references": [
+        {"doi": "10.1088/1751-8121/aab285", "label": "Fawzi & Fawzi 2018 — numerical counterexamples to QCMI lower bound tightness"}
+      ]
+    },
+    "group4_data_availability": {
+      "tool": "paper-search-mcp (semantic + arxiv)",
+      "queries": [
+        "quantum conditional mutual information IBM superconducting qubit experiment measurement causal",
+        "quantum causal cycles decoherence rate graph Betti number experimental"
+      ],
+      "result": "QCMI直接测量在量子硬件上的数据存在（DGF自己的IBM Kingston Heron r2实验：b₁=1, c=π/8, S/N=617×）。但b₁>1因果图的QCMI实验数据不存在——这是数据缺口。IBM/Google现有50-100+ qubit硬件足以实现b₁~10-20的因果图（每环需4 qubit），但尚未有团队执行此类测量。",
+      "data_gap": "显著缺口——b₁>1因果图QCMI标度律的实验检验尚未进行。提议：利用IBM量子硬件实现b₁=2,3,4的顶点共享链，直接测量QCMI vs b₁，验证有效指数α_eff从0.87→1的推断。需要设计合适的量子电路和错误缓解协议（利用LP38开发的H-包装技术）。",
+      "feasibility": "可行。b₁=2需7 qubit（当前硬件易实现），b₁=4需13 qubit（中等难度）。主要挑战：(i) 门保真度随电路深度下降——需要LP38的差分见证+H-包装技术；(ii) QCMI估计需要量子态断层扫描或经典阴影层析——采样复杂度O(2^{N_Q})对N_Q=5(b₁=4)是32，可行。"
+    },
+    "search_tool_selfcheck": {
+      "组1工具": "paper-search-mcp",
+      "组2工具": "paper-search-mcp",
+      "组3工具": "paper-search-mcp",
+      "组4工具": "paper-search-mcp",
+      "降级情况": "无降级——所有四组搜索均使用paper-search-mcp完成",
+      "组1补充搜索": "单独semantic搜索'quantum conditional mutual information causal structure non-Markovianity zero condition Clifford'(2020-2025,10结果)→命中Chen&Rouze 2025(arXiv:2504.02208,26引用)",
+      "组3补充搜索": "单独semantic搜索'Fawzi Renner quantum conditional mutual information lower bound Petz recovery'(2015-2025,10结果)→命中5篇相关（Sutter et al. 2016 IEEE TIT, Li&Winter squashed entanglement, Fawzi&Fawzi 2018 JPA, Berta&Tomamichel 2016 IEEE TIT, Sutter&Fawzi&Renner 2016 Proc.R.Soc.A）",
+      "未找到的文献": "Gangwar et al. 2025 sQNM超可加性——paper-search-mcp全部搜索返回空。此文献可能存在引用错误或尚未被索引。建议PI人工检索或确认正确的引用格式。"
+    }
+  }
+}

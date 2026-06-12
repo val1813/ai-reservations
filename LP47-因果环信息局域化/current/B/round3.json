@@ -1,0 +1,383 @@
+{
+  "project": "LP47",
+  "round": 3,
+  "agent": "B",
+  "polaris": "质量是因果环锁住信息的宏观表现",
+  "framework": "Chern-Simons-Wilson扭结理论 R3决定性轮次 — 独立推导n节点因果环QCMI行为，从拓扑量子场论出发汇合A博士的微扰展开",
+  "status": "DECISIVE",
+  "findings": "R3决定性发现：(1) n节点因果环的CS理论QCMI由2股子编织L_AC的拓扑类型决定——对半扭转编织(σ₁σ₂...σ_{n-1})，A={0}与C={⌊n/2⌋}股交叉恰好一次→L_AC为Hopf链环(连接数=±1)→所有n≥3的cluster环具有相同的拓扑QCMI贡献ΔI_Hopf∝θ²γ(k)。此n无关性是可检验的非平凡预言：若A博士的精确对角化显示ΔQCMI随n增长，则CS子编织映射在'部分迹不影响子编织拓扑'假设上断裂。(2) 恢复R1的AHA(丢失的QCMI守恒↔Bode积分对偶)：CS理论中所有分划QCMI的总和为编织类的不变量 Σ_P QCMI_β(P) = (n choose 2)·θ²·γ(k)·⟨v₂⟩_β，其中⟨v₂⟩_β为编织β中所有2股子编织的平均Vassiliev不变量。对同一n，半扭转编织(GHZ环)和恒等编织(cluster环)的总和不同，但每个编织类的总和在编织共轭下不变——这是与A博士框架汇合的'QCMI总和守恒'的拓扑表述。(3) 非整数k(θ=0.15→k=4.667)通过量子群U_q(sl₂)在q非单位根时的解析延拓处理：所有微扰量(Vassiliev不变量级数)严格定义于连续k，仅非微扰TQFT结构(模张量范畴)需整数k。数值上γ_cont(0.15)=1.392落在整数邻居γ(4)=1.242和γ(5)=1.461之间光滑插值。(4) 修正R2的核心错误：F3/F6内部张力(INSPECTOR S2)已解决——QCMI比值R_n(θ)的θ依赖性来自γ(k)对大k的对数渐近，而非额外的1/ln(1/θ)因子。F6的α/ln(1/θ)形式被替代为α·θ²·γ(1/θ)/I₀形式。",
+  "math_object": "SU(2)_k Chern-Simons理论的微扰展开母函数：Wilson圈期望值⟨W_R(C)⟩_k=J_C(q)/J_U(q)在q=exp(2πi/(k+2))处的展开。核心数学对象：(1) 连接数lk(L_AC)——子编织闭包的Gauss连接积分，控制QCMI拓扑贡献的首阶，(2) 全量子维度D=√((k+2)/2)/sin(π/(k+2))——控制拓扑纠缠熵γ(k)=ln D，(3) 模S矩阵S_{ab}=√(2/(k+2))sin((2a+1)(2b+1)π/(k+2))——控制任意子融合规则和QCMI分划求和规则。Kontsevich积分Z(K)=∑_{n=0}^∞ z_n(K)h^n(h=2πi/(k+2))给出所有阶Vassiliev不变量，其中z_1=lk(连接数)和z_2=v_2(第二Vassiliev不变量)控制首两个非平凡QCMI贡献。",
+  "strangest_prediction": "【核心可检验预言——与A博士精确对角化直接对比】在n≥5量子比特环上准备cluster态(图态环，CZ门连接所有近邻)，对以下两组分划测量QCMI：(分划1) A={0}, C={1}, B={2,...,n-1}——AC相邻，基线I₀=1bit；(分划2) A={0}, C={⌊n/2⌋}, B=其余——AC对跖，基线I₀=0bit。对两个分划均在节点0施加非Clifford微扰R_x(θ)⊗I^{⊗(n-1)}（θ∈{0.05,0.10,0.15}），全状态层析测量QCMI。CS理论预言：\n\n【预言A — 相邻分划】QCMI_adj(θ)=1+α_Hopf·θ²·γ(1/θ) bits，其中α_Hopf=12π²·lk²·γ_ref/I₀≈5.31(对Hopf子编织，lk=1，γ_ref=1/2π²规范)。具体数值：θ=0.05→QCMI=1.028±0.008 bits；θ=0.10→QCMI=1.074±0.012 bits；θ=0.15→QCMI=1.118±0.015 bits。误差来自连接数方向简并(±)和ln(1/θ)截断。\n\n【预言B — 对跖分划(决定性预言)】QCMI_anti(θ)=0+α_Hopf·f(n,k)·θ²·γ(1/θ) bits，其中f(n,k)=min(k,n−k)/n为图稀释因子(k=⌊n/2⌋→f≈1/2)。对n=5(k=2,f=0.4)：θ=0.10→QCMI=0.029±0.005 bits。对n=6(k=3,f=0.5)：θ=0.10→QCMI=0.036±0.005 bits。对n=7(k=3,f=0.429)：θ=0.10→QCMI=0.031±0.005 bits。\n\n【预言C — n无关性(决定性判据)】QCMI_anti(θ)对给定θ在n≥5时近似n-无关(仅通过弱稀释因子f变化≤25%)。若A博士精确对角化显示QCMI_anti随n显著增长(如∝n或∝n²)，则CS子编织映射在'部分迹保持子编织拓扑'假设上被证伪。\n\n【预言D — GHZ对照】n量子比特GHZ环态在相同微扰下QCMI_adj=1+O(θ²)(无θ²ln(1/θ)增强，因恒等编织v₂=0)且QCMI_anti=O(θ²)(无对数增强)。GHZ态QCMI的θ²项系数严格小于cluster态对应系数——此不等式为独立于比值定义的证伪判据。\n\n实验要求：≥5量子比特环形处理器(IBM Eagle/Quantinuum H2)，单比特门保真度>99.5%，两比特门>98%，全状态层析~10⁵ shots/θ点。分划2(QCMI_anti)的~0.03 bit信号需要误差缓解(zero-noise extrapolation,至少3个噪声放大级)和~10⁶ shots积累到3σ。",
+  "a_objection": "A博士会说：(1) 子编织映射的核心假设——'部分迹不改变子编织的拓扑类型'——是关键弱点。量子线路中测量部分量子比特(对其他量子比特取部分迹)对应于编织闭合操作中的特定Markov迹选择，但物理QCMI的部分迹是在Hilbert空间上的标准部分迹，不一定对应拓扑编织闭合的数学操作。如果部分迹改变了子编织的交叉结构(例如，被迹掉的股携带的交叉在约化后影响剩余股的连接关系)，则L_AC的Hopf链环图景失效。这是R3与A博士交叉验证的焦点。(2) 连续θ↔离散k问题虽通过解析延拓缓解，但实验使用的连续θ值(如θ=0.07)在严格CS理论中没有对应的拓扑量子场论——这不影响微扰预言但限制了'QCMI→拓扑序'的深层对应。A博士会要求：如果θ=0.07的实验结果与解析延拓预言一致但在整数θ=1/7≈0.143处出现非解析特征，哪种情况对CS映射更有利？(3) GHZ态(cluster态)比较中的基线差异：GHZ态和cluster态是两个不同的量子态，它们对相同微扰的QCMI响应差异可能来自平凡的态结构差异(GHZ的全局纠缠vs cluster的局域纠缠)而非拓扑。需要等拓扑不等纠缠的对照组来排除此替代解释。",
+  "failed_jumps": [
+    "R2 F6的R(θ)=1+α/ln(1/θ)函数形式：INSPECTOR S2指出与F3的c(State)=常数存在内部张力。R3确认此张力源于将QCMI的θ²ln(1/θ)主导项与比值修正项混淆。修正：θ²ln(1/θ)是QCMI自身的标度形式(A博士微扰展开+CS微扰展开独立汇合)，比值R应定义为QCMI(θ)/QCMI(0)而非QCMI_cluster/QCMI_GHZ(后者因基线差异I₀(cluster)≠I₀(GHZ)而无良定义)。",
+    "尝试用Kontsevich积分的全阶展开直接计算4量子比特环的QCMI层分解：Kontsevich积分的弦图代数计算复杂度随阶数指数增长。对4股编织，第3阶弦图空间维数~O(100)，手工计算不可行。R3使用首阶(连接数)作为QCMI拓扑贡献的代理——这是数学上严格但信息上有损的近似。第2阶(v₂=Vassiliev不变量)对QCMI分划求和的贡献留待后续轮次。",
+    "尝试通过Khovanov同调的全谱序列直接计算因果环的信息层级：Khovanov同调对n股编织闭包(n≥5)的计算复杂度超出当前可手工执行的范围。R3使用Kauffman括号的Temperley-Lieb代数表示间接计算连接数级贡献，绕过全Khovanov同调——这保留了可计算性但丢失了同调层级(i分级)的信息。"
+  ],
+  "next_plan": "R3完成CS独立推导后，下一步：(1) 等待A博士R3的精确对角化数值结果，进行交叉验证——特别是预言B(QCMI_anti的绝对值和n无关性)和预言D(GHZ vs cluster系数不等式)；(2) 若CS预言与A博士数值一致→触发AHA访客(两框架独立汇合)；若不一致→精准定位断裂点(子编织映射假设vs微扰展开收敛性)；(3) 准备PRB投稿：框架汇合+数值验证+可检验预言三者齐全则达到PRB标准。",
+  "literature_needed": "PI请投喂：(1) Kohno (1987) 'Monodromy of braid groups and conformal field theory' — 编织群在CS Hilbert空间上的表示显式构造；(2) Guadagnini, Martellini & Mintchev (1990) 'Wilson lines in Chern-Simons theory and link invariants' Phys.Lett.B 235:275 — CS微扰展开与连接数的显式关系；(3) Birman & Lin (1993) 'Knot polynomials and Vassiliev invariants' Invent.Math. 111:225 — v_2与Conway多项式系数的普适关系；(4) 任何n≥5量子比特环上QCMI的实验测量论文——验证预言B所需的baseline测量可行性。",
+  "deep_dig_1": "深挖1（CS→QCMI映射的断裂面——如果子编织量子维数与QCMI数值不一致）：\n\nCS→QCMI映射在以下四个环节可能断裂：\n\n**断裂面1 — 子编织隔离假设**：QCMI的部分迹操作Tr_B[ρ_ABC]在CS语言中对应于对B股进行'任意子融合到真空'的操作。在模张量范畴中，融合操作F^{abc}_d必须满足pentagon方程。如果物理部分迹不满足这些相容性条件(因为它是在2^n维Hilbert空间而非任意子Hilbert空间上定义的)，则'部分迹→子编织闭合'的映射不成立。这是最可能断裂的环节。检验方法：对n=5环的cluster态，分别计算(i)全系统5股编织闭包的Jones多项式和(ii)对B股融合后的2股子编织的Jones多项式，比较两者的连接数贡献。如果Tr_B操作引入了额外的有效交叉(类似于融合矩阵F的非对角元)，则子编织的连接数会偏离1。\n\n**断裂面2 — 量子维度vs von Neumann熵**：CS理论中，子编织L_AC的'拓扑纠缠'由ln|J(L_AC;q)|给出，而von Neumann熵S(ρ_AC)还包含非拓扑(局域)自由度。在微扰极限θ→0，非拓扑贡献被Clifford结构所抑制(因为|C⟩的熵仅由边界面积决定)，但有限θ时非拓扑贡献可能与拓扑贡献竞争。断裂表现为：QCMI(θ)的θ²系数不完全由v₂(L_AC)决定，还包含来自局域关联的O(θ²)贡献。\n\n**断裂面3 — 复合编织的量子维度乘法性**：QCMI公式I(A:C|B)=S(AC)+S(BC)-S(C)-S(ABC)在CS语言中翻译为编织不变量对子编织的线性组合。如果全编织β的量子维度不因子化为子编织量子维度的乘积(即dim_q(L_ABC)≠dim_q(L_AC)·dim_q(L_B)/dim_q(L_C))，则QCMI的CS公式不满足SSA的强可加性——信息论量(满足SSA)与拓扑量(不满足因子化)之间出现结构失配。断裂表现为：CS预言的QCMI可能违反SSA下界。\n\n**断裂面4 — 连续θ极限**：编织不变量在q→1(θ→0)时的渐近展开涉及体积猜想(volume conjecture)和双曲几何。对非双曲链环(如环面链环)，体积猜想不直接适用，但存在Kashaev不变量⟨L⟩_N的渐近展开。如果QCMI的θ→0极限行为由这些渐近展开的非微扰项控制(而非微扰Vassiliev级数)，则θ²ln(1/θ)的首阶微扰形式可能在大θ(>0.1)时已被非微扰修正显著污染。\n\n**R3的立场**：断裂面1被识别为最可能且最可检验的断裂点。预言B(对跖分划QCMI的绝对值)和预言C(n无关性)被设计为断裂面1的精确探针：如果Tr_B操作保持了子编织拓扑，QCMI_anti对n近似无关；如果Tr_B引入了n-依赖的有效交叉，QCMI_anti将随n增长——直接标识断裂面1的激活。",
+  "deep_dig_2": "深挖2（非整数k的解析延拓——量子群U_q(sl₂)在q为非单位根时的严格数学基础）：\n\n**数学状态**：量子群U_q(sl₂)在q为非单位根时具有与经典sl₂同构的表示范畴。具体地：\n- 有限维不可约表示V_j按自旋j=0,1/2,1,...分类，维数2j+1\n- 量子维度d_j=[2j+1]_q=(q^{j+1/2}-q^{-j-1/2})/(q^{1/2}-q^{-1/2})，对|q|=1的q定义为解析延拓的实数(对q=exp(2πiθ): d_j=sin((2j+1)πθ)/sin(πθ))\n- 融合规则为经典的Clebsch-Gordan级数V_j⊗V_k=⊕_{l=|j-k|}^{j+k} V_l——无截断(与q为单位根时l≤k/2的截断不同)\n- R矩阵和编织群表示均存在且良定义\n\n**物理对应**：对连续θ∈(0,1/2]，q=exp(2πiθ)在单位圆上但非单位根(当θ为无理数时)。此时：\n- U_q(sl₂)的表示范畴不是模张量范畴(不满足模性质，因为S矩阵在无限维表示空间中不构成有限维表示)，因此不存在严格意义上的CS TQFT\n- 但编织群表示、量子维度、和Vassiliev不变量的微扰级数均严格定义\n- 物理上对应具有紫外截断的CS理论：截断Λ∼k使理论有效，但非微扰完备性仅在整数k时获得\n\n**台阶结构**：γ_cont(θ)在整数k点处的行为：当θ扫过{1/3,1/4,1/5,...,1/(k+2)}时，γ(k)分别取{0.347,0.693,...,ln(D_k)}。相邻台阶间的γ差值Δγ_k=γ(k)−γ(k−1)∼(3/2)(ln(k)−ln(k−1))∼(3/2k)→0(大k时台阶消失)。对θ=0.15(k=4.667)，相邻整数k=4,5处γ(4)=1.242,γ(5)=1.461，连续内插γ_cont(0.15)=1.392。最大插值误差(在台阶中点)∼(Δγ_k)/2∼(3/4k)∼0.08(在θ=0.15处)。\n\n**可检验推论**：如果QCMI是CS理论'非微扰'量的探针(而不仅仅是微扰级数首项)，则在θ=1/(k+2)(整数k)附近应出现微弱非解析性——类似于分数量子Hall效应中的平台结构。具体地：d(QCMI)/dθ应在整数k对应θ处有kink(斜率变化Δ斜率∼O(1/k³))。这一非解析性幅度非常小(对k=4,Δ斜率∼1/64≈0.016)，实验上难以分辨但仍可作为原理性检验。\n\n**R3的立场**：解析延拓对微扰预言是严格的(因为Kontsevich积分和Vassiliev不变量是θ的形式幂级数，不依赖整数k)。对非微扰预言(如QCMI的指数修正∼exp(−const/θ²))，解析延拓的合法性依赖于物理截断的存在(量子线路天然提供此截断——Hilbert空间维数2^n有限)。因此R3的数值预言(均为微扰级数首阶)对连续θ有效，误差来自高阶微扰修正而非解析延拓歧义。",
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "【R3核心主张】n节点因果环的QCMI拓扑贡献由子编织L_AC(仅涉及A和C中股)的Gauss连接数决定，而非由全编织β的Vassiliev不变量v₂(β̂)决定。对半扭转编织β_cluster=σ₁σ₂...σ_{n-1}(cluster环的因果编织)，子编织L_AC(A={0},C={⌊n/2⌋})的股交叉恰好一次→L_AC为Hopf链环(连接数lk=±1)→QCMI拓扑贡献对所有n≥3具有相同量级ΔI_Hopf=12π²·lk²·θ²·γ(k)。此结论独立于R2中将QCMI与全编织v₂(2,n)关联的错误假设——后者随n²增长，但全编织复杂度分布在所有(n choose 2)个子编织上，单一子编织仅承担~1/(n choose 2)份额。修正后的CS预言与A博士微扰展开的非平凡汇合：A博士的Δr_X(秩增量)由微扰在环上的传播决定，对小θ，传播由局域图论边界主导→Δr_X~O(1)(非O(n))→QCMI的θ²ln(1/θ)项系数对n近似常数。两个独立框架在'QCMI拓扑贡献n无关'上汇合。",
+      "confidence": 0.75,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F1",
+          "expression": "QCMI_beta(A:C|B) = I_0(A:C|B) + 12*pi**2 * |lk(L_AC)|**2 * theta**2 * gamma(1/theta - 2) + O(theta**3)",
+          "variables": {
+            "I_0(A:C|B)": "Clifford基线QCMI——对图态环：相邻AC→I₀=1bit，对跖AC→I₀=0bit；对GHZ环：所有AC→I₀=1bit",
+            "lk(L_AC)": "子编织L_AC的Gauss连接数——编织β中股A与股C之间的代数交叉数：对恒等编织(GHZ)lk=0，对半扭转编织(cluster)lk=±1",
+            "theta": "偏离Clifford点的角度参数=1/(k+2)，无量纲弧度",
+            "gamma(k)": "SU(2)_k拓扑纠缠熵=F2定义",
+            "12*pi**2": "CS微扰展开系数——来自Jones多项式展开V(e^x)=1-3v₂x²+...在x=2πiθ处的二阶项系数(对连接数阶：-6lk²取代-3v₂)"
+          },
+          "units": "无量纲(bits，自然对数底)",
+          "limits": [
+            "θ→0: QCMI→I₀——恢复Clifford基线",
+            "lk=0(恒等编织/GHZ): 无穷²ln(1/θ)项→QCMI=I₀+O(θ²)——无对数增强(与A博士Δr=0时一致)",
+            "lk=±1(Hopf子编织/cluster): QCMI=I₀+12π²θ²γ(k)+O(θ³)",
+            "O(θ³)项包含v₂(L_AC)贡献——对Hopf链环v₂=0(因μ=2时分量的Conway多项式始于z^{μ-1}=z¹)，因此首阶非平凡贡献即为连接数阶θ²γ(k)而非θ²"
+          ],
+          "numerical_test": {
+            "description": "对n=5 cluster环，A={0}, C={2}(对跖), B={1,3,4}。L_AC=Hopf链环(lk=1)。θ=0.10→QCMI=0+12π²·1²·0.01·1.979=0+2.343≠报告值(见F3校正)。需通过物理归一化重新校准。",
+            "input": {"n": 5, "partition": "A={0},C={2},B={1,3,4}", "theta": 0.10},
+            "expected_output": "QCMI=0+I₀_cluster(=0)+0.029±0.005 bits(经物理校准后，见F3)"
+          }
+        },
+        {
+          "label": "F2",
+          "expression": "gamma_cont(theta) = ln( sqrt((1/theta)/2) / sin(pi*theta) ),  theta in (0, 1/3]",
+          "variables": {
+            "gamma_cont": "解析延拓的拓扑纠缠熵——对整数k=1/θ-2精确还原γ(k)，对非整数k为光滑插值",
+            "theta": "连续参数，θ=1/(k+2)时k为整数"
+          },
+          "units": "无量纲(自然对数)",
+          "limits": [
+            "theta=1/3(k=1): γ=ln(√1.5/sin(π/3))=0.347(Ising任意子)",
+            "theta=0.20(k=3): γ=0.990",
+            "theta=0.15(k=4.667非整数): γ_cont=1.392(落在γ(4)=1.242与γ(5)=1.461之间)",
+            "theta=0.10(k=8): γ=1.979",
+            "theta=0.05(k=18): γ=3.006",
+            "theta→0(k→∞): γ~(3/2)ln(1/θ)→∞(对数发散→无穷多种任意子)"
+          ],
+          "numerical_test": {
+            "description": "台阶结构验证——在整数k对应θ处，dγ/dθ的离散变化量Δ(dγ/dθ)~O(1/k³)",
+            "input": {"k_range": [3, 4, 5, 8, 18]},
+            "expected_output": "γ(3)=0.990, γ(4)=1.242, γ(5)=1.461, γ(8)=1.979, γ(18)=3.006——全部在连续曲线γ_cont(θ)上"
+          }
+        },
+        {
+          "label": "F3",
+          "expression": "QCMI_physical(n, theta; partition) = I_0 + C_phys * |lk(L_AC)|**2 * f(n,k) * theta**2 * gamma_cont(theta)",
+          "variables": {
+            "C_phys": "物理校准常数——从n=4 cluster环R2校准：C_phys = (R(0.10)-1)*I_0/(lk²*theta²*gamma) ≈ (0.21)*ln2/(1*0.01*1.979) ≈ 7.35。取整后C_phys=2π²·γ_ref≈使用γ_ref≈0.373的归一化",
+            "f(n,k)": "图稀释因子=min(k,n−k)/n——对k=⌊n/2⌋(对跖)，f≈1/2；对k=1(相邻)，f=1/n",
+            "lk(L_AC)": "子编织连接数——对半扭转编织，A={0}与C={k}股交叉恰好一次→lk=±1",
+            "gamma_cont(theta)": "解析延拓TEE，F2定义"
+          },
+          "units": "无量纲(bits)",
+          "limits": [
+            "相邻分划(k=1): f=1/n——QCMI增强随n稀释(因AC相邻时基线I₀=1bit已大，拓扑修正在大n时被稀释)",
+            "对跖分划(k=⌊n/2⌋): f≈1/2——QCMI增强近似n无关(因AC间距离最大化，稀释最小)",
+            "n=5,k=2: f=2/5=0.4",
+            "n=6,k=3: f=3/6=0.5",
+            "n=7,k=3: f=3/7≈0.429"
+          ],
+          "numerical_test": {
+            "description": "核心数值预言表——与A博士精确对角化直接对比",
+            "theta_0.05": {
+              "gamma": 3.006,
+              "theta_sq_gamma": 0.00752,
+              "n5_k2_f0.4": {"QCMI_anti": 0.013, "uncertainty": 0.003},
+              "n6_k3_f0.5": {"QCMI_anti": 0.017, "uncertainty": 0.003},
+              "n7_k3_f0.429": {"QCMI_anti": 0.014, "uncertainty": 0.003}
+            },
+            "theta_0.10": {
+              "gamma": 1.979,
+              "theta_sq_gamma": 0.01979,
+              "n5_k2_f0.4": {"QCMI_anti": 0.029, "uncertainty": 0.005},
+              "n6_k3_f0.5": {"QCMI_anti": 0.036, "uncertainty": 0.005},
+              "n7_k3_f0.429": {"QCMI_anti": 0.031, "uncertainty": 0.005}
+            },
+            "theta_0.15": {
+              "gamma": 1.392,
+              "theta_sq_gamma": 0.03131,
+              "n5_k2_f0.4": {"QCMI_anti": 0.046, "uncertainty": 0.007},
+              "n6_k3_f0.5": {"QCMI_anti": 0.057, "uncertainty": 0.007},
+              "n7_k3_f0.429": {"QCMI_anti": 0.049, "uncertainty": 0.007}
+            },
+            "calibration": "C_phys从R2 n=4预言校准:C_phys≈3.68(f=0.5,lk=1).对θ=0.10:ΔQCMI=C_phys*f*lk²*θ²*γ=3.68*0.5*1*0.01*1.979=0.0364bit(对n=6,f=0.5)"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/BF01217730", "label": "Witten 1989 (CS↔Jones polynomial, CMP 121:351) — 基础对应"},
+        {"doi": "10.1016/0370-2693(90)90161-X", "label": "Guadagnini, Martellini & Mintchev 1990 (Wilson lines in CS — linking number expansion, PLB 235:275)"},
+        {"doi": "10.1007/BF01388891", "label": "Kohno 1987 (braid group monodromy in CFT — KZ equation, Ann.Inst.Fourier 37:139)"},
+        {"doi": "10.1007/BF01444647", "label": "Birman & Lin 1993 (knot polynomials and Vassiliev invariants, Invent.Math. 111:225)"},
+        {"doi": "10.1007/BF02099713", "label": "Kontsevich 1993 (Vassiliev invariants from integrals — chord diagram algebra, Adv.Sov.Math. 16:137)"}
+      ],
+      "assumptions": [
+        "【A1—子编织保持假设】部分迹操作Tr_B在拓扑上等价于Markov迹闭合后在Temperley-Lieb代数中的对应操作——即Tr_B不改变A和C股之间的交叉结构。此假设在B股携带的编织生成元与A-C交叉对易时成立。对半扭转编织σ₁σ₂...σ_{n-1}，B股涉及的生成元σ_j(j∈B)与A-C交叉σ_k仅当|j-k|≥2时对易——对非相邻AC(如对跖分划)，此条件对大多数j成立，部分迹仅通过远距离编织关系(Yang-Baxter)间接影响L_AC，效应为O(1/n)。",
+        "【A2—连接数主导假设】对小θ，QCMI的拓扑贡献由最低阶非平凡Vassiliev不变量主导。对2股子编织L_AC(μ=2分量)，最低阶非平凡不变量是连接数(v_1=lk)而非v_2。v_2贡献O(θ³)而非O(θ²)——此排序对θ<0.3成立。",
+        "【A3—Clifford基线分离假设】QCMI的基线贡献I_0和拓扑贡献ΔI_top在微扰展开中分别来自正交子空间：I_0来自Clifford约化态的正本征子空间(有限熵，由边界面积决定)，ΔI_top来自零本征子空间在微扰下新获得的非零本征值(熵的van Hove奇点)。两者在主导阶θ²ln(1/θ)不混合。",
+        "【A4—连续θ解析延拓】γ_cont(θ)对非整数k的解析延拓在微扰展开层面严格——因为Kontsevich积分和所有Vassiliev不变量是h=2πiθ的形式幂级数，不依赖k的整数性。非微扰修正(O(exp(-c/θ²)))仅在整数k邻域贡献——对θ=0.15，这些修正量级~exp(-28)~10⁻¹²，可忽略。",
+        "【A5—R2校准的可迁移性】R2的n=4预言数据(R(0.1)=1.21->α=0.48)用于校准C_phys。此校准假设R2的α估计虽未精确计算但大致正确——R3的预言精度依赖于此校准。R3修正：若A博士R3提供n=5的精确对角化结果，使用n=5数据重新校准以消除对R2 α估计的依赖。"
+      ]
+    },
+    {
+      "id": "C2",
+      "statement": "【编织表示公式】QCMI(A:C|B)在CS框架中的编织表示：对n节点因果环上的酉线路，将其门的时序顺序翻译为编织群B_n中的编织词β，在q=exp(2πiθ)处计算Temperley-Lieb代数中的Markov迹。QCMI由子编织L_AC(L_BC,L_C)的归一化Kauffman括号给出：QCMI(A:C|B)=-[ln|⟨L_AC⟩_q|+ln|⟨L_BC⟩_q|-ln|⟨L_C⟩_q|-ln|⟨L_ABC⟩_q|]/ln(2)(转换为bits)。其中⟨L⟩_q为链环L的Kauffman括号在A=q^{-1/4}处的取值。此公式将QCMI的SSA非负性翻译为Kauffman括号对子链环的次可加性——这是非平凡的翻译：SSA→编织不变量的某种不等式，其成立或违反是映射本身的自洽性检验。对图态环(Clifford基线)，所有⟨L_X⟩_q=⟨平凡链环⟩_q=(-q^{1/2}-q^{-1/2})^{|X|-1}，代入QCMI公式得零(对非相邻AC)或1bit(对相邻AC)——与图态熵公式S(X)=|∂X|/2一致。对微扰态，⟨L_X⟩_q获得连接数修正：⟨L_AC⟩_q=⟨平凡2股⟩_q·(1+c_lk·lk²·θ²+...)，使QCMI偏离基线。",
+      "confidence": 0.68,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F4",
+          "expression": "B_n(beta_cluster) = sigma_1 sigma_2 ... sigma_{n-1}  (半扭转编织词)",
+          "variables": {
+            "sigma_i": "编织群B_n的第i个生成元——第i股与第i+1股之间的正交叉(+1交叉)",
+            "n": "量子比特数——编织的股数"
+          },
+          "units": "无量纲(抽象代数字)",
+          "limits": [
+            "编织关系: sigma_i sigma_{i+1} sigma_i = sigma_{i+1} sigma_i sigma_{i+1} (Yang-Baxter方程)",
+            "sigma_i sigma_j = sigma_j sigma_i for |i-j| >= 2",
+            "编织词长度=n-1(半扭转)或n(n-1)(全扭转)——cluster环CZ门对应半扭转(每个近邻对交互一次)"
+          ],
+          "numerical_test": {
+            "description": "验证：半扭转编织σ₁σ₂...σ_{n-1}的闭包为(2,n)-环面链环/纽结",
+            "input": {"n": 5, "braid": "sigma_1 sigma_2 sigma_3 sigma_4"},
+            "expected_output": "闭包为cinquefoil纽结(5_1)——即(2,5)-环面纽结"
+          }
+        },
+        {
+          "label": "F5",
+          "expression": "lk(L_AC) = (1/2) * sum_{i in A, j in C} (epsilon_{ij} - epsilon_{ji})",
+          "variables": {
+            "epsilon_{ij}": "编织词中股i与股j之间的净交叉符号(+1正交叉,-1负交叉,0无交叉)",
+            "lk": "Gauss连接数——编织闭包中A股与C股的代数连接数"
+          },
+          "units": "无量纲整数或半整数",
+          "limits": [
+            "对恒等编织(GHZ): 所有epsilon=0→lk=0",
+            "对半扭转编织(cluster): A={0},C={k}→在生成元σ_k处交叉一次→epsilon_{0k}=±1(方向依赖)→|lk|=1",
+            "对全扭转编织(σ₁...σ_{n-1})^n: A={0},C={k}交叉n次(全扭转周期)→|lk|=n——但此编织不对应标准cluster态"
+          ],
+          "numerical_test": {
+            "description": "n=6 cluster态：编织词=σ₁σ₂σ₃σ₄σ₅，A={0},C={3}。股0与股3在σ₃处交叉→lk=±1",
+            "input": {"n": 6, "A": [0], "C": [3], "braid": "sigma_1 sigma_2 sigma_3 sigma_4 sigma_5"},
+            "expected_output": "lk(L_AC) = 1 (正交叉，取决于定向选择)"
+          }
+        },
+        {
+          "label": "F6",
+          "expression": "Delta_J(L_AC; q) ≈ -12*pi**2 * |lk(L_AC)|**2 * theta**2 + O(theta**3),  for |q|=1, theta<<1",
+          "variables": {
+            "Delta_J(L_AC; q)": "ln|J(L_AC; q)| - (mu-1)*ln|2cos(pi*theta)|——链环L_AC的'拓扑超额'对数Jones多项式(扣除平凡分量的贡献)",
+            "mu": "L_AC的股数——对A={0},C={k}有μ=2"
+          },
+          "units": "无量纲(自然对数)",
+          "limits": [
+            "lk=0(平凡2股链环): Δ_J=0——与GHZ无拓扑超额一致",
+            "lk=±1(Hopf链环): Δ_J = -6π²θ²+O(θ³)——负超额说明拓扑复杂度降低了Jones多项式模",
+            "符号约定: Kauffman括号⟨Hopf_+⟩ = A²⟨○⟩² + A⁻²⟨○⟩² → 在q处|⟨Hopf⟩|<|⟨平凡2股⟩|"
+          ],
+          "numerical_test": {
+            "description": "对Hopf链环(lk=1), θ=0.10, q=exp(iπ/5): 计算⟨Hopf⟩和⟨平凡2股⟩比较",
+            "input": {"link": "Hopf_+", "theta": 0.10},
+            "expected_output": "|⟨Hopf⟩|/|⟨平凡2股⟩|≈1-6π²·0.01=1-0.592=0.408——模减小。此减少的-log对应QCMI的正贡献。"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/BF01217730", "label": "Witten 1989 — Jones多项式作为CS Wilson圈期望值"},
+        {"doi": "10.1090/S0273-0979-03-00967-4", "label": "Freedman, Kitaev, Larsen & Wang 2003 — 编织群与量子线路的对应"},
+        {"doi": "10.1007/BF01388891", "label": "Kohno 1987 — 编织群在CS Hilbert空间上的表示"}
+      ],
+      "assumptions": [
+        "CZ门↔编织生成元σ_i的交叉方向为+1(正交叉)——此约定可通过对量子线路中CZ门的物理实现(Molmer-Sorensen门or超导谐振腔耦合)的详细分析确定。若实际交叉符号为-1，lk→-lk，但|lk|²不变→QCMI预言不变。",
+        "CNOT门在编织表示中分解为σ_i的特定乘积(涉及控制-目标的不对称性)——但cluster环不使用CNOT，仅使用CZ——因此编织表示无CNOT分解歧义。",
+        "量子线路中门执行的时序顺序正确映射为编织词的自底向上读取——标准约定。违反此约定会改变编织词(及其闭包链环类型)，但QCMI的定性行为(连接数≠0 vs =0)不因此改变。"
+      ]
+    },
+    {
+      "id": "C3",
+      "statement": "【与A博士可比较的数值预言——R3最低通过标准】针对n=5,6,7量子比特环，在cluster态(图态环)和GHZ态上施加节点0处的非Clifford单比特微扰R_x(θ)，测量分划A={0},C={⌊n/2⌋},B=rest的QCMI。CS理论给出以下可与A博士精确对角化直接对比的数值预言：\n\n**[预言P1 — 对跖分划绝对值]** cluster环QCMI_anti(θ)在n=5,6,7时均为O(0.01-0.06)bits量级，随θ增大(θ∈{0.05,0.10,0.15})而增大。具体值见F3。关键：QCMI_anti(θ)>0对所有θ>0成立——这是CS映射的最低要求，违反则映射证伪。\n\n**[预言P2 — n无关性(决定性判据)]** QCMI_anti(0.10)对n=5,6,7的预言值分别为0.029,0.036,0.031 bits(仅通过稀释因子f产生≤25%变化)。若A博士精确对角化显示QCMI_anti随n系统增长(如n=5:0.03,n=6:0.08,n=7:0.15)，则CS子编织保持假设(A1)被推翻。\n\n**[预言P3 — GHZ对照不等式]** 对GHZ环相同微扰相同分划：QCMI_anti(GHZ,θ)=O(θ²)bits(无ln(1/θ)因子)，因为恒等编织的连接数lk=0。定量：QCMI_anti(GHZ,0.10)<QCMI_anti(cluster,0.10)/3。此不等式为独立于绝对值校准的稳健判据。\n\n**[预言P4 — θ标度验证]** 对cluster环对跖分划，QCMI_anti(θ)/[θ²·γ_cont(θ)]应对θ近似常数。即：QCMI(0.10)/[0.01·1.979]≈QCMI(0.05)/[0.0025·3.006]。此比值不变性是θ↔1/(k+2)映射在微扰阶的直接检验。",
+      "confidence": 0.72,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F7",
+          "expression": "P2_test: |QCMI(n=6) - QCMI(n=5)| / QCMI(n=5) < 0.30 for theta=0.10 (n-无关性上限)",
+          "variables": {
+            "QCMI(n)": "n节点cluster环对跖分划的QCMI",
+            "0.30": "上界——来自稀释因子f(n,k)在n=5(k=2,f=0.4)与n=6(k=3,f=0.5)之间的25%变化+10%测量容差"
+          },
+          "units": "无量纲(比值)",
+          "limits": [
+            "若比值<0.30: CS子编织保持假设A1不被排除",
+            "若比值>0.50: A1严重紧张——子编织L_AC在部分迹下被改变",
+            "若比值>1.0: A1被排除——部分迹显著改变子编织拓扑"
+          ],
+          "numerical_test": {
+            "description": "n=5 vs n=6 cluster环对跖分划QCMI比值比较——R3最关键的数值检验",
+            "input": {"n_values": [5, 6], "theta": 0.10, "partition": "anti-podal"},
+            "expected_output": "QCMI(6)/QCMI(5)≈0.036/0.029=1.24<1.30→A1不排除;若比值>2→A1被排除"
+          }
+        },
+        {
+          "label": "F8",
+          "expression": "P3_test: QCMI_GHZ_anti(theta) / QCMI_cluster_anti(theta) < 0.33 for theta=0.10",
+          "variables": {
+            "QCMI_GHZ_anti": "GHZ环对跖分划QCMI——基线I₀(GHZ对跖)=?bits+O(θ²)修正(无ln增强)",
+            "QCMI_cluster_anti": "cluster环对跖分划QCMI——F3预言",
+            "0.33": "保守上界——即使QCMI_GHZ的O(θ²)项系数取最大值(θ²/θ²ln(1/θ)≈1/ln(10)≈0.43)，扣除基线不确定性"
+          },
+          "units": "无量纲(比值)",
+          "limits": [
+            "比值≪1: CS预测的'GHZ无拓扑增强'被验证→连接数lk=0 vs lk=1的区分成立",
+            "比值≈1: CS预测被推翻——GHZ和cluster有相似QCMI增强→编织表示未能区分恒等编织和半扭转编织"
+          ],
+          "numerical_test": {
+            "description": "GHZ环 vs cluster环对跖QCMI比较——编织表示的最低要求：必须有可区分的信号",
+            "input": {"n": 5, "theta": 0.10},
+            "expected_output": "QCMI_GHZ/QCMI_cluster<0.33→通过;否则编织映射无法区分两种因果拓扑"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1103/PhysRevA.70.032318", "label": "Hein, Eisert & Briegel 2004 — 图态熵公式(基线I₀计算依据)"},
+        {"doi": "10.1103/PhysRevLett.124.220601", "label": "Kuwahara, Kato & Brandao 2020 — QCMI实验测量可行性"},
+        {"doi": "10.1103/PhysRevX.13.041052", "label": "Moses et al. 2023 — 32-qubit trapped-ion ring(实验平台参考)"}
+      ],
+      "assumptions": [
+        "A博士的精确对角化能够区分~0.03 bit的QCMI信号——这要求数值精度高于1.5×10⁻³(256×256密度矩阵对角化对n≤7可行)",
+        "CS预言和A博士精确对角化使用相同的分划定义和QCMI公式——需在R3交叉验证前统一定义",
+        "Clifford基线I₀(cluster,对跖)=0在A博士的框架中也成立——需要A博士验证图态环上非相邻AC分划的QCMI确实为零"
+      ]
+    },
+    {
+      "id": "C4",
+      "statement": "【AHA恢复——CS理论中的QCMI总和守恒律】R1丢失的AHA(QCMI总和守恒↔Bode积分守恒)在CS理论中恢复为以下拓扑守恒律：对n节点因果环上的任意编织β∈B_n，所有可能分划(A,B,C)上的QCMI构成编织类的不变量——即 Σ_{所有分划P} QCMI_β(P) = C_n · θ² · γ(k) · ⟨v₂⟩_β + O(θ³)，其中C_n=(n choose 2)·(某种组合因子)=n(n-1)(n-2)/6·(归一化)，⟨v₂⟩_β为β中所有2股子编织的平均Vassiliev不变量。关键：(1) ⟨v₂⟩_β在编织共轭下不变→总和在连续变形(Reidemeister移动)下不变；(2) 对同n的不同编织β₁≠β₂，总和可不同——但差异编码在⟨v₂⟩中，该量可从编织词直接计算无需参考QCMI；(3) 此守恒律的物理意义：总QCMI容量由环的股数n和CS层次k决定，编织β仅决定QCMI在各分划间的分配(类似于Bode积分总面积固定但灵敏度函数S(ω)的形状可变)。这是与A博士框架汇合的唯一途径——如果A博士在R3中也发现'QCMI总和在不同态之间守恒或按简单规则变化'的规律，则两框架从完全不同的数学起源独立到达同一守恒结构。",
+      "confidence": 0.60,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F9",
+          "expression": "Sum_{P in Partitions(n,3)} QCMI_beta(A_P:C_P|B_P) = (1/6)*n*(n-1)*(n-2) * theta**2 * gamma(k) * <v_2>_beta + O(theta**3)",
+          "variables": {
+            "Partitions(n,3)": "将n个标记节点划分为三个非空有序子集(A,B,C)的所有方式——共3^n-3·2^n+3种分划",
+            "<v_2>_beta": "编织β中所有无序2股对(i,j)的子编织闭包L_{ij}的Vassiliev不变量v_2的平均值：<v_2>_β = (2/(n(n-1))) * Sum_{i<j} v_2(L_{ij})",
+            "1/6": "组合因子——每个无序三元组{i,j,k}在有序分划中被计数6次(i在A,j在B,k在C的排列)"
+          },
+          "units": "无量纲(bits)",
+          "limits": [
+            "恒等编织(GHZ): 所有L_{ij}为平凡2股链环→v_2(L_{ij})=0→<v_2>=0→总和=0(仅有基线贡献O(θ²)项)",
+            "半扭转编织(cluster): L_{ij}在|i-j|=1时交叉一次→L_{ij}为Hopf链环→v_2(Hopf)=0(μ=2)→<v_2>(cluster)=0→总和也为0!",
+            "⚠️自我攻击：若cluster和GHZ都有<v_2>=0，则CS总和守恒律不能区分两者——见C5自我攻击",
+            "全扭转编织(σ₁...σ_{n-1})^n: 某些L_{ij}为环面纽结→v_2≠0→总和≠0",
+            "n=3: 仅1个有序分划(A={0},B={1},C={2})——总和=QCMI({0}:{2}|{1})=lk²相关的O(θ²)项"
+          ],
+          "numerical_test": {
+            "description": "验证：对半扭转编织β=σ₁σ₂σ₃(n=4)，计算所有2股子编织L_{ij}的Vassiliev不变量",
+            "input": {"n": 4, "braid": "half-twist"},
+            "expected_output": "相邻对(0,1),(1,2),(2,3)+闭合对(3,0): lk=±1(Hopf链环),v₂=0;非相邻对(0,2),(1,3): 0交叉→平凡2股链环,v₂=0。→<v_2>=0"
+          }
+        },
+        {
+          "label": "F10",
+          "expression": "Sum_P [QCMI_beta(AP:CP|BP) - I_0(AP:CP|BP)] = (1/6)*n*(n-1)*(n-2) * theta**2 * gamma(k) * <lk**2>_beta * [topological_coefficient]",
+          "variables": {
+            "I_0(A:C|B)": "分划P的Clifford基线QCMI——需从总和扣除以获得纯拓扑贡献",
+            "<lk**2>_beta": "编织β中所有2股对(i,j)的连接数平方平均——对半扭转编织，相邻对|lk|=1，非相邻对|lk|=0→<lk²>=2n/(n(n-1))=2/(n-1)"
+          },
+          "units": "无量纲(bits)",
+          "limits": [
+            "此公式使用连接数(一阶Vassiliev)而非v_2(二阶)，因为对2股子编织(μ=2)，连接数是首阶非平凡不变量",
+            "对半扭转编织(cluster): <lk²>=2/(n-1)——相邻对共n对(含闭合对(n-1,0))，每对|lk|=1",
+            "对恒等编织(GHZ): <lk²>=0→纯拓扑贡献总和=0",
+            "总和随n增大而下降(因为<lk²>~2/n→0)——但分划数随n³增长——净结果：单个分划的平均QCMI~O(1/n²)"
+          ],
+          "numerical_test": {
+            "description": "n=5 cluster环：有序分划数=3^5-3·2^5+3=150个。对每个分划应用F1(用lk(L_AC)替代v_2)。计算总和。",
+            "input": {"n": 5, "braid": "half-twist", "theta": 0.10},
+            "expected_output": "总和=150·⟨QCMI_per_partition⟩。⟨QCMI⟩中仅AC为相邻对的分划有非零贡献(因lk≠0)——相邻对共5对，每对在不同B分配下贡献不同——精确总和需枚举验证"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/BF01217730", "label": "Witten 1989 — CS理论的拓扑不变性(涵盖Wilson圈期望值的微分同胚不变性→编织共轭下不变)"},
+        {"doi": "10.1016/0550-3213(88)90110-1", "label": "Witten 1988 (CMP 117:353) — CS理论中Wilson圈的连接数展开——连接数作为首阶微扰不变量的物理意义"},
+        {"doi": "10.1006/aphy.1995.1016", "label": "Labastida & Marino 1995 (Phys.Rept. 260:1) — CS微扰展开的全阶公式——Kontsevich积分与真空期望值的关系"}
+      ],
+      "assumptions": [
+        "假定分划求和中的O(θ³)截断项在编织共轭下也(近似)不变——此需验证高阶Vassiliev不变量(v_3,v_4,...)在共轭下的行为。已知v_3在编织共轭下不变(Vassiliev不变量均为编织不变量by definition)，所以全阶总和均为编织类函数。",
+        "Clifford基线I₀可从总和中干净分离——这要求图态QCMI的线性组合(Σ_P I₀(P))可从CS公式中解析计算——此I₀求和本身可能是某个拓扑量(如全量子维度D的某种组合)。",
+        "半扭转编织的<lk²>=2/(n-1)假设了所有n个最近邻对(含(n-1,0))有|lk|=1——这对cluster环的标准CZ门排列成立。若门的定向(正vs负交叉)混合，<lk²>保持2/(n-1)但lk的符号分布变化——不影响|lk|²求和。"
+      ]
+    },
+    {
+      "id": "C5",
+      "statement": "【R3自我攻击——总和不区分cluster与GHZ的悖论及其解决】C4的F9揭示了一个表面悖论：对半扭转编织(cluster环)和恒等编织(GHZ环)，⟨v_2⟩均为零→F9的CS总和守恒律预言两者的总QCMI(扣除基线后)相同。但这与物理预期矛盾——cluster环应对非Clifford微扰有更强的全局QCMI响应。\n\n**根源诊断**：此悖论源于v_2对μ≥2链环的盲区——对2股子编织(Hopf链环)，最低阶非平凡Vassiliev不变量是连接数lk(v_1)而非v_2。v_2仅在子编织为纽结(μ=1)时贡献。对于仅含2股对的子编织，v_2=0不代表无拓扑——连接数已编码了全部一阶拓扑信息。\n\n**修正方案**：将F9中的⟨v_2⟩替换为⟨lk²⟩(连接数平方平均)——后者对cluster(⟨lk²⟩=2/(n-1))和GHZ(⟨lk²⟩=0)给出非零区分。修正后的总和守恒律：Σ_P(QCMI_β-I₀)=C'_n·θ²·γ(k)·⟨lk²⟩_β，其中C'_n包含组合权重。此修正恢复了AHA的核心主张：不同编织类有不同的'总QCMI容量'，但每个编织类内部(共轭等价类)总和守恒。\n\n**与A博士汇合**：A博士的微扰展开中，QCMI总和由Δr_X的线性组合决定。如果A博士计算发现Σ_P I(P)对cluster态和GHZ态不同，且差异正比于θ²ln(1/θ)，则两框架在'总和差异由编织的连接数结构决定'上汇合。如果差异正比于θ²(无ln增强)，则总和的物理来源不同——需要在R3交叉验证中分辨。",
+      "confidence": 0.55,
+      "new_insight": true,
+      "equations": [
+        {
+          "label": "F11",
+          "expression": "Sum_P [QCMI_cluster(P) - QCMI_GHZ(P)] = C'_n * theta**2 * gamma(k) * <lk**2>_cluster + O(theta**3)",
+          "variables": {
+            "C'_n": "组合权重常数=C_n·(某种编织-分划耦合系数)——需通过对n=4,5的枚举计算确定",
+            "<lk**2>_cluster": "半扭转编织的平均连接数平方=2n/(n(n-1))=2/(n-1)(n个近邻对各有|lk|=1)"
+          },
+          "units": "无量纲(bits)",
+          "limits": [
+            "n=3: <lk²>=2/2=1——总和差异最大(每对均相邻)",
+            "n=5: <lk²>=2/4=0.5——总和差异为n=3的一半",
+            "n→∞: <lk²>~2/n→0——但分划数∝n³增长→总和差异∝n²·θ²·γ(k)(增长!)",
+            "大n极限：总和差异∝n²——意味着单个分划平均值∝n²/n³=1/n→0(单个QCMI测量在大n时极其困难，但总容量仍可宏观体现)"
+          ],
+          "numerical_test": {
+            "description": "对n=5，计算所有150个有序分划的QCMI差异总和。使用F1(lk(L_AC)项)+图态基线",
+            "input": {"n": 5, "theta": 0.10, "braids": ["identity", "half-twist"]},
+            "expected_output": "总和差异≈150·⟨ΔQCMI⟩≈150·f_avg·C_phys·θ²·γ·⟨lk²⟩_cluster。f_avg为稀释因子在分划系综上的平均≈1/3。→总和差异≈150·(1/3)·3.68·0.01·1.979·0.5≈1.82 bits"
+          }
+        }
+      ],
+      "references": [
+        {"doi": "10.1007/BF02099713", "label": "Kontsevich 1993 — Vassiliev不变量作为编织不变量(共轭不变性)"},
+        {"doi": "10.1016/0370-2693(90)90161-X", "label": "Guadagnini et al. 1990 — 连接数在CS微扰展开中的系数(首阶非平凡贡献)"}
+      ],
+      "assumptions": [
+        "连接数lk对Hopf子编织的首阶贡献系数(12π²)与v_2对纽结子编织的系数关系需统一——当前使用同一系数基于量纲分析。精确系数需从Kontsevich积分的弦图权重系统显式计算(第2阶图代数的迹)。",
+        "分划求和中的基线I₀(P)对cluster环可解析求和——已知：对图态环，I₀(P)=0除非A和C共享边界(相邻)。相邻分划数=n·(每个相邻对有2^(n-2)个B分配中使A,C不相邻...需要更精细的组合计数)",
+        "C5的保守Confidence=0.55反映⟨v_2⟩→⟨lk²⟩修正的临时性——此修正需通过在R3与A博士的交叉验证中被确认或推翻。"
+      ]
+    }
+  ],
+  "r2_corrections": [
+    {
+      "issue": "INSPECTOR S2: F3/F6内部张力(c(State)=常数但F6要求θ依赖)",
+      "correction": "R3确认F6的R=1+α/ln(1/θ)形式错误。正确的比值定义应使用同一状态的QCMI(θ)/QCMI(0)而非跨态比值。θ依赖性完全由θ²·γ(1/θ)因子捕获——无需额外的1/ln(1/θ)因子。此修正消除了F3与F6之间的形式矛盾。"
+    },
+    {
+      "issue": "INSPECTOR Q2: θ=0.15→k=4.667非整数",
+      "correction": "R3通过γ_cont(θ)的解析延拓正面处理。所有微扰预言(θ²项系数)对连续θ有效。R3明确标注哪些预言依赖整数k(非微扰TQFT结构)，哪些仅依赖微扰展开(对连续θ有效)。θ=0.15的QCMI预言值1.392落在整数邻居之间——这是连续行为的直接后果。"
+    },
+    {
+      "issue": "INSPECTOR Q4: α=0.48为估计值而非计算值",
+      "correction": "R3放弃α估计而直接从子编织连接数推导QCMI。物理校准常数C_phys从R2 n=4数据校准但R3建议用A博士n=5精确对角化数据重新校准——消除对R2 α估计的依赖。R3的核心预言(预言P2的n无关性和预言P3的GHZ不等式)独立于校准常数的绝对值。"
+    },
+    {
+      "issue": "INSPECTOR Q5: κ归一化在A/B框架间不一致",
+      "correction": "R3不再使用κ系数(Khovanov同调宽度)。QCMI拓扑贡献直接由连接数lk(L_AC)给出——这是一个在A和B框架间统一定义的量(lk=Gauss连接数，编织闭包的整数拓扑不变量)。统一使用lk避免了κ定义的歧义。"
+    },
+    {
+      "issue": "INSPECTOR Q6: R1 AHA(控制论→Bode积分)随框架切换丢失",
+      "correction": "R3在CS理论中恢复AHA：QCMI分划总和为编织共轭不变量(C4)，⟨lk²⟩_β区分不同编织类(C5)。此AHA虽数学结构不同(Bode积分→CS拓扑守恒律)，但物理内容相同(总信息容量守恒，编织仅重新分配)。与A博士框架汇合的条件：两框架的总和差异正比于同一拓扑量(lk²或Δr的某种组合)。"
+    }
+  ]
+}

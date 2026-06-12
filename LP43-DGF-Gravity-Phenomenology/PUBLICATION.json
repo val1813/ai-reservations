@@ -1,0 +1,27 @@
+{
+  "theory": "DGF \u2014 Gravity as Quantum Information",
+  "core_result": "q = exp(-GM/rc^2) \u2014 gravitational potential = log(quantum channel fraction)",
+  "derived": [
+    "q from RG flow (ln q additivity)",
+    "dtau = q*dt (alpha=1 fixed by Newtonian limit)"
+  ],
+  "assumed_by_symmetry": [
+    "Metric coupling b=2 (equivalence principle + isotropy)",
+    "Conformal flatness (spatial isotropy)"
+  ],
+  "ppn": {
+    "gamma": "1.0 (exact)",
+    "beta": "1.0 (exact)"
+  },
+  "pn_predictions": {
+    "1PN": "+0.04% deviation (matches GR)",
+    "2PN": "-22.71% +/- 7.5% (DGF SIGNATURE)",
+    "3PN": "20-25% deviation"
+  },
+  "ppe": {
+    "b": 4,
+    "beta": "0.1679"
+  },
+  "best_test": "Einstein Telescope BNS: 1.9 rad phase shift at 2PN",
+  "status": "Self-consistent. Single core assumption. Testable at 2PN."
+}

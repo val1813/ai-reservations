@@ -32,9 +32,11 @@ Agent实例（用Agent工具启动，独立上下文）：
     A博士      — 学院派，文献驱动，步步有据
     B博士      — 野路子，跨学科跳跃，终极产出=改变北极星
     INSPECTOR  — 校对：量纲+方向+循环+量级+代数验算+极限退化+声张缩水+替代解释+落地计算
-    REVIEWER   — 终审：查重+五条拒稿（收官时触发）
+    REVIEWER   — 终审：查重+五条拒稿（每轮+收官时触发）
     AUDITOR    — 知识库审计（收官时触发）
     AHA访客    — 跨领域洞察（触发条件见下）
+    WALL_BREAKER — 🆕 墙识别+破墙策略（卡点≥2轮/用户说"破墙"→触发）
+    EMBER_REKINDLER — 🆕 灰烬复燃（REVIEWER Reject后/用户说"复燃"→触发）
 ```
 
 ## 触发时机表
@@ -47,6 +49,8 @@ Agent实例（用Agent工具启动，独立上下文）：
 | AHA访客 | **连续2轮无AHA / PI综合发现新洞察** / B双路径汇合 / 卡点关闭≥2 | `research-group/AHA.md` |
 | REVIEWER | **每轮AB后强制触发（R1起，含R1）** + 收官时 | `research-group/REVIEWER.md` |
 | AUDITOR | 收官时 | `research-group/AUDITOR.md` |
+| 🆕 WALL_BREAKER | 卡点重复≥2轮 / A/B报告障碍≥2轮 / 复燃失败后 / 用户说"破墙" | `research-group/WALL_BREAKER.md` |
+| 🆕 EMBER_REKINDLER | REVIEWER Reject后 / 挽救轮失败 / 叙事退让关闭 / 用户说"复燃" | `research-group/EMBER_REKINDLER.md` |
 
 ## 北极星来源（⛔ 关键区分）
 
@@ -80,11 +84,22 @@ Phase清单.md ← 复制模板，全框 [ ]
 │  ↓                                        │
 │  INSPECTOR校对（每轮，Agent启动）          │
 │  ↓                                        │
+│  PI检查：卡点重复≥2轮？→ 🆕WALL_BREAKER   │
+│  ↓                                        │
+│  REVIEWER每轮攻击（R1起）                  │
+│  ↓                                        │
 │  PI检查：N≥3轮？or 硬停止？               │
 │    否→继续下一轮  是→进入收尾             │
 └───────────────────────────────────────────┘
     ↓
 北极星收尾 → Re-escalation → 矛盾深挖
+    ↓
+REVIEWER终审：
+  ├─ Accept → 正常收官
+  └─ Reject → 🆕 复燃门（EMBER_REKINDLER）
+                ├─ 🔥高/📌中可行 → 复燃Phase → 成功回AB循环
+                ├─ 🗂️低可行 → 强制分叉≥2方向 → 降级流程
+                └─ 🛑不可行 → 🆕WALL_BREAKER → 找墙→破墙→理论突破点
     ↓
 读 项目/北极星队列.md → 有更高分？
     是→切换  否→队列空？→候选池取一个新初始北极星
@@ -113,9 +128,14 @@ Phase清单.md ← 复制模板，全框 [ ]
 11. ⛔ 禁词阻断: A/B产出含"原则上可能""in principle""待未来实验"→INSPECTOR打回。
     替换为具体检验方案(数据集/可观测量/数值范围)。确实不可检验→标"猜想(Conj)"降级。
 12. ⛔ 检验性耗尽: 累计5轮后可检验预言数仍=0 → 硬停止-归档。等待新工具/数据。
-13. ⛔ 卡点重复: 同一瓶颈连续≥3轮PI综合标记为未突破 → 卡死-归档。
+13. ⛔ 卡点重复: 同一瓶颈连续≥2轮PI综合标记为未突破 → 🆕 触发WALL_BREAKER。
+    不得等到≥3轮才处理。（Wall分类A/B/C+破墙策略→见WALL_BREAKER.md）
 14. ⛔ R1降级判断: R1 REVIEWER判Reject → PI必须在进入R2前写降级判断
     (目标期刊变化+降级原因+升级条件)，写入Phase清单期刊跟踪区。
+15. 🆕 复燃前置: REVIEWER Reject（R3+）+挽救轮失败 → 先触发EMBER_REKINDLER再降级。
+    复燃🔥/📌 → 1轮复燃Phase。复燃失败或🛑不可行 → 触发WALL_BREAKER找墙→破墙。
+16. 🆕 研究快照: 每轮AB完成后必须更新 project/研究快照.md（当前墙+失败方向+正面结论+下次必知3件事）。
+    跨对话重启时，Skill自动加载此快照防止遗忘。
 ```
 
 ---
@@ -141,11 +161,13 @@ Phase清单.md ← 复制模板，全框 [ ]
 
 ```
 新对话或/clear后：
-1. 读 项目/Phase清单.md → 从第一个 [ ] 开始
+1. 🆕 推荐先说"继续科研"→触发 research-continue Skill，自动加载上下文
+2. 读 项目/Phase清单.md → 从第一个 [ ] 开始
    （如果不存在→复制模板→创建北极星队列→然后开始）
-2. 读 current/plan/当前状态.md（轮次计数+前置检查+下一步指令）
-3. 读 项目/北极星队列.md（优先级矩阵）
-4. 需要协议细节时 → 读对应的 research-group/[角色].md
+3. 读 项目/当前状态.md（轮次计数+前置检查+下一步指令）
+4. 读 项目/北极星队列.md（优先级矩阵）
+5. 读 项目/研究快照.md（当前墙+失败历史+正面结论——防遗忘）
+6. 需要协议细节时 → 读对应的 research-group/[角色].md
 ```
 
 ## 项目文件结构

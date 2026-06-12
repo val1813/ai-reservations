@@ -1,0 +1,17 @@
+{
+  "theory": "Gravity-Sourcing-Gravity (GSG)",
+  "field_equation": "Box q = -beta * (8 pi G / c^4) * q * rho_grav",
+  "static_solution": "q(r) = exp(-GM/(r c^2))  (self-consistent for beta=1)",
+  "key_findings": [
+    "q(r) = exp(-GM/rc^2) is self-consistent solution of Box q = -alpha0 q rho_grav",
+    "alpha0 = 8 pi G / c^4 is fixed (not free parameter) by matching Box q to source",
+    "Solar system: automatically screened (1-q_sun ~ 2e-6, gamma=1 exactly)",
+    "The q-field is sourced by gravitational energy, not matter directly",
+    "This is a 'gravity-sourcing-gravity' theory -- modified gravity, not fifth force",
+    "Binary pulsar: scalar charge s = beta*(1-q_NS) ~ beta*0.15",
+    "EHT shadow: correction from q-field energy integrated out to photon sphere"
+  ],
+  "wall_status": "PARTIALLY PENETRABLE -- self-consistent effective theory exists",
+  "remaining_gap": "RG flow from causal graph to effective action still not derived",
+  "next": "Write phenomenological paper: 'Testing DGF soft boundary with binary pulsar and EHT'"
+}

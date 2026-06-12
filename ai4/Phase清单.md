@@ -22,6 +22,33 @@
 [ ] 写 paper_output/paper_spine_config.json (目标期刊+类型+语言+深度)
 ```
 
+---
+
+## Phase 0.5: Author Persona Generation — 作者人格生成 ⛔ 新增
+
+```
+[ ] 读 P0_5_author_persona.md → 执行作者人格生成
+
+[ ] 启动PERSONA Agent (独立实例):
+    传入素材/草稿 + Phase 0配置信息
+[ ] PERSONA Agent 输出 → 写 paper_output/author_voice_card.md
+    ⛔ Voice Card必须填充全部5个维度,不得留空
+
+[ ] PI审核Voice Card:
+    [ ] 问题起源是否具体? (非"这是重要问题")
+    [ ] 每个section有审美立场? (至少1句美/丑判断)
+    [ ] 信念梯度覆盖所有核心声称?
+    [ ] 人格化特征标注了具体使用位置?
+    [ ] 注意力分配指定了"最在意"和"无聊但必要"?
+    [ ] 禁止项具体到这篇论文?
+
+[ ] ⛔ Voice Card成为绑定文档:
+    后续所有Agent启动时必须读取 author_voice_card.md
+    PI在启动每个Agent时在prompt中注入:
+    "读取 author_voice_card.md。你的所有修改必须保持Voice特征。
+     如果修改会破坏Voice特征,标注并寻求替代方案。"
+```
+
 ## Phase 1: PaperSpine Build — Motivation驱动构建
 
 ```
@@ -67,7 +94,7 @@
 [ ] ⛔ 数据优先: 有实际数据可验证的声称→用py脚本验证后再写入
 ```
 
-## Phase 2: Scientific Review — R1-R5 恶意审稿人循环
+## Phase 2: Scientific Review — R1-R5 技术审稿循环 (含每轮Voice保护)
 
 ```
 [ ] 读 P2_review.md → 按步骤执行
@@ -75,6 +102,8 @@
 每一轮 (R1→R2→R3→R4→R5):
   [ ] 启动REVIEWER Agent (独立实例, P2_review.md prompt)
       传入三份材料: 正文(main.tex) + SM(supplemental_material.tex) + CoverLetter(cover_letter.tex)
+      ⛔ REVIEWER只审技术正确性,不审语气/诚实度/叙事(见P2 §1)
+  [ ] PI过滤审稿意见: 如果REVIEWER提出语气/态度类意见 → 驳回,不传给FIX Agent
       + 目标期刊 + 上一轮审稿报告(如有)
   [ ] REVIEWER输出 → 写 paper_output/review_R[N].md
       (报告必须分三个section: 正文审稿/SM审稿/CoverLetter审稿)
@@ -82,10 +111,18 @@
   [ ] ⛔ 如果是R1且裁决Reject:
       必须在Phase清单"期刊跟踪"区写降级判断
   [ ] 启动FIX Agent (独立实例) → 修改三份文件
+      ⛔ FIX Agent启动时必须读取 author_voice_card.md (Voice保护规则见P2 §4b-bis)
       ⛔ 正文/SM/CoverLetter都必须修改到审稿意见全部回应
       ⛔ 科学修正不能靠文字绕过。SM需要补数据就补数据
       ⛔ CoverLetter声称必须与正文/SM一致,不能夸大
   [ ] INSPECTOR校对修改处 (量纲/方向/量级/循环论证)
+  [ ] ⛔ INSPECTOR每轮Voice退化检查:
+      [ ] 本轮是否删除了审美判断句? → 标注Voice退化 → 本轮内恢复
+      [ ] 本轮是否弱化了信念梯度(Level A→B/C)? → 标注→本轮内恢复
+      [ ] 本轮是否删除了人格化特征? → 标注→本轮内恢复
+      [ ] 本轮是否修匀了段落长度? → 标注→本轮内恢复
+      [ ] 本轮是否扩散了限制条件? → 标注→本轮内恢复
+      ⛔ Voice退化不能累积。每轮独立通过。
   [ ] 写 paper_output/fix_R[N].md (分正文/SM/CoverLetter三个section)
   [ ] 更新三份文件: main.tex + supplemental_material.tex + cover_letter.tex
 
@@ -96,8 +133,36 @@
   [ ] ⛔ R3: FATAL仍>0且同根因? → ⛔ 框架级缺陷。降级目标期刊,停止R4/R5。
 
 R5完成后:
-  [ ] 累积FATAL数=0? → 进入Phase 3
+  [ ] 累积FATAL数=0? → 进入Phase 2b
   [ ] 否则→检查是否所有FATAL已修复
+```
+
+---
+
+## Phase 2b: Narrative Tension Review — 叙事张力审查 ⛔ 新增
+
+```
+[ ] 读 P2b_narrative_review.md → 执行叙事审查
+
+[ ] 启动NARRATIVE REVIEWER Agent (独立实例):
+    传入R5修改后的正文 + 全部5轮审稿报告
+[ ] REVIEWER输出 → 写 paper_output/narrative_review.md
+
+[ ] PI执行删减:
+    [ ] 自我贬低句删除 (对照P2b §3a黑名单,零容忍)
+    [ ] 限制条件重复检查 (同一限制≥3次→保留首次+汇总,其余删)
+    [ ] 元评论删除 ("This paper asks..."等关于论文本身的评论)
+    [ ] 第一页测试: 前500词无任何自我贬低句
+    [ ] 同一技术限制出现次数≤2
+
+[ ] 删减后验证:
+    [ ] grep "may be nothing\|Not even close\|We couldn't\|would be dishonest"
+    [ ] grep "not surprising\|weaker than what one might\|consistency check, not"
+    [ ] grep "for the reader to judge\|cannot stress that enough\|It isn't one"
+    [ ] 命中→继续删除
+
+[ ] ⛔ 零容忍终检: 全文自我贬低句数=0 → 进入Phase 3
+    (叙事审查只删减防御性语言,不改变技术内容 → 不需重新跑Phase 2)
 ```
 
 ## Phase 3: Journal Format — 目标期刊格式化
@@ -176,7 +241,9 @@ R5完成后:
 [ ] 执行3维轻量参数(W_sentence/V_sentence/Break逐句控制)
     检查: ①contribution list各条长度不等 ②无"We hope/We are confident" ③最后一句不是安全收尾句
 
-### 4f. AI Pattern 终检 (结构+词汇)
+### 4f. AI Pattern 终检 (结构+词汇+Voice PRESENCE)
+
+#### 4f-1. AI缺失检查 (原有 — 底线扫描)
 [ ] 结构扫描: 对仗禁止/分号对仗/sentence frame重复→REJECT
 [ ] 穷举扫描: "spanning A,B,C,and D"全文≤1次
 [ ] ⛔ 去AI词汇扫描 (详见P4_randomize.md §8):
@@ -186,6 +253,49 @@ R5完成后:
     连接词密度≤4/1000词
 [ ] 不确定性表达: V=3的2-3次使用必须来自不同子类(3a/3b/3c/3d)
 [ ] Abstract特殊规则: 禁"Here we present"/contribution list不等长/最后句非安全收尾
+
+#### 4f-2. ⛔ Voice PRESENCE检查 (新增 — Voice特征存在于否)
+
+```
+⛔ 这不是"有没有AI词汇"的检查。这是"作者人格还在不在"的检查。
+⛔ 如果Voice特征在Phase 4随机化过程中被削弱 → ⛔ 阻断,必须恢复。
+
+[ ] 读取 paper_output/author_voice_card.md → 逐项对比终稿:
+
+[ ] 信念梯度 PRESENCE:
+    [ ] Level A声称(断言句式)是否仍存在且未被弱化?
+        检查: grep Voice Card中的Level A声称关键词 → 确认句式仍是断言
+        如果发现 "X may hold" / "X might be" 替代了 "X holds" → ⛔ Voice退化
+    [ ] Level B声称是否仍使用supported句式?
+    [ ] Level D痛点是否只出现在Open Questions?
+
+[ ] 审美判断 PRESENCE:
+    [ ] 每个section是否仍有≥1句审美判断?
+        检查: 逐个section扫描 → 是否有 "This is ugly but" / "I like" / "prettiest" 类句子
+        如果某个section完全没有 → ⛔ Voice退化,该section需注入1句审美判断
+
+[ ] 人格化特征 PRESENCE:
+    [ ] Voice Card标注的特征是否仍存在?
+        检查: 口语短句/第一人称/读者对话/比喻 → 在指定位置搜索
+        如果全部被删除 → ⛔ Voice退化
+
+[ ] 注意力分配 PRESENCE:
+    [ ] "最在意"段落是否仍>8句?
+    [ ] "无聊但必要"段落是否仍≤2句?
+    [ ] 全文极短段(≤2句)是否≥2段?
+    [ ] 全文极长段(≥8句)是否≥1段?
+    如果被Phase 4 randomizer修匀了 → ⛔ Voice退化
+
+[ ] 禁止项 PRESENCE:
+    [ ] Voice Card中"这个人不会说"的短语是否确实未出现?
+
+⛔ 任一项Voice退化 → 必须修复后再进入Phase 4g
+   Voice修复优先级:
+     审美判断缺失 → 注入 (不改变技术内容,只在现有段落加1句立场)
+     人格化特征缺失 → 恢复 (简单)
+     注意力被修匀 → 调整段落划分 (可能涉及结构)
+     信念梯度退化 → 恢复原有断言句式 (关键,不能接受Level A变Level C)
+```
 
 ### 4g. 输出三份LaTeX文件
 [ ] ⛔ 确认三份.tex文件均存在且已去AI处理:
@@ -226,6 +336,7 @@ R5完成后:
     [ ] paper_output/blueprint.md
     [ ] paper_output/review_R1.md ~ review_R5.md
     [ ] paper_output/fix_R1.md ~ fix_R5.md
+    [ ] paper_output/narrative_review.md (叙事审查报告)
 [ ] 输出: 告知用户投稿包路径
 ```
 
@@ -234,7 +345,7 @@ R5完成后:
 ## 禁止事项
 
 ```
-⛔ 禁止跳过Phase顺序 (0→1→2→3→3.5→4→5严格顺序)
+⛔ 禁止跳过Phase顺序 (0→1→2→2b→3→3.5→4→5严格顺序)
 ⛔ 禁止在Phase 4(randomizer)后修改论文内容 (改后必须重新跑Phase 4)
 ⛔ 禁止REVIEWER不独立启动Agent (PI扮演审稿人=违规)
 ⛔ 禁止引用未fetch验证的文献
@@ -242,6 +353,7 @@ R5完成后:
 ⛔ 禁止论文中致谢AI工具 (Claude/AI辅助/LLM/ChatGPT等)
 ⛔ 禁止禁词出现在终稿中
 ⛔ 禁止跳过AI检测重构就投稿
+⛔ 禁止跳过Phase 2b叙事审查 (即使Phase 2 FATAL=0也必须执行,防御性语言是独立问题)
 ```
 
 ## 期刊跟踪区
